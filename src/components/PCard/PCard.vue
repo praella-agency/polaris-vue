@@ -1,6 +1,6 @@
 <template>
   <div :class="className">
-    <template>
+    <template v-if="title">
       <PCardHeader>
         <slot slot="title" name="title"/>
         <slot slot="short_description" name="short_description"/>
@@ -8,14 +8,15 @@
     </template>
 
     <template v-if="sectioned">
-      <PCardSection v-for="(slot,name) in $slots" :key="name" v-if="sectioned && name !== 'title' && name !== 'short_description'">
+      <PCardSection v-for="(slot,name) in $slots" :key="name" v-if="sectioned && ['title','short_description','footer'].indexOf(name) === -1">
         <slot :name="name" />
       </PCardSection>
     </template>
-    <template v-else>
-      <PCardSection v-for="(slot,name) in $slots" :key="name" v-if="sectioned && name !== 'title' && name !== 'short_description'">
-        <slot :name="name" />
-      </PCardSection>
+
+    <template>
+      <PCardFooter>
+        <slot name="footer" />
+      </PCardFooter>
     </template>
   </div>
 </template>
@@ -26,10 +27,11 @@ import { classNames, variationName } from '@/utilities/css';
 
 import PCardHeader from './PCardHeader.vue';
 import PCardSection from './PCardSection.vue';
-import PCardSubsection from './PCardSubsection.vue';
+import PCardFooter from '@/components/PCard/PCardFooter.vue';
 
 @Component({
   components: {
+    PCardFooter,
     PCardHeader, PCardSection,
   },
 

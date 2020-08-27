@@ -1,95 +1,43 @@
 <template>
   <div class="">
-    <div class="Polaris-Labelled__LabelWrapper">
+    <div class="Polaris-Labelled__LabelWrapper" v-if="label" :class="labelClass">
       <div class="Polaris-Label">
         <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text">
           {{ label }}
         </label>
       </div>
     </div>
-    <div class="Polaris-Connected">
-      <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
-        <div :class="className">
-          <input
-            :id="id"
-            :type="inputType"
-            class="Polaris-TextField__Input"
-            :value="computedValue"
-            :disabled="disabled"
-            :readonly="readOnly"
-            :placeholder="placeholder"
-            @input="onInput">
-          <div class="Polaris-TextField__Backdrop"></div>
-        </div>
-      </div>
-    </div>
+
+    <PConnected>
+      <template slot="left">
+        <slot name="connectedLeft">{{ connectedLeft }}</slot>
+      </template>
+
+      <template slot="right">
+        <slot name="connectedRight">{{ connectedRight }}</slot>
+      </template>
+
+      <PInput v-bind="$attrs"></PInput>
+
+    </PConnected>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
+  import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
+  import {classNames} from '@/utilities/css';
+  import PInput from './components/PInput.vue';
+  import PConnected from '../PConnected/PConnected.vue';
 
-type Type =
-  | 'text'
-  | 'email'
-  | 'number'
-  | 'password'
-  | 'search'
-  | 'tel'
-  | 'url'
-  | 'date'
-  | 'datetime-local'
-  | 'month'
-  | 'time'
-  | 'week'
-  | 'currency';
-
-@Component
-export default class PTextField extends Vue {
-  @Prop(String) public label!: string;
-  @Prop(String) public value!: string;
-  @Prop(String) public type!: Type;
-  @Prop(String) public placeholder!: string;
-  @Prop(Boolean) public disabled!: boolean;
-  @Prop(Boolean) public readOnly!: boolean;
-
-  public id = `PolarisTextField${new Date().getUTCMilliseconds()}`;
-  public selected = this.value !== null ? this.value : '';
-
-  public get inputType() {
-    return this.type === 'currency' ? 'text' : this.type;
+  @Component({
+    components: {PInput, PConnected},
+  })
+  export default class PTextField extends Vue {
+    @Prop(String) public label!: string;
+    @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
+    @Prop(String) public labelClass!: string;
+    @Prop(Boolean) public showInput!: boolean;
+    @Prop(String) public connectedLeft!: string;
+    @Prop(String) public connectedRight!: string;
   }
-
-  public get className() {
-    return classNames(
-      'Polaris-TextField',
-      Boolean(this.computedValue) && 'Polaris-TextField--hasValue',
-      this.disabled && 'Polaris-TextField--disabled',
-      this.readOnly && 'Polaris-TextField--readOnly',
-    );
-  }
-
-  public get computedValue() {
-    return this.selected;
-  }
-
-  public set computedValue(value: string) {
-    this.selected = value;
-    this.$emit('input', value);
-  }
-
-  @Watch('value')
-  public onValueChanged(value: any) {
-    this.selected = value;
-  }
-
-  public onInput(event: any) {
-    this.$nextTick(() => {
-      if (event.target) {
-        this.computedValue = event.target.value;
-      }
-    });
-  }
-}
 </script>

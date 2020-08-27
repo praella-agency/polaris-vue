@@ -5,6 +5,11 @@
     @focus="$emit('focus', $event)"
     @blur="$emit('blur', $event)"
     :class="className"
+    :aria-controls="ariaProps"
+    :aria-haspopup="ariaProps"
+    :aria-owns="ariaProps"
+    :value="value"
+    :aria-label="ariaLabel"
     :disabled="isDisabled || loading"
     :role="loading ? 'alert' : undefined"
     :aria-busy="loading ? true : undefined">
@@ -34,6 +39,8 @@ import { PSpinner } from '@/components/PSpinner';
 
 type Size = 'slim' | 'medium' | 'large';
 type TextAlign = 'left' | 'right' | 'center';
+type Type = 'submit' | 'reset' | 'button';
+type Any = string|string[]|number|number[];
 
 const DEFAULT_SIZE = 'medium';
 
@@ -41,7 +48,10 @@ const DEFAULT_SIZE = 'medium';
   components: { PIcon, PSpinner },
 })
 export default class PButton extends Vue {
+  @Prop(Boolean) public ariaProps!: boolean;
+  @Prop(String) public ariaLabel!: string;
   @Prop(Boolean) public submit!: boolean;
+  @Prop(String) public type!: Type;
   @Prop(Boolean) public primary!: boolean;
   @Prop(Boolean) public outline!: boolean;
   @Prop(Boolean) public destructive!: boolean;
@@ -53,12 +63,7 @@ export default class PButton extends Vue {
   @Prop(String) public size!: Size;
   @Prop(String) public textAlign!: TextAlign;
   @Prop(String) public icon!: string;
-
-  public type: string = '';
-
-  public mounted() {
-    this.type = this.submit ? 'submit' : 'button';
-  }
+  @Prop([String, Array, Number]) public value!: Any;
 
   public get className() {
     return classNames(
