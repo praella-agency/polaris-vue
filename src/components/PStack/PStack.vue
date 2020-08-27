@@ -1,3 +1,10 @@
+<template>
+  <div :class="className">
+    <PStackItem v-for="item in $slots" :key="key">
+      <slot/>
+    </PStackItem>
+  </div>
+</template>
 <script lang="tsx">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
@@ -14,26 +21,15 @@ type Distribution =
   | 'fill'
   | 'fillEvenly';
 
-@Component
+@Component({
+  components: {PStackItem},
+})
 export default class PStack extends Vue {
   @Prop(Boolean) public vertical!: boolean;
   @Prop({ type: Boolean, default: true }) public wrap!: boolean;
   @Prop(String) public spacing!: Spacing;
   @Prop(String) public distribution!: Distribution;
   @Prop(String) public alignment!: Alignment;
-
-  public render(h: any) {
-    return (
-      <div class={this.className}>
-        {(this.$slots.default || []).map((item: any) => {
-          if (item.tag.includes(PStackItem.name)) {
-            return item;
-          }
-          return <PStackItem>{item}</PStackItem>;
-        })}
-      </div>
-    );
-  }
 
   public get className() {
     return classNames(

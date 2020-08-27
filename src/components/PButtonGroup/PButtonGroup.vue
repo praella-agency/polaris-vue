@@ -1,28 +1,25 @@
+<template>
+  <div :class="className" >
+    <div v-for="item in $slots" class="Polaris-ButtonGroup__Item">
+      <slot/>
+    </div>
+  </div>
+</template>
 <script lang="tsx">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
 
 import { PButton } from '@/components/PButton';
 
-@Component
+@Component({
+  components: {
+    PButton,
+  },
+})
 export default class PButtonGroup extends Vue {
   @Prop(Boolean) public segmented!: boolean;
   @Prop(Boolean) public fullWidth!: boolean;
   @Prop(Boolean) public connectedTop!: boolean;
-
-  public render(h: any) {
-    return (
-      <div class={this.className}>
-        {(this.$slots.default || []).map((item: any) => {
-          return (
-            <div class='Polaris-ButtonGroup__Item'>
-              {item}
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
 
   public get className() {
     return classNames(
