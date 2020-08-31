@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <div class="Polaris-Labelled__LabelWrapper" v-if="label" :class="labelClass">
       <div class="Polaris-Label">
         <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text">
@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <PConnected>
+    <PConnected v-if="connectedLeft || connectedRight">
       <template slot="left">
         <slot name="connectedLeft">{{ connectedLeft }}</slot>
       </template>
@@ -18,8 +18,10 @@
       </template>
 
       <PInput v-bind="$attrs"></PInput>
-
     </PConnected>
+
+    <PInput v-bind="$attrs"></PInput>
+
   </div>
 </template>
 

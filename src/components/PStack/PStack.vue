@@ -1,8 +1,6 @@
 <template>
   <div :class="className">
-    <PStackItem v-for="item in $slots" :key="key">
-      <slot/>
-    </PStackItem>
+    <slot/>
   </div>
 </template>
 <script lang="tsx">

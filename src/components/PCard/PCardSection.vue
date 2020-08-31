@@ -1,11 +1,11 @@
 <template>
   <div :class="className">
     <div v-if="title" class="Polaris-Card__SectionHeader">
-      <PSubheading>{{ title }}</PSubheading>
+      <PSubheading v-bind="$attrs">{{ title }}</PSubheading>
     </div>
     <slot/>
   </div>
-</template>
+</template> 
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
