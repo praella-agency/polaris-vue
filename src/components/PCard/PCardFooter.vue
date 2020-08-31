@@ -11,6 +11,6 @@
   import { PHeading } from '@/components/PHeading';
 
   @Component
-  export default class PCardPFooter extends Vue {
+  export default class PCardFooter extends Vue {
   }
 </script>

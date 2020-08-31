@@ -8,29 +8,29 @@
       </div>
       <input
 
-        :tag="multiline?'textarea':'input'"
-        ref="input"
-        :is="multiline ? 'textarea' : 'input'"
-        :name="name"
-        class="Polaris-TextField__Input"
-        :id="id"
-        :disabled="disabled"
-        :readonly="readOnly"
-        :autofocus="autoFocus"
-        :value="computedValue"
-        :placeholder="placeholder"
-        :autocomplete="normalizeAutoComplete(autoComplete)"
-        :class="inputClass"
-        :min="min"
-        :max="max"
-        :step="step"
-        :minlength="minLength"
-        :maxlength="maxLength"
-        :type="inputType"
-        :aria-describedby="describedBy"
-        :aria-labelledby="labelledBy"
-        :aria-invalid="hasError"
-        @input="onInput"
+              :tag="multiline?'textarea':'input'"
+              ref="input"
+              :is="multiline ? 'textarea' : 'input'"
+              :name="name"
+              class="Polaris-TextField__Input"
+              :id="id"
+              :disabled="disabled"
+              :readonly="readOnly"
+              :autofocus="autoFocus"
+              :value="computedValue"
+              :placeholder="placeholder"
+              :autocomplete="normalizeAutoComplete(autoComplete)"
+              :class="inputClass"
+              :min="min"
+              :max="max"
+              :step="step"
+              :minlength="minLength"
+              :maxlength="maxLength"
+              :type="inputType"
+              :aria-describedby="describedBy"
+              :aria-labelledby="labelledBy"
+              :aria-invalid="hasError"
+              @input="onInput"
       />
       <div class="Polaris-TextField__Suffix" :id="id+'Prefix'" v-if="showSuffix">
         {{suffix}}
@@ -48,19 +48,19 @@
   import PSpinner from './PSpinner.vue';
 
   type Type =
-    | 'text'
-    | 'email'
-    | 'number'
-    | 'password'
-    | 'search'
-    | 'tel'
-    | 'url'
-    | 'date'
-    | 'datetime-local'
-    | 'month'
-    | 'time'
-    | 'week'
-    | 'currency';
+          | 'text'
+          | 'email'
+          | 'number'
+          | 'password'
+          | 'search'
+          | 'tel'
+          | 'url'
+          | 'date'
+          | 'datetime-local'
+          | 'month'
+          | 'time'
+          | 'week'
+          | 'currency';
 
   @Component({
     components: {PSpinner},
@@ -74,7 +74,7 @@
     @Prop(Boolean) public multiline!: boolean;
     @Prop(Boolean) public disabled!: boolean;
     @Prop(Boolean) public readOnly!: boolean;
-    @Prop(Boolean) public showInput!: boolean;
+    @Prop({type: Boolean, default: true}) public showInput!: boolean;
     @Prop(Boolean) public showSuffix!: boolean;
     @Prop(Boolean) public showPrefix!: boolean;
     @Prop(String) public prefixClass!: string;
@@ -101,10 +101,11 @@
 
     public get className() {
       return classNames(
-        'Polaris-TextField',
-        Boolean(this.content) && 'Polaris-TextField--hasValue',
-        this.disabled && 'Polaris-TextField--disabled',
-        this.readOnly && 'Polaris-TextField--readOnly',
+              'Polaris-TextField',
+              Boolean(this.content) && 'Polaris-TextField--hasValue',
+              this.disabled && 'Polaris-TextField--disabled',
+              this.readOnly && 'Polaris-TextField--readOnly',
+              this.hasError && 'Polaris-TextField--error',
       );
     }
 
