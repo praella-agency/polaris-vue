@@ -6,7 +6,7 @@
       </template>
       <PButton slot="action"
                       :primary="!enabled"
-                      @click="handleAction(action)"
+                      @click="this.handleAction(action)"
                       :url="action.url"
                       :accessibility-label="action.accessibilityLabel"
                       :disabled="action.disabled"
@@ -30,11 +30,11 @@
 
   export default class PSettingToggle extends Vue {
     @Prop(String) public label!: string;
-    @Prop(Object) public action!: object;
+    @Prop() public action!: any;
     @Prop(Boolean) public enabled!: boolean;
     @Prop(String) public propsClass!: string;
 
-    private handleAction(action: object) {
+    private static handleAction(action: any) {
       if (action.onAction) {
         action.onAction();
       }
