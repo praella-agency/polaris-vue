@@ -7,7 +7,7 @@ import { PCard, PCardHeader, PCardSection, PCardSubsection } from './PCard';
 import { PCheckbox } from './PCheckbox';
 import { PDataTable } from './PDataTable';
 import { PDisplayText } from './PDisplayText';
-import { PFormLayout, PFormLayoutItem } from './PFormLayout';
+import { PFormLayout, PFormLayoutItem, PFormLayoutGroup } from './PFormLayout';
 import { PHeading } from './PHeading';
 import { PIcon } from './PIcon';
 import { PLayout, PLayoutAnnotatedSection, PLayoutSection } from './PLayout';
@@ -26,6 +26,7 @@ import { PToggle } from './PToggle';
 import { PSettingToggle } from './PSettingToggle';
 import { PColorPicker } from './PColorPicker';
 import { PTabs } from './PTabs';
+import { PRadioButton } from './PRadioButton';
 
 import '@/scss/main.scss';
 
@@ -38,7 +39,7 @@ const Components = {
   PCheckbox,
   PDataTable,
   PDisplayText,
-  PFormLayout, PFormLayoutItem,
+  PFormLayout, PFormLayoutItem, PFormLayoutGroup,
   PHeading,
   PIcon,
   PLayout, PLayoutAnnotatedSection, PLayoutSection,
@@ -56,7 +57,8 @@ const Components = {
   PToggle,
   PSettingToggle,
   PColorPicker,
-  PTabs
+  PTabs,
+  PRadioButton
 };
 
 const PolarisVue = {

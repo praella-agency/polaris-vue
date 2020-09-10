@@ -25,7 +25,7 @@
 
   export default class PColorPicker extends Vue {
     @Prop(String) public label!: string;
-    @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
+    @Prop({type: String, default: `PolarisColorPicker${new Date().getUTCMilliseconds()}`}) public id!: string;
     @Prop(String) public labelClass!: string;
     @Prop(Boolean) public showInput!: boolean;
     @Prop(String) public propsClass!: string;
