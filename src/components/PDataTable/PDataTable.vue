@@ -28,7 +28,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr
+        <slot name="body" v-if="$slots.hasOwnProperty('body')"></slot>
+          <tr v-else
             class="Polaris-DataTable__TableRow"
             v-for="(row, rIndex) in rows"
             :key="`row-${rIndex}`">

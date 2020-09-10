@@ -16,10 +16,13 @@
   import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
   import {Chrome} from 'vue-color';
   import PTextField from '@/components/PTextField/PTextField.vue';
+  import vClickOutside from 'v-click-outside';
 
   @Component({
     components: {PTextField, Chrome},
+    directives: {clickOutside: vClickOutside.directive},
   })
+
   export default class PColorPicker extends Vue {
     @Prop(String) public label!: string;
     @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
