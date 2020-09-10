@@ -22,6 +22,11 @@ import { PSubheading } from './PSubheading';
 import { PTextContainer } from './PTextContainer';
 import { PTextField } from './PTextField';
 import { PTextStyle } from './PTextStyle';
+import { PToggle } from './PToggle';
+import { PSettingToggle } from './PSettingToggle';
+import { PColorPicker } from './PColorPicker';
+import { PTabs } from './PTabs';
+
 import '@/scss/main.scss';
 
 const Components = {
@@ -48,6 +53,10 @@ const Components = {
   PTextContainer,
   PTextField,
   PTextStyle,
+  PToggle,
+  PSettingToggle,
+  PColorPicker,
+  PTabs
 };
 
 const PolarisVue = {
