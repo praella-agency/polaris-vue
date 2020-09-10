@@ -30,10 +30,10 @@
 
   export default class PSettingAction extends Vue {
     @Prop(String) public label!: string;
-    @Prop(Object) public action!: object;
+    @Prop() public action!: any;
     @Prop(String) public propsClass!: string;
 
-    private static handleAction(action: object) {
+    private static handleAction(action: any) {
       if (action.onAction) {
         action.onAction();
       }
