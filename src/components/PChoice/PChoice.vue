@@ -1,8 +1,26 @@
 <template>
-  <label :class="className" :for="id" @click="$emit('click', $event)">
-    <span class="Polaris-Choice__Control"><slot/></span>
-    <span class="Polaris-Choice__Label">{{ label }}</span>
-  </label>
+  <div>
+    <label :class="className" :for="id" @click="$emit('click', $event)">
+      <span class="Polaris-Choice__Control"><slot/></span>
+      <span class="Polaris-Choice__Label">{{ label }}</span>
+    </label>
+    <div v-if="typeof error === 'string' || helpText || $slots.helpText"
+         class="Polaris-Choice__Descriptions">
+      <div v-if="typeof error === 'string'"
+           class="Polaris-Choice__Error"
+           :id="id+'Error'">
+        <div class="Polaris-Choice__ErrorIcon">
+          <slot name="icon" />
+          {{ error }}
+        </div>
+      </div>
+      <div v-if="helpText || $slots.helpText"
+           class="Polaris-Choice__HelpText"
+           :id="id+'HelpText'">
+        <slot name="helpText">{{ helpText }}</slot>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -11,11 +29,13 @@ import { classNames, variationName } from '@/utilities/css';
 
 @Component
 export default class PChoice extends Vue {
-  @Prop(String) public id!: string;
+  @Prop({type: String, default: `PolarisChoice${new Date().getUTCMilliseconds()}`}) public id!: string;
   @Prop(String) public label!: string;
   @Prop(Boolean) public disabled!: boolean;
   @Prop(Boolean) public labelHidden!: boolean;
   @Prop(Boolean) public vertical!: boolean;
+  @Prop(String) public helpText!: string;
+  @Prop({type:[String,Boolean]}) public error!: string | boolean;
 
   public get className() {
     return classNames(
