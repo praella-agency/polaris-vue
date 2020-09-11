@@ -1,3 +1,3 @@
 import PIcon from './PIcon.vue';
-
-export { PIcon };
+import * as Icon from '@/assets/shopify-polaris-icons'
+export { PIcon, Icon };
