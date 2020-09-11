@@ -18,7 +18,7 @@
     "component library"
   ],
   "license": "MIT",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -29,6 +29,7 @@
   "dependencies": {
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "@vue/babel-preset-jsx": "^1.1.1",
+    "change-case": "^4.1.1",
     "core-js": "^3.3.2",
     "v-click-outside": "^3.0.1",
     "vue": "^2.6.10",
