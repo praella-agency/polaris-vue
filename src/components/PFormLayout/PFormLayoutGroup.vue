@@ -8,11 +8,9 @@
              class="Polaris-FormLayout__Title">
             {{ title }}
         </div>
-        <div class="Polaris-FormLayout__Items" v-for="(slot,name) in $slots" :key="name">
-            <PFormLayoutGroupItemWrapper>
+            <PFormLayoutGroupItemWrapper v-for="(slot,name) in $slots" :key="name">
                 <slot/>
             </PFormLayoutGroupItemWrapper>
-        </div>
         <div v-if="helpText || $slots.helpText"
              :id="id+'helpText'"
              class="Polaris-FormLayout__HelpText">
@@ -22,6 +20,7 @@
         </div>
     </div>
 </template>
+
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';

@@ -27,6 +27,7 @@ import { PSettingToggle } from './PSettingToggle';
 import { PColorPicker } from './PColorPicker';
 import { PTabs } from './PTabs';
 import { PRadioButton } from './PRadioButton';
+import { PConnected } from './PConnected';
 
 import '@/scss/main.scss';
 
@@ -58,7 +59,8 @@ const Components = {
   PSettingToggle,
   PColorPicker,
   PTabs,
-  PRadioButton
+  PRadioButton,
+  PConnected
 };
 
 const PolarisVue = {
