@@ -19,7 +19,7 @@ import { PColorPicker } from '@/components/PColorPicker';
   },
   data() {
     return {
-      color: '#FFF'
+      color: '#FFF',
     }
   }
 })
