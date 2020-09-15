@@ -7,7 +7,7 @@ export { default as CircleTickMajorTwotone } from './images/circle-tick_major_tw
 export { default as FlagMajorTwotone } from './images/flag_major_twotone';
 export { default as MinusMinor } from './images/minus_minor';
 export { default as TickSmallMinor } from './images/tick-small_minor';
-export { default as CircleTickMajorMonotone } from './images/circle-tick_major_monotone'
+export { default as CircleTickMajorMonotone } from './images/circle-tick_major_monotone';
 export { default as TickMinor } from './images/tick_minor';
 export { default as CirclePlusMajorMonotone } from './images/circle-plus_major_monotone';
 export { default as CirclePlusMinor } from './images/circle-plus_minor';
@@ -52,7 +52,7 @@ export { default as AppsMajorMonotone } from './images/apps_major_monotone';
 export { default as ArchiveMajorMonotone } from './images/archive_major_monotone';
 export { default as AttachmentMajorMonotone } from './images/attachment_major_monotone';
 export { default as AutomationMajorMonotone } from './images/automation_major_monotone';
-export { default as BackspaceMajorMonotone } from './images/backspace_major_monotone'
+export { default as BackspaceMajorMonotone } from './images/backspace_major_monotone';
 export { default as BalanceMajorMonotone } from './images/balance_major_monotone';
 export { default as BankMajorMonotone } from './images/bank_major_monotone';
 export { default as BarcodeMajorMonotone } from './images/barcode_major_monotone';
@@ -67,5 +67,5 @@ export { default as BlogMajorMonotone } from './images/blog_major_monotone';
 export { default as BugMajorMonotone } from './images/bug_major_monotone';
 export { default as BuyButtonMajorMonotone } from './images/buy-button_major_monotone';
 export { default as BuyButtonButtonLayoutMajorMonotone } from './images/buy-button-button-layout_major_monotone';
-export { default as BuyButtonHorizontalLayoutMajorMonotone } from './images/buy-button-horizontal-layout_major_monotone';
-
+export { default as BuyButtonHorizontalLayoutMajorMonotone } from
+        './images/buy-button-horizontal-layout_major_monotone';

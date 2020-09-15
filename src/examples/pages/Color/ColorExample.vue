@@ -20,8 +20,8 @@ import { PColorPicker } from '@/components/PColorPicker';
   data() {
     return {
       color: '#FFF',
-    }
-  }
+    };
+  },
 })
 export default class ActionsExample extends Vue {
   public example = `

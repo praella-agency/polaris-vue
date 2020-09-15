@@ -24,14 +24,14 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
-    import {classNames} from "@/utilities/css";
-    import {PFormLayoutItem} from "@/components/PFormLayout/index";
-    import PFormLayoutGroupItemWrapper from "@/components/PFormLayout/PFormLayoutGroupItemWrapper.vue";
+    import {classNames} from '@/utilities/css';
+    import {PFormLayoutItem} from '@/components/PFormLayout/index';
+    import PFormLayoutGroupItemWrapper from '@/components/PFormLayout/PFormLayoutGroupItemWrapper.vue';
 
     @Component({
         components: {
-            PFormLayoutItem,PFormLayoutGroupItemWrapper
-        }
+            PFormLayoutItem, PFormLayoutGroupItemWrapper,
+        },
     })
     export default class PFormLayoutGroup extends Vue {
 

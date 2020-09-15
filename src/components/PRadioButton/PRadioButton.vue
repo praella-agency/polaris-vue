@@ -27,16 +27,17 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
-import PChoice from "@/components/PChoice/PChoice.vue";
+import PChoice from '@/components/PChoice/PChoice.vue';
 @Component({
-  components: {PChoice}
+  components: {PChoice},
 })
+
 export default class PRadioButton extends Vue {
   @Prop({type: String, default: `PolarisRadioButton${new Date().getUTCMilliseconds()}`}) public id!: string;
   @Prop(String) public label!: string;
   @Prop(String) public helpText!: string;
   @Prop(String) public name!: string;
-  @Prop({type: [String,Boolean]}) public value!: string|boolean;
+  @Prop({type: [String, Boolean]}) public value!: string|boolean;
   @Prop(Boolean) public disabled!: boolean;
   @Prop(Boolean) public labelHidden!: boolean;
   @Prop(Boolean) public checked!: boolean;
@@ -50,7 +51,7 @@ export default class PRadioButton extends Vue {
   }
 
   public onChange(e: any) {
-    var target = e.target || e.srcElement;
+    const target = e.target || e.srcElement;
     this.$emit('change', target.checked);
   }
 

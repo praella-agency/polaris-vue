@@ -6,7 +6,7 @@
       </template>
       <PButton slot="action"
                       :primary="!enabled"
-                      @click="this.handleAction(action)"
+                      @click="handleAction(action)"
                       :url="action.url"
                       :accessibility-label="action.accessibilityLabel"
                       :disabled="action.disabled"
@@ -34,7 +34,7 @@
     @Prop(Boolean) public enabled!: boolean;
     @Prop(String) public propsClass!: string;
 
-    private static handleAction(action: any) {
+    public handleAction(action: any) {
       if (action.onAction) {
         action.onAction();
       }

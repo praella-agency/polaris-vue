@@ -127,7 +127,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { ArrowUpDownMinor } from '@/assets/shopify-polaris-icons';
-import Multiselect from 'vue-multiselect'
+import Multiselect from 'vue-multiselect';
 import { classNames } from '@/utilities/css';
 
 import { PIcon } from '@/components/PIcon';
@@ -192,10 +192,10 @@ export default class PMultiSelect extends Vue {
     );
   }
 
-  public addTag (newTag) {
+  public addTag(newTag) {
     const tag = {
       label: newTag,
-      value: newTag
+      value: newTag,
     };
     this.selected.push(tag);
     this.options.push(tag);
