@@ -33,7 +33,6 @@ export { default as CalendarMajorMonotone } from './images/calendar_major_monoto
 export { default as CalendarTickMajorMonotone } from './images/calendar-tick_major_monotone';
 export { default as CircleCancelMajorMonotone } from './images/circle-cancel_major_monotone';
 export { default as MobileCancelMajorMonotone } from './images/mobile-cancel_major_monotone';
-export { default as CancelSmallMinor } from './images/cancel-small_minor';
 export { default as CircleCancelMinor } from './images/circle-cancel_minor';
 export { default as DeleteMajorMonotone } from './images/delete_major_monotone';
 export { default as DeleteMinor } from './images/delete_minor';
