@@ -18,7 +18,7 @@ export default class PFormLayout extends Vue {
     public render(h: any) {
         return (<div class='Polaris-FormLayout'> {
             (this.$slots.default || []).map((item: any) =>
-                (item.componentOptions.tag === 'PFormLayoutGroup') ?
+                (item.componentOptions && item.componentOptions.tag === 'PFormLayoutGroup') ?
                     (item) : (<PFormLayoutItem>{item}</PFormLayoutItem>))
         }
         </div>);
