@@ -14,6 +14,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+
+import * as Icon from '@/assets/shopify-polaris-icons'
 import { classNames, variationName } from '@/utilities/css';
 import { encode as encodeSVG } from '@/utilities/svg';
 
@@ -85,7 +87,11 @@ export default class PIcon extends Vue {
   }
 
   public get enhancedSource() {
-    return this.source.replace('<svg', '<svg class="Polaris-Icon__Svg"');
+    const sourceIcon = Icon[this.source];
+    if(!sourceIcon) {
+      return this.source.replace('<svg', '<svg class="Polaris-Icon__Svg"');
+    }
+    return sourceIcon.replace('<svg', '<svg class="Polaris-Icon__Svg"');
   }
 }
 </script>
