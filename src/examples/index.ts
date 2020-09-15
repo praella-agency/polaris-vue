@@ -1,4 +1,5 @@
 import { ActionsExample } from './pages/Actions';
+import { ColorExample } from './pages/Color';
 import { StructureExample } from './pages/Structure';
 import { FormExample } from './pages/Form';
 import { TitlesAndTextExample } from './pages/TitlesAndText';
@@ -8,6 +9,7 @@ import { ListsAndTablesExample } from './pages/ListsAndTables';
 export {
   StructureExample,
   ActionsExample,
+  ColorExample,
   FormExample,
   TitlesAndTextExample,
   FeedbackIndicatorsExample,

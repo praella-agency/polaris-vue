@@ -35,7 +35,8 @@
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-color": "^2.7.1",
-    "vue-property-decorator": "^8.3.0"
+    "vue-property-decorator": "^8.3.0",
+    "vue-router": "^3.4.3"
   },
   "files": [
     "dist/*",

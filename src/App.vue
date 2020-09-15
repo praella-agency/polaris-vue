@@ -3,6 +3,7 @@
     <FormExample/>
     <StructureExample/>
     <ActionsExample/>
+    <ColorExample/>
     <TitlesAndTextExample/>
     <FeedbackIndicatorsExample/>
     <ListsAndTablesExample/>
@@ -14,6 +15,7 @@ import { Component, Vue } from 'vue-property-decorator';
 
 import {
   ActionsExample,
+  ColorExample,
   StructureExample,
   FormExample,
   TitlesAndTextExample,
@@ -25,6 +27,7 @@ import {
   components: {
     StructureExample,
     ActionsExample,
+    ColorExample,
     FormExample,
     TitlesAndTextExample,
     FeedbackIndicatorsExample,
