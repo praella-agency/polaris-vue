@@ -8,26 +8,25 @@
       </div>
     </div>
 
-    <PConnected v-if="connectedLeft || connectedRight">
-      <template slot="left">
+    <PConnected v-if="$slots.hasOwnProperty('connectedLeft') || $slots.hasOwnProperty('connectedRight')">
+      <template v-if="$slots.hasOwnProperty('connectedLeft')" slot="left">
         <slot name="connectedLeft">{{ connectedLeft }}</slot>
       </template>
 
-      <template slot="right">
+      <template slot="right" v-if="$slots.hasOwnProperty('connectedRight')">
         <slot name="connectedRight">{{ connectedRight }}</slot>
       </template>
 
-      <PInput v-bind="$attrs"></PInput>
+      <PInput v-bind="$attrs" v-on="$listeners"></PInput>
     </PConnected>
 
-    <PInput v-bind="$attrs"></PInput>
+    <PInput v-else v-bind="$attrs"></PInput>
 
   </div>
 </template>
 
 <script lang="ts">
   import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
-  import {classNames} from '@/utilities/css';
   import PInput from './components/PInput.vue';
   import PConnected from '../PConnected/PConnected.vue';
 
