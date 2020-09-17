@@ -36,7 +36,7 @@
     components: {
       ExampleContainer,
       PPageActions, ExampleContent,
-      PButton
+      PButton,
     },
     data() {
       return {
@@ -46,12 +46,12 @@
 
     methods: {
       primaryAction() {
-        alert("Primary Action")
+        alert('Primary Action');
       },
       secondaryAction() {
-        alert("Secondary Action")
-      }
-    }
+        alert('Secondary Action');
+      },
+    },
   })
 
   export default class PageActionsExample extends Vue {

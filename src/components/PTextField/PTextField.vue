@@ -20,8 +20,8 @@
       <PInput v-bind="$attrs" v-on="$listeners"></PInput>
     </PConnected>
 
-    <PInput v-else v-bind="$attrs"></PInput>
-
+    <PInput v-else v-bind="$attrs" v-on="$listeners"></PInput>
+    <div class="Polaris-Labelled__HelpText" v-if="helpText">{{helpText}}</div>
   </div>
 </template>
 
@@ -37,7 +37,7 @@
     @Prop(String) public label!: string;
     @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
     @Prop(String) public labelClass!: string;
-    @Prop(Boolean) public showInput!: boolean;
+    @Prop(String) public helpText!: string;
     @Prop(String) public connectedLeft!: string;
     @Prop(String) public connectedRight!: string;
   }

@@ -58,7 +58,7 @@ export default class PPageActions extends Vue {
 
   public get spacing() {
     return (this.$slots.hasOwnProperty('primaryAction') || this.primaryAction) &&
-    (this.$slots.hasOwnProperty('secondaryAction') || this.secondaryAction) ? "equalSpacing":"trailing"
+    (this.$slots.hasOwnProperty('secondaryAction') || this.secondaryAction) ? 'equalSpacing' : 'trailing';
   }
 
   public handleAction(action: any) {
