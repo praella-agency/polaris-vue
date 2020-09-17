@@ -3,9 +3,9 @@
   "description": "Shopify's product component library for Vue.js",
   "private": false,
   "author": "HulkApps <uttam@hulkapps.com>",
-  "repository": "https://github.com/Hulk-App/polaris-vue.git",
+  "repository": "https://github.com/HulkApps/polaris-vue.git",
   "bugs": {
-    "url": "https://github.com/Hulk-App/polaris-vue/issues"
+    "url": "https://github.com/HulkApps/polaris-vue/issues"
   },
   "publishConfig": {
     "access": "public"
