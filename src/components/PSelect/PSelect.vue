@@ -19,7 +19,7 @@
       <div class="Polaris-Select__Content" aria-hidden="true" :aria-disabled="disabled">
         <span class="Polaris-Select__SelectedOption">{{ selectedOption }}</span>
         <span class="Polaris-Select__Icon">
-          <PIcon :source="ArrowUpDownMinor"></PIcon>
+          <PIcon :source="SelectMinor"></PIcon>
         </span>
       </div>
       <div class="Polaris-Select__Backdrop"></div>
@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { ArrowUpDownMinor } from '@/assets/shopify-polaris-icons';
+import { SelectMinor } from '@/assets/shopify-polaris-icons';
 import { classNames } from '@/utilities/css';
 
 import { PIcon } from '@/components/PIcon';
@@ -64,7 +64,7 @@ function getSelectedOption(
 @Component({
   components: { PIcon },
   mixins: [
-    { data() { return { ArrowUpDownMinor }; } },
+    { data() { return { SelectMinor }; } },
   ],
 })
 export default class PSelect extends Vue {
