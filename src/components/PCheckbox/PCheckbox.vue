@@ -1,83 +1,84 @@
 <template>
-  <PChoice
-    :id="id"
-    :label="label"
-    :labelHidden="labelHidden"
-    :disabled="disabled">
-    <span :class="wrapperClassName">
-      <input
-        v-model="computedValue"
-        :id="id"
-        type="checkbox"
-        :checked="isChecked"
-        :disabled="disabled"
-        :class="inputClassName"
-        :value="nativeValue"
-        role="checkbox"/>
-      <span class="Polaris-Checkbox__Backdrop"></span>
-      <span class="Polaris-Checkbox__Icon">
-        <PIcon :source="iconSource"></PIcon>
-      </span>
-    </span>
-  </PChoice>
+    <PChoice :label="label" :label-hidden="labelHidden" :help-text="helpText" :id="id">
+        <template v-if="$slots.helpText" slot="helpText">
+            <slot name="helpText"></slot>
+        </template>
+
+        <div :class="wrapperClassName">
+            <input :id="id"
+                   type="checkbox"
+                   :checked="checked"
+                   :disabled="disabled"
+                   :class="inputClassName"
+                   :value="value"
+                   role="checkbox"
+                   :aria-describedby="helpText ? id+'HelpText' : ''"
+                   @change="onChange"
+                   @focus="onFocus"
+                   @blur="onBlur"
+            />
+
+            <div class="Polaris-Checkbox__Backdrop"></div>
+            <div class="Polaris-Checkbox__Icon">
+                <PIcon :source="iconSource"></PIcon>
+            </div>
+        </div>
+
+    </PChoice>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
+    import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
+    import {classNames, variationName} from '@/utilities/css';
 
-import { PIcon } from '@/components/PIcon';
-import { PChoice } from '@/components/PChoice';
-import { MinusMinor, TickSmallMinor } from '@/assets/shopify-polaris-icons';
+    import {PIcon} from '@/components/PIcon';
+    import {PChoice} from '@/components/PChoice';
+    import {MinusMinor, TickSmallMinor} from '@/assets/shopify-polaris-icons';
 
-@Component({
-  components: {
-    PIcon, PChoice,
-  },
-})
-export default class PCheckbox extends Vue {
-  @Prop(String) public label!: string;
-  @Prop(Boolean) public labelHidden!: boolean;
-  @Prop(Boolean) public indeterminate!: boolean;
-  @Prop() public nativeValue!: any;
-  @Prop(Boolean) public disabled!: boolean;
+    @Component({
+        components: {
+            PIcon, PChoice,
+        },
+    })
+    export default class PCheckbox extends Vue {
+        @Prop({type: String, default: `PolarisCheckBox${new Date().getUTCMilliseconds()}`}) public id!: string;
+        @Prop(String) public name!: string;
+        @Prop(String) public label!: string;
+        @Prop(String) public helpText!: string;
+        @Prop(Boolean) public labelHidden!: boolean;
+        @Prop(Boolean) public indeterminate!: boolean;
+        @Prop({type: Boolean, default: false}) public checked!: boolean;
+        @Prop({type: [String, Boolean]}) public value!: string | boolean;
+        @Prop(Boolean) public disabled!: boolean;
 
-  public checked = this.nativeValue;
-  public id = `PolarisCheckbox${new Date().getUTCMilliseconds()}`;
+        public get wrapperClassName() {
+            return classNames(
+                'Polaris-Checkbox',
+            );
+        }
 
-  public get wrapperClassName() {
-    return classNames(
-      'Polaris-Checkbox',
-    );
-  }
+        public get inputClassName() {
+            return classNames(
+                'Polaris-Checkbox__Input',
+                this.indeterminate && 'Polaris-Checkbox__Input--indeterminate',
+            );
+        }
 
-  public get inputClassName() {
-    return classNames(
-      'Polaris-Checkbox__Input',
-      this.indeterminate && 'Polaris-Checkbox__Input--indeterminate',
-    );
-  }
+        public get iconSource() {
+            return this.indeterminate ? MinusMinor : TickSmallMinor;
+        }
 
-  public get isChecked() {
-    return !this.indeterminate && Boolean(this.checked);
-  }
+        public onChange(e: any) {
+            const target = e.target || e.srcElement;
+            this.$emit('change', {checked: target.checked, value: target.value});
+        }
 
-  public get iconSource() {
-    return this.indeterminate ? MinusMinor : TickSmallMinor;
-  }
+        public onFocus() {
+            this.$emit('focus');
+        }
 
-  public get computedValue() {
-    return this.checked;
-  }
-
-  public set computedValue(value: string) {
-    this.checked = value;
-    this.$emit('input', value);
-  }
-
-  @Watch('value')
-  public onValueChanged(value: any) {
-    this.checked = value;
-  }
-}
+        public onBlur() {
+            this.$emit('blur');
+        }
+    }
 </script>

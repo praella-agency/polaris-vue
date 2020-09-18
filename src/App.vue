@@ -27,14 +27,14 @@ import {
 
 @Component({
   components: {
+    FormExample,
     StructureExample,
     ActionsExample,
+    PageActionsExample,
     ColorExample,
-    FormExample,
     TitlesAndTextExample,
     FeedbackIndicatorsExample,
     ListsAndTablesExample,
-    PageActionsExample,
   },
 })
 export default class App extends Vue {}

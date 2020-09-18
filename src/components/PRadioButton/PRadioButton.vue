@@ -40,7 +40,7 @@ export default class PRadioButton extends Vue {
   @Prop({type: [String, Boolean]}) public value!: string|boolean;
   @Prop(Boolean) public disabled!: boolean;
   @Prop(Boolean) public labelHidden!: boolean;
-  @Prop(Boolean) public checked!: boolean;
+  @Prop({type: Boolean, default: false}) public checked!: boolean;
 
   public get className() {
     return classNames(
@@ -52,7 +52,7 @@ export default class PRadioButton extends Vue {
 
   public onChange(e: any) {
     const target = e.target || e.srcElement;
-    this.$emit('change', target.checked);
+    this.$emit('change', {checked: target.checked, value: target.value});
   }
 
   public onFocus() {
