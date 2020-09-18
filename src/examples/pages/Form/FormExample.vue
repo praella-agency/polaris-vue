@@ -30,9 +30,27 @@
           :taggable="true"
           :searchable="true"
         />
-        <PCheckbox label="Checkbox 1" indeterminate/>
-        <PCheckbox v-model="checkboxValue" label="Checkbox 2"/>
+        <PCheckbox id="checkbox_1" value="Checkbox val 1" label="Checkbox 1" indeterminate/>
+        <PCheckbox id="checkbox_2" helpText="Help text for checkbox" value="Checkbox val 2" label="Checkbox 2"/>
         <PRadioButton id="layout_mode_1" name="layout_mode" value="standard" label="Standard" />
+        <PRadioButton id="layout_mode_2" name="layout_mode" value="standard 2" label="Standard 2" />
+      </PFormLayout>
+    </ExampleContent>
+
+    <ExampleContent :code="example1">
+      <PFormLayout>
+        <PFormLayout>
+          <PFormLayoutGroup condensed>
+            <PRadioButton id="layout_mode_1" name="layout_mode" value="standard" :checked="true" label="Standard" />
+            <PRadioButton id="layout_mode_2" name="layout_mode" value="grid" label="Grid" />
+            <PRadioButton id="layout_mode_3" name="layout_mode" value="carousel" label="Carousel" />
+          </PFormLayoutGroup>
+          <PFormLayoutGroup condensed>
+            <PRadioButton id="layout_mode_4" name="layout_mode" value="modern" :checked="true" label="Modern" />
+            <PRadioButton id="layout_mode_5" name="layout_mode" value="masonry" label="Masonry" />
+            <PRadioButton id="layout_mode_6" name="layout_mode" value="slider" label="Slider" />
+          </PFormLayoutGroup>
+        </PFormLayout>
       </PFormLayout>
     </ExampleContent>
   </ExampleContainer>
@@ -48,13 +66,14 @@ import { PCheckbox } from '@/components/PCheckbox';
 import { PRadioButton } from '@/components/PRadioButton';
 import { PFormLayout, PFormLayoutItem } from '@/components/PFormLayout';
 import { PMultiSelect } from '@/components/PMultiSelect';
+import PFormLayoutGroup from '@/components/PFormLayout/PFormLayoutGroup.vue';
 
 @Component({
   components: {
     PMultiSelect,
     PRadioButton,
     ExampleContainer, ExampleContent,
-    PFormLayout, PFormLayoutItem,
+    PFormLayout, PFormLayoutItem, PFormLayoutGroup,
     PSelect, PTextField, PCheckbox,
   },
 })

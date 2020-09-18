@@ -1,24 +1,29 @@
 <template>
-    <PChoice
-            :id="id"
-            :label="label"
-            :labelHidden="labelHidden"
-            :disabled="disabled">
-    <span :class="wrapperClassName">
-      <input
-              v-model="computedValue"
-              :id="id"
-              type="checkbox"
-              :checked="isChecked"
-              :disabled="disabled"
-              :class="inputClassName"
-              :value="inputValue"
-              role="checkbox"/>
-      <span class="Polaris-Checkbox__Backdrop"></span>
-      <span class="Polaris-Checkbox__Icon">
-        <PIcon :source="iconSource"></PIcon>
-      </span>
-    </span>
+    <PChoice :label="label" :label-hidden="labelHidden" :help-text="helpText" :id="id">
+        <template v-if="$slots.helpText" slot="helpText">
+            <slot name="helpText"></slot>
+        </template>
+
+        <div :class="wrapperClassName">
+            <input :id="id"
+                   type="checkbox"
+                   :checked="checked"
+                   :disabled="disabled"
+                   :class="inputClassName"
+                   :value="value"
+                   role="checkbox"
+                   :aria-describedby="helpText ? id+'HelpText' : ''"
+                   @change="onChange"
+                   @focus="onFocus"
+                   @blur="onBlur"
+            />
+
+            <div class="Polaris-Checkbox__Backdrop"></div>
+            <div class="Polaris-Checkbox__Icon">
+                <PIcon :source="iconSource"></PIcon>
+            </div>
+        </div>
+
     </PChoice>
 </template>
 
@@ -39,25 +44,12 @@
         @Prop({type: String, default: `PolarisCheckBox${new Date().getUTCMilliseconds()}`}) public id!: string;
         @Prop(String) public name!: string;
         @Prop(String) public label!: string;
+        @Prop(String) public helpText!: string;
         @Prop(Boolean) public labelHidden!: boolean;
         @Prop(Boolean) public indeterminate!: boolean;
-        @Prop() public nativeValue!: any;
+        @Prop({type: Boolean, default: false}) public checked!: boolean;
         @Prop({type: [String, Boolean]}) public value!: string | boolean;
         @Prop(Boolean) public disabled!: boolean;
-
-        public checked = this.nativeValue;
-
-        public get inputValue() {
-            return (this.value ? this.value : this.nativeValue);
-        }
-
-        public set inputValue(value: string) {
-            if (this.value) {
-                this.value = value;
-            } else {
-                this.nativeValue = value;
-            }
-        }
 
         public get wrapperClassName() {
             return classNames(
@@ -72,26 +64,21 @@
             );
         }
 
-        public get isChecked() {
-            return !this.indeterminate && Boolean(this.checked);
-        }
-
         public get iconSource() {
             return this.indeterminate ? MinusMinor : TickSmallMinor;
         }
 
-        public get computedValue() {
-            return this.checked;
+        public onChange(e: any) {
+            const target = e.target || e.srcElement;
+            this.$emit('change', {checked: target.checked, value: target.value});
         }
 
-        public set computedValue(value: string) {
-            this.checked = value;
-            this.$emit('input', value);
+        public onFocus() {
+            this.$emit('focus');
         }
 
-        @Watch('value')
-        public onValueChanged(value: any) {
-            this.checked = value;
+        public onBlur() {
+            this.$emit('blur');
         }
     }
 </script>

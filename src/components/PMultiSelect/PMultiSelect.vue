@@ -199,7 +199,7 @@
 
         public set computedValue(value) {
             this.selected = value;
-            this.$emit('input', value);
+            this.$emit('change', value);
         }
 
         public get className() {

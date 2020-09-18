@@ -106,7 +106,7 @@
 
         public set computedValue(value: string) {
             this.selected = value;
-            this.$emit('input', value);
+            this.$emit('change', value);
         }
 
         public get selectedOption() {
