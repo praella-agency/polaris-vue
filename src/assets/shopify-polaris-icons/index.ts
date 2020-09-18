@@ -62,9 +62,12 @@ export { default as BlogMajorMonotone } from './images/blog_major_monotone';
 export { default as BlogMajorTwotone } from './images/blog_major_twotone';
 export { default as BugMajorMonotone } from './images/bug_major_monotone';
 export { default as BugMajorTwotone } from './images/bug_major_twotone';
-export { default as BuyButtonButtonLayoutMajorMonotone } from './images/buy-button-button-layout_major_monotone';
-export { default as BuyButtonButtonLayoutMajorTwotone } from './images/buy-button-button-layout_major_twotone';
-export { default as BuyButtonHorizontalLayoutMajorMonotone } from './images/buy-button-horizontal-layout_major_monotone';
+export { default as BuyButtonButtonLayoutMajorMonotone } from
+        './images/buy-button-button-layout_major_monotone';
+export { default as BuyButtonButtonLayoutMajorTwotone } from
+        './images/buy-button-button-layout_major_twotone';
+export { default as BuyButtonHorizontalLayoutMajorMonotone } from
+        './images/buy-button-horizontal-layout_major_monotone';
 export { default as BuyButtonHorizontalLayoutMajorTwotone } from './images/buy-button-horizontal-layout_major_twotone';
 export { default as BuyButtonVerticalLayoutMajorMonotone } from './images/buy-button-vertical-layout_major_monotone';
 export { default as BuyButtonVerticalLayoutMajorTwotone } from './images/buy-button-vertical-layout_major_twotone';

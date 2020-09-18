@@ -32,7 +32,7 @@
 
 <script lang="ts">
     import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
-import { ArrowUpDownMinor } from '@/assets/shopify-polaris-icons';
+    import { ArrowUpDownMinor } from '@/assets/shopify-polaris-icons';
     import {classNames} from '@/utilities/css';
 
     import {PIcon} from '@/components/PIcon';
@@ -64,7 +64,7 @@ import { ArrowUpDownMinor } from '@/assets/shopify-polaris-icons';
         mixins: [
             {
                 data() {
-                    return {ArrowUpDownMinor};
+                    return { ArrowUpDownMinor };
                 },
             },
         ],
