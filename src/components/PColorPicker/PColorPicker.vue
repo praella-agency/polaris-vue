@@ -29,7 +29,7 @@
     @Prop(String) public labelClass!: string;
     @Prop(Boolean) public showInput!: boolean;
     @Prop(String) public propsClass!: string;
-    @Prop(String) public color!: string;
+    @Prop({type: String, default: '#FFF'}) public color!: string;
     @Prop(String) public connectedLeft!: string;
     @Prop(String) public connectedRight!: string;
 

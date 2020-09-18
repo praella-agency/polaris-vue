@@ -8,9 +8,9 @@
              class="Polaris-FormLayout__Title">
             {{ title }}
         </div>
-        <div class="Polaris-FormLayout__Items" v-for="{slot, key} in $slots.default" :key="key">
-            {{slot}}
-        </div>
+            <PFormLayoutGroupItemWrapper v-for="(slot,name) in $slots" :key="name">
+                <slot/>
+            </PFormLayoutGroupItemWrapper>
         <div v-if="helpText || $slots.helpText"
              :id="id+'helpText'"
              class="Polaris-FormLayout__HelpText">
@@ -21,11 +21,18 @@
     </div>
 </template>
 
+
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
-    import {classNames} from "@/utilities/css";
+    import {classNames} from '@/utilities/css';
+    import {PFormLayoutItem} from '@/components/PFormLayout/index';
+    import PFormLayoutGroupItemWrapper from '@/components/PFormLayout/PFormLayoutGroupItemWrapper.vue';
 
-    @Component
+    @Component({
+        components: {
+            PFormLayoutItem, PFormLayoutGroupItemWrapper,
+        },
+    })
     export default class PFormLayoutGroup extends Vue {
 
         @Prop(String) public children!: string;
@@ -38,9 +45,8 @@
 
         public get className() {
             return classNames(
-                'Polaris-FormLayout',
                 this.condensed && 'Polaris-FormLayout--condensed',
-                this.grouped && 'Polaris-FormLayout--grouped',
+                !this.condensed && 'Polaris-FormLayout--grouped',
             );
         }
     }

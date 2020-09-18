@@ -7,7 +7,7 @@
       <slot name="action">
         <PButton v-if="action"
                         primary
-                        @click="this.handleAction(action)"
+                        @click="handleAction(action)"
                         :url="action.url"
                         :destructive="action.destructive"
                         :disabled="action.disabled"
@@ -33,7 +33,7 @@
     @Prop() public action!: any;
     @Prop(String) public propsClass!: string;
 
-    private static handleAction(action: any) {
+    public handleAction(action: any) {
       if (action.onAction) {
         action.onAction();
       }

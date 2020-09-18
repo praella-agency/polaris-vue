@@ -16,6 +16,8 @@
       <PButtonGroup>
         <PButton>Cancel</PButton>
         <PButton primary>Save</PButton>
+        <PButton to="/action-page">Router Link</PButton>
+        <PButton href="/" target="_blank">Anchor Tag</PButton>
       </PButtonGroup>
     </ExampleContent>
 
@@ -59,6 +61,8 @@ export default class ActionsExample extends Vue {
   <PButtonGroup>
     <PButton>Cancel</PButton>
     <PButton primary>Save</PButton>
+    <PButton to="/action-page">Router Link</PButton>
+    <PButton href="/new-page" target="_blank">Anchor Tag</PButton>
   </PButtonGroup>
   `;
 

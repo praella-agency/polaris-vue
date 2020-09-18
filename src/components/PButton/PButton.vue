@@ -1,5 +1,8 @@
 <template>
-  <button
+  <component
+          :is="(to ? 'router-link' : (href ? 'a' : 'button'))"
+          :to="to"
+          :href="href"
     :type="type"
     @click="$emit('click', $event)"
     @focus="$emit('focus', $event)"
@@ -27,7 +30,7 @@
         <slot/>
       </span>
     </span>
-  </button>
+  </component>
 </template>
 
 <script lang="ts">
@@ -48,6 +51,8 @@ const DEFAULT_SIZE = 'medium';
   components: { PIcon, PSpinner },
 })
 export default class PButton extends Vue {
+  @Prop(String) public href!: string;
+  @Prop(String) public to!: string;
   @Prop(Boolean) public ariaProps!: boolean;
   @Prop(String) public ariaLabel!: string;
   @Prop(Boolean) public submit!: boolean;

@@ -1,43 +1,40 @@
 <template>
-  <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
-
-    <div :class="className" v-show="showInput">
-      <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix"
-           :class="prefixClass">
-        {{prefix}}
-      </div>
-      <input
-
-              :tag="multiline?'textarea':'input'"
-              ref="input"
-              :is="multiline ? 'textarea' : 'input'"
-              :name="name"
-              class="Polaris-TextField__Input"
-              :id="id"
-              :disabled="disabled"
-              :readonly="readOnly"
-              :autofocus="autoFocus"
-              :value="computedValue"
-              :placeholder="placeholder"
-              :autocomplete="normalizeAutoComplete(autoComplete)"
-              :class="inputClass"
-              :min="min"
-              :max="max"
-              :step="step"
-              :minlength="minLength"
-              :maxlength="maxLength"
-              :type="inputType"
-              :aria-describedby="describedBy"
-              :aria-labelledby="labelledBy"
-              :aria-invalid="hasError"
-              @input="onInput"
-      />
-      <div class="Polaris-TextField__Suffix" :id="id+'Prefix'" v-if="showSuffix">
-        {{suffix}}
-      </div>
-      <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
-      <div class="Polaris-TextField__Backdrop"></div>
+  <div :class="className" v-show="showInput">
+    <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix"
+         :class="prefixClass">
+      {{prefix}}
     </div>
+    <input
+
+            :tag="multiline?'textarea':'input'"
+            ref="input"
+            :is="multiline ? 'textarea' : 'input'"
+            :name="name"
+            class="Polaris-TextField__Input"
+            :id="id"
+            :disabled="disabled"
+            :readonly="readOnly"
+            :autofocus="autoFocus"
+            :value="computedValue"
+            :placeholder="placeholder"
+            :autocomplete="normalizeAutoComplete(autoComplete)"
+            :class="inputClass"
+            :min="min"
+            :max="max"
+            :step="step"
+            :minlength="minLength"
+            :maxlength="maxLength"
+            :type="inputType"
+            :aria-describedby="describedBy"
+            :aria-labelledby="labelledBy"
+            :aria-invalid="hasError"
+            @input="onInput"
+    />
+    <div class="Polaris-TextField__Suffix" :id="id+'Prefix'" v-if="showSuffix">
+      {{suffix}}
+    </div>
+    <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
+    <div class="Polaris-TextField__Backdrop"></div>
   </div>
 </template>
 

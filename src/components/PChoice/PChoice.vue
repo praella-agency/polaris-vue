@@ -35,7 +35,7 @@ export default class PChoice extends Vue {
   @Prop(Boolean) public labelHidden!: boolean;
   @Prop(Boolean) public vertical!: boolean;
   @Prop(String) public helpText!: string;
-  @Prop({type:[String,Boolean]}) public error!: string | boolean;
+  @Prop({type: [String, Boolean]}) public error!: string | boolean;
 
   public get className() {
     return classNames(
