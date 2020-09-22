@@ -28,6 +28,8 @@ import { PColorPicker } from './PColorPicker';
 import { PTabs } from './PTabs';
 import { PRadioButton } from './PRadioButton';
 import { PConnected } from './PConnected';
+import { PUnstyledLink } from './PUnstyledLink';
+import { PLink } from './PLink';
 import { PImage } from './PImage';
 import { PThumbnail } from './PThumbnail';
 
@@ -63,6 +65,8 @@ const Components = {
   PTabs,
   PRadioButton,
   PConnected,
+  PUnstyledLink,
+  PLink
   PImage,
   PThumbnail
 };
