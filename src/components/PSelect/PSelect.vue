@@ -27,6 +27,7 @@
             </div>
             <div class="Polaris-Select__Backdrop"></div>
         </div>
+        <PFieldError v-if="error" :error="error"/>
     </div>
 </template>
 
@@ -34,8 +35,8 @@
     import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
     import { ArrowUpDownMinor } from '@/assets/shopify-polaris-icons';
     import {classNames} from '@/utilities/css';
-
     import {PIcon} from '@/components/PIcon';
+    import {PFieldError} from '@/components/PFieldError';
 
     interface StrictOption {
         value: string;
@@ -60,7 +61,7 @@
     }
 
     @Component({
-        components: {PIcon},
+        components: {PIcon, PFieldError},
         mixins: [
             {
                 data() {
@@ -77,6 +78,7 @@
         @Prop({type: Array, default: []}) public options!: [];
         @Prop({type: String, default: PLACEHOLDER_VALUE}) public value!: string;
         @Prop(String) public placeholder!: string;
+        @Prop(String) public error!: string;
 
         public selected = this.value;
 
@@ -117,6 +119,7 @@
             return classNames(
                 'Polaris-Select',
                 this.disabled && 'Polaris-Select--disabled',
+                this.error && 'Polaris-Select--error',
             );
         }
 
