@@ -6,6 +6,7 @@ import { TitlesAndTextExample } from './pages/TitlesAndText';
 import { FeedbackIndicatorsExample } from './pages/FeedbackIndicators';
 import { ListsAndTablesExample } from './pages/ListsAndTables';
 import { PageActionsExample } from './pages/PageAction';
+import { ThumbnailExample } from './pages/Thumbnail';
 
 export {
   StructureExample,
@@ -16,4 +17,5 @@ export {
   FeedbackIndicatorsExample,
   ListsAndTablesExample,
   PageActionsExample,
+  ThumbnailExample,
 };
