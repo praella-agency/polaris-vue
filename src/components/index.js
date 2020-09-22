@@ -30,6 +30,8 @@ import { PRadioButton } from './PRadioButton';
 import { PConnected } from './PConnected';
 import { PUnstyledLink } from './PUnstyledLink';
 import { PLink } from './PLink';
+import { PImage } from './PImage';
+import { PThumbnail } from './PThumbnail';
 
 import '@/scss/main.scss';
 
@@ -65,6 +67,8 @@ const Components = {
   PConnected,
   PUnstyledLink,
   PLink
+  PImage,
+  PThumbnail
 };
 
 const PolarisVue = {
