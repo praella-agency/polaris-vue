@@ -67,7 +67,7 @@ const Components = {
   PRadioButton,
   PConnected,
   PUnstyledLink,
-  PLink
+  PLink,
   PImage,
   PThumbnail,
   PAvatar,
