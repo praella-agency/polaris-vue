@@ -17,7 +17,7 @@ import PPageHeaderTitle from './PPageHeaderTitle.vue';
 import PPageBreadcrumb from './PPageBreadcrumb.vue';
 
 @Component({
-  components: { PPageHeaderTitle,PPageBreadcrumb },
+  components: { PPageHeaderTitle, PPageBreadcrumb },
 })
 export default class PPageHeader extends Vue {
   @Prop(String) public title!: string;
