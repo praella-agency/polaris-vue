@@ -30,6 +30,7 @@
           :taggable="true"
           :searchable="true"
         />
+
         <PCheckbox id="checkbox_1" value="Checkbox val 1" label="Checkbox 1" indeterminate/>
         <PCheckbox id="checkbox_2" helpText="Help text for checkbox" value="Checkbox val 2" label="Checkbox 2"/>
         <PRadioButton id="layout_mode_1" name="layout_mode" value="standard" label="Standard" />
@@ -64,9 +65,8 @@ import { PSelect } from '@/components/PSelect';
 import { PTextField } from '@/components/PTextField';
 import { PCheckbox } from '@/components/PCheckbox';
 import { PRadioButton } from '@/components/PRadioButton';
-import { PFormLayout, PFormLayoutItem } from '@/components/PFormLayout';
+import { PFormLayout, PFormLayoutItem, PFormLayoutGroup } from '@/components/PFormLayout';
 import { PMultiSelect } from '@/components/PMultiSelect';
-import PFormLayoutGroup from '@/components/PFormLayout/PFormLayoutGroup.vue';
 
 @Component({
   components: {
