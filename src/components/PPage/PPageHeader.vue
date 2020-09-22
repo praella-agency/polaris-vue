@@ -1,6 +1,6 @@
 <template>
   <div :class="className">
-    <PPageBreadcrumb :breadcrumbs="breadcrumbs"></PPageBreadcrumb>
+    <PPageBreadcrumb v-if="breadcrumbs" :breadcrumbs="breadcrumbs"></PPageBreadcrumb>
     <div class="Polaris-Page-Header__MainContent">
       <div class="Polaris-Page-Header__TitleActionMenuWrapper">
         <PPageHeaderTitle :title="title" :subtitle="subtitle"></PPageHeaderTitle>
