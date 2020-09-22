@@ -28,6 +28,11 @@ import { PColorPicker } from './PColorPicker';
 import { PTabs } from './PTabs';
 import { PRadioButton } from './PRadioButton';
 import { PConnected } from './PConnected';
+import { PUnstyledLink } from './PUnstyledLink';
+import { PLink } from './PLink';
+import { PImage } from './PImage';
+import { PThumbnail } from './PThumbnail';
+import { PAvatar } from './PAvatar';
 
 import '@/scss/main.scss';
 
@@ -60,7 +65,12 @@ const Components = {
   PColorPicker,
   PTabs,
   PRadioButton,
-  PConnected
+  PConnected,
+  PUnstyledLink,
+  PLink
+  PImage,
+  PThumbnail,
+  PAvatar,
 };
 
 const PolarisVue = {

@@ -16,6 +16,7 @@
             :readonly="readOnly"
             :autofocus="autoFocus"
             :value="computedValue"
+            v-text="multiline?computedValue:''"
             :placeholder="placeholder"
             :autocomplete="normalizeAutoComplete(autoComplete)"
             :class="inputClass"
@@ -23,6 +24,7 @@
             :max="max"
             :step="step"
             :minlength="minLength"
+            :style="{ height: (multiline && height) ? height+'px' : null,overflow: (multiline && height) ? 'hidden' : null }"
             :maxlength="maxLength"
             :type="inputType"
             :aria-describedby="describedBy"
@@ -35,6 +37,14 @@
     </div>
     <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
     <div class="Polaris-TextField__Backdrop"></div>
+
+    <PFieldResizer
+            v-if="multiline"
+            :contents="value || placeholder"
+            :current-height="height"
+            :minimum-lines="(typeof multiline === 'number') ? multiline : 1"
+            @heightchange="handleExpandingResize"
+    />
   </div>
 </template>
 
@@ -43,6 +53,7 @@
   import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
   import {classNames} from '@/utilities/css';
   import PSpinner from './PSpinner.vue';
+  import PFieldResizer from '@/components/PTextField/components/PFieldResizer.vue';
 
   type Type =
           | 'text'
@@ -60,7 +71,7 @@
           | 'currency';
 
   @Component({
-    components: {PSpinner},
+    components: {PFieldResizer, PSpinner},
   })
   export default class PInput extends Vue {
     @Prop(String) public label!: string;
@@ -91,6 +102,7 @@
     @Prop(String) public describedBy!: string;
 
     public content = this.value !== null ? this.value : '';
+    public height = 0;
 
     public get inputType() {
       return this.type === 'currency' ? 'text' : this.type;
@@ -153,6 +165,11 @@
           this.computedValue = newValue;
         }
       });
+    }
+
+
+    public handleExpandingResize(e) {
+      this.height = e;
     }
 
     public normalizeAutoComplete(autoComplete?: boolean | string) {
