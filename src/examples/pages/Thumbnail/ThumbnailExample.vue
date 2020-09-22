@@ -1,5 +1,5 @@
 <template>
-  <ExampleContainer title="Thumbnail small">
+  <ExampleContainer title="Thumbnail">
     <ExampleContent :code="example">
       <PThumbnail source="/logo.png" alt="Logo" size="small" />
     </ExampleContent>
