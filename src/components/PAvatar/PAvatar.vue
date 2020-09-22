@@ -40,10 +40,6 @@
         public hasImage = this.source && this.status !== Status.Errored;
         public nameString = this.name || this.initials;
 
-        public mounted() {
-            console.log(this.hasImage);
-        }
-
         public get className() {
             return classNames(
                 'Polaris-Avatar',
