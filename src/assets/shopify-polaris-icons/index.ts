@@ -16,14 +16,21 @@ export { default as AddMajorMonotone } from './images/add_major_monotone';
 export { default as AddMajorTwotone } from './images/add_major_twotone';
 export { default as AffiliateMajorMonotone } from './images/affiliate_major_monotone';
 export { default as AffiliateMajorTwotone } from './images/affiliate_major_twotone';
+export { default as AlertMinor } from './images/alert_minor';
 export { default as AnalyticsMajorFilled } from './images/analytics_major_filled';
 export { default as AnalyticsMajorMonotone } from './images/analytics_major_monotone';
 export { default as AnalyticsMajorTwotone } from './images/analytics_major_twotone';
+export { default as AppExtensionMinor } from './images/app-extension_minor';
 export { default as AppsMajorFilled } from './images/apps_major_filled';
 export { default as AppsMajorMonotone } from './images/apps_major_monotone';
 export { default as AppsMajorTwotone } from './images/apps_major_twotone';
 export { default as ArchiveMajorMonotone } from './images/archive_major_monotone';
 export { default as ArchiveMajorTwotone } from './images/archive_major_twotone';
+export { default as ArchiveMinor } from './images/archive_minor';
+export { default as ArrowDownMinor } from './images/arrow-down_minor';
+export { default as ArrowLeftMinor } from './images/arrow-left_minor';
+export { default as ArrowRightMinor } from './images/arrow-right_minor';
+export { default as ArrowUpMinor } from './images/arrow-up_minor';
 export { default as ArrowUpDownMinor } from './images/select_minor';
 export { default as AttachmentMajorMonotone } from './images/attachment_major_monotone';
 export { default as AttachmentMajorTwotone } from './images/attachment_major_twotone';
@@ -70,16 +77,20 @@ export { default as CalendarTickMajorMonotone } from './images/calendar-tick_maj
 export { default as CalendarTickMajorTwotone } from './images/calendar-tick_major_twotone';
 export { default as CalendarMajorMonotone } from './images/calendar_major_monotone';
 export { default as CalendarMajorTwotone } from './images/calendar_major_twotone';
+export { default as CalendarMinor } from './images/calendar_minor';
 export { default as CameraMajorMonotone } from './images/camera_major_monotone';
 export { default as CameraMajorTwotone } from './images/camera_major_twotone';
+export { default as CancelSmallMinor } from './images/cancel-small_minor';
 export { default as CapitalMajorMonotone } from './images/capital_major_monotone';
 export { default as CapitalMajorTwotone } from './images/capital_major_twotone';
+export { default as CapturePaymentMinor } from './images/capture-payment_minor';
 export { default as CardReaderChipMajorMonotone } from './images/card-reader-chip_major_monotone';
 export { default as CardReaderChipMajorTwotone } from './images/card-reader-chip_major_twotone';
 export { default as CardReaderTapMajorMonotone } from './images/card-reader-tap_major_monotone';
 export { default as CardReaderTapMajorTwotone } from './images/card-reader-tap_major_twotone';
 export { default as CardReaderMajorMonotone } from './images/card-reader_major_monotone';
 export { default as CardReaderMajorTwotone } from './images/card-reader_major_twotone';
+export { default as CaretDownMinor } from './images/caret-down_minor';
 export { default as CaretUpMinor } from './images/caret-up_minor';
 export { default as CartDownMajorMonotone } from './images/cart-down_major_monotone';
 export { default as CartDownMajorTwotone } from './images/cart-down_major_twotone';
@@ -109,6 +120,7 @@ export { default as ChecklistMajorMonotone } from './images/checklist_major_mono
 export { default as ChecklistMajorTwotone } from './images/checklist_major_twotone';
 export { default as CheckoutMajorMonotone } from './images/checkout_major_monotone';
 export { default as CheckoutMajorTwotone } from './images/checkout_major_twotone';
+export { default as ChevronDownMinor } from './images/chevron-down_minor';
 export { default as ChevronLeftMinor } from './images/chevron-left_minor';
 export { default as ChevronRightMinor } from './images/chevron-right_minor';
 export { default as ChevronUpMinor } from './images/chevron-up_minor';
@@ -119,6 +131,7 @@ export { default as CircleCancelMajorMonotone } from './images/circle-cancel_maj
 export { default as CircleCancelMajorTwotone } from './images/circle-cancel_major_twotone';
 export { default as CircleCancelMinor } from './images/circle-cancel_minor';
 export { default as CircleChevronDownMinor } from './images/circle-chevron-down_minor';
+export { default as CircleChevronLeftMinor } from './images/circle-chevron-left_minor';
 export { default as CircleChevronRightMinor } from './images/circle-chevron-right_minor';
 export { default as CircleChevronUpMinor } from './images/circle-chevron-up_minor';
 export { default as CircleDisableMinor } from './images/circle-disable_minor';
@@ -641,30 +654,3 @@ export { default as WholesaleMajorMonotone } from './images/wholesale_major_mono
 export { default as WholesaleMajorTwotone } from './images/wholesale_major_twotone';
 export { default as WifiMajorMonotone } from './images/wifi_major_monotone';
 export { default as WifiMajorTwotone } from './images/wifi_major_twotone';
-export { default as AlertMinor } from './images/alert_minor';
-export { default as AppExtensionMinor } from './images/app-extension_minor';
-export { default as ArchiveMinor } from './images/archive_minor';
-export { default as ArrowDownMinor } from './images/arrow-down_minor';
-export { default as ArrowLeftMinor } from './images/arrow-left_minor';
-export { default as ArrowRightMinor } from './images/arrow-right_minor';
-export { default as ArrowUpMinor } from './images/arrow-up_minor';
-export { default as CalendarMinor } from './images/calendar_minor';
-export { default as CancelSmallMinor } from './images/cancel-small_minor';
-export { default as CapturePaymentMinor } from './images/capture-payment_minor';
-export { default as CaretDownMinor } from './images/caret-down_minor';
-export { default as ChevronDownMinor } from './images/chevron-down_minor';
-export { default as ChevronLeftMinor } from './images/chevron-left_minor';
-export { default as ChevronRightMinor } from './images/chevron-right_minor';
-export { default as ChevronUpMinor } from './images/chevron-up_minor';
-export { default as CircleCancelMinor } from './images/circle-cancel_minor';
-export { default as CircleChevronDownMinor } from './images/circle-chevron-down_minor';
-export { default as FraudProtectMinor } from './images/fraud-protect_minor';
-export { default as FraudProtectPendingMinor } from './images/fraud-protect-pending_minor';
-export { default as FraudProtectUnprotectedMinor } from './images/fraud-protect-unprotected_minor';
-
-
-
-
-
-
-
