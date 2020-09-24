@@ -19,10 +19,12 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
 
 import PPageHeader from './PPageHeader.vue';
+type BreadcrumbsData = string | number;
 
 @Component({
   components: { PPageHeader },
 })
+
 export default class PPage extends Vue {
   @Prop(String) public title!: string;
   @Prop(String) public subtitle!: string;
@@ -30,7 +32,7 @@ export default class PPage extends Vue {
   @Prop(Boolean) public separator!: boolean;
   @Prop(Boolean) public fullWidth!: boolean;
   @Prop(Boolean) public narrowWidth!: boolean;
-  @Prop(Object) public breadcrumbs!: object;
+  @Prop(Array) public breadcrumbs!: BreadcrumbsData;
 
   public get className() {
     return classNames(
