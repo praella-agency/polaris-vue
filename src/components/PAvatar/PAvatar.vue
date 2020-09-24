@@ -40,16 +40,11 @@
         public hasImage = this.source && this.status !== Status.Errored;
         public nameString = this.name || this.initials;
 
-        public mounted() {
-            console.log(this.hasImage);
-        }
-
         public get className() {
             return classNames(
                 'Polaris-Avatar',
                 this.size && `Polaris-Avatar--${variationName('size', this.size)}`,
                 !this.customer && `Polaris-Avatar--${variationName('style', this.styleClass(this.nameString))}`,
-                // (this.hasImage || (this.initials && this.initials.length === 0)) && this.status !== Status.Loaded && 'Polaris-Avatar--hidden',
                 this.hasImage && 'Polaris-Avatar--hasImage',
             );
         }
