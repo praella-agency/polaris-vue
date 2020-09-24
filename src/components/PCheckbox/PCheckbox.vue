@@ -1,5 +1,5 @@
 <template>
-    <PChoice :label="label" :label-hidden="labelHidden" :help-text="helpText" :id="id">
+    <PChoice :label="label" :label-hidden="labelHidden" :help-text="helpText" :id="id" :error="error">
         <template v-if="$slots.helpText" slot="helpText">
             <slot name="helpText"></slot>
         </template>
@@ -50,10 +50,12 @@
         @Prop({type: Boolean, default: false}) public checked!: boolean;
         @Prop({type: [String, Boolean]}) public value!: string | boolean;
         @Prop(Boolean) public disabled!: boolean;
+        @Prop(String) public error!: string;
 
         public get wrapperClassName() {
             return classNames(
                 'Polaris-Checkbox',
+                this.error && 'Polaris-Checkbox--error'
             );
         }
 
