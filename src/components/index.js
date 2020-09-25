@@ -33,6 +33,7 @@ import { PLink } from './PLink';
 import { PImage } from './PImage';
 import { PThumbnail } from './PThumbnail';
 import { PAvatar } from './PAvatar';
+import { PInlineError } from './PInlineError';
 
 import '@/scss/main.scss';
 
@@ -71,6 +72,7 @@ const Components = {
   PImage,
   PThumbnail,
   PAvatar,
+  PInlineError,
 };
 
 const PolarisVue = {
