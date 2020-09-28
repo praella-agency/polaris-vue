@@ -34,6 +34,7 @@ import { PList, PListItem } from './PList';
 import { PImage } from './PImage';
 import { PThumbnail } from './PThumbnail';
 import { PAvatar } from './PAvatar';
+import { PModal } from './PModal';
 import { PInlineError } from './PInlineError';
 import { PPagination } from './PPagination';
 
@@ -75,6 +76,7 @@ const Components = {
   PImage,
   PThumbnail,
   PAvatar,
+  PModal,
   PInlineError,
   PPagination,
 };
