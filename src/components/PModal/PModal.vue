@@ -48,13 +48,6 @@
     @Prop(Array) public secondaryActions!: [];
     @Prop(Boolean) public large!: boolean;
 
-    public handleAction(action: any) {
-      console.log(action);
-      if (action.onAction) {
-        action.onAction();
-      }
-    }
-
     public get sizeClassName() {
       return classNames(
               'Polaris-Modal-Dialog__Modal',
