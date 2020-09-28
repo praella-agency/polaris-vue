@@ -34,6 +34,7 @@ import { PImage } from './PImage';
 import { PThumbnail } from './PThumbnail';
 import { PAvatar } from './PAvatar';
 import { PInlineError } from './PInlineError';
+import { PPagination } from './PPagination';
 
 import '@/scss/main.scss';
 
@@ -73,6 +74,7 @@ const Components = {
   PThumbnail,
   PAvatar,
   PInlineError,
+  PPagination,
 };
 
 const PolarisVue = {
