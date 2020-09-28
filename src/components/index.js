@@ -30,6 +30,7 @@ import { PRadioButton } from './PRadioButton';
 import { PConnected } from './PConnected';
 import { PUnstyledLink } from './PUnstyledLink';
 import { PLink } from './PLink';
+import { PList, PListItem } from './PList';
 import { PImage } from './PImage';
 import { PThumbnail } from './PThumbnail';
 import { PAvatar } from './PAvatar';
@@ -69,6 +70,7 @@ const Components = {
   PConnected,
   PUnstyledLink,
   PLink,
+  PList, PListItem,
   PImage,
   PThumbnail,
   PAvatar,
