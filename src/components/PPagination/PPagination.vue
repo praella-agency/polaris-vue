@@ -3,7 +3,7 @@
         <PUnstyledLink v-if="previousURL" :class="previousClassName" :url="previousURL">
             <PIcon source="ArrowLeftMinor" />
         </PUnstyledLink>
-        <button v-else type="button" :class="previousClassName" :disabled="!hasPrevious">
+        <button v-else type="button" :class="previousClassName" :disabled="!hasPrevious" @click="$emit('previous', $event)">
             <PIcon source="ArrowLeftMinor" />
         </button>
         <div v-if="label" class="Polaris-Pagination__Label">
@@ -13,7 +13,7 @@
         <PUnstyledLink v-if="nextURL" :class="nextClassName" :url="nextURL">
             <PIcon source="ArrowRightMinor" />
         </PUnstyledLink>
-        <button v-else type="button" :class="nextClassName" :disabled="!hasNext">
+        <button v-else type="button" :class="nextClassName" :disabled="!hasNext" @click="$emit('next', $event)">
             <PIcon source="ArrowRightMinor" />
         </button>
     </nav>
