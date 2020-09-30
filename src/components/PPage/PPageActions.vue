@@ -10,7 +10,9 @@
                    :destructive="primaryAction.destructive"
                    :disabled="primaryAction.disabled"
                    :icon="primaryAction.icon"
-                   :accessibility-label="primaryAction.accessibilityLabel">
+                   :accessibility-label="primaryAction.accessibilityLabel"
+                   :loading="primaryAction.loading"
+          >
             {{ primaryAction.content }}
           </PButton>
         </slot>
@@ -25,7 +27,9 @@
                      :destructive="secondaryAction.destructive"
                      :disabled="secondaryAction.disabled"
                      :icon="secondaryAction.icon"
-                     :accessibility-label="secondaryAction.accessibilityLabel">
+                     :accessibility-label="secondaryAction.accessibilityLabel"
+                     :loading="secondaryAction.loading"
+                    >
               {{ secondaryAction.content }}
             </PButton>
           </slot>
