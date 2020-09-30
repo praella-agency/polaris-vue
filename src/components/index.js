@@ -37,6 +37,7 @@ import { PAvatar } from './PAvatar';
 import { PModal } from './PModal';
 import { PInlineError } from './PInlineError';
 import { PPagination } from './PPagination';
+import { PCaption } from './PCaption';
 
 import '@/scss/main.scss';
 
@@ -79,6 +80,7 @@ const Components = {
   PModal,
   PInlineError,
   PPagination,
+  PCaption,
 };
 
 const PolarisVue = {
