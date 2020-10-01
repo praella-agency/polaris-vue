@@ -9,7 +9,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
 
 type Size = 'small' | 'medium' | 'large' | 'extraLarge';
-type HeadingTagName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
+type HeadingTagName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
 
 @Component
 export default class PDisplayText extends Vue {

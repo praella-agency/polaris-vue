@@ -39,6 +39,8 @@ import { PInlineError } from './PInlineError';
 import { PPagination } from './PPagination';
 import { PCaption } from './PCaption';
 import { PProgressBar } from './PProgressBar';
+import { PResourceList, PResourceListItem } from './PResourceList';
+import { PActionList } from './PActionList';
 
 import '@/scss/main.scss';
 
@@ -83,6 +85,8 @@ const Components = {
   PPagination,
   PCaption,
   PProgressBar,
+  PResourceList, PResourceListItem,
+  PActionList,
 };
 
 const PolarisVue = {
