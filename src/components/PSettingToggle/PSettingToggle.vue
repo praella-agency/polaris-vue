@@ -12,7 +12,7 @@
                       :disabled="action.disabled"
                       :destructive="action.destructive"
                       :icon="action.icon">
-        {{ enabled ? 'Disable' : 'Enable' }}
+        {{ action.contentStatus }}
       </PButton>
     </PSettingAction>
   </PCard>
