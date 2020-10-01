@@ -7,7 +7,6 @@
 <script lang="ts">
 
     import { Component, Vue, Prop } from 'vue-property-decorator';
-    import {classNames} from '@/utilities/css';
 
     @Component
     export default class PUnstyledLink extends Vue {

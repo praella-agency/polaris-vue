@@ -1,9 +1,7 @@
 <template>
 
     <div :class="className">
-        <div class="Polaris-ResourceList__FiltersWrapper" v-if="$slots.filter">
-            <slot name="filter" />
-        </div>
+
 
         <!--<div class="Polaris-EmptyState Polaris-EmptyState&#45;&#45;withinContentContainer">
             <div class="Polaris-EmptyState__Section">
@@ -26,16 +24,27 @@
             </div>
         </div>-->
 
-        <PResourceListHeader
-                v-bind="$attrs"
-                :selectable="selectable"
-                :selectedItems="computedValue"
-                :checked="checked"
-                :checkedAll="checkedAll"
-                :count="count"
-                v-on="$listeners"
-                @toggle-all="onToggledAll($event)" />
+        <div class="Polaris-ResourceList__HeaderOuterWrapper">
+            <PResourceListHeader
+                    v-bind="$attrs"
+                    :selectable="selectable"
+                    :selectedItems="computedValue.selected"
+                    :selectedMore="computedValue.selectedMore"
+                    :checked="checked"
+                    :checkedCount="checkedCount"
+                    :checkedAll="checkedAll"
+                    :count="count"
+                    :hasMore="hasMore"
+                    v-on="$listeners"
+                    @toggle-all="onToggledAll($event)"
+                    @toggle-select-more="onSelectMore"
+            />
+        </div>
 
+        <ul class="Polaris-ResourceList" aria-live="polite">
+
+            <slot/>
+        </ul>
 
     </div>
 </template>
@@ -45,7 +54,7 @@
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import { classNames, variationName } from '@/utilities/css';
     import {PImage} from '@/components/PImage';
-    import PResourceListHeader from '@/components/PResourceList/PResourceListHeader.vue';
+    import PResourceListHeader from '@/components/PResourceList/components/PResourceListHeader.vue';
 
     @Component({
         components: {
@@ -58,8 +67,10 @@
         @Prop(String) public source!: string;
         @Prop(Array) public selected!: number[];
         @Prop(Boolean) public selectable!: boolean;
+        @Prop(Boolean) public hasMore!: boolean;
 
         public selectedItems = this.selected ? this.selected : [];
+        public selectedMore :boolean = false;
 
         public get count() {
 
@@ -78,26 +89,35 @@
         }
 
         public get checked() {
+            return this.checkedCount > 0;
+        }
 
-            return this.selected.length > 0;
+        public get checkedCount() {
+            return this.selected.length;
         }
 
         public get computedValue() {
-            return this.selectedItems;
+            return {selected: this.selectedItems, selectedMore: this.selectedMore};
         }
 
-        public set computedValue(selected: any[]) {
-            this.selectedItems = selected;
-            this.$emit('change', selected);
+        public set computedValue(items: any) {
+            this.selectedItems = items.selected;
+            this.selectedMore = items.selectedMore;
+            this.$emit('change', items);
         }
 
         public onToggledAll(checked) {
 
             if (checked) {
-                this.computedValue = []
+                this.computedValue = { selected: [], selectedMore: false }
             } else {
-                this.computedValue = [1,2,3]
+                this.computedValue = { ...this.computedValue, ...{ selected: 'all' } }
             }
+        }
+
+        public onSelectMore() {
+
+            this.computedValue = { ...this.computedValue, ...{ selected: 'all', selectedMore: !this.selectedMore } }
         }
     }
 </script>

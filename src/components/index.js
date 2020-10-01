@@ -33,6 +33,8 @@ import { PLink } from './PLink';
 import { PImage } from './PImage';
 import { PThumbnail } from './PThumbnail';
 import { PAvatar } from './PAvatar';
+import { PResourceList, PResourceListItem } from './PResourceList';
+import { PActionList } from './PActionList';
 
 import '@/scss/main.scss';
 
@@ -71,6 +73,8 @@ const Components = {
   PImage,
   PThumbnail,
   PAvatar,
+  PResourceList, PResourceListItem,
+  PActionList,
 };
 
 const PolarisVue = {

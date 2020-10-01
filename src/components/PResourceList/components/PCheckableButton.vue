@@ -3,7 +3,7 @@
         <div class="Polaris-ResourceList-CheckableButton__Checkbox">
             <PCheckbox label="Select all 2 customers" :checked="checkedAll" :indeterminate="!checkedAll && checked" labelHidden :id="id"></PCheckbox>
         </div>
-        <span class="Polaris-ResourceList-CheckableButton__Label">Showing 2 customers</span>
+        <span class="Polaris-ResourceList-CheckableButton__Label"><slot/></span>
     </div>
 </template>
 
@@ -53,6 +53,8 @@
         public get className() {
             return classNames(
                 'Polaris-ResourceList-CheckableButton',
+                this.checked && 'Polaris-ResourceList-CheckableButton__CheckableButton--selected',
+                this.checked && 'Polaris-ResourceList-CheckableButton__CheckableButton--selectMode',
                 this.primary && 'Polaris-ResourceList-CheckableButton__CheckableButton--primary',
                 this.outline && 'Polaris-ResourceList-CheckableButton__CheckableButton--outline',
                 this.destructive && 'Polaris-ResourceList-CheckableButton__CheckableButton--destructive',
@@ -69,7 +71,7 @@
 
         public handleToggleAll() {
 
-            this.$emit('toggle-all',this.checkedAll)
+            this.$emit('toggle-all',this.checked)
         }
 
         public get isDisabled() {
