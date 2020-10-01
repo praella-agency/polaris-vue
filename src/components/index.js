@@ -28,8 +28,19 @@ import { PColorPicker } from './PColorPicker';
 import { PTabs } from './PTabs';
 import { PRadioButton } from './PRadioButton';
 import { PConnected } from './PConnected';
+import { PUnstyledLink } from './PUnstyledLink';
+import { PLink } from './PLink';
+import { PList, PListItem } from './PList';
 import { PImage } from './PImage';
 import { PThumbnail } from './PThumbnail';
+import { PAvatar } from './PAvatar';
+import { PModal } from './PModal';
+import { PInlineError } from './PInlineError';
+import { PPagination } from './PPagination';
+import { PCaption } from './PCaption';
+import { PProgressBar } from './PProgressBar';
+import { PResourceList, PResourceListItem } from './PResourceList';
+import { PActionList } from './PActionList';
 
 import '@/scss/main.scss';
 
@@ -63,8 +74,19 @@ const Components = {
   PTabs,
   PRadioButton,
   PConnected,
+  PUnstyledLink,
+  PLink,
+  PList, PListItem,
   PImage,
-  PThumbnail
+  PThumbnail,
+  PAvatar,
+  PModal,
+  PInlineError,
+  PPagination,
+  PCaption,
+  PProgressBar,
+  PResourceList, PResourceListItem,
+  PActionList,
 };
 
 const PolarisVue = {

@@ -17,11 +17,12 @@
         <slot name="connectedRight">{{ connectedRight }}</slot>
       </template>
 
-      <PInput v-bind="$attrs" v-on="$listeners"></PInput>
+      <PInput v-bind="$attrs" v-on="$listeners" :hasError="error?true:false"></PInput>
     </PConnected>
 
-    <PInput v-else v-bind="$attrs" v-on="$listeners"></PInput>
+    <PInput v-else v-bind="$attrs" v-on="$listeners" :hasError="error?true:false"></PInput>
     <div class="Polaris-Labelled__HelpText" v-if="helpText">{{helpText}}</div>
+    <PFieldError v-if="error" :error="error"/>
   </div>
 </template>
 
@@ -29,9 +30,10 @@
   import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
   import PInput from './components/PInput.vue';
   import PConnected from '../PConnected/PConnected.vue';
+  import {PFieldError} from '@/components/PFieldError';
 
   @Component({
-    components: {PInput, PConnected},
+    components: {PInput, PConnected, PFieldError},
   })
   export default class PTextField extends Vue {
     @Prop(String) public label!: string;
@@ -40,5 +42,6 @@
     @Prop(String) public helpText!: string;
     @Prop(String) public connectedLeft!: string;
     @Prop(String) public connectedRight!: string;
+    @Prop(String) public error!: string;
   }
 </script>

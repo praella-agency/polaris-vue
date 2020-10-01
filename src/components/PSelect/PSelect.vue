@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div :class="labelHidden && 'Polaris-Labelled--hidden'">
         <div class="Polaris-Labelled__LabelWrapper">
             <div class="Polaris-Label">
                 <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text">
@@ -20,6 +20,7 @@
                 </option>
             </select>
             <div class="Polaris-Select__Content" aria-hidden="true" :aria-disabled="disabled">
+                <span v-if="inlineLabel" class="Polaris-Select__InlineLabel">{{inlineLabel}}</span>
                 <span class="Polaris-Select__SelectedOption">{{ selectedOption }}</span>
                 <span class="Polaris-Select__Icon">
           <PIcon :source="ArrowUpDownMinor"></PIcon>
@@ -27,6 +28,7 @@
             </div>
             <div class="Polaris-Select__Backdrop"></div>
         </div>
+        <PFieldError v-if="error" :error="error"/>
     </div>
 </template>
 
@@ -34,8 +36,8 @@
     import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
     import { ArrowUpDownMinor } from '@/assets/shopify-polaris-icons';
     import {classNames} from '@/utilities/css';
-
     import {PIcon} from '@/components/PIcon';
+    import {PFieldError} from '@/components/PFieldError';
 
     interface StrictOption {
         value: string;
@@ -60,7 +62,7 @@
     }
 
     @Component({
-        components: {PIcon},
+        components: {PIcon, PFieldError},
         mixins: [
             {
                 data() {
@@ -73,10 +75,13 @@
         @Prop({type: String, default: `PolarisSelect${new Date().getUTCMilliseconds()}`}) public id!: string;
         @Prop(String) public name!: string;
         @Prop(Boolean) public disabled!: boolean;
+        @Prop(Boolean) public labelHidden!: boolean;
         @Prop(String) public label!: string;
         @Prop({type: Array, default: []}) public options!: [];
         @Prop({type: String, default: PLACEHOLDER_VALUE}) public value!: string;
         @Prop(String) public placeholder!: string;
+        @Prop(String) public error!: string;
+        @Prop(String) public inlineLabel!: string;
 
         public selected = this.value;
 
@@ -117,6 +122,7 @@
             return classNames(
                 'Polaris-Select',
                 this.disabled && 'Polaris-Select--disabled',
+                this.error && 'Polaris-Select--error',
             );
         }
 

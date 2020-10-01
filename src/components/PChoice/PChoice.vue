@@ -6,14 +6,7 @@
     </label>
     <div v-if="typeof error === 'string' || helpText || $slots.helpText"
          class="Polaris-Choice__Descriptions">
-      <div v-if="typeof error === 'string'"
-           class="Polaris-Choice__Error"
-           :id="id+'Error'">
-        <div class="Polaris-Choice__ErrorIcon">
-          <slot name="icon" />
-          {{ error }}
-        </div>
-      </div>
+      <PFieldError v-if="typeof error === 'string'" :error="error"/>
       <div v-if="helpText || $slots.helpText"
            class="Polaris-Choice__HelpText"
            :id="id+'HelpText'">
@@ -26,8 +19,12 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
+import {PFieldError} from '@/components/PFieldError';
 
-@Component
+
+@Component({
+  components: { PFieldError},
+})
 export default class PChoice extends Vue {
   @Prop({type: String, default: `PolarisChoice${new Date().getUTCMilliseconds()}`}) public id!: string;
   @Prop(String) public label!: string;

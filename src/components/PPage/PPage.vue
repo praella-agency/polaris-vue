@@ -6,7 +6,9 @@
       :subtitle="subtitle"
       :titleHidden="titleHidden"
       :separator="separator"
-      :breadcrumbs="breadcrumbs">
+      :breadcrumbs="breadcrumbs"
+      :secondaryActions="secondaryActions"
+    >
     </PPageHeader>
     <div class="Polaris-Page__Content">
       <slot/>
@@ -33,6 +35,7 @@ export default class PPage extends Vue {
   @Prop(Boolean) public fullWidth!: boolean;
   @Prop(Boolean) public narrowWidth!: boolean;
   @Prop(Array) public breadcrumbs!: BreadcrumbsData;
+  @Prop(Array) public secondaryActions!: [];
 
   public get className() {
     return classNames(
