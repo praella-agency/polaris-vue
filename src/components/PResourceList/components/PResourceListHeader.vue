@@ -133,11 +133,6 @@
     import ComponentHelpers from "@/ComponentHelpers";
     import {PSelect} from "@/components/PSelect";
 
-    interface ResourceNameInterface {
-        singular: string;
-        plural: string;
-    }
-
     interface BulkActionsInterface {
         content: string;
         onAction: void;
@@ -156,7 +151,7 @@
     export default class PResourceListHeader extends Vue {
 
         @Prop({type: String, default: `PolarisPopover${ComponentHelpers.uuid()}`}) public popoverId!: string;
-        @Prop({required: true, type: Object}) public resourceName!: ResourceNameInterface;
+        @Prop(String) public resourceTitle!: string;
         @Prop(Object) public promotedBulkActions!: object;
         @Prop(Array) public bulkActions!: Array<BulkActionsInterface>;
         @Prop(Array) public sortOptions!: Array<SortOptionsInterface>;
@@ -191,12 +186,6 @@
 
                 return `${this.checkedCount}${this.selectedMore?'+':''} selected`
             }
-        }
-
-        public get resourceTitle() {
-
-            const resourceName: ResourceNameInterface = this.resourceName;
-            return this.count > 1 ? resourceName.plural : resourceName.singular;
         }
 
         public handleToggleSelectMore() {

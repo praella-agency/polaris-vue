@@ -41,6 +41,8 @@ import { PCaption } from './PCaption';
 import { PProgressBar } from './PProgressBar';
 import { PResourceList, PResourceListItem } from './PResourceList';
 import { PActionList } from './PActionList';
+import { PTag } from './PTag';
+import { PFilter, PFilterItem } from './PFilter';
 
 import '@/scss/main.scss';
 
@@ -87,6 +89,8 @@ const Components = {
   PProgressBar,
   PResourceList, PResourceListItem,
   PActionList,
+  PTag,
+  PFilter, PFilterItem,
 };
 
 const PolarisVue = {
