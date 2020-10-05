@@ -43,7 +43,7 @@ import { PResourceList, PResourceListItem } from './PResourceList';
 import { PActionList } from './PActionList';
 import { PTag } from './PTag';
 import { PFilter, PFilterItem } from './PFilter';
-import { PPOptionList } from './PPOptionList';
+import { POptionList } from './POptionList';
 
 import '@/scss/main.scss';
 
@@ -92,7 +92,7 @@ const Components = {
   PActionList,
   PTag,
   PFilter, PFilterItem,
-  PPOptionList,
+  POptionList,
 };
 
 const PolarisVue = {
