@@ -24,6 +24,12 @@
             </div>
         </div>-->
 
+        <div class="Polaris-ResourceList__FiltersWrapper">
+            <PFilter v-bind="$attrs" :resourceTitle="resourceTitle" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
+                <slot name="filter" ></slot>
+            </PFilter>
+        </div>
+
         <div class="Polaris-ResourceList__HeaderOuterWrapper">
             <PResourceListHeader
                     v-bind="$attrs"
@@ -31,9 +37,10 @@
                     :selectedItems="computedValue.selected"
                     :selectedMore="computedValue.selectedMore"
                     :checked="checked"
-                    :checkedCount="checkedCount"
-                    :checkedAll="checkedAll"
-                    :count="count"
+                    :resourceTitle="resourceTitle"
+                    :checkedCount="checkedCount()"
+                    :checkedAll="checkedAll()"
+                    :count="count()"
                     :hasMore="hasMore"
                     v-on="$listeners"
                     @toggle-all="onToggledAll($event)"
@@ -42,7 +49,6 @@
         </div>
 
         <ul class="Polaris-ResourceList" aria-live="polite">
-
             <slot/>
         </ul>
 
@@ -55,9 +61,16 @@
     import { classNames, variationName } from '@/utilities/css';
     import {PImage} from '@/components/PImage';
     import PResourceListHeader from '@/components/PResourceList/components/PResourceListHeader.vue';
+    import PFilter from "@/components/PFilter/PFilter.vue";
+
+    interface ResourceNameInterface {
+        singular: string;
+        plural: string;
+    }
 
     @Component({
         components: {
+            PFilter,
             PResourceListHeader,
             PImage,
         },
@@ -68,11 +81,13 @@
         @Prop(Array) public selected!: number[];
         @Prop(Boolean) public selectable!: boolean;
         @Prop(Boolean) public hasMore!: boolean;
+        @Prop({required: true, type: Object}) public resourceName!: ResourceNameInterface;
 
         public selectedItems = this.selected ? this.selected : [];
         public selectedMore :boolean = false;
+        public selectedAll :boolean = false;
 
-        public get count() {
+        public count() {
 
             return this.$slots.default ? this.$slots.default.length : 0;
         }
@@ -83,25 +98,32 @@
             );
         }
 
-        public get checkedAll() {
+        public checkedAll() {
 
             return this.$slots.default && this.$slots.default.length === this.selected.length;
         }
 
         public get checked() {
-            return this.checkedCount > 0;
+            return this.checkedCount() > 0;
         }
 
-        public get checkedCount() {
+
+        public get resourceTitle() {
+
+            const resourceName: ResourceNameInterface = this.resourceName;
+            return this.count() > 1 ? resourceName.plural : resourceName.singular;
+        }
+
+        public checkedCount() {
             return this.selected.length;
         }
 
         public get computedValue() {
-            return {selected: this.selectedItems, selectedMore: this.selectedMore};
+            return { selected: this.selectedItems, selectedAll: this.selectedAll, selectedMore: this.selectedMore };
         }
 
         public set computedValue(items: any) {
-            this.selectedItems = items.selected;
+            this.selectedAll = items.selectedAll;
             this.selectedMore = items.selectedMore;
             this.$emit('change', items);
         }
@@ -109,15 +131,25 @@
         public onToggledAll(checked) {
 
             if (checked) {
-                this.computedValue = { selected: [], selectedMore: false }
+                this.computedValue = { selectedAll: false, selectedMore: false }
             } else {
-                this.computedValue = { ...this.computedValue, ...{ selected: 'all' } }
+                this.computedValue = { ...this.computedValue, ...{ selectedAll: true } }
             }
         }
 
         public onSelectMore() {
 
-            this.computedValue = { ...this.computedValue, ...{ selected: 'all', selectedMore: !this.selectedMore } }
+            this.computedValue = { ...this.computedValue, ...{ selectedAll: true, selectedMore: !this.selectedMore } }
+        }
+
+        public onRemoveFilter(tag) {
+
+            this.$emit('filter-removed',tag)
+        }
+
+        public onFilterInputChanged(value) {
+
+            this.$emit('input-filter-changed',value)
         }
     }
 </script>

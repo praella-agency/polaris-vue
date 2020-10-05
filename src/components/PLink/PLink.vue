@@ -7,14 +7,14 @@
             </span>
         </span>
     </PUnstyledLink>
-    <PButton v-else type="button" :id="id" :class="className" v-on="$listeners">
+    <button v-else type="button" :id="id" :class="className" v-on="$listeners">
         <slot/>
         <span v-if="isStringSlot" class="Polaris-Link__IconLockup">
             <span class="Polaris-Link__IconLayout">
                 <PIcon source="ExternalSmallMinor" />
             </span>
         </span>
-    </PButton>
+    </button>
 </template>
 
 <script lang="ts">

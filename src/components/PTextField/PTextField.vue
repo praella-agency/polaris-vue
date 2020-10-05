@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="labelHidden && 'Polaris-Labelled--hidden'">
     <div class="Polaris-Labelled__LabelWrapper" v-if="label" :class="labelClass">
       <div class="Polaris-Label">
         <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text">
@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <PConnected v-if="$slots.hasOwnProperty('connectedLeft') || $slots.hasOwnProperty('connectedRight')">
+    <PConnected v-if="connected">
       <template v-if="$slots.hasOwnProperty('connectedLeft')" slot="left">
         <slot name="connectedLeft">{{ connectedLeft }}</slot>
       </template>
@@ -17,10 +17,14 @@
         <slot name="connectedRight">{{ connectedRight }}</slot>
       </template>
 
-      <PInput v-bind="$attrs" v-on="$listeners" :hasError="error?true:false"></PInput>
+      <PInput v-bind="$attrs" v-on="$listeners" :hasError="!!error" :id="id">
+        <slot name="prefix" slot="prefix"></slot>
+      </PInput>
     </PConnected>
 
-    <PInput v-else v-bind="$attrs" v-on="$listeners" :hasError="error?true:false"></PInput>
+    <PInput v-else v-bind="$attrs" v-on="$listeners" :hasError="!!error" :id="id">
+      <slot name="prefix" slot="prefix"></slot>
+    </PInput>
     <div class="Polaris-Labelled__HelpText" v-if="helpText">{{helpText}}</div>
     <PFieldError v-if="error" :error="error"/>
   </div>
@@ -33,7 +37,7 @@
   import {PFieldError} from '@/components/PFieldError';
 
   @Component({
-    components: {PInput, PConnected, PFieldError},
+    components: { PInput, PConnected, PFieldError },
   })
   export default class PTextField extends Vue {
     @Prop(String) public label!: string;
@@ -43,5 +47,7 @@
     @Prop(String) public connectedLeft!: string;
     @Prop(String) public connectedRight!: string;
     @Prop(String) public error!: string;
+    @Prop(Boolean) public connected!: boolean;
+    @Prop(Boolean) public labelHidden!: boolean;
   }
 </script>

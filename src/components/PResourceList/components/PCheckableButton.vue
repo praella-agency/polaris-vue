@@ -71,7 +71,7 @@
 
         public handleToggleAll() {
 
-            this.$emit('toggle-all',this.checked)
+            this.$emit('toggle-all',this.checkedAll)
         }
 
         public get isDisabled() {
