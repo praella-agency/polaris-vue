@@ -14,7 +14,7 @@
   type Position = 'Left' | 'Primary' | 'Right';
 
   @Component
-  export default class PDataTableCell extends Vue {
+  export default class PConnectedItem extends Vue {
     @Prop(String) public position!: Position;
     @Prop(String) public children!: string;
     @Prop(Boolean) public focused!: boolean;

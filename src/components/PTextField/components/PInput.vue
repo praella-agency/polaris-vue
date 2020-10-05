@@ -2,7 +2,7 @@
   <div :class="className" v-show="showInput">
     <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix"
          :class="prefixClass">
-      {{prefix}}
+      <slot name="prefix"></slot>
     </div>
     <input
 
@@ -36,6 +36,10 @@
       {{suffix}}
     </div>
     <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
+    <!--<button type="button" class="Polaris-TextField__ClearButton" v-if="computedValue && showClearButton" @click="onClear">
+      <span class="Polaris-VisuallyHidden">Clear</span>
+      <PIcon source="CircleCancelMinor" color="inkLightest"></PIcon>
+    </button>-->
     <div class="Polaris-TextField__Backdrop"></div>
 
     <PFieldResizer
@@ -50,10 +54,11 @@
 
 
 <script lang="ts">
-  import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
+  import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   import {classNames} from '@/utilities/css';
   import PSpinner from './PSpinner.vue';
   import PFieldResizer from '@/components/PTextField/components/PFieldResizer.vue';
+  import { PIcon } from '@/components/PIcon';
 
   type Type =
           | 'text'
@@ -71,7 +76,7 @@
           | 'currency';
 
   @Component({
-    components: {PFieldResizer, PSpinner},
+    components: { PFieldResizer, PSpinner, PIcon  },
   })
   export default class PInput extends Vue {
     @Prop(String) public label!: string;
@@ -85,6 +90,7 @@
     @Prop({type: Boolean, default: true}) public showInput!: boolean;
     @Prop(Boolean) public showSuffix!: boolean;
     @Prop(Boolean) public showPrefix!: boolean;
+    @Prop(Boolean) public showClearButton!: boolean;
     @Prop(String) public prefixClass!: string;
     @Prop(Boolean) public autoFocus!: boolean;
     @Prop(Boolean) public autoComplete!: boolean;
@@ -148,6 +154,12 @@
         if (event.target) {
           this.computedValue = event.target.value;
         }
+      });
+    }
+
+    public onClear(event: any) {
+      this.$nextTick(() => {
+        this.computedValue = undefined;
       });
     }
 
