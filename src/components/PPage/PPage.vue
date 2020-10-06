@@ -1,52 +1,46 @@
 <template>
-  <div :class="className">
-    <PPageHeader
-      v-if="hasHeaderContent"
-      :title="title"
-      :subtitle="subtitle"
-      :titleHidden="titleHidden"
-      :separator="separator"
-      :breadcrumbs="breadcrumbs"
-      :secondaryActions="secondaryActions"
-    >
-    </PPageHeader>
-    <div class="Polaris-Page__Content">
-      <slot/>
+    <div :class="className">
+        <PPageHeader v-if="hasHeaderContent" v-bind="$attrs" v-on="$listeners" />
+        <div class="Polaris-Page__Content">
+            <slot/>
+        </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
 
-import PPageHeader from './PPageHeader.vue';
-type BreadcrumbsData = string | number;
+    import {Component, Vue, Prop} from 'vue-property-decorator';
+    import {classNames, variationName} from '@/utilities/css';
+    import {PPageHeader, PPageHeaderProps} from './components';
 
-@Component({
-  components: { PPageHeader },
-})
+    export interface PPageProps extends PPageHeaderProps {
+      fullWidth?: boolean;
+      narrowWidth?: boolean;
+    }
 
-export default class PPage extends Vue {
-  @Prop(String) public title!: string;
-  @Prop(String) public subtitle!: string;
-  @Prop(Boolean) public titleHidden!: boolean;
-  @Prop(Boolean) public separator!: boolean;
-  @Prop(Boolean) public fullWidth!: boolean;
-  @Prop(Boolean) public narrowWidth!: boolean;
-  @Prop(Array) public breadcrumbs!: BreadcrumbsData;
-  @Prop(Array) public secondaryActions!: [];
+    @Component({
+        components: {
+          PPageHeader,
+        },
+    })
+    export default class PPage extends Vue {
+        @Prop(Boolean) public fullWidth!: boolean;
+        @Prop(Boolean) public narrowWidth!: boolean;
 
-  public get className() {
-    return classNames(
-      'Polaris-Page',
-      this.fullWidth && 'Polaris-Page--fullWidth',
-      this.narrowWidth && 'Polaris-Page--narrowWidth',
-    );
-  }
+        public get hasHeaderContent() {
+          return (this.$props.title != null && this.$props.title !== '') ||
+                  this.$props.primaryAction != null ||
+                  (this.$props.secondaryActions != null && this.$props.secondaryActions.length > 0) ||
+                  (this.$props.actionGroups != null && this.$props.actionGroups.length > 0) ||
+                  (this.$props.breadcrumbs != null && this.$props.breadcrumbs.length > 0);
+        }
 
-  public get hasHeaderContent() {
-    return (this.title != null && this.title !== '');
-  }
-}
+      public get className() {
+        return classNames(
+                'Polaris-Page',
+                this.fullWidth && 'Polaris-Page--fullWidth',
+                this.narrowWidth && 'Polaris-Page--narrowWidth',
+        );
+      }
+    }
 </script>

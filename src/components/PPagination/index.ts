@@ -1,2 +1,1 @@
-import PPagination from './PPagination.vue';
-export { PPagination };
+export * from './PPagination.vue';

@@ -27,6 +27,18 @@
     import {PIcon} from '@/components/PIcon';
     import {PTextStyle} from '@/components/PTextStyle';
 
+    export interface PPaginationDescriptor {
+        nextTooltip?: string;
+        previousTooltip?: string;
+        nextURL?: string;
+        previousURL?: string;
+        hasNext?: boolean;
+        hasPrevious?: boolean;
+        accessibilityLabel?: string;
+        onNext?(): void;
+        onPrevious?(): void;
+    }
+
     @Component({
         components: {
             PUnstyledLink,
@@ -34,7 +46,7 @@
             PTextStyle,
         },
     })
-    export default class PPagination extends Vue {
+    export class PPagination extends Vue {
 
         @Prop(String) public nextURL!: string;
         @Prop(String) public previousURL!: string;
