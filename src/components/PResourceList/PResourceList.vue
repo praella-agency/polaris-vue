@@ -38,8 +38,8 @@
                     :selectedMore="computedValue.selectedMore"
                     :checked="checked"
                     :resourceTitle="resourceTitle"
-                    :checkedCount="checkedCount()"
-                    :checkedAll="checkedAll()"
+                    :checkedCount="checkedCount"
+                    :checkedAll="checkedAll"
                     :count="count()"
                     :hasMore="hasMore"
                     v-on="$listeners"
@@ -100,15 +100,14 @@
             );
         }
 
-        public checkedAll() {
+        public get checkedAll() {
 
-            return this.count() === this.selected.length;
+            return this.count() === this.checkedCount;
         }
 
         public get checked() {
-            return this.checkedCount() > 0;
+            return this.checkedCount > 0;
         }
-
 
         public get resourceTitle() {
 
@@ -116,7 +115,7 @@
             return this.count() > 1 ? resourceName.plural : resourceName.singular;
         }
 
-        public checkedCount() {
+        public get checkedCount() {
             return this.selected.length;
         }
 
