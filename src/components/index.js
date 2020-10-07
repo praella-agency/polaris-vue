@@ -47,6 +47,7 @@ import { PFilter, PFilterItem } from './PFilter';
 import { POptionList } from './POptionList';
 import { PBreadcrumbs } from './PBreadcrumbs';
 import { PActionMenu } from './PActionMenu';
+import { PPageActions } from './PPageActions';
 
 import '@/scss/main.scss';
 
@@ -99,6 +100,7 @@ const Components = {
   POptionList,
   PBreadcrumbs,
   PActionMenu,
+  PPageActions,
 };
 
 const PolarisVue = {
