@@ -41,6 +41,7 @@ import { PCaption } from './PCaption';
 import { PProgressBar } from './PProgressBar';
 import { PResourceList, PResourceListItem } from './PResourceList';
 import { PActionList } from './PActionList';
+import { PPopover } from './PPopover';
 import { PTag } from './PTag';
 import { PFilter, PFilterItem } from './PFilter';
 
@@ -89,6 +90,7 @@ const Components = {
   PProgressBar,
   PResourceList, PResourceListItem,
   PActionList,
+  PPopover,
   PTag,
   PFilter, PFilterItem,
 };
