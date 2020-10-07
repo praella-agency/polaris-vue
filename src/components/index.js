@@ -44,6 +44,7 @@ import { PActionList } from './PActionList';
 import { PPopover } from './PPopover';
 import { PTag } from './PTag';
 import { PFilter, PFilterItem } from './PFilter';
+import { POptionList } from './POptionList';
 import { PBreadcrumbs } from './PBreadcrumbs';
 import { PActionMenu } from './PActionMenu';
 
@@ -95,6 +96,7 @@ const Components = {
   PPopover,
   PTag,
   PFilter, PFilterItem,
+  POptionList,
   PBreadcrumbs,
   PActionMenu,
 };
