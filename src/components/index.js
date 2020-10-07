@@ -44,6 +44,7 @@ import { PActionList } from './PActionList';
 import { PPopover } from './PPopover';
 import { PTag } from './PTag';
 import { PFilter, PFilterItem } from './PFilter';
+import { POptionList } from './POptionList';
 
 import '@/scss/main.scss';
 
@@ -93,6 +94,7 @@ const Components = {
   PPopover,
   PTag,
   PFilter, PFilterItem,
+  POptionList,
 };
 
 const PolarisVue = {
