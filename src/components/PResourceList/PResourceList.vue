@@ -102,7 +102,7 @@
 
         public checkedAll() {
 
-            return this.$slots.default && this.$slots.default.length === this.selected.length;
+            return this.count() === this.selected.length;
         }
 
         public get checked() {
