@@ -1,30 +1,28 @@
 <template>
-    <div>
-        <PUnstyledLink v-if="url" :class="menuActionClassNames" :url="url" :external="external">
-            <span v-if="icon || disclosure" class="Polaris-ActionMenu-MenuAction__ContentWrapper">
-                <span v-if="icon" class="Polaris-ActionMenu-MenuAction__IconWrapper">
-                    <PIcon :source="icon" />
-                </span>
-                <span class="Polaris-ActionMenu-MenuAction__Content">{{content}}</span>
-                <span v-if="disclosure" class="Polaris-ActionMenu-MenuAction__IconWrapper">
-                    <PIcon source="CaretDownMinor" />
-                </span>
+    <PUnstyledLink v-if="url" :class="menuActionClassNames" :url="url" :external="external">
+        <span v-if="icon || disclosure" class="Polaris-ActionMenu-MenuAction__ContentWrapper">
+            <span v-if="icon" class="Polaris-ActionMenu-MenuAction__IconWrapper">
+                <PIcon :source="icon" />
             </span>
-            <template v-else>{{content}}</template>
-        </PUnstyledLink>
-        <button v-else type="button" :class="menuActionClassNames" :disabled="disabled" @click="$emit('click', $event)">
-            <span v-if="icon || disclosure" class="Polaris-ActionMenu-MenuAction__ContentWrapper">
-                <span v-if="icon" class="Polaris-ActionMenu-MenuAction__IconWrapper">
-                    <PIcon :source="icon" />
-                </span>
-                <span class="Polaris-ActionMenu-MenuAction__Content">{{content}}</span>
-                <span v-if="disclosure" class="Polaris-ActionMenu-MenuAction__IconWrapper">
-                    <PIcon source="CaretDownMinor" />
-                </span>
+            <span class="Polaris-ActionMenu-MenuAction__Content">{{content}}</span>
+            <span v-if="disclosure" class="Polaris-ActionMenu-MenuAction__IconWrapper">
+                <PIcon source="CaretDownMinor" />
             </span>
-            <template v-else>{{content}}</template>
-        </button>
-    </div>
+        </span>
+        <template v-else>{{content}}</template>
+    </PUnstyledLink>
+    <button v-else type="button" :class="menuActionClassNames" :disabled="disabled" @click="onAction()">
+        <span v-if="icon || disclosure" class="Polaris-ActionMenu-MenuAction__ContentWrapper">
+            <span v-if="icon" class="Polaris-ActionMenu-MenuAction__IconWrapper">
+                <PIcon :source="icon" />
+            </span>
+            <span class="Polaris-ActionMenu-MenuAction__Content">{{content}}</span>
+            <span v-if="disclosure" class="Polaris-ActionMenu-MenuAction__IconWrapper">
+                <PIcon source="CaretDownMinor" />
+            </span>
+        </span>
+        <template v-else>{{content}}</template>
+    </button>
 </template>
 
 <script lang="ts">
@@ -53,6 +51,7 @@
         @Prop(String) public icon!: string;
         @Prop(Boolean) public disclosure!: boolean;
         @Prop(Boolean) public disabled!: boolean;
+        @Prop({type: Function, default: null}) public onAction!: void;
 
         public get menuActionClassNames() {
 

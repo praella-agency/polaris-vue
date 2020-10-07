@@ -30,7 +30,7 @@
             PActionMenuRollupActions,
         }
     })
-    export class PActionMenu extends Vue {
+    export default class PActionMenu extends Vue {
 
         @Prop(Array) public actions!: MenuActionDescriptor[];
         @Prop(Array) public groups!: MenuGroupDescriptor[];

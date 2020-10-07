@@ -1,28 +1,7 @@
-<template>
-    <nav role="navigation">
-        <PUnstyledLink v-if="breadcrumb.url" :key="breadcrumb.content" :url="breadcrumb.url" class="Polaris-Breadcrumbs__Breadcrumb">
-            <span class="Polaris-Breadcrumbs__ContentWrapper">
-                <span class="Polaris-Breadcrumbs__Icon">
-                    <PIcon source="ChevronLeftMinor" />
-                </span>
-                <span class="Polaris-Breadcrumbs__Content">{{breadcrumb.content}}</span>
-            </span>
-        </PUnstyledLink>
-        <button v-else type="button" :key="breadcrumb.content" class="Polaris-Breadcrumbs__Breadcrumb" @click="$emit('click', $event)">
-            <span class="Polaris-Breadcrumbs__ContentWrapper">
-                <span class="Polaris-Breadcrumbs__Icon">
-                    <PIcon source="ChevronLeftMinor" />
-                </span>
-                <span class="Polaris-Breadcrumbs__Content">{{breadcrumb.content}}</span>
-            </span>
-        </button>
-    </nav>
-</template>
-
 <script lang="tsx">
 
     import { Component, Vue, Prop } from 'vue-property-decorator';
-    import { classNames, variationName } from '@/utilities/css';
+    import { classNames } from '@/utilities/css';
     import {CallbackAction, LinkAction} from '@/types';
     import {PUnstyledLink} from '@/components/PUnstyledLink';
     import {PIcon} from '@/components/PIcon';
@@ -37,21 +16,13 @@
             PIcon,
         },
     })
-    export class PBreadcrumbs extends Vue {
+    export default class PBreadcrumbs extends Vue {
 
-        public get breadcrumbs() {
-
-            return this.$props;
-        }
-
-        public get breadcrumb() {
-            return this.breadcrumbs[this.breadcrumbs.length - 1];
-        }
+        @Prop({type: Array, default: []}) public breadcrumbs!: PBreadcrumbsProps['breadcrumbs'];
 
         public render(h: any) {
 
-            const {breadcrumbs} = this.$props;
-            const breadcrumb = breadcrumbs[breadcrumbs.length - 1];
+            const breadcrumb = this.breadcrumbs[this.breadcrumbs.length - 1];
             if (breadcrumb == null) {
                 return null;
             }

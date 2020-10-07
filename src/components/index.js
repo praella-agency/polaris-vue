@@ -11,7 +11,7 @@ import { PFormLayout, PFormLayoutItem, PFormLayoutGroup } from './PFormLayout';
 import { PHeading } from './PHeading';
 import { PIcon } from './PIcon';
 import { PLayout, PLayoutAnnotatedSection, PLayoutSection } from './PLayout';
-import { PPage, PPageActions } from './PPage';
+import { PPage } from './PPage';
 import { PSelect } from './PSelect';
 import { PSkeletonBodyText } from './PSkeletonBodyText';
 import { PSkeletonDisplayText } from './PSkeletonDisplayText';
@@ -63,7 +63,7 @@ const Components = {
   PHeading,
   PIcon,
   PLayout, PLayoutAnnotatedSection, PLayoutSection,
-  PPage, PPageActions,
+  PPage,
   PSelect,
   PSkeletonBodyText,
   PSkeletonDisplayText,

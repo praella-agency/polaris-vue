@@ -1,6 +1,6 @@
 <template>
     <div :class="headerClassNames">
-        <div v-if="hasNavigation" class="Navigation">
+        <div v-if="hasNavigation" class="Polaris-Page-Header__Navigation">
             <div v-if="breadcrumbs.length > 0" class="Polaris-Page-Header__BreadcrumbWrapper">
                 <PBreadcrumbs :breadcrumbs="breadcrumbs" />
             </div>
@@ -8,7 +8,7 @@
                 <slot name="additionalNavigation" />
             </div>
             <div v-if="pagination" class="Polaris-Page-Header__PaginationWrapper">
-                <PPagination {...pagination} plain />
+                <PPagination v-bind="pagination" plain />
             </div>
         </div>
         <div class="Polaris-Page-Header__MainContent">
@@ -16,6 +16,7 @@
                 <div class="Polaris-Page-Header__TitleWrapper">
                     <PPageHeaderTitle :title="title" :subtitle="subtitle" :titleMetadata="titleMetadata">
                         <slot name="thumbnail" slot="thumbnail" />
+                        <slot name="titleMetadata" slot="titleMetadata" />
                     </PPageHeaderTitle>
                 </div>
                 <div v-if="hasActionMenu" class="Polaris-Page-Header__ActionMenuWrapper">
@@ -23,7 +24,7 @@
                 </div>
             </div>
             <div v-if="primaryAction" class="Polaris-Page-Header__PrimaryActionWrapper">
-                <PButton {...primaryAction} :primary="primaryAction.primary === undefined ? true : primaryAction.primary" @click="$emit('click', $event)">{{primaryAction.content}}</PButton>
+                <PButton v-bind="primaryAction" :primary="primaryAction.primary === undefined ? true : primaryAction.primary" @click="primaryAction.onAction()">{{primaryAction.content}}</PButton>
             </div>
         </div>
     </div>
@@ -45,7 +46,7 @@
     import {PBreadcrumbs, PBreadcrumbsProps} from '@/components/PBreadcrumbs';
     import {PPagination, PPaginationDescriptor} from '@/components/PPagination';
     import {PActionMenu, hasGroupsWithActions} from '@/components/PActionMenu';
-    import {PButtonGroup} from '@/components/PButtonGroup';
+    import {PButton} from '@/components/PButton';
     import {PPageHeaderTitle, PPageHeaderTitleProps} from './components';
 
     interface PrimaryAction
@@ -71,10 +72,13 @@
         components: {
             PBreadcrumbs,
             PPagination,
+            PPageHeaderTitle,
+            PActionMenu,
             PTextStyle,
+            PButton,
         },
     })
-    export class PPageHeader extends Vue {
+    export default class PPageHeader extends Vue {
 
         @Prop(String) public title!: string;
         @Prop(String) public subtitle!: string;
@@ -84,9 +88,9 @@
         @Prop(Boolean) public separator!: boolean;
         @Prop(Object) public primaryAction!: PrimaryAction;
         @Prop(Object) public pagination!: PPaginationDescriptor;
-        @Prop({type: Array, default: []}) public breadcrumbs!: PBreadcrumbsProps['breadcrumbs'];
-        @Prop({type: Array, default: []}) public secondaryActions!: MenuActionDescriptor[];
-        @Prop({type: Array, default: []}) public actionGroups!: MenuGroupDescriptor[];
+        @Prop({type: Array, default: () => []}) public breadcrumbs!: PBreadcrumbsProps['breadcrumbs'];
+        @Prop({type: Array, default: () => []}) public secondaryActions!: MenuActionDescriptor[];
+        @Prop({type: Array, default: () => []}) public actionGroups!: MenuGroupDescriptor[];
 
         public get hasNavigation() {
 
@@ -94,7 +98,7 @@
         }
 
         public get hasActionMenu() {
-            return this.secondaryActions.length > 0 || hasGroupsWithActions(this.actionGroups);
+            return this.secondaryActions.length > 0 || new hasGroupsWithActions(this.actionGroups);
         }
 
         public get headerClassNames() {

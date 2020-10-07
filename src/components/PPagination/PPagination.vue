@@ -13,7 +13,7 @@
         <PUnstyledLink v-if="nextURL" :class="nextClassName" :url="nextURL">
             <PIcon source="ArrowRightMinor" />
         </PUnstyledLink>
-        <button v-else type="button" :class="nextClassName" :disabled="!hasNext" @click="$emit('next', $event)">
+        <button v-else type="button" :class="nextClassName" :disabled="!hasNext" @click="onNext()">
             <PIcon source="ArrowRightMinor" />
         </button>
     </nav>
@@ -46,7 +46,7 @@
             PTextStyle,
         },
     })
-    export class PPagination extends Vue {
+    export default class PPagination extends Vue {
 
         @Prop(String) public nextURL!: string;
         @Prop(String) public previousURL!: string;
@@ -54,6 +54,8 @@
         @Prop(Boolean) public hasNext!: boolean;
         @Prop(Boolean) public hasPrevious!: boolean;
         @Prop(Boolean) public plain!: boolean;
+        @Prop({type: Function, default: null}) public onPrevious!: void;
+        @Prop({type: Function, default: null}) public onNext!: void;
 
         public get className() {
             return classNames(

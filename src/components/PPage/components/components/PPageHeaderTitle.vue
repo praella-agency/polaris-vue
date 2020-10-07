@@ -1,5 +1,4 @@
 <template>
-
     <div :class="pageTitleClassName">
         <div v-if="$slots.thumbnail">
             <slot name="thumbnail" />
@@ -34,7 +33,6 @@
     import {PDisplayText} from '@/components/PDisplayText';
     import {PTextStyle} from '@/components/PTextStyle';
     import {classNames} from '@/utilities/css';
-    // import * as styles from './PPageHeaderTitle.scss';
 
     export interface PPageHeaderTitleProps {
         title?: string;
@@ -48,7 +46,7 @@
             PTextStyle,
         },
     })
-    export class PPageHeaderTitle extends Vue {
+    export default class PPageHeaderTitle extends Vue {
 
         @Prop(String) public title!: string;
         @Prop(String) public subtitle!: string;
@@ -56,8 +54,12 @@
 
         public get pageTitleClassName() {
             return classNames(
-                this.$slots.thumbnail && 'Polaris-Header-Title--hasThumbnail',
+                this.hasThumbnailSlot() && 'Polaris-Header-Title--hasThumbnail',
             );
+        }
+
+        public hasThumbnailSlot() {
+            return !!this.$slots.thumbnail;
         }
     }
 </script>

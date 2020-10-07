@@ -37,8 +37,11 @@
         @Prop(String) public source!: string;
 
         public status = Status.Pending;
-        public hasImage = this.source && this.status !== Status.Errored;
         public nameString = this.name || this.initials;
+
+        public get hasImage() {
+            return this.source && this.status !== Status.Errored;
+        }
 
         public get className() {
             return classNames(
