@@ -89,7 +89,9 @@
 
         public count() {
 
-            return this.$slots.default ? this.$slots.default.length : 0;
+            return this.$slots.default ? this.$slots.default.filter(vnode => {
+                return vnode.tag != undefined
+            }).length : 0;
         }
 
         public get className() {
