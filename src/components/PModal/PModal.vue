@@ -1,52 +1,63 @@
 <template>
-  <div style="--top-bar-background:#00848e; --top-bar-background-lighter:#1d9ba4; --top-bar-color:#f9fafb; --p-frame-offset:0px;">
-      <slot name="activator"></slot>
-      <template v-if="open">
-        <div >
-          <div class="Polaris-Modal-Dialog__Container" data-polaris-layer="true" data-polaris-overlay="true">
-            <div>
-              <div role="dialog" aria-labelledby="Polarismodal-header10" tabindex="-1" class="Polaris-Modal-Dialog" style="outline: none;">
-                <div :class="sizeClassName" >
-                  <PModalHeader :title="title" @click="onClose.onAction" ></PModalHeader>
-                  <div class="Polaris-Modal__BodyWrapper">
-                    <div class="Polaris-Modal__Body Polaris-Scrollable Polaris-Scrollable--vertical" data-polaris-scrollable="true">
-                      <section class="Polaris-Modal-Section">
-                        <slot name="body"></slot>
-                      </section>
-                    </div>
+  <div>
+      <div v-if="open">
+          <PModalDialog :large="large" :limitHeight="limitHeight" v-if="open">
+              <PModalHeader v-if="title" @close="$emit('close', $event)">{{title}}</PModalHeader>
+              <PModalCloseButton v-else :title="false" @click="$emit('close', $event)" />
+              <div class="Polaris-Modal__BodyWrapper">
+                  <iframe v-if="src" :name="iFrameName" :src="src" class="Polaris-Modal__IFrame" />
+                  <div v-else class="Polaris-Modal__Body">
+                      <div v-if="loading" class="Polaris-Modal__Spinner">
+                          <PSpinner />
+                      </div>
+                      <template v-else>
+                          <PModalSection v-if="sectioned"><slot /></PModalSection>
+                          <slot v-else />
+                      </template>
                   </div>
-                  <PModalFooter :primaryAction="primaryAction" :secondaryActions="secondaryActions"></PModalFooter>
-                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="Polaris-Backdrop"></div>
-      </template>
-
+              <slot name="footer" v-if="!$slots.footer && !primaryAction && !secondaryActions" />
+              <PModalFooter v-else :primaryAction="primaryAction" :secondaryActions="secondaryActions" />
+          </PModalDialog>
+      </div>
+      <div v-if="open" class="Polaris-Backdrop"></div>
   </div>
 </template>
 
 <script lang="ts">
-  import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
-  import PModalHeader from './components/PModalHeader.vue';
-  import PModalFooter from './components/PModalFooter.vue';
-  import { PIcon } from '@/components/PIcon';
-  import { PButton } from '@/components/PButton';
+
+  import {Vue, Component, Prop} from 'vue-property-decorator';
   import {classNames} from '@/utilities/css';
+  import {PSpinner} from '@/components/PSpinner';
+  import PModalDialog from './PModalDialog.vue';
+  import PModalHeader from './PModalHeader.vue';
+  import PModalFooter from './PModalFooter.vue';
+  import PModalSection from './PModalSection.vue';
+  import PModalCloseButton from './PModalCloseButton.vue';
+
   @Component({
-    components: {PButton, PIcon, PModalHeader, PModalFooter },
+    components: {
+        PSpinner,
+        PModalDialog,
+        PModalHeader,
+        PModalFooter,
+        PModalSection,
+        PModalCloseButton
+    },
   })
   export default class PModel extends Vue {
-    @Prop(String) public label!: string;
-    @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
-    @Prop(String) public labelClass!: string;
+
+    @Prop(Boolean) public large!: boolean;
+    @Prop(Boolean) public limitHeight!: boolean;
+    @Prop(Boolean) public instant!: boolean;
+    @Prop(Boolean) public loading!: boolean;
     @Prop(Boolean) public open!: boolean;
-    @Prop(String) public title!: boolean;
-    @Prop(Object) public onClose!: object;
+    @Prop(Boolean) public sectioned!: boolean;
+    @Prop(String) public src!: string;
+    @Prop(String) public iFrameName!: string;
     @Prop(Object) public primaryAction!: object;
     @Prop(Array) public secondaryActions!: [];
-    @Prop(Boolean) public large!: boolean;
+    @Prop(String) public title!: string;
 
     public get sizeClassName() {
       return classNames(

@@ -43,7 +43,7 @@
         components: { PPopoverOverlay },
     })
 
-    export default class PRadioButton extends Vue {
+    export default class PPopover extends Vue {
         @Prop({type: String, default: `PolarisPopover${new Date().getUTCMilliseconds()}`}) public id!: string;
         @Prop(Boolean) public active!: boolean;
         @Prop({ type: String, default: 'below' }) public preferredPosition!: string;
