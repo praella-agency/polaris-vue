@@ -9,8 +9,8 @@
                             <PCheckbox label="Select item" :checked="checked" labelHidden :id="checkboxId" @change="handleChange"></PCheckbox>
                         </div>
                     </div>
-                    <div class="Polaris-ResourceItem__Media" v-if="image || initials || $slots.image">
-                        <PAvatar :hasImage="!!image" :source="image" :initials="initials"></PAvatar>
+                    <div class="Polaris-ResourceItem__Media" v-if="$slots.media">
+                        <slot name="media" />
                     </div>
                 </div>
                 <div class="Polaris-ResourceItem__Content">

@@ -3,7 +3,6 @@
     <FormExample/>
     <StructureExample/>
     <ActionsExample/>
-    <PageActionsExample/>
     <ColorExample/>
     <ThumbnailExample/>
     <TitlesAndTextExample/>
@@ -23,7 +22,6 @@ import {
   TitlesAndTextExample,
   FeedbackIndicatorsExample,
   ListsAndTablesExample,
-  PageActionsExample,
   ThumbnailExample,
 } from '@/examples';
 
@@ -32,7 +30,6 @@ import {
     FormExample,
     StructureExample,
     ActionsExample,
-    PageActionsExample,
     ColorExample,
     TitlesAndTextExample,
     FeedbackIndicatorsExample,

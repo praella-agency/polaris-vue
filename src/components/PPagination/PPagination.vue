@@ -13,7 +13,7 @@
         <PUnstyledLink v-if="nextURL" :class="nextClassName" :url="nextURL">
             <PIcon source="ArrowRightMinor" />
         </PUnstyledLink>
-        <button v-else type="button" :class="nextClassName" :disabled="!hasNext" @click="$emit('next', $event)">
+        <button v-else type="button" :class="nextClassName" :disabled="!hasNext" @click="onNext()">
             <PIcon source="ArrowRightMinor" />
         </button>
     </nav>
@@ -26,6 +26,18 @@
     import {PUnstyledLink} from '@/components/PUnstyledLink';
     import {PIcon} from '@/components/PIcon';
     import {PTextStyle} from '@/components/PTextStyle';
+
+    export interface PPaginationDescriptor {
+        nextTooltip?: string;
+        previousTooltip?: string;
+        nextURL?: string;
+        previousURL?: string;
+        hasNext?: boolean;
+        hasPrevious?: boolean;
+        accessibilityLabel?: string;
+        onNext?(): void;
+        onPrevious?(): void;
+    }
 
     @Component({
         components: {
@@ -42,6 +54,8 @@
         @Prop(Boolean) public hasNext!: boolean;
         @Prop(Boolean) public hasPrevious!: boolean;
         @Prop(Boolean) public plain!: boolean;
+        @Prop({type: Function, default: null}) public onPrevious!: void;
+        @Prop({type: Function, default: null}) public onNext!: void;
 
         public get className() {
             return classNames(

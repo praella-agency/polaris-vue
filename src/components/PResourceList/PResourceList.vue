@@ -78,7 +78,7 @@
     export default class PResourceList extends Vue {
 
         @Prop(String) public source!: string;
-        @Prop(Array) public selected!: number[];
+        @Prop({type: Array, default: () => []}) public selected!: number[];
         @Prop(Boolean) public selectable!: boolean;
         @Prop(Boolean) public hasMore!: boolean;
         @Prop({required: true, type: Object}) public resourceName!: ResourceNameInterface;

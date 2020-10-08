@@ -1,2 +1,4 @@
 import PPagination from './PPagination.vue';
-export { PPagination };
+import PPaginationDescriptor from './PPagination.vue';
+
+export {PPagination, PPaginationDescriptor};
