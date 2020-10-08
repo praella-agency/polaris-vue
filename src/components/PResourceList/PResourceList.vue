@@ -83,7 +83,7 @@
         @Prop(Boolean) public hasMore!: boolean;
         @Prop({required: true, type: Object}) public resourceName!: ResourceNameInterface;
 
-        public selectedItems = this.selected ? this.selected : [];
+        public selectedItems = this.selectable && this.selected ? this.selected : [];
         public selectedMore :boolean = false;
         public selectedAll :boolean = false;
 
@@ -106,7 +106,7 @@
         }
 
         public get checked() {
-            return this.checkedCount > 0;
+            return this.selectable && this.checkedCount > 0;
         }
 
         public get resourceTitle() {
@@ -116,7 +116,7 @@
         }
 
         public get checkedCount() {
-            return this.selected.length;
+            return this.selectable ? this.selected.length : 0;
         }
 
         public get computedValue() {
