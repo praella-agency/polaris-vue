@@ -11,7 +11,7 @@ import { PFormLayout, PFormLayoutItem, PFormLayoutGroup } from './PFormLayout';
 import { PHeading } from './PHeading';
 import { PIcon } from './PIcon';
 import { PLayout, PLayoutAnnotatedSection, PLayoutSection } from './PLayout';
-import { PPage, PPageActions } from './PPage';
+import { PPage } from './PPage';
 import { PSelect } from './PSelect';
 import { PSkeletonBodyText } from './PSkeletonBodyText';
 import { PSkeletonDisplayText } from './PSkeletonDisplayText';
@@ -45,6 +45,9 @@ import { PPopover } from './PPopover';
 import { PTag } from './PTag';
 import { PFilter, PFilterItem } from './PFilter';
 import { POptionList } from './POptionList';
+import { PBreadcrumbs } from './PBreadcrumbs';
+import { PActionMenu } from './PActionMenu';
+import { PPageActions } from './PPageActions';
 
 import '@/scss/main.scss';
 
@@ -61,7 +64,7 @@ const Components = {
   PHeading,
   PIcon,
   PLayout, PLayoutAnnotatedSection, PLayoutSection,
-  PPage, PPageActions,
+  PPage,
   PSelect,
   PSkeletonBodyText,
   PSkeletonDisplayText,
@@ -95,6 +98,9 @@ const Components = {
   PTag,
   PFilter, PFilterItem,
   POptionList,
+  PBreadcrumbs,
+  PActionMenu,
+  PPageActions,
 };
 
 const PolarisVue = {
