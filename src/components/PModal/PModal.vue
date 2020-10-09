@@ -1,7 +1,7 @@
 <template>
   <div>
       <div v-if="open">
-          <PModalDialog :large="large" :limitHeight="limitHeight" v-if="open">
+          <PModalDialog :large="large" :limitHeight="limitHeight">
               <PModalHeader v-if="title" @close="$emit('close', $event)">{{title}}</PModalHeader>
               <PModalCloseButton v-else :title="false" @click="$emit('close', $event)" />
               <div class="Polaris-Modal__BodyWrapper">
@@ -16,7 +16,7 @@
                       </template>
                   </div>
               </div>
-              <slot name="footer" v-if="!$slots.footer && !primaryAction && !secondaryActions" />
+              <slot name="footer" v-if="$slots.footer && !primaryAction && !secondaryActions" />
               <PModalFooter v-else :primaryAction="primaryAction" :secondaryActions="secondaryActions" />
           </PModalDialog>
       </div>
