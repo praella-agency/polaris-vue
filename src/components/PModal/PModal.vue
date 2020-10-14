@@ -17,7 +17,7 @@
                   </div>
               </div>
               <slot name="footer" v-if="$slots.footer && !primaryAction && !secondaryActions" />
-              <PModalFooter v-else :primaryAction="primaryAction" :secondaryActions="secondaryActions" />
+              <PModalFooter v-else-if="primaryAction || secondaryActions" :primaryAction="primaryAction" :secondaryActions="secondaryActions" />
           </PModalDialog>
       </div>
       <div v-if="open" class="Polaris-Backdrop"></div>
