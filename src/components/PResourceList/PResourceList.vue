@@ -102,7 +102,7 @@
 
         public get checkedAll() {
 
-            return this.count() === this.checkedCount;
+            return this.checked && this.count() === this.checkedCount;
         }
 
         public get checked() {
