@@ -4,8 +4,8 @@
             <a v-if="url" :aria-describedby="id" aria-label="View details" class="Polaris-ResourceItem__Link" tabindex="0" id="PolarisResourceListItemOverlay3" :href="url" data-polaris-unstyled="true"></a>
             <div class="Polaris-ResourceItem__Container" :id="id">
                 <div class="Polaris-ResourceItem__Owned">
-                    <div class="Polaris-ResourceItem__Handle">
-                        <div class="Polaris-ResourceItem__CheckboxWrapper" v-if="selectable">
+                    <div class="Polaris-ResourceItem__Handle" v-if="selectable">
+                        <div class="Polaris-ResourceItem__CheckboxWrapper">
                             <PCheckbox label="Select item" :checked="checked" labelHidden :id="checkboxId" @change="handleChange"></PCheckbox>
                         </div>
                     </div>
