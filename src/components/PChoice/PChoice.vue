@@ -2,7 +2,10 @@
   <div>
     <label :class="className" :for="id" @click="$emit('click', $event)">
       <span class="Polaris-Choice__Control"><slot/></span>
-      <span class="Polaris-Choice__Label">{{ label }}</span>
+      <span class="Polaris-Choice__Label">
+        <slot v-if="$slots.label" name="label" />
+        <template v-else>{{ label }}</template>
+      </span>
     </label>
     <div v-if="typeof error === 'string' || helpText || $slots.helpText"
          class="Polaris-Choice__Descriptions">
