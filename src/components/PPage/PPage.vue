@@ -9,6 +9,7 @@
             :actionGroups="actionGroups"
             v-bind="$attrs"
             v-on="$listeners">
+            <slot slot="primaryAction" name="primaryAction" />
             <slot slot="thumbnail" name="thumbnail" />
             <slot slot="titleMetadata" name="titleMetadata" />
             <slot slot="additionalNavigation" name="additionalNavigation" />

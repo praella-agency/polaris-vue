@@ -26,6 +26,7 @@
             <div v-if="primaryAction" class="Polaris-Page-Header__PrimaryActionWrapper">
                 <PButton v-bind="primaryAction" :primary="primaryAction.primary === undefined ? true : primaryAction.primary" @click="primaryAction.onAction()">{{primaryAction.content}}</PButton>
             </div>
+            <slot v-else name="primaryAction" />
         </div>
     </div>
 </template>
