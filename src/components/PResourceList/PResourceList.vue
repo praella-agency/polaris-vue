@@ -1,35 +1,10 @@
 <template>
-
     <div :class="className">
-
-
-        <!--<div class="Polaris-EmptyState Polaris-EmptyState&#45;&#45;withinContentContainer">
-            <div class="Polaris-EmptyState__Section">
-                <div class="Polaris-EmptyState__DetailsContainer">
-                    <div class="Polaris-EmptyState__Details">
-                        <div class="Polaris-TextContainer">
-                            <p class="Polaris-DisplayText Polaris-DisplayText&#45;&#45;sizeSmall">Upload a file to get started</p>
-                            <div class="Polaris-EmptyState__Content">
-                                <p>You can use the Files section to upload images, videos, and other documents</p>
-                            </div>
-                        </div>
-                        <div class="Polaris-EmptyState__Actions">
-                            <div class="Polaris-Stack Polaris-Stack&#45;&#45;alignmentCenter">
-                                <div class="Polaris-Stack__Item"><button type="button" class="Polaris-Button Polaris-Button&#45;&#45;primary"><span class="Polaris-Button__Content"><span class="Polaris-Button__Text">Upload files</span></span></button></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="Polaris-EmptyState__ImageContainer"><img src="https://cdn.shopify.com/s/files/1/2376/3301/products/emptystate-files.png" role="presentation" alt="" class="Polaris-EmptyState__Image"></div>
-            </div>
-        </div>-->
-
         <div class="Polaris-ResourceList__FiltersWrapper">
             <PFilter v-bind="$attrs" :resourceTitle="resourceTitle" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
                 <slot name="filter" ></slot>
             </PFilter>
         </div>
-
         <div class="Polaris-ResourceList__HeaderOuterWrapper">
             <PResourceListHeader
                     v-bind="$attrs"
@@ -47,11 +22,11 @@
                     @toggle-select-more="onSelectMore"
             />
         </div>
-
         <ul class="Polaris-ResourceList" aria-live="polite">
             <slot/>
         </ul>
 
+        <slot v-if="showEmptySearchState" name="emptySearchState" />
     </div>
 </template>
 
@@ -81,11 +56,16 @@
         @Prop({type: Array, default: () => []}) public selected!: number[];
         @Prop(Boolean) public selectable!: boolean;
         @Prop(Boolean) public hasMore!: boolean;
+        @Prop(Boolean) public loading!: boolean;
         @Prop({required: true, type: Object}) public resourceName!: ResourceNameInterface;
 
         public selectedItems = this.selectable && this.selected ? this.selected : [];
         public selectedMore :boolean = false;
         public selectedAll :boolean = false;
+
+        public itemsExist = this.$slots.default;
+        public showEmptyState = this.$slots.emptyState && !this.itemsExist && !this.loading;
+        public showEmptySearchState = !this.showEmptyState && !this.itemsExist && !this.loading;
 
         public count() {
 
