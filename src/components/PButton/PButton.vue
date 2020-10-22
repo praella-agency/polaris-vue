@@ -29,6 +29,11 @@
       <span v-if="!hasNoChildren" class="Polaris-Button__Text">
         <slot/>
       </span>
+      <span v-if="disclosure" class="Polaris-Button__Icon">
+        <div :class="disclosureIconClassName">
+          <PIcon :source="loading ? 'placeholder' : 'CaretDownMinor'" />
+        </div>
+      </span>
     </span>
   </component>
 </template>
@@ -65,6 +70,7 @@ export default class PButton extends Vue {
   @Prop(Boolean) public plain!: boolean;
   @Prop(Boolean) public monochrome!: boolean;
   @Prop(Boolean) public fullWidth!: boolean;
+  @Prop([Boolean, String]) public disclosure!: boolean|string;
   @Prop(String) public size!: Size;
   @Prop(String) public textAlign!: TextAlign;
   @Prop(String) public icon!: string;
@@ -84,6 +90,14 @@ export default class PButton extends Vue {
       this.icon && this.hasNoChildren && 'Polaris-Button--iconOnly',
       this.size && this.size !== DEFAULT_SIZE && `Polaris-Button--${variationName('size', this.size)}`,
       this.textAlign && `Polaris-Button--${variationName('textAlign', this.textAlign)}`,
+    );
+  }
+
+  public get disclosureIconClassName() {
+    return classNames(
+            'Polaris-Button__DisclosureIcon',
+            this.disclosure === 'up' && 'Polaris-Button__DisclosureIconFacingUp',
+            this.loading && 'Polaris-Button__Hidden',
     );
   }
 
