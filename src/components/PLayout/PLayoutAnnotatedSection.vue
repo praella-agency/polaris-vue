@@ -3,6 +3,7 @@
     <div class="Polaris-Layout__AnnotationWrapper">
       <div class="Polaris-Layout__Annotation">
         <PTextContainer>
+          <slot name="title" />
           <PHeading v-if="title">{{ title }}</PHeading>
           <div v-if="description" class="Polaris-Layout__AnnotationDescription">
             <p>{{ description }}</p>

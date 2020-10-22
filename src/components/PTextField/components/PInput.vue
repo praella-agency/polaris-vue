@@ -103,8 +103,8 @@
     @Prop([String, Number]) public maxLength!: string | number;
     @Prop([String, Number]) public minLength!: string | number;
     @Prop(Number) public step!: number;
-    @Prop(Number) public min!: number;
-    @Prop(Number) public max!: number;
+    @Prop([String, Number]) public min!: number;
+    @Prop([String, Number]) public max!: number;
     @Prop(String) public describedBy!: string;
 
     public content = this.value !== null ? this.value : '';

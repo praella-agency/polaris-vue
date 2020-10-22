@@ -1,5 +1,6 @@
 <template>
   <PChoice :label="label" :label-hidden="labelHidden" :help-text="helpText" :id="id">
+    <slot slot="label" name="label" />
     <template v-if="$slots.helpText" slot="helpText">
       <slot name="helpText"></slot>
     </template>
