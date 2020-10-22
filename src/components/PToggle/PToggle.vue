@@ -1,10 +1,11 @@
 <template>
   <div :class="propsClass">
     <label class="switch" :style="label ? 'margin-right:3px' : ''">
-      <input type="checkbox" :id="id" :checked="disabled ? false : checked" :disabled="disabled">
+      <input type="checkbox" :id="id" :checked="disabled ? false : checked" :disabled="disabled" @change="onChange">
       <span class="slider round"></span>
     </label>
-    {{label}}
+    <slot v-if="$slots.label" name="label" />
+    <template v-else>{{label}}</template>
   </div>
 </template>
 
@@ -16,8 +17,14 @@
     @Prop(String) public label!: string;
     @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
     @Prop(String) public propsClass!: string;
+    @Prop({type: [String, Boolean]}) public value!: string | boolean;
     @Prop(Boolean) public disabled!: boolean;
     @Prop(Boolean) public checked!: boolean;
+
+    public onChange(e: any) {
+      const target = e.target || e.srcElement;
+      this.$emit('change', {checked: target.checked, value: target.value});
+    }
   }
 </script>
 
