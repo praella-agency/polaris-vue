@@ -1,5 +1,5 @@
 <template>
-  <span :class="className">
+  <span :class="className" :style="{'background-color': background, 'color': color}">
     <span v-if="status" class="Polaris-VisuallyHidden">{{ status }}</span>
     <span v-if="progress" class="Polaris-Badge__Pip">
       <span class="Polaris-VisuallyHidden">{{ progress }}</span>
@@ -38,12 +38,14 @@ const DEFAULT_SIZE = 'medium';
 export default class PBadge extends Vue {
   @Prop(String) public status!: Status;
   @Prop(String) public progress!: Progress;
+  @Prop(String) public background!: string;
+  @Prop(String) public color!: string;
   @Prop({ type: String, default: DEFAULT_SIZE }) public size!: Size;
 
   public get className() {
     return classNames(
       'Polaris-Badge',
-      this.status && `Polaris-Badge--${variationName('status', this.status)}`,
+      !this.color && !this.background && this.status && `Polaris-Badge--${variationName('status', this.status)}`,
       this.progress && `Polaris-Badge--${variationName('progress', this.progress)}`,
       this.size && this.size !== DEFAULT_SIZE && `Polaris-Badge--${variationName('size', this.size)}`,
     );
