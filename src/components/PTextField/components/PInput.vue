@@ -24,7 +24,7 @@
             :max="max"
             :step="step"
             :minlength="minLength"
-            :style="{ height: (multiline && height) ? height+'px' : null,overflow: (multiline && height) ? 'hidden' : null }"
+            :style="{ height: (multiline && computedHeight) ? computedHeight+'px' : null,overflow: (multiline && computedHeight) ? 'hidden' : null }"
             :maxlength="maxLength"
             :type="inputType"
             :aria-describedby="describedBy"
@@ -45,7 +45,7 @@
     <PFieldResizer
             v-if="multiline"
             :contents="value || placeholder"
-            :current-height="height"
+            :current-height="computedHeight"
             :minimum-lines="(typeof multiline === 'number') ? multiline : 1"
             @heightchange="handleExpandingResize"
     />
@@ -103,12 +103,13 @@
     @Prop([String, Number]) public maxLength!: string | number;
     @Prop([String, Number]) public minLength!: string | number;
     @Prop(Number) public step!: number;
+    @Prop({type: Number, default: 0}) public minHeight!: number;
     @Prop([String, Number]) public min!: number;
     @Prop([String, Number]) public max!: number;
     @Prop(String) public describedBy!: string;
 
     public content = this.value !== null ? this.value : '';
-    public height = 0;
+    public height = this.minHeight;
 
     public get inputType() {
       return this.type === 'currency' ? 'text' : this.type;
@@ -133,6 +134,14 @@
         label.push(this.id + 'Suffix');
       }
       return label.join(' ');
+    }
+
+    public get computedHeight() {
+      return this.height;
+    }
+
+    public set computedHeight(value) {
+      this.height = value;
     }
 
     public get computedValue() {
@@ -181,7 +190,7 @@
 
 
     public handleExpandingResize(e) {
-      this.height = e;
+      this.computedHeight = (e < this.minHeight) ? this.minHeight : e;
     }
 
     public normalizeAutoComplete(autoComplete?: boolean | string) {
