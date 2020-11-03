@@ -3,6 +3,8 @@
     <div class="Polaris-DataTable__ScrollContainer">
       <table class="Polaris-DataTable__Table">
         <thead>
+        <slot name="head" v-if="$slots.hasOwnProperty('head')"></slot>
+        <template v-else>
           <tr>
             <PDataTableCell
               v-for="(heading, index) in headings"
@@ -26,6 +28,7 @@
               :truncate="truncate"
               :verticalAlign="verticalAlign"/>
           </tr>
+        </template>
         </thead>
         <tbody>
         <slot name="body" v-if="$slots.hasOwnProperty('body')"></slot>
