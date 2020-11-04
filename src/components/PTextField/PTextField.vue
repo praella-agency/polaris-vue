@@ -19,11 +19,13 @@
 
       <PInput v-bind="$attrs" v-on="$listeners" :hasError="!!error" :id="id">
         <slot name="prefix" slot="prefix"></slot>
+        <slot name="suffix" slot="suffix"></slot>
       </PInput>
     </PConnected>
 
     <PInput v-else v-bind="$attrs" v-on="$listeners" :hasError="!!error" :id="id">
       <slot name="prefix" slot="prefix"></slot>
+      <slot name="suffix" slot="suffix"></slot>
     </PInput>
     <div class="Polaris-Labelled__HelpText" v-if="helpText">{{helpText}}</div>
     <PFieldError v-if="error" :error="error"/>

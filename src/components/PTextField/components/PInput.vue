@@ -1,8 +1,8 @@
 <template>
   <div :class="className" v-show="showInput">
-    <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix"
-         :class="prefixClass">
-      <slot name="prefix"></slot>
+    <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
+      {{prefix}}
+      <slot v-if="$slots.prefix" name="prefix"></slot>
     </div>
     <input
 
@@ -32,8 +32,9 @@
             :aria-invalid="hasError"
             @input="onInput"
     />
-    <div class="Polaris-TextField__Suffix" :id="id+'Prefix'" v-if="showSuffix">
+    <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" v-if="showSuffix">
       {{suffix}}
+      <slot v-if="$slots.suffix" name="suffix"></slot>
     </div>
     <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
     <!--<button type="button" class="Polaris-TextField__ClearButton" v-if="computedValue && showClearButton" @click="onClear">
@@ -88,8 +89,6 @@
     @Prop(Boolean) public disabled!: boolean;
     @Prop(Boolean) public readOnly!: boolean;
     @Prop({type: Boolean, default: true}) public showInput!: boolean;
-    @Prop(Boolean) public showSuffix!: boolean;
-    @Prop(Boolean) public showPrefix!: boolean;
     @Prop(Boolean) public showClearButton!: boolean;
     @Prop(String) public prefixClass!: string;
     @Prop(Boolean) public autoFocus!: boolean;
@@ -123,6 +122,14 @@
               this.readOnly && 'Polaris-TextField--readOnly',
               this.hasError && 'Polaris-TextField--error',
       );
+    }
+
+    public get showPrefix() {
+      return this.prefix || this.$slots.prefix;
+    }
+
+    public get showSuffix() {
+      return this.suffix || this.$slots.suffix;
     }
 
     public get labelledBy() {
