@@ -2,9 +2,9 @@
 
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import { classNames } from '@/utilities/css';
-    import {CallbackAction, LinkAction} from '@/types';
-    import {PUnstyledLink} from '@/components/PUnstyledLink';
-    import {PIcon} from '@/components/PIcon';
+    import { CallbackAction, LinkAction } from '@/types';
+    import { PUnstyledLink } from '@/components/PUnstyledLink';
+    import { PIcon } from '@/components/PIcon';
 
     export interface PBreadcrumbsProps {
         breadcrumbs: (CallbackAction | LinkAction)[];
@@ -27,7 +27,7 @@
                 return null;
             }
 
-            const {content} = breadcrumb;
+            const { content } = breadcrumb;
 
             const contentMarkup = (
                 <span class='Polaris-Breadcrumbs__ContentWrapper'>

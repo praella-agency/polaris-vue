@@ -5,9 +5,16 @@
     <ActionsExample/>
     <ColorExample/>
     <ThumbnailExample/>
+    <AvatarExample/>
     <TitlesAndTextExample/>
+    <LinkExample/>
+    <DisplayTextExample/>
+    <ProgressBarExample/>
     <FeedbackIndicatorsExample/>
     <ListsAndTablesExample/>
+    <ListExample/>
+    <PageExample/>
+    <ResourceListExample/>
   </div>
 </template>
 
@@ -21,8 +28,15 @@ import {
   FormExample,
   TitlesAndTextExample,
   FeedbackIndicatorsExample,
+  DisplayTextExample,
+  ProgressBarExample,
+  LinkExample,
   ListsAndTablesExample,
   ThumbnailExample,
+  AvatarExample,
+  ListExample,
+  PageExample,
+  ResourceListExample,
 } from '@/examples';
 
 @Component({
@@ -31,10 +45,17 @@ import {
     StructureExample,
     ActionsExample,
     ColorExample,
+    AvatarExample,
     TitlesAndTextExample,
+    DisplayTextExample,
+    ProgressBarExample,
+    LinkExample,
     FeedbackIndicatorsExample,
     ListsAndTablesExample,
     ThumbnailExample,
+    ListExample,
+    PageExample,
+    ResourceListExample,
   },
 })
 export default class App extends Vue {}
