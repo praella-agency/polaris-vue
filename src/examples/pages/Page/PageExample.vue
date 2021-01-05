@@ -85,42 +85,36 @@
 
     public primaryAction = {
       content:'Primary Action',
-      onAction: this.onClick
-    }
+      onAction: this.onClick,
+    };
 
     public secondaryActions = [{
-      content:'Secondary Action',
-      onAction: this.onClick
-    }]
+      content: 'Secondary Action',
+      onAction: this.onClick,
+    }];
 
     public onClick() {
 
-      alert('Primary Action Triggered')
-    }
+      alert('Primary Action Triggered');
+    };
 
     public triggerSecondaryAction1() {
 
-      alert('SecondaryAction1 Triggered')
-    }
+      alert('SecondaryAction1 Triggered');
+    };
 
     public triggerSecondaryAction2() {
 
-      alert('SecondaryAction2 Triggered')
-    }
-
-    public triggerSecondaryAction3() {
-
-      alert('SecondaryAction3 Triggered')
-    }
+      alert('SecondaryAction2 Triggered');
+    };
 
     public handleNext() {
-
-      alert('Clicked Next')
+      alert('Clicked Next');
     }
 
     public handlePrevious() {
 
-      alert('Clicked Previous')
+      alert('Clicked Previous');
     }
   }
 </script>

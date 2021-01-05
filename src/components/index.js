@@ -48,6 +48,7 @@ import { POptionList } from './POptionList';
 import { PBreadcrumbs } from './PBreadcrumbs';
 import { PActionMenu } from './PActionMenu';
 import { PPageActions } from './PPageActions';
+import { PMultiSelect } from './PMultiSelect';
 
 import '@/scss/main.scss';
 
@@ -101,6 +102,7 @@ const Components = {
   PBreadcrumbs,
   PActionMenu,
   PPageActions,
+  PMultiSelect,
 };
 
 const PolarisVue = {

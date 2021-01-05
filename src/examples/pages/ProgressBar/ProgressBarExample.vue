@@ -31,9 +31,9 @@ export default class TitlesAndTextExample extends Vue {
 
   public example2 = `
   <PProgressBar size="medium" :progress="30"></PProgressBar>
-  `
+  `;
 
-  ;public example3 = `
+  public example3 = `
   <PProgressBar size="large" :progress="80"></PProgressBar>
   `;
 }
