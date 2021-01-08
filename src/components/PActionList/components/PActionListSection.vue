@@ -18,47 +18,46 @@
 </template>
 
 <script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { classNames } from '@/utilities/css';
+import { POptionalTag } from '@/components/POptionalTag';
+import PActionListItem from '@/components/PActionList/components/PActionListItem.vue';
 
-    import { Component, Vue, Prop } from 'vue-property-decorator';
-    import { classNames } from '@/utilities/css';
-    import { POptionalTag } from '@/components/POptionalTag';
-    import PActionListItem from '@/components/PActionList/components/PActionListItem.vue';
+interface SectionInterface {
+    title: string;
+    items: any[];
+}
 
-    interface SectionInterface {
-        title: string;
-        items: any[];
+@Component({
+    components: {
+        PActionListItem,
+        POptionalTag,
+    },
+})
+export default class PActionListSection extends Vue {
+
+    @Prop({default: {}}) public section!: SectionInterface;
+    @Prop(Boolean) public hasMultipleSections!: boolean;
+
+    public get className() {
+
+        return classNames(
+            'Polaris-ActionList__Section',
+            !this.section.title && 'Polaris-ActionList__Section--withoutTitle',
+        );
     }
 
-    @Component({
-        components: {
-            PActionListItem,
-            POptionalTag
-        },
-    })
-    export default class PActionListSection extends Vue {
+    public wrapAction(action) {
 
-        @Prop({default: {}}) public section!: SectionInterface;
-        @Prop(Boolean) public hasMultipleSections!: boolean;
-
-        public get className() {
-
-            return classNames(
-                'Polaris-ActionList__Section',
-                !this.section.title && 'Polaris-ActionList__Section--withoutTitle'
-            );
+        const old = action.onAction;
+        const newAction = Object.assign({}, action);
+        if (old) {
+            newAction.onAction = () => {
+                old();
+                this.$emit('item-action', action);
+            };
         }
-
-        public wrapAction(action) {
-
-            const _old = action.onAction;
-            const newAction = Object.assign({}, action);
-            if (_old) {
-                newAction.onAction = () => {
-                    _old();
-                    this.$emit('item-action', action);
-                };
-            }
-            return newAction;
-        }
+        return newAction;
     }
+}
 </script>

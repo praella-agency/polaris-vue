@@ -23,32 +23,31 @@
 </template>
 
 <script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { classNames, variationName } from '@/utilities/css';
+import { PTextField } from '@/components/PTextField';
+import { PIcon } from '@/components/PIcon';
+import { PTag } from '@/components/PTag';
 
-    import { Component, Vue, Prop } from 'vue-property-decorator';
-    import { classNames, variationName } from '@/utilities/css';
-    import { PTextField } from '@/components/PTextField';
-    import { PIcon } from '@/components/PIcon';
-    import { PTag } from '@/components/PTag';
+interface AppliedFiltersInterface {
+    value: string;
+    key: string;
+}
 
-    interface AppliedFiltersInterface {
-        value: string;
-        key: string;
+@Component({
+    components: {
+        PTextField, PIcon, PTag,
+    },
+})
+export default class PFilter extends Vue {
+
+    @Prop(String) public resourceTitle!: string;
+    @Prop(String) public inputFilter!: string;
+    @Prop(Array) public appliedFilters!: AppliedFiltersInterface[];
+
+    public get prefix() {
+
+        return `Filter ${this.resourceTitle.toLowerCase()}`;
     }
-
-    @Component({
-        components: {
-            PTextField, PIcon, PTag
-        },
-    })
-    export default class PFilter extends Vue {
-
-        @Prop(String) public resourceTitle!: string;
-        @Prop(String) public inputFilter!: string;
-        @Prop(Array) public appliedFilters!: AppliedFiltersInterface[];
-
-        public get prefix() {
-
-            return `Filter ${this.resourceTitle.toLowerCase()}`
-        }
-    }
+}
 </script>

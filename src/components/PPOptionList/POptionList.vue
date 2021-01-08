@@ -21,66 +21,69 @@
 </template>
 
 <script lang="ts">
+import {Component, Vue, Prop} from 'vue-property-decorator';
+import { classNames } from '@/utilities/css';
+import POptionsListOption from './POptionsListOption.vue';
 
-    import {Component, Vue, Prop} from 'vue-property-decorator';
-    import { classNames } from '@/utilities/css';
-    import POptionsListOption from './POptionsListOption.vue';
+export interface OptionDescriptor {
+    value: string;
+    disabled?: boolean;
+    active?: boolean;
+    id?: string;
+}
 
-    export interface OptionDescriptor {
-        value: string;
-        disabled?: boolean;
-        active?: boolean;
-        id?: string;
-    }
+interface SectionDescriptor {
+    options: OptionDescriptor[];
+    title?: string;
+}
 
-    interface SectionDescriptor {
-        options: OptionDescriptor[];
-        title?: string;
-    }
+@Component({
+    components: {
+        POptionsListOption,
+    },
+})
+export default class POptionList extends Vue {
 
-    @Component({
-        components: {
-            POptionsListOption,
-        }
-    })
-    export default class POptionList extends Vue {
+    @Prop(Boolean) public allowMultiple!: boolean;
+    @Prop(String) public id!: string;
+    @Prop(String) public title!: string;
+    @Prop(Array) public options!: OptionDescriptor[];
+    @Prop(Array) public sections!: SectionDescriptor[];
+    @Prop(Array) public selected!: string[];
 
-        @Prop(Boolean) public allowMultiple!: boolean;
-        @Prop(String) public id!: string;
-        @Prop(String) public title!: string;
-        @Prop(Array) public options!: OptionDescriptor[];
-        @Prop(Array) public sections!: SectionDescriptor[];
-        @Prop(Array) public selected!: string[];
+    public get normalizedOptions() {
 
-        public get normalizedOptions() {
-
-            if (this.options == null) return this.sections == null ? [] : [{options: [], title: this.title}, ...this.sections];
-
-            if (this.sections == null) return [{title: this.title, options: this.options}];
-
-            return [{title: this.title, options: this.options}, ...this.sections];
+        if (this.options == null) {
+            return this.sections == null ? [] : [{options: [], title: this.title}, ...this.sections];
         }
 
-        public optionsExist = this.normalizedOptions.length > 0;
-
-        public handleClick(sectionIndex: number, optionIndex: number) {
-
-            const selectedValue = this.normalizedOptions[sectionIndex].options[optionIndex].value;
-            const foundIndex = this.selected.indexOf(selectedValue);
-            if (this.allowMultiple) {
-
-                const newSelection =
-                    foundIndex === -1
-                        ? [selectedValue, ...this.selected]
-                        : [
-                            ...this.selected.slice(0, foundIndex),
-                            ...this.selected.slice(foundIndex + 1, this.selected.length)
-                        ];
-
-                this.$emit('change', newSelection);
-                return;
-            }
-            this.$emit('change', [selectedValue]);
+        if (this.sections == null) {
+            return [{title: this.title, options: this.options}];
         }
+
+        return [{title: this.title, options: this.options}, ...this.sections];
     }
+
+    public optionsExist = this.normalizedOptions.length > 0;
+
+    public handleClick(sectionIndex: number, optionIndex: number) {
+
+        const selectedValue = this.normalizedOptions[sectionIndex].options[optionIndex].value;
+        const foundIndex = this.selected.indexOf(selectedValue);
+        if (this.allowMultiple) {
+
+            const newSelection =
+                foundIndex === -1
+                    ? [selectedValue, ...this.selected]
+                    : [
+                        ...this.selected.slice(0, foundIndex),
+                        ...this.selected.slice(foundIndex + 1, this.selected.length),
+                    ];
+
+            this.$emit('change', newSelection);
+            return;
+        }
+        this.$emit('change', [selectedValue]);
+    }
+}
 </script>

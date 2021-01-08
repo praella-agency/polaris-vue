@@ -39,41 +39,40 @@
 </template>
 
 <script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { classNames, variationName } from '@/utilities/css';
+import { PUnstyledLink } from '@/components/PUnstyledLink';
+import { PIcon } from '@/components/PIcon';
 
-    import { Component, Vue, Prop } from 'vue-property-decorator';
-    import { classNames, variationName } from '@/utilities/css';
-    import { PUnstyledLink } from '@/components/PUnstyledLink';
-    import { PIcon } from '@/components/PIcon';
+@Component({
+    components: {
+        PUnstyledLink, PIcon,
+    },
+})
+export default class PActionListItem extends Vue {
 
-    @Component({
-        components: {
-            PUnstyledLink, PIcon
-        },
-    })
-    export default class PActionListItem extends Vue {
+    @Prop(String) public content!: string;
+    @Prop(String) public helpText!: string;
+    @Prop(Object) public action!: object;
+    @Prop(String) public icon!: string;
+    @Prop(String) public image!: string;
+    @Prop(Boolean) public disabled!: boolean;
 
-        @Prop(String) public content!: string;
-        @Prop(String) public helpText!: string;
-        @Prop(Object) public action!: object;
-        @Prop(String) public icon!: string;
-        @Prop(String) public image!: string;
-        @Prop(Boolean) public disabled!: boolean;
+    public get className() {
 
-        public get className() {
+        return classNames(
+            'Polaris-ActionList__Item',
+        );
+    }
 
-            return classNames(
-                'Polaris-ActionList__Item',
-            );
+    public handleAction(action) {
+        let res = true;
+        if (action.onAction) {
+            res = action.onAction();
         }
-
-        public handleAction(action) {
-            let res = true;
-            if (action.onAction) {
-                res = action.onAction();
-            }
-            if (res && action.url) {
-                window.location.href = action.url;
-            }
+        if (res && action.url) {
+            window.location.href = action.url;
         }
     }
+}
 </script>

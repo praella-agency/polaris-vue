@@ -27,34 +27,34 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 
-  import { ExampleContainer, ExampleContent } from '@/examples/components';
-  import {PAvatar} from '@/components/PAvatar';
+import { ExampleContainer, ExampleContent } from '@/examples/components';
+import {PAvatar} from '@/components/PAvatar';
 
-  @Component({
-    components: {
-      ExampleContent,
-      ExampleContainer, PAvatar
-    },
-    data() {
-      return {
-        color: '#FFF',
-      };
-    },
-  })
-  export default class ActionsExample extends Vue {
+@Component({
+  components: {
+    ExampleContent,
+    ExampleContainer, PAvatar,
+  },
+  data() {
+    return {
+      color: '#FFF',
+    };
+  },
+})
+export default class ActionsExample extends Vue {
 
-    public example4 = ` <PAvatar size="small"/>`;
+  public example4 = ` <PAvatar size="small"/>`;
 
-    public example5 = ` <PAvatar size="medium"/>`;
+  public example5 = ` <PAvatar size="medium"/>`;
 
-    public example6 = ` <PAvatar size="large"/>`;
+  public example6 = ` <PAvatar size="large"/>`;
 
-    public example7 = ` <PAvatar customer />`;
+  public example7 = ` <PAvatar customer />`;
 
-    public example8 = ` <PAvatar source="https://www.flaticon.com/svg/static/icons/svg/3135/3135715.svg" alt="Avatar"/>`;
+  public example8 = ` <PAvatar source="https://www.flaticon.com/svg/static/icons/svg/3135/3135715.svg" alt="Avatar"/>`;
 
-    public example9 = ` <PAvatar initials="HA"/>`;
-  }
+  public example9 = ` <PAvatar initials="HA"/>`;
+}
 </script>

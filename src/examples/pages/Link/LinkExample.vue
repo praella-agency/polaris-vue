@@ -21,7 +21,7 @@ import { PLink } from '@/components/PLink';
 @Component({
   components: {
     ExampleContainer, ExampleContent,
-    PLink
+    PLink,
   },
 })
 export default class TitlesAndTextExample extends Vue {
