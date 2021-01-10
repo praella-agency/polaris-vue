@@ -42,7 +42,6 @@
         @Prop(Boolean) public grouped!: boolean;
         @Prop({type: String, default: `PolarisFormLayout${new Date().getUTCMilliseconds()}`}) public id!: string;
 
-
         public get className() {
             return classNames(
                 this.condensed && 'Polaris-FormLayout--condensed',

@@ -52,8 +52,6 @@ import {
   DisableableAction,
   LoadableAction,
 } from '@/types';
-
-
 type BannerStatus = 'success' | 'info' | 'warning' | 'critical';
 
 @Component({

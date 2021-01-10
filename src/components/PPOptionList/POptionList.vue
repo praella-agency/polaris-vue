@@ -59,7 +59,7 @@ export default class POptionList extends Vue {
 
         if (this.sections == null) {
             return [{title: this.title, options: this.options}];
-        }
+         }
 
         return [{title: this.title, options: this.options}, ...this.sections];
     }

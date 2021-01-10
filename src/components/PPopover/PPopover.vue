@@ -55,7 +55,6 @@ export default class PPopover extends Vue {
 
     @Ref('container') public readonly container!: HTMLElement;
 
-
     public get className() {
         return classNames(
             'Polaris-Popover',
@@ -72,7 +71,6 @@ export default class PPopover extends Vue {
         return this.realId + 'Activator';
     }
 
-
     public mounted() {
 
         if (this.container.firstElementChild !== null) {
@@ -83,7 +81,6 @@ export default class PPopover extends Vue {
         window.addEventListener('touchstart', this.handlePageClick);
         document.addEventListener('keyup', this.handleKeyPress);
     }
-
 
     public findActivator() {
         return document.getElementById(this.activatorId);

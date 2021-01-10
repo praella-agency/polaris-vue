@@ -31,7 +31,6 @@ export default class PPopoverOverlay extends Vue {
     @Prop() public activator!: any;
     @Prop() public scrollableElement!: any;
 
-
     public measuring: boolean = true;
     public left: number = 0;
     public top: number = 0;

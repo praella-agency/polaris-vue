@@ -195,7 +195,6 @@
       });
     }
 
-
     public handleExpandingResize(e) {
       this.computedHeight = (e < this.minHeight) ? this.minHeight : e;
     }

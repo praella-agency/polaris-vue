@@ -19,7 +19,6 @@
 </template>
 
 <script lang="ts">
-
     import {Component, Vue, Prop} from 'vue-property-decorator';
     import { classNames } from '@/utilities/css';
     import POptionsListCheckbox from './POptionsListCheckbox.vue';

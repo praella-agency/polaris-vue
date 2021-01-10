@@ -22,7 +22,6 @@ export interface MenuGroupProps extends MenuGroupDescriptor {
     onClose(title: string): void;
 }
 
-
 @Component({
     components: {
         PPopover,

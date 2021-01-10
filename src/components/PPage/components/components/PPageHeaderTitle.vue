@@ -28,7 +28,6 @@
 </template>
 
 <script lang="ts">
-
     import {Vue, Component, Prop} from 'vue-property-decorator';
     import {PDisplayText} from '@/components/PDisplayText';
     import {PTextStyle} from '@/components/PTextStyle';

@@ -26,7 +26,6 @@ const DEFAULT_SIZE = 'medium';
     },
 })
 
-
 export default class PCheckableButton extends Vue {
 
     @Prop({type: String, default: `PCheckableButton${new Date().getUTCMilliseconds()}`}) public id!: string;
