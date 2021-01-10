@@ -19,12 +19,8 @@ import PActionListSection from '@/components/PActionList/components/PActionListS
 })
 export default class PActionList extends Vue {
 
-    @Prop(String) public name!: string;
-    @Prop(String) public initials!: string;
-    @Prop(String) public source!: string;
     @Prop(Array) public items!: any[];
     @Prop({type: Array, default: () => []}) public sections!: any[];
-
 
     public get className() {
         return classNames(
