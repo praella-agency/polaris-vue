@@ -19,7 +19,14 @@ import PActionListSection from '@/components/PActionList/components/PActionListS
 })
 export default class PActionList extends Vue {
 
+    /**
+     * Collection of actions for list
+     */
     @Prop(Array) public items!: any[];
+
+    /**
+     * Collection of sectioned action items
+     */
     @Prop({type: Array, default: () => []}) public sections!: any[];
 
     public get className() {
@@ -42,6 +49,12 @@ export default class PActionList extends Vue {
     }
 
     public onItemAction(action) {
+
+        /**
+         * Triggers when the item is selected/clicked
+         *
+         * @property {event} action that will be called on selection
+         */
         this.$emit('item-action', action);
     }
 }

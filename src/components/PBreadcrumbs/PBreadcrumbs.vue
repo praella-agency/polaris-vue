@@ -17,6 +17,9 @@ export interface PBreadcrumbsProps {
 })
 export default class PBreadcrumbs extends Vue {
 
+    /**
+     * Collection of breadcrumbs
+     */
     @Prop({type: Array, default: []}) public breadcrumbs!: PBreadcrumbsProps['breadcrumbs'];
 
     public render(h: any) {

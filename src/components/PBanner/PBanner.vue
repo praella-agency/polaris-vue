@@ -1,6 +1,10 @@
 <template>
   <div :class="className">
     <div v-if="isDismissable" class="Polaris-Banner__Dismiss">
+      <!--
+        triggered to dismiss the banner
+        @event dismiss
+      -->
       <PButton
         plain
         :icon="CancelSmallMinor"
@@ -18,6 +22,7 @@
         <PHeading element="p">{{ title }}</PHeading>
       </div>
       <div class="Polaris-Banner__Content">
+        <!-- @slot Banner content -->
         <slot/>
         <div v-if="action" class="Polaris-Banner__Actions">
           <PButtonGroup>
@@ -75,8 +80,21 @@ type BannerStatus = 'success' | 'info' | 'warning' | 'critical';
   ],
 })
 export default class PBanner extends Vue {
+
+  /**
+   * Title content for the banner.
+   */
   @Prop(String) public title!: string;
+
+  /**
+   * Set the status of the banner
+   * @values success, info, warning, critical
+   */
   @Prop(String) public status!: string;
+
+  /**
+   * Action of the banner
+   */
   @Prop(Object) public action!: DisableableAction & LoadableAction;
 
   public get className() {

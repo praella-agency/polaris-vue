@@ -1,5 +1,8 @@
 <template>
-    <p class="Polaris-Caption"><slot/></p>
+    <p class="Polaris-Caption">
+        <!-- @slot Caption content -->
+        <slot/>
+    </p>
 </template>
 
 <script lang="ts">

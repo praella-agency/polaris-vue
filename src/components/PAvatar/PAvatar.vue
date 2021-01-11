@@ -29,10 +29,30 @@
     })
     export default class PAvatar extends Vue {
 
+        /**
+         * Size of avatar
+         * @values small, medium, large
+         */
         @Prop({type: String, default: 'medium'}) public size!: Size;
+
+        /**
+         * Whether the avatar is for a customer
+         */
         @Prop(Boolean) public customer!: boolean;
+
+        /**
+         * Name for the person
+         */
         @Prop(String) public name!: string;
+
+        /**
+         * Initials of person to display
+         */
         @Prop(String) public initials!: string;
+
+        /**
+         * URL of the avatar image which falls back to initials if the image fails to load
+         */
         @Prop(String) public source!: string;
 
         public status = Status.Pending;

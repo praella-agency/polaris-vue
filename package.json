@@ -23,7 +23,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build-bundle": "vue-cli-service build --target lib --name polaris-vue ./src/components/index.js"
+    "build-bundle": "vue-cli-service build --target lib --name polaris-vue ./src/components/index.js",
+    "styleguide": "vue-styleguidist server",
+    "styleguide:build": "vue-styleguidist build"
   },
   "main": "./dist/polaris-vue.common.js",
   "dependencies": {
@@ -53,6 +55,7 @@
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.0",
     "typescript": "~3.5.3",
+    "vue-styleguidist": "^4.34.2",
     "vue-template-compiler": "^2.6.10"
   }
 }

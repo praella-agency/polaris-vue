@@ -19,6 +19,9 @@ import PButton from '../PButton.vue';
   components: { PButton },
 })
 export default class PButtonsFrom extends Vue {
+  /**
+   * Action or Array of actions
+   */
   @Prop() public actions!: ComplexAction | ComplexAction[];
   @Prop({ type: Object, default: () => ({}) }) public overrides!: any;
 
