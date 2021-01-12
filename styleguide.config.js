@@ -11,6 +11,11 @@ module.exports = {
         "**/components/PFilter/components/*",
         "**/components/PFormLayout/PFormLayoutGroupItemWrapper.vue",
         "**/components/PFormLayout/PFormLayoutItem.vue",
+        "**/components/PChoice/PChoice.vue",
+        "**/components/PConnected/*",
+        "**/components/PDropZone/*",
+        "**/components/PWrapper/PWrapper.vue",
+        "src/components/POptionalTag/POptionalTag.vue",
     ],
     require: ['./src/css/polaris.min.css']
 }

@@ -1,5 +1,6 @@
 <template>
   <component :is="element" :class="className">
+    <!-- @slot Text content -->
     <slot/>
   </component>
 </template>
@@ -24,6 +25,11 @@ function variationElement(variation?: Variation) {
 
 @Component
 export default class PTextStyle extends Vue {
+
+  /**
+   * Give text additional visual meaning
+   * @values positive, negative, strong, subdued, code
+   */
   @Prop(String) public variation!: Variation;
 
   public get className() {

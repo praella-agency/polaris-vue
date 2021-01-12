@@ -1,5 +1,6 @@
 <template>
   <div class="Polaris-Card__Subsection">
+    <!-- @slot Body of Card subsection -->
     <slot/>
   </div>
 </template>

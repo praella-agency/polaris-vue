@@ -9,11 +9,13 @@
             {{ title }}
         </div>
             <PFormLayoutGroupItemWrapper v-for="(slot,name) in $slots" :key="name">
+                <!-- @slot Form group body -->
                 <slot/>
             </PFormLayoutGroupItemWrapper>
         <div v-if="helpText || $slots.helpText"
              :id="id+'helpText'"
              class="Polaris-FormLayout__HelpText">
+            <!-- @slot Form group helpText -->
             <slot name="helpText">
                 {{ helpText }}
             </slot>
@@ -35,11 +37,29 @@
     })
     export default class PFormLayoutGroup extends Vue {
 
-        @Prop(String) public children!: string;
+        /**
+         * Form group title
+         */
         @Prop(String) public title!: string;
+
+        /**
+         * Form group helpText
+         */
         @Prop(String) public helpText!: string;
+
+        /**
+         * For very short inputs, the width of the inputs may be reduced in order to fit more fields in the row.
+         */
         @Prop(Boolean) public condensed!: boolean;
-        @Prop(Boolean) public grouped!: boolean;
+
+        /**
+         * Use field groups to arrange multiple fields in a row.
+         */
+        @Prop({type: Boolean, default: true}) public grouped!: boolean;
+
+        /**
+         * Form group Id
+         */
         @Prop({type: String, default: `PolarisFormLayout${new Date().getUTCMilliseconds()}`}) public id!: string;
 
         public get className() {

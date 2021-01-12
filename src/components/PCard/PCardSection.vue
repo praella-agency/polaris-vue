@@ -3,6 +3,7 @@
     <div v-if="title" class="Polaris-Card__SectionHeader">
       <PSubheading v-bind="$attrs">{{ title }}</PSubheading>
     </div>
+    <!-- @slot Body of Card section -->
     <slot/>
   </div>
 </template> 
@@ -17,8 +18,20 @@ import { PSubheading } from '@/components/PSubheading';
   components: { PSubheading },
 })
 export default class PCardHeader extends Vue {
+
+  /**
+   * Title content for the card section
+   */
   @Prop(String) public title!: string;
+
+  /**
+   * Title content for the card section
+   */
   @Prop(Boolean) public subdued!: boolean;
+
+  /**
+   * Card will stretch/shrink to occupy the full width
+   */
   @Prop(Boolean) public fullWidth!: boolean;
 
   public get className() {

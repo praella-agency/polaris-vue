@@ -66,3 +66,36 @@ Card with sub-sections
     </PCardSection>
   </PCard>
 ```
+
+
+Card with Footer action
+```vue
+<template>
+  <PCard sectioned title="Shipment 1234">
+    <PList>
+      <PListItem>1 × Oasis Glass, 4-Pack</PListItem>
+      <PListItem>1 × Anubis Cup, 2-Pack</PListItem>
+    </PList>
+    
+    <PButtonGroup slot="footer">
+      <PButton destructive @click="handleCancelShipment">Cancel shipment</PButton>
+      <PButton @click="handleAddTracking">Add tracking number</PButton>
+    </PButtonGroup>
+
+  </PCard>
+</template>
+
+
+<script>
+export default {
+  methods: {
+    handleCancelShipment() {
+        alert(`Triggered event for CancelShipment`)
+    },
+    handleAddTracking() {
+        alert(`Triggered event for Add tracking number`)
+    }
+  }
+}
+</script>
+```

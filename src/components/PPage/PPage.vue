@@ -9,12 +9,17 @@
             :actionGroups="actionGroups"
             v-bind="$attrs"
             v-on="$listeners">
+            <!-- @slot Use slot if you want to use some other component for primary Action -->
             <slot slot="primaryAction" name="primaryAction" />
+            <!-- @slot Use slot if you want to use some other component for thumb -->
             <slot slot="thumbnail" name="thumbnail" />
+            <!-- @slot Use slot if you want to use some other component for title meta data -->
             <slot slot="titleMetadata" name="titleMetadata" />
+            <!-- @slot Use slot if you want to use some other component for additional navigation -->
             <slot slot="additionalNavigation" name="additionalNavigation" />
         </PPageHeader>
         <div class="Polaris-Page__Content">
+            <!-- @slot Page content -->
             <slot/>
         </div>
     </div>
@@ -53,12 +58,40 @@ interface PrimaryAction
 })
 export default class PPage extends Vue {
 
+    /**
+     * Remove the normal max-width on the page
+     */
     @Prop(Boolean) public fullWidth!: boolean;
+
+    /**
+     * Decreases the maximum layout width. Intended for single-column layouts
+     */
     @Prop(Boolean) public narrowWidth!: boolean;
+
+    /**
+     * Page title, in large type
+     */
     @Prop(String) public title!: string;
+
+    /**
+     * Primary page-level action
+     */
     @Prop(Object) public primaryAction!: PrimaryAction;
+
+    /**
+     * Collection of secondary page-level actions
+     */
     @Prop({type: Array, default: () => []}) public secondaryActions!: MenuActionDescriptor[];
+
+    /**
+     * Collection of page-level groups of secondary actions
+     * @ignore
+     */
     @Prop({type: Array, default: () => []}) public actionGroups!: MenuGroupDescriptor[];
+
+    /**
+     * Collection of breadcrumbs
+     */
     @Prop({type: Array, default: () => []}) public breadcrumbs!: PBreadcrumbsProps['breadcrumbs'];
 
     public get hasHeaderContent() {

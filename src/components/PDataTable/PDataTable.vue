@@ -81,13 +81,46 @@ type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
   components: { PDataTableCell },
 })
 export default class PDataTable extends Vue {
+
+  /**
+   * Type of a column
+   * @values text, numeric
+   */
   @Prop({ type: Array, default: () => [] }) public columnContentTypes!: ColumnContentType[];
+
+  /**
+   * Heading list
+   */
   @Prop({ type: Array, default: () => [] }) public headings!: string[];
+
+  /**
+   * Total fields
+   */
   @Prop({ type: Array, default: () => [] }) public totals!: TableData[];
+
+  /**
+   * Display totals on footer
+   */
   @Prop(Boolean) public showTotalsInFooter!: boolean;
+
+  /**
+   * Table rows
+   */
   @Prop({ type: Array, default: () => [[]] }) public rows!: TableData[][];
+
+  /**
+   * truncate cell data
+   */
   @Prop({ type: Boolean, default: false }) public truncate!: boolean;
+
+  /**
+   * Vertical align of cell
+   */
   @Prop({ type: String, default: 'top' }) public verticalAlign!: VerticalAlign;
+
+  /**
+   * Footer data
+   */
   @Prop() public footerContent!: TableData;
 }
 </script>

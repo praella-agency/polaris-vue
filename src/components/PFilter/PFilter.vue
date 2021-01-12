@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="Polaris-Filters__TagsContainer">
-                <PTag v-for="(filter, key) in appliedFilters" v-on="$listeners" removable :tag="filter"></PTag>
+                <PTag v-for="(filter, key) in appliedFilters" :key="key" v-on="$listeners" removable :tag="filter"></PTag>
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@
       </PCardHeader>
     </template>
 
-    <div v-if="$slots.hasOwnProperty('default') && $slots.default.length === 1">
+    <div v-if="$slots.hasOwnProperty('default') && $slots.default.filter((item)=>{return item.tag !== undefined || (item.text && item.text.trim().length > 0)}).length === 1">
       <template v-if="sectioned">
         <PCardSection>
           <!-- @slot Body content for the card -->

@@ -1,7 +1,9 @@
 <template>
     <PChoice :label="label" :label-hidden="labelHidden" :help-text="helpText" :id="id" :error="error">
+        <!-- @slot Content of a label -->
         <slot slot="label" name="label" />
         <template v-if="$slots.helpText" slot="helpText">
+            <!-- @slot Body of Help text -->
             <slot name="helpText"></slot>
         </template>
 
@@ -42,15 +44,55 @@ import {MinusMinor, TickSmallMinor} from '@/assets/shopify-polaris-icons';
     },
 })
 export default class PCheckbox extends Vue {
-    @Prop({type: String, default: `PolarisCheckBox${new Date().getUTCMilliseconds()}`}) public id!: string;
-    @Prop(String) public name!: string;
+
+    /**
+     * ID for form input
+     */
+    @Prop({type: String, required: true}) public id!: string;
+
+    /**
+     * Name for form input
+     */
+    @Prop({type: String, required: true}) public name!: string;
+
+    /**
+     * Label for the checkbox
+     */
     @Prop(String) public label!: string;
+
+    /**
+     * Additional text to aide in use
+     */
     @Prop(String) public helpText!: string;
+
+    /**
+     * Visually hide the label
+     */
     @Prop(Boolean) public labelHidden!: boolean;
+
+    /**
+     * `indeterminate` shows a horizontal line in the checkbox
+     */
     @Prop(Boolean) public indeterminate!: boolean;
+
+    /**
+     * Checkbox is selected.
+     */
     @Prop({type: Boolean, default: false}) public checked!: boolean;
+
+    /**
+     * Value for form input
+     */
     @Prop({type: [String, Boolean]}) public value!: string | boolean;
+
+    /**
+     * Disable input
+     */
     @Prop(Boolean) public disabled!: boolean;
+
+    /**
+     * Display an error message
+     */
     @Prop(String) public error!: string;
 
     public get wrapperClassName() {
@@ -73,14 +115,25 @@ export default class PCheckbox extends Vue {
 
     public onChange(e: any) {
         const target = e.target || e.srcElement;
+        /**
+         * Change event.
+         *
+         * @property {Object} {check:true|false, value: `target value`}
+         */
         this.$emit('change', {checked: target.checked, value: target.value});
     }
 
     public onFocus() {
+        /**
+         * Focus event.
+         */
         this.$emit('focus');
     }
 
     public onBlur() {
+        /**
+         * Blur event.
+         */
         this.$emit('blur');
     }
 }
