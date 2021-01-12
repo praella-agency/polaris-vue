@@ -15,7 +15,11 @@ module.exports = {
         "**/components/PConnected/*",
         "**/components/PDropZone/*",
         "**/components/PWrapper/PWrapper.vue",
-        "src/components/POptionalTag/POptionalTag.vue",
+        "**/components/POptionalTag/POptionalTag.vue",
+        "**/components/PPageActions/PPageActions.vue",
+        "**/components/PPopover/components/PPopoverOverlay.vue",
+        "**/components/PPopover/components/PPositionedOverlay.vue",
+        "**/components/PResourceList/components/PBulkActionButtonWrapper.vue",
     ],
     require: ['./src/css/polaris.min.css']
 }
