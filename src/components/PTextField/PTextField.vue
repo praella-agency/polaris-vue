@@ -19,7 +19,7 @@
         <slot name="connectedRight">{{ connectedRight }}</slot>
       </template>
 
-      <PInput v-bind="$attrs" v-on="$listeners" :hasError="!!error" :id="id">
+      <PInput v-bind="[$attrs,$props]" v-on="$listeners" :hasError="!!error" :id="id">
         <!-- @slot Field prefix -->
         <slot name="prefix" slot="prefix"></slot>
         <!-- @slot Field suffix -->
@@ -27,7 +27,7 @@
       </PInput>
     </PConnected>
 
-    <PInput v-else v-bind="$attrs" v-on="$listeners" :hasError="!!error" :id="id">
+    <PInput v-else v-bind="[$attrs,$props]" v-on="$listeners" :hasError="!!error" :id="id">
       <slot name="prefix" slot="prefix"></slot>
       <slot name="suffix" slot="suffix"></slot>
     </PInput>
@@ -91,5 +91,10 @@
      * Visually hide the label
      */
     @Prop(Boolean) public labelHidden!: boolean;
+
+    /**
+     * Enable rich text editor
+     */
+    @Prop(Boolean) public richEditor!: boolean;
   }
 </script>

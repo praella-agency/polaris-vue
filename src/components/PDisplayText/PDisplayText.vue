@@ -13,7 +13,16 @@ type HeadingTagName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
 
 @Component
 export default class PDisplayText extends Vue {
+  /**
+   * Size of the text
+   * @values small, medium, large, extraLarge
+   */
   @Prop({ type: String, default: 'medium' }) public size!: Size;
+
+  /**
+   * Element of text
+   * @values h1..h6, p, span
+   */
   @Prop({ type: String, default: 'p' }) public element!: HeadingTagName;
 
   public get className() {

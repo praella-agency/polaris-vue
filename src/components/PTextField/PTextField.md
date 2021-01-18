@@ -165,3 +165,8 @@ Connected TextField
   <PSelect :options="['%','$']" slot="connectedLeft" />
 </PTextField>
 ```
+
+RichText Editor
+```vue
+<PTextField id="input_field" richEditor label="Description"></PTextField>
+```

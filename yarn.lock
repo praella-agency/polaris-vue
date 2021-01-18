@@ -1040,6 +1040,16 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@ckeditor/ckeditor5-build-classic@^24.0.0":
+  version "24.0.0"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-build-classic/-/ckeditor5-build-classic-24.0.0.tgz#18f310fd0f62c77d3c9ad0348d881c5f1638c564"
+  integrity sha512-659ZAYbuQbPj3ElqrTSV7aqPtW4vt30Th0PiheFei7adIgmu1bFTHgcM3hqm7XGRzGmBRV6C07xSwUptxn3cvQ==
+
+"@ckeditor/ckeditor5-vue2@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-vue2/-/ckeditor5-vue2-1.0.5.tgz#719e7ab65f0c5d9aca91a41a7ec7cb904cbabb4c"
+  integrity sha512-snsNB/2oWfKw0drGJAmMGpTatmt//L1rQsOwkBw+1uKUuOJPKN3xwyUZVWT906VguIMXm4E9OHzquZ3bdkijiA==
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"

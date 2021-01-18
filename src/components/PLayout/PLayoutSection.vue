@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
+import { classNames } from '@/utilities/css';
 
 @Component
 export default class PLayoutSection extends Vue {

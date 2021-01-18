@@ -4,7 +4,20 @@
       {{prefix}}
       <slot v-if="$slots.prefix" name="prefix"></slot>
     </div>
+    <ckeditor v-if="richEditor" :id="id" :editor="editor" :config="{}"
+              @input="onInput"
+              v-model="computedValue"
+              :disabled="disabled"
+              :readonly="readOnly"
+              :autofocus="autoFocus"
+              :placeholder="placeholder"
+              :autocomplete="normalizeAutoComplete(autoComplete)"
+              :aria-describedby="describedBy"
+              :aria-labelledby="labelledBy"
+              :aria-invalid="hasError"
+    ></ckeditor>
     <input
+      v-else
       :tag="multiline?'textarea':'input'"
       ref="input"
       :is="multiline ? 'textarea' : 'input'"
@@ -39,7 +52,7 @@
       <span class="Polaris-VisuallyHidden">Clear</span>
       <PIcon source="CircleCancelMinor" color="inkLightest"></PIcon>
     </button>-->
-    <div class="Polaris-TextField__Backdrop"></div>
+    <div class="Polaris-TextField__Backdrop" v-if="!richEditor"></div>
 
     <PFieldResizer
             v-if="multiline"
@@ -58,6 +71,8 @@
   import PSpinner from './PSpinner.vue';
   import PFieldResizer from '@/components/PTextField/components/PFieldResizer.vue';
   import { PIcon } from '@/components/PIcon';
+  import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+  import CKEditor from '@ckeditor/ckeditor5-vue2';
 
   type Type =
           | 'text'
@@ -80,7 +95,7 @@
           | 'center';
 
   @Component({
-    components: { PFieldResizer, PSpinner, PIcon  },
+    components: { PFieldResizer, PSpinner, PIcon, ckeditor: CKEditor.component  },
   })
   export default class PInput extends Vue {
     @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
@@ -89,6 +104,7 @@
     @Prop(String) public align!: Align;
     @Prop(String) public placeholder!: string;
     @Prop(Boolean) public multiline!: boolean;
+    @Prop(Boolean) public richEditor!: boolean;
     @Prop(Boolean) public disabled!: boolean;
     @Prop(Boolean) public readOnly!: boolean;
     @Prop({type: Boolean, default: true}) public showInput!: boolean;
@@ -112,6 +128,7 @@
 
     public content = this.value !== null ? this.value : '';
     public height = this.minHeight;
+    public editor = ClassicEditor;
 
     public get inputType() {
       return this.type === 'currency' ? 'text' : this.type;

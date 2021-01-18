@@ -2,7 +2,7 @@ module.exports = {
 
     ignore: [
         "**/components/PActionList/components/*",
-        "**/components/PActionMenu/components/*",
+        "**/components/PActionMenu/*",
         "**/components/PButton/utils/*",
         "**/components/PCard/",
         "**/components/PCard/PCardFooter.vue",
@@ -20,6 +20,14 @@ module.exports = {
         "**/components/PPopover/components/PPopoverOverlay.vue",
         "**/components/PPopover/components/PPositionedOverlay.vue",
         "**/components/PResourceList/components/PBulkActionButtonWrapper.vue",
+        "**/components/PTextField/components/PFieldResizer.vue",
+        "**/components/PDataTable/PDataTableCell.vue",
+        "**/components/PDataTable/PDataTableCell.vue",
+        "**/components/PFilter/PFilter.vue",
+        "**/components/PPage/components/PPageHeader.vue",
+        "**/components/PPage/components/components/PPageHeaderTitle.vue",
+        "**/components/PPagination/PPagination.vue",
+        "**/components/PModal/components/*",
     ],
     require: ['./src/css/polaris.min.css']
 }

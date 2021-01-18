@@ -10,8 +10,19 @@
 
     export default class PImage extends Vue {
 
+        /**
+         * Image source
+         */
         @Prop(String) public source!: string;
+
+        /**
+         * Image alt
+         */
         @Prop(String) public alt!: string;
+
+        /**
+         * Image class
+         */
         @Prop(String) public imgClass!: string;
 
         public get className() {

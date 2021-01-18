@@ -28,11 +28,11 @@
 import {Vue, Component, Prop} from 'vue-property-decorator';
 import {classNames} from '@/utilities/css';
 import {PSpinner} from '@/components/PSpinner';
-import PModalDialog from './PModalDialog.vue';
-import PModalHeader from './PModalHeader.vue';
-import PModalFooter from './PModalFooter.vue';
-import PModalSection from './PModalSection.vue';
-import PModalCloseButton from './PModalCloseButton.vue';
+import PModalDialog from './components/PModalDialog.vue';
+import PModalHeader from './components/PModalHeader.vue';
+import PModalFooter from './components/PModalFooter.vue';
+import PModalSection from './components/PModalSection.vue';
+import PModalCloseButton from './components/PModalCloseButton.vue';
 
 @Component({
     components: {
@@ -48,7 +48,6 @@ export default class PModel extends Vue {
 
     @Prop(Boolean) public large!: boolean;
     @Prop(Boolean) public limitHeight!: boolean;
-    @Prop(Boolean) public instant!: boolean;
     @Prop(Boolean) public loading!: boolean;
     @Prop(Boolean) public open!: boolean;
     @Prop(Boolean) public sectioned!: boolean;

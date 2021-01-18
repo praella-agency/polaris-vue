@@ -29,6 +29,8 @@
   },
   "main": "./dist/polaris-vue.common.js",
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^24.0.0",
+    "@ckeditor/ckeditor5-vue2": "^1.0.5",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "@vue/babel-preset-jsx": "^1.1.1",
     "change-case": "^4.1.1",
