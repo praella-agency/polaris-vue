@@ -1,0 +1,114 @@
+
+.Polaris-Choice {
+	display: inline-flex;
+	justify-content: flex-start;
+	padding: .4rem 0;
+}
+.Polaris-Choice--labelHidden {
+	padding: 0;
+	>.Polaris-Choice__Label {
+		position: absolute !important;
+		top: 0;
+		clip: rect(1px,1px,1px,1px) !important;
+		overflow: hidden !important;
+		height: 1px !important;
+		width: 1px !important;
+		padding: 0 !important;
+		border: 0 !important;
+	}
+	.Polaris-Choice__Control {
+		margin-top: 0;
+		margin-right: 0;
+	}
+}
+.Polaris-Choice--disabled {
+	>.Polaris-Choice__Label {
+		color: #919eab;
+		@media (-ms-high-contrast:active) {
+			color: grayText;
+		}
+	}
+}
+.Polaris-Choice__Control {
+	display: flex;
+	flex: 0 0 auto;
+	align-items: stretch;
+	width: 1.6rem;
+	height: 1.6rem;
+	margin-top: .2rem;
+	margin-right: .8rem;
+	>* {
+		width: 100%;
+	}
+}
+.Polaris-Choice__Label {
+	font-size: 1.5rem;
+	font-weight: 400;
+	line-height: 2rem;
+	text-transform: none;
+	letter-spacing: normal;
+	-webkit-tap-highlight-color: transparent;
+	@media (min-width:40em) {
+		font-size: 1.4rem;
+	}
+}
+.Polaris-Choice__Descriptions {
+	padding-left: 2.4rem;
+}
+.Polaris-Choice__HelpText {
+	font-size: 1.5rem;
+	font-weight: 400;
+	line-height: 2rem;
+	text-transform: none;
+	letter-spacing: normal;
+	color: var(--p-text-subdued-on-surface,#637381);
+	margin-bottom: .4rem;
+	@media (min-width:40em) {
+		font-size: 1.4rem;
+	}
+}
+
+
+.Polaris-ChoiceList {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+.Polaris-ChoiceList--titleHidden {
+	>.Polaris-ChoiceList__Title {
+		position: absolute !important;
+		top: 0;
+		clip: rect(1px,1px,1px,1px) !important;
+		overflow: hidden !important;
+		height: 1px !important;
+		width: 1px !important;
+		padding: 0 !important;
+		border: 0 !important;
+	}
+}
+.Polaris-ChoiceList__Choices {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.Polaris-ChoiceList__ChoiceChildren {
+	margin-bottom: .8rem;
+	padding-left: 2.4rem;
+}
+.Polaris-ChoiceList__ChoiceError {
+	margin-top: .4rem;
+	margin-bottom: .8rem;
+}
+.Polaris-ChoiceList__Title {
+	font-size: 1.5rem;
+	font-weight: 400;
+	line-height: 2rem;
+	text-transform: none;
+	letter-spacing: normal;
+	display: block;
+	margin: 0 0 .4rem;
+	padding: 0;
+	@media (min-width:40em) {
+		font-size: 1.4rem;
+	}
+}

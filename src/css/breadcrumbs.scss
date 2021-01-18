@@ -1,0 +1,110 @@
+.Polaris-Breadcrumbs__Breadcrumb {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2rem;
+    text-transform: none;
+    letter-spacing: normal;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: inherit;
+    line-height: inherit;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 3.6rem;
+    margin: -.4rem -.8rem -.4rem -.4rem;
+    color: var(--p-text-subdued-on-surface, #637381);
+    text-decoration: none;
+    @media (min-width:40em) {
+        font-size: 1.4rem;
+    }
+    &:active {
+        color: var(--p-text-on-surface, #212b36);
+        text-decoration: none;
+
+        .Polaris-Breadcrumbs__Icon {
+            svg {
+                fill: var(--p-icon-on-surface, #212b36);
+            }
+        }
+
+        .Polaris-Breadcrumbs__ContentWrapper {
+            background: var(--p-surface-subdued, rgba(33, 43, 54, .1));
+        }
+    }
+
+    &:hover {
+        color: var(--p-text-on-surface, #212b36);
+        text-decoration: none;
+
+        .Polaris-Breadcrumbs__Icon {
+            svg {
+                fill: var(--p-icon-on-surface, #212b36);
+            }
+        }
+    }
+
+    &:focus {
+        outline: none;
+
+        .Polaris-Breadcrumbs__ContentWrapper {
+            background: var(--p-override-transparent, rgba(33, 43, 54, .1));
+        }
+
+        &:not(:active) {
+            .Polaris-Breadcrumbs__ContentWrapper {
+                position: relative;
+
+                &:after {
+                    content: var(--p-non-null-content, none);
+                    position: absolute;
+                    z-index: 1;
+                    top: -.3rem;
+                    right: -.3rem;
+                    bottom: -.3rem;
+                    left: -.3rem;
+                    display: block;
+                    border: .2rem solid var(--p-interactive-focus);
+                    border-radius: calc(var(--p-border-radius-base) + .3rem);
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+}
+
+.Polaris-Breadcrumbs__ContentWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: .8rem;
+    background: transparent;
+    height: 2.8rem;
+    border-radius: var(--p-border-radius-base, 3px);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: background;
+    transition: background .2s cubic-bezier(.64, 0, .35, 1);
+}
+
+.Polaris-Breadcrumbs__Content {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: relative;
+}
+
+.Polaris-Breadcrumbs__Icon {
+    width: 2rem;
+    height: 2rem;
+    margin: 0 0 0 -.8rem;
+
+    svg {
+        fill: var(--p-icon-subdued-on-surface, #637381);
+    }
+}

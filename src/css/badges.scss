@@ -1,0 +1,87 @@
+
+.Polaris-Badge {
+	display: inline-flex;
+	align-items: center;
+	padding: 0 .8rem;
+	background-color: var(--p-neutral-action-disabled,#dfe3e8);
+	border: .2rem solid var(--p-surface-foreground,#fff);
+	border-radius: 2rem;
+	font-size: 1.3rem;
+	line-height: 2rem;
+	color: var(--p-text-on-surface,#454f5b);
+	.Polaris-Badge__Pip {
+		color: var(--p-icon-on-surface,#919eab);
+	}
+}
+.Polaris-Badge--sizeSmall {
+	font-size: 1.2rem;
+	line-height: 1.8rem;
+}
+.Polaris-Badge--statusSuccess {
+	background-color: var(--p-success-surface,#bbe5b3);
+	color: #414f3e;
+	.Polaris-Badge__Pip {
+		color: var(--p-success-icon,#108043);
+	}
+	.Polaris-Badge__Content {
+		color: var(--p-text-on-surface);
+		mix-blend-mode: var(--p-luminosity);
+	}
+}
+.Polaris-Badge--statusInfo {
+	background-color: var(--p-highlight-surface,#b4e1fa);
+	color: #3e4e57;
+	.Polaris-Badge__Pip {
+		color: var(--p-highlight-icon,#084e8a);
+	}
+	.Polaris-Badge__Content {
+		color: var(--p-text-on-surface);
+		mix-blend-mode: var(--p-luminosity);
+	}
+}
+.Polaris-Badge--statusAttention {
+	background-color: #ffea8a;
+	color: #595130;
+	.Polaris-Badge__Pip {
+		color: #8a6116;
+	}
+}
+.Polaris-Badge--statusWarning {
+	background-color: var(--p-warning-surface,#ffc58b);
+	color: #594430;
+	.Polaris-Badge__Pip {
+		color: var(--p-warning-icon,#c05717);
+	}
+	.Polaris-Badge__Content {
+		color: var(--p-text-on-surface);
+		mix-blend-mode: var(--p-luminosity);
+	}
+}
+.Polaris-Badge--statusNew {
+	background-color: #dfe3e8;
+	color: #212b36;
+	font-weight: 500;
+	border: none;
+}
+.Polaris-Badge__Pip {
+	height: 1rem;
+	width: 1rem;
+	margin: 0 .4rem 0 -.3rem;
+	border: .2rem solid;
+	border-radius: 50%;
+}
+.Polaris-Badge--progressIncomplete {
+	.Polaris-Badge__Pip {
+		background: transparent;
+	}
+}
+.Polaris-Badge--progressPartiallyComplete {
+	.Polaris-Badge__Pip {
+		background: linear-gradient(0deg,currentColor,currentColor 50%,transparent 0,transparent);
+	}
+}
+.Polaris-Badge--progressComplete {
+	.Polaris-Badge__Pip {
+		background: linear-gradient(0deg,currentColor,currentColor 50%,currentColor 0);
+	}
+}

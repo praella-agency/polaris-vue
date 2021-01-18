@@ -1,0 +1,38 @@
+/*---------- Variable for basic ----------;*/
+
+/* for body */
+
+$body-font-color: #212b36;
+$body-font-weight: 400 ;
+$body-font-size: 1.5rem;
+$body-line-height: 2rem;
+$font-family: -apple-system,BlinkMacSystemFont,San Francisco,Roboto,Segoe UI,Helvetica Neue,sans-serif;
+$body-bg-color: #f4f6f8;
+
+$body-responsive-font-size: 1.4rem;
+
+/* button variable */
+
+$btn-border-radius: 3px; 
+$btn-btn-line-height: 1;
+
+$btn-default-border: .1rem solid var(--p-border-on-surface,#c4cdd5);
+$btn-default-bgcolor: linear-gradient(180deg,#fff,#f9fafb); 
+$btn-default-border-color: #c4cdd5;
+$btn-default-shadow: 0 1px 0 0 rgba(22,29,37,.05);
+
+
+$btn-default-hover-bgcolor : linear-gradient(180deg,#f9fafb,#f4f6f8);
+$btn-default-hover-border-color : #c4cdd5;
+
+$btn-default-focus-border-color: #5c6ac4;
+
+$btn-default-active-bgcolor: linear-gradient(180deg,#f4f6f8,#f4f6f8);  
+
+$btn-default-focus-shadow: 0 0 0 1px #5c6ac4;
+
+/* border and radius */
+
+
+
+

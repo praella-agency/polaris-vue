@@ -1,0 +1,94 @@
+:root {
+	--polaris-version-number: "4.9.1";
+}
+
+body,html {
+	font-size: 1.5rem;
+	line-height: 2rem;
+	text-transform: none;
+	letter-spacing: normal;
+	font-weight: 400;
+	color: var(--p-text-on-surface,#212b36);
+}
+
+@media (min-width:40em) {
+	body,html {
+		font-size: 1.4rem;
+	}
+}
+
+body,button,html {
+	font-family: -apple-system,BlinkMacSystemFont,San Francisco,Roboto,Segoe UI,Helvetica Neue,sans-serif;
+}
+
+html {
+	position: relative;
+	font-size: 62.5%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	text-rendering: optimizeLegibility;
+}
+
+body {
+	min-height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #f4f6f8;
+}
+
+*,:after,:before {
+	box-sizing: border-box;
+}
+h1 {
+	margin: 0;
+	font-size: 1em;
+	font-weight: 400;
+}
+h2 {
+	margin: 0;
+	font-size: 1em;
+	font-weight: 400;
+}
+h3 {
+	margin: 0;
+	font-size: 1em;
+	font-weight: 400;
+}
+h4 {
+	margin: 0;
+	font-size: 1em;
+	font-weight: 400;
+}
+h5 {
+	margin: 0;
+	font-size: 1em;
+	font-weight: 400;
+}
+h6 {
+	margin: 0;
+	font-size: 1em;
+	font-weight: 400;
+}
+p {
+	margin: 0;
+	font-size: 1em;
+	font-weight: 400;
+}
+[type=button] {
+	&::-moz-focus-inner {
+		border-style: none;
+	}
+}
+[type=reset] {
+	&::-moz-focus-inner {
+		border-style: none;
+	}
+}
+[type=submit] {
+	&::-moz-focus-inner {
+		border-style: none;
+	}
+}

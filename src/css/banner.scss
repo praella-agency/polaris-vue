@@ -1,0 +1,432 @@
+
+.Polaris-Banner {
+	position: relative;
+	display: flex;
+}
+.Polaris-Banner--withinContentContainer {
+	border-radius: var(--p-border-radius-wide,3px);
+	padding: .8rem 1.2rem;
+	--p-banner-background: var(--p-surface-background);
+	--p-banner-border: var(--p-banner-default-border);
+	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
+	transition-delay: .1s;
+	border-radius: var(--p-border-radius-wide,inherit);
+	box-shadow: var(--p-banner-border,none);
+	background-color: var(--p-banner-background,#f4f6f8);
+
+	@media (-ms-high-contrast:active) {
+		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
+	}
+	&:focus {
+		outline: none;
+		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-border-on-surface,#637381),inset 0 0 0 3px var(--p-border-on-surface,#637381),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		position: relative;
+		&:after {
+			content: var(--p-non-null-content,none);
+			position: absolute;
+			z-index: 1;
+			top: -.3rem;
+			right: -.3rem;
+			bottom: -.3rem;
+			left: -.3rem;
+			display: block;
+			border: .2rem solid var(--p-interactive-focus);
+			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			pointer-events: none;
+		}
+	}
+	.Polaris-Banner__Ribbon {
+		padding-right: 1.2rem;
+	}
+	.Polaris-Banner__Actions {
+		padding: 1.2rem 0 .4rem;
+	}
+	.Polaris-Banner__Dismiss {
+		right: 1.2rem;
+		top: 1.2rem;
+		position: absolute;
+	}
+}
+.Polaris-Banner--withinContentContainer.Polaris-Banner--statusSuccess {
+	--p-banner-background: var(--p-success-surface-subdued);
+	--p-banner-border: var(--p-banner-success-border);
+	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
+	transition-delay: .1s;
+	border-radius: var(--p-border-radius-wide,inherit);
+	box-shadow: var(--p-banner-border,none);
+	background-color: var(--p-banner-background,#eff7ed);
+	&:focus {
+		outline: none;
+		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-success-border,#50b83c),inset 0 0 0 3px var(--p-success-border,#50b83c),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		position: relative;
+		&:after {
+			content: var(--p-non-null-content,none);
+			position: absolute;
+			z-index: 1;
+			top: -.3rem;
+			right: -.3rem;
+			bottom: -.3rem;
+			left: -.3rem;
+			display: block;
+			border: .2rem solid var(--p-interactive-focus);
+			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			pointer-events: none;
+		}
+	}
+}
+.Polaris-Banner--withinContentContainer.Polaris-Banner--statusInfo {
+	--p-banner-background: var(--p-highlight-surface-subdued);
+	--p-banner-border: var(--p-banner-highlight-border);
+	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
+	transition-delay: .1s;
+	border-radius: var(--p-border-radius-wide,inherit);
+	box-shadow: var(--p-banner-border,none);
+	background-color: var(--p-banner-background,#eef9f9);
+	@media (-ms-high-contrast:active) {
+		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;	
+	}
+	&:focus {
+		outline: none;
+		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-highlight-border,#47c1bf),inset 0 0 0 3px var(--p-highlight-border,#47c1bf),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		position: relative;
+		&:after {
+			content: var(--p-non-null-content,none);
+			position: absolute;
+			z-index: 1;
+			top: -.3rem;
+			right: -.3rem;
+			bottom: -.3rem;
+			left: -.3rem;
+			display: block;
+			border: .2rem solid var(--p-interactive-focus);
+			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			pointer-events: none;
+		}
+	}
+}
+.Polaris-Banner--withinContentContainer.Polaris-Banner--statusWarning {
+	--p-banner-background: var(--p-warning-surface-subdued);
+	--p-banner-border: var(--p-banner-warning-border);
+	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
+	transition-delay: .1s;
+	border-radius: var(--p-border-radius-wide,inherit);
+	box-shadow: var(--p-banner-border,none);
+	background-color: var(--p-banner-background,#fdf7e3);
+	@media (-ms-high-contrast:active) {
+		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-warning-border,#eec200),inset 0 0 0 3px var(--p-warning-border,#eec200),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		position: relative;
+		&:after {
+			content: var(--p-non-null-content,none);
+			position: absolute;
+			z-index: 1;
+			top: -.3rem;
+			right: -.3rem;
+			bottom: -.3rem;
+			left: -.3rem;
+			display: block;
+			border: .2rem solid var(--p-interactive-focus);
+			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			pointer-events: none;
+		}
+	}
+}
+.Polaris-Banner--withinContentContainer.Polaris-Banner--statusCritical {
+	--p-banner-background: var(--p-critical-surface-subdued);
+	--p-banner-border: var(--p-banner-critical-border);
+	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
+	transition-delay: .1s;
+	border-radius: var(--p-border-radius-wide,inherit);
+	box-shadow: var(--p-banner-border,none);
+	background-color: var(--p-banner-background,#fdf3f0);
+	@media (-ms-high-contrast:active) {
+		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
+	}
+	&:focus {
+		outline: none;
+		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-critical-diviver,#de3618),inset 0 0 0 3px var(--p-critical-diviver,#de3618),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		position: relative;
+		&:after {
+			content: var(--p-non-null-content,none);
+			position: absolute;
+			z-index: 1;
+			top: -.3rem;
+			right: -.3rem;
+			bottom: -.3rem;
+			left: -.3rem;
+			display: block;
+			border: .2rem solid var(--p-interactive-focus);
+			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			pointer-events: none;
+		}
+	}
+}
+.Polaris-Banner--withinContentContainer+.Polaris-Banner {
+	margin-top: .8rem;
+}
+.Polaris-Banner--withinPage {
+	border-radius: 0 0 3px 3px;
+	padding: 1.6rem;
+	--p-banner-background: var(--p-surface-background);
+	--p-banner-border: var(--p-banner-default-border);
+	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
+	transition-delay: .1s;
+	border-radius: var(--p-border-radius-wide,inherit);
+	box-shadow: var(--p-banner-border,none);
+	box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-border-on-surface,#637381),inset 0 0 0 0 transparent,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+	background-color: var(--p-banner-background,#f4f6f8);
+
+	@media (-ms-high-contrast:active) {
+		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
+	}
+	&:focus {
+		outline: none;
+		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-border-on-surface,#637381),inset 0 0 0 3px var(--p-border-on-surface,#637381),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		position: relative;
+		&:after {
+			content: var(--p-non-null-content,none);
+			position: absolute;
+			z-index: 1;
+			top: -.3rem;
+			right: -.3rem;
+			bottom: -.3rem;
+			left: -.3rem;
+			display: block;
+			border: .2rem solid var(--p-interactive-focus);
+			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			pointer-events: none;
+		}
+	}
+	.Polaris-Banner__Ribbon {
+		padding-right: 1.6rem;
+	}
+	.Polaris-Banner__Actions {
+		padding-top: 1.6rem;
+	}
+	.Polaris-Banner__Dismiss {
+		right: 1.6rem;
+		top: 2rem;
+		position: absolute;
+	}
+}
+.Polaris-Banner--withinPage.Polaris-Banner--statusSuccess {
+	--p-banner-background: var(--p-success-surface-subdued);
+	--p-banner-border: var(--p-banner-success-border);
+	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
+	transition-delay: .1s;
+	border-radius: var(--p-border-radius-wide,inherit);
+	box-shadow: var(--p-banner-border,none);
+	box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-success-border,#50b83c),inset 0 0 0 0 transparent,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+	background-color: var(--p-banner-background,#eff7ed);
+	@media (-ms-high-contrast:active) {
+		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
+	}
+	&:focus {
+		outline: none;
+		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-success-border,#50b83c),inset 0 0 0 3px var(--p-success-border,#50b83c),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		position: relative;
+		&:after {
+			content: var(--p-non-null-content,none);
+			position: absolute;
+			z-index: 1;
+			top: -.3rem;
+			right: -.3rem;
+			bottom: -.3rem;
+			left: -.3rem;
+			display: block;
+			border: .2rem solid var(--p-interactive-focus);
+			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			pointer-events: none;
+		}
+	}
+}
+.Polaris-Banner--withinPage.Polaris-Banner--statusInfo {
+	--p-banner-background: var(--p-highlight-surface-subdued);
+	--p-banner-border: var(--p-banner-highlight-border);
+	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
+	transition-delay: .1s;
+	border-radius: var(--p-border-radius-wide,inherit);
+	box-shadow: var(--p-banner-border,none);
+	box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-highlight-border,#47c1bf),inset 0 0 0 0 transparent,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+	background-color: var(--p-banner-background,#eef9f9);
+	@media (-ms-high-contrast:active) {
+		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-highlight-border,#47c1bf),inset 0 0 0 3px var(--p-highlight-border,#47c1bf),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		position: relative;
+		&:after {
+			content: var(--p-non-null-content,none);
+			position: absolute;
+			z-index: 1;
+			top: -.3rem;
+			right: -.3rem;
+			bottom: -.3rem;
+			left: -.3rem;
+			display: block;
+			border: .2rem solid var(--p-interactive-focus);
+			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			pointer-events: none;
+		}
+	}
+}
+.Polaris-Banner--withinPage.Polaris-Banner--statusWarning {
+	--p-banner-background: var(--p-warning-surface-subdued);
+	--p-banner-border: var(--p-banner-warning-border);
+	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
+	transition-delay: .1s;
+	border-radius: var(--p-border-radius-wide,inherit);
+	box-shadow: var(--p-banner-border,none);
+	box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-warning-border,#eec200),inset 0 0 0 0 transparent,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+	background-color: var(--p-banner-background,#fdf7e3);
+	@media (-ms-high-contrast:active) {
+		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
+	}
+	&:focus {
+		outline: none;
+		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-warning-border,#eec200),inset 0 0 0 3px var(--p-warning-border,#eec200),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		position: relative;
+		&:after {
+			content: var(--p-non-null-content,none);
+			position: absolute;
+			z-index: 1;
+			top: -.3rem;
+			right: -.3rem;
+			bottom: -.3rem;
+			left: -.3rem;
+			display: block;
+			border: .2rem solid var(--p-interactive-focus);
+			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			pointer-events: none;
+		}
+	}
+}
+.Polaris-Banner--withinPage.Polaris-Banner--statusCritical {
+	--p-banner-background: var(--p-critical-surface-subdued);
+	--p-banner-border: var(--p-banner-critical-border);
+	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
+	transition-delay: .1s;
+	border-radius: var(--p-border-radius-wide,inherit);
+	box-shadow: var(--p-banner-border,none);
+	box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-critical-diviver,#de3618),inset 0 0 0 0 transparent,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+	background-color: var(--p-banner-background,#fdf3f0);
+	@media (-ms-high-contrast:active) {
+		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
+	}
+	&:focus {
+		outline: none;
+		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-critical-diviver,#de3618),inset 0 0 0 3px var(--p-critical-diviver,#de3618),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		position: relative;
+		&:after {
+			content: var(--p-non-null-content,none);
+			position: absolute;
+			z-index: 1;
+			top: -.3rem;
+			right: -.3rem;
+			bottom: -.3rem;
+			left: -.3rem;
+			display: block;
+			border: .2rem solid var(--p-interactive-focus);
+			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			pointer-events: none;
+		}
+	}
+}
+.Polaris-Banner--withinPage+.Polaris-Banner {
+	margin-top: 2rem;
+}
+.Polaris-Banner--hasDismiss {
+	padding-right: 5.6rem;
+}
+.Polaris-Banner__Heading {
+	padding-top: .2rem;
+	word-break: break-word;
+}
+.Polaris-Banner__Content {
+	word-wrap: break-word;
+	word-break: break-word;
+	overflow-wrap: break-word;
+	padding: .4rem 0;
+}
+.Polaris-Banner__Ribbon {
+	flex: 0 0 3.2rem;
+}
+.Polaris-Banner__PrimaryAction {
+	margin-right: .6rem;
+}
+.Polaris-Banner__SecondaryAction {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: none;
+	border: none;
+	font-size: inherit;
+	line-height: inherit;
+	cursor: pointer;
+	color: inherit;
+	text-decoration: none;
+	display: inline-block;
+	margin: -.8rem -.6rem;
+	color: var(--p-text-on-surface,#212b36);
+	padding: .8rem 1.2rem .8rem .6rem;
+	&:focus {
+		outline: none;
+		>.Polaris-Banner__Text {
+			padding: 2px 5px;
+			margin: -2px -5px;
+			background: rgba(33,43,54,.1);
+			border-radius: 3px;
+			transition: opacity .2s cubic-bezier(.64,0,.35,1);
+			@media (-ms-high-contrast:active) {
+				outline: 2px dotted;
+			}
+			&:after {
+				opacity: 0;
+			}
+		}
+	}
+	&:visited {
+		color: inherit;
+	}
+	&:hover {
+		>.Polaris-Banner__Text {
+			&:after {
+				opacity: .75;
+			}
+		}
+	}
+	&:active {
+		>.Polaris-Banner__Text {
+			&:after {
+				opacity: 0;
+			}
+		}
+	}
+}
+.Polaris-Banner__Text {
+	position: relative;
+	&:after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		display: block;
+		border: .1rem solid;
+		opacity: .25;
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+		will-change: opacity;
+		transition: opacity .2s cubic-bezier(.64,0,.35,1);
+	}
+	&:before {
+		content: "";
+		position: absolute;
+	}
+}
