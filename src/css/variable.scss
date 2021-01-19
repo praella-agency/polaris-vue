@@ -9,30 +9,97 @@ $body-line-height: 2rem;
 $font-family: -apple-system,BlinkMacSystemFont,San Francisco,Roboto,Segoe UI,Helvetica Neue,sans-serif;
 $body-bg-color: #f4f6f8;
 
-$body-responsive-font-size: 1.4rem;
+$body-media-fontsize: 1.4rem;
 
 /* button variable */
 
 $btn-border-radius: 3px; 
-$btn-btn-line-height: 1;
+
+$btn-content-fontsize: 1.5rem;
+$btn-content-fontweight: 400;
+$btn-content-lineheight: 1.6rem;
+
+$btn-content-media-fontsize: 1.6rem;
 
 $btn-default-border: .1rem solid var(--p-border-on-surface,#c4cdd5);
-$btn-default-bgcolor: linear-gradient(180deg,#fff,#f9fafb); 
+$btn-default-bgcolor: linear-gradient(180deg,#fff,#f9	fafb); 
 $btn-default-border-color: #c4cdd5;
 $btn-default-shadow: 0 1px 0 0 rgba(22,29,37,.05);
-
 
 $btn-default-hover-bgcolor : linear-gradient(180deg,#f9fafb,#f4f6f8);
 $btn-default-hover-border-color : #c4cdd5;
 
 $btn-default-focus-border-color: #5c6ac4;
-
-$btn-default-active-bgcolor: linear-gradient(180deg,#f4f6f8,#f4f6f8);  
-
 $btn-default-focus-shadow: 0 0 0 1px #5c6ac4;
 
-/* border and radius */
+$btn-default-active-bgcolor: linear-gradient(180deg,#f4f6f8,#f4f6f8);  
+$btn-default-active-border-color: #c4cdd5;  
+$btn-default-active-shadow: 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.2);
 
+$btn-default-svg-icon-color: #637381;
 
+$btn-default-disable-bgcolor: linear-gradient(180deg,#f4f6f8,#f4f6f8);
+$btn-default-disable-color: #919eab;
+$btn-default-disable-svg-icon-color: #919eab;
+
+$buttongroup-segmented-border-radius: 0;
+
+$btn-primary-bgcolor: linear-gradient(180deg,#6371c7,#5563c1);
+$btn-primary-color:  #fff ;
+$btn-primary-border-color: #3f4eae;
+$btn-primary-boxshadow: inset 0 1px 0 0 #6774c8,0 1px 0 0 rgba(22,29,37,.05),0 0 0 0 transparent;
+
+$btn-primary-hover-bgcolor: linear-gradient(180deg,#5c6ac4,#4959bd);
+$btn-primary-hover-color: #fff;
+$btn-primary-hover-border-color: #3f4eae;
+
+$btn-primary-focus-boxshadow: inset 0 1px 0 0 #6f7bcb,0 1px 0 0 rgba(22,29,37,.05),0 0 0 1px #202e78;
+$btn-primary-focus-border-color: #202e78;
+
+$btn-primary-active-border-color: #38469b;
+$btn-primary-active-bgcolor: linear-gradient(180deg,#3f4eae,#3f4eae);
+$btn-primary-active-boxshadow: inset 0 0 0 0 transparent,0 1px 0 0 rgba(22,29,37,.05),0 0 1px 0 #38469b;
+
+$btn-primary-svg-icon-color: #fff;
+
+$btn-primary-disable-bgcolor: linear-gradient(180deg,#bac0e6,#bac0e6);
+$btn-primary-disable-color: #fff;
+$btn-primary-disable-border-color: #a7aedf;
+$btn-primary-disable-box-shadow: none;
+$btn-primary-disable-svg-icon-color: #fff;
+
+$btn-primary-pressed-bgcolor: linear-gradient(180deg,#3f4eae,#3f4eae);
+$btn-primary-pressed-border-color: #10173c;
+$btn-primary-pressed-boxshadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #10173c;
+
+$btn-primary-pressed-focus-bgcolor: linear-gradient(180deg,#3c4ba7,#3c4ba7);
+$btn-primary-pressed-focus-border-color: #10173c;
+$btn-primary-pressed-focus-boxshadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #10173c;
+
+$btn-primary-pressed-hover-bgcolor: linear-gradient(180deg,#3c4ba7,#3c4ba7);
+$btn-primary-pressed-hover-border-color: #10173c;
+$btn-primary-pressed-hover-boxshadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #10173c;
+
+$btn-primary-pressed-active-bgcolor: linear-gradient(180deg,#3f4eae,#3f4eae);
+$btn-primary-pressed-active-border-color: #10173c;
+$btn-primary-pressed-active-boxshadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #0b0f27;
+
+$btn-destructive-bgcolor: linear-gradient(180deg,#e6391a,#d53417);
+$btn-destructive-color: #fff;
+$btn-destructive-border-color: #b02b13;
+$btn-destructive-box-shadow: inset 0 1px 0 0 #e73d1f,0 1px 0 0 rgba(22,29,37,.05),0 0 0 0 transparent;
+
+$btn-destructive-svg-icon-color: #fff;
+
+$btn-destructive-hover-bgcolor: linear-gradient(180deg,#de3618,#c73016);
+$btn-destructive-hover-color: #fff;
+$btn-destructive-hover-border-color: #b02b13;
+
+$btn-destructive-focus-box-shadow: inset 0 1px 0 0 #e84528,0 1px 0 0 rgba(22,29,37,.05),0 0 0 1px #bf0711;
+$btn-destructive-focus-border-color: #bf0711;
+
+$btn-destructive-active-box-shadow: inset 0 0 0 0 transparent,0 1px 0 0 rgba(22,29,37,.05),0 0 1px 0 #992511;
+$btn-destructive-active-border-color: #992511;
+$btn-destructive-active-bgcolor: linear-gradient(180deg,#b02b13,#b02b13);
 
 

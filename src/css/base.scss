@@ -3,22 +3,22 @@
 }
 
 body,html {
-	font-size: 1.5rem;
-	line-height: 2rem;
+	font-size: $body-font-size;
+	line-height: $body-line-height;
 	text-transform: none;
 	letter-spacing: normal;
-	font-weight: 400;
-	color: var(--p-text-on-surface,#212b36);
+	font-weight: $body-font-weight;
+	color: $body-font-color;
 }
 
 @media (min-width:40em) {
 	body,html {
-		font-size: 1.4rem;
+		font-size: $body-media-fontsize;
 	}
 }
 
 body,button,html {
-	font-family: -apple-system,BlinkMacSystemFont,San Francisco,Roboto,Segoe UI,Helvetica Neue,sans-serif;
+	font-family: $font-family;
 }
 
 html {
@@ -36,59 +36,19 @@ body {
 	min-height: 100%;
 	margin: 0;
 	padding: 0;
-	background-color: #f4f6f8;
+	background-color: $body-bg-color;
 }
 
 *,:after,:before {
 	box-sizing: border-box;
 }
-h1 {
+
+h1,h2,h3,h4,h5,h6,p {
 	margin: 0;
 	font-size: 1em;
-	font-weight: 400;
+	font-weight: $body-font-weight;
 }
-h2 {
-	margin: 0;
-	font-size: 1em;
-	font-weight: 400;
-}
-h3 {
-	margin: 0;
-	font-size: 1em;
-	font-weight: 400;
-}
-h4 {
-	margin: 0;
-	font-size: 1em;
-	font-weight: 400;
-}
-h5 {
-	margin: 0;
-	font-size: 1em;
-	font-weight: 400;
-}
-h6 {
-	margin: 0;
-	font-size: 1em;
-	font-weight: 400;
-}
-p {
-	margin: 0;
-	font-size: 1em;
-	font-weight: 400;
-}
-[type=button] {
-	&::-moz-focus-inner {
-		border-style: none;
-	}
-}
-[type=reset] {
-	&::-moz-focus-inner {
-		border-style: none;
-	}
-}
-[type=submit] {
-	&::-moz-focus-inner {
-		border-style: none;
-	}
+
+[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner {
+	border-style: none;
 }

@@ -7,12 +7,12 @@
 	min-width: 3.6rem;
 	margin: 0;
 	padding: .7rem 1.6rem;
-	background: linear-gradient(180deg,#fff,#f9fafb);
-	border: .1rem solid var(--p-border-on-surface,#c4cdd5);
-	box-shadow: 0 1px 0 0 rgba(22,29,37,.05);
-	border-radius: 3px;
+	background: $btn-default-bgcolor;
+	border: $btn-default-border ;
+	box-shadow: $btn-default-shadow;
+	border-radius: $btn-border-radius;
 	line-height: 1;
-	color: #212b36;
+	color: $body-font-color;
 	text-align: center;
 	cursor: pointer;
 	-webkit-user-select: none;
@@ -25,27 +25,28 @@
 	transition-timing-function: cubic-bezier(.64,0,.35,1);
 	-webkit-tap-highlight-color: transparent;
 	svg {
-		fill: #637381;
+		fill: $btn-default-svg-icon-color;
 	}
 	&:hover {
-		background: linear-gradient(180deg,#f9fafb,#f4f6f8);
-		border-color: #c4cdd5;
+		background: $btn-default-hover-bgcolor;
+		border-color: $btn-default-hover-border-color ;
 	}
 	&:focus {
-		border-color: #5c6ac4;
+		border-color: $btn-default-focus-border-color;
 		outline: 0;
-		box-shadow: 0 0 0 1px #5c6ac4;
+		box-shadow: $btn-default-focus-shadow;
 		@media (-ms-high-contrast:active) {
 			outline: 2px dotted;	
 		}
 	}
 	&:active {
-		background: linear-gradient(180deg,#f4f6f8,#f4f6f8);
-		border-color: #c4cdd5;
-		box-shadow: 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.2);
+		background: $btn-default-active-bgcolor;
+		border-color: $btn-default-active-border-color;
+		box-shadow: $btn-default-active-shadow;
 	}
 }
-.Polaris-Button.Polaris-Button--globalTheming {
+
+/*.Polaris-Button.Polaris-Button--globalTheming {
 	background: var(--p-neutral-action);
 	border: none;
 	box-shadow: none;
@@ -84,51 +85,53 @@
 			border: none;
 		}
 	}
-}
+}*/
+
+
 .Polaris-Button.Polaris-Button--disabled {
 	transition: none;
-	background: linear-gradient(180deg,#f4f6f8,#f4f6f8);
-	color: #919eab;
+	background: $btn-default-disable-bgcolor;
+	color: $btn-default-disable-color;
 	svg {
-		fill: #919eab;
+		fill: $btn-default-disable-svg-icon-color;
 	}
 }
-.Polaris-Button.Polaris-Button--disabled.Polaris-Button--globalTheming {
+/*.Polaris-Button.Polaris-Button--disabled.Polaris-Button--globalTheming {
 	background: var(--p-neutral-action-disabled);
 	color: var(--p-text-disabled-on-surface);
 	svg {
 		fill: var(--p-icon-disabled-on-surface);
 	}
 }
-
+*/
 [data-buttongroup-segmented] .Polaris-Button {
-	border-radius: 0;
+	border-radius: $buttongroup-segmented-border-radius;
 }
 
 [data-buttongroup-segmented]>:first-child .Polaris-Button {
-	border-top-left-radius: var(--p-border-radius-base,3px);
-	border-bottom-left-radius: var(--p-border-radius-base,3px);
+	border-top-left-radius: $btn-border-radius;
+	border-bottom-left-radius: $btn-border-radius;
 }
 
 [data-buttongroup-segmented]>:last-child .Polaris-Button {
-	border-top-right-radius: var(--p-border-radius-base,3px);
-	border-bottom-right-radius: var(--p-border-radius-base,3px);
+	border-top-right-radius: $btn-border-radius;
+	border-bottom-right-radius: $btn-border-radius;
 }
 
 
 [data-buttongroup-segmented] {
 	.Polaris-ResourceList-CheckableButton {
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
+		border-top-right-radius: $buttongroup-segmented-border-radius;
+		border-bottom-right-radius: $buttongroup-segmented-border-radius;
 		border-right: none;
 	}
 }
 [data-buttongroup-connected-top]>:first-child .Polaris-Button {
-	border-top-left-radius: 0;
+	border-top-left-radius: $buttongroup-segmented-border-radius;
 }
 
 [data-buttongroup-connected-top]>:last-child .Polaris-Button {
-	border-top-right-radius: 0;
+	border-top-right-radius: $buttongroup-segmented-border-radius;
 }
 
 [data-buttongroup-full-width] {
@@ -138,9 +141,9 @@
 	}
 }
 .Polaris-Button__Content {
-	font-size: 1.5rem;
-	font-weight: var(--p-button-font-weight,400);
-	line-height: 1.6rem;
+	font-size: $btn-content-fontsize;
+	font-weight: $btn-content-fontweight;
+	line-height: $btn-content-lineheight;
 	text-transform: none;
 	letter-spacing: normal;
 	position: relative;
@@ -150,7 +153,7 @@
 	min-width: 1px;
 	min-height: 1px;
 	@media (min-width:40em) {
-		font-size: 1.4rem;
+		font-size: $btn-content-media-fontsize;
 	}
 }
 .Polaris-Button--textAlignLeft {
@@ -187,34 +190,31 @@
 	margin-left: -1rem;
 }
 .Polaris-Button--primary {
-	--p-button-color: var(--p-primary-action);
-	--p-button-text: var(--p-text-on-primary);
-	--p-button-color-hover: var(--p-primary-action-hovered);
-	--p-button-color-active: var(--p-primary-action-pressed);
-	background: linear-gradient(180deg,#6371c7,#5563c1);
-	border-color: #3f4eae;
-	box-shadow: inset 0 1px 0 0 #6774c8,0 1px 0 0 rgba(22,29,37,.05),0 0 0 0 transparent;
-	color: #fff;
+	background: $btn-primary-bgcolor;
+	border-color: $btn-primary-border-color;
+	box-shadow: $btn-primary-boxshadow;
+	color: $btn-primary-color;
 	&:hover {
-		background: linear-gradient(180deg,#5c6ac4,#4959bd);
-		border-color: #3f4eae;
-		color: #fff;
+		background: $btn-primary-hover-bgcolor;
+		border-color: $btn-primary-hover-border-color;
+		color: $btn-primary-hover-color;
 		text-decoration: none;
 	}
 	&:focus {
-		border-color: #202e78;
-		box-shadow: inset 0 1px 0 0 #6f7bcb,0 1px 0 0 rgba(22,29,37,.05),0 0 0 1px #202e78;
+		border-color: $btn-primary-focus-border-color;
+		box-shadow: $btn-primary-focus-boxshadow;
 	}
 	&:active {
-		background: linear-gradient(180deg,#3f4eae,#3f4eae);
-		border-color: #38469b;
-		box-shadow: inset 0 0 0 0 transparent,0 1px 0 0 rgba(22,29,37,.05),0 0 1px 0 #38469b;
+		background: $btn-primary-active-bgcolor;
+		border-color: $btn-primary-active-bgcolor;
+		box-shadow: $btn-primary-active-boxshadow;
 	}
 	svg {
-		fill: #fff;
+		fill: $btn-primary-svg-icon-color;
 	}
 }
-.Polaris-Button--primary.Polaris-Button--globalTheming {
+
+/*.Polaris-Button--primary.Polaris-Button--globalTheming {
 	background: var(--p-button-color);
 	border-color: transparent;
 	box-shadow: none;
@@ -237,74 +237,76 @@
 		fill: var(--p-icon-on-branded);
 	}
 }
+*/
+
+
 .Polaris-Button--primary.Polaris-Button--disabled {
-	background: linear-gradient(180deg,#bac0e6,#bac0e6);
-	border-color: #a7aedf;
-	box-shadow: none;
-	color: #fff;
+	background: $btn-primary-disable-bgcolor;
+	border-color: $btn-primary-disable-border-color;
+	box-shadow: $btn-primary-disable-box-shadow;
+	color: $btn-primary-disable-color;
 	svg {
-		fill: #fff;
+		fill: $btn-primary-disable-svg-icon-color;
 	}
 }
-.Polaris-Button--primary.Polaris-Button--disabled.Polaris-Button--globalTheming {
+/*.Polaris-Button--primary.Polaris-Button--disabled.Polaris-Button--globalTheming {
 	border-color: transparent;
 	background: var(--p-neutral-action-disabled);
 	color: var(--p-text-disabled-on-surface);
 	svg {
 		fill: var(--p-icon-disabled-on-surface);
 	}
-}
+}*/
+
+
 .Polaris-Button--primary.Polaris-Button--pressed {
-	background: linear-gradient(180deg,#3f4eae,#3f4eae);
-	border-color: #10173c;
-	box-shadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #10173c;
+	background: $btn-primary-pressed-bgcolor;
+	border-color: $btn-primary-pressed-border-color;
+	box-shadow: $btn-primary-pressed-boxshadow;
 	&:focus {
 		transition-duration: .1s;
-		background: linear-gradient(180deg,#3c4ba7,#3c4ba7);
-		border-color: #10173c;
-		box-shadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #10173c;
+		background: $btn-primary-pressed-focus-bgcolor;
+		border-color: $btn-primary-pressed-focus-border-color;
+		box-shadow: $btn-primary-pressed-focus-boxshadow;
 	}
 	&:hover {
 		transition-duration: .1s;
-		background: linear-gradient(180deg,#3c4ba7,#3c4ba7);
-		border-color: #10173c;
-		box-shadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #10173c;
+		background: $btn-primary-pressed-hover-bgcolor;
+		border-color: $btn-primary-pressed-hover-border-color;
+		box-shadow: $btn-primary-pressed-hover-boxshadow;
 	}
 	&:active {
-		background: linear-gradient(180deg,#3f4eae,#3f4eae);
-		border-color: #10173c;
-		box-shadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #0b0f27;
+		background: $btn-primary-pressed-active-bgcolor;
+		border-color: $btn-primary-pressed-active-border-color;
+		box-shadow: $btn-primary-pressed-active-boxshadow;
 	}
 }
 .Polaris-Button--destructive {
-	--p-button-color: var(--p-critical-action);
-	--p-button-text: var(--p-text-on-critical);
-	--p-button-color-hover: var(--p-critical-action-hovered);
-	--p-button-color-active: var(--p-critical-action-pressed);
-	background: linear-gradient(180deg,#e6391a,#d53417);
-	border-color: #b02b13;
-	box-shadow: inset 0 1px 0 0 #e73d1f,0 1px 0 0 rgba(22,29,37,.05),0 0 0 0 transparent;
-	color: #fff;
+	background: $btn-destructive-bgcolor;
+	border-color: $btn-destructive-border-color;
+	box-shadow: $btn-destructive-box-shadow;
+	color: $btn-destructive-color;
 	&:hover {
-		background: linear-gradient(180deg,#de3618,#c73016);
-		border-color: #b02b13;
-		color: #fff;
+		background: $btn-destructive-hover-bgcolor;
+		border-color: $btn-destructive-hover-border-color;
+		color: $btn-destructive-hover-color;
 		text-decoration: none;
 	}
 	&:focus {
-		border-color: #bf0711;
-		box-shadow: inset 0 1px 0 0 #e84528,0 1px 0 0 rgba(22,29,37,.05),0 0 0 1px #bf0711;
+		border-color: $btn-destructive-focus-border-color;
+		box-shadow: $btn-destructive-focus-box-shadow;
 	}
 	&:active {
-		background: linear-gradient(180deg,#b02b13,#b02b13);
-		border-color: #992511;
-		box-shadow: inset 0 0 0 0 transparent,0 1px 0 0 rgba(22,29,37,.05),0 0 1px 0 #992511;
+		background: $btn-destructive-active-bgcolor;
+		border-color: $btn-destructive-active-border-color;
+		box-shadow: $btn-destructive-active-box-shadow;
 	}
 	svg {
-		fill: #fff;
+		fill: $btn-destructive-svg-icon-color;
 	}
 }
-.Polaris-Button--destructive.Polaris-Button--globalTheming {
+
+/*.Polaris-Button--destructive.Polaris-Button--globalTheming {
 	background: var(--p-button-color);
 	border-color: transparent;
 	box-shadow: none;
@@ -323,7 +325,8 @@
 		border-color: transparent;
 		box-shadow: none;
 	}
-}
+}*/
+
 .Polaris-Button--destructive.Polaris-Button--disabled {
 	background: linear-gradient(180deg,#f29484,#f29484);
 	border-color: #ef816d;

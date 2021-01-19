@@ -636,9 +636,9 @@ h1,h2,h3,h4,h5,h6,p {
 	min-width: 3.6rem;
 	margin: 0;
 	padding: .7rem 1.6rem;
-	background: $btn-defualt-bgcolor;
+	background: $btn-default-bgcolor;
 	border: $btn-default-border ;
-	box-shadow: $btn-defualt-shadow;
+	box-shadow: $btn-default-shadow;
 	border-radius: $btn-border-radius;
 	line-height: 1;
 	color: $body-font-color;
@@ -656,18 +656,18 @@ h1,h2,h3,h4,h5,h6,p {
 }
 
 .Polaris-Button svg {
-	fill: #637381;
+	fill: $btn-svg-icon-color;
 }
 
 .Polaris-Button:hover {
-	background: linear-gradient(180deg,#f9fafb,#f4f6f8);
-	border-color: #c4cdd5;
+	background: $btn-default-hover-bgcolor;
+	border-color: $btn-default-hover-border-color ;
 }
 
 .Polaris-Button:focus {
-	border-color: #5c6ac4;
+	border-color: $btn-default-focus-border-color;
 	outline: 0;
-	box-shadow: 0 0 0 1px #5c6ac4;
+	box-shadow: $btn-default-focus-shadow;
 }
 
 @media (-ms-high-contrast:active) {
@@ -677,11 +677,12 @@ h1,h2,h3,h4,h5,h6,p {
 }
 
 .Polaris-Button:active {
-	background: linear-gradient(180deg,#f4f6f8,#f4f6f8);
-	border-color: #c4cdd5;
-	box-shadow: 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.2);
+	background: $btn-default-active-bgcolor;
+	border-color: $btn-default-active-border-color;
+	box-shadow: $btn-default-active-shadow;
 }
 
+/*
 .Polaris-Button.Polaris-Button--globalTheming {
 	background: var(--p-neutral-action);
 	border: none;
@@ -727,18 +728,18 @@ h1,h2,h3,h4,h5,h6,p {
 
 .Polaris-Button.Polaris-Button--globalTheming:active:after {
 	border: none;
-}
+}*/
 
 .Polaris-Button.Polaris-Button--disabled {
 	transition: none;
-	background: linear-gradient(180deg,#f4f6f8,#f4f6f8);
-	color: #919eab;
+	background: $btn-disable-bgcolor;
+	color: $btn-disable-color;
 }
 
 .Polaris-Button.Polaris-Button--disabled svg {
-	fill: #919eab;
+	fill: $btn-disable-svg-icon-color;
 }
-
+/*
 .Polaris-Button.Polaris-Button--disabled.Polaris-Button--globalTheming {
 	background: var(--p-neutral-action-disabled);
 	color: var(--p-text-disabled-on-surface);
@@ -747,19 +748,19 @@ h1,h2,h3,h4,h5,h6,p {
 .Polaris-Button.Polaris-Button--disabled.Polaris-Button--globalTheming svg {
 	fill: var(--p-icon-disabled-on-surface);
 }
-
+*/
 [data-buttongroup-segmented] .Polaris-Button {
-	border-radius: 0;
+	border-radius: $buttongroup-segmented-border-radius;
 }
 
 [data-buttongroup-segmented]>:first-child .Polaris-Button {
-	border-top-left-radius: var(--p-border-radius-base,3px);
-	border-bottom-left-radius: var(--p-border-radius-base,3px);
+	border-top-left-radius: $btn-border-radius;
+	border-bottom-left-radius: $btn-border-radius;
 }
 
 [data-buttongroup-segmented]>:last-child .Polaris-Button {
-	border-top-right-radius: var(--p-border-radius-base,3px);
-	border-bottom-right-radius: var(--p-border-radius-base,3px);
+	border-top-right-radius: $btn-border-radius;
+	border-bottom-right-radius: $btn-border-radius;
 }
 
 [data-buttongroup-connected-top]>:first-child .Polaris-Button {
