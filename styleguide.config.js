@@ -23,7 +23,6 @@ module.exports = {
         "**/components/PTextField/components/PFieldResizer.vue",
         "**/components/PDataTable/PDataTableCell.vue",
         "**/components/PDataTable/PDataTableCell.vue",
-        "**/components/PFilter/PFilter.vue",
         "**/components/PPage/components/PPageHeader.vue",
         "**/components/PPage/components/components/PPageHeaderTitle.vue",
         "**/components/PPagination/PPagination.vue",

@@ -98,3 +98,10 @@
     @Prop(Boolean) public richEditor!: boolean;
   }
 </script>
+
+<style>
+  .ck.ck-editor {
+    position: relative;
+    width: 100%;
+  }
+</style>

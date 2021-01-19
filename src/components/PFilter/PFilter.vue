@@ -3,16 +3,14 @@
         <div class="Polaris-Filters">
             <div class="Polaris-Filters-ConnectedFilterControl__Wrapper">
                 <div class="Polaris-Filters-ConnectedFilterControl Polaris-Filters-ConnectedFilterControl--right">
-                    <div class="Polaris-Filters-ConnectedFilterControl__CenterContainer">
-                        <div class="Polaris-Filters-ConnectedFilterControl__Item">
-                            <PTextField id="Polaris-Input-Filter" :value="inputFilter" connected labelHidden showPrefix showClearButton :placeholder="prefix" v-on="$listeners">
-                                <PIcon source="SearchMinor" slot="prefix"></PIcon>
-                            </PTextField>
-                        </div>
-                    </div>
-                    <div class="Polaris-Filters-ConnectedFilterControl__RightContainer">
+                    <PFilterItemWrapper position="center">
+                        <PTextField id="Polaris-Input-Filter" :value="inputFilter" connected labelHidden showPrefix showClearButton :placeholder="prefix" v-on="$listeners">
+                            <PIcon source="SearchMinor" slot="prefix"></PIcon>
+                        </PTextField>
+                    </PFilterItemWrapper>
+                    <PFilterItemWrapper position="right">
                         <slot />
-                    </div>
+                    </PFilterItemWrapper>
                 </div>
             </div>
             <div class="Polaris-Filters__TagsContainer">
@@ -28,6 +26,7 @@ import { classNames, variationName } from '@/utilities/css';
 import { PTextField } from '@/components/PTextField';
 import { PIcon } from '@/components/PIcon';
 import { PTag } from '@/components/PTag';
+import PFilterItemWrapper from '@/components/PFilter/components/PFilterItemWrapper.vue';
 
 interface AppliedFiltersInterface {
     value: string;
@@ -36,12 +35,12 @@ interface AppliedFiltersInterface {
 
 @Component({
     components: {
-        PTextField, PIcon, PTag,
+        PTextField, PIcon, PTag, PFilterItemWrapper,
     },
 })
 export default class PFilter extends Vue {
 
-    @Prop(String) public resourceTitle!: string;
+    @Prop({type: String, default: ''}) public resourceTitle!: string;
     @Prop(String) public inputFilter!: string;
     @Prop(Array) public appliedFilters!: AppliedFiltersInterface[];
 

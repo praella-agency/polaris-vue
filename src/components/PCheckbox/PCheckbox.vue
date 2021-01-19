@@ -53,7 +53,7 @@ export default class PCheckbox extends Vue {
     /**
      * Name for form input
      */
-    @Prop({type: String, required: true}) public name!: string;
+    @Prop({type: String}) public name!: string;
 
     /**
      * Label for the checkbox

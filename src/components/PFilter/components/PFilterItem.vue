@@ -1,8 +1,6 @@
 <template>
     <div class="Polaris-Filters-ConnectedFilterControl__Item">
-        <div>
-            <slot />
-        </div>
+        <slot />
     </div>
 </template>
 

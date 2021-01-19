@@ -4,7 +4,7 @@ Polaris Vue by HulkApps is a component library for [Vue.js](https://vuejs.org/) 
 
 ## Documentation
 
-You could browse [online documentation here](https://coming-soon/).
+You could browse [online documentation here](https://polaris-vue.hulkapps.com/).
 
 ## Quick start
 

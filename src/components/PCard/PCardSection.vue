@@ -17,7 +17,7 @@ import { PSubheading } from '@/components/PSubheading';
 @Component({
   components: { PSubheading },
 })
-export default class PCardHeader extends Vue {
+export default class PCardSection extends Vue {
 
   /**
    * Title content for the card section
