@@ -102,4 +102,135 @@ $btn-destructive-active-box-shadow: inset 0 0 0 0 transparent,0 1px 0 0 rgba(22,
 $btn-destructive-active-border-color: #992511;
 $btn-destructive-active-bgcolor: linear-gradient(180deg,#b02b13,#b02b13);
 
+$btn-destructive-disable-bgcolor: linear-gradient(180deg,#f29484,#f29484);
+$btn-destructive-disable-color: #fff;
+$btn-destructive-disable-border-color: #ef816d;
+$btn-destructive-disable-box-shadow: none;
+$btn-destructive-disable-svg-icon-color: #fff;
 
+$btn-destructive-pressed-bgcolor: linear-gradient(180deg,#b02b13,#b02b13);
+$btn-destructive-pressed-border-color: #75040a;
+$btn-destructive-pressed-box-shadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #75040a;
+
+$btn-destructive-pressed-focus-bgcolor: linear-gradient(180deg,#a72912,#a72912);
+$btn-destructive-pressed-focus-border-color: #75040a;
+$btn-destructive-pressed-focus-box-shadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #75040a;
+
+$btn-destructive-pressed-hover-bgcolor: linear-gradient(180deg,#a72912,#a72912);;
+$btn-destructive-pressed-hover-border-color: #75040a;
+$btn-destructive-pressed-hover-box-shadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #75040a;
+
+$btn-destructive-pressed-active-bgcolor: linear-gradient(180deg,#b02b13,#b02b13);
+$btn-destructive-pressed-active-border-color: #75040a;
+$btn-destructive-pressed-active-box-shadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #5d0308;
+
+$btn-outline-bgcolor: transparent;
+$btn-outline-color: #374047;
+$btn-outline-border-color: rgba(99,115,129,.4);
+$btn-outline-box-shadow: none;
+
+$btn-outline-hover-bgcolor: rgba(99,115,129,.05);
+$btn-outline-hover-border-color: rgba(99,115,129,.4);
+
+$btn-outline-focus-border-color: rgba(99,115,129,.8);
+$btn-outline-focus-box-shadow: 0 0 0 1px rgba(99,115,129,.8);
+
+$btn-outline-active-bgcolor: rgba(99,115,129,.1);
+$btn-outline-active-box-shadow: none;
+
+$btn-outline-disabled-bgcolor: transparent;
+$btn-outline-disabled-color: #919eab;
+$btn-outline-disabled-border-color: rgba(99,115,129,.25);
+$btn-outline-disabled-box-shadow: none;
+
+$btn-outline-disable-svg-icon-color: #919eab;
+
+$btn-destructive-outline-bgcolor: transparent;
+$btn-destructive-outline-color: #82200e;
+$btn-destructive-outline-border-color: rgba(222,54,24,.4);
+$btn-destructive-outline-box-shadow: none;
+
+$btn-destructive-outline-hover-bgcolor: rgba(222,54,24,.05);
+$btn-destructive-outline-hover-border-color: rgba(222,54,24,.4);
+
+$btn-destructive-outline-focus-box-shadow: 0 0 0 1px rgba(222,54,24,.8);
+$btn-destructive-outline-focus-border-color: rgba(222,54,24,.8);
+
+$btn-destructive-outline-active-bgcolor: rgba(222,54,24,.1);
+$btn-destructive-outline-active-box-shadow: none;
+
+$btn-destructive-outline-svg-icon-color: #bf0711;
+
+$btn-destructive-outline-pressed-bgcolor: rgba(191,7,17,.03);
+$btn-destructive-outline-pressed-color: #5d0308;
+$btn-destructive-outline-pressed-border-color: rgba(191,7,17,.4);
+$btn-destructive-outline-pressed-box-shadow: none;
+
+$btn-destructive-outline-pressed-hover-bgcolor: rgba(191,7,17,.05);
+$btn-destructive-outline-pressed-hover-border-color: rgba(191,7,17,.4);
+
+$btn-destructive-outline-pressed-focus-border-color: rgba(191,7,17,.8);
+$btn-destructive-outline-pressed-focus-box-shadow: 0 0 0 1px rgba(191,7,17,.8);
+
+$btn-destructive-outline-pressed-active-bgcolor: rgba(191,7,17,.1);
+$btn-destructive-outline-pressed-active-box-shadow: none;
+
+$btn-destructive-outline-pressed-svg-icon-color: #330101;
+
+$btn-loading-disabled-color: transparent;
+
+$btn-pressed-bgcolor: #dfe3e8;
+$btn-pressed-border-color: #b8c3cd;
+$btn-pressed-box-shadow: 0 0 0 1px transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.1);
+
+$btn-pressed-hover-bgcolor: #d9dee4;
+$btn-pressed-hover-border-color: #b8c3cd;
+$btn-pressed-hover-box-shadow: 0 0 0 1px transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.1);
+
+$btn-pressed-focus-border-color: #5c6ac4;
+$btn-pressed-focus-box-shadow: 0 0 0 1px #5c6ac4,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.1);
+
+$btn-pressed-active-border-color: #b8c3cd;
+$btn-pressed-active-box-shadow: 0 0 0 1px transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.1);
+$btn-pressed-active-bgcolor: #d3d9df;
+
+$btn-plain-bgcolor: transparent;
+$btn-plain-color: #006fbb;
+$btn-plain-box-shadow: none;
+
+$btn-plain-svg-icon-color: #006fbb;
+
+$btn-plain-active-bgcolor: transparent;
+$btn-plain-active-color: #084e8a;
+$btn-plain-active-box-shadow: none;
+$btn-plain-active-svg-icon-color: #084e8a;
+
+$btn-plain-focus-bgcolor: transparent;
+$btn-plain-focus-color: #084e8a;
+$btn-plain-focus-box-shadow: none;	
+$btn-plain-focus-svg-icon-color: #084e8a;	
+
+$btn-plain-hover-bgcolor: transparent;
+$btn-plain-hover-color: #084e8a;
+$btn-plain-hover-box-shadow: none;	
+$btn-plain-hover-svg-icon-color: #084e8a;
+
+$btn-plain-pressed-bgcolor: transparent;
+$btn-plain-pressed-color: #084e8a;
+$btn-plain-pressed-box-shadow: none;	
+$btn-plain-pressed-svg-icon-color: #084e8a;
+
+$btn-plain-pressed-active-bgcolor: transparent;
+$btn-plain-pressed-active-color: #084e8a;
+$btn-plain-pressed-active-box-shadow: none;	
+$btn-plain-pressed-active-svg-icon-color: #084e8a;
+
+$btn-plain-pressed-hover-bgcolor: transparent;
+$btn-plain-pressed-hover-color: #084e8a;
+$btn-plain-pressed-hover-box-shadow: none;	
+$btn-plain-pressed-hover-svg-icon-color: #084e8a;
+
+$btn-plain-pressed-bgcolor: transparent;
+$btn-plain-pressed-color: #084e8a;
+$btn-plain-pressed-box-shadow: none;	
+$btn-plain-pressed-svg-icon-color: #084e8a;

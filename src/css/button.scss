@@ -328,63 +328,70 @@
 }*/
 
 .Polaris-Button--destructive.Polaris-Button--disabled {
-	background: linear-gradient(180deg,#f29484,#f29484);
-	border-color: #ef816d;
-	box-shadow: none;
-	color: #fff;
+	background: $btn-destructive-disable-bgcolor;
+	border-color: $btn-destructive-disable-border-color;
+	box-shadow: $btn-destructive-disable-box-shadow;
+	color: $btn-destructive-disable-color;
 	svg {
-		fill: #fff;
+		fill: $btn-destructive-disable-svg-icon-color;
 	}
 }
-.Polaris-Button--destructive.Polaris-Button--disabled.Polaris-Button--globalTheming {
+
+/*.Polaris-Button--destructive.Polaris-Button--disabled.Polaris-Button--globalTheming {
 	border-color: transparent;
 	background: var(--p-neutral-action-disabled);
 	color: var(--p-text-disabled-on-surface);
 	svg {
 		fill: var(--p-icon-disabled-on-surface);
 	}
-}
+}*/
+
+
 .Polaris-Button--destructive.Polaris-Button--pressed {
-	background: linear-gradient(180deg,#b02b13,#b02b13);
-	border-color: #75040a;
-	box-shadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #75040a;
+	background: $btn-destructive-pressed-bgcolor;
+	border-color: $btn-destructive-pressed-border-color;
+	box-shadow: $btn-destructive-pressed-box-shadow;
 	&:focus {
 		transition-duration: .1s;
-		background: linear-gradient(180deg,#a72912,#a72912);
-		border-color: #75040a;
-		box-shadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #75040a;
+		background: $btn-destructive-pressed-focus-bgcolor;
+		border-color: $btn-destructive-pressed-focus-border-color;
+		box-shadow: $btn-destructive-pressed-focus-box-shadow;
 	}
 	&:hover {
 		transition-duration: .1s;
-		background: linear-gradient(180deg,#a72912,#a72912);
-		border-color: #75040a;
-		box-shadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #75040a;
+		background: $btn-destructive-pressed-hover-bgcolor;
+		border-color: $btn-destructive-pressed-hover-border-color;
+		box-shadow: $btn-destructive-pressed-hover-box-shadow;
 	}
 	&:active {
-		background: linear-gradient(180deg,#b02b13,#b02b13);
-		border-color: #75040a;
-		box-shadow: inset 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(22,29,37,.05),inset 0 0 3px 0 #5d0308;
+		background: $btn-destructive-pressed-active-bgcolor;
+		border-color: $btn-destructive-pressed-active-border-color;
+		box-shadow: $btn-destructive-pressed-active-box-shadow;
 	}
 }
+
+
 .Polaris-Button--outline {
-	background: transparent;
-	border-color: rgba(99,115,129,.4);
-	box-shadow: none;
-	color: #374047;
+	background: $btn-outline-bgcolor;
+	border-color: $btn-outline-border-color;
+	box-shadow: $btn-outline-box-shadow;
+	color: $btn-outline-color;
 	&:hover {
-		background: rgba(99,115,129,.05);
-		border-color: rgba(99,115,129,.4);
+		background: $btn-outline-hover-bgcolor;
+		border-color: $btn-outline-hover-border-color;
 	}
 	&:focus {
-		border-color: rgba(99,115,129,.8);
-		box-shadow: 0 0 0 1px rgba(99,115,129,.8);
+		border-color: $btn-outline-focus-border-color;
+		box-shadow: $btn-outline-focus-box-shadow;
 	}
 	&:active {
-		background: rgba(99,115,129,.1);
-		box-shadow: none;
+		background: $btn-outline-active-bgcolor;
+		box-shadow: $btn-outline-active-box-shadow;
 	}
 }
-.Polaris-Button--outline.Polaris-Button--globalTheming {
+
+
+/*.Polaris-Button--outline.Polaris-Button--globalTheming {
 	background: transparent;
 	box-shadow: 0 0 0 .1rem var(--p-border-subdued-on-surface);
 	color: var(--p-text-on-surface);
@@ -427,41 +434,48 @@
 		background: var(--p-critical-surface-subdued);
 	}
 }
+
 .Polaris-Button--outline.Polaris-Button--globalTheming.Polaris-Button--destructive.Polaris-Button--disabled {
 	box-shadow: 0 0 0 .1rem var(--p-critical-border-disabled);
 	background: transparent;
 	color: var(--p-critical-link-disabled);
-}
+}*/
+
+
+
 .Polaris-Button--outline.Polaris-Button--disabled {
-	background: transparent;
-	border-color: rgba(99,115,129,.25);
-	box-shadow: none;
-	color: #919eab;
+	background: $btn-outline-disabled-bgcolor;
+	border-color: $btn-outline-disabled-border-color;
+	box-shadow: $btn-outline-disabled-box-shadow;
+	color: $btn-outline-disabled-color;
 	svg {
-		fill: #919eab;
+		fill: $btn-outline-disable-svg-icon-color;
 	}
 }
+
 .Polaris-Button--destructive.Polaris-Button--outline {
-	background: transparent;
-	border-color: rgba(222,54,24,.4);
-	box-shadow: none;
-	color: #82200e;
+	background: $btn-destructive-outline-bgcolor;
+	border-color: $btn-destructive-outline-border-color;
+	box-shadow: $btn-destructive-outline-box-shadow;
+	color: $btn-destructive-outline-color;
 	&:hover {
-		background: rgba(222,54,24,.05);
-		border-color: rgba(222,54,24,.4);
+		background: $btn-destructive-outline-hover-bgcolor;
+		border-color: $btn-destructive-outline-hover-border-color;
 	}
 	&:focus {
-		border-color: rgba(222,54,24,.8);
-		box-shadow: 0 0 0 1px rgba(222,54,24,.8);
+		border-color: $btn-destructive-outline-focus-border-color;
+		box-shadow: $btn-destructive-outline-focus-box-shadow;
 	}
 	&:active {
-		background: rgba(222,54,24,.1);
-		box-shadow: none;
+		background: $btn-destructive-outline-active-bgcolor;
+		box-shadow: $btn-destructive-outline-active-box-shadow;
 	}
 	svg {
-		fill: #bf0711;
+		fill: $btn-destructive-outline-svg-icon-color;
 	}
 }
+
+/*
 .Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--globalTheming {
 	background: transparent;
 	box-shadow: 0 0 0 .1rem var(--p-border-subdued-on-surface);
@@ -509,29 +523,32 @@
 	box-shadow: 0 0 0 .1rem var(--p-critical-border-disabled);
 	background: transparent;
 	color: var(--p-critical-link-disabled);
-}
+}*/
+
+
 .Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--pressed {
-	background: rgba(191,7,17,.03);
-	border-color: rgba(191,7,17,.4);
-	box-shadow: none;
-	color: #5d0308;
+	background: $btn-destructive-outline-pressed-bgcolor;
+	border-color: $btn-destructive-outline-pressed-border-color;
+	box-shadow: $btn-destructive-outline-pressed-box-shadow;
+	color: $btn-destructive-outline-pressed-color;
 	&:hover {
-		background: rgba(191,7,17,.05);
-		border-color: rgba(191,7,17,.4);
+		background: $btn-destructive-outline-pressed-hover-bgcolor;
+		border-color: $btn-destructive-outline-pressed-hover-border-color;
 	}
 	&:focus {
-		border-color: rgba(191,7,17,.8);
-		box-shadow: 0 0 0 1px rgba(191,7,17,.8);
+		border-color: $btn-destructive-outline-pressed-focus-border-color;
+		box-shadow: $btn-destructive-outline-pressed-focus-box-shadow;
 	}
 	&:active {
-		background: rgba(191,7,17,.1);
-		box-shadow: none;
+		background: $btn-destructive-outline-pressed-active-bgcolor;
+		box-shadow: $btn-destructive-outline-pressed-active-box-shadow;
 	}
 	svg {
-		fill: #330101;
+		fill: $btn-destructive-outline-pressed-svg-icon-color;
 	}
 }
-.Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--pressed.Polaris-Button--globalTheming {
+
+/*.Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--pressed.Polaris-Button--globalTheming {
 	background: transparent;
 	box-shadow: 0 0 0 .1rem var(--p-border-subdued-on-surface);
 	color: var(--p-text-on-surface);
@@ -579,18 +596,24 @@
 	background: transparent;
 	color: var(--p-critical-link-disabled);
 }
+
+
+*/
+
 .Polaris-Button--disabled {
 	cursor: default;
 	pointer-events: none;
 }
-.Polaris-Button--globalTheming.Polaris-Button--loading {
+
+/*.Polaris-Button--globalTheming.Polaris-Button--loading {
 	position: relative;
 	transition: border-color .2s cubic-bezier(.64,0,.35,1);
 	color: transparent;
 	&:hover {
 		color: transparent;
 	}
-}
+}*/
+
 .Polaris-Button--loading {
 	position: relative;
 	transition: border-color .2s cubic-bezier(.64,0,.35,1);
@@ -599,68 +622,71 @@
 		color: transparent;
 	}
 }
-.Polaris-Button--globalTheming.Polaris-Button--loading.Polaris-Button--disabled {
+/*.Polaris-Button--globalTheming.Polaris-Button--loading.Polaris-Button--disabled {
 	color: transparent;
-}
+}*/
+
 .Polaris-Button--loading.Polaris-Button--disabled {
 	color: transparent;
 }
+
 .Polaris-Button--pressed {
-	background: #dfe3e8;
-	border-color: #b8c3cd;
-	box-shadow: 0 0 0 1px transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.1);
+	background: $btn-pressed-bgcolor;
+	border-color: $btn-pressed-border-color;
+	box-shadow: $btn-pressed-box-shadow;
 	@media (-ms-high-contrast:active) {
 		color: buttonText;
 		background: buttonFace;
 	}
 	&:hover {
-		border-color: #b8c3cd;
-		box-shadow: 0 0 0 1px transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.1);
+		border-color: $btn-pressed-hover-bgcolor;
+		box-shadow: $btn-pressed-hover-box-shadow;
 		transition-duration: .1s;
-		background: #d9dee4;
+		background: $btn-pressed-hover-bgcolor;
 	}
 	&:focus {
-		border-color: #5c6ac4;
-		box-shadow: 0 0 0 1px #5c6ac4,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.1);
+		border-color: $btn-pressed-focus-border-color;
+		box-shadow: $btn-pressed-focus-box-shadow;
 	}
 	&:active {
-		background: #d3d9df;
-		border-color: #b8c3cd;
-		box-shadow: 0 0 0 1px transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.1);
+		background: $btn-pressed-active-bgcolor;
+		border-color: $btn-pressed-active-border-color;
+		box-shadow: $btn-pressed-active-box-shadow;
 	}
 }
+
 .Polaris-Button--plain {
 	margin: -.7rem -.8rem;
 	padding-left: .8rem;
 	padding-right: .8rem;
-	background: transparent;
+	background: $btn-plain-bgcolor;
 	border: 0;
-	box-shadow: none;
-	color: #006fbb;
+	box-shadow: $btn-plain-box-shadow;
+	color: $btn-plain-color;
 	svg {
-		fill: #006fbb;
+		fill: $btn-plain-svg-icon-color;
 	}
 	&:active {
-		background: transparent;
+		background: $btn-plain-active-bgcolor;
 		border: 0;
-		box-shadow: none;
-		color: #084e8a;
+		box-shadow: $btn-plain-active-box-shadow;
+		color: $btn-plain-active-color;
 		text-decoration: underline;
 		svg {
-			fill: #084e8a;
+			fill: $btn-plain-active-svg-icon-color;
 		}
 	}
 	&:focus {
-		background: transparent;
+		background: $btn-plain-focus-bgcolor;
 		border: 0;
-		box-shadow: none;
-		color: #084e8a;
+		box-shadow: $btn-plain-focus-box-shadow;
+		color: $btn-plain-focus-color;
 		text-decoration: underline;
 		@media (-ms-high-contrast:active) {
 			outline: none;
 		}
 		svg {
-			fill: #084e8a;
+			fill: $btn-plain-focus-svg-icon-color;
 		}
 		&:not(.Polaris-Button--iconOnly) {
 			>.Polaris-Button__Content {
@@ -673,13 +699,13 @@
 		}
 	}
 	&:hover {
-		background: transparent;
+		background: $btn-plain-hover-bgcolor;
 		border: 0;
-		box-shadow: none;
-		color: #084e8a;
+		box-shadow: $btn-plain-hover-box-shadow;
+		color: $btn-plain-hover-color;
 		text-decoration: underline;
 		svg {
-			fill: #084e8a;
+			fill: $btn-plain-hover-svg-icon-color;
 		}
 	}
 	.Polaris-Button__Icon {
@@ -687,6 +713,7 @@
 		margin-right: 0;
 	}
 }
+
 .Polaris-Button--plain.Polaris-Button--pressed {
 	background: transparent;
 	border: 0;
@@ -697,9 +724,11 @@
 	@media (-ms-high-contrast:active) {
 		outline: none;
 	}
+
 	svg {
 		fill: #084e8a;
 	}
+	
 	>.Polaris-Button__Content {
 		padding: 2px 5px;
 		margin: -2px -5px;
