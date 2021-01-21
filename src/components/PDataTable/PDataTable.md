@@ -4,6 +4,13 @@ PDataTable example:
 <template>
   <PDataTable
     :sort="sort"
+    hasPagination
+    :pagination="{
+        hasPrevious: true,
+        hasNext: true,
+        onNext: handleNext,
+        onPrevious: handlePrevious
+    }"
     @sort-changed="handleSortChange"
       :actions="[
         {
