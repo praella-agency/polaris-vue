@@ -692,8 +692,8 @@
 			>.Polaris-Button__Content {
 				padding: 2px 5px;
 				margin: -2px -5px;
-				background: rgba(33,43,54,.1);
-				border-radius: 3px;
+				background: $btn-plain-btn-content-bgcolor;
+				border-radius: $btn-border-radius;
 				transition: opacity .2s cubic-bezier(.64,0,.35,1);
 			}
 		}
@@ -715,10 +715,10 @@
 }
 
 .Polaris-Button--plain.Polaris-Button--pressed {
-	background: transparent;
+	background: $btn-plain-pressed-bgcolor;
 	border: 0;
-	box-shadow: none;
-	color: #084e8a;
+	box-shadow: $btn-plain-pressed-box-shadow;
+	color: $btn-plain-pressed-color;
 	text-decoration: underline;
 
 	@media (-ms-high-contrast:active) {
@@ -726,14 +726,14 @@
 	}
 
 	svg {
-		fill: #084e8a;
+		fill: $btn-plain-pressed-svg-icon-color;
 	}
 	
 	>.Polaris-Button__Content {
 		padding: 2px 5px;
 		margin: -2px -5px;
-		background: rgba(99,115,129,.1);
-		border-radius: 3px;
+		background: $btn-plain-pressed-content-bgcolor;
+		border-radius: $btn-border-radius;
 		transition: opacity .2s cubic-bezier(.64,0,.35,1);
 		@media (-ms-high-contrast:active) {
 			outline: 2px dotted;
@@ -744,8 +744,8 @@
 			>.Polaris-Button__Content {
 				padding: 2px 5px;
 				margin: -2px -5px;
-				background: rgba(33,43,54,.1);
-				border-radius: 3px;
+				background: $btn-plain-pressed-active-content-bgcolor;
+				border-radius: $btn-border-radius;
 				transition: opacity .2s cubic-bezier(.64,0,.35,1);
 			}
 		}
@@ -755,25 +755,26 @@
 			>.Polaris-Button__Content {
 				padding: 2px 5px;
 				margin: -2px -5px;
-				background: rgba(33,43,54,.1);
+				background: $btn-plain-pressed-hover-content-bgcolor;
 				border-radius: 3px;
 				transition: opacity .2s cubic-bezier(.64,0,.35,1);
 			}
 		}
 	}
 }
+
 .Polaris-Button--plain.Polaris-Button--fullWidth {
 	margin-left: 0;
 	margin-right: 0;
 }
 .Polaris-Button--plain.Polaris-Button--destructive {
-	color: #bf0711;
+	color: $btn-plain-destructive-color;
 	&:hover {
-		color: #330101;
+		color: $btn-plain-destructive-hover-color;
 	}
 }
 .Polaris-Button--plain.Polaris-Button--disabled {
-	background: none;
+	background: $btn-plain-disabled-bgcolor;
 }
 .Polaris-Button--plain.Polaris-Button--sizeSlim {
 	margin-top: -.4rem;
@@ -785,24 +786,24 @@
 .Polaris-Button--plain.Polaris-Button--iconOnly {
 	margin: -.8rem;
 	svg {
-		fill: #637381;
+		fill: $btn-plain-icononly-svg-color;
 	}
 	&:active {
-		background: rgba(33,43,54,.1);
+		background: $btn-plain-icononly-active-bgcolor;
 		svg {
-			fill: #637381;
-			fill: #212b36;
+			fill: $btn-plain-icononly-active-svg-icon-color;
+			
 		}
 	}
 	&:focus {
-		background: rgba(33,43,54,.1);
+		background: $btn-plain-icononly-focus-bgcolor;
 		svg {
-			fill: #637381;
+			fill: $btn-plain-icononly-focus-svg-icon-color;	
 		}
 	}
 	&:hover {
 		svg {
-			fill: #212b36;
+			fill: $btn-plain-icononly-hover-svg-icon-color;
 		}
 	}
 	>.Polaris-Button__Content {
@@ -811,11 +812,13 @@
 		}
 	}
 }
+
 .Polaris-Button--plain.Polaris-Button--iconOnly.Polaris-Button--disabled {
 	svg {
-		fill: #c4cdd5;
+		fill: $btn-plain-icononly-disabled-svg-icon-color;
 	}
 }
+/*
 .Polaris-Button--plain.Polaris-Button--globalTheming {
 	background: transparent;
 	border: 0;
@@ -962,6 +965,8 @@
 		fill: var(--p-critical-action-disabled);
 	}
 }
+
+*/
 .Polaris-Button--sizeSlim {
 	min-height: 3rem;
 	padding: .4rem 1.2rem;
@@ -1009,6 +1014,7 @@
 	padding-left: 1.2rem;
 	padding-right: 1.2rem;
 }
+
 .Polaris-Button--monochrome.Polaris-Button--outline {
 	color: currentColor;
 	position: relative;

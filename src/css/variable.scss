@@ -200,6 +200,8 @@ $btn-plain-box-shadow: none;
 
 $btn-plain-svg-icon-color: #006fbb;
 
+$btn-plain-btn-content-bgcolor: rgba(33,43,54,.1);
+
 $btn-plain-active-bgcolor: transparent;
 $btn-plain-active-color: #084e8a;
 $btn-plain-active-box-shadow: none;
@@ -220,17 +222,42 @@ $btn-plain-pressed-color: #084e8a;
 $btn-plain-pressed-box-shadow: none;	
 $btn-plain-pressed-svg-icon-color: #084e8a;
 
+$btn-plain-pressed-content-bgcolor: rgba(99,115,129,.1);
+
 $btn-plain-pressed-active-bgcolor: transparent;
 $btn-plain-pressed-active-color: #084e8a;
 $btn-plain-pressed-active-box-shadow: none;	
 $btn-plain-pressed-active-svg-icon-color: #084e8a;
+
+$btn-plain-pressed-active-content-bgcolor: rgba(99,115,129,.1);
 
 $btn-plain-pressed-hover-bgcolor: transparent;
 $btn-plain-pressed-hover-color: #084e8a;
 $btn-plain-pressed-hover-box-shadow: none;	
 $btn-plain-pressed-hover-svg-icon-color: #084e8a;
 
+$btn-plain-pressed-hover-content-bgcolor: rgba(33,43,54,.1);
+
 $btn-plain-pressed-bgcolor: transparent;
 $btn-plain-pressed-color: #084e8a;
 $btn-plain-pressed-box-shadow: none;	
 $btn-plain-pressed-svg-icon-color: #084e8a;
+
+$btn-plain-destructive-color: #bf0711;
+
+$btn-plain-destructive-hover-color: #330101;
+
+$btn-plain-disabled-bgcolor: none;
+
+$btn-plain-icononly-svg-color: #637381;
+
+$btn-plain-icononly-active-bgcolor: #637381;
+$btn-plain-icononly-active-svg-icon-color: #212b36;
+
+$btn-plain-icononly-focus-bgcolor: rgba(33,43,54,.1);
+$btn-plain-icononly-focus-svg-icon-color: #637381;
+
+$btn-plain-icononly-hover-svg-icon-color: #212b36;
+
+$btn-plain-icononly-disabled-svg-icon-color: #c4cdd5;
+
