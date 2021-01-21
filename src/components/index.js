@@ -57,7 +57,7 @@ const Components = {
   PBanner,
   PButton,
   PButtonGroup,
-  PCard, PCardSubsection,
+  PCard, PCardSubsection, PCardSection,
   PCheckbox,
   PDataTable,
   PDisplayText,

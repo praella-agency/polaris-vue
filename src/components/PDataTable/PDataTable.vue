@@ -11,13 +11,27 @@
           <template v-else>
             <tr>
               <PDataTableCell
+                  @sort-changed="handleSortChange"
                   v-for="(heading, index) in headings"
                   :key="`heading-cell-${index}`"
                   header
-                  :content="heading"
-                  :contentType="columnContentTypes[index]"
+                  :content="heading.content"
+                  :value="heading.value"
+                  :sort="sort"
+                  :sortable="heading.sortable"
+                  :contentType="heading.type"
                   :firstColumn="index === 0"
                   :truncate="truncate"
+                  :verticalAlign="verticalAlign"/>
+
+              <PDataTableCell
+                  v-if="hasActions"
+                  header
+                  content="Actions"
+                  :sortable="false"
+                  contentType="text"
+                  :firstColumn="false"
+                  :truncate="false"
                   :verticalAlign="verticalAlign"/>
             </tr>
             <tr v-if="!showTotalsInFooter">
@@ -25,11 +39,16 @@
                   v-for="(total, index) in totals"
                   :key="`total-cell-${index}`"
                   total
-                  :totalInFooter="showTotalsInFooter"
                   :content="index === 0 ? 'Totals' : total"
                   :contentType="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
                   :firstColumn="index === 0"
                   :truncate="truncate"
+                  :verticalAlign="verticalAlign"/>
+
+              <PDataTableCell
+                  total
+                  v-if="hasActions"
+                  :totalInFooter="showTotalsInFooter"
                   :verticalAlign="verticalAlign"/>
             </tr>
           </template>
@@ -41,12 +60,20 @@
               v-for="(row, rIndex) in rows"
               :key="`row-${rIndex}`">
             <PDataTableCell
-                v-for="(content, cIndex) in row"
+                v-for="(data, cIndex) in row"
                 :key="`cell-${cIndex}-row-${rIndex}`"
-                :content="content"
+                :content="data.content"
+                :action="data.action"
+                :badge="data.badge"
                 :contentType="columnContentTypes[cIndex]"
                 :firstColumn="cIndex === 0"
                 :truncate="truncate"
+                :verticalAlign="verticalAlign"/>
+
+            <PDataTableCell
+                v-if="hasActions"
+                :actions="actions"
+                :value="ids[rIndex]"
                 :verticalAlign="verticalAlign"/>
           </tr>
           </tbody>
@@ -61,6 +88,11 @@
                 :contentType="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
                 :firstColumn="index === 0"
                 :truncate="truncate"
+                :verticalAlign="verticalAlign"/>
+            <PDataTableCell
+                total
+                v-if="hasActions"
+                :totalInFooter="showTotalsInFooter"
                 :verticalAlign="verticalAlign"/>
           </tr>
           </tfoot>
@@ -79,16 +111,23 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
 
 import PDataTableCell from './PDataTableCell.vue';
-import {PPagination, PPaginationDescriptor} from '@/components/PPagination';
+import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
+import { ComplexAction } from '@/types';
 
 type TableData = string | number;
 type ColumnContentType = 'text' | 'numeric';
 type SortDirection = 'ascending' | 'descending' | 'none';
 type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
 
+interface Sort {
+    value: string;
+    direction: SortDirection;
+}
+
 @Component({
   components: { PDataTableCell, PPagination },
 })
+
 export default class PDataTable extends Vue {
 
   /**
@@ -101,6 +140,11 @@ export default class PDataTable extends Vue {
    * Heading list
    */
   @Prop({ type: Array, default: () => [] }) public headings!: string[];
+
+  /**
+   * Heading list
+   */
+  @Prop({ type: Array, default: () => [] }) public headings2!: string[];
 
   /**
    * Total fields
@@ -127,6 +171,8 @@ export default class PDataTable extends Vue {
    */
   @Prop({ type: String, default: 'top' }) public verticalAlign!: VerticalAlign;
 
+  @Prop(Object) public sort!: Sort;
+
   /**
    * Footer data
    */
@@ -147,6 +193,15 @@ export default class PDataTable extends Vue {
    */
   @Prop(Object) public pagination!: PPaginationDescriptor;
 
+  @Prop(Array) public actions!: ComplexAction[];
+
+  @Prop(Array) public ids!: number[];
+
+  public get hasActions() {
+
+      return this.actions && this.actions.length > 0;
+  }
+
   public onRemoveFilter(tag) {
 
       this.$emit('filter-removed', tag);
@@ -155,6 +210,11 @@ export default class PDataTable extends Vue {
   public onFilterInputChanged(value) {
 
       this.$emit('input-filter-changed', value);
+  }
+
+  public handleSortChange(value, direction) {
+
+      this.$emit('sort-changed', value, direction);
   }
 }
 </script>
