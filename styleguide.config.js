@@ -28,5 +28,5 @@ module.exports = {
         "**/components/PPagination/PPagination.vue",
         "**/components/PModal/components/*",
     ],
-    require: ['./src/css/polaris.min.css']
+    require: ['./src/scss/main.scss','./src/mixins/tooltip.js']
 }

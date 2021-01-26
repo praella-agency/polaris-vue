@@ -49,6 +49,7 @@ import { PBreadcrumbs } from './PBreadcrumbs';
 import { PActionMenu } from './PActionMenu';
 import { PPageActions } from './PPageActions';
 import { PMultiSelect } from './PMultiSelect';
+import VTooltip from 'v-tooltip'
 
 import '@/scss/main.scss';
 
@@ -110,6 +111,8 @@ const PolarisVue = {
     for (let componentKey in Components) {
       Vue.component(componentKey, Components[componentKey]);
     }
+
+    Vue.use(VTooltip)
   },
 };
 

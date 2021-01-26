@@ -2,7 +2,7 @@ PButton example:
 
 Default button
 ```vue
-<PButton>Example Button</PButton>
+<PButton v-tooltip="{show:true,content:'Test'}">Example Button</PButton>
 ```
 
 Primary with different properties
