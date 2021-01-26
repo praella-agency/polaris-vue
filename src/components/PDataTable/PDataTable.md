@@ -5,6 +5,7 @@ PDataTable example:
   <PDataTable
     :sort="sort"
     hasPagination
+    @input-filter-changed="handleSearch"
     :pagination="{
         hasPrevious: true,
         hasNext: true,
@@ -75,14 +76,14 @@ PDataTable example:
     :totals="['', '', '', 255, '$155,830.00']"
     footerContent="Showing 3 of 3 results">
     <template slot="filter">
-    <PPopover :active="active" @close="toggleRatingFilter" id="popover_1">
+    <PPopover :active="active" full-width @close="toggleRatingFilter" id="popover_1" zIndex="999">
       <PButton slot="activator" @click="toggleRatingFilter" :disclosure="active ? 'up' : 'down'">Filter Options</PButton>
       <POptionList
               slot="content"
               allowMultiple
               :selected="selected"
               :options="[
-              {label: 'Rating 1', value: '1'},
+              {label: 'Rating 1 with a long text', value: '1'},
               {label: 'Rating 2', value: '2'},
               {label: 'Rating 3', value: '3'},
               {label: 'Rating 4', value: '4'},

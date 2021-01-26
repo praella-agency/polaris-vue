@@ -3,7 +3,7 @@
     <template v-if="sortable">
       <button class="Polaris-DataTable__Heading" @click="handleSortChange">
         <span class="Polaris-DataTable__Icon">
-          <span class="Polaris-Icon" :aria-label="`sort ${sortLabel} by`">
+          <span class="Polaris-Icon" :aria-label="`sort ${sortLabel} by`" v-if="sorted">
             <PIcon source="CaretUpMinor" v-if="sorted && sort.direction === 'descending'"></PIcon>
             <PIcon source="CaretDownMinor" v-if="sorted && sort.direction === 'ascending'"></PIcon>
           </span>

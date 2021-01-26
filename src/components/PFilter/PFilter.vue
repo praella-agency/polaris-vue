@@ -8,7 +8,7 @@
                             <PIcon source="SearchMinor" slot="prefix"></PIcon>
                         </PTextField>
                     </PFilterItemWrapper>
-                    <PFilterItemWrapper position="right">
+                    <PFilterItemWrapper v-if="$slots.hasOwnProperty('default')" position="right">
                         <slot />
                     </PFilterItemWrapper>
                 </div>

@@ -35,7 +35,7 @@ export default class PPopoverOverlay extends Vue {
     public left: number = 0;
     public top: number = 0;
     public height: number = 0;
-    public width: number | null = null;
+    public width: string | null | number = null;
     public positioning: string = 'below';
     public zIndex: number | null = null;
     public outsideScrollableContainer: boolean = false;
@@ -45,7 +45,7 @@ export default class PPopoverOverlay extends Vue {
     public get containerStyle() {
 
         return {
-            width: this.width ? this.width + 'px' : undefined,
+            width: this.width ? ( typeof this.width === 'number' ? this.width + 'px' : this.width ) : undefined,
             zIndex: this.zIndex == null ? undefined : this.zIndex,
         };
     }
@@ -136,7 +136,7 @@ export default class PPopoverOverlay extends Vue {
         this.left = horizontalPosition;
         this.top = verticalPosition.top;
         this.height = verticalPosition.height;
-        this.width = this.fullWidth ? overlayRect.width : null;
+        this.width = this.fullWidth ? 'max-content' : null;
         this.positioning = verticalPosition.positioning;
         this.zIndex = zIndexForLayer;
         this.tipPosition = activatorRect.left + (activatorRect.width / 2) - parseFloat(String(this.left));

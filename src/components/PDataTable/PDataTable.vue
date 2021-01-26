@@ -1,7 +1,7 @@
 <template>
   <div>
-    <PFilter v-if="$slots.hasOwnProperty('filter')" v-bind="$attrs" :resourceTitle="searchPlaceholder" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
-      <slot name="filter"></slot>
+    <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs" :resourceTitle="searchPlaceholder" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
+      <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
     </PFilter>
     <div class="Polaris-DataTable">
       <div class="Polaris-DataTable__ScrollContainer">
@@ -155,6 +155,11 @@ export default class PDataTable extends Vue {
    * Display totals on footer
    */
   @Prop(Boolean) public showTotalsInFooter!: boolean;
+
+  /**
+   * Display only search filter
+   */
+  @Prop(Boolean) public hasFilter!: boolean;
 
   /**
    * Table rows
