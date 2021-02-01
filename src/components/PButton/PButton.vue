@@ -79,9 +79,9 @@ export default class PButton extends Vue {
   @Prop(String) public href!: string;
 
   /**
-   * VueRouter link
+   * VueRouter link | link object
    */
-  @Prop(String) public to!: string;
+  @Prop([String, Object]) public to!: string | object;
 
   /**
    * Define aria-controls, aria-haspopup, aria-owns

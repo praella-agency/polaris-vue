@@ -19,6 +19,7 @@
                   :value="heading.value"
                   :sort="sort"
                   :sortable="heading.sortable"
+                  :defaultSortDirection="defaultSortDirection"
                   :contentType="heading.type"
                   :firstColumn="index === 0"
                   :truncate="truncate"
@@ -47,7 +48,7 @@
 
               <PDataTableCell
                   total
-                  v-if="hasActions"
+                  v-if="totals.length && hasActions"
                   :totalInFooter="showTotalsInFooter"
                   :verticalAlign="verticalAlign"/>
             </tr>
@@ -62,9 +63,9 @@
             <PDataTableCell
                 v-for="(data, cIndex) in row"
                 :key="`cell-${cIndex}-row-${rIndex}`"
-                :content="data.content"
-                :action="data.action"
-                :badge="data.badge"
+                :content="typeof data !== 'object' ? data : data.content"
+                :action="data.url || data.onAction ? data : null"
+                :badge="typeof data === 'object' && !data.url && !data.onAction ? data : null"
                 :contentType="columnContentTypes[cIndex]"
                 :firstColumn="cIndex === 0"
                 :truncate="truncate"
@@ -91,7 +92,7 @@
                 :verticalAlign="verticalAlign"/>
             <PDataTableCell
                 total
-                v-if="hasActions"
+                v-if="totals.length && hasActions"
                 :totalInFooter="showTotalsInFooter"
                 :verticalAlign="verticalAlign"/>
           </tr>
@@ -107,121 +108,134 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
+    import { Component, Vue, Prop } from 'vue-property-decorator';
+    import { classNames, variationName } from '@/utilities/css';
 
-import PDataTableCell from './PDataTableCell.vue';
-import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
-import { ComplexAction } from '@/types';
+    import PDataTableCell from './PDataTableCell.vue';
+    import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
+    import { ComplexAction, LinkAction } from '@/types';
 
-type TableData = string | number;
-type ColumnContentType = 'text' | 'numeric';
-type SortDirection = 'ascending' | 'descending' | 'none';
-type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
+    type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
+    type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
+    type Size = 'medium' | 'small';
 
-interface Sort {
-    value: string;
-    direction: SortDirection;
-}
+    interface Badge {
+        content?: string;
+        status?: Status;
+        progress?: Progress;
+        size?: Size;
+    }
 
-@Component({
-  components: { PDataTableCell, PPagination },
-})
+    type TableData = string | number | LinkAction | ComplexAction | Badge;
+    type ColumnContentType = 'text' | 'numeric';
+    type SortDirection = 'ascending' | 'descending' | 'none';
+    type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
 
-export default class PDataTable extends Vue {
+    interface Sort {
+        value: string;
+        direction: SortDirection;
+    }
 
-  /**
-   * Type of a column
-   * @values text, numeric
-   */
-  @Prop({ type: Array, default: () => [] }) public columnContentTypes!: ColumnContentType[];
+    @Component({
+        components: { PDataTableCell, PPagination },
+    })
 
-  /**
-   * Heading list
-   */
-  @Prop({ type: Array, default: () => [] }) public headings!: string[];
+    export default class PDataTable extends Vue {
 
-  /**
-   * Heading list
-   */
-  @Prop({ type: Array, default: () => [] }) public headings2!: string[];
+        /**
+         * Type of a column
+         * @values text, numeric
+         */
+        @Prop({ type: Array, default: () => [] }) public columnContentTypes!: ColumnContentType[];
 
-  /**
-   * Total fields
-   */
-  @Prop({ type: Array, default: () => [] }) public totals!: TableData[];
+        /**
+         * Heading list
+         */
+        @Prop({ type: Array, default: () => [] }) public headings!: string[];
 
-  /**
-   * Display totals on footer
-   */
-  @Prop(Boolean) public showTotalsInFooter!: boolean;
+        /**
+         * Heading list
+         */
+        @Prop({ type: Array, default: () => [] }) public headings2!: string[];
+
+        /**
+         * Total fields
+         */
+        @Prop({ type: Array, default: () => [] }) public totals!: TableData[];
+
+        /**
+         * Display totals on footer
+         */
+        @Prop(Boolean) public showTotalsInFooter!: boolean;
 
   /**
    * Display only search filter
    */
   @Prop(Boolean) public hasFilter!: boolean;
 
-  /**
-   * Table rows
-   */
-  @Prop({ type: Array, default: () => [[]] }) public rows!: TableData[][];
+        /**
+         * Table rows
+         */
+        @Prop({ type: Array, default: () => [[]] }) public rows!: TableData[][];
 
-  /**
-   * truncate cell data
-   */
-  @Prop({ type: Boolean, default: false }) public truncate!: boolean;
+        /**
+         * truncate cell data
+         */
+        @Prop({ type: Boolean, default: false }) public truncate!: boolean;
 
-  /**
-   * Vertical align of cell
-   */
-  @Prop({ type: String, default: 'top' }) public verticalAlign!: VerticalAlign;
+        /**
+         * Vertical align of cell
+         */
+        @Prop({ type: String, default: 'top' }) public verticalAlign!: VerticalAlign;
 
-  @Prop(Object) public sort!: Sort;
+        @Prop(Object) public sort!: Sort;
 
-  /**
-   * Footer data
-   */
-  @Prop() public footerContent!: TableData;
+        @Prop({ type: String, default: 'ascending' }) public defaultSortDirection!: SortDirection;
 
-  /**
-   * Footer data
-   */
-  @Prop(String) public searchPlaceholder!: string;
+        /**
+         * Footer data
+         */
+        @Prop() public footerContent!: TableData;
 
-  /**
-   * Data table has pagination
-   */
-  @Prop(Boolean) public hasPagination!: boolean;
+        /**
+         * Footer data
+         */
+        @Prop(String) public searchPlaceholder!: string;
 
-  /**
-   * Pagination object
-   */
-  @Prop(Object) public pagination!: PPaginationDescriptor;
+        /**
+         * Data table has pagination
+         */
+        @Prop(Boolean) public hasPagination!: boolean;
 
-  @Prop(Array) public actions!: ComplexAction[];
+        /**
+         * Pagination object
+         */
+        @Prop(Object) public pagination!: PPaginationDescriptor;
 
-  @Prop(Array) public ids!: number[];
+        @Prop(Array) public actions!: ComplexAction[];
 
-  public get hasActions() {
+        @Prop(Array) public ids!: number[];
 
-      return this.actions && this.actions.length > 0;
-  }
+        public get hasActions() {
 
-  public onRemoveFilter(tag) {
+            return this.actions && this.actions.length > 0;
+        }
 
-      this.$emit('filter-removed', tag);
-  }
+        public onRemoveFilter(tag) {
 
-  public onFilterInputChanged(value) {
+            this.$emit('filter-removed', tag);
+        }
 
-      this.$emit('input-filter-changed', value);
-  }
+        public onFilterInputChanged(value) {
 
-  public handleSortChange(value, direction) {
+            this.$emit('input-filter-changed', value);
+        }
 
-      this.$emit('sort-changed', value, direction);
-  }
-}
+        public handleSortChange(value, direction) {
+
+            this.$emit('sort-changed', value, direction);
+        }
+    }
 </script>
 
 <style scoped>

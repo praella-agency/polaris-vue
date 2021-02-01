@@ -1,13 +1,10 @@
 <template>
   <th v-if="header" data-polaris-header-cell='true' :class="className" scope='col' :aria-sort="sortLabel">
     <template v-if="sortable">
-      <button class="Polaris-DataTable__Heading" @click="handleSortChange">
-        <span class="Polaris-DataTable__Icon">
-          <span class="Polaris-Icon" :aria-label="`sort ${sortLabel} by`" v-if="sorted">
-            <PIcon source="CaretUpMinor" v-if="sorted && sort.direction === 'descending'"></PIcon>
-            <PIcon source="CaretDownMinor" v-if="sorted && sort.direction === 'ascending'"></PIcon>
-          </span>
-        </span>
+      <button :class="headerClassName" @click="handleSortChange">
+                <span class="Polaris-DataTable__Icon">
+                    <PIcon :source="source"></PIcon>
+                </span>
         {{content}}
       </button>
     </template>
@@ -17,7 +14,7 @@
   </th>
   <th v-else-if="firstColumn" scope="row" :class="className">
     <template v-if="hasAction">
-      <PLink v-if="action" :url="action.link" :external="action.external" :monochrome="action.monochrome">{{action.content}}</PLink>
+      <PLink v-if="action" :url="action.url" :external="action.external" :monochrome="action.monochrome">{{action.content}}</PLink>
       <PBadge v-if="badge" :status="badge.status" :progress="badge.progress">{{badge.content}}</PBadge>
     </template>
     <template v-else>
@@ -27,7 +24,7 @@
   <td v-else :class="className">
     <template v-if="!hasActions">
       <template v-if="hasAction">
-        <PLink v-if="action" :url="action.link">{{action.content}}</PLink>
+        <PLink v-if="action" :url="action.url" :external="action.external" :monochrome="action.monochrome">{{action.content}}</PLink>
         <PBadge v-if="badge" :status="badge.status" :progress="badge.progress">{{badge.content}}</PBadge>
       </template>
       <template v-else>
@@ -54,6 +51,7 @@
     type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
     type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
     type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
+    type Size = 'medium' | 'small';
 
     interface Sort {
         value: string;
@@ -64,6 +62,7 @@
         content?: string;
         status?: Status;
         progress?: Progress;
+        size?: Size;
     }
 
     @Component({
@@ -80,6 +79,7 @@
         @Prop(Boolean) public total!: boolean;
         @Prop(Boolean) public sortable!: boolean;
         @Prop(Object) public sort!: Sort;
+        @Prop({ type: String, default: 'ascending' }) public defaultSortDirection!: SortDirection;
         @Prop(Boolean) public totalInFooter!: boolean;
         @Prop({ type: String, default: 'top' }) public verticalAlign!: VerticalAlign;
         @Prop(Array) public actions!: ComplexAction[];
@@ -99,6 +99,21 @@
                 this.sortable && 'Polaris-DataTable__Cell--sortable',
                 this.verticalAlign && `Polaris-DataTable__Cell--${variationName('verticalAlign', this.verticalAlign)}`,
             );
+        }
+
+        public get headerClassName() {
+            return classNames(
+                'Polaris-DataTable__Heading',
+                this.contentType === 'text' && 'Polaris-DataTable__Heading--left',
+            );
+        }
+
+        public get direction() {
+            return this.sorted && this.sort.direction ? this.sort.direction : this.defaultSortDirection;
+        }
+
+        public get source() {
+            return this.direction === 'descending' ? 'CaretDownMinor' : 'CaretUpMinor';
         }
 
         public get numeric() {
