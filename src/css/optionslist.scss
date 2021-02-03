@@ -11,27 +11,25 @@
 	height: 1px !important;
 	width: 1px !important;
 	padding: 0 !important;
-	border: 0 !important;
+	border: $optionlist-checkbox-input-border;
 	&:active+.Polaris-OptionList-Checkbox__Backdrop {
-		background: #5c6ac4;
-		background: #5c6ac4;
-		box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+		background: $optionlist-checkbox-input-active-backdrop-bgcolor;
+		box-shadow: $optionlist-checkbox-input-active-backdrop-box-shadow;
 		&:after {
-			background: #fff;
+			background: $optionlist-checkbox-input-active-backdrop-after-bgcolor;
 			@media (-ms-high-contrast:active) {
 				border: 1px dashed buttonText;
 			}
 		}
 	}
 	&:checked+.Polaris-OptionList-Checkbox__Backdrop {
-		background: #5c6ac4;
+		background: $optionlist-checkbox-input-checked-backdrop-bgcolor;
 	}
 	&:focus+.Polaris-OptionList-Checkbox__Backdrop {
-		background: #5c6ac4;
-		background: #5c6ac4;
-		box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+		background: $optionlist-checkbox-input-focus-backdrop-bgcolor;
+		box-shadow: $optionlist-checkbox-input-focus-backdrop-box-shadow;
 		&:after {
-			background: #fff;
+			background: $optionlist-checkbox-input-focus-backdrop-after-bgcolor;
 			@media (-ms-high-contrast:active) {
 				border: 1px dashed buttonText;
 			}	
@@ -41,38 +39,39 @@
 		transform: translate(-50%,-50%) scale(1);
 	}
 	&:disabled+.Polaris-OptionList-Checkbox__Backdrop {
-		background: #dfe3e8;
-		box-shadow: none;
+		background: $optionlist-checkbox-input-disabled-backdrop-bgcolor;
+		box-shadow: $optionlist-checkbox-input-disabled-backdrop-box-shadow;
 		@media (-ms-high-contrast:active) {
 			color: grayText;
 		}
 		&:after {
-			background: #f9fafb;
+			background: $optionlist-checkbox-input-disabled-backdrop-after-bgcolor;
 		}
 	}
 	&:disabled~.Polaris-OptionList-Checkbox__Icon {
 		svg {
-			fill: #919eab;
+			fill: $optionlist-checkbox-input-disabled-icon-svg-fill;
 		}
 	}
 }
 .Polaris-OptionList-Checkbox--active {
 	.Polaris-OptionList-Checkbox__Backdrop {
-		background: #5c6ac4;
-		box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+		background: $optionlist-checkbox-active-backdrop-bgcolor;
+		box-shadow: $optionlist-checkbox-active-backdrop-box-shadow;
 		&:after {
-			background: #fff;
+			background: $optionlist-checkbox-active-backdrop-after-bgcolor;
 			@media (-ms-high-contrast:active) {
 				border: 1px dashed buttonText;
 			}
 		}
 	}
 }
+
 .Polaris-OptionList-Checkbox__Backdrop {
-	background-color: #c4cdd5;
-	border: .1rem solid transparent;
-	box-shadow: 0 0 0 1px transparent,0 1px 0 0 rgba(22,29,37,.05);
-	border-radius: 3px;
+	background-color: $optionlist-checkbox-backdrop-bgcolor;
+	border: $optionlist-checkbox-backdrop-border;
+	box-shadow: $optionlist-checkbox-backdrop-box-shadow;
+	border-radius: $optionlist-checkbox-backdrop-border-radius;
 	transition-property: box-shadow,background-color;
 	transition-duration: .2s;
 	transition-timing-function: cubic-bezier(.64,0,.35,1);
@@ -95,8 +94,8 @@
 		left: 0;
 		right: 0;
 		display: block;
-		background: linear-gradient(180deg,#fff,#f9fafb);
-		border-radius: 2px;
+		background: $optionlist-checkbox-backdrop-after-bgcolor;
+		$optionlist-checkbox-backdrop-after-border-radius: 2px;
 		@media (-ms-high-contrast:active) {
 			top: -4px;
 			right: -4px;
@@ -115,7 +114,7 @@
 	transform-origin: 50% 50%;
 	transition: transform .1s cubic-bezier(.36,0,1,1) cubic-bezier(0,0,.42,1);
 	svg {
-		fill: #5c6ac4;
+		fill: $optionlist-checkbox-icon-svg-fill;
 	}
 }
 .Polaris-OptionList-Option {
@@ -124,11 +123,11 @@
 	appearance: none;
 	margin: 0;
 	padding: 0;
-	background: none;
-	border: none;
-	font-size: inherit;
+	background: $optionlist-option-bgcolor;
+	border: $optionlist-option-border;
+	font-size: $optionlist-option-font-size;
 	line-height: inherit;
-	color: inherit;
+	color: $optionlist-option-color;
 	text-decoration: none;
 	width: 100%;
 	min-height: 3.6rem;
@@ -138,10 +137,10 @@
 		outline: none;
 	}
 	&:visited {
-		color: inherit;
+		color: $optionlist-option-visited-color;
 	}
 	&:hover {
-		background-image: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+		background-image: $optionlist-option-hover-bgimage;
 	}
 }
 .Polaris-OptionList-Option__SingleSelectOption {
@@ -150,9 +149,9 @@
 	appearance: none;
 	margin: 0;
 	padding: 0;
-	background: none;
-	border: none;
-	font-size: inherit;
+	background: $optionlist-option-bgcolor;
+	border: $optionlist-option-border;
+	font-size: $optionlist-option-font-size;
 	line-height: inherit;
 	cursor: pointer;
 	text-align: left;
@@ -186,41 +185,41 @@
 	margin-right: .8rem;
 }
 .Polaris-OptionList-Option--focused {
-	box-shadow: inset .2rem 0 0 #5c6ac4;
-	background-image: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+	box-shadow: $optionlist-option-focused-box-shadow;
+	background-image: $optionlist-option-focused-bgimage;
 	&:hover {
-		box-shadow: inset .2rem 0 0 #5c6ac4;
-		background-image: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+		box-shadow: $optionlist-option-focused-hover-box-shadow;
+		background-image: $optionlist-option-focused-hover-bgimage;
 	}
 }
 .Polaris-OptionList-Option--disabled {
-	background-image: linear-gradient(#f9fafb,#f9fafb);
+	background-image: $optionlist-option-disabled-bgimage;
 	.Polaris-OptionList-Option__Media {
 		svg {
-			fill: #919eab;
-			color: #fff;
+			fill: $optionlist-option-disabled-media-svg-fill;
+			color: $optionlist-option-disabled-media-svg-color;
 		}
 	}
 }
 .Polaris-OptionList-Option--select {
-	background-image: linear-gradient(rgba(179,188,245,.15),rgba(179,188,245,.15));
+	background-image: $optionlist-option-select-bgimage;
 }
 .Polaris-OptionList-Option--select.Polaris-OptionList-Option--focused {
-	box-shadow: inset .2rem 0 0 #5c6ac4;
-	background-image: linear-gradient(rgba(179,188,245,.15),rgba(179,188,245,.15)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+	box-shadow: $optionlist-option-select-focused-box-shadow;
+	background-image: $optionlist-option-select-focused-bgimage;
 	&:hover {
-		box-shadow: inset .2rem 0 0 #5c6ac4;
-		background-image: linear-gradient(rgba(179,188,245,.15),rgba(179,188,245,.15)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+		box-shadow: $optionlist-option-select-focused-hover-bgimage;
+		background-image: $optionlist-option-select-focused-hover-box-shadow;
 	}
 }
 .Polaris-OptionList-Option--active {
-	background-image: linear-gradient(rgba(179,188,245,.1),rgba(179,188,245,.1));
+	background-image: $optionlist-option-active-bgimage;
 }
 .Polaris-OptionList-Option__Media {
 	padding: 0 .8rem;
 	svg {
-		fill: #454f5b;
-		color: #fff;
+		fill: $optionlist-option-media-svg-fill;
+		color: $optionlist-option-media-svg-color;
 	}
 }
 .Polaris-OptionList {
@@ -234,13 +233,13 @@
 	list-style: none;
 }
 .Polaris-OptionList__Title {
-	font-size: 1.3rem;
-	font-weight: 600;
-	line-height: 1.6rem;
+	font-size: $optionlist-title-font-size;
+	font-weight: $optionlist-title-font-weight;
+	line-height: $optionlist-title-line-height;
 	text-transform: uppercase;
 	padding: .8rem 1.6rem;
-	border-bottom: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+	border-bottom: $optionlist-title-border;
 	@media (min-width:40em) {
-		font-size: 1.2rem;
+		font-size: $optionlist-title-media-font-size;
 	}
 }

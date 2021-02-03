@@ -18,7 +18,7 @@
 
 .Polaris-ActionList__Section--withoutTitle {
     &:not(:first-child) {
-        border-top: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+        border-top: $actionlist-section-border;
         margin-top: .8rem;
         padding-top: .8rem;
     }
@@ -28,27 +28,27 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    border-top: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+    border-top: $actionlist-section-border;
 }
 
 .Polaris-ActionList__Section {
     &:first-child {
         >.Polaris-ActionList__Section--withoutTitle {
             .Polaris-ActionList__Actions {
-                border-top: none;
+                border-top: $actionlist-section-border-0;
             }
         }
     }
 }
 
 .Polaris-ActionList__Title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    line-height: 1.6rem;
+    font-size: $actionlist-title-font-size;
+    font-weight: $actionlist-title-font-weight;
+    line-height: $actionlist-title-line-height;
     text-transform: uppercase;
     padding: 1.2rem 1.6rem;
     @media (min-width:40em) {
-        font-size: 1.2rem;
+        font-size: $actionlist-title-media-font-size;
     }
 }
 
@@ -57,11 +57,11 @@
     -moz-appearance: none;
     appearance: none;
     margin: 0;
-    background: none;
-    border: none;
-    font-size: inherit;
+    background: $actionlist-item-bgcolor;
+    border: $actionlist-item-border;
+    font-size: $actionlist-item-font-size;
     line-height: inherit;
-    color: inherit;
+    color: $actionlist-item-color;
     text-decoration: none;
     display: block;
     width: 100%;
@@ -69,36 +69,35 @@
     padding: 1rem 1.6rem;
     text-align: left;
     cursor: pointer;
-    border-radius: 0;
+    border-radius: $actionlist-item-border-radius;
 
     &:focus {
         outline: none;
-        box-shadow: inset .2rem 0 0 #5c6ac4;
-        background-image: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+        box-shadow: $actionlist-item-focus-box-shadow;
+        background-image: $actionlist-item-focus-bgimage;
     }
 
     &:visited {
-        color: inherit;
+        color: $actionlist-item-visited-color;
     }
 
     &:active {
-        background-image: linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1));
+        background-image: $actionlist-item-active-bgimage;
 
         &:hover {
-            background-image: linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+            background-image: $actionlist-item-active-hover-bgimage;
 
             &:focus {
-                box-shadow: inset .2rem 0 0 #5c6ac4;
-                background-image: linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+                box-shadow: $actionlist-item-active-hover-focus-bgimages-box-shadow;
+                background-image: $actionlist-item-active-hover-focus-bgimage;
             }
         }
     }
 
     &:hover {
-        background-image: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
-
+        background-image: $actionlist-item-hover-bgimages;
         &:focus {
-            box-shadow: inset .2rem 0 0 #5c6ac4;
+            box-shadow: $actionlist-item-hover-focus-box-shadow;
             background-image: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
         }
     }
@@ -109,57 +108,57 @@
 }
 
 .Polaris-ActionList__Item.Polaris-ActionList--active {
-    background-image: linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1));
+    background-image: $actionlist-item-active-bgimage;
 }
 
 .Polaris-ActionList__Item.Polaris-ActionList--destructive {
-    color: #bf0711;
+    color: $actionlist-item-destructive-bgimage;
 
     svg {
-        fill: #bf0711;
+        fill: $actionlist-item-destructive-svg-color;
     }
 
     &:active {
-        background-image: linear-gradient(rgba(220, 56, 37, .03), rgba(220, 56, 37, .03));
+        background-image: $actionlist-item-destructive-active-bgimage;
 
         &:hover {
-            background-image: linear-gradient(rgba(220, 56, 37, .03), rgba(220, 56, 37, .03)), linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4));
+            background-image: $actionlist-item-destructive-active-hover-bgimage;
 
             &:focus {
-                box-shadow: inset .2rem 0 0 #de3618;
-                background-image: linear-gradient(rgba(220, 56, 37, .03), rgba(220, 56, 37, .03)), linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4)), linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4));
+                box-shadow: $actionlist-item-destructive-active-hover-focus-box-shadow;
+                background-image: $actionlist-item-destructive-active-hover-focus-bgimage;
             }
         }
     }
 
     &:hover {
-        background-image: linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4));
+        background-image: $actionlist-item-destructive-hover-bgimage;
 
         &:focus {
-            box-shadow: inset .2rem 0 0 #de3618;
-            background-image: linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4)), linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4));
+            box-shadow: $actionlist-item-destructive-hover-focus-box-shadow;
+            background-image: $actionlist-item-destructive-hover-focus-bgimage;
         }
     }
 
     &:focus {
-        box-shadow: inset .2rem 0 0 #de3618;
-        background-image: linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4));
+        box-shadow: $actionlist-item-destructive-focus-box-shadow;
+        background-image: $actionlist-item-destructive-focus-bgimage;
     }
 }
 
 .Polaris-ActionList__Item.Polaris-ActionList--disabled {
-    background-image: linear-gradient(#f9fafb, #f9fafb);
-    color: #919eab;
+    background-image: $actionlist-item-disabled-bgimage;
+    color: $actionlist-item-disabled-color;
     pointer-events: none;
 
     .Polaris-ActionList__Image {
         svg {
-            fill: #919eab;
-            color: #fff;
+            fill: $actionlist-item-disabled-image-svg-fill;
+            color: $actionlist-item-disabled-image-svg-color;
         }
     }
 }
-
+/*
 .Polaris-ActionList__Item.Polaris-ActionList--globalTheming {
     padding: 1rem .8rem;
     border-radius: var(--p-border-radius-base);
@@ -264,7 +263,7 @@
             fill: var(--p-icon-disabled-on-surface);
         }
     }
-}
+}*/
 
 .Polaris-ActionList__Content {
     display: flex;
@@ -278,14 +277,14 @@
     justify-content: center;
     height: 2rem;
     width: 2rem;
-    border-radius: 3px;
+    border-radius: $actionlist-image-radius;
     margin: -1rem 1.6rem -1rem 0;
     background-size: cover;
     background-position: 50%;
 
     svg {
-        fill: #454f5b;
-        color: #fff;
+        fill: $actionlist-image-svg-fill;
+        color: $actionlist-image-svg-color;
     }
 }
 

@@ -4,22 +4,22 @@
 	display: flex;
 }
 .Polaris-Banner--withinContentContainer {
-	border-radius: var(--p-border-radius-wide,3px);
+	border-radius: $banner-within-container-border-radius;
 	padding: .8rem 1.2rem;
 	--p-banner-background: var(--p-surface-background);
 	--p-banner-border: var(--p-banner-default-border);
 	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
 	transition-delay: .1s;
-	border-radius: var(--p-border-radius-wide,inherit);
-	box-shadow: var(--p-banner-border,none);
-	background-color: var(--p-banner-background,#f4f6f8);
+	border-radius: $banner-within-container-border-radius;
+	box-shadow: $banner-within-container-box-shadow;
+	background-color: $banner-within-container-bgcolor;
 
 	@media (-ms-high-contrast:active) {
 		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
 	}
 	&:focus {
 		outline: none;
-		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-border-on-surface,#637381),inset 0 0 0 3px var(--p-border-on-surface,#637381),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		box-shadow: $banner-within-container-focus-box-shadow;
 		position: relative;
 		&:after {
 			content: var(--p-non-null-content,none);
@@ -30,8 +30,8 @@
 			bottom: -.3rem;
 			left: -.3rem;
 			display: block;
-			border: .2rem solid var(--p-interactive-focus);
-			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			border: $banner-within-container-focus-after-border;
+			border-radius: $banner-within-container-focus-after-border-radius;
 			pointer-events: none;
 		}
 	}
@@ -47,17 +47,18 @@
 		position: absolute;
 	}
 }
+
 .Polaris-Banner--withinContentContainer.Polaris-Banner--statusSuccess {
 	--p-banner-background: var(--p-success-surface-subdued);
 	--p-banner-border: var(--p-banner-success-border);
 	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
 	transition-delay: .1s;
-	border-radius: var(--p-border-radius-wide,inherit);
-	box-shadow: var(--p-banner-border,none);
-	background-color: var(--p-banner-background,#eff7ed);
+	border-radius: $banner-within-container-succes-border-radius;
+	box-shadow: $banner-within-container-succes-box-shadow;
+	background-color: $banner-within-container-succes-bgcolor;
 	&:focus {
 		outline: none;
-		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-success-border,#50b83c),inset 0 0 0 3px var(--p-success-border,#50b83c),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		box-shadow: $banner-within-container-focus-box-shadow;
 		position: relative;
 		&:after {
 			content: var(--p-non-null-content,none);
@@ -68,8 +69,8 @@
 			bottom: -.3rem;
 			left: -.3rem;
 			display: block;
-			border: .2rem solid var(--p-interactive-focus);
-			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			border: $banner-within-container-succes-focus-border;
+			border-radius: $banner-within-container-succes-focus-border-radius;
 			pointer-events: none;
 		}
 	}
@@ -79,15 +80,15 @@
 	--p-banner-border: var(--p-banner-highlight-border);
 	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
 	transition-delay: .1s;
-	border-radius: var(--p-border-radius-wide,inherit);
-	box-shadow: var(--p-banner-border,none);
-	background-color: var(--p-banner-background,#eef9f9);
+	border-radius: $banner-within-container-statusinfo-border-radius;
+	box-shadow: $banner-within-container-statusinfo-box-shadow;
+	background-color: $banner-within-container-statusinfo-bgcolor;
 	@media (-ms-high-contrast:active) {
 		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;	
 	}
 	&:focus {
 		outline: none;
-		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-highlight-border,#47c1bf),inset 0 0 0 3px var(--p-highlight-border,#47c1bf),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		box-shadow: $banner-within-container-statusinfo-focus-box-shadow;
 		position: relative;
 		&:after {
 			content: var(--p-non-null-content,none);
@@ -98,8 +99,8 @@
 			bottom: -.3rem;
 			left: -.3rem;
 			display: block;
-			border: .2rem solid var(--p-interactive-focus);
-			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			border: $banner-within-container-statusinfo-focus-after-border;
+			border-radius: $banner-within-container-statusinfo-focus-after-border-radius;
 			pointer-events: none;
 		}
 	}
@@ -109,16 +110,16 @@
 	--p-banner-border: var(--p-banner-warning-border);
 	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
 	transition-delay: .1s;
-	border-radius: var(--p-border-radius-wide,inherit);
-	box-shadow: var(--p-banner-border,none);
-	background-color: var(--p-banner-background,#fdf7e3);
+	border-radius: $banner-within-container-statuswarning-border-radius;
+	box-shadow: $banner-within-container-statuswarning-box-shadow;
+	background-color: $banner-within-container-statuswarning-bgcolor;
 	@media (-ms-high-contrast:active) {
 		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
 	}
 
 	&:focus {
 		outline: none;
-		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-warning-border,#eec200),inset 0 0 0 3px var(--p-warning-border,#eec200),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		box-shadow: $banner-within-container-statuswarning-focus-box-shadow;
 		position: relative;
 		&:after {
 			content: var(--p-non-null-content,none);
@@ -129,8 +130,8 @@
 			bottom: -.3rem;
 			left: -.3rem;
 			display: block;
-			border: .2rem solid var(--p-interactive-focus);
-			border-radius: calc(var(--p-border-radius-wide) + .3rem);
+			border: $banner-within-container-statuswarning-focus-after-border;
+			border-radius: $banner-within-container-statuswarning-focus-after-border-radius;
 			pointer-events: none;
 		}
 	}
@@ -140,15 +141,15 @@
 	--p-banner-border: var(--p-banner-critical-border);
 	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
 	transition-delay: .1s;
-	border-radius: var(--p-border-radius-wide,inherit);
-	box-shadow: var(--p-banner-border,none);
-	background-color: var(--p-banner-background,#fdf3f0);
+	border-radius: $banner-within-container-statuscritical-border-radius;
+	box-shadow: $banner-within-container-statuscritical-box-shadow;
+	background-color: $banner-within-container-statuscritical-bgcolor;
 	@media (-ms-high-contrast:active) {
 		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
 	}
 	&:focus {
 		outline: none;
-		box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-critical-diviver,#de3618),inset 0 0 0 3px var(--p-critical-diviver,#de3618),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+		box-shadow: $banner-within-container-statuscritical-focus-box-shadow;
 		position: relative;
 		&:after {
 			content: var(--p-non-null-content,none);

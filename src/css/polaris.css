@@ -2496,8 +2496,8 @@ h1,h2,h3,h4,h5,h6,p {
 
 .Polaris-Card {
 	overflow: hidden;
-	background-color: var(--p-surface-foreground,#fff);
-	box-shadow: var(--p-card-shadow,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+	background-color: $card-bgcolor;
+	box-shadow: $card-box-shadow;
 }
 
 .Polaris-Card+.Polaris-Card {
@@ -2506,24 +2506,24 @@ h1,h2,h3,h4,h5,h6,p {
 
 @media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
 	[data-has-navigation] .Polaris-Card {
-		border-radius: 3px;
+		border-radius: $card-border-radius;
 	}
 }
 
 @media (min-width:30.625em) {
 	.Polaris-Card {
-		border-radius: 3px;
+		border-radius: $card-border-radius;
 	}
 }
 
 @media (-ms-high-contrast:active) {
 	.Polaris-Card {
-		box-shadow: inset 0 0 0 .1rem windowText;
+		box-shadow: $card-box-shadow;
 	}
 }
 
 .Polaris-Card--subdued {
-	background-color: var(--p-surface-foreground-subdued,#f9fafb);
+	background-color: $card-subdued-bgcolor;
 }
 
 .Polaris-Card__Header {
@@ -2650,16 +2650,16 @@ h1,h2,h3,h4,h5,h6,p {
 }
 
 .Polaris-Subheading {
-	font-size: 1.3rem;
-	font-weight: 600;
-	line-height: 1.6rem;
+	font-size: $sub-heading-font-size;
+	font-weight: $sub-heading-font-weight;
+	line-height: $sub-heading-line-height;
 	text-transform: uppercase;
 	margin: 0;
 }
 
 @media (min-width:40em) {
 	.Polaris-Subheading {
-		font-size: 1.2rem;
+		font-size: $sub-heading-media-font-size;
 	}
 }
 

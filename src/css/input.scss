@@ -1,20 +1,20 @@
 
 .Polaris-TextField {
-	font-size: 1.6rem;
-	font-weight: 400;
-	line-height: 2.4rem;
+	font-size: $textfield-font-size;
+	font-weight: $textfield-font-weight;
+	line-height: $textfield-line-height;
 	text-transform: none;
 	letter-spacing: normal;
 	position: relative;
 	display: flex;
 	align-items: center;
-	color: #637381;
+	color: $textfield-color;
 	cursor: text;
 	@media (min-width:40em) {
-		font-size: 1.4rem;
+		font-size: $textfield-media-font-size;
 	}
 	svg {
-		fill: #637381;
+		fill: $textfield-svg-fill;
 	}
 }
 .Polaris-TextField--multiline {
@@ -28,17 +28,12 @@
 	}
 }
 .Polaris-TextField--hasValue {
-	color: #637381;
-	.Polaris-TextField--globalTheming {
-		.Polaris-TextField__Input {
-			color: var(--p-text-on-surface);
-		}
-	}
+	color: $textfield-hasvalue-color;
 }
 .Polaris-TextField--focus {
 	>.Polaris-TextField__Input {
 		outline: none;
-		border: .1rem solid transparent;
+		border: $textfield-focus-border;
 	}
 	>.Polaris-TextField__Input~.Polaris-TextField__Backdrop {
 		&:after {
@@ -49,16 +44,16 @@
 .Polaris-TextField__Input {
 	&:focus {
 		outline: none;
-		border: .1rem solid transparent;
+		border: $textfield-focus-border;
 	}
 	&:focus~.Polaris-TextField__Backdrop {
 		&:after {
 			opacity: 1;
 		}
 	}
-	font-size: 1.6rem;
-	font-weight: 400;
-	line-height: 2.4rem;
+	font-size: $textfield-input-font-size;
+	font-weight: $textfield-input-font-weight;
+	line-height: $textfield-input-line-height;
 	text-transform: none;
 	letter-spacing: normal;
 	position: relative;
@@ -70,71 +65,70 @@
 	min-height: 3.6rem;
 	margin: 0;
 	padding: .5rem 1.2rem;
-	background: none;
+	background: $textfield-input-bgcolor;
 	border: .1rem solid transparent;
 	font-family: inherit;
-	font-size: inherit;
-	font-weight: inherit;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
 	@media (min-width:40em) {
-		font-size: 1.4rem;
+		font-size: $textfield-input-media-font-size;
 	}
 	&:disabled {
-		background: none;
-		border: .1rem solid transparent;
-		color: currentColor;
+		background: $textfield-input-disabled-bgcolor;
+		border: $textfield-input-disabled-border;
+		color: $textfield-input-disabled-color;
 		opacity: 1;
 		-webkit-text-fill-color: currentColor;
 	}
 	&:invalid {
-		box-shadow: none;
+		box-shadow: $textfield-input-invalid-box-shadow;
 	}
 	&::-webkit-input-placeholder {
-		color: #919eab;
+		color: $textfield-input-placeholder-color;
 	}
 	&::-ms-input-placeholder {
-		color: #919eab;
+		color: $textfield-input-placeholder-color;
 	}
 	&::placeholder {
-		color: #919eab;
+		color: $textfield-input-placeholder-color;
 	}
 }
 .Polaris-TextField--error {
 	.Polaris-TextField__Input {
 		&::-webkit-input-placeholder {
-			color: #9c9798;
+			color: $textfield-error-input-placeholder-color;
 		}
 		&::-ms-input-placeholder {
-			color: #9c9798;
+			color: $textfield-error-input-placeholder-color;
 		}
 		&::placeholder {
-			color: #9c9798;
+			color: $textfield-error-input-placeholder-color;
 		}
 	}
 	>.Polaris-TextField__Input~.Polaris-TextField__Backdrop {
-		background-color: #fbeae5;
-		border-color: #bf0711;
+		background-color: $textfield-error-input-backdrop-bgcolor;
+		border-color: $textfield-error-input-backdrop-border-color;
 		&:after {
-			border-color: #bf0711;
+			border-color: $textfield-error-input-backdrop-after-border-color;
 		}
 	}
 }
+
 .Polaris-TextField--readOnly {
 	>.Polaris-TextField__Backdrop {
-		background-color: #f9fafb;
+		background-color: $textfield-readonly-backdrop-bgcolor;
 	}
 }
 .Polaris-TextField--disabled {
-	color: #919eab;
+	color: $textfield-disabled-color;
 	cursor: auto;
 	>.Polaris-TextField__Backdrop {
-		background-color: #f9fafb;
-		box-shadow: none;
+		background-color: $textfield-disabled-backdrop-bgcolor;
+		box-shadow: $textfield-disabled-backdrop-box-shadow;
 	}
 	svg {
-		fill: #919eab;
+		fill: $textfield-disabled-svg-fill;
 	}
 }
 .Polaris-TextField__Prefix+.Polaris-TextField__Input {
@@ -180,10 +174,10 @@
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-color: #fff;
-	border: .1rem solid var(--p-border-on-surface,#c4cdd5);
-	border-radius: 3px;
-	box-shadow: inset 0 1px 0 0 rgba(99,115,129,.05);
+	background-color: $textfield-backdrop-bgcolor;
+	border: $textfield-backdrop-border;
+	border-radius: $textfield-backdrop-border-radius;
+	box-shadow: $textfield-backdrop-box-shadow;
 	pointer-events: none;
 	&:after {
 		content: "";
@@ -240,10 +234,10 @@
 	-moz-appearance: none;
 	appearance: none;
 	padding: 0;
-	background: none;
-	border: none;
-	font-size: inherit;
-	line-height: inherit;
+	background: $textfield-clear-button;
+	border: $textfield-clear-border;
+	font-size: $textfield-clear-border-font-size;
+	line-height: $textfield-clear-line-height;
 	cursor: pointer;
 	z-index: 20;
 	margin: 0 1.2rem 0 .25em;
@@ -251,7 +245,7 @@
 		outline: none;
 		&:enabled {
 			svg {
-				fill: #637381;
+				fill: $textfield-clear-focus-enabled-svg-fill;
 			}
 			img {
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(8%) saturate(825%) hue-rotate(166deg) brightness(95%) contrast(90%);
@@ -262,7 +256,7 @@
 	&:hover {
 		&:enabled {
 			svg {
-				fill: #637381;
+				fill: $textfield-clear-hover-enabled-svg-fill;
 			}
 			img {
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(8%) saturate(825%) hue-rotate(166deg) brightness(95%) contrast(90%);
@@ -281,7 +275,7 @@
 	flex-direction: column;
 	width: 2.2rem;
 	margin: 1px;
-	color: #212b36;
+	color: $textfield-spinner-color;
 	cursor: pointer;
 }
 .Polaris-TextField__SpinnerIcon {
@@ -298,21 +292,22 @@
 	overflow: hidden;
 }
 .Polaris-TextField__DummyInput {
-	font-size: 1.6rem;
-	font-weight: 400;
-	line-height: 2.4rem;
+	font-size: $textfield-dummyinput-font-size;
+	font-weight: $textfield-dummyinput-font-weight;
+	line-height: $textfield-dummyinput-line-height;
 	text-transform: none;
 	letter-spacing: normal;
 	padding: .5rem 1.2rem;
-	border: .1rem solid transparent;
+	border: $textfield-dummyinput-border;
 	word-wrap: break-word;
 	word-break: break-word;
 	overflow-wrap: break-word;
 	white-space: pre-wrap;
 	@media (min-width:40em) {
-		font-size: 1.4rem;
+		font-size: $textfield-dummyinput-media-font-size;
 	}
 }
+
 .Polaris-TextField__Segment {
 	display: flex;
 	flex: 1 1;
@@ -321,20 +316,20 @@
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
-	background: linear-gradient(180deg,#fff,#f9fafb);
+	background: $textfield-segment-bgcolor;
 	border: none;
-	border-left: .1rem solid var(--p-border-on-surface,#c4cdd5);
+	border-left: $textfield-segment-border;
 	transition: background .1s cubic-bezier(.64,0,.35,1),box-shadow .1s cubic-bezier(.64,0,.35,1);
 	&:focus {
 		outline: none;
 	}
 	&:active {
-		background: linear-gradient(180deg,#f4f6f8,#f4f6f8);
-		box-shadow: inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.2);
+		background: $textfield-segment-active-bgcolor;
+		box-shadow: $textfield-segment-active-box-shadow;
 	}
 	&:not(:first-child) {
 		margin-top: -1px;
-		border-top: .1rem solid var(--p-border-on-surface,#c4cdd5);
+		border-top: $textfield-segment-border;
 	}
 	&:first-child {
 		border-top-right-radius: 3px;
@@ -343,7 +338,9 @@
 		border-bottom-right-radius: 3px;
 	}
 }
-.Polaris-TextField--globalTheming.Polaris-TextField {
+
+
+/*.Polaris-TextField--globalTheming.Polaris-TextField {
 	color: var(--p-text-on-surface);
 }
 .Polaris-TextField--globalTheming {
@@ -431,4 +428,4 @@
 			border-color: var(--p-interactive-focus);
 		}
 	}
-}
+}*/

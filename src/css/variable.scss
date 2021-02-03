@@ -261,3 +261,459 @@ $btn-plain-icononly-hover-svg-icon-color: #212b36;
 
 $btn-plain-icononly-disabled-svg-icon-color: #c4cdd5;
 
+/* Scrollable */
+
+$scroll-top-shadow: inset 0 2rem 2rem -2rem rgba(0,0,0,.1);
+
+$scroll-bottom-shadow: inset 0 -2rem 2rem -2rem rgba(0,0,0,.1);
+
+$scroll-top-bottom-shadow:  inset 0 2rem 2rem -2rem rgba(0,0,0,.1),inset 0 -2rem 2rem -2rem rgba(0,0,0,.1);
+
+/* Badge */
+
+$badge-bgcolor: #dfe3e8;
+$badge-border: .2rem solid var(--p-surface-foreground,#fff);
+$badge-border-radius: 2rem;
+$badge-font-size: 1.3rem;
+$badge-color: #454f5b;
+$badge-line-height: 2rem;
+
+$badge-pip-color: #919eab;
+
+$badge-small-font-size: 1.2rem;
+$badge-small-line-height: 1.8rem;
+
+$badge-status-success-bgcolor: #bbe5b3;
+$badge-status-success-color: #414f3e;
+
+$badge-status-success-pip-color: #108043;
+
+$badge-status-info-color: #3e4e57;
+$badge-status-info-bgcolor: #b4e1fa;
+
+$badge-status-info-pip-color: #084e8a;
+
+$badge-status-attention-bgcolor: #ffea8a;
+$badge-status-attention-color: #595130;	
+
+$badge-status-attention-pip-color: #8a6116;	
+
+$badge-status-warning-bgcolor: #ffc58b;
+$badge-status-warning-color: #594430;
+
+$badge-status-warning-pip-color: #c05717;	
+
+$badge-status-new-bgcolor: #c05717;
+$badge-status-new-color: #212b36;
+$badge-status-new-font-weight: 500;
+$badge-status-new-border: none;
+
+$badge-pip-border: .2rem solid;
+$badge-pip-border-radius: 50%;
+
+$badge-progress-incomplete-pip-bgcolor: transparent;
+
+$badge-progress-partially-complete-pip-bgcolor: linear-gradient(0deg,currentColor,currentColor 50%,transparent 0,transparent);
+
+$badge-progress-complete-pip-bgcolor: linear-gradient(0deg,currentColor,currentColor 50%,currentColor 0);
+
+/* TextStyle */
+
+$textstyle-positive-color: #108043;
+
+$textstyle-negative-color: #108043;
+
+$textstyle-variationcode-bgcolor: #f4f6f8;
+
+$textstyle-variationcode-border-radius: 3px;
+
+$textstyle-variationcode-font-size: 1.15em;
+
+$textstyle-variationcode-box-shadow: inset 0 0 0 1px var(--p-border-subdued-on-surface,#dfe3e8);
+
+$textstyle-variationcode-after-border: 1px solid transparent;
+
+$textstyle-variationstrong-font-weight: 600;
+
+$textstyle-variationsubdued-color: #637381;
+
+/* ActionList */
+
+$actionlist-section-border : .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+
+$actionlist-section-border-0 :  none;
+
+$actionlist-title-font-size: 1.3rem;
+$actionlist-title-font-weight: 600;
+$actionlist-title-line-height: 1.6rem;
+
+$actionlist-title-media-font-size: 1.2rem;
+
+$actionlist-item-bgcolor: none;
+$actionlist-item-border: none;
+$actionlist-item-font-size: inherit;
+$actionlist-item-color: inherit;
+$actionlist-item-border-radius: 0;
+
+$actionlist-item-focus-bgimage:  linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+$actionlist-item-focus-box-shadow:  inset .2rem 0 0 #5c6ac4;
+
+$actionlist-item-visited-color: inherit;
+
+$actionlist-item-active-bgimage: linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1));
+
+$actionlist-item-active-hover-bgimage: linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+
+$actionlist-item-active-hover-focus-bgimage: linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+$actionlist-item-active-hover-focus-bgimages-box-shadow:  inset .2rem 0 0 #5c6ac4;
+	
+$actionlist-item-hover-bgimages: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+$actionlist-item-hover-focus-box-shadow: inset .2rem 0 0 #5c6ac4;
+$actionlist-item-hover-focus-bgimage: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+
+$actionlist-item-active-bgimage: linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1));
+
+$actionlist-item-destructive-color: #bf0711;
+$actionlist-item-destructive-svg-color: #bf0711;
+
+$actionlist-item-destructive-active-bgimage: linear-gradient(rgba(220, 56, 37, .03), rgba(220, 56, 37, .03));
+$actionlist-item-destructive-active-hover-bgimage: linear-gradient(rgba(220, 56, 37, .03), rgba(220, 56, 37, .03)), linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4));
+$actionlist-item-destructive-active-hover-focus-bgimage: linear-gradient(rgba(220, 56, 37, .03), rgba(220, 56, 37, .03)), linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4)), linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4));
+$actionlist-item-destructive-active-hover-focus-box-shadow: inset .2rem 0 0 #de3618;
+
+$actionlist-item-destructive-hover-bgimage: linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4));
+$actionlist-item-destructive-hover-focus-bgimage: linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4)), linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4));
+$actionlist-item-destructive-hover-focus-box-shadow: inset .2rem 0 0 #de3618;
+
+$actionlist-item-destructive-focus-box-shadow: inset .2rem 0 0 #de3618;
+$actionlist-item-destructive-focus-bgimage: linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4));
+
+$actionlist-item-disabled-bgimage: linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4));
+$actionlist-item-disabled-color: #919eab;
+$actionlist-item-disabled-image-svg-fill: linear-gradient(rgba(251, 234, 229, .4), rgba(251, 234, 229, .4));
+$actionlist-item-disabled-image-svg-color: #fff;
+
+$actionlist-image-radius: 3px; 
+$actionlist-image-svg-fill: #454f5b; 
+$actionlist-image-svg-color: #fff;
+
+$popover-box-shadow:  var(--p-popover-shadow, 0 0 0 1px rgba(6, 44, 82, .1), 0 2px 16px rgba(33, 43, 54, .08));
+$popover-border-radius : 3px;
+$popover-wrapper-bgcolor : #fff;
+$popover-border : .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+
+$heading-font-size: 1.7rem;
+$heading-font-weight: 600;
+$heading-line-height: 2.4rem;
+$heading-media-font-size: 1.6rem;
+
+$sub-heading-font-size: 1.3rem;
+$sub-heading-font-weight: 600;
+$sub-heading-line-height: 1.6rem;
+$sub-heading-media-font-size: 1.2rem;
+
+/*$card*/
+
+$card-bgcolor: #fff;
+$card-box-shadow: var(--p-card-shadow,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+$card-border-radius: 3px;
+$card-border: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+
+$card-subdued-bgcolor: var(--p-surface-foreground-subdued,#f9fafb);
+
+/* MenuAction */
+
+$actionmenu-menuaction-bgcolor: none;
+$actionmenu-menuaction-font-size: 1.5rem;
+$actionmenu-menuaction-border: none;
+$actionmenu-menuaction-font-weight: 400;
+$actionmenu-menuaction-color: #454f5b;
+$actionmenu-menuaction-border-radius: 3px;
+$actionmenu-menuaction-media-font-size: 1.4rem;
+
+$actionmenu-menuaction-focus-after-bgcolor: rgba(33, 43, 54, .1);
+
+$actionmenu-menuaction-active-color: #212b36;
+
+$actionmenu-menuaction-active-iconwrapper-svg-fill: #212b36;
+$actionmenu-menuaction-active-iconwrapper-svg-color: #fff;
+$actionmenu-menuaction-active-after-bgcolor: rgba(33, 43, 54, .1);
+
+$actionmenu-menuaction-hover-color: #212b36;
+$actionmenu-menuaction-hover-iconwrapper-svg-fill: #212b36;
+$actionmenu-menuaction-hover-iconwrapper-svg-color: #fff;
+
+$actionmenu-menuaction-disabled-color: #919eab;
+$actionmenu-menuaction-svg-fill: #919eab;
+
+$actionmenu-menuaction-iconwrapper-svg-fill: #637381;
+$actionmenu-menuaction-iconwrapper-svg-color: #fff;
+
+$actionmenu-menuaction-iconwrapper-disabled-svg-fill: #919eab;
+
+/* OptionList-Checkbox */
+
+$optionlist-checkbox-input-border: 0 !important;
+
+$optionlist-checkbox-input-active-backdrop-bgcolor: #5c6ac4;
+$optionlist-checkbox-input-active-backdrop-box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+
+$optionlist-checkbox-input-active-backdrop-after-bgcolor: #fff;
+
+$optionlist-checkbox-input-checked-backdrop-bgcolor: #5c6ac4;
+
+$optionlist-checkbox-input-focus-backdrop-bgcolor: #5c6ac4;
+$optionlist-checkbox-input-focus-backdrop-box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+
+$optionlist-checkbox-input-focus-backdrop-after-bgcolor: #fff;
+
+$optionlist-checkbox-input-disabled-backdrop-box-shadow: none;
+$optionlist-checkbox-input-disabled-backdrop-bgcolor: #dfe3e8;
+$optionlist-checkbox-input-disabled-backdrop-after-bgcolor: #f9fafb;
+
+$optionlist-checkbox-input-disabled-icon-svg-fill: #919eab;
+
+$optionlist-checkbox-active-backdrop-bgcolor: #5c6ac4;
+$optionlist-checkbox-active-backdrop-box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+$optionlist-checkbox-active-backdrop-after-bgcolor: #fff;
+
+$optionlist-checkbox-backdrop-bgcolor: #5c6ac4;
+$optionlist-checkbox-backdrop-box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+$optionlist-checkbox-backdrop-border: .1rem solid transparent;
+$optionlist-checkbox-backdrop-border-radius: #fff;
+
+$optionlist-checkbox-backdrop-after-bgcolor: linear-gradient(180deg,#fff,#f9fafb);
+$optionlist-checkbox-backdrop-after-border-radius: 2px;
+
+$optionlist-checkbox-icon-svg-fill: #5c6ac4;
+
+$optionlist-option-bgcolor: none;
+$optionlist-option-border: none;
+$optionlist-option-font-size: inherit;
+$optionlist-option-color: inherit;
+
+$optionlist-option-visited-color: inherit;
+$optionlist-option-hover-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+
+$optionlist-option-focused-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+$optionlist-option-focused-box-shadow: inset .2rem 0 0 #5c6ac4;
+
+$optionlist-option-focused-hover-box-shadow: inset .2rem 0 0 #5c6ac4;
+$optionlist-option-focused-hover-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+
+$optionlist-option-disabled-bgimage: linear-gradient(#f9fafb,#f9fafb);
+$optionlist-option-disabled-media-svg-fill: #919eab;
+$optionlist-option-disabled-media-svg-color: #fff;
+
+$optionlist-option-select-bgimage: linear-gradient(rgba(179,188,245,.15),rgba(179,188,245,.15));
+
+$optionlist-option-select-focused-bgimage: linear-gradient(rgba(179,188,245,.15),rgba(179,188,245,.15)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+$optionlist-option-select-focused-box-shadow: inset .2rem 0 0 #5c6ac4;
+
+$optionlist-option-select-focused-hover-bgimage: linear-gradient(rgba(179,188,245,.15),rgba(179,188,245,.15)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+$optionlist-option-select-focused-hover-box-shadow: inset .2rem 0 0 #5c6ac4;
+
+$optionlist-option-active-bgimage: linear-gradient(rgba(179,188,245,.1),rgba(179,188,245,.1));
+$optionlist-option-media-svg-fill: #454f5b; 
+$optionlist-option-media-svg-color: #fff;
+
+$optionlist-title-font-size: 1.3rem;
+$optionlist-title-font-weight:600; 
+$optionlist-title-line-height:1.6rem;
+$optionlist-title-border: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+$optionlist-title-media-font-size: 1.2rem;
+
+/* label */
+
+$label-text-font-size: 1.5rem;
+$label-text-font-weight: 400;
+$label-text-line-height: 2rem;
+$label-text-color: #212b36;
+$label-text-media-font-size: 1.4rem; 
+
+$inline-error-color: #bf0711;
+$inline-error-fill: #bf0711;
+
+$labelled-helptext-color: #637381;
+$labelled-helptext-font-size: 1.5rem;
+$labelled-helptext-line-height: 2rem;
+$labelled-helptext-font-weight: 400;
+
+$labelled-helptext-media-font-size: 1.4rem;
+
+/* textfield */
+
+$textfield-font-size: 1.6rem;
+$textfield-font-weight: 400;
+$textfield-line-height: 2.4rem;
+$textfield-color: #637381;
+
+$textfield-media-font-size: 1.4rem;
+
+$textfield-svg-fill: #637381;
+
+$textfield-hasvalue-color: #637381;
+
+$textfield-focus-border: .1rem solid transparent;
+
+$textfield-input-font-size: 1.6rem;
+$textfield-input-font-weight: 400;
+$textfield-input-line-height: 2.4rem;
+$textfield-input-bgcolor: 400;
+$textfield-input-border-color: .1rem solid transparent;
+
+$textfield-input-media-font-size: 1.4rem;
+
+$textfield-input-disabled-bgcolor: none;
+$textfield-input-disabled-border: .1rem solid transparent;
+$textfield-input-disabled-color: currentColor;
+
+$textfield-input-invalid-box-shadow: none;
+
+$textfield-input-placeholder-color: #919eab;
+
+$textfield-error-input-placeholder-color: #9c9798;
+
+$textfield-error-input-backdrop-bgcolor: #fbeae5;
+
+$textfield-error-input-backdrop-border-color: #bf0711;
+$textfield-error-input-backdrop-after-border-color: #bf0711;
+
+$textfield-readonly-backdrop-bgcolor: #f9fafb;
+
+$textfield-disabled-color: #919eab;
+
+$textfield-disabled-backdrop-bgcolor: #f9fafb;
+$textfield-disabled-backdrop-box-shadow: none;
+
+$textfield-disabled-svg-fill: #919eab;
+
+$textfield-backdrop-bgcolor: #fff;
+$textfield-backdrop-border: .1rem solid var(--p-border-on-surface,#c4cdd5);
+$textfield-backdrop-border-radius: 3px;
+$textfield-backdrop-box-shadow: inset 0 1px 0 0 rgba(99,115,129,.05);
+
+$textfield-backdrop-after-border: inset 0 1px 0 0 rgba(99,115,129,.05);
+$textfield-backdrop-after-border-radius: inherit;
+
+$textfield-charactercount-color: #637381;
+
+$textfield-clear-button: none;
+$textfield-clear-border: none;
+$textfield-clear-border-font-size: inherit;
+$textfield-clear-line-height: inherit;
+
+$textfield-clear-focus-enabled-svg-fill: #637381;
+$textfield-clear-hover-enabled-svg-fill: #637381;
+
+$textfield-spinner-color: #212b36;
+
+$textfield-dummyinput-font-size: 1.6rem;
+$textfield-dummyinput-font-weight: 400;
+$textfield-dummyinput-line-height: 2.4rem;
+$textfield-dummyinput-border: .1rem solid transparent;
+$textfield-dummyinput-media-font-size: 1.4rem;
+
+$textfield-segment-bgcolor: linear-gradient(180deg,#fff,#f9fafb);
+$textfield-segment-border: .1rem solid var(--p-border-on-surface,#c4cdd5);
+
+$textfield-segment-active-bgcolor: linear-gradient(180deg,#f4f6f8,#f4f6f8);
+$textfield-segment-active-box-shadow: inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.2);
+
+$polaris-backdrop-bgcolor: var(--p-backdrop, rgba(33, 43, 54, .4)); 	
+
+$banner-within-container-border-radius: 3px;
+
+$banner-within-container-box-shadow: none;
+$banner-within-container-bgcolor: #f4f6f8;
+
+$banner-within-container-focus-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-border-on-surface,#637381),inset 0 0 0 3px var(--p-border-on-surface,#637381),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+$banner-within-container-focus-after-border: .2rem solid var(--p-interactive-focus);
+$banner-within-container-focus-after-border-radius: calc(var(--p-border-radius-wide) + .3rem);
+
+$banner-within-container-succes-border-radius: var(--p-border-radius-wide,inherit);
+
+$banner-within-container-succes-box-shadow: var(--p-banner-border,none);
+$banner-within-container-succes-bgcolor: #eff7ed;
+
+$banner-within-container-succes-focus-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-success-border,#50b83c),inset 0 0 0 3px var(--p-success-border,#50b83c),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+$banner-within-container-succes-focus-border: .2rem solid var(--p-interactive-focus);
+$banner-within-container-succes-focus-border-radius: calc(var(--p-border-radius-wide) + .3rem);
+
+$banner-within-container-statusinfo-border-radius: var(--p-border-radius-wide,inherit);
+$banner-within-container-statusinfo-box-shadow: var(--p-banner-border,none);
+$banner-within-container-statusinfo-bgcolor: #eef9f9;
+
+$banner-within-container-statusinfo-focus-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-highlight-border,#47c1bf),inset 0 0 0 3px var(--p-highlight-border,#47c1bf),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+
+$banner-within-container-statusinfo-focus-after-border: .2rem solid var(--p-interactive-focus);
+$banner-within-container-statusinfo-focus-after-border-radius: calc(var(--p-border-radius-wide) + .3rem);
+
+$banner-within-container-statuswarning-border-radius: inherit;
+$banner-within-container-statuswarning-box-shadow: none;
+$banner-within-container-statuswarning-bgcolor: #fdf7e3;
+
+$banner-within-container-statuswarning-focus-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-warning-border,#eec200),inset 0 0 0 3px var(--p-warning-border,#eec200),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+
+$banner-within-container-statuswarning-focus-after-border: .2rem solid var(--p-interactive-focus);
+$banner-within-container-statuswarning-focus-after-border-radius: calc(var(--p-border-radius-wide) + .3rem);
+
+$banner-within-container-statuscritical-border-radius: inherit;
+$banner-within-container-statuscritical-box-shadow: none;
+$banner-within-container-statuscritical-bgcolor: #fdf3f0;
+
+$banner-within-container-statuscritical-focus-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-critical-diviver,#de3618),inset 0 0 0 3px var(--p-critical-diviver,#de3618),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+
+$banner-within-container-statuscritical-focus-after-border: .2rem solid var(--p-interactive-focus);
+$banner-within-container-statuscritical-focus-after-border-radius: calc(var(--p-border-radius-wide) + .3rem);
+
+$banner-withinpage-border-radius: 0 0 3px 3px;
+$banner-withinpage-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-border-on-surface,#637381),inset 0 0 0 0 transparent,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+$banner-withinpage-bgcolor: #f4f6f8;
+
+$banner-withinpage-focus-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-border-on-surface,#637381),inset 0 0 0 3px var(--p-border-on-surface,#637381),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+
+$banner-withinpage-focus-after-border: .2rem solid var(--p-interactive-focus);
+$banner-withinpage-focus-after-border-radius: calc(var(--p-border-radius-wide) + .3rem);
+
+$banner-withinpage-statussuccess-border: var(--p-border-radius-wide,inherit);
+$banner-withinpage-statussuccess-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-success-border,#50b83c),inset 0 0 0 0 transparent,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+$banner-withinpage-statussuccess-bgcolor: #eff7ed;
+
+$banner-withinpage-statussuccess-focus-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-success-border,#50b83c),inset 0 0 0 3px var(--p-success-border,#50b83c),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+
+$banner-withinpage-statussuccess-focus-after-border: .2rem solid var(--p-interactive-focus);
+$banner-withinpage-statussuccess-focus-after-border-radius: calc(var(--p-border-radius-wide) + .3rem);
+
+$banner-withinpage-statusinfo-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-highlight-border,#47c1bf),inset 0 0 0 0 transparent,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+$banner-withinpage-statusinfo-border-radius: inherit;
+$banner-withinpage-statusinfo-bgcolor: #eef9f9;
+
+$banner-withinpage-statusinfo-focus-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-highlight-border,#47c1bf),inset 0 0 0 3px var(--p-highlight-border,#47c1bf),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+
+$banner-withinpage-statusinfo-focus-after-border: .2rem solid var(--p-interactive-focus);
+$banner-withinpage-statusinfo-focus-after-border-radius: calc(var(--p-border-radius-wide) + .3rem);
+
+$banner-withinpage-statuswarning-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-warning-border,#eec200),inset 0 0 0 0 transparent,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+$banner-withinpage-statuswarning-bgcolor: #fdf7e3;
+$banner-withinpage-statuswarning-border-radius: inherit;
+
+$banner-withinpage-statuswarning-focus-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-warning-border,#eec200),inset 0 0 0 3px var(--p-warning-border,#eec200),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+
+$banner-withinpage-statuswarning-focus-after-border: .2rem solid var(--p-interactive-focus);
+$banner-withinpage-statuswarning-focus-after-border-radius: calc(var(--p-border-radius-wide) + .3rem);
+
+$banner-withinpage-statuscritical-border-radius: inherit;
+$banner-withinpage-statuscritical-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-critical-diviver,#de3618),inset 0 0 0 0 transparent,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+$banner-withinpage-statuscritical-bgcolor: #fdf3f0;
+
+$banner-withinpage-statuscritical-focus-box-shadow: var(--p-banner-border,inset 0 3px 0 0 var(--p-critical-diviver,#de3618),inset 0 0 0 3px var(--p-critical-diviver,#de3618),0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
+$banner-withinpage-statuscritical-focus-after-border-radius: calc(var(--p-border-radius-wide) + .3rem);
+$banner-withinpage-statuscritical-focus-after-border: .2rem solid var(--p-interactive-focus);
+
+$banner-secondaryaction-font-size: inherit;
+$banner-secondaryaction-color: #212b36; 
+
+$banner-secondaryaction-focus-banner-text-bgcolor: rgba(33,43,54,.1);
+$banner-secondaryaction-focus-banner-text-border-radius: 3px;
+
