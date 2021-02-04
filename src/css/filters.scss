@@ -101,7 +101,7 @@
     top: 0;
     width: 100%;
     padding: 1.6rem 2rem;
-    border-bottom: .1rem solid #dfe3e8;
+    border-bottom: $filters-containerheader-border;
     height: 5.6rem;
     box-sizing: border-box;
     display: flex;
@@ -122,7 +122,7 @@
 .Polaris-Filters__FiltersContainerFooter {
     position: absolute;
     bottom: 0;
-    border-top: .1rem solid #dfe3e8;
+    border-top: $filters-containerheader-border;
     width: 100%;
     padding: 1.4rem 1.6rem;
     height: 7rem;
@@ -143,7 +143,7 @@
 }
 
 .Polaris-Filters__EmptyFooterState {
-    border-top: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+    border-top: $filters-containerheader-border;
     padding-top: 1.4rem;
     width: 100%;
     display: flex;
@@ -159,23 +159,23 @@
     padding: 1.4rem 2rem;
     border: none;
     background: none;
-    color: #212b36;
+    color: $filters-trigger-color;
 
     &:hover {
         cursor: pointer;
-        background-image: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+        background-image: $filters-trigger-hover-bgimage;
     }
 
     &:focus {
         outline: none;
-        box-shadow: inset .2rem 0 0 #5c6ac4;
-        background-image: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+        box-shadow: $filters-trigger-focus-box-shadow;
+        background-image: $filters-trigger-focus-bgimage;
     }
 }
 
 .Polaris-Filters__FilterTriggerTitle {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: $filters-trigger-title-font-size;
+    font-weight: $filters-trigger-title-font-weight;
 }
 
 .Polaris-Filters__AppliedFilterBadgeContainer {
@@ -194,7 +194,7 @@
         left: 1.6rem;
         width: calc(100% - 3.2rem);
         height: .1rem;
-        background-color: #dfe3e8;
+        background-color: $filters-open-after-bgcolor;
         display: block;
         bottom: 0;
     }
@@ -205,7 +205,7 @@
         left: 1.6rem;
         width: calc(100% - 3.2rem);
         height: .1rem;
-        background-color: #dfe3e8;
+        background-color: $filters-open-before-bgcolor;
         display: block;
         top: 0;
     }
@@ -225,7 +225,7 @@
         left: 1.6rem;
         width: calc(100% - 3.2rem);
         height: .1rem;
-        background-color: #dfe3e8;
+        background-color: $filters-open-first-after-bgcolor;
         display: block;
     }
 
@@ -248,7 +248,7 @@
         left: 1.6rem;
         width: calc(100% - 3.2rem);
         height: .1rem;
-        background-color: #dfe3e8;
+        background-color: $filters-open-last-before-bgcolor;
         display: block;
     }
 

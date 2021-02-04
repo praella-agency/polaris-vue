@@ -14,7 +14,7 @@
 		height: 1px !important;
 		width: 1px !important;
 		padding: 0 !important;
-		border: 0 !important;
+		border: $choice-labelhidden-label-border;
 	}
 	.Polaris-Choice__Control {
 		margin-top: 0;
@@ -23,7 +23,7 @@
 }
 .Polaris-Choice--disabled {
 	>.Polaris-Choice__Label {
-		color: #919eab;
+		color: $choice-disabled-label-color;
 		@media (-ms-high-contrast:active) {
 			color: grayText;
 		}
@@ -42,29 +42,29 @@
 	}
 }
 .Polaris-Choice__Label {
-	font-size: 1.5rem;
-	font-weight: 400;
-	line-height: 2rem;
+	font-size: $choice-label-font-size;
+	font-weight: $choice-label-font-weight;
+	line-height: $choice-label-font-line-height;
 	text-transform: none;
 	letter-spacing: normal;
 	-webkit-tap-highlight-color: transparent;
 	@media (min-width:40em) {
-		font-size: 1.4rem;
+		font-size: $choice-label-media-font-size;
 	}
 }
 .Polaris-Choice__Descriptions {
 	padding-left: 2.4rem;
 }
 .Polaris-Choice__HelpText {
-	font-size: 1.5rem;
-	font-weight: 400;
-	line-height: 2rem;
+	font-size: $choice-helptext-font-size;
+	font-weight: $choice-helptext-font-weight;
+	line-height: $choice-helptext-line-height;
 	text-transform: none;
 	letter-spacing: normal;
-	color: var(--p-text-subdued-on-surface,#637381);
+	color: $choice-helptext-color;
 	margin-bottom: .4rem;
 	@media (min-width:40em) {
-		font-size: 1.4rem;
+		font-size: $choice-helptext-media-font-size;
 	}
 }
 
@@ -83,7 +83,7 @@
 		height: 1px !important;
 		width: 1px !important;
 		padding: 0 !important;
-		border: 0 !important;
+		border: $choice-labelhidden-label-border;
 	}
 }
 .Polaris-ChoiceList__Choices {
@@ -100,15 +100,15 @@
 	margin-bottom: .8rem;
 }
 .Polaris-ChoiceList__Title {
-	font-size: 1.5rem;
-	font-weight: 400;
-	line-height: 2rem;
+	font-size: $choicelist-title-font-size;
+	font-weight: $choicelist-title-font-weight;
+	line-height: $choicelist-title-line-height;
 	text-transform: none;
 	letter-spacing: normal;
 	display: block;
 	margin: 0 0 .4rem;
 	padding: 0;
 	@media (min-width:40em) {
-		font-size: 1.4rem;
+		font-size: $choicelist-title-media-font-size;
 	}
 }

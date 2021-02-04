@@ -4,42 +4,42 @@
 }
 .Polaris-Checkbox--error {
 	.Polaris-Checkbox__Backdrop {
-		background: #bf0711;
-		box-shadow: 0 0 0 1px transparent;
+		background: $checkbox-error-backdrop-bgcolor;
+		box-shadow: $checkbox-error-backdrop-box-shadow;
 		&:after {
-			background: #fbeae5;
+			background: $checkbox-error-backdrop-after-bgcolor;
 		}
 	}
 	.Polaris-Checkbox__Input.Polaris-Checkbox__Input--indeterminate+.Polaris-Checkbox__Backdrop {
-		background: #bf0711;
-		box-shadow: 0 0 0 1px transparent;
+		background: $checkbox-error-backdrop-bgcolor;
+		box-shadow: $checkbox-error-backdrop-box-shadow;
 		&:after {
-			background: #fbeae5;
+			background: $checkbox-error-backdrop-after-bgcolor;
 		}
 	}
 	.Polaris-Checkbox__Input {
 		&:checked+.Polaris-Checkbox__Backdrop {
-			background: #bf0711;
-			box-shadow: 0 0 0 1px transparent;
+			background: $checkbox-error-backdrop-bgcolor;
+			box-shadow: $checkbox-error-backdrop-box-shadow;
 			&:after {
-				background: #fbeae5;
+				background: $checkbox-error-backdrop-after-bgcolor;
 			}
 		}
 		&:active+.Polaris-Checkbox__Backdrop {
-			background: #5c6ac4;
-			box-shadow: 0 0 0 1px #5c6ac4;
+			background: $checkbox-error-input-active-focus-backdrop-bgcolor;
+			box-shadow: $checkbox-error-input-active-focus-backdrop-box-shadow;
 			&:after {
-				background: #fbeae5;
+				background: $checkbox-error-backdrop-after-bgcolor;
 				@media (-ms-high-contrast:active) {
 					border: 1px dashed buttonText;
 				}
 			}
 		}
 		&:focus+.Polaris-Checkbox__Backdrop {
-			background: #5c6ac4;
-			box-shadow: 0 0 0 1px #5c6ac4;
+			background: $checkbox-error-input-active-focus-backdrop-bgcolor;
+			box-shadow: $checkbox-error-input-active-focus-backdrop-box-shadow;
 			&:after {
-				background: #fbeae5;
+				background: $checkbox-error-backdrop-after-bgcolor;
 				@media (-ms-high-contrast:active) {
 					border: 1px dashed buttonText;
 				}
@@ -48,10 +48,11 @@
 	}
 	.Polaris-Checkbox__Icon {
 		svg {
-			fill: #bf0711;
+			fill: $checkbox-error-icon-svg-fill;
 		}
 	}
 }
+
 .Polaris-Checkbox__Input {
 	position: absolute !important;
 	top: 0;
@@ -60,27 +61,25 @@
 	height: 1px !important;
 	width: 1px !important;
 	padding: 0 !important;
-	border: 0 !important;
+	border: $checkbox-input-border;
 	&:active+.Polaris-Checkbox__Backdrop {
-		background: #5c6ac4;
-		background: #5c6ac4;
-		box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+		background: $checkbox-input-active-backdrop-bgcolor;
+		box-shadow: $checkbox-input-active-backdrop-box-shadow;
 		&:after {
-			background: #fff;
+			background: $checkbox-input-active-backdrop-after-bgcolor;
 			@media (-ms-high-contrast:active) {
 				border: 1px dashed buttonText;
 			}
 		}
 	}
 	&:checked+.Polaris-Checkbox__Backdrop {
-		background: #5c6ac4;
+		background: $checkbox-input-checked-backdrop-bgcolor;
 	}
 	&:focus+.Polaris-Checkbox__Backdrop {
-		background: #5c6ac4;
-		background: #5c6ac4;
-		box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+		background: $checkbox-input-focus-backdrop-bgcolor;
+		box-shadow: $checkbox-input-focus-backdrop-box-shadow;
 		&:after {
-			background: #fff;
+			background: $checkbox-input-focus-backdrop-after-bgcolor;
 			@media (-ms-high-contrast:active) {
 				border: 1px dashed buttonText;
 			}
@@ -88,34 +87,35 @@
 	}
 	&:checked~.Polaris-Checkbox__Icon {
 		transform: translate(-50%,-50%) scale(1);
+		transition: all 0.3s;
 	}
 	&:disabled+.Polaris-Checkbox__Backdrop {
-		background: #dfe3e8;
-		box-shadow: none;
+		background: $checkbox-input-focus-backdrop-after-bgcolor;
+		box-shadow: $checkbox-input-disabled-backdrop-box-shadow;
 		@media (-ms-high-contrast:active) {
 			color: grayText;
 		}
 		&:after {
-			background: #f9fafb;
+			background: $checkbox-input-disabled-backdrop-after-bgcolor;
 		}
 	}
 	&:disabled~.Polaris-Checkbox__Icon {
 		svg {
-			fill: #919eab;
+			fill: $checkbox-input-disabled-icon-svg-fill;
 		}
 	}
 }
 .Polaris-Checkbox__Input.Polaris-Checkbox__Input--indeterminate+.Polaris-Checkbox__Backdrop {
-	background: #5c6ac4;
+	background: $checkbox-input-indeterminate-backdrop-bgcolor;
 }
 .Polaris-Checkbox__Input.Polaris-Checkbox__Input--indeterminate~.Polaris-Checkbox__Icon {
 	transform: translate(-50%,-50%) scale(1);
 }
 .Polaris-Checkbox__Backdrop {
-	background-color: #c4cdd5;
-	border: .1rem solid transparent;
-	box-shadow: 0 0 0 1px transparent,0 1px 0 0 rgba(22,29,37,.05);
-	border-radius: 3px;
+	background-color: $checkbox-backdrop-bgcolor;
+	border: $checkbox-backdrop-border;
+	box-shadow: $checkbox-backdrop-box-shadow;
+	border-radius: $checkbox-backdrop-border-radius;
 	transition-property: box-shadow,background-color;
 	transition-duration: .2s;
 	transition-timing-function: cubic-bezier(.64,0,.35,1);
@@ -140,8 +140,8 @@
 		left: 0;
 		right: 0;
 		display: block;
-		background: linear-gradient(180deg,#fff,#f9fafb);
-		border-radius: 2px;
+		background: $checkbox-backdrop-after-bgcolor;
+		border-radius: $checkbox-backdrop-after-border-radius;
 		@media (-ms-high-contrast:active) {
 			top: -4px;
 			right: -4px;
@@ -158,12 +158,12 @@
 	left: 50%;
 	transform: translate(-50%,-50%) scale(0);
 	transform-origin: 50% 50%;
-	transition: transform .1s cubic-bezier(.36,0,1,1) cubic-bezier(0,0,.42,1);
+	transition: all 0.3s;
 	pointer-events: none;
 	@media (-ms-high-contrast:active) {
 		fill: windowText;
 	}	
 	svg {
-		fill: #5c6ac4;
+		fill: $checkbox-icon-svg-fill;
 	}
 }

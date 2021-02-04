@@ -21,14 +21,14 @@
 .Polaris-DataTable__Pip {
 	height: .6rem;
 	width: .6rem;
-	background: #919eab;
-	border-radius: 3px;
+	background: $datatable-pip-bgcolor;
+	border-radius: $datatable-pip-border-radius;
 	&:not(:last-of-type) {
 		margin-right: .4rem;
 	}
 }
 .Polaris-DataTable__Pip--visible {
-	background: #212b36;
+	background: $datatable-pip-visible;
 }
 .Polaris-DataTable__ScrollContainer {
 	overflow-x: auto;
@@ -41,7 +41,7 @@
 
 .Polaris-DataTable__Cell {
 	padding: 1.6rem;
-	border-bottom: .1rem solid #f4f6f8;
+	border-bottom: $datatable-cell-border;
 	white-space: nowrap;
 	text-align: left;
 	transition: background-color .2s ease-in-out;
@@ -49,17 +49,19 @@
 
 @media (min-width:48em) {
 	.Polaris-DataTable__TableRow:hover .Polaris-DataTable__Cell {
-		background: var(--p-surface-hovered,#f9fafb);
+		background: $datatable-row-hover-cell-bgcolor;
 	}
 }
 
 
 .Polaris-DataTable__Cell--firstColumn {
-	font-weight: 400;
-	color: var(--p-text-on-surface,#212b36);
+	font-weight: $datatable-cell-first-font-weight;
+	color: $datatable-cell-first-color;
 	text-align: left;
 	white-space: normal;
 }
+
+
 .Polaris-DataTable__Cell--numeric {
 	text-align: right;
 }
@@ -70,10 +72,10 @@
 	max-width: 14.5rem;
 }
 .Polaris-DataTable__Cell--header {
-	font-weight: 400;
-	color: var(--p-text-on-surface,#212b36);
-	border-bottom: .1rem solid var(--p-border-on-surface,#c4cdd5);
-	border-top: 0;
+	font-weight: $datatable-cell-header-font-weight;
+	color: $datatable-cell-header-font-color;
+	border-bottom: $datatable-cell-header-border;
+	border-top: $datatable-border-none;
 }
 .Polaris-DataTable__Cell--sortable {
 	padding: 0;
@@ -101,10 +103,10 @@
 	-moz-appearance: none;
 	appearance: none;
 	margin: 0;
-	background: none;
-	border: none;
-	font-size: inherit;
-	line-height: inherit;
+	background: $datatable-heading-bgcolor;
+	border: $datatable-border-none;
+	font-size: $datatable-heading-font-size;
+	line-height: $datatable-heading-line-height;
 	position: relative;
 	display: inline-flex;
 	justify-content: flex-end;
@@ -114,18 +116,18 @@
 	cursor: pointer;
 	&:focus {
 		outline: none;
-		color: #5c6ac4;
+		color: $datatable-heading-focus-color;
 		svg {
-			fill: #5c6ac4;
+			fill: $datatable-heading-focus-svg-fill;
 		}
 		.Polaris-DataTable__Icon {
 			opacity: 1;
 		}
 	}
 	&:hover {
-		color: #5c6ac4;
+		color: $datatable-heading-hover-color;
 		svg {
-			fill: #5c6ac4;
+			fill: $datatable-heading-hover-svg-fill;
 		}
 		.Polaris-DataTable__Icon {
 			opacity: 1;
@@ -142,17 +144,17 @@
 	}
 }
 .Polaris-DataTable__Cell--total {
-	font-weight: 600;
-	background: var(--p-surface-foreground-subdued,#f9fafb);
-	border-bottom: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+	font-weight: $datatable-cell-total-font-weight;
+	background: $datatable-cell-total-bgcolor;
+	border-bottom: $datatable-cell-total-border;
 }
 .Polaris-DataTable--cellTotalFooter {
 	border-top: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
-	border-bottom: none;
+	border-bottom: $datatable-border-none;
 }
 .Polaris-DataTable__Footer {
 	padding: 1.6rem;
-	background: var(--p-surface-foreground-subdued,#f4f6f8);
-	color: var(--p-text-subdued-on-surface,#637381);
+	background: $datatable-cell-footer-bgcolor;
+	color: $datatable-cell-footer-color;
 	text-align: center;
 }

@@ -1,7 +1,7 @@
 .Polaris-Breadcrumbs__Breadcrumb {
-    font-size: 1.5rem;
-    font-weight: 400;
-    line-height: 2rem;
+    font-size: $breadcrumbs-font-size;
+    font-weight: $breadcrumbs-font-weight;
+    line-height: $breadcrumbs-line-height;
     text-transform: none;
     letter-spacing: normal;
     -webkit-appearance: none;
@@ -18,33 +18,33 @@
     align-items: center;
     min-height: 3.6rem;
     margin: -.4rem -.8rem -.4rem -.4rem;
-    color: var(--p-text-subdued-on-surface, #637381);
+    color: $breadcrumbs-color;
     text-decoration: none;
     @media (min-width:40em) {
-        font-size: 1.4rem;
+        font-size: $breadcrumbs-media-font-size;
     }
     &:active {
-        color: var(--p-text-on-surface, #212b36);
+        color: $breadcrumbs-active-color;
         text-decoration: none;
 
         .Polaris-Breadcrumbs__Icon {
             svg {
-                fill: var(--p-icon-on-surface, #212b36);
+                fill: $breadcrumbs-active-icon-fill;
             }
         }
 
         .Polaris-Breadcrumbs__ContentWrapper {
-            background: var(--p-surface-subdued, rgba(33, 43, 54, .1));
+            background: $breadcrumbs-active-content-bgcolor;
         }
     }
 
     &:hover {
-        color: var(--p-text-on-surface, #212b36);
+        color: $breadcrumbs-hover-color;
         text-decoration: none;
 
         .Polaris-Breadcrumbs__Icon {
             svg {
-                fill: var(--p-icon-on-surface, #212b36);
+                fill: $breadcrumbs-hover-icon-svg-fill;
             }
         }
     }
@@ -53,7 +53,7 @@
         outline: none;
 
         .Polaris-Breadcrumbs__ContentWrapper {
-            background: var(--p-override-transparent, rgba(33, 43, 54, .1));
+            background: $breadcrumbs-focus-content-bgcolor;
         }
 
         &:not(:active) {
@@ -69,8 +69,8 @@
                     bottom: -.3rem;
                     left: -.3rem;
                     display: block;
-                    border: .2rem solid var(--p-interactive-focus);
-                    border-radius: calc(var(--p-border-radius-base) + .3rem);
+                    border: $breadcrumbs-focus-content-after-border;
+                    border-radius: $breadcrumbs-focus-content-after-border-radius;
                     pointer-events: none;
                 }
             }
@@ -85,7 +85,7 @@
     padding: .8rem;
     background: transparent;
     height: 2.8rem;
-    border-radius: var(--p-border-radius-base, 3px);
+    border-radius: $breadcrumbs-content-border-radius;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     will-change: background;
@@ -105,6 +105,6 @@
     margin: 0 0 0 -.8rem;
 
     svg {
-        fill: var(--p-icon-subdued-on-surface, #637381);
+        fill: $breadcrumbs-icon-svg;
     }
 }

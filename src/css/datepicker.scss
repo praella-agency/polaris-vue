@@ -15,7 +15,7 @@
 	min-width: 23rem;
 }
 .Polaris-DatePicker__Month--current {
-	font-weight: 700;
+	font-weight: $datepicker-month-current-font-weight;
 }
 .Polaris-DatePicker__Week {
 	display: flex;
@@ -35,18 +35,18 @@
 	width: 14.28571%;
 	margin: 0;
 	padding: .8rem;
-	background: transparent;
-	border: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
-	border-radius: 0;
+	background: $datepicker-day-bgcolor;
+	border: $datepicker-day-border;
+	border-radius: $datepicker-day-border-radius;
 	outline: none;
-	font-size: 1.2rem;
+	font-size: $datepicker-day-font-size;
 	text-align: center;
 	cursor: pointer;
 	&:hover {
-		background: #dfe3e8;
+		background: $datepicker-day-hover-bgcolor;
 	}
 	&:focus {
-		box-shadow: inset 0 0 0 2px #5c6ac4;
+		box-shadow: $datepicker-day-focus-box-shadow;
 	}
 }
 .Polaris-DatePicker__Day+.Polaris-DatePicker__Day {
@@ -56,43 +56,43 @@
 	margin-left: -1px;
 }
 .Polaris-DatePicker__Day--today {
-	font-weight: 700;
+	font-weight: $datepicker-day-today-font-weight;
 }
 .Polaris-DatePicker__Day--inRange {
 	z-index: 20;
-	background: #b3bcf5;
-	border: .1rem solid #9ca6de;
+	background: $datepicker-day-inrange-bgcolor;
+	border: $datepicker-day-inrange-border;
 	@media screen and (-ms-high-contrast:active) {
 		background: highlight;
 	}
 	&:hover {
-		background: #9ca8f2;
+		background: $datepicker-day-inrange-hover-bgcolor;
 	}
 }
 .Polaris-DatePicker__Day--selected {
 	z-index: 30;
-	background: #5c6ac4;
-	border: .1rem solid #5c6ac4;
-	color: #fff;
+	background: $datepicker-day-selected-bgcolor;
+	border: $datepicker-day-selected-border;
+	color: $datepicker-day-selected-color;
 	@media screen and (-ms-high-contrast:active) {
 		background: highlight;
 	}
 	&:hover {
-		background: #4959bd;
+		background: $datepicker-day-selected-hover-bgcolor;
 	}
 	&:focus {
-		box-shadow: inset 0 0 0 2px #202e78;
+		box-shadow: $datepicker-day-selected-focus-box-shadow;
 	}
 }
 .Polaris-DatePicker__Day--disabled {
-	background-color: #f9fafb;
-	color: #c4cdd5;
+	background-color: $datepicker-day-disabled-bgcolor;
+	color: $datepicker-day-disabled-color;
 	cursor: default;
 	&:hover {
-		background-color: #f9fafb;
+		background-color: $datepicker-day-disabled-hover-bgcolor;
 	}
 	&:focus {
-		box-shadow: none;
+		box-shadow: $datepicker-day-disabled-focus-box-shadow;
 	}
 }
 .Polaris-DatePicker__EmptyDay {
@@ -101,7 +101,7 @@
 	width: 14.28571%;
 	margin: 0;
 	padding: .8rem;
-	border: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+	border: $datepicker-day-emptyday-border;
 }
 .Polaris-DatePicker__EmptyDay+.Polaris-DatePicker__Day {
 	margin-left: -1px;
@@ -113,17 +113,17 @@
 	display: block;
 	flex: 1 0;
 	padding: .8rem;
-	background: transparent;
-	font-size: 1.2rem;
-	color: #637381;
+	background: $datepicker-day-weekday-bgcolor;
+	font-size: $datepicker-day-weekday-font-size;
+	color: $datepicker-day-weekday-color;
 	text-align: center;
 }
 .Polaris-DatePicker__Weekday+.Polaris-DatePicker__Weekday {
 	margin-left: -1px;
 }
 .Polaris-DatePicker__Weekday--current {
-	font-weight: 700;
-	color: #000;
+	font-weight: $datepicker-day-weekday-current-font-weight;
+	color: $datepicker-day-weekday-current-color;
 }
 .Polaris-DatePicker__Header {
 	position: absolute;

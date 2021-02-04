@@ -7,25 +7,23 @@
 	padding: 0;
 	opacity: 0;
 	&:active+.Polaris-RadioButton__Backdrop {
-		background: #5c6ac4;
-		background: #5c6ac4;
-		box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+		background: $radio-input-active-backdrop-bgcolor;
+		box-shadow: $radio-input-active-backdrop-box-shadow;
 		&:after {
-			background: #fff;
+			background: $radio-input-active-backdrop-after-bgcolor;
 			@media (-ms-high-contrast:active) {
 				border: 1px dashed buttonText;
 			}	
 		}
 	}
 	&:checked+.Polaris-RadioButton__Backdrop {
-		background: #5c6ac4;
+		background: $radio-input-checked-backdrop-bgcolor;
 	}
 	&:focus+.Polaris-RadioButton__Backdrop {
-		background: #5c6ac4;
-		background: #5c6ac4;
-		box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+		background: $radio-input-focus-backdrop-bgcolor;
+		box-shadow: $radio-input-focus-backdrop-box-shadow;
 		&:after {
-			background: #fff;
+			background: $radio-input-focus-backdrop-after-bgcolor;
 			@media (-ms-high-contrast:active) {
 				border: 1px dashed buttonText;
 			}	
@@ -33,25 +31,26 @@
 	}
 	&:checked~.Polaris-RadioButton__Icon {
 		transform: translate(-50%,-50%) scale(1);
+		transition: all 0.3s;
 	}
 	&:disabled+.Polaris-RadioButton__Backdrop {
-		background: #dfe3e8;
-		box-shadow: none;
+		background: $radio-input-disabled-backdrop-bgcolor;
+		box-shadow: $radio-input-disabled-backdrop-box-shadow;
 		@media (-ms-high-contrast:active) {
 			color: grayText;
 		}
 		&:after {
-			background: #f9fafb;
+			background: $radio-input-disabled-backdrop-after-bgcolor;
 		}
 	}
 	&:disabled~.Polaris-RadioButton__Icon {
-		background-color: #c4cdd5;
+		background-color: $radio-input-disabled-icon;
 	}
 }
 .Polaris-RadioButton__Backdrop {
-	background-color: #c4cdd5;
-	border: .1rem solid transparent;
-	box-shadow: 0 0 0 1px transparent,0 1px 0 0 rgba(22,29,37,.05);
+	background-color: $radio-backdrop-bgcolor;
+	border: $radio-backdrop-border;
+	box-shadow: $radio-backdrop-box-shadow;
 	border-radius: 3px;
 	transition-property: box-shadow,background-color;
 	transition-duration: .2s;
@@ -61,7 +60,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	border-radius: 50%;
+	border-radius: $radio-backdrop-border-radius;
 	@media (-ms-high-contrast:active) {
 		background: transparent;
 		border: 2px solid buttonText;
@@ -77,9 +76,9 @@
 		left: 0;
 		right: 0;
 		display: block;
-		background: linear-gradient(180deg,#fff,#f9fafb);
+		background: $radio-backdrop-after-bgcolor;
 		border-radius: 2px;
-		border-radius: 50%;
+		border-radius: $radio-backdrop-border-radius;
 		@media (-ms-high-contrast:active) {
 			top: -4px;
 			right: -4px;
@@ -98,9 +97,9 @@
 	transform-origin: 50% 50%;
 	height: 50%;
 	width: 50%;
-	background: #5c6ac4;
-	border-radius: 50%;
-	transition: transform .1s cubic-bezier(.36,0,1,1) cubic-bezier(0,0,.42,1);
+	background: $radio-icon-bgcolor;
+	border-radius: $radio-backdrop-border-radius;
+	transition: all 0.3s;
 	@media (-ms-high-contrast:active) {
 		background: windowText;
 	}

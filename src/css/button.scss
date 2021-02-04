@@ -192,7 +192,7 @@
 .Polaris-Button--primary {
 	background: $btn-primary-bgcolor;
 	border-color: $btn-primary-border-color;
-	box-shadow: $btn-primary-boxshadow;
+	box-shadow: $btn-primary-box-shadow;
 	color: $btn-primary-color;
 	&:hover {
 		background: $btn-primary-hover-bgcolor;
@@ -202,12 +202,12 @@
 	}
 	&:focus {
 		border-color: $btn-primary-focus-border-color;
-		box-shadow: $btn-primary-focus-boxshadow;
+		box-shadow: $btn-primary-focus-box-shadow;
 	}
 	&:active {
 		background: $btn-primary-active-bgcolor;
 		border-color: $btn-primary-active-bgcolor;
-		box-shadow: $btn-primary-active-boxshadow;
+		box-shadow: $btn-primary-active-box-shadow;
 	}
 	svg {
 		fill: $btn-primary-svg-icon-color;
@@ -262,23 +262,23 @@
 .Polaris-Button--primary.Polaris-Button--pressed {
 	background: $btn-primary-pressed-bgcolor;
 	border-color: $btn-primary-pressed-border-color;
-	box-shadow: $btn-primary-pressed-boxshadow;
+	box-shadow: $btn-primary-pressed-box-shadow;
 	&:focus {
 		transition-duration: .1s;
 		background: $btn-primary-pressed-focus-bgcolor;
 		border-color: $btn-primary-pressed-focus-border-color;
-		box-shadow: $btn-primary-pressed-focus-boxshadow;
+		box-shadow: $btn-primary-pressed-focus-box-shadow;
 	}
 	&:hover {
 		transition-duration: .1s;
 		background: $btn-primary-pressed-hover-bgcolor;
 		border-color: $btn-primary-pressed-hover-border-color;
-		box-shadow: $btn-primary-pressed-hover-boxshadow;
+		box-shadow: $btn-primary-pressed-hover-box-shadow;
 	}
 	&:active {
 		background: $btn-primary-pressed-active-bgcolor;
 		border-color: $btn-primary-pressed-active-border-color;
-		box-shadow: $btn-primary-pressed-active-boxshadow;
+		box-shadow: $btn-primary-pressed-active-box-shadow;
 	}
 }
 .Polaris-Button--destructive {

@@ -15,12 +15,12 @@
 	min-width: 3.6rem;
 	margin: 0;
 	padding: .7rem 1.6rem;
-	background: linear-gradient(180deg,#fff,#f9fafb);
-	border: .1rem solid var(--p-border-on-surface,#c4cdd5);
-	box-shadow: 0 1px 0 0 rgba(22,29,37,.05);
-	border-radius: 3px;
-	line-height: 1;
-	color: #212b36;
+	background: $dropzone-fileupload-btn-bgcolor;
+	border: $dropzone-fileupload-btn-border;
+	box-shadow: $dropzone-fileupload-btn-box-shadow;
+	border-radius: $dropzone-fileupload-btn-border-radius;
+	line-height: $dropzone-fileupload-btn-line-height;
+	color: $dropzone-fileupload-btn-color;
 	text-align: center;
 	cursor: pointer;
 	-webkit-user-select: none;
@@ -33,31 +33,32 @@
 	transition-timing-function: cubic-bezier(.64,0,.35,1);
 	-webkit-tap-highlight-color: transparent;
 	svg {
-		fill: #637381;
+		fill: $dropzone-fileupload-btn-svg-fill;
 	}
 	&:hover {
-		background: linear-gradient(180deg,#f9fafb,#f4f6f8);
-		border-color: #c4cdd5;
+		background: $dropzone-fileupload-btn-hover-bgcolor;
+		border-color: $dropzone-fileupload-btn-hover-border-color;
 	}
 	&:focus {
-		border-color: #5c6ac4;
+		border-color: $dropzone-fileupload-btn-focus-border-color;
 		outline: 0;
-		box-shadow: 0 0 0 1px #5c6ac4;
+		box-shadow: $dropzone-fileupload-btn-focus-box-shadow;
 		@media (-ms-high-contrast:active) {
 			outline: 2px dotted;
 		}
 	}
 	&:active {
-		background: linear-gradient(180deg,#f4f6f8,#f4f6f8);
-		border-color: #c4cdd5;
-		box-shadow: 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.2);
+		background: $dropzone-fileupload-btn-active-bgcolor;
+		border-color: $dropzone-fileupload-btn-active-border-color;
+		box-shadow: $dropzone-fileupload-btn-active-box-shadow;
 	}
 	.Polaris-DropZone-FileUpload--sizeSlim {
 		min-height: 3rem;
 		padding: .4rem 1.2rem;
 	}
 }
-.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--globalTheming {
+
+/*.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--globalTheming {
 	background: var(--p-neutral-action);
 	border: none;
 	box-shadow: none;
@@ -96,53 +97,59 @@
 			border: none;
 		}
 	}
-}
+}*/
+
+
 .Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--disabled {
 	transition: none;
-	background: linear-gradient(180deg,#f4f6f8,#f4f6f8);
-	color: #919eab;
+	background: $dropzone-fileupload-btn-disabled-bgcolor;
+	color: $dropzone-fileupload-btn-disabled-color;
 	cursor: not-allowed;
-	box-shadow: none;
+	box-shadow: $dropzone-fileupload-btn-disabled-box-shadow;
 	svg {
-		fill: #919eab;
+		fill: $dropzone-fileupload-btn-disabled-svg-fill;
 	}
 }
+
+/*
 .Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--disabled.Polaris-DropZone-FileUpload--globalTheming {
 	background: var(--p-neutral-action-disabled);
 	color: var(--p-text-disabled-on-surface);
 	svg {
 		fill: var(--p-icon-disabled-on-surface);
 	}
-}
+}*/
+
+
 .Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--focused {
-	border-color: #5c6ac4;
+	border-color: $dropzone-fileupload-btn-focused-border-color;
 	outline: 0;
-	box-shadow: 0 0 0 1px #5c6ac4;
+	box-shadow: $dropzone-fileupload-btn-focused-box-shadow;
 	@media (-ms-high-contrast:active) {
 		outline: 2px dotted;
 	}
 }
 .Polaris-DropZone-FileUpload__ActionTitle {
-	color: #006fbb;
+	color: $dropzone-fileupload-actiontitle-color;
 	text-decoration: none;
 	&:not(.Polaris-DropZone-FileUpload__ActionTitle--disabled) {
 		cursor: pointer;
 		&:active {
-			color: #084e8a;
+			color: $dropzone-fileupload-actiontitle-disabled-active-color;
 			text-decoration: underline;
 		}
 		&:hover {
-			color: #084e8a;
+			color: $dropzone-fileupload-actiontitle-disabled-hover-color;
 			text-decoration: underline;
 		}
 	}
 }
 .Polaris-DropZone-FileUpload__ActionTitle--focused {
-	color: #084e8a;
+	color: $dropzone-fileupload-actiontitle-focused-color;
 	text-decoration: underline;
 }
 .Polaris-DropZone-FileUpload__ActionTitle--disabled {
-	color: #919eab;
+	color: $dropzone-fileupload-actiontitle-disabled-color;	
 }
 .Polaris-DropZone-FileUpload__Image.Polaris-DropZone-FileUpload--sizeExtraLarge {
 	width: 90px;
@@ -154,8 +161,8 @@
 	position: relative;
 	display: flex;
 	justify-content: center;
-	background-color: #fff;
-	border-radius: 3px;
+	background-color: $dropzone-bgcolor;
+	border-radius: $dropzone-border-radius;
 	&:after {
 		content: "";
 		position: absolute;
@@ -169,26 +176,27 @@
 		pointer-events: none;
 	}
 }
+
 .Polaris-DropZone--hasOutline {
 	padding: .2rem;
 	&:after {
-		border-color: #919eab;
+		border-color: $dropzone-hasoutline-after-border-color;
 	}
 	&:not(.Polaris-DropZone--isDisabled) {
 		&:hover {
 			cursor: pointer;
-			background-color: #f4f5fa;
+			background-color: $dropzone-hasoutline-isdisabled-hover-bgcolor;
 			&:after {
-				border-color: #5c6ac4;
+				border-color: $dropzone-hasoutline-isdisabled-hover-after-border-color;
 			}
 		}
 	}
 }
 .Polaris-DropZone--focused {
 	&:not(.Polaris-DropZone--isDisabled) {
-		background-color: #f4f5fa;
+		background-color: $dropzone-focused-isdisabled-bgcolor;
 		&:after {
-			border: .2rem dashed #5c6ac4;
+			border: $dropzone-focused-isdisabled-after-border;
 			@media (-ms-high-contrast:active) {
 				border-style: solid;
 				border-color: highlight;
@@ -198,18 +206,19 @@
 }
 .Polaris-DropZone--isDragging {
 	&:not(.Polaris-DropZone--isDisabled) {
-		background-color: #f4f5fa;
+		background-color: $dropzone-isdragging-isdisabled-bgcolor;
 		&:after {
-			border-color: #5c6ac4;
+			border-color: $dropzone-isdragging-isdisabled-after-border-color;
 		}
 	}
 }
 .Polaris-DropZone--isDisabled {
 	cursor: not-allowed;
 	&:after {
-		border-color: #dfe3e8;
+		border-color: $dropzone-isdisabled-after-border-color;
 	}
 }
+
 .Polaris-DropZone--sizeExtraLarge {
 	min-height: 20.5rem;
 }
@@ -246,16 +255,17 @@
 	justify-content: center;
 	align-items: center;
 	padding: 1.5rem;
-	border: .2rem dashed #5c6ac4;
-	border-radius: 3px;
+	border: $dropzone-overlay-border;
+	border-radius: $dropzone-overlay-border-radius;
 	text-align: center;
-	color: #5c6ac4;
-	background-color: #f4f5fa;
+	color: $dropzone-overlay-color;
+	background-color: $dropzone-overlay-bgcolor;
 }
 .Polaris-DropZone--hasError {
 	.Polaris-DropZone__Overlay {
-		border-color: #de3618;
-		color: #de3618;
-		background-color: #fbeae5;
+		border-color: $dropzone-haserror-overlay-bgcolor;
+		color: $dropzone-haserror-overlay-color;
+		background-color: $dropzone-haserror-overlay-border-color;
 	}
 }
+

@@ -804,8 +804,6 @@
     align-items: center;
 }
 
-
-
 @media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
     [data-has-navigation] .Polaris-CalloutCard__Image {
         display: block;
@@ -855,13 +853,13 @@
 }
 
 .Polaris-Caption {
-    font-size: 1.3rem;
-    font-weight: 400;
-    line-height: 2rem;
+    font-size: $caption-font-size;
+    font-weight: $caption-font-weight;
+    line-height: $caption-line-height;
     margin: 0;
     @media (min-width:40em) {
-        font-size: 1.2rem;
-        line-height: 1.6rem;
+        font-size: $caption-media-font-size;
+        line-height: $caption-media-line-height;
     }
 }
 
@@ -917,7 +915,7 @@
 }
 
 .Polaris-DescriptionList__Term {
-    font-weight: 600;
+    font-weight: $descriptionlist-term-font-weight;
     padding: 1.6rem 0 .8rem;
 }
 
@@ -942,20 +940,21 @@
 }
 
 @media (max-width:48.0625em) and (min-width:36.875em),(min-width:51.875em) {
-    .Polaris-DescriptionList__Description+[data-has-navigation] .Polaris-DescriptionList__Term+.Polaris-DescriptionList__Description {
-        border-top: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+    .Polaris-DescriptionList__Description+[data-has-navigation] 
+    .Polaris-DescriptionList__Term+.Polaris-DescriptionList__Description {
+        border-top: $descriptionlist-term-description-border;
     }
 }
 
 @media (min-width:36.875em) {
     .Polaris-DescriptionList__Description+.Polaris-DescriptionList__Term+.Polaris-DescriptionList__Description {
-        border-top: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+        border-top: $descriptionlist-term-description-border;
     }
 }
 
 
 .Polaris-DescriptionList__Description+.Polaris-DescriptionList__Term {
-    border-top: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+    border-top: $descriptionlist-term-description-border;
 }
 
 
@@ -968,42 +967,42 @@
 }
 
 .Polaris-DisplayText--sizeSmall {
-    font-size: 1.6rem;
-    font-weight: 400;
-    line-height: 2.4rem;
+    font-size: $small-font-size;
+    font-weight: $small-font-weight;
+    line-height: $small-line-height;
     @media (min-width:40em) {
-        font-size: 2rem;
-        line-height: 2.8rem;
+        font-size: $small-media-font-size;
+        line-height: $small-media-line-height;
     }
 }
 
 .Polaris-DisplayText--sizeMedium {
-    font-size: 2.1rem;
-    font-weight: 400;
-    line-height: 2.8rem;
+    font-size: $medium-font-size;
+    font-weight: $medium-font-weight;
+    line-height: $medium-line-height;
     @media (min-width:40em) {
-        font-size: 2.6rem;
-        line-height: 3.2rem;
+        font-size: $medium-media-font-size;
+        line-height: $medium-media-line-height;
     }
 }
 
 .Polaris-DisplayText--sizeLarge {
-    font-size: 2.4rem;
-    font-weight: 600;
-    line-height: 2.8rem;
+    font-size: $large-font-size;
+    font-weight: $large-font-weight;
+    line-height: $large-line-height;
     @media (min-width:40em) {
-        font-size: 2.8rem;
-        line-height: 3.2rem;
+        font-size: $large-media-font-size;
+        line-height: $large-media-line-height;
     }
 }
 
 .Polaris-DisplayText--sizeExtraLarge {
-    font-size: 2.7rem;
-    font-weight: 600;
-    line-height: 3.6rem;
+    font-size: $extralarge-font-size;
+    font-weight: $extralarge-font-weight;
+    line-height: $extralarge-line-height;
     @media (min-width:40em) {
-        font-size: 4.2rem;
-        line-height: 4.4rem;
+        font-size: $extralarge-media-font-size;
+        line-height: $extralarge-media-line-height;
     }
 }
 
@@ -1112,14 +1111,14 @@
     }
 
     .Polaris-EmptyState__Content {
-        font-size: 1.5rem;
-        font-weight: 400;
-        line-height: 2rem;
+        font-size: $emptystate-withincontent-font-size;
+        font-weight: $emptystate-withincontent-font-weight;
+        line-height: $emptystate-withincontent-line-height;
         text-transform: none;
         letter-spacing: normal;
         padding-bottom: .8rem;
         @media (min-width:40em) {
-            font-size: 1.4rem;
+            font-size: $emptystate-content-font-size;
         }
     }
 }
@@ -1195,16 +1194,14 @@
 }
 
 
-
-
 .Polaris-EmptyState__Content {
-    font-size: 1.6rem;
-    font-weight: 400;
-    line-height: 2.4rem;
-    color: var(--p-text-subdued-on-surface, #637381);
+    font-size: $emptystate-content-font-size;
+    font-weight: $emptystate-content-font-weight;
+    line-height: $emptystate-content-line-height;
+    color: $emptystate-content-color;
     @media (min-width:40em) {
-        font-size: 2rem;
-        line-height: 2.8rem;
+        font-size: $emptystate-content-media-font-size;
+        line-height: $emptystate-content-media-line-height;
     }
 }
 
@@ -1213,7 +1210,7 @@
 }
 
 .Polaris-EmptyState__FooterContent {
-    color: var(--p-text-subdued-on-surface, #637381);
+    color: $emptystate-footercontent-media-color;
     margin-top: 1.6rem;
 }
 
@@ -1237,7 +1234,7 @@
 .Polaris-ExceptionList__Item {
     position: relative;
     padding-left: 2.4rem;
-    color: var(--p-text-subdued-on-surface, #637381);
+    color: $exceptionlist-item-color;
 }
 
 .Polaris-ExceptionList__Item+.Polaris-ExceptionList__Item {
@@ -1256,41 +1253,41 @@
     margin-right: .4rem;
 
     svg {
-        fill: var(--p-icon-subdued-on-surface, #919eab);
+        fill: $exceptionlist-icon-svg-fill;
     }
 }
 
 .Polaris-ExceptionList--statusWarning {
     .Polaris-ExceptionList__Icon {
         svg {
-            fill: var(--p-warning-icon, #8a6116);
+            fill: $exceptionlist-statuswarning-icon-svg-fill;
         }
     }
 
     .Polaris-ExceptionList__Bullet {
-        background-color: var(--p-warning-icon, #8a6116);
+        background-color: $exceptionlist-statuswarning-bullet-bgcolor;
     }
 
     .Polaris-ExceptionList__Title {
-        font-weight: 500;
-        color: var(--p-warning-text, #8a6116);
+        font-weight: $exceptionlist-statuswarning-title-font-weight;
+        color: $exceptionlist-statuswarning-title-color;
     }
 }
 
 .Polaris-ExceptionList--statusCritical {
     .Polaris-ExceptionList__Icon {
         svg {
-            fill: var(--p-critical-icon, #bf0711);
+            fill: $exceptionlist-statuscritical-icon-svg-fill;
         }
     }
 
     .Polaris-ExceptionList__Bullet {
-        background-color: var(--p-critical-icon, #bf0711);
+        background-color: $exceptionlist-statuscritical-bullet-bgcolor;
     }
 
     .Polaris-ExceptionList__Title {
-        font-weight: 500;
-        color: var(--p-critical-text, #bf0711);
+        font-weight: $exceptionlist-statuscritical-title-font-weight;
+        color: $exceptionlist-statuscritical-title-color;
     }
 }
 
@@ -1298,7 +1295,7 @@
     width: .6rem;
     height: .6rem;
     border-radius: 100%;
-    background-color: var(--p-icon-subdued-on-surface, #919eab);
+    background-color: $exceptionlist-bullet-bgcolor;
 }
 
 .Polaris-ExceptionList__Title+.Polaris-ExceptionList__Description {
@@ -1316,9 +1313,9 @@
     align-items: center;
     min-height: 2.8rem;
     padding-left: .8rem;
-    background-color: #dfe3e8;
-    border-radius: 3px;
-    color: #212b36;
+    background-color: $tag-bgcolor;
+    border-radius: $tag-border-radius;
+    color: $tag-color;
 
     .Polaris-Tag__TagText {
         overflow: hidden;
@@ -1329,11 +1326,11 @@
 
 .Polaris-Tag.Polaris-Tag--disabled {
     transition: none;
-    background: linear-gradient(180deg, #f4f6f8, #f4f6f8);
-    color: #919eab;
+    background: $tag-disabled-bgcolor;
+    color: $tag-disabled-color;
 
     svg {
-        fill: #919eab;
+        fill: $tag-disabled-svg-fill;
     }
 }
 
@@ -1342,44 +1339,44 @@
     -moz-appearance: none;
     appearance: none;
     padding: 0;
-    background: none;
-    border: none;
-    font-size: inherit;
-    line-height: inherit;
+    background: $tag-btn-bgcolor;
+    border: $tag-btn-border;
+    font-size: $tag-btn-font-size;
+    line-height: $tag-btn-line-height;
     cursor: pointer;
     display: block;
     height: 2.8rem;
     width: 2.8rem;
     margin: 0 0 0 .4rem;
-    border-radius: 0 3px 3px 0;
+    border-radius: $tag-btn-border-radius;
 
     svg {
-        fill: #637381;
+        fill: $tag-btn-svg-fill;
     }
 
     &:focus {
         outline: none;
-        background: #c4cdd5;
+        background: $tag-btn-focus-bgcolor;
 
         svg {
-            fill: #212b36;
+            fill: $tag-btn-focus-svg-fill;
         }
     }
 
     &:active {
         background: #c4cdd5;
-        background: rgba(145, 158, 171, .6);
+        background: $tag-btn-active-bgcolor;
 
         svg {
-            fill: #212b36;
+            fill: $tag-btn-active-svg-fill;
         }
     }
 
     &:hover {
-        background: #c4cdd5;
+        background: $tag-btn-hover-bgcolor;
 
         svg {
-            fill: #212b36;
+            fill: $tag-btn-hover-svg-fill;
         }
     }
 
@@ -1388,7 +1385,7 @@
         pointer-events: none;
 
         svg {
-            fill: #919eab;
+            fill: $tag-btn-disabled-svg-fill;
         }
     }
 }
@@ -1402,10 +1399,10 @@
     bottom: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--p-surface-foreground, #fff);
-    box-shadow: var(--p-modal-shadow, 0 31px 41px 0 rgba(32, 42, 53, .2), 0 2px 16px 0 rgba(32, 42, 54, .08));
+    background-color: $sheet-bgcolor;
+    box-shadow: $sheet-box-shadow;
     @media screen and (-ms-high-contrast:active) {
-        border-left: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+        border-left: $sheet-border;
     }
     @media (min-width:48.0625em) {
         right: 0;
@@ -1507,13 +1504,13 @@
     display: inline-flex;
     align-items: center;
     padding: 1.6rem 2rem 1.6rem 1.6rem;
-    border-top: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
-    border-bottom: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+    border-top: $footerhelp-content-border;
+    border-bottom: $footerhelp-content-border;
     width: 100%;
     justify-content: center;
     @media (min-width:30.625em) {     
         width: auto;
-        border: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+        border: $footerhelp-content-border;
         border-radius: 999px;
     }
 }
@@ -1521,7 +1518,7 @@
 @media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
     [data-has-navigation] .Polaris-FooterHelp__Content {
         width: auto;
-        border: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+        border: $footerhelp-content-border;
         border-radius: 999px;
     }
 }
@@ -1532,13 +1529,13 @@
 }
 
 .Polaris-FooterHelp__Text {
-    font-size: 1.6rem;
-    font-weight: 400;
-    line-height: 2.4rem;
+    font-size: $footerhelp-text-font-size;
+    font-weight: $footerhelp-text-font-weight;
+    line-height: $footerhelp-text-line-height;
     text-transform: none;
     letter-spacing: normal;
     @media (min-width:40em) {
-        font-size: 1.4rem;
+        font-size: $footerhelp-text-media-font-size;
     }
 }
 
@@ -1565,7 +1562,7 @@
 }
 
 .Polaris-FormLayout__HelpText {
-    color: var(--p-text-subdued-on-surface, #637381);
+    color: $formlayout-helptext-color;
     padding: .8rem 2rem 0;
 }
 
