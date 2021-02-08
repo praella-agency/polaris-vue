@@ -1595,7 +1595,7 @@
     &:after {
         content: "";
         position: absolute;
-        background-color: var(--p-highlight-border, #47c1bf);
+        background-color: $indicator-after-bgcolor;
         right: -.4rem;
         top: -.4rem;
         width: 1rem;
@@ -1606,7 +1606,7 @@
     &:before {
         content: "";
         position: absolute;
-        background-color: var(--p-highlight-border, #47c1bf);
+        background-color: $indicator-before-bgcolor;
         right: -.4rem;
         top: -.4rem;
         width: 1rem;
@@ -1636,14 +1636,14 @@
     height: 2.4rem;
     margin: 0 .2rem 2px;
     padding: 0 .4rem;
-    background-color: #fff;
-    box-shadow: 0 0 0 1px #c4cdd5, 0 2px 0 0 #fff, 0 2px 0 1px #c4cdd5;
-    border-radius: 3px;
+    background-color: $keyboardkey-bgcolor;
+    box-shadow: $keyboardkey-box-shadow;
+    border-radius: $keyboardkey-border-radius;
     font-family: -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Helvetica Neue, sans-serif;
-    font-size: 1.2rem;
-    font-weight: 500;
-    line-height: 2.4rem;
-    color: #637381;
+    font-size: $keyboardkey-font-size;
+    font-weight: $keyboardkey-font-weight;
+    line-height: $keyboardkey-line-height;
+    color: $keyboardkey-color;
     text-align: center;
     min-width: 2.4rem;
     -webkit-user-select: none;
@@ -1662,17 +1662,17 @@
     display: inline;
     text-align: inherit;
     padding: 0;
-    background: none;
-    border: 0;
-    font-size: inherit;
-    color: var(--p-interactive-action, #006fbb);
+    background: $link-bgcolor;
+    border: $link-border;
+    font-size: $link-font-size;
+    color: $link-color;
     text-decoration: none;
     cursor: pointer;
 
     &:hover {
-        color: var(--p-interactive-action-hovered, #084e8a);
+        color: $link-border-hover-color;
         text-decoration: underline;
-    }
+    } 
 
     &:focus {
         -webkit-text-decoration: var(--p-override-none, underline);
@@ -1691,8 +1691,8 @@
                 bottom: -.3rem;
                 left: -.3rem;
                 display: block;
-                border: .2rem solid var(--p-interactive-focus);
-                border-radius: calc(var(--p-border-radius-base) + .3rem);
+                border: $link-border-focus-after-border;
+                border-radius: $link-border-focus-after-border-radius;
                 pointer-events: none;
             }
         }
@@ -1700,7 +1700,7 @@
 
     &:active {
         position: relative;
-        color: var(--p-interactive-action-pressed, #084e8a);
+        color: $link-border-active-color;
         -webkit-text-decoration: var(--p-override-none, underline);
         text-decoration: var(--p-override-none, underline);
 
@@ -1713,8 +1713,8 @@
             bottom: -.2rem;
             left: -.5rem;
             display: block;
-            border-radius: 3px;
-            background: var(--p-neutral-action, none);
+            border-radius: $link-border-active-before-border-radius;
+            background: $link-border-active-before-bgcolor;
         }
     }
 }

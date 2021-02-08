@@ -22,8 +22,8 @@
 	flex-direction: column;
 	width: 100vw;
 	max-height: calc(100vh - 60px);
-	background: var(--p-surface-foreground,#fff);
-	box-shadow: var(--p-modal-shadow,0 31px 41px 0 rgba(32,42,53,.2),0 2px 16px 0 rgba(32,42,54,.08));
+	background: $modal-dialog-modal-bgcolor;
+	box-shadow: $modal-dialog-modal-box-shadow;
 	@media (-ms-high-contrast:active) {
 		border: 1px solid windowText;
 	}
@@ -35,7 +35,7 @@
 		position: relative;
 		max-width: 62rem;
 		margin: 0 auto;
-		border-radius: 6px;
+		border-radius: $modal-dialog-modal-border-radius;
 	}
 	&:focus {
 		outline: 0;
@@ -92,7 +92,7 @@
 	width: 100%;
 	min-height: 6.4rem;
 	padding: 1.6rem;
-	border-top: var(--p-border-subdued,.1rem solid var(--p-border-subdued-on-surface,#dfe3e8));
+	border-top: $modal-footer-border;
 }
 .Polaris-Modal-Footer__FooterContent {
 	width: 100%;
@@ -101,21 +101,21 @@
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
-	background: none;
-	border: none;
-	font-size: inherit;
-	line-height: inherit;
+	background: $modal-closebtn-bgcolor;
+	border: $modal-closebtn-border;
+	font-size: $modal-closebtn-font-size;
+	line-height: $modal-closebtn-line-height;
 	cursor: pointer;
 	margin: 0 -.8rem 0 2rem;
 	padding: .8rem;
 	&:focus {
 		outline: none;
-		border-radius: 6px;
-		background: rgba(33,43,54,.1);
+		border-radius: $modal-dialog-modal-border-radius;
+		background: $modal-closebtn-focus-bgcolor;
 	}
 	&:active {
-		border-radius: 6px;
-		background: rgba(33,43,54,.1);
+		border-radius: $modal-dialog-modal-border-radius;
+		background: $modal-closebtn-active-bgcolor;
 	}
 }
 .Polaris-Modal-CloseButton--withoutTitle {
@@ -127,7 +127,7 @@
 	align-items: flex-start;
 	flex-shrink: 0;
 	padding: 1.6rem 2rem;
-	border-bottom: var(--p-border-subdued,.1rem solid var(--p-border-subdued-on-surface,#dfe3e8));
+	border-bottom: $modal-header-border;
 }
 .Polaris-Modal-Header__Title {
 	word-wrap: break-word;
@@ -140,11 +140,11 @@
 	flex: 0 0 auto;
 	padding: 2rem;
 	&:not(:last-of-type) {
-		border-bottom: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+		border-bottom: $modal-header-border;
 	}
 }
 .Polaris-Modal-Section.Polaris-Modal-Section--subdued {
-	background: #f4f6f8;
+	background: $modal-section-subdued-bgcolor;
 }
 .Polaris-Modal-Section.Polaris-Modal-Section--flush {
 	padding: 0;
@@ -162,7 +162,7 @@
 	display: block;
 	width: 62rem;
 	max-width: 100vw;
-	border: none;
+	border: $modal-iframe-border;
 	@media (min-width:48.0625em) {
 		max-width: 62rem;
 	}

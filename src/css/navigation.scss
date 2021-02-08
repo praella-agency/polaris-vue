@@ -484,7 +484,7 @@
 	height: 4rem;
 	margin-right: .4rem;
 	padding: .4rem 1.6rem;
-	border-radius: var(--p-border-radius-base,3px);
+	border-radius: $navigation-secondaryaction-border-radius;
 	@media (min-width:48.0625em) {
 		height: 3.2rem;
 	}
@@ -574,19 +574,19 @@
 	flex: 1 0 auto;
 }
 .Polaris-Navigation__Section--withSeparator {
-	border-top: var(--p-border-subdued,.1rem solid var(--p-border-subdued-on-surface,#dfe3e8));
+	border-top: $navigation-section-withseparator-border;
 }
 .Polaris-Navigation__SectionHeading {
-	font-size: 1.3rem;
-	font-weight: 600;
-	line-height: 1.6rem;
+	font-size: $navigation-sectionheading-font-size;
+	font-weight: $navigation-sectionheading-font-weight;
+	line-height: $navigation-sectionheading-line-height;
 	text-transform: uppercase;
 	display: flex;
 	align-items: center;
 	padding-left: 1.6rem;
-	color: var(--p-text-subdued-on-surface,#637381);
+	color: $navigation-sectionheading-color;
 	@media (min-width:40em) {
-		font-size: 1.2rem;
+		font-size: $navigation-sectionheading-media-font-size;
 	}
 
 	.Polaris-Navigation__Action {
@@ -602,15 +602,15 @@
 		align-items: center;
 		margin: 0 .4rem 0 0;
 		padding: .4rem 1.6rem;
-		border-radius: var(--p-border-radius-base,3px);
+		border-radius: $navigation-sectionheading-action-border-radius;
 		&:focus {
 			outline: none;
-			background-image: var(--p-override-none,linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)));
+			/*background-image: $navigation-sectionheading-action-focus-bgimage;*/
 			position: relative;
 			outline: none;
 			svg {
-				fill: var(--p-icon-subdued-on-surface,#5c6ac4);
-				color: var(--p-override-transparent,#fff);
+				fill: $navigation-sectionheading-action-focus-svg-fill;
+				color: $navigation-sectionheading-action-focus-svg-color;
 			}
 			img {
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -625,14 +625,14 @@
 				bottom: -.3rem;
 				left: -.3rem;
 				display: block;
-				border: .2rem solid var(--p-interactive-focus);
-				border-radius: calc(var(--p-border-radius-base) + .3rem);
+				border: $navigation-sectionheading-action-focus-after-border;
+				border-radius: $navigation-sectionheading-action-focus-after-border-radius;
 				pointer-events: none;
 			}
 			&:hover {
 				svg {
-					fill: var(--p-primary-action,#5c6ac4);
-					color: var(--p-override-transparent,#fff);
+					fill: $navigation-sectionheading-action-focus-hover-svg-fill;
+					color: $navigation-sectionheading-action-focus-hover-svg-color;
 				}
 				img {
 					-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -641,19 +641,19 @@
 			}
 		}
 		svg {
-			fill: var(--p-icon-subdued-on-surface,#919eab);
-			color: var(--p-override-transparent,#fff);
+			fill: $navigation-sectionheading-action-svg-fill;
+			color: $navigation-sectionheading-action-svg-color;
 		}
 		img {
 			-webkit-filter: brightness(0) saturate(100%) invert(68%) sepia(18%) saturate(246%) hue-rotate(169deg) brightness(88%) contrast(90%);
 			filter: brightness(0) saturate(100%) invert(68%) sepia(18%) saturate(246%) hue-rotate(169deg) brightness(88%) contrast(90%);
 		}
 		&:hover {
-			background-image: var(--p-override-none,linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)));
+			background-image: $navigation-sectionheading-action-hover-bgimage;
 			background-color: var(--p-surface-hovered);
 			svg {
-				fill: var(--p-primary-action,#5c6ac4);
-				color: var(--p-override-transparent,#fff);
+				fill: $navigation-sectionheading-action-hover-svg-fill;
+				color: $navigation-sectionheading-action-hover-svg-color;
 			}
 			img {
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -661,31 +661,31 @@
 			}
 		}
 		&:active {
-			background-image: var(--p-override-none,linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)));
+			background-image: $navigation-sectionheading-action-active-bgimage;
 			background-color: var(--p-surface-pressed);
 			outline: none;
 			svg {
-				fill: var(--p-primary-action,#5c6ac4);
-				color: var(--p-override-transparent,#fff);
+				fill: $navigation-sectionheading-action-active-svg-fill;
+				color: $navigation-sectionheading-action-active-svg-color;
 			}
 			img {
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
 				filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
 			}
 			&:after {
-				border: none;
+				border: $navigation-sectionheading-action-active-after-border;
 			}
 		}
 	}
 }
 .Polaris-Navigation__RollupToggle {
-	font-weight: 400;
+	font-weight: $navigation-rolluptoggle-font-weight;
 	color: var(--p-text-on-surface,#212b36);
-	color: var(--p-text-subdued-on-surface,#637381);
+	color: $navigation-rolluptoggle-color;
 	&:hover {
-		color: var(--p-primary-action,#5c6ac4);
+		color: $navigation-rolluptoggle-hover-color;
 		svg {
-			fill: var(--p-primary-action,#5c6ac4);
+			fill: $navigation-rolluptoggle-hover-svg-fill;
 		}
 		img {
 			-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -704,8 +704,8 @@
 			bottom: -.3rem;
 			left: -.3rem;
 			display: block;
-			border: .2rem solid var(--p-interactive-focus);
-			border-radius: calc(var(--p-border-radius-base) + .3rem);
+			border: $navigation-rolluptoggle-focus-after-border;
+			border-radius: $navigation-rolluptoggle-focus-after-border-radius;
 			pointer-events: none;
 		}
 	}
@@ -723,5 +723,5 @@
 }
 .Polaris-Navigation-Message {
 	padding: 1rem 1.6rem;
-	color: #454f5b;
+	color: $navigation-message-color;
 }

@@ -46,14 +46,14 @@
 @media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
     [data-has-navigation] .Polaris-Layout__AnnotatedSection+.Polaris-Layout__AnnotatedSection,[data-has-navigation] .Polaris-Layout__Section+.Polaris-Layout__AnnotatedSection {
         padding-top: 2rem;
-        border-top: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+        border-top: $layout-border;
     }
 }
 
 @media (min-width:30.625em) {
     .Polaris-Layout__AnnotatedSection+.Polaris-Layout__AnnotatedSection,.Polaris-Layout__Section+.Polaris-Layout__AnnotatedSection {
         padding-top: 2rem;
-        border-top: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+        border-top: $layout-border;
     }
 }
 
@@ -97,8 +97,6 @@
         padding: 2rem 2rem 2rem 0;
     }
 }
-
-
 
 .Polaris-Layout__AnnotationDescription {
     color: var(--p-text-subdued-on-surface, #637381);

@@ -1,18 +1,18 @@
 .Polaris-Frame-Toast {
-	font-size: 1.6rem;
-	font-weight: 400;
-	line-height: 2.4rem;
+	font-size: $frame-toast-font-size;
+	font-weight: $frame-toast-font-weight;
+	line-height: $frame-toast-line-height;
 	display: inline-flex;
 	max-width: 50rem;
 	padding: .8rem 1.6rem;
-	border-radius: var(--p-border-radius-wide,3px);
-	background: var(--p-surface-foreground-inverse,rgba(0,0,0,.88));
-	box-shadow: var(--p-override-none,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
-	color: var(--p-text-on-surface-inverse,#fff);
+	border-radius: $frame-toast-border-radius;
+	background: $frame-toast-bgcolor;
+	box-shadow: $frame-toast-box-shadow;
+	color: $frame-toast-color;
 	margin-bottom: 2rem;
 	@media (min-width:40em) {
-		font-size: 2rem;
-		line-height: 2.8rem;
+		font-size: $frame-toast-media-font-size;
+		line-height: $frame-toast-media-line-height;
 		padding: 1.6rem;
 	}
 	@media (-ms-high-contrast:active) {
@@ -24,10 +24,10 @@
 	margin-right: 1.6rem;
 }
 .Polaris-Frame-Toast--error {
-	background: var(--p-critical-action,rgba(191,7,17,.88));
-	color: var(--p-text-on-surface-dark,#fff);
+	background: $frame-toast-error-bgcolor;
+	color: $frame-toast-error-color;
 	.Polaris-Frame-Toast__CloseButton {
-		fill: var(--p-text-on-surface-dark,#fff);
+		fill: $frame-toast-error-closebtn-fill;
 	}
 }
 .Polaris-Frame-Toast__CloseButton {
@@ -37,12 +37,12 @@
 	justify-content: flex-start;
 	margin: -.8rem -1.6rem -.8rem 0;
 	padding: 1.2rem 1.6rem .8rem;
-	border: none;
+	border: $frame-toast-closebtn-border;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
-	background: transparent;
-	fill: var(--p-text-on-surface-inverse,#fff);
+	background: $frame-toast-closebtn-bgcolor;
+	fill: $frame-toast-closebtn-fill;
 	cursor: pointer;
 	@media (-ms-high-contrast:active) {
 		fill: windowText;
@@ -84,14 +84,14 @@
 .Polaris-Frame-Loading {
 	overflow: hidden;
 	height: .3rem;
-	background-color: var(--p-surface-background,#dfe3e8);
+	background-color: $frame-loading-bgcolor;
 	opacity: 1;
 }
 .Polaris-Frame-Loading__Level {
 	width: 100%;
 	height: 100%;
 	transform-origin: 0;
-	background-color: var(--p-highlight-border,#47c1bf);
+	background-color: $frame-loading-level-bgcolor;
 	transition: transform .5s cubic-bezier(0,0,.42,1);
 	@media screen and (-ms-high-contrast:active) {
 		background-color: highlight;
@@ -102,8 +102,8 @@
 .Polaris-Frame-ContextualSaveBar {
 	display: flex;
 	height: 5.6rem;
-	background-color: #fff;
-	box-shadow: 0 2px 4px rgba(0,0,0,.1);
+	background-color: $frame-contextualsavebar-bgcolor;
+	box-shadow: $frame-contextualsavebar-box-shadow;
 	&:after {
 		content: "";
 		position: absolute;
@@ -120,8 +120,8 @@
 		align-items: center;
 		height: 100%;
 		padding: 0 1.6rem;
-		border-right: 1px solid #ebeef0;
-		background-color: #fafbfc;
+		border-right: $frame-contextualsavebar-logocontainer-border;
+		background-color: $frame-contextualsavebar-logocontainer-bgcolor;
 	}
 }
 .Polaris-Frame-ContextualSaveBar__Contents {
@@ -158,12 +158,12 @@
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	font-size: 1.7rem;
-	font-weight: 600;
-	line-height: 2.4rem;
-	color: var(--p-text-subdued-on-surface,#637381);
+	font-size: $frame-contextualsavebar-message-font-size;
+	font-weight: $frame-contextualsavebar-message-font-weight;
+	line-height: $frame-contextualsavebar-message-line-height;
+	color: $frame-contextualsavebar-message-color;
 	@media (min-width:40em) {
-		font-size: 1.6rem;
+		font-size: $frame-contextualsavebar-message-media-font-size;
 	}
 }
 .Polaris-Frame-ContextualSaveBar__ActionContainer {
@@ -188,7 +188,7 @@
 	width: 100%;
 	min-height: 100vh;
 	display: flex;
-	background-color: var(--p-surface-background,#f4f6f8);
+	background-color: $frame-bgcolor;
 	@media print {
 		background-color: none;
 	}
@@ -243,8 +243,8 @@
 	height: 3.2rem;
 	margin: 1.6rem;
 	padding: 0;
-	border: none;
-	background: none;
+	border: $frame-navigationdismiss-border;
+	background: $frame-navigationdismiss-bgcolor;
 	opacity: 0;
 	pointer-events: none;
 	-webkit-backface-visibility: hidden;
@@ -259,8 +259,8 @@
 		display: none;
 	}
 	&:focus {
-		border-radius: 3px;
-		background-color: hsla(0,0%,100%,.16);
+		border-radius: $frame-navigationdismiss-focus-border-radius;
+		background-color: $frame-navigationdismiss-focus-bgcolor;
 		outline: none;
 	}
 }
@@ -383,12 +383,12 @@
 	min-width: 3.6rem;
 	margin: 0;
 	padding: .7rem 1.6rem;
-	background: linear-gradient(180deg,#fff,#f9fafb);
-	border: .1rem solid var(--p-border-on-surface,#c4cdd5);
-	box-shadow: 0 1px 0 0 rgba(22,29,37,.05);
-	border-radius: 3px;
-	line-height: 1;
-	color: #212b36;
+	background: $frame-skipanchor-bgcolor;
+	border: $frame-skipanchor-border;
+	box-shadow: $frame-skipanchor-box-shadow;
+	border-radius: $frame-skipanchor-border-radius;
+	line-height: $frame-skipanchor-line-height;
+	color: $frame-skipanchor-color;
 	text-align: center;
 	cursor: pointer;
 	-webkit-user-select: none;
@@ -401,26 +401,27 @@
 	transition-timing-function: cubic-bezier(.64,0,.35,1);
 	-webkit-tap-highlight-color: transparent;
 	svg {
-		fill: #637381;
+		fill: $frame-skipanchor-svg-fill;
 	}
 	&:hover {
-		background: linear-gradient(180deg,#f9fafb,#f4f6f8);
-		border-color: #c4cdd5;
+		background: $frame-skipanchor-hover-bgcolor;
+		border-color: $frame-skipanchor-hover-border-color;
 	}
 	&:focus {
-		border-color: #5c6ac4;
+		border-color: $frame-skipanchor-focus-border-color;
 		outline: 0;
-		box-shadow: 0 0 0 1px #5c6ac4;
+		box-shadow: $frame-skipanchor-focus-box-shadow;
 		@media (-ms-high-contrast:active) {
 			outline: 2px dotted;	
 		}
 	}
 	&:active {
-		background: linear-gradient(180deg,#f4f6f8,#f4f6f8);
-		border-color: #c4cdd5;
-		box-shadow: 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.2);
+		background: $frame-skipanchor-active-bgcolor;
+		border-color: $frame-skipanchor-active-border-color;
+		box-shadow: $frame-skipanchor-active-box-shadow;
 	}
 }
+/*
 .Polaris-Frame__SkipAnchor.Polaris-Frame--globalTheming {
 	background: var(--p-neutral-action);
 	border: none;
@@ -461,3 +462,4 @@
 		}
 	}
 }
+*/
