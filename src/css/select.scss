@@ -8,7 +8,7 @@
 }
 .Polaris-Select--disabled {
 	.Polaris-Select__Content {
-		color: #919eab;
+		color: $select-disabled-content-color;
 		@media (-ms-high-contrast:active) {
 			color: grayText;
 		}
@@ -28,10 +28,10 @@
 		}
 	}
 	.Polaris-Select__Backdrop {
-		background: #dfe3e8;
-		box-shadow: none;
+		background: $select-disabled-backdrop-bgcolor;
+		box-shadow: $select-disabled-backdrop-box-shadow;
 		&:after {
-			background: #f9fafb;
+			background: $select-disabled-backdrop-after-bgcolor;
 		}
 		@media (-ms-high-contrast:active) {
 			color: grayText;
@@ -40,35 +40,35 @@
 }
 .Polaris-Select--error {
 	.Polaris-Select__Backdrop {
-		background: #bf0711;
-		box-shadow: 0 0 0 1px transparent;
+		background: $select-error-backdrop-bgcolor;
+		box-shadow: $select-error-backdrop-box-shadow;
 		&:after {
-			background: #fbeae5;
+			background: $select-error-backdrop-after-bgcolor;
 		}
 	}
 	.Polaris-Select__Input {
 		&:focus~.Polaris-Select__Backdrop {
-			background: #5c6ac4;
-			box-shadow: 0 0 0 1px #5c6ac4;
+			background: $select-error-input-focus-backdrop-bgcolor;
+			box-shadow: $select-error-input-focus-backdrop-box-shadow;
 			&:after {
-				background: #fbeae5;
+				background: $select-error-input-focus-backdrop-after-bgcolor;
 			}
 		}
 	}
 }
 .Polaris-Select--placeholder.Polaris-Select--error {
 	.Polaris-Select__Input {
-		color: #9c9798;
+		color: $select-placeholder-error-input-color;
 		&:-moz-focusring {
 			color: transparent;
-			text-shadow: 0 0 0 #212b36;
+			text-shadow: $select-placeholder-error-input-text-shadow;
 		}
 	}
 }
 .Polaris-Select__Content {
-	font-size: 1.6rem;
-	font-weight: 400;
-	line-height: 2.4rem;
+	font-size: $select-content-font-size;
+	font-weight: $select-content-font-weight;
+	line-height: $select-content-line-height;
 	text-transform: none;
 	letter-spacing: normal;
 	position: relative;
@@ -79,7 +79,7 @@
 	min-height: 3.6rem;
 	padding: .5rem .8rem .5rem 1.2rem;
 	@media (min-width:40em) {
-		font-size: 1.4rem;
+		font-size: $select-content-media-font-size;
 	}
 	@media (-ms-high-contrast:active) {
 		color: windowText;
@@ -87,7 +87,7 @@
 	}
 }
 .Polaris-Select__InlineLabel {
-	color: var(--p-text-subdued-on-surface,#637381);
+	color: $select-inlinelabel-color;
 	margin-right: .4rem;
 	white-space: nowrap;
 	overflow: hidden;
@@ -110,17 +110,17 @@
 }
 .Polaris-Select__Icon {
 	svg {
-		fill: #637381;
+		fill: $select-icon-svg-fill;
 		@media (-ms-high-contrast:active) {
 			fill: buttonText;
 		}	
 	}
 }
 .Polaris-Select__Backdrop {
-	background-color: #c4cdd5;
-	border: .1rem solid transparent;
-	box-shadow: 0 0 0 1px transparent,0 1px 0 0 rgba(22,29,37,.05);
-	border-radius: 3px;
+	background-color: $select-backdrop-bgcolor;
+	border: $select-backdrop-border;
+	box-shadow: $select-backdrop-box-shadow;
+	border-radius: $select-backdrop-border-radius;
 	transition-property: box-shadow,background-color;
 	transition-duration: .2s;
 	transition-timing-function: cubic-bezier(.64,0,.35,1);
@@ -145,8 +145,8 @@
 		left: 0;
 		right: 0;
 		display: block;
-		background: linear-gradient(180deg,#fff,#f9fafb);
-		border-radius: 2px;
+		background: $select-backdrop-after-bgcolor;
+		border-radius: $select-backdrop-after-border-radius;
 		@media (-ms-high-contrast:active) {
 			top: -4px;
 			right: -4px;
@@ -161,9 +161,9 @@
 	}
 }
 .Polaris-Select__Input {
-	font-size: 1.6rem;
-	font-weight: 400;
-	line-height: 2.4rem;
+	font-size: $select-input-font-size;
+	font-weight: $select-input-font-weight;
+	line-height: $select-input-line-height;
 	text-transform: none;
 	letter-spacing: normal;
 	position: absolute;
@@ -179,13 +179,13 @@
 	-moz-appearance: none;
 	appearance: none;
 	@media (min-width:40em) {
-		font-size: 1.4rem;
+		font-size: $select-input-media-font-size;
 	}
 	&:focus~.Polaris-Select__Backdrop {
-		background: #5c6ac4;
-		box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+		background: $select-input-focus-backdrop-bgcolor;
+		box-shadow: $select-input-focus-backdrop-box-shadow;
 		&:after {
-			background: #fff;
+			background: $select-input-focus-backdrop-after-bgcolor;
 			@media (-ms-high-contrast:active) {
 				border: 1px dashed buttonText;
 			}

@@ -1800,8 +1800,8 @@
 .Polaris-Tooltip {
     margin: .4rem 1.6rem 1.6rem;
     opacity: 1;
-    box-shadow: 0 0 0 1px rgba(6, 44, 82, .1), 0 2px 16px rgba(33, 43, 54, .08);
-    border-radius: 3px;
+    box-shadow: $tooltip-box-shadow;
+    border-radius: $tooltip-border-radius;
     pointer-events: none;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -1822,23 +1822,23 @@
 
 .Polaris-Tooltip--light {
     .Polaris-Tooltip__Wrapper {
-        background: #fff;
-        color: #212b36;
+        background: $tooltip-light-wrapper-bgcolor;
+        color: $tooltip-light-wrapper-color;
     }
 }
 
 .Polaris-Tooltip__Wrapper {
     display: flex;
-    background-color: #212b36;
-    color: #fff;
+    background-color: $tooltip-wrapper-bgcolor;
+    color: $tooltip-wrapper-color;
     position: relative;
-    border-radius: 3px;
+    border-radius: $tooltip-border-radius;
     max-height: 10rem;
 }
 
 .Polaris-Tooltip__Content {
     position: relative;
-    border-radius: 3px;
+    border-radius: $tooltip-border-radius;
     max-height: 10rem;
     max-width: 20rem;
 }
@@ -1929,7 +1929,7 @@
 
 .Polaris-Page-Header--separator {
     padding-bottom: 1.6rem;
-    border-bottom: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+    border-bottom: $page-border;
 }
 
 .Polaris-Page-Header--titleHidden {
@@ -2075,7 +2075,7 @@
 .Polaris-PageActions {
     margin: 0 auto;
     padding: 2rem;
-    border-top: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+    border-top: $page-border;
     @media (min-width:30.625em) {
         padding: 2rem 0;
     }
@@ -2097,8 +2097,8 @@
 .Polaris-ProgressBar {
     overflow: hidden;
     width: 100%;
-    background-color: #dfe3e8;
-    border-radius: 3px;
+    background-color: $progressbar-bgcolor;
+    border-radius: $progressbar-border-radius;
 
     @media screen and (-ms-high-contrast:active) {
         border: 1px solid windowText;
@@ -2106,15 +2106,15 @@
 }
 
 .Polaris-ProgressBar--sizeSmall {
-    height: .8rem;
+    height: $progressbar-sizesmall;
 }
 
 .Polaris-ProgressBar--sizeMedium {
-    height: 1.6rem;
+    height: $progressbar-sizemedium;
 }
 
 .Polaris-ProgressBar--sizeLarge {
-    height: 3.2rem;
+    height: $progressbar-sizelarge;
 }
 
 .Polaris-ProgressBar__Indicator {
@@ -2123,7 +2123,7 @@
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     will-change: width;
-    background-color: #47c1bf;
+    background-color: $progressbar-indicator-bgcolor;
     animation: Polaris-ProgressBar--fillup .5s cubic-bezier(.64, 0, .35, 1);
     transition: width .5s cubic-bezier(.64, 0, .35, 1);
     @media screen and (-ms-high-contrast:active) {
@@ -2168,7 +2168,7 @@
     cursor: pointer;
 
     &:hover {
-        background-image: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+        background-image: $resourceitem-hover-bgimage;
 
         &:not(.Polaris-ResourceItem--persistActions) {
             .Polaris-ResourceItem__Actions {
@@ -2181,7 +2181,7 @@
     }
 
     &:active {
-        background-image: linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1));
+        background-image: $resourceitem-active-bgimage;
     }
 }
 
@@ -2198,39 +2198,39 @@
 }
 
 .Polaris-ResourceItem--selected {
-    background-image: linear-gradient(rgba(179, 188, 245, .15), rgba(179, 188, 245, .15));
+    background-image: $resourceitem-selected-bgimage;
 
     &:hover {
-        background-image: linear-gradient(rgba(179, 188, 245, .15), rgba(179, 188, 245, .15)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+        background-image: $resourceitem-selected-hover-bgimage;
     }
 
     &:active {
-        background-image: linear-gradient(rgba(179, 188, 245, .15), rgba(179, 188, 245, .15)), linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1));
+        background-image: $resourceitem-selected-active-bgimage;
     }
 }
 
 .Polaris-ResourceItem--selected.Polaris-ResourceItem--focused {
-    box-shadow: inset .2rem 0 0 #5c6ac4;
-    background-image: linear-gradient(rgba(179, 188, 245, .15), rgba(179, 188, 245, .15)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+    box-shadow: $resourceitem-selected-focused-box-shadow;
+    background-image: $resourceitem-selected-focused-bgimage;
 
     &:hover {
-        box-shadow: inset .2rem 0 0 #5c6ac4;
-        background-image: linear-gradient(rgba(179, 188, 245, .15), rgba(179, 188, 245, .15)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+        box-shadow: $resourceitem-selected-focused-hover-box-shadow;
+        background-image: $resourceitem-selected-focused-hover-bgimage;
     }
 }
 
 .Polaris-ResourceItem--focused {
-    box-shadow: inset .2rem 0 0 #5c6ac4;
-    background-image: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+    box-shadow: $resourceitem-focused-box-shadow;
+    background-image: $resourceitem-focused-bgimage;
 
     &:hover {
-        box-shadow: inset .2rem 0 0 #5c6ac4;
-        background-image: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+        box-shadow: $resourceitem-focused-hover-box-shadow;
+        background-image: $resourceitem-focused-hover-bgimage;
     }
 
     &:active {
-        box-shadow: inset .2rem 0 0 #5c6ac4;
-        background-image: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3)), linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1));
+        box-shadow: $resourceitem-focused-active-box-shadow;
+        background-image: $resourceitem-focused-active-bgimage;
     }
 
     .Polaris-ResourceItem__Actions {
@@ -2241,15 +2241,15 @@
 }
 
 .Polaris-ResourceItem--focusedInner {
-    box-shadow: none;
+    box-shadow: $resourceitem-focusedinner-box-shadow;
 }
 
 .Polaris-ResourceItem--focusedInner.Polaris-ResourceItem--focused {
-    box-shadow: none;
+    box-shadow: $resourceitem-focusedinner-box-shadow;
 }
 
 .Polaris-ResourceItem--focusedInner.Polaris-ResourceItem--focused.Polaris-ResourceItem--selected {
-    box-shadow: none;
+    box-shadow: $resourceitem-focusedinner-box-shadow;
 }
 
 .Polaris-ResourceItem__Button {
@@ -2261,7 +2261,7 @@
     width: 100%;
     opacity: 0;
     padding: 0;
-    border: none;
+    border: $resourceitem-btn-border;
 }
 
 .Polaris-ResourceItem__Link {

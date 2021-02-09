@@ -30,42 +30,42 @@
 		margin-bottom: -.4rem;
 		padding-top: .8rem;
 		padding-bottom: .8rem;
-		background: transparent;
-		border: none;
+		background: $pagination-plain-btn-bgcolor;
+		border: $pagination-plain-btn-border;
 		cursor: pointer;
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;
-		box-shadow: none;
+		box-shadow: $pagination-plain-btn-box-shadow;
 		&:active {
-			background: transparent;
-			border: none;
-			box-shadow: none;
+			background: $pagination-plain-btn-active-bgcolor;
+			border: $pagination-plain-btn-active-border;
+			box-shadow: $pagination-plain-btn-active-box-shadow;
 			svg {
-				fill: #212b36;
+				fill: $pagination-plain-btn-active-svg-fill;
 			}
 		}
 		&:hover {
-			background: transparent;
-			border: none;
-			box-shadow: none;
+			background: $pagination-plain-btn-hover-bgcolor;
+			border: $pagination-plain-btn-hover-border;
+			box-shadow: $pagination-plain-btn-hover-box-shadow;
 			svg {
-				fill: #212b36;
+				fill: $pagination-plain-btn-hover-svg-fill;
 			}
 		}
 		&:focus {
-			border: none;
-			box-shadow: none;
+			border: $pagination-plain-btn-focus-border;
+			box-shadow: $pagination-plain-btn-focus-box-shadow;
 			&:after {
-				background: rgba(33,43,54,.1);
+				background: $pagination-plain-btn-focus-after-bgcolor;
 			}
 		}
 		&:disabled {
-			background: transparent;
-			border: none;
-			box-shadow: none;
+			background: $pagination-plain-btn-disabled-bgcolor;
+			border: $pagination-plain-btn-disabled-border;
+			box-shadow: $pagination-plain-btn-disabled-box-shadow;
 			svg {
-				fill: #c4cdd5;
+				fill: $pagination-plain-btn-disabled-svg-fill;
 			}
 		}
 		&:after {
@@ -76,7 +76,7 @@
 			left: 0;
 			display: block;
 			height: 2.8rem;
-			border-radius: 3px;
+			border-radius: $pagination-plain-btn-after-border-radius;
 			-webkit-backface-visibility: hidden;
 			backface-visibility: hidden;
 			will-change: background;
@@ -100,11 +100,11 @@
 	min-width: 3.6rem;
 	margin: 0;
 	padding: .7rem .8rem;
-	background: linear-gradient(180deg,#fff,#f9fafb);
-	border: .1rem solid var(--p-border-on-surface,#c4cdd5);
-	border-radius: 3px;
-	line-height: 1;
-	color: #212b36;
+	background: $pagination-btn-bgcolor;
+	border: $pagination-btn-border;
+	border-radius: $pagination-btn-border-radius;
+	line-height: $pagination-btn-line-height;
+	color: $pagination-btn-color;
 	text-align: center;
 	cursor: pointer;
 	-webkit-user-select: none;
@@ -116,30 +116,30 @@
 	transition-duration: .2s;
 	transition-timing-function: cubic-bezier(.64,0,.35,1);
 	svg {
-		fill: #637381;
+		fill: $pagination-btn-svg-fill;
 	}
 	&:hover {
-		background: linear-gradient(180deg,#f9fafb,#f4f6f8);
-		border-color: #c4cdd5;
+		background: $pagination-btn-hover-bgcolor;
+		border-color: $pagination-btn-hover-border-color;
 	}
 	&:focus {
 		z-index: 20;
-		border-color: #5c6ac4;
+		border-color: $pagination-btn-focus-border-color;
 		outline: 0;
-		box-shadow: 0 0 0 1px #5c6ac4;
+		box-shadow: $pagination-btn-focus-box-shadow;
 	}
 	&:active {
-		background: linear-gradient(180deg,#f4f6f8,#f4f6f8);
-		border-color: #c4cdd5;
-		box-shadow: 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.2);
+		background: $pagination-btn-active-bgcolor;
+		border-color: $pagination-btn-active-border-color;
+		box-shadow: $pagination-btn-active-box-shadow;
 	}
 	&:disabled {
-		background: #f4f6f8;
-		color: #919eab;
+		background: $pagination-btn-disabled-bgcolor;
+		color: $pagination-btn-disabled-color;
 		cursor: default;
-		box-shadow: none;
+		box-shadow: $pagination-btn-disabled-box-shadow;
 		svg {
-			fill: #919eab;
+			fill: $pagination-btn-disabled-svg-fill;
 		}
 	}
 }

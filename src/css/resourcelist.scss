@@ -1,8 +1,8 @@
 
 .Polaris-ResourceList-CheckableButton {
-	font-size: 1.5rem;
-	font-weight: var(--p-button-font-weight,400);
-	line-height: 1.6rem;
+	font-size: $resourcelist-checkablebutton-font-size;
+	font-weight: $resourcelist-checkablebutton-font-weight;
+	line-height: $resourcelist-checkablebutton-line-height;
 	text-transform: none;
 	letter-spacing: normal;
 	display: flex;
@@ -20,22 +20,23 @@
 	text-decoration: none;
 	text-align: left;
 	background: transparent;
-	border: var(--p-override-none,.1rem solid var(--p-border-on-surface,#c4cdd5));
-	border-radius: var(--p-border-radius-base,3px);
+	border: $resourcelist-checkablebutton-border;
+	border-radius: $resourcelist-checkablebutton-border-radius;
 	width: 100%;
-	box-shadow: var(--p-override-none,0 1px 0 0 rgba(22,29,37,.05));
+	box-shadow: $resourcelist-checkablebutton-box-shadow;
 	&:focus {
 		outline: none;
 	}
 
 	@media (min-width:40em) {
-		font-size: 1.4rem;
+		font-size: $resourcelist-checkablebutton-media-font-size;
 	}
 	@media (min-width:28.625em) {
 		flex: 0 1 auto;
 	}
 }
-.Polaris-ResourceList-CheckableButton.Polaris-ResourceList-CheckableButton--globalTheming {
+
+/*.Polaris-ResourceList-CheckableButton.Polaris-ResourceList-CheckableButton--globalTheming {
 	background: var(--p-neutral-action);
 	color: var(--p-text-on-surface);
 	svg {
@@ -47,36 +48,38 @@
 	&:active {
 		background: var(--p-neutral-action-pressed);
 	}
-}
+}*/
+
 .Polaris-ResourceList-CheckableButton.Polaris-ResourceList-CheckableButton--globalTheming.Polaris-ResourceList-CheckableButton__CheckableButton--selectMode {
 	font-weight: 500;
 }
 .Polaris-ResourceList-CheckableButton.Polaris-ResourceList-CheckableButton__CheckableButton--measuring {
-	font-size: 1.5rem;
-	font-weight: 700;
+	font-size: $resourcelist-checkablebutton-measuring-font-size;
+	font-weight: $resourcelist-checkablebutton-measuring-font-weight;
 	&:before {
 		content: "";
 		display: inline-block;
 		width: 1.5rem;
 	}
 }
+
 .Polaris-ResourceList-CheckableButton.Polaris-ResourceList-CheckableButton__CheckableButton--plain {
-	border: .1rem solid transparent;
-	border-radius: 3px;
-	box-shadow: none;
-	background: transparent;
+	border: $resourcelist-checkablebutton-plain-border;
+	border-radius: $resourcelist-checkablebutton-plain-border-radius;
+	box-shadow: $resourcelist-checkablebutton-plain-box-shadow;
+	background: $resourcelist-checkablebutton-plain-bgcolor;
 	&:hover {
-		background: transparent;
+		background: $resourcelist-checkablebutton-plain-hover-bgcolor;
 	}
 }
 .Polaris-ResourceList-CheckableButton.Polaris-ResourceList-CheckableButton__CheckableButton--selectMode {
-	color: var(--p-text-subdued-on-surface,#637381);
-	font-weight: 600;
+	color: $resourcelist-checkablebutton-selectmode-color;
+	font-weight: $resourcelist-checkablebutton-selectmode-font-weight;
 }
 .Polaris-ResourceList-CheckableButton.Polaris-ResourceList-CheckableButton__CheckableButton--selected {
-	color: var(--p-text-on-surface,#5c6ac4);
+	color: $resourcelist-checkablebutton-selected-color;
 	@media (min-width:28.625em) {
-		border-color: #c4cdd5;
+		border-color: $resourcelist-checkablebutton-selected-border-color;
 	}
 }
 .Polaris-ResourceList-CheckableButton__Checkbox {
@@ -183,13 +186,13 @@
 		fill: #919eab;
 	}
 }
-.Polaris-ResourceList-BulkActions--disabled.Polaris-ResourceList-BulkActions--globalTheming {
+/*.Polaris-ResourceList-BulkActions--disabled.Polaris-ResourceList-BulkActions--globalTheming {
 	background: var(--p-neutral-action-disabled);
 	color: var(--p-text-disabled-on-surface);
 	svg {
 		fill: var(--p-icon-disabled-on-surface);
 	}
-}
+}*/
 .Polaris-ResourceList-BulkActions__PaginatedSelectAll {
 	padding: .4rem 0;
 }

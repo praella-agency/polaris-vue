@@ -1269,7 +1269,7 @@ $link-border-active-before-bgcolor: none;
 
 $navigation-bgcolor: #f4f6f8;
 $navigation-border: var(--p-override-none,.1rem solid var(--p-border-subdued-on-surface,#dfe3e8));
-$navigation-item-font-size: #f4f6f8;
+$navigation-item-font-size: 1.6rem;
 $navigation-item-font-weight: 400;
 $navigation-item-line-height: 4rem;
 $navigation-item-border-radius: 3px;
@@ -1279,6 +1279,7 @@ $navigation-item-media-font-weight: 500;
 $navigation-item-media-line-height: 3.2rem;
 
 $navigation-item-focus-bgimage: var(--p-override-none,linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)));
+$navigation-item-focus-color: #202e78;
 $navigation-item-focus-after-border: .2rem solid var(--p-interactive-focus);
 $navigation-item-focus-after-border-radius: 3px;
 $navigation-item-focus-icon-svg-fill: #5c6ac4;
@@ -1401,7 +1402,7 @@ $navigation-sectionheading-color: #637381;
 $navigation-sectionheading-media-font-size: 1.3rem;
 
 $navigation-sectionheading-action-border-radius: 3px;
-/*$navigation-sectionheading-action-focus-bgimage: var(--p-override-none,linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));*/
+$navigation-sectionheading-action-focus-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
 $navigation-sectionheading-action-svg-fill: #919eab;
 $navigation-sectionheading-action-svg-color: #fff;
 
@@ -1432,3 +1433,263 @@ $navigation-rolluptoggle-focus-after-border: .2rem solid var(--p-interactive-foc
 $navigation-rolluptoggle-focus-after-border-radius: 3px;
 
 $navigation-message-color: #454f5b;
+
+/* Tooltip */
+
+$tooltip-box-shadow: 0 0 0 1px rgba(6, 44, 82, .1), 0 2px 16px rgba(33, 43, 54, .08);
+$tooltip-border-radius: 3px;
+
+$tooltip-light-wrapper-bgcolor: #fff;
+$tooltip-light-wrapper-color: #212b36;
+
+$tooltip-wrapper-bgcolor: #212b36;
+$tooltip-wrapper-color: #fff;
+
+/* Pagination */
+
+$pagination-plain-btn-bgcolor: transparent;
+$pagination-plain-btn-border: none;
+$pagination-plain-btn-box-shadow: none;
+
+$pagination-plain-btn-active-box-shadow: none;
+$pagination-plain-btn-active-bgcolor: none;
+$pagination-plain-btn-active-border: none;
+$pagination-plain-btn-active-svg-fill: #212b36;
+
+$pagination-plain-btn-hover-bgcolor: transparent;
+$pagination-plain-btn-hover-border:	none;
+$pagination-plain-btn-hover-box-shadow:	none;
+$pagination-plain-btn-hover-svg-fill: #212b36;	
+
+$pagination-plain-btn-focus-border: none;
+$pagination-plain-btn-focus-box-shadow:	none;
+$pagination-plain-btn-focus-after-bgcolor: rgba(33,43,54,.1);
+
+$pagination-plain-btn-disabled-border: none;
+$pagination-plain-btn-disabled-box-shadow:	none;
+$pagination-plain-btn-disabled-bgcolor: transparent;
+$pagination-plain-btn-disabled-svg-fill: #c4cdd5;
+
+$pagination-plain-btn-after-border-radius: 3px;
+
+$pagination-btn-bgcolor: linear-gradient(180deg,#fff,#f9fafb);
+$pagination-btn-border: .1rem solid var(--p-border-on-surface,#c4cdd5);
+$pagination-btn-border-radius: 3px;
+$pagination-btn-line-height: 1;
+$pagination-btn-color: #212b36;
+
+$pagination-btn-svg-fill: #637381;
+$pagination-btn-hover-bgcolor: linear-gradient(180deg,#f9fafb,#f4f6f8);
+$pagination-btn-hover-border-color: #c4cdd5;
+
+$pagination-btn-focus-border-color: #5c6ac4;
+$pagination-btn-focus-box-shadow: 0 0 0 1px #5c6ac4;
+
+$pagination-btn-active-bgcolor: linear-gradient(180deg,#f4f6f8,#f4f6f8);
+$pagination-btn-active-border-color: #c4cdd5;
+$pagination-btn-active-box-shadow: 0 0 0 0 transparent,inset 0 1px 1px 0 rgba(99,115,129,.1),inset 0 1px 4px 0 rgba(99,115,129,.2);;
+
+$pagination-btn-disabled-box-shadow: none;
+$pagination-btn-disabled-bgcolor: #f4f6f8;
+$pagination-btn-disabled-color: #919eab;
+$pagination-btn-disabled-svg-fill: #919eab;
+
+/* Polaris-Page or Header */
+
+$page-border: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+
+/* ProgressBar */
+
+$progressbar-bgcolor: #dfe3e8;
+$progressbar-border-radius: 3px;
+
+$progressbar-indicator-bgcolor: #47c1bf;
+
+$progressbar-sizesmall: .8rem;
+$progressbar-sizemedium: 1.6rem;
+$progressbar-sizelarge: 3.2rem;
+
+/* RangeSlider */
+
+$range-dualthumb-track-border-radius: 2.4rem;
+$range-dualthumb-track-bgimage: linear-gradient(90deg,var(--gradient-colors));
+$range-dualthumb-error-track-bgimage: linear-gradient(90deg,var(--gradient-colors));
+
+$range-dualthumb-error-thumbs-border-color: #de3618;
+$range-dualthumb-error-thumbs-box-shadow: 0 0 0 .1rem #de3618;
+
+$range-dualthumb-disabled-track-bgimage: none;
+$range-dualthumb-disabled-track-bgcolor: #c4cdd5;
+
+$range-dualthumb-error-thumbs-focus-border-color: #de3618;
+$range-dualthumb-error-thumbs-focus-box-shadow:  0 0 0 .1rem #de3618;
+
+$range-dualthumb-error-thumbs-hover-border-color: #de3618;
+$range-dualthumb-error-thumbs-hover-box-shadow: 0 0 0 .1rem #de3618;
+
+$range-dualthumb-thumbs-border: .1rem solid #f9fafb;
+$range-dualthumb-thumbs-border-radius: 50%;
+$range-dualthumb-thumbs-box-shadow: 0 0 0 .1rem rgba(0,0,0,.2),0 1px 0 0 rgba(22,29,37,.05);
+$range-dualthumb-thumbs-bgcolor: linear-gradient(#f9fafb,#f4f6f8);
+
+$range-dualthumb-thumbs-hover-bgcolor: linear-gradient(#f9fafb,#f4f6f8);
+$range-dualthumb-thumbs-hover-box-shadow: 0 0 0 .1rem rgba(0,0,0,.4),0 1px 0 0 rgba(22,29,37,.05);
+
+$range-dualthumb-thumbs-disabled-border-color: #c4cdd5;
+
+$range-dualthumb-outputbubble-bgcolor: #212b36;
+$range-dualthumb-outputbubble-border-radius: 3px;
+
+$range-dualthumb-outputtext-font-size: 1.3rem;
+$range-dualthumb-outputtext-font-weight: 600;
+$range-dualthumb-outputtext-line-height: 1.6rem;
+$range-dualthumb-outputtext-color: #fff;
+$range-dualthumb-outputtext-media-font-size: 1.2rem;
+
+$range-singlethumb-disabled-input-track-bgimage: none;
+$range-singlethumb-disabled-input-thumb-border-color: #c4cdd5;
+
+$range-singlethumb-input-track-border: none;
+$range-singlethumb-input-track-bgimage: linear-gradient(90deg,var(--gradient-colors));
+$range-singlethumb-input-track-bgcolor: var(--progress-upper,#c4cdd5);
+$range-singlethumb-input-track-border-radius: .4rem;
+
+$range-singlethumb-input-thumb-border-radius: 50%;
+$range-singlethumb-input-thumb-border: .1rem solid #f9fafb;
+$range-singlethumb-input-thumb-bgcolor: linear-gradient(#fff,#f9fafb);
+$range-singlethumb-input-thumb-box-shadow: 0 0 0 .1rem rgba(0,0,0,.2),0 1px 0 0 rgba(22,29,37,.05);
+
+$range-singlethumb-input-thumb-hover-bgcolor: linear-gradient(#f9fafb,#f4f6f8);
+$range-singlethumb-input-thumb-hover-box-shadow: 0 0 0 .1rem rgba(0,0,0,.4),0 1px 0 0 rgba(22,29,37,.05);
+
+$range-singlethumb-error-input-track-bgcolor: #fead9a;
+
+$range-singlethumb-error-input-thumb-border-color: #de3618;
+$range-singlethumb-error-input-thumb-box-shadow: 0 0 0 .1rem #de3618;
+
+$range-singlethumb-input-focus-track-bgcolor: #c4cdd5;
+$range-singlethumb-input-focus-thumb-bgcolor: linear-gradient(#f9fafb,#f4f6f8);
+$range-singlethumb-input-focus-thumb-border-color: #5c6ac4;
+$range-singlethumb-input-focus-thumb-box-shadow: 0 0 0 .1rem #5c6ac4;
+
+$range-singlethumb-outputbubble-bgcolor: #212b36;
+$range-singlethumb-outputbubble-border-radius: 3px;
+
+$range-singlethumb-outputtext-font-size: 1.3rem;
+$range-singlethumb-outputtext-font-weight: 600;
+$range-singlethumb-outputtext-line-height: 1.6rem;
+$range-singlethumb-outputtext-color: #fff;
+
+/* ResourceItem */
+
+$resourceitem-hover-bgimage: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+
+$resourceitem-active-bgimage: linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1));
+
+$resourceitem-selected-bgimage: linear-gradient(rgba(179, 188, 245, .15), rgba(179, 188, 245, .15));
+
+$resourceitem-selected-hover-bgimage: linear-gradient(rgba(179, 188, 245, .15), rgba(179, 188, 245, .15)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+
+$resourceitem-selected-active-bgimage: linear-gradient(rgba(179, 188, 245, .15), rgba(179, 188, 245, .15)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+
+$resourceitem-selected-focused-box-shadow: inset .2rem 0 0 #5c6ac4;
+$resourceitem-selected-focused-bgimage: linear-gradient(rgba(179, 188, 245, .15), rgba(179, 188, 245, .15)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+
+$resourceitem-selected-focused-hover-box-shadow: inset .2rem 0 0 #5c6ac4;
+$resourceitem-selected-focused-hover-bgimage: linear-gradient(rgba(179, 188, 245, .15), rgba(179, 188, 245, .15)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+
+$resourceitem-focused-box-shadow: inset .2rem 0 0 #5c6ac4;
+$resourceitem-focused-bgimage: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+
+$resourceitem-focused-hover-box-shadow: inset .2rem 0 0 #5c6ac4;
+$resourceitem-focused-hover-bgimage: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+
+$resourceitem-focused-active-box-shadow: inset .2rem 0 0 #5c6ac4;
+$resourceitem-focused-active-bgimage: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3)), linear-gradient(rgba(179, 188, 245, .1), rgba(179, 188, 245, .1));
+
+$resourceitem-focusedinner-box-shadow: none;
+
+$resourceitem-btn-border: none;
+
+/* Select */
+
+$select-disabled-content-color: #919eab;
+$select-disabled-backdrop-box-shadow: none;
+$select-disabled-backdrop-bgcolor: #dfe3e8;
+$select-disabled-backdrop-after-bgcolor: #f9fafb;
+
+$select-error-backdrop-bgcolor: #bf0711;
+$select-error-backdrop-box-shadow: 0 0 0 1px transparent;
+$select-error-backdrop-after-bgcolor: #fbeae5;
+
+$select-error-input-focus-backdrop-bgcolor: #5c6ac4;
+$select-error-input-focus-backdrop-box-shadow: 0 0 0 1px #5c6ac4;
+$select-error-input-focus-backdrop-after-bgcolor: #fbeae5;
+
+$select-placeholder-error-input-color: #9c9798;
+$select-placeholder-error-input-text-shadow: 0 0 0 #212b36;
+
+$select-content-font-size: 1.6rem;
+$select-content-font-weight: 400;
+$select-content-line-height: 2.4rem;
+$select-content-media-font-size: 1.4rem;
+
+$select-inlinelabel-color: #637381;
+
+$select-icon-svg-fill: #637381;
+
+$select-backdrop-bgcolor: #c4cdd5;
+$select-backdrop-border: .1rem solid transparent;
+$select-backdrop-box-shadow: 0 0 0 1px transparent,0 1px 0 0 rgba(22,29,37,.05);
+$select-backdrop-border-radius: 3px;
+
+$select-backdrop-after-bgcolor: linear-gradient(180deg,#fff,#f9fafb);
+$select-backdrop-after-border-radius: 2px;
+
+$select-input-font-size: 1.6rem;
+$select-input-font-weight: 400;
+$select-input-line-height: 2.4rem;
+$select-input-media-font-size: 1.4rem;
+
+$select-input-focus-backdrop-bgcolor: #5c6ac4;
+$select-input-focus-backdrop-box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+$select-input-focus-backdrop-after-bgcolor: #fff;
+
+/* ResourceList CheckableButton */
+
+$resourcelist-checkablebutton-font-size: 1.5rem;
+$resourcelist-checkablebutton-font-weight: 400;
+$resourcelist-checkablebutton-line-height: 1.6rem;
+$resourcelist-checkablebutton-border: .1rem solid var(--p-border-on-surface,#c4cdd5);
+$resourcelist-checkablebutton-border-radius: 3px;
+$resourcelist-checkablebutton-box-shadow: var(--p-override-none,0 1px 0 0 rgba(22,29,37,.05));
+$resourcelist-checkablebutton-media-font-size: 1.4rem;
+
+$resourcelist-checkablebutton-measuring-font-size: 1.5rem;
+$resourcelist-checkablebutton-measuring-font-weight: 700;
+
+$resourcelist-checkablebutton-plain-border: .1rem solid transparent;
+$resourcelist-checkablebutton-plain-border-radius: 3px;
+$resourcelist-checkablebutton-plain-box-shadow: none;
+$resourcelist-checkablebutton-plain-bgcolor: transparent;
+$resourcelist-checkablebutton-plain-hover-bgcolor: transparent;
+
+$resourcelist-checkablebutton-selectmode-color: #637381;
+$resourcelist-checkablebutton-selectmode-font-weight: 600;
+
+$resourcelist-checkablebutton-selected-color: #5c6ac4;
+$resourcelist-checkablebutton-selected-border-color: #c4cdd5;
+
+$resourcelist-bulkactions-group-font-size: 1.6rem;
+$resourcelist-bulkactions-group-font-weight: 400;
+$resourcelist-bulkactions-group-line-height: 2.4rem;
+$resourcelist-bulkactions-group-media-font-size: 1.4rem;
+
+$resourcelist-bulkactions-disabled-bgcolor: linear-gradient(180deg,#f4f6f8,#f4f6f8);
+$resourcelist-bulkactions-disabled-color: #919eab;
+$resourcelist-bulkactions-disabled-svg-fill: #919eab;
+
+$resourcelist-filterswrapper-border: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+$resourcelist-headerouterwrapper-bgcolor: #fff;
+
+$resourcelist-headerouterwrapper-border: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);

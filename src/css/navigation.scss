@@ -8,11 +8,11 @@
 	max-width: 36rem;
 	height: 100%;
 	min-height: 100%;
-	background-color: var(--p-surface-foreground,#f4f6f8);
+	background-color: $navigation-bgcolor;
 	-webkit-overflow-scrolling: touch;
 	padding-bottom: calc(0px + env(safe-area-inset-bottom));
 	@media (min-width:48.0625em) {
-		border-right: var(--p-override-none,.1rem solid var(--p-border-subdued-on-surface,#dfe3e8));
+		border-right: $navigation-border;
 		max-width: 24rem;
 		max-width: calc(24rem + constant(safe-area-inset-left));
 		max-width: calc(24rem + env(safe-area-inset-left));
@@ -46,32 +46,30 @@
 	appearance: none;
 	background: none;
 	border: none;
-	font-size: inherit;
-	line-height: inherit;
 	cursor: pointer;
-	font-size: 1.6rem;
-	font-weight: 400;
-	line-height: 4rem;
+	font-size: $navigation-item-font-size;
+	font-weight: $navigation-item-font-weight;
+	line-height: $navigation-item-line-height;
 	display: flex;
 	flex-grow: 1;
 	align-items: flex-start;
 	max-width: 100%;
 	padding: 0 .8rem;
 	margin: 0 .8rem;
-	border-radius: var(--p-border-radius-base,3px);
-	color: var(--p-text-on-surface,#212b36);
+	border-radius: $navigation-item-border-radius;
+	color: $navigation-item-color;
 	text-decoration: none;
 	text-align: left;
 	@media (min-width:48.0625em) {
-		font-size: 1.4rem;
-		font-weight: 500;
-		line-height: 3.2rem;
+		font-size: $navigation-item-media-font-size;
+		font-weight: $navigation-item-media-font-weight;
+		line-height: $navigation-item-media-line-height;
 	}
 	&:focus {
 		outline: none;
 		position: relative;
-		background-image: var(--p-override-none,linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)));
-		color: var(--p-text-on-surface,#202e78);
+		background-image: $navigation-item-focus-bgimage;
+		color: $navigation-item-focus-color;
 		text-decoration: none;
 		&:after {
 			content: var(--p-non-null-content,none);
@@ -82,14 +80,14 @@
 			bottom: -.3rem;
 			left: -.3rem;
 			display: block;
-			border: .2rem solid var(--p-interactive-focus);
-			border-radius: calc(var(--p-border-radius-base) + .3rem);
+			border: $navigation-item-focus-after-border;
+			border-radius: $navigation-item-focus-after-border-radius;
 			pointer-events: none;
 		}
 		.Polaris-Navigation__Icon {
 			svg {
-				fill: var(--p-icon-on-surface,#5c6ac4);
-				color: var(--p-override-transparent,#fff);
+				fill: $navigation-item-focus-icon-svg-fill;
+				color: $navigation-item-focus-icon-svg-color;
 			}
 			img {
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -97,11 +95,11 @@
 			}
 		}
 		&:hover {
-			color: var(--p-primary-action,#202e78);
+			color: $navigation-item-focus-hover-color;
 			.Polaris-Navigation__Icon {
 				svg {
-					fill: var(--p-primary-action,#5c6ac4);
-					color: var(--p-override-transparent,#fff);
+					fill: $navigation-item-focus-hover-icon-svg-fill;
+					color: $navigation-item-focus-hover-icon-svg-color;
 				}
 				img {
 					-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -111,14 +109,13 @@
 		}
 	}
 	&:hover {
-		background-image: var(--p-override-none,linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)));
-		background-color: var(--p-surface-hovered);
-		color: var(--p-primary-action,#202e78);
+		background-image: $navigation-item-hover-bgimage;
+		color: $navigation-item-hover-color;
 		text-decoration: none;
 		.Polaris-Navigation__Icon {
 			svg {
-				fill: var(--p-primary-action,#5c6ac4);
-				color: var(--p-override-transparent,#fff);
+				fill: $navigation-item-hover-icon-svg-color;
+				color: $navigation-item-hover-icon-svg-fill;
 			}
 			img {
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -127,16 +124,16 @@
 		}
 	}
 	&:active {
-		color: var(--p-primary-action-pressed,#202e78);
+		color: $navigation-item-active-color;
 		&:hover {
-			color: var(--p-primary-action-pressed,#202e78);
+			color: $navigation-item-active-hover-color;
 			&:after {
-				border: none;
+				border: $navigation-item-active-hover-after-border;
 			}
 			.Polaris-Navigation__Icon {
 				svg {
-					fill: var(--p-primary-action-pressed,#5c6ac4);
-					color: var(--p-override-transparent,#fff);
+					fill: $navigation-item-active-hover-icon-svg-fill;
+					color: $navigation-item-active-hover-icon-svg-color;
 				}
 				img {
 					-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -145,12 +142,12 @@
 			}
 		}
 		&:after {
-			border: none;
+			border: $navigation-item-active-after-border;
 		}
 		.Polaris-Navigation__Icon {
 			svg {
-				fill: var(--p-primary-action-pressed,#5c6ac4);
-				color: var(--p-override-transparent,#fff);
+				fill: $navigation-item-active-icon-svg-fill;
+				color: $navigation-item-active-icon-svg-color;
 			}
 			img {
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -163,18 +160,16 @@
 	}
 }
 .Polaris-Navigation__Item--selected {
-	font-weight: 600;
-	color: var(--p-primary-action,#202e78);
-	background-color: var(--p-primary-selected,rgba(92,106,196,.12));
+	font-weight: $navigation-item-selected-font-weight;
+	color: $navigation-item-selected-color;
+	background-color: $navigation-item-selected-bgcolor;
 	@media (-ms-high-contrast:active) {
 		background-color: highlight;
 	}
 	.Polaris-Navigation__Icon {
 		svg {
-			fill: var(--p-primary-action,#5c6ac4);
-			color: var(--p-override-transparent,#fff);
-			fill: var(--p-primary-action,#5c6ac4);
-			color: var(--p-override-transparent,#fff);
+			fill: $navigation-item-selected-icon-svg-fill;
+			color: $navigation-item-selected-icon-svg-color;
 		}
 		img {
 			-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -184,11 +179,11 @@
 	&:focus {
 		.Polaris-Navigation__Icon {
 			svg {
-				fill: var(--p-primary-action,#5c6ac4);
-				color: var(--p-override-transparent,#fff);
+				fill: $navigation-item-selected-focus-icon-svg-color;
+				color: $navigation-item-selected-focus-icon-svg-fill;
 			}
 		}
-		color: var(--p-primary-action,#202e78);
+		color: $navigation-item-selected-focus-color;
 		position: relative;
 		&:after {
 			content: var(--p-non-null-content,none);
@@ -199,18 +194,18 @@
 			bottom: -.3rem;
 			left: -.3rem;
 			display: block;
-			border: .2rem solid var(--p-interactive-focus);
-			border-radius: calc(var(--p-border-radius-base) + .3rem);
+			border: $navigation-item-selected-focus-after-border;
+			border-radius: $navigation-item-selected-focus-after-border-radius;
 			pointer-events: none;
 		}
 	}
 	&:hover {
-		background-color: var(--p-primary-selected-hovered,rgba(92,106,196,.12));
-		color: var(--p-primary-action-hovered,#202e78);
+		background-color: $navigation-item-selected-hover-bgcolor;
+		color: $navigation-item-selected-hover-color;
 		.Polaris-Navigation__Icon {
 			svg {
-				fill: var(--p-primary-action,#5c6ac4);
-				color: var(--p-override-transparent,#fff);
+				fill: $navigation-item-selected-hover-icon-svg-fill;
+				color: $navigation-item-selected-hover-icon-svg-color;
 			}
 			img {
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -219,21 +214,21 @@
 		}
 	}
 	&:active {
-		background-color: var(--p-primary-selected-pressed,rgba(92,106,196,.12));
-		color: var(--p-primary-action-pressed,#202e78);
+		background-color: $navigation-item-selected-active-bgcolor;
+		color: $navigation-item-selected-active-color;
 		&:after {
-			border: none;
+			border: $navigation-item-selected-active-after-border;
 		}
 	}
 }
 .Polaris-Navigation__Item--disabled {
-	color: var(--p-text-disabled-on-surface,#919eab);
+	color: $navigation-item-disabled-color;
 	pointer-events: none;
 	opacity: var(--p-override-one,.6);
 	.Polaris-Navigation__Icon {
 		svg {
-			fill: var(--p-icon-disabled-on-surface,#919eab);
-			color: var(--p-override-transparent,#fff);
+			fill: $navigation-item-disabled-icon-svg-fill;
+			color: $navigation-item-disabled-icon-svg-color;
 		}
 	}
 }
@@ -260,8 +255,8 @@
 		margin-bottom: .6rem;
 	}
 	svg {
-		fill: var(--p-icon-on-surface,#919eab);
-		color: var(--p-override-transparent,#fff);
+		fill: $navigation-icon-svg-fill;
+		color: $navigation-icon-svg-color;
 		display: block;
 	}
 	img {
@@ -272,8 +267,8 @@
 .Polaris-Navigation--subNavigationActive {
 	.Polaris-Navigation__Icon {
 		svg {
-			fill: var(--p-primary-action,#5c6ac4);
-			color: var(--p-override-transparent,#fff);
+			fill: $navigation-subnavigationactive-icon-svg-fill;
+			color: $navigation-subnavigationactive-icon-svg-color;
 		}
 		img {
 			-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -283,8 +278,8 @@
 	&:focus {
 		.Polaris-Navigation__Icon {
 			svg {
-				fill: var(--p-primary-action,#5c6ac4);
-				color: var(--p-override-transparent,#fff);
+				fill: $navigation-subnavigationactive-focus-icon-svg-color;
+				color: $navigation-subnavigationactive-focus-icon-svg-fill;
 			}
 			img {
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -295,8 +290,8 @@
 	&:hover {
 		.Polaris-Navigation__Icon {
 			svg {
-				fill: var(--p-primary-action,#5c6ac4);
-				color: var(--p-override-transparent,#fff);
+				fill: $navigation-subnavigationactive-hover-icon-svg-fill;
+				color: $navigation-subnavigationactive-hover-icon-svg-color;
 			}
 			img {
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -370,19 +365,19 @@
 		list-style: none;
 	}
 	.Polaris-Navigation__Item {
-		font-size: 1.5rem;
-		font-weight: 400;
-		line-height: 4rem;
-		color: var(--p-text-on-surface,#454f5b);
+		font-size: $secondarynavigation-item-font-size;
+		font-weight: $secondarynavigation-item-font-weight;
+		line-height: $secondarynavigation-item-line-height;
+		color: $secondarynavigation-item-color;
 		@media (min-width:48.0625em) {
-			font-size: 1.4rem;
-			line-height: 2.8rem;
+			font-size: $secondarynavigation-item-media-font-size;
+			line-height: $secondarynavigation-item-media-line-height;
 		}
 		&:hover {
-			color: var(--p-primary-action,#202e78);
+			color: $secondarynavigation-item-hover-color;
 		}
 		&:focus {
-			color: var(--p-text-on-surface,#202e78);
+			color: $secondarynavigation-item-focus-color;
 			position: relative;
 			&:after {
 				content: var(--p-non-null-content,none);
@@ -393,24 +388,24 @@
 				bottom: -.3rem;
 				left: -.3rem;
 				display: block;
-				border: .2rem solid var(--p-interactive-focus);
-				border-radius: calc(var(--p-border-radius-base) + .3rem);
+				border: $secondarynavigation-item-focus-after-border;
+				border-radius: $secondarynavigation-item-focus-after-border-radius;
 				pointer-events: none;
 			}
 			&:hover {
-				color: var(--p-primary-action,#202e78);
+				color: $secondarynavigation-item-focus-hover-color;
 			}
 		}
 		&:active {
-			color: var(--p-primary-action-pressed,#202e78);
+			color: $secondarynavigation-item-active-color;
 			&:hover {
-				color: var(--p-primary-action-pressed,#202e78);
+				color: $secondarynavigation-item-active-hover-color;
 				&:after {
-					border: none;
+					border: $secondarynavigation-item-active-hover-after-border;
 				}
 			}
 			&:after {
-				border: none;
+				border: $secondarynavigation-item-active-border;
 			}
 		}
 	}
@@ -428,13 +423,13 @@
 		}	
 	}
 	.Polaris-Navigation__Item--selected {
-		font-weight: 600;
-		color: var(--p-primary-action,#202e78);
+		font-weight: $secondarynavigation-item-selected-font-weight;
+		color: $secondarynavigation-item-selected-color;
 		&:hover {
-			color: var(--p-primary-action-hovered,#202e78);
+			color: $secondarynavigation-item-selected-hover-color;
 		}
 		&:focus {
-			color: var(--p-primary-action,#202e78);
+			color: $secondarynavigation-item-selected-focus-color;
 			position: relative;
 			&:after {
 				content: var(--p-non-null-content,none);
@@ -445,21 +440,21 @@
 				bottom: -.3rem;
 				left: -.3rem;
 				display: block;
-				border: .2rem solid var(--p-interactive-focus);
-				border-radius: calc(var(--p-border-radius-base) + .3rem);
+				border: $secondarynavigation-item-selected-focus-after-border;
+				border-radius: $secondarynavigation-item-selected-focus-after-border-radius;
 				pointer-events: none;
 			}
 		}
 		&:active {
-			color: var(--p-primary-action-pressed,#202e78);
+			color: $secondarynavigation-item-selected-active-color;
 			&:after {
-				border: none;
+				border: $secondarynavigation-item-selected-active-after-border;
 			}
 		}
 	}
 	.Polaris-Navigation__Item--disabled {
-		font-weight: 400;
-		color: var(--p-text-disabled-on-surface,#919eab);
+		font-weight: $secondarynavigation-item-disabled-font-weight;
+		color: $secondarynavigation-item-disabled-color;
 	}
 }
 .Polaris-Navigation__ListItem--hasAction {
@@ -489,19 +484,19 @@
 		height: 3.2rem;
 	}
 	svg {
-		fill: var(--p-icon-subdued-on-surface,#919eab);
-		color: var(--p-override-transparent,#fff);
+		fill: $navigation-secondaryaction-svg-fill;
+		color: $navigation-secondaryaction-svg-color;
 	}
 	img {
 		-webkit-filter: brightness(0) saturate(100%) invert(68%) sepia(18%) saturate(246%) hue-rotate(169deg) brightness(88%) contrast(90%);
 		filter: brightness(0) saturate(100%) invert(68%) sepia(18%) saturate(246%) hue-rotate(169deg) brightness(88%) contrast(90%);
 	}
 	&:hover {
-		background-image: var(--p-override-none,linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)));
+		background-image: $navigation-secondaryaction-hover-bgimage;
 		background-color: var(--p-surface-hovered);
 		svg {
-			fill: var(--p-primary-action,#5c6ac4);
-			color: var(--p-override-transparent,#fff);
+			fill: $navigation-secondaryaction-hover-svg-fill;
+			color: $navigation-secondaryaction-hover-svg-color;
 		}
 		img {
 			-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -509,12 +504,12 @@
 		}
 	}
 	&:focus {
-		background-image: var(--p-override-none,linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)));
+		background-image: $navigation-secondaryaction-focus-bgimage;
 		position: relative;
 		outline: none;
 		svg {
-			fill: var(--p-icon-subdued-on-surface,#5c6ac4);
-			color: var(--p-override-transparent,#fff);
+			fill: $navigation-secondaryaction-focus-svg-fill;
+			color: $navigation-secondaryaction-focus-svg-color;
 		}
 		img {
 			-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -529,14 +524,14 @@
 			bottom: -.3rem;
 			left: -.3rem;
 			display: block;
-			border: .2rem solid var(--p-interactive-focus);
-			border-radius: calc(var(--p-border-radius-base) + .3rem);
+			border: $navigation-secondaryaction-focus-after-border;
+			border-radius: $navigation-secondaryaction-focus-after-border-radius;
 			pointer-events: none;
 		}
 		&:hover {
 			svg {
-				fill: var(--p-primary-action,#5c6ac4);
-				color: var(--p-override-transparent,#fff);
+				fill: $navigation-secondaryaction-focus-hover-svg-fill;
+				color: $navigation-secondaryaction-focus-hover-svg-color;
 			}
 			img {
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -545,12 +540,12 @@
 		}
 	}
 	&:active {
-		background-image: var(--p-override-none,linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)));
+		background-image: $navigation-secondaryaction-active-bgimage;
 		background-color: var(--p-surface-pressed);
 		outline: none;
 		svg {
-			fill: var(--p-primary-action,#5c6ac4);
-			color: var(--p-override-transparent,#fff);
+			fill: $navigation-secondaryaction-active-svg-fill;
+			color: $navigation-secondaryaction-active-svg-color;
 		}
 		img {
 			-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
@@ -605,7 +600,7 @@
 		border-radius: $navigation-sectionheading-action-border-radius;
 		&:focus {
 			outline: none;
-			/*background-image: $navigation-sectionheading-action-focus-bgimage;*/
+			background-image: $navigation-sectionheading-action-focus-bgimage;
 			position: relative;
 			outline: none;
 			svg {
