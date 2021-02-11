@@ -44,11 +44,11 @@
 .Polaris-TextField__Input {
 	&:focus {
 		outline: none;
-		border: $textfield-focus-border;
 	}
 	&:focus~.Polaris-TextField__Backdrop {
 		&:after {
-			opacity: 1;
+			box-shadow: 0 0 0 .2rem #458fff;
+    		outline: .1rem solid transparent;
 		}
 	}
 	font-size: $textfield-input-font-size;
@@ -66,7 +66,7 @@
 	margin: 0;
 	padding: .5rem 1.2rem;
 	background: $textfield-input-bgcolor;
-	border: .1rem solid transparent;
+	border: $textfield-input-border;
 	font-family: inherit;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -83,12 +83,6 @@
 	}
 	&:invalid {
 		box-shadow: $textfield-input-invalid-box-shadow;
-	}
-	&::-webkit-input-placeholder {
-		color: $textfield-input-placeholder-color;
-	}
-	&::-ms-input-placeholder {
-		color: $textfield-input-placeholder-color;
 	}
 	&::placeholder {
 		color: $textfield-input-placeholder-color;
@@ -169,7 +163,7 @@
 }
 .Polaris-TextField__Backdrop {
 	position: absolute;
-	z-index: 30;
+	z-index: 10;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -177,7 +171,7 @@
 	background-color: $textfield-backdrop-bgcolor;
 	border: $textfield-backdrop-border;
 	border-radius: $textfield-backdrop-border-radius;
-	box-shadow: $textfield-backdrop-box-shadow;
+	border-top-color: #aeb4b9; 
 	pointer-events: none;
 	&:after {
 		content: "";
@@ -186,10 +180,9 @@
 		right: -.2rem;
 		bottom: -.2rem;
 		left: -.2rem;
-		border: .2rem solid #5c6ac4;
-		border-radius: inherit;
-		opacity: 0;
-		transition: opacity .2s cubic-bezier(.64,0,.35,1);
+		box-shadow: 0 0 0 -.2rem #458fff;
+		border-radius: calc(0.4rem + .1rem);
+		transition: box-shadow .1s cubic-bezier(0.4, 0.22, 0.28, 1);
 		pointer-events: none;
 	}
 }
@@ -274,9 +267,10 @@
 	align-self: stretch;
 	flex-direction: column;
 	width: 2.2rem;
-	margin: 1px;
+	margin: 3px;
 	color: $textfield-spinner-color;
 	cursor: pointer;
+
 }
 .Polaris-TextField__SpinnerIcon {
 	height: 1.2rem;
@@ -317,8 +311,8 @@
 	-moz-appearance: none;
 	appearance: none;
 	background: $textfield-segment-bgcolor;
+	border-radius: calc(0.4rem - 0.2rem);
 	border: none;
-	border-left: $textfield-segment-border;
 	transition: background .1s cubic-bezier(.64,0,.35,1),box-shadow .1s cubic-bezier(.64,0,.35,1);
 	&:focus {
 		outline: none;
@@ -327,15 +321,12 @@
 		background: $textfield-segment-active-bgcolor;
 		box-shadow: $textfield-segment-active-box-shadow;
 	}
-	&:not(:first-child) {
-		margin-top: -1px;
-		border-top: $textfield-segment-border;
-	}
 	&:first-child {
-		border-top-right-radius: 3px;
+		margin-bottom: 0.2rem;
+		border-top-right-radius: calc(0.4rem - 0.2rem);
 	}
 	&:last-child {
-		border-bottom-right-radius: 3px;
+		border-bottom-right-radius: calc(0.4rem - 0.2rem);
 	}
 }
 

@@ -5,8 +5,9 @@
     overflow: hidden;
     min-width: 3.2rem;
     max-width: 100%;
-    background: #47c1bf;
-    border-radius: 3rem;
+    background: $avatar-bgcolor;
+    color: $avatar-color;   
+    border-radius: $avatar-color-radius;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -36,28 +37,28 @@
 }
 
 .Polaris-Avatar--styleOne {
-    color: var(--p-decorative-one-text, #fff);
-    background: var(--p-decorative-one-surface, #47c1bf);
+    color: $avatar-styleone-color;
+    background: $avatar-styleone-bgcolor;
 }
 
 .Polaris-Avatar--styleTwo {
-    color: var(--p-decorative-two-text, #fff);
-    background: var(--p-decorative-two-surface, #de3618);
+    color: #fff;
+    background: #de3618;
 }
 
 .Polaris-Avatar--styleThree {
-    color: var(--p-decorative-three-text, #fff);
-    background: var(--p-decorative-three-surface, #f49342);
+    color: #fff;
+    background: #f49342;
 }
 
 .Polaris-Avatar--styleFour {
-    color: var(--p-decorative-four-text, #fff);
-    background: var(--p-decorative-four-surface, #50b83c);
+    color: #fff;
+    background: #50b83c;
 }
 
 .Polaris-Avatar--styleFive {
-    color: var(--p-decorative-five-text, #fff);
-    background: var(--p-decorative-five-surface, #006fbb);
+    color: #fff;
+    background: #006fbb;
 }
 
 .Polaris-Avatar--styleSix {
@@ -281,9 +282,6 @@
     overflow: hidden;
     background-color: $popover-wrapper-bgcolor;
     border-radius: $popover-border-radius;
-    @media (-ms-high-contrast:active) {
-        box-shadow: inset 0 0 0 .1rem windowText;
-    }
 }
 
 .Polaris-Popover__Content {
@@ -2453,8 +2451,8 @@
         bottom: 0;
         left: 0;
         display: block;
-        background-color: #dfe3e8;
-        border-radius: 3px;
+        background-color: $skeletonbodytext-after-bgcolor;
+        border-radius: $skeletonbodytext-after-border-radius;
         @media screen and (-ms-high-contrast:active) {
             background-color: grayText;
         }
@@ -2487,8 +2485,8 @@
         bottom: 0;
         left: 0;
         display: block;
-        background-color: #dfe3e8;
-        border-radius: 3px;
+        background-color: $skeletonbodytext-after-bgcolor;
+        border-radius: $skeletonbodytext-after-border-radius;
         @media screen and (-ms-high-contrast:active) {
             background-color: grayText;    
         }
@@ -2719,8 +2717,8 @@
         bottom: 0;
         left: 0;
         display: block;
-        background-color: #dfe3e8;
-        border-radius: 3px;
+        background-color: $skeletonbodytext-after-bgcolor;
+        border-radius: $skeletonbodytext-after-border-radius;
         @media screen and (-ms-high-contrast:active) {
             background-color: grayText;
         }
@@ -2747,21 +2745,21 @@
 
 .Polaris-Thumbnail {
     overflow: hidden;
-    background: var(--p-surface-foreground, #fff);
+    background: $thumbnail-bgcolor;
     min-width: 4rem;
     max-width: 100%;
     position: relative;
     display: block;
-    border-radius: 3px;
+    border-radius: $thumbnail-border-radius;
 
     &:after {
         position: relative;
         display: block;
-        border-radius: 3px;
+        border-radius: $thumbnail-border-radius;
         content: "";
         z-index: 20;
         padding-bottom: 100%;
-        box-shadow: inset 0 0 0 1px rgba(33, 43, 54, .1);
+        box-shadow: $thumbnail-after-box-shadow;
     }
 }
 
@@ -2861,79 +2859,79 @@
     display: flex;
     flex: 1 1 auto;
     align-items: center;
-    border: 1px solid transparent;
+    border: $topbar-searchfield-border;
     width: 100%;
     max-width: 69.4rem;
 }
 
 .Polaris-TopBar-SearchField--focused {
     .Polaris-TopBar-SearchField__Input {
-        border: none;
-        color: var(--p-text-on-surface, #212b36);
+        border: $topbar-searchfield-focused-input-border;
+        color: $topbar-searchfield-focused-input-color;
 
         &::-webkit-input-placeholder {
-            color: var(--p-text-subdued-on-surface, #919eab);
+            color: $topbar-searchfield-focused-input-placeholder-color;
         }
 
         &::-ms-input-placeholder {
-            color: var(--p-text-subdued-on-surface, #919eab);
+            color: $topbar-searchfield-focused-input-placeholder-color;
         }
 
         &::placeholder {
-            color: var(--p-text-subdued-on-surface, #919eab);
+            color: $topbar-searchfield-focused-input-placeholder-color;
         }
     }
 
     .Polaris-TopBar-SearchField__Backdrop {
-        background-color: var(--p-surface-foreground, #fff);
+        background-color: $topbar-searchfield-focused-backdrop-bgcolor;
     }
 
     .Polaris-TopBar-SearchField__Icon {
         svg {
-            fill: var(--p-icon-subdued-on-surface, #919eab);
+            fill: $topbar-searchfield-focused-icon-svg-fill;
         }
     }
 }
 
 .Polaris-TopBar-SearchField__Input {
     &:focus {
-        border: none;
-        color: var(--p-text-on-surface, #212b36);
+        border: $topbar-searchfield-input-focus-border;
+        color: $topbar-searchfield-input-focus-color;
 
         &::-webkit-input-placeholder {
-            color: var(--p-text-subdued-on-surface, #919eab);
+            color: $topbar-searchfield-focused-input-placeholder-color;
         }
 
         &::-ms-input-placeholder {
-            color: var(--p-text-subdued-on-surface, #919eab);
+            color: $topbar-searchfield-focused-input-placeholder-color;
         }
 
         &::placeholder {
-            color: var(--p-text-subdued-on-surface, #919eab);
+            color: $topbar-searchfield-focused-input-placeholder-color;
         }
     }
 
     &:focus~.Polaris-TopBar-SearchField__Backdrop {
-        background-color: var(--p-surface-foreground, #fff);
+        background-color: $topbar-searchfield-input-focus-backdrop-bgcolor;
     }
 
     &:focus~.Polaris-TopBar-SearchField__Icon {
         svg {
-            fill: var(--p-icon-subdued-on-surface, #919eab);
+            fill: $topbar-searchfield-input-focus-icon-svg-fill;
         }
     }
 
-    font-size: 1.6rem;
-    font-weight: 400;
-    line-height: 2.4rem;
+    font-size: $topbar-searchfield-input-font-size;
+    font-weight: $topbar-searchfield-input-font-weight;
+    line-height: $topbar-searchfield-input-line-height;
     text-transform: none;
     letter-spacing: normal;
     z-index: 2;
     width: calc(100% - 3.6rem);
     height: 3.4rem;
     padding: 0 0 0 3.6rem;
-    border: none;
-    background-color: initial;
+    border: $topbar-searchfield-input-border;
+    background-color: $topbar-searchfield-input-bgcolor;
     outline: none;
     color: var(--p-text-on-surface, var(--top-bar-color));
     -webkit-backface-visibility: hidden;
@@ -2947,19 +2945,7 @@
     appearance: textfield;
 
     @media (min-width:40em) {
-        font-size: 1.4rem;
-    }
-
-    &::-webkit-input-placeholder {
-        color: var(--p-text-on-surface, var(--top-bar-color));
-    }
-
-    &::-ms-input-placeholder {
-        color: var(--p-text-on-surface, var(--top-bar-color));
-    }
-
-    &::placeholder {
-        color: var(--p-text-on-surface, var(--top-bar-color));
+        font-size: $topbar-searchfield-input-media-font-size;
     }
 
     &::-webkit-search-cancel-button {
@@ -3000,14 +2986,14 @@
     width: 3.6rem;
 
     svg {
-        fill: var(--p-neutral-action, #919eab);
+        fill: $topbar-searchfield-clear-svg-fill;
     }
 
     &:focus {
         outline: none;
 
         svg {
-            fill: var(--p-neutral-action-hovered, #637381);
+            fill: $topbar-searchfield-clear-focus-svg-fill;
         }
     }
 
@@ -3015,7 +3001,7 @@
         outline: none;
 
         svg {
-            fill: var(--p-neutral-action-hovered, #637381);
+            fill: $topbar-searchfield-clear-hover-svg-fill;
         }
     }
 }
@@ -3049,8 +3035,8 @@
     right: -.3rem;
     width: 1.2rem;
     height: 1.2rem;
-    border-radius: 100%;
-    background-color: var(--p-highlight-icon, #47c1bf);
+    border-radius: $messageindicator-border-radius;
+    background-color: $messageindicator-bgcolor;
     border: .2rem solid var(--p-surface-background, var(--top-bar-background));
 }
 
@@ -3058,7 +3044,7 @@
     max-width: 32.5rem;
     margin-top: .8rem;
     padding-top: .8rem;
-    border-top: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+    border-top: $messageindicator-border;
 }
 
 /*=================== Polaris-TopBar-Menu  =======================*/
@@ -3073,9 +3059,9 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: none;
-    font-size: inherit;
-    line-height: inherit;
+    background: $topbar-menu-activator-bgcolor;
+    font-size: $topbar-menu-activator-font-size;
+    line-height: $topbar-menu-activator-line-height;
     color: var(--p-text-on-surface, var(--top-bar-color));
     position: relative;
     display: flex;
@@ -3087,21 +3073,21 @@
     cursor: pointer;
     transition: background-color .1s;
     margin: 0 .8rem 0 0;
-    border-radius: 3px;
+    border-radius: $topbar-menu-activator-border-radius;
     @media (max-width:48.0525em) {
         margin: 0 .4rem;    
     }   
     &:focus {
-        background-color: hsla(0, 0%, 100%, .16);
+        background-color: $topbar-menu-activator-focus-bgcolor;
         outline: none;
     }
 
     &:hover {
-        background-color: hsla(0, 0%, 100%, .08);
+        background-color: $topbar-menu-activator-hover-bgcolor
     }
 
     &:active {
-        background-color: rgba(0, 0, 0, .28);
+        background-color: $topbar-menu-activator-active-bgcolor;
         outline: none;
         transition: none;
     }
@@ -3123,7 +3109,7 @@
 .Polaris-TopBar-Menu__Section {
     margin-top: .8rem;
     padding-top: .8rem;
-    border-top: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+    border-top: $topbar-menu-section-border;
 }
 
 .Polaris-TopBar-UserMenu__Details {
@@ -3138,24 +3124,22 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-size: 1.5rem;
-    font-weight: 400;
-    line-height: 2rem;
+    font-size: $topbar-usermenu-font-size;
     text-transform: none;
     letter-spacing: normal;
-    font-weight: 500;
-    line-height: 1.6rem;
+    font-weight: $topbar-usermenu-font-weight;
+    line-height: $topbar-usermenu-line-height;
     color: var(--p-text-on-surface, var(--top-bar-color));
     text-align: left;
     @media (min-width:40em) {
-        font-size: 1.4rem;
+        font-size: $topbar-usermenu-media-font-size;
     }
 }
 
 .Polaris-TopBar-UserMenu__Detail {
-    font-size: 1.3rem;
-    font-weight: 400;
-    line-height: 2rem;
+    font-size: $topbar-usermenu-detail-font-size;
+    font-weight: $topbar-usermenu-detail-font-weight;
+    line-height: $topbar-usermenu-detail-line-height;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -3163,8 +3147,8 @@
     color: var(--p-text-on-surface, var(--top-bar-color));
     text-align: left;
     @media (min-width:40em) {
-        font-size: 1.2rem;
-        line-height: 1.6rem;
+        font-size: $topbar-usermenu-detail-media-font-size;
+        line-height: $topbar-usermenu-detail-media-line-height;
     }
 }
 
@@ -3173,7 +3157,6 @@
     display: flex;
     height: 5.6rem;
     background-color: var(--p-surface-background, var(--top-bar-background));
-
     &:after {
         content: "";
         position: absolute;
@@ -3239,7 +3222,7 @@
     }
 
     &:hover {
-        background-color: hsla(0, 0%, 100%, .08);
+        background-color: $topbar-navigationicon-hover-bgcolor;
     }
 
     &:after {
@@ -3253,10 +3236,10 @@
 }
 
 .Polaris-TopBar__NavigationIcon.Polaris-TopBar--focused {
-    background-color: hsla(0, 0%, 100%, .16);
+    background-color: $topbar-navigationicon-focused-bgcolor;
 
     &:active {
-        background-color: rgba(0, 0, 0, .28);
+        background-color: $topbar-navigationicon-focused-active-bgcolor;
     }
 }
 

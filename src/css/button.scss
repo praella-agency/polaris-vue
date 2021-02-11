@@ -9,40 +9,53 @@
 	padding: .7rem 1.6rem;
 	background: $btn-default-bgcolor;
 	border: $btn-default-border ;
+	border-top-color: #c9cccf;
+    border-bottom-color: #babfc4;
 	box-shadow: $btn-default-shadow;
 	border-radius: $btn-border-radius;
-	line-height: 1;
 	color: $body-font-color;
-	text-align: center;
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	text-decoration: none;
-	transition-property: background,border,box-shadow;
-	transition-duration: .2s;
-	transition-timing-function: cubic-bezier(.64,0,.35,1);
-	-webkit-tap-highlight-color: transparent;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
 	svg {
 		fill: $btn-default-svg-icon-color;
 	}
 	&:hover {
 		background: $btn-default-hover-bgcolor;
-		border-color: $btn-default-hover-border-color ;
+		outline: .1rem solid transparent;
+	}
+	&:active {
+		background: $btn-default-active-bgcolor;
+		box-shadow: $btn-default-active-shadow;
+	}
+	&:after{
+	    content: "";
+	    position: absolute;
+	    z-index: 1;
+	    top: -.2rem;
+	    right: -.2rem;
+	    bottom: -.2rem;
+	    left: -.2rem;
+	    display: block;
+	    pointer-events: none;
+	    box-shadow: 0 0 0 -0.2rem #458fff;
+	    transition: box-shadow .1s cubic-bezier(0.4, 0.22, 0.28, 1);
+	    border-radius: calc(0.4rem + .1rem);
 	}
 	&:focus {
-		border-color: $btn-default-focus-border-color;
 		outline: 0;
 		box-shadow: $btn-default-focus-shadow;
 		@media (-ms-high-contrast:active) {
 			outline: 2px dotted;	
 		}
-	}
-	&:active {
-		background: $btn-default-active-bgcolor;
-		border-color: $btn-default-active-border-color;
-		box-shadow: $btn-default-active-shadow;
+		&:after{
+			box-shadow: 0 0 0 0.2rem #458fff;
+    		outline: .1rem solid transparent;
+		}
 	}
 }
 
@@ -91,7 +104,9 @@
 .Polaris-Button.Polaris-Button--disabled {
 	transition: none;
 	background: $btn-default-disable-bgcolor;
-	color: $btn-default-disable-color;
+    box-shadow: none;
+    border-color: $btn-default-disable-border-color;
+    color: $btn-default-disable-color;
 	svg {
 		fill: $btn-default-disable-svg-icon-color;
 	}
@@ -198,7 +213,6 @@
 		background: $btn-primary-hover-bgcolor;
 		border-color: $btn-primary-hover-border-color;
 		color: $btn-primary-hover-color;
-		text-decoration: none;
 	}
 	&:focus {
 		border-color: $btn-primary-focus-border-color;
@@ -263,24 +277,19 @@
 	background: $btn-primary-pressed-bgcolor;
 	border-color: $btn-primary-pressed-border-color;
 	box-shadow: $btn-primary-pressed-box-shadow;
+	color: $btn-primary-pressed-color;
 	&:focus {
 		transition-duration: .1s;
 		background: $btn-primary-pressed-focus-bgcolor;
-		border-color: $btn-primary-pressed-focus-border-color;
 		box-shadow: $btn-primary-pressed-focus-box-shadow;
 	}
 	&:hover {
 		transition-duration: .1s;
 		background: $btn-primary-pressed-hover-bgcolor;
-		border-color: $btn-primary-pressed-hover-border-color;
 		box-shadow: $btn-primary-pressed-hover-box-shadow;
 	}
-	&:active {
-		background: $btn-primary-pressed-active-bgcolor;
-		border-color: $btn-primary-pressed-active-border-color;
-		box-shadow: $btn-primary-pressed-active-box-shadow;
-	}
 }
+
 .Polaris-Button--destructive {
 	background: $btn-destructive-bgcolor;
 	border-color: $btn-destructive-border-color;
@@ -351,22 +360,16 @@
 	background: $btn-destructive-pressed-bgcolor;
 	border-color: $btn-destructive-pressed-border-color;
 	box-shadow: $btn-destructive-pressed-box-shadow;
+	color: $btn-destructive-pressed-color;
 	&:focus {
 		transition-duration: .1s;
 		background: $btn-destructive-pressed-focus-bgcolor;
-		border-color: $btn-destructive-pressed-focus-border-color;
 		box-shadow: $btn-destructive-pressed-focus-box-shadow;
 	}
 	&:hover {
 		transition-duration: .1s;
 		background: $btn-destructive-pressed-hover-bgcolor;
-		border-color: $btn-destructive-pressed-hover-border-color;
 		box-shadow: $btn-destructive-pressed-hover-box-shadow;
-	}
-	&:active {
-		background: $btn-destructive-pressed-active-bgcolor;
-		border-color: $btn-destructive-pressed-active-border-color;
-		box-shadow: $btn-destructive-pressed-active-box-shadow;
 	}
 }
 
@@ -376,9 +379,11 @@
 	border-color: $btn-outline-border-color;
 	box-shadow: $btn-outline-box-shadow;
 	color: $btn-outline-color;
+	position: relative;
 	&:hover {
 		background: $btn-outline-hover-bgcolor;
 		border-color: $btn-outline-hover-border-color;
+		box-shadow: $btn-outline-hover-box-shadow;
 	}
 	&:focus {
 		border-color: $btn-outline-focus-border-color;
@@ -387,6 +392,7 @@
 	&:active {
 		background: $btn-outline-active-bgcolor;
 		box-shadow: $btn-outline-active-box-shadow;
+		border-color: $btn-outline-active-border-color;
 	}
 }
 
@@ -448,9 +454,6 @@
 	border-color: $btn-outline-disabled-border-color;
 	box-shadow: $btn-outline-disabled-box-shadow;
 	color: $btn-outline-disabled-color;
-	svg {
-		fill: $btn-outline-disable-svg-icon-color;
-	}
 }
 
 .Polaris-Button--destructive.Polaris-Button--outline {
@@ -531,18 +534,6 @@
 	border-color: $btn-destructive-outline-pressed-border-color;
 	box-shadow: $btn-destructive-outline-pressed-box-shadow;
 	color: $btn-destructive-outline-pressed-color;
-	&:hover {
-		background: $btn-destructive-outline-pressed-hover-bgcolor;
-		border-color: $btn-destructive-outline-pressed-hover-border-color;
-	}
-	&:focus {
-		border-color: $btn-destructive-outline-pressed-focus-border-color;
-		box-shadow: $btn-destructive-outline-pressed-focus-box-shadow;
-	}
-	&:active {
-		background: $btn-destructive-outline-pressed-active-bgcolor;
-		box-shadow: $btn-destructive-outline-pressed-active-box-shadow;
-	}
 	svg {
 		fill: $btn-destructive-outline-pressed-svg-icon-color;
 	}
@@ -733,6 +724,7 @@
 		padding: 2px 5px;
 		margin: -2px -5px;
 		background: $btn-plain-pressed-content-bgcolor;
+		font-weight: $btn-plain-pressed-content-font-weight;
 		border-radius: $btn-border-radius;
 		transition: opacity .2s cubic-bezier(.64,0,.35,1);
 		@media (-ms-high-contrast:active) {
@@ -775,6 +767,7 @@
 }
 .Polaris-Button--plain.Polaris-Button--disabled {
 	background: $btn-plain-disabled-bgcolor;
+	color: $btn-plain-disabled-color;
 }
 .Polaris-Button--plain.Polaris-Button--sizeSlim {
 	margin-top: -.4rem;

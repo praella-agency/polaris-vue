@@ -6,8 +6,6 @@
 .Polaris-Banner--withinContentContainer {
 	border-radius: $banner-within-container-border-radius;
 	padding: .8rem 1.2rem;
-	--p-banner-background: var(--p-surface-background);
-	--p-banner-border: var(--p-banner-default-border);
 	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
 	transition-delay: .1s;
 	border-radius: $banner-within-container-border-radius;
@@ -49,8 +47,6 @@
 }
 
 .Polaris-Banner--withinContentContainer.Polaris-Banner--statusSuccess {
-	--p-banner-background: var(--p-success-surface-subdued);
-	--p-banner-border: var(--p-banner-success-border);
 	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
 	transition-delay: .1s;
 	border-radius: $banner-within-container-succes-border-radius;
@@ -171,35 +167,13 @@
 }
 .Polaris-Banner--withinPage {
 	border-radius: $banner-withinpage-border-radius;
-	padding: 1.6rem;
-	--p-banner-background: var(--p-surface-background);
-	--p-banner-border: var(--p-banner-default-border);
+	padding: 2rem 2rem 1.8rem;
 	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
 	transition-delay: .1s;
-	border-radius: var(--p-border-radius-wide,inherit);
 	box-shadow: $banner-withinpage-box-shadow;
 	background-color: $banner-withinpage-bgcolor;
-
-	@media (-ms-high-contrast:active) {
-		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
-	}
 	&:focus {
 		outline: none;
-		box-shadow: $banner-withinpage-focus-box-shadow;
-		position: relative;
-		&:after {
-			content: var(--p-non-null-content,none);
-			position: absolute;
-			z-index: 1;
-			top: -.3rem;
-			right: -.3rem;
-			bottom: -.3rem;
-			left: -.3rem;
-			display: block;
-			border: $banner-withinpage-focus-after-border;
-			border-radius: $banner-withinpage-focus-after-border-radius;
-			pointer-events: none;
-		}
 	}
 	.Polaris-Banner__Ribbon {
 		padding-right: 1.6rem;
@@ -218,37 +192,17 @@
 	--p-banner-border: var(--p-banner-success-border);
 	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
 	transition-delay: .1s;
-	border-radius: $banner-withinpage-statussuccess-border-radius;
 	box-shadow: $banner-withinpage-statussuccess-box-shadow;
 	background-color: $banner-withinpage-statussuccess-bgcolor;
-	@media (-ms-high-contrast:active) {
-		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
-	}
 	&:focus {
 		outline: none;
-		box-shadow: $banner-withinpage-statussuccess-focus-box-shadow;
-		position: relative;
-		&:after {
-			content: var(--p-non-null-content,none);
-			position: absolute;
-			z-index: 1;
-			top: -.3rem;
-			right: -.3rem;
-			bottom: -.3rem;
-			left: -.3rem;
-			display: block;
-			border: $banner-withinpage-statussuccess-focus-after-border;
-			border-radius: $banner-withinpage-statussuccess-focus-after-border-radius;
-			pointer-events: none;
-		}
-	}
+	} 
 }
 .Polaris-Banner--withinPage.Polaris-Banner--statusInfo {
 	--p-banner-background: var(--p-highlight-surface-subdued);
 	--p-banner-border: var(--p-banner-highlight-border);
 	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
 	transition-delay: .1s;
-	border-radius: $banner-withinpage-statusinfo-border-radius;
 	box-shadow: $banner-withinpage-statusinfo-box-shadow;
 	background-color: $banner-withinpage-statusinfo-bgcolor;
 	@media (-ms-high-contrast:active) {
@@ -275,33 +229,12 @@
 	}
 }
 .Polaris-Banner--withinPage.Polaris-Banner--statusWarning {
-	--p-banner-background: var(--p-warning-surface-subdued);
-	--p-banner-border: var(--p-banner-warning-border);
 	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
 	transition-delay: .1s;
-	border-radius: $banner-withinpage-statuswarning-border-radius;
 	box-shadow: $banner-withinpage-statuswarning-box-shadow;
 	background-color: $banner-withinpage-statuswarning-bgcolor;
-	@media (-ms-high-contrast:active) {
-		box-shadow: inset 0 3px 0 0 windowText,inset 0 0 .1rem .1rem windowText;
-	}
 	&:focus {
 		outline: none;
-		box-shadow: $banner-withinpage-statuswarning-focus-box-shadow;
-		position: relative;
-		&:after {
-			content: var(--p-non-null-content,none);
-			position: absolute;
-			z-index: 1;
-			top: -.3rem;
-			right: -.3rem;
-			bottom: -.3rem;
-			left: -.3rem;
-			display: block;
-			border: $banner-withinpage-statuswarning-focus-after-border;
-			border-radius: $banner-withinpage-statuswarning-focus-after-border-radius;
-			pointer-events: none;
-		}
 	}
 }
 .Polaris-Banner--withinPage.Polaris-Banner--statusCritical {
@@ -309,7 +242,6 @@
 	--p-banner-border: var(--p-banner-critical-border);
 	transition: box-shadow .2s cubic-bezier(.64,0,.35,1);
 	transition-delay: .1s;
-	border-radius: $banner-withinpage-statuscritical-border-radius;
 	box-shadow: $banner-withinpage-statuscritical-box-shadow;
 	background-color: $banner-withinpage-statuscritical-bgcolor;
 	@media (-ms-high-contrast:active) {

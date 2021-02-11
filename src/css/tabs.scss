@@ -3,7 +3,7 @@
 	flex-wrap: wrap;
 	margin: 0;
 	padding: 0;
-	border-bottom: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+	border-bottom: $tabs-border;
 	list-style: none;
 }
 .Polaris-Tabs--fitted {
@@ -36,14 +36,12 @@
 	appearance: none;
 	background: none;
 	border: none;
-	font-size: inherit;
-	line-height: inherit;
-	font-size: 1.5rem;
-	font-weight: 400;
-	line-height: 2rem;
+	font-size: $tabs-font-size;
+	font-weight: $tabs-font-weight;
+	line-height: $tabs-line-height;
 	text-transform: none;
 	letter-spacing: normal;
-	color: var(--p-text-subdued-on-surface,#637381);
+	color: $tabs-color;
 	position: relative;
 	justify-content: center;
 	width: 100%;
@@ -56,27 +54,27 @@
 	text-decoration: none;
 	cursor: pointer;
 	@media (min-width:40em) {
-		font-size: 1.4rem;
+		font-size: $tabs-media-font-size;
 	}
 	&:visited {
 		color: inherit;
-		color: #637381;
+		color: $tabs-visited-color;
 	}
 	&:focus {
 		outline: none;
-		box-shadow: inset 0 0 2px 0 rgba(92,106,196,.8),0 0 2px 0 rgba(92,106,196,.8);
+		box-shadow: $tabs-focus-box-shadow;
 		.Polaris-Tabs__Title {
-			font-weight: 400;
-			color: var(--p-text-on-surface,#212b36);
-			border-bottom: .3rem solid #b3bcf5;
+			font-weight: $tabs-focus-title-font-weight;
+			color: $tabs-focus-title-color;
+			border-bottom: $tabs-focus-border;
 		}
 	}
 	&:hover {
 		.Polaris-Tabs__Title {
-			font-weight: 400;
-			color: var(--p-text-on-surface,#212b36);
+			font-weight: $tabs-hover-title-font-weight;
+			color: $tabs-hover-title-color;
 			text-decoration: none;
-			border-bottom: .3rem solid #dfe3e8;
+			border-bottom: $tabs-hover-border;
 			@media (-ms-high-contrast:active) {
 				border-bottom-color: highlight;
 			}
@@ -85,7 +83,7 @@
 }
 .Polaris-Tabs__Tab.Polaris-Tabs__Tab--selected {
 	.Polaris-Tabs__Title {
-		border-bottom: .3rem solid #5c6ac4;
+		border-bottom: $tabs-selected-title-border;
 		@media (-ms-high-contrast:active) {
 			background: highlight;
 			border-bottom-color: highlight;
@@ -93,13 +91,13 @@
 	}
 }
 .Polaris-Tabs__Tab--selected {
-	font-weight: 400;
-	color: var(--p-text-on-surface,#212b36);
+	font-weight: $tabs-selected-font-weight;
+	color: $tabs-selected-color;
 }
 .Polaris-Tabs__Title {
 	display: block;
 	padding: 1.6rem 0 1.3rem;
-	border-bottom: .3rem solid transparent;
+	border-bottom: $tabs-title-border;
 	min-width: 5rem;
 }
 .Polaris-Tabs__Panel {
@@ -123,10 +121,10 @@
 	-moz-appearance: none;
 	appearance: none;
 	margin: 0;
-	background: none;
-	border: none;
-	font-size: inherit;
-	line-height: inherit;
+	background: $tabs-item-background;
+	border: $tabs-item-border;
+	font-size: $tabs-item-font-size;
+	line-height: $tabs-item-line-height;
 	display: block;
 	width: 100%;
 	min-height: 1.6rem;
@@ -134,28 +132,28 @@
 	text-align: left;
 	cursor: pointer;
 	&:visited {
-		color: inherit;
+		color: $tabs-item-visited-color;
 	}
 	&:focus {
 		outline: none;
-		box-shadow: inset .2rem 0 0 #5c6ac4;
-		background-image: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+		box-shadow: $tabs-item-focus-box-shadow;
+		background-image: $tabs-item-focus-bgimage;
 	}
 	&:active {
-		background-image: linear-gradient(rgba(179,188,245,.1),rgba(179,188,245,.1));
+		background-image: $tabs-item-active-bgimage;
 		&:hover {
-			background-image: linear-gradient(rgba(179,188,245,.1),rgba(179,188,245,.1)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+			background-image: $tabs-item-active-hover-bgimage;
 			&:focus {
-				box-shadow: inset .2rem 0 0 #5c6ac4;
-				background-image: linear-gradient(rgba(179,188,245,.1),rgba(179,188,245,.1)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+				box-shadow: $tabs-item-active-hover-focus-box-shadow;
+				background-image: $tabs-item-active-hover-focus-bgimage;
 			}
 		}
 	}
 	&:hover {
-		background-image: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+		background-image: $tabs-item-hover-bgimage;
 		&:focus {
-			box-shadow: inset .2rem 0 0 #5c6ac4;
-			background-image: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+			box-shadow: $tabs-item-hover-focus-box-shadow;
+			background-image: $tabs-item-hover-focus-bgimage;
 		}
 	}
 	&::-moz-focus-inner {
@@ -175,23 +173,23 @@
 	height: 100%;
 	margin: 1px 1px -1px 0;
 	padding: 0 1.6rem;
-	background-color: initial;
+	background-color: $tabs-disclosureactivator-bgcolor;
 	cursor: pointer;
 	border: none;
 	outline: none;
 	text-align: center;
 	svg {
-		fill: #637381;
+		fill: $tabs-disclosureactivator-svg-fill;
 	}
 	&:hover {
 		.Polaris-Tabs__Title {
-			border-bottom: .3rem solid #dfe3e8;
+			border-bottom: $tabs-disclosureactivator-hover-title-border;
 			@media (-ms-high-contrast:active) {
 				background-image: linear-gradient(rgba(179,188,245,.1),rgba(179,188,245,.1)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
 				border-bottom-color: highlight;
 			}
 			svg {
-				fill: #212b36;
+				fill: $tabs-disclosureactivator-hover-title-svg-fill;
 				@media (-ms-high-contrast:active) {
 					fill: #000;
 				}
@@ -199,9 +197,9 @@
 		}
 	}
 	&:focus {
-		box-shadow: inset 0 0 2px 0 rgba(92,106,196,.8),0 0 2px 0 rgba(92,106,196,.8);
+		box-shadow: $tabs-disclosureactivator-focus-box-shadow;
 		.Polaris-Tabs__Title {
-			border-bottom: .3rem solid #b3bcf5;
+			border-bottom: $tabs-disclosureactivator-focus-title-border;
 		}
 	}
 }

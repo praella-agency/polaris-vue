@@ -70,200 +70,94 @@
     text-align: left;
     cursor: pointer;
     border-radius: $actionlist-item-border-radius;
-
+    border-top: $actionlist-item-border-top;
+    &:after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: -0.1rem;
+      right: -0.1rem;
+      bottom: -0.1rem;
+      left: -0.1rem;
+      display: block;
+      pointer-events: none;
+      box-shadow: $actionlist-item-after-box-shadow;
+      transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+      border-radius: calc(0.4rem + 0.1rem);
+    }
     &:focus {
         outline: none;
-        box-shadow: $actionlist-item-focus-box-shadow;
-        background-image: $actionlist-item-focus-bgimage;
+        &:not(:active) {
+            &::after {
+                box-shadow: $actionlist-item-focus-after-box-shadow;
+                outline: 0.1rem solid transparent;
+            }
+        }
     }
 
     &:visited {
         color: $actionlist-item-visited-color;
     }
 
-    &:active {
-        background-image: $actionlist-item-active-bgimage;
-
-        &:hover {
-            background-image: $actionlist-item-active-hover-bgimage;
-
-            &:focus {
-                box-shadow: $actionlist-item-active-hover-focus-bgimages-box-shadow;
-                background-image: $actionlist-item-active-hover-focus-bgimage;
-            }
-        }
-    }
-
     &:hover {
-        background-image: $actionlist-item-hover-bgimages;
-        &:focus {
-            box-shadow: $actionlist-item-hover-focus-box-shadow;
-            background-image: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3)), linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
-        }
+        background-color: $actionlist-item-hover-bgcolor;
+        text-decoration: none;
     }
 
-    &::-moz-focus-inner {
-        border: none;
+    &:active {
+        background-color: $actionlist-item-active-bgcolor;
+        svg{
+            fill: $actionlist-item-active-svg-fill;
+        }
     }
 }
 
 .Polaris-ActionList__Item.Polaris-ActionList--active {
-    background-image: $actionlist-item-active-bgimage;
+    background-color: $actionlist-item-active-bgcolor;
+    svg {
+        fill: $actionlist-item-active-svg-fill;
+    }
+    &:before {
+      content: '';
+      background-color: $actionlist-item-active-before-bgcolor;
+      position: absolute;
+      top: 0;
+      left: -0.8rem;
+      height: 100%;
+      display: block;
+      width: 0.3rem;
+      border-top-right-radius: $actionlist-section-border-radius;
+      border-bottom-right-radius: $actionlist-section-border-radius;
+    }
 }
 
 .Polaris-ActionList__Item.Polaris-ActionList--destructive {
-    color: $actionlist-item-destructive-bgimage;
+    color: $actionlist-item-destructive-color;
 
     svg {
         fill: $actionlist-item-destructive-svg-color;
     }
+    
+    &:hover {
+        background-color:  $actionlist-item-destructive-hover-bgcolor;
+    }
 
     &:active {
-        background-image: $actionlist-item-destructive-active-bgimage;
-
-        &:hover {
-            background-image: $actionlist-item-destructive-active-hover-bgimage;
-
-            &:focus {
-                box-shadow: $actionlist-item-destructive-active-hover-focus-box-shadow;
-                background-image: $actionlist-item-destructive-active-hover-focus-bgimage;
-            }
-        }
-    }
-
-    &:hover {
-        background-image: $actionlist-item-destructive-hover-bgimage;
-
-        &:focus {
-            box-shadow: $actionlist-item-destructive-hover-focus-box-shadow;
-            background-image: $actionlist-item-destructive-hover-focus-bgimage;
-        }
-    }
-
-    &:focus {
-        box-shadow: $actionlist-item-destructive-focus-box-shadow;
-        background-image: $actionlist-item-destructive-focus-bgimage;
+        background-color: $actionlist-item-destructive-active-bgcolor;
     }
 }
 
 .Polaris-ActionList__Item.Polaris-ActionList--disabled {
-    background-image: $actionlist-item-disabled-bgimage;
+    background-image: none;
     color: $actionlist-item-disabled-color;
     pointer-events: none;
 
     .Polaris-ActionList__Image {
         svg {
             fill: $actionlist-item-disabled-image-svg-fill;
-            color: $actionlist-item-disabled-image-svg-color;
         }
     }
 }
-/*
-.Polaris-ActionList__Item.Polaris-ActionList--globalTheming {
-    padding: 1rem .8rem;
-    border-radius: var(--p-border-radius-base);
-
-    &:hover {
-        background-image: none;
-        background-color: var(--p-surface-hovered);
-
-        &:focus {
-            box-shadow: none;
-            background-image: none;
-        }
-    }
-
-    &:active {
-        background-image: none;
-        background-color: var(--p-surface-pressed);
-
-        &:hover {
-            &:focus {
-                box-shadow: none;
-                background-image: none;
-            }
-        }
-    }
-
-    &:focus {
-        box-shadow: none;
-        background-image: none;
-
-        &:not(:active) {
-            position: relative;
-
-            &:after {
-                content: var(--p-non-null-content, none);
-                position: absolute;
-                z-index: 1;
-                top: -.3rem;
-                right: -.3rem;
-                bottom: -.3rem;
-                left: -.3rem;
-                display: block;
-                border: .2rem solid var(--p-interactive-focus);
-                border-radius: calc(var(--p-border-radius-base) + .3rem);
-                pointer-events: none;
-            }
-        }
-    }
-}
-
-.Polaris-ActionList__Item.Polaris-ActionList--globalTheming.Polaris-ActionList--active {
-    background-image: none;
-    background-color: var(--p-surface-pressed);
-}
-
-.Polaris-ActionList__Item.Polaris-ActionList--globalTheming.Polaris-ActionList--destructive {
-    color: var(--p-critical-link);
-
-    svg {
-        fill: var(--p-critical-icon);
-    }
-
-    &:hover {
-        background-image: none;
-        background-color: var(--p-critical-surface-subdued-hovered);
-
-        &:focus {
-            box-shadow: none;
-            background-image: none;
-        }
-    }
-
-    &:active {
-        background-image: none;
-        background-color: var(--p-critical-surface-subdued-pressed);
-
-        &:hover {
-            &:focus {
-                box-shadow: none;
-                background-image: none;
-            }
-        }
-    }
-
-    &:focus {
-        box-shadow: none;
-        background-image: none;
-    }
-}
-
-.Polaris-ActionList__Item.Polaris-ActionList--globalTheming.Polaris-ActionList--destructive.Polaris-ActionList--active {
-    background-image: none;
-    background-color: var(--p-critical-surface-subdued-pressed);
-}
-
-.Polaris-ActionList__Item.Polaris-ActionList--globalTheming.Polaris-ActionList--disabled {
-    background-image: none;
-    color: var(--p-text-disabled-on-surface);
-
-    .Polaris-ActionList__Image {
-        svg {
-            fill: var(--p-icon-disabled-on-surface);
-        }
-    }
-}*/
 
 .Polaris-ActionList__Content {
     display: flex;
@@ -284,7 +178,6 @@
 
     svg {
         fill: $actionlist-image-svg-fill;
-        color: $actionlist-image-svg-color;
     }
 }
 

@@ -2,12 +2,13 @@
 .Polaris-Badge {
 	display: inline-flex;
 	align-items: center;
-	padding: 0.8rem;
+	padding: .3rem .8rem;
 	background-color: $badge-bgcolor;
 	border: $badge-border;
 	border-radius: $badge-border-radius;
 	font-size: $badge-font-size;
 	line-height: $badge-line-height;
+	font-weight: $badge-font-weight;
 	color: $badge-color;
 	.Polaris-Badge__Pip {
 		color: $badge-pip-color;

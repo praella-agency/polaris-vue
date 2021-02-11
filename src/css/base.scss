@@ -5,8 +5,8 @@
 body,html {
 	font-size: $body-font-size;
 	line-height: $body-line-height;
-	text-transform: none;
-	letter-spacing: normal;
+	text-transform: initial;
+  	letter-spacing: initial;
 	font-weight: $body-font-weight;
 	color: $body-font-color;
 }
