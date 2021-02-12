@@ -401,7 +401,7 @@ $sub-heading-media-font-size: 1.2rem;
 
 $card-bgcolor: #ffffff;
 $card-box-shadow:  0px 0px 5px rgba(23, 24, 24, 0.05), 0px 1px 2px rgba(0, 0, 0, 0.15);
-$card-border-radius: 3px;
+$card-border-radius: 8px;
 $card-border: 0.1rem solid #e1e3e5;
 
 $card-subdued-bgcolor: #fafbfb;
@@ -685,25 +685,22 @@ $breadcrumbs-font-weight: 400;
 $breadcrumbs-line-height: 2rem;
 $breadcrumbs-color: #6d7175;
 $breadcrumbs-media-font-size: 1.4rem;
+$breadcrumbs-border: 1px solid #babfc3;
 
-$breadcrumbs-active-color: #212b36;
+$breadcrumbs-active-bgcolor: #f1f2f3;
+$breadcrumbs-active-color: #202223;
+$breadcrumbs-active-icon-fill: #44474a;
+$breadcrumbs-active-content-bgcolor: transparent;
 
-$breadcrumbs-active-icon-fill: #212b36;
+$breadcrumbs-hover-bgcolor: #f6f6f7;
+$breadcrumbs-hover-color: #202223;
+$breadcrumbs-hover-icon-svg-fill: #202223;
 
-$breadcrumbs-active-content-bgcolor: var(--p-surface-subdued, rgba(33, 43, 54, .1));
+$breadcrumbs-focus-content-bgcolor: transparent;
+$breadcrumbs-focus-after-box-shadow: 0 0 0 .2rem #458fff;
 
-$breadcrumbs-hover-color: #212b36;
-
-$breadcrumbs-hover-icon-svg-fill: #212b36;
-
-$breadcrumbs-focus-content-bgcolor: var(--p-surface-subdued, rgba(33, 43, 54, .1));
-
-$breadcrumbs-focus-content-after-border: .2rem solid var(--p-interactive-focus);
-
-$breadcrumbs-focus-content-after-border-radius: calc(var(--p-border-radius-base) + .3rem);
-
-$breadcrumbs-content-border-radius: var(--p-border-radius-base, 3px);
-$breadcrumbs-icon-svg: #637381;
+$breadcrumbs-content-border-radius: 0.8rem;
+$breadcrumbs-icon-svg: #5c5f62;
 
 /* Caption */
 
@@ -717,7 +714,7 @@ $caption-media-line-height: 1.6rem;
 /* Choicelist */
 
 $choice-labelhidden-label-border: 0 !important;
-$choice-disabled-label-color: #919eab;
+$choice-disabled-label-color: #8c9196;
 
 $choice-label-font-size: 1.5rem;
 $choice-label-font-weight: 400;
@@ -727,7 +724,7 @@ $choice-label-media-font-size: 1.4rem;
 $choice-helptext-font-size: 1.5rem;
 $choice-helptext-font-weight: 400;
 $choice-helptext-line-height: 2rem;
-$choice-helptext-color: #637381;
+$choice-helptext-color: #6d7175;
 $choice-helptext-media-font-size: 1.4rem;
 
 $choicelist-title-font-size: 1.5rem;
@@ -735,43 +732,55 @@ $choicelist-title-font-weight: 400;
 $choicelist-title-line-height: 2rem;
 $choicelist-title-media-font-size: 1.4rem;
 
-
 /* Checkbox */
 
-$checkbox-error-backdrop-bgcolor: #bf0711;
-$checkbox-error-backdrop-box-shadow: 0 0 0 1px transparent;
+$checkbox-error-backdrop-bgcolor: #fed3d1;
+$checkbox-error-backdrop-border-color: #fd5749;
 $checkbox-error-backdrop-after-bgcolor: #fbeae5;
-$checkbox-error-input-active-focus-backdrop-bgcolor: #5c6ac4;
-$checkbox-error-input-active-focus-backdrop-box-shadow: 0 0 0 1px #5c6ac4;
-$checkbox-error-icon-svg-fill: #bf0711;
+
+$checkbox-error-input-checked-backdrop-border-color: #fd5749;
+$checkbox-error-input-checked-backdrop-after-bgcolor: #fd5749;
+/*
+$checkbox-error-input-active-focus-backdrop-border-color: #2c6ecb;
+$checkbox-error-input-active-focus-backdrop-box-shadow: 0 0 0 1px #5c6ac4;*/
+
+$checkbox-error-icon-svg-fill: #fff;
 
 $checkbox-input-border: 0 !important;
-$checkbox-input-active-backdrop-bgcolor: #5c6ac4;
+/*$checkbox-input-active-backdrop-bgcolor: #5c6ac4;
 $checkbox-input-active-backdrop-box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
 
-$checkbox-input-active-backdrop-after-bgcolor: #fff;
-$checkbox-input-checked-backdrop-bgcolor: #5c6ac4;
-$checkbox-input-focus-backdrop-bgcolor: #5c6ac4;
-$checkbox-input-focus-backdrop-box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+$checkbox-input-active-backdrop-after-bgcolor: #fff;*/
 
-$checkbox-input-focus-backdrop-after-bgcolor: #fff;
-$checkbox-input-disabled-backdrop-bgcolor: #dfe3e8;
+$checkbox-input-checked-backdrop-bgcolor: #2c6ecb;
+$checkbox-input-checked-backdrop-border-color: #2c6ecb;
+
+/*$checkbox-input-focus-backdrop-bgcolor: #5c6ac4;
+$checkbox-input-focus-backdrop-box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;*/
+
+/*$checkbox-input-focus-backdrop-after-bgcolor: #fff;*/
+
 $checkbox-input-disabled-backdrop-box-shadow: none;
-
+$checkbox-input-disabled-backdrop-bgcolor: #2c6ecb;
 $checkbox-input-disabled-backdrop-after-bgcolor: #f9fafb;
+
 $checkbox-input-disabled-icon-svg-fill: #919eab;
 
-$checkbox-input-indeterminate-backdrop-bgcolor: #5c6ac4;
+$checkbox-active-backdrop-bgcolor: #2c6ecb;
+$checkbox-active-backdrop-box-shadow: 0 0 0 1px #5c6ac4,0 0 0 0 transparent;
+$checkbox-active-backdrop-after-bgcolor: #fff;
 
-$checkbox-backdrop-bgcolor: #c4cdd5;
-$checkbox-backdrop-border: .1rem solid transparent;
-$checkbox-backdrop-box-shadow: 0 0 0 1px transparent,0 1px 0 0 rgba(22,29,37,.05);
-$checkbox-backdrop-border-radius: 3px;
+$checkbox-input-indeterminate-backdrop-border-color: #2c6ecb;
+$checkbox-input-indeterminate-backdrop-bgcolor: #2c6ecb;
 
-$checkbox-backdrop-after-bgcolor: linear-gradient(180deg,#fff,#f9fafb);
-$checkbox-backdrop-after-border-radius: 2px;
+$checkbox-backdrop-bgcolor: #ffffff;
+$checkbox-backdrop-border: 0.2rem solid #8c9196;
+$checkbox-backdrop-border-radius: 4px;
 
-$checkbox-icon-svg-fill: #5c6ac4;
+$checkbox-backdrop-after-bgcolor: #2c6ecb;
+$checkbox-backdrop-after-border-radius: 4px;
+
+$checkbox-icon-svg-fill: #fff;
 
 /* radio button */
 
@@ -802,7 +811,7 @@ $radio-icon-bgcolor: #5c6ac4;
 
 /* ColorPicker */
 
-$colorpicker-maincolor-bgimage: linear-gradient(45deg,#dfe3e8 25%,transparent0),linear-gradient(-45deg,#dfe3e8 25%,transparent0),linear-gradient(45deg,transparent 75%,#dfe3e80),linear-gradient(-45deg,transparent 75%,#dfe3e8 0);
+/*$colorpicker-maincolor-bgimage: linear-gradient(45deg,#dfe3e8 25%,transparent0),linear-gradient(-45deg,#dfe3e8 25%,transparent0),linear-gradient(45deg,transparent 75%,#dfe3e80),linear-gradient(-45deg,transparent 75%,#dfe3e8 0);
 $colorpicker-maincolor-border-radius: 4px;
 $colorpicker-maincolor-layer-box-shadow: inset 0 0 0 1px rgba(6,44,82,.1),0 2px 16px rgba(33,43,54,.08);
 
@@ -824,14 +833,14 @@ $colorpicker-huepicker-bgimage: linear-gradient(180deg,red 1.8rem,#ff0,#0f0,#0ff
 $colorpicker-huepicker-box-shadow: inset 0 0 2px 0 rgba(0,0,0,.5);
 $colorpicker-huepicker-border-radius: 8rem;
 
-$colorpicker-color-layer-box-shadow: inset 0 0 2px 0 rgba(0,0,0,.5);
+$colorpicker-color-layer-box-shadow: inset 0 0 2px 0 rgba(0,0,0,.5);*/
 
 /* DataTable */
 
-$datatable-pip-bgcolor: #919eab;
-$datatable-pip-border-radius: 3px;
+$datatable-pip-bgcolor: #6d7175;
+$datatable-pip-border-radius: 0.4rem;
 
-$datatable-pip-visible: #212b36;	
+$datatable-pip-visible: #202223;	
 
 $datatable-cell-border: .1rem solid #f4f6f8;	
 
@@ -938,7 +947,7 @@ $extralarge-media-line-height: 4.4rem;
 
 /* DropZone */
 
-$dropzone-fileupload-btn-bgcolor: linear-gradient(180deg,#fff,#f9fafb);
+/*$dropzone-fileupload-btn-bgcolor: linear-gradient(180deg,#fff,#f9fafb);
 $dropzone-fileupload-btn-border: .1rem solid var(--p-border-on-surface,#c4cdd5); 
 $dropzone-fileupload-btn-box-shadow: 0 1px 0 0 rgba(22,29,37,.05); 
 $dropzone-fileupload-btn-border-radius: 3px;
@@ -999,7 +1008,7 @@ $dropzone-overlay-bgcolor: #f4f5fa;
 
 $dropzone-haserror-overlay-color: #de3618;
 $dropzone-haserror-overlay-bgcolor: #fbeae5;
-$dropzone-haserror-overlay-border-color: #de3618;
+$dropzone-haserror-overlay-border-color: #de3618;*/
 
 /* EmptyState */
 
@@ -1008,94 +1017,87 @@ $emptystate-withincontent-font-weight: 400;
 $emptystate-withincontent-line-height: 2rem; 
 $emptystate-withincontent-media-font-size: 1.4rem;
 
-
-$emptystate-content-font-size: 1.6rem;
+$emptystate-content-font-size: 1.5rem;
 $emptystate-content-font-weight: 400;	
-$emptystate-content-line-height: 2.4rem; 
-$emptystate-content-color: var(--p-text-subdued-on-surface, #637381);
-$emptystate-content-media-font-size: 2rem;
-$emptystate-content-media-line-height: 2.8rem;
+$emptystate-content-line-height: 2rem; 
+$emptystate-content-color: #6d7175;
+$emptystate-content-media-font-size: 1.4rem;
 
-$emptystate-footercontent-media-color: #637381;
+$emptystate-footercontent-media-color: #6d7175;
 
 /* ExceptionList */
 
-$exceptionlist-item-color: var(--p-text-subdued-on-surface, #637381);
-$exceptionlist-icon-svg-fill: #919eab;
+$exceptionlist-item-color: #6d7175;
+$exceptionlist-icon-svg-fill: #8c9196;
 
-$exceptionlist-statuswarning-icon-svg-fill: var(--p-warning-icon, #8a6116);
+$exceptionlist-statuswarning-icon-svg-fill: #b98900;
 
-$exceptionlist-statuswarning-bullet-bgcolor: var(--p-warning-icon, #8a6116);
+$exceptionlist-statuswarning-bullet-bgcolor: #b98900;
 
-$exceptionlist-statuswarning-title-color: var(--p-warning-text, #8a6116);
+$exceptionlist-statuswarning-title-color: #916a00;
 $exceptionlist-statuswarning-title-font-weight: 500;
 
-$exceptionlist-statuscritical-icon-svg-fill: var(--p-critical-icon, #bf0711);
+$exceptionlist-statuscritical-icon-svg-fill: #d72c0d;
 
-$exceptionlist-statuscritical-bullet-bgcolor: var(--p-critical-icon, #bf0711);
+$exceptionlist-statuscritical-bullet-bgcolor: #d72c0d;
 
 $exceptionlist-statuscritical-title-font-weight: 500;
-$exceptionlist-statuscritical-title-color: var(--p-critical-icon, #bf0711);
+$exceptionlist-statuscritical-title-color: #d72c0d;
 
-$exceptionlist-bullet-bgcolor: var(--p-icon-subdued-on-surface, #919eab);
+$exceptionlist-bullet-bgcolor: #8c9196;
 
 /* tag */
 
-$tag-bgcolor: #dfe3e8;
-$tag-border-radius: 3px;
-$tag-color: #212b36;
+$tag-bgcolor: #e4e5e7;
+$tag-border-radius: 0.4rem;
+$tag-color: #202223;
 
-$tag-disabled-bgcolor: linear-gradient(180deg, #f4f6f8, #f4f6f8);
-$tag-disabled-color: #919eab;
-$tag-disabled-svg-fill: #919eab;
+$tag-disabled-bgcolor: #f1f2f3;
+$tag-disabled-color: #8c9196;
+$tag-disabled-svg-fill: #babec3;
 
 $tag-btn-bgcolor: none;
 $tag-btn-border: none;
 $tag-btn-font-size: inherit;
 $tag-btn-line-height: inherit;
 $tag-btn-border-radius: 0 3px 3px 0;
-$tag-btn-svg-fill: #637381;
+$tag-btn-svg-fill: #5c5f62;
 
-$tag-btn-focus-bgcolor: #c4cdd5;
-$tag-btn-focus-svg-fill: #212b36;
+$tag-btn-active-bgcolor: #c9ccd0;
 
-$tag-btn-active-bgcolor: rgba(145, 158, 171, .6);
-$tag-btn-active-svg-fill: #212b36;
+$tag-btn-hover-bgcolor: #dbdddf;
 
-$tag-btn-hover-bgcolor: #c4cdd5;
-$tag-btn-hover-svg-fill: #212b36;
-
-$tag-btn-disabled-svg-fill: #919eab;
+$tag-btn-disabled-svg-fill: #babec3;
 
 /* Sheet */
 
-$sheet-bgcolor: var(--p-surface-foreground, #fff);
-$sheet-box-shadow: var(--p-modal-shadow, 0 31px 41px 0 rgba(32, 42, 53, .2), 0 2px 16px 0 rgba(32, 42, 54, .08));
-$sheet-border: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
+$sheet-bgcolor: #ffffff;
+$sheet-box-shadow: 0px 26px 80px rgba(0, 0, 0, 0.2), 0px 0px 1px rgba(0, 0, 0, 0.2);
+$sheet-border: .1rem solid #c9cccf;
 
 /* Filters */
 
-$filters-containerheader-border: .1rem solid #dfe3e8;
+$filters-containerheader-border: .1rem solid #e1e3e5;
 
-$filters-trigger-color: #212b36;
+$filters-trigger-color: #202223;
 
-$filters-trigger-hover-bgimage: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+$filters-trigger-hover-bgcolor: #f6f6f7;
 
-$filters-trigger-focus-box-shadow: inset .2rem 0 0 #5c6ac4;
-$filters-trigger-focus-bgimage: linear-gradient(rgba(223, 227, 232, .3), rgba(223, 227, 232, .3));
+$filters-trigger-focus-box-shadow: none;
+$filters-trigger-focus-after-box-shadow: 0 0 0 0.2rem #458fff;
 
 $filters-trigger-title-font-size: 1.5rem;
 $filters-trigger-title-font-weight: 600;
 
-$filters-open-after-bgcolor: #dfe3e8;
-$filters-open-before-bgcolor: #dfe3e8;
+$filters-open-after-bgcolor: #fafbfb;
+$filters-open-before-bgcolor: #fafbfb;
 
-$filters-open-first-after-bgcolor: #dfe3e8;
-$filters-open-last-before-bgcolor: #dfe3e8;
+$filters-open-first-after-bgcolor: #fafbfb;
+$filters-open-last-before-bgcolor: #fafbfb;
 
 /* FooterHelp */
 
-$footerhelp-content-border: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+$footerhelp-content-border: 0.1rem solid #c9cccf;
 
 $footerhelp-text-font-size: 1.6rem;
 $footerhelp-text-font-weight: 400;
@@ -1104,17 +1106,17 @@ $footerhelp-text-media-font-size: 1.4rem;
 
 /* FormLayout */
 
-$formlayout-helptext-color: var(--p-text-subdued-on-surface, #637381);
+$formlayout-helptext-color: #6d7175;
  
 /* Frame-Toast */
 
 $frame-toast-font-size: 1.6rem;
 $frame-toast-font-weight: 400;
 $frame-toast-line-height: 2.4rem;
-$frame-toast-border-radius: 3px;
-$frame-toast-bgcolor: var(--p-surface-foreground-inverse,rgba(0,0,0,.88));
-$frame-toast-box-shadow: var(--p-override-none,0 0 0 1px rgba(63,63,68,.05),0 1px 3px 0 rgba(63,63,68,.15));
-$frame-toast-color: #fff;
+$frame-toast-border-radius: 0.8rem;
+$frame-toast-bgcolor: #ffffff;
+$frame-toast-box-shadow: none;
+$frame-toast-color: #202223;
 $frame-toast-media-font-size: 2rem;
 $frame-toast-media-line-height: 2.8rem;
 

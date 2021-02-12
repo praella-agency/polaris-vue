@@ -19,8 +19,8 @@
 	display: none;
 }
 .Polaris-DataTable__Pip {
-	height: .6rem;
-	width: .6rem;
+	height: 0.6rem;
+  	width: 0.6rem;
 	background: $datatable-pip-bgcolor;
 	border-radius: $datatable-pip-border-radius;
 	&:not(:last-of-type) {

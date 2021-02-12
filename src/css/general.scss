@@ -1199,7 +1199,6 @@
     color: $emptystate-content-color;
     @media (min-width:40em) {
         font-size: $emptystate-content-media-font-size;
-        line-height: $emptystate-content-media-line-height;
     }
 }
 
@@ -1345,37 +1344,25 @@
     display: block;
     height: 2.8rem;
     width: 2.8rem;
-    margin: 0 0 0 .4rem;
+    margin-left: 0.4rem;
     border-radius: $tag-btn-border-radius;
-
+    position: relative;
     svg {
         fill: $tag-btn-svg-fill;
     }
 
     &:focus {
         outline: none;
-        background: $tag-btn-focus-bgcolor;
-
-        svg {
-            fill: $tag-btn-focus-svg-fill;
-        }
     }
 
     &:active {
-        background: #c4cdd5;
         background: $tag-btn-active-bgcolor;
-
-        svg {
-            fill: $tag-btn-active-svg-fill;
-        }
     }
 
     &:hover {
         background: $tag-btn-hover-bgcolor;
-
-        svg {
-            fill: $tag-btn-hover-svg-fill;
-        }
+        outline: 0.1rem solid transparent;
+        
     }
 
     &:disabled {
@@ -1501,7 +1488,7 @@
 .Polaris-FooterHelp__Content {
     display: inline-flex;
     align-items: center;
-    padding: 1.6rem 2rem 1.6rem 1.6rem;
+    padding: 2rem 2rem 2rem 1.6rem;
     border-top: $footerhelp-content-border;
     border-bottom: $footerhelp-content-border;
     width: 100%;

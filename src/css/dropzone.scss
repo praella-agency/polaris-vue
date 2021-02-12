@@ -1,4 +1,4 @@
-
+/*
 .Polaris-DropZone-FileUpload {
 	padding: 1.5rem;
 	text-align: center;
@@ -57,7 +57,7 @@
 		padding: .4rem 1.2rem;
 	}
 }
-
+*/
 /*.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--globalTheming {
 	background: var(--p-neutral-action);
 	border: none;
@@ -100,7 +100,7 @@
 }*/
 
 
-.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--disabled {
+/*.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--disabled {
 	transition: none;
 	background: $dropzone-fileupload-btn-disabled-bgcolor;
 	color: $dropzone-fileupload-btn-disabled-color;
@@ -109,7 +109,7 @@
 	svg {
 		fill: $dropzone-fileupload-btn-disabled-svg-fill;
 	}
-}
+}*/
 
 /*
 .Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--disabled.Polaris-DropZone-FileUpload--globalTheming {
@@ -120,7 +120,7 @@
 	}
 }*/
 
-
+/*
 .Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--focused {
 	border-color: $dropzone-fileupload-btn-focused-border-color;
 	outline: 0;
@@ -269,3 +269,4 @@
 	}
 }
 
+*/
