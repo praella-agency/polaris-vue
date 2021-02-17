@@ -30,9 +30,7 @@
 	.Polaris-Select__Backdrop {
 		background: $select-disabled-backdrop-bgcolor;
 		box-shadow: $select-disabled-backdrop-box-shadow;
-		&:after {
-			background: $select-disabled-backdrop-after-bgcolor;
-		}
+		
 		@media (-ms-high-contrast:active) {
 			color: grayText;
 		}
@@ -41,17 +39,14 @@
 .Polaris-Select--error {
 	.Polaris-Select__Backdrop {
 		background: $select-error-backdrop-bgcolor;
-		box-shadow: $select-error-backdrop-box-shadow;
-		&:after {
-			background: $select-error-backdrop-after-bgcolor;
-		}
+		
 	}
 	.Polaris-Select__Input {
 		&:focus~.Polaris-Select__Backdrop {
 			background: $select-error-input-focus-backdrop-bgcolor;
 			box-shadow: $select-error-input-focus-backdrop-box-shadow;
 			&:after {
-				background: $select-error-input-focus-backdrop-after-bgcolor;
+				box-shadow: $select-error-input-focus-backdrop-box-shadow;
 			}
 		}
 	}
@@ -117,7 +112,7 @@
 	}
 }
 .Polaris-Select__Backdrop {
-	background-color: $select-backdrop-bgcolor;
+	background-color: $select-backdrop-bgcolor !important;
 	border: $select-backdrop-border;
 	box-shadow: $select-backdrop-box-shadow;
 	border-radius: $select-backdrop-border-radius;
@@ -130,34 +125,19 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-
-	@media (-ms-high-contrast:active) {
-		background: transparent;
-		border: 2px solid buttonText;
-		transition: none;
-		color: rgba(223,227,232,.3);
-	}
 	&:after {
 		content: "";
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		display: block;
-		background: $select-backdrop-after-bgcolor;
+	    position: absolute;
+	    z-index: 1;
+	    top: -.2rem;
+	    right: -.2rem;
+	    bottom: -.2rem;
+	    left: -.2rem;
+	    display: block;
+	    pointer-events: none;
+	    transition: box-shadow .1s var(--p-ease);
+		box-shadow: $select-backdrop-after-box-shadow ;
 		border-radius: $select-backdrop-after-border-radius;
-		@media (-ms-high-contrast:active) {
-			top: -4px;
-			right: -4px;
-			bottom: -4px;
-			left: -4px;
-			background: none;
-			border-radius: 4px;
-		}
-		@media (-ms-high-contrast:active) {
-			display: none;
-		}	
 	}
 }
 .Polaris-Select__Input {
@@ -185,10 +165,8 @@
 		background: $select-input-focus-backdrop-bgcolor;
 		box-shadow: $select-input-focus-backdrop-box-shadow;
 		&:after {
-			background: $select-input-focus-backdrop-after-bgcolor;
-			@media (-ms-high-contrast:active) {
-				border: 1px dashed buttonText;
-			}
+		    box-shadow: 0 0 0 .2rem #458FFF;
+    		outline: .1rem solid transparent;
 		}
 		@media (-ms-high-contrast:active) {
 			background-color: highlight;

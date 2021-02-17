@@ -15,9 +15,6 @@
 		line-height: $frame-toast-media-line-height;
 		padding: 1.6rem;
 	}
-	@media (-ms-high-contrast:active) {
-		border: .2rem solid windowText;
-	}
 }
 .Polaris-Frame-Toast__Action {
 	margin-left: 3.2rem;
@@ -44,9 +41,6 @@
 	background: $frame-toast-closebtn-bgcolor;
 	fill: $frame-toast-closebtn-fill;
 	cursor: pointer;
-	@media (-ms-high-contrast:active) {
-		fill: windowText;
-	}
 	&:focus {
 		outline: none;
 	}
@@ -67,18 +61,18 @@
 	display: inline-flex;
 	transition: transform .4s ease,opacity .4s ease;
 	opacity: 0;
-	transform: translateY(var(--toast-translate-y-out));
+	transform: translateY(15rem);
 }
 .Polaris-Frame-ToastManager__ToastWrapper--enter {
 	opacity: 0;
-	transform: translateY(var(--toast-translate-y-out));
+	transform: translateY(15rem);
 }
 .Polaris-Frame-ToastManager__ToastWrapper--exit {
 	opacity: 0;
-	transform: translateY(var(--toast-translate-y-out));
+	transform: translateY(15rem);
 }
 .Polaris-Frame-ToastManager--toastWrapperEnterDone {
-	transform: translateY(var(--toast-translate-y-in));
+	transform: translateY(0);
 	opacity: 1;
 }
 .Polaris-Frame-Loading {
@@ -93,9 +87,6 @@
 	transform-origin: 0;
 	background-color: $frame-loading-level-bgcolor;
 	transition: transform .5s cubic-bezier(0,0,.42,1);
-	@media screen and (-ms-high-contrast:active) {
-		background-color: highlight;
-	}
 }
 
 
@@ -411,9 +402,6 @@
 		border-color: $frame-skipanchor-focus-border-color;
 		outline: 0;
 		box-shadow: $frame-skipanchor-focus-box-shadow;
-		@media (-ms-high-contrast:active) {
-			outline: 2px dotted;	
-		}
 	}
 	&:active {
 		background: $frame-skipanchor-active-bgcolor;

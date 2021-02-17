@@ -10,6 +10,9 @@
 	min-height: 100%;
 	background-color: $navigation-bgcolor;
 	-webkit-overflow-scrolling: touch;
+	border-right: $navigation-border;
+	padding-bottom: 0px;
+	padding-bottom: calc(0px + constant(safe-area-inset-bottom));
 	padding-bottom: calc(0px + env(safe-area-inset-bottom));
 	@media (min-width:48.0625em) {
 		border-right: $navigation-border;
@@ -67,23 +70,6 @@
 	}
 	&:focus {
 		outline: none;
-		position: relative;
-		background-image: $navigation-item-focus-bgimage;
-		color: $navigation-item-focus-color;
-		text-decoration: none;
-		&:after {
-			content: var(--p-non-null-content,none);
-			position: absolute;
-			z-index: 1;
-			top: -.3rem;
-			right: -.3rem;
-			bottom: -.3rem;
-			left: -.3rem;
-			display: block;
-			border: $navigation-item-focus-after-border;
-			border-radius: $navigation-item-focus-after-border-radius;
-			pointer-events: none;
-		}
 		.Polaris-Navigation__Icon {
 			svg {
 				fill: $navigation-item-focus-icon-svg-fill;
@@ -94,22 +80,9 @@
 				filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
 			}
 		}
-		&:hover {
-			color: $navigation-item-focus-hover-color;
-			.Polaris-Navigation__Icon {
-				svg {
-					fill: $navigation-item-focus-hover-icon-svg-fill;
-					color: $navigation-item-focus-hover-icon-svg-color;
-				}
-				img {
-					-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
-					filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
-				}
-			}
-		}
 	}
 	&:hover {
-		background-image: $navigation-item-hover-bgimage;
+		background: $navigation-item-hover-bgcolor;
 		color: $navigation-item-hover-color;
 		text-decoration: none;
 		.Polaris-Navigation__Icon {
@@ -117,18 +90,32 @@
 				fill: $navigation-item-hover-icon-svg-color;
 				color: $navigation-item-hover-icon-svg-fill;
 			}
-			img {
-				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
-				filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
-			}
 		}
 	}
+
+	&:after{
+		content: '';
+		position: absolute;
+		z-index: 1;
+		top: -0.1rem;
+		right: -0.1rem;
+		bottom: -0.1rem;
+		left: -0.1rem;
+		display: block;
+		pointer-events: none;
+		box-shadow: $navigation-item-after-box-shadow;
+		transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+		border-radius: $navigation-item-after-border-radius;
+	}
+
 	&:active {
 		color: $navigation-item-active-color;
+		background-color: $navigation-item-active-color;
 		&:hover {
 			color: $navigation-item-active-hover-color;
+			background-color: $navigation-item-active-bgcolor;
 			&:after {
-				border: $navigation-item-active-hover-after-border;
+				content: none;
 			}
 			.Polaris-Navigation__Icon {
 				svg {
@@ -142,7 +129,7 @@
 			}
 		}
 		&:after {
-			border: $navigation-item-active-after-border;
+			 content: none;
 		}
 		.Polaris-Navigation__Icon {
 			svg {
@@ -159,13 +146,14 @@
 		border: 0;
 	}
 }
+
+
 .Polaris-Navigation__Item--selected {
 	font-weight: $navigation-item-selected-font-weight;
 	color: $navigation-item-selected-color;
 	background-color: $navigation-item-selected-bgcolor;
-	@media (-ms-high-contrast:active) {
-		background-color: highlight;
-	}
+	position: relative;
+	
 	.Polaris-Navigation__Icon {
 		svg {
 			fill: $navigation-item-selected-icon-svg-fill;
@@ -176,6 +164,34 @@
 			filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
 		}
 	}
+
+	&:before{
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: -0.8rem;
+		height: 100%;
+		width: 0.3rem;
+		background-color: #008060;
+		border-top-right-radius: 0.4rem;
+		border-bottom-right-radius: 0.4rem;
+	}
+	&:after{
+		content: var(--p-non-null-content, none);
+		position: absolute;
+		z-index: 1;
+		top: -0.1rem;
+		right: -0.1rem;
+		bottom: -0.1rem;
+		left: -0.1rem;
+		display: block;
+		pointer-events: none;
+		box-shadow: 0 0 0 -0.1rem #458FFF;
+		transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+		border-radius: calc(0.4rem + 0.1rem);
+	}
+
 	&:focus {
 		.Polaris-Navigation__Icon {
 			svg {
@@ -185,19 +201,6 @@
 		}
 		color: $navigation-item-selected-focus-color;
 		position: relative;
-		&:after {
-			content: var(--p-non-null-content,none);
-			position: absolute;
-			z-index: 1;
-			top: -.3rem;
-			right: -.3rem;
-			bottom: -.3rem;
-			left: -.3rem;
-			display: block;
-			border: $navigation-item-selected-focus-after-border;
-			border-radius: $navigation-item-selected-focus-after-border-radius;
-			pointer-events: none;
-		}
 	}
 	&:hover {
 		background-color: $navigation-item-selected-hover-bgcolor;
@@ -217,15 +220,18 @@
 		background-color: $navigation-item-selected-active-bgcolor;
 		color: $navigation-item-selected-active-color;
 		&:after {
-			border: $navigation-item-selected-active-after-border;
+			content: none;
 		}
 	}
 }
+
+
 .Polaris-Navigation__Item--disabled {
 	color: $navigation-item-disabled-color;
 	pointer-events: none;
 	opacity: var(--p-override-one,.6);
 	.Polaris-Navigation__Icon {
+		pacity: 0.6;
 		svg {
 			fill: $navigation-item-disabled-icon-svg-fill;
 			color: $navigation-item-disabled-icon-svg-color;
@@ -379,33 +385,12 @@
 		&:focus {
 			color: $secondarynavigation-item-focus-color;
 			position: relative;
-			&:after {
-				content: var(--p-non-null-content,none);
-				position: absolute;
-				z-index: 1;
-				top: -.3rem;
-				right: -.3rem;
-				bottom: -.3rem;
-				left: -.3rem;
-				display: block;
-				border: $secondarynavigation-item-focus-after-border;
-				border-radius: $secondarynavigation-item-focus-after-border-radius;
-				pointer-events: none;
-			}
-			&:hover {
-				color: $secondarynavigation-item-focus-hover-color;
-			}
 		}
 		&:active {
 			color: $secondarynavigation-item-active-color;
-			&:hover {
-				color: $secondarynavigation-item-active-hover-color;
-				&:after {
-					border: $secondarynavigation-item-active-hover-after-border;
-				}
-			}
+			
 			&:after {
-				border: $secondarynavigation-item-active-border;
+				content: none;
 			}
 		}
 	}
@@ -415,7 +400,7 @@
 		line-height: 2rem;
 		@media (min-width:48.0625em) {
 			margin-top: .6rem;
-			margin-bottom: .6rem;
+			margin-bottom: .6rem;	
 		}	
 		@media (min-width:48.0625em) {
 			margin-top: .4rem;
@@ -431,19 +416,6 @@
 		&:focus {
 			color: $secondarynavigation-item-selected-focus-color;
 			position: relative;
-			&:after {
-				content: var(--p-non-null-content,none);
-				position: absolute;
-				z-index: 1;
-				top: -.3rem;
-				right: -.3rem;
-				bottom: -.3rem;
-				left: -.3rem;
-				display: block;
-				border: $secondarynavigation-item-selected-focus-after-border;
-				border-radius: $secondarynavigation-item-selected-focus-after-border-radius;
-				pointer-events: none;
-			}
 		}
 		&:active {
 			color: $secondarynavigation-item-selected-active-color;
@@ -504,8 +476,6 @@
 		}
 	}
 	&:focus {
-		background-image: $navigation-secondaryaction-focus-bgimage;
-		position: relative;
 		outline: none;
 		svg {
 			fill: $navigation-secondaryaction-focus-svg-fill;
@@ -515,19 +485,7 @@
 			-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
 			filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
 		}
-		&:after {
-			content: var(--p-non-null-content,none);
-			position: absolute;
-			z-index: 1;
-			top: -.3rem;
-			right: -.3rem;
-			bottom: -.3rem;
-			left: -.3rem;
-			display: block;
-			border: $navigation-secondaryaction-focus-after-border;
-			border-radius: $navigation-secondaryaction-focus-after-border-radius;
-			pointer-events: none;
-		}
+		
 		&:hover {
 			svg {
 				fill: $navigation-secondaryaction-focus-hover-svg-fill;
@@ -598,11 +556,24 @@
 		margin: 0 .4rem 0 0;
 		padding: .4rem 1.6rem;
 		border-radius: $navigation-sectionheading-action-border-radius;
+		position: relative;
+		&:after {
+			content: var(--p-non-null-content, none);
+			position: absolute;
+			z-index: 1;
+			top: -0.1rem;
+			right: -0.1rem;
+			bottom: -0.1rem;
+			left: -0.1rem;
+			display: block;
+			pointer-events: none;
+			box-shadow: 0 0 0 -0.1rem #458FFF;
+			transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+			border-radius: calc(0.4rem + 0.1rem);
+		}
 		&:focus {
 			outline: none;
-			background-image: $navigation-sectionheading-action-focus-bgimage;
-			position: relative;
-			outline: none;
+			background-color: $navigation-sectionheading-action-bgcolor;
 			svg {
 				fill: $navigation-sectionheading-action-focus-svg-fill;
 				color: $navigation-sectionheading-action-focus-svg-color;
@@ -611,19 +582,7 @@
 				-webkit-filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
 				filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
 			}
-			&:after {
-				content: var(--p-non-null-content,none);
-				position: absolute;
-				z-index: 1;
-				top: -.3rem;
-				right: -.3rem;
-				bottom: -.3rem;
-				left: -.3rem;
-				display: block;
-				border: $navigation-sectionheading-action-focus-after-border;
-				border-radius: $navigation-sectionheading-action-focus-after-border-radius;
-				pointer-events: none;
-			}
+			
 			&:hover {
 				svg {
 					fill: $navigation-sectionheading-action-focus-hover-svg-fill;
@@ -656,8 +615,8 @@
 			}
 		}
 		&:active {
-			background-image: $navigation-sectionheading-action-active-bgimage;
-			background-color: var(--p-surface-pressed);
+			
+			background-color: $navigation-sectionheading-action-active-bgcolor;
 			outline: none;
 			svg {
 				fill: $navigation-sectionheading-action-active-svg-fill;
@@ -668,7 +627,7 @@
 				filter: brightness(0) saturate(100%) invert(45%) sepia(17%) saturate(1966%) hue-rotate(194deg) brightness(88%) contrast(84%);
 			}
 			&:after {
-				border: $navigation-sectionheading-action-active-after-border;
+				content: none;
 			}
 		}
 	}
@@ -691,17 +650,8 @@
 		outline: none;
 		position: relative;
 		&:after {
-			content: var(--p-non-null-content,none);
-			position: absolute;
-			z-index: 1;
-			top: -.3rem;
-			right: -.3rem;
-			bottom: -.3rem;
-			left: -.3rem;
-			display: block;
-			border: $navigation-rolluptoggle-focus-after-border;
-			border-radius: $navigation-rolluptoggle-focus-after-border-radius;
-			pointer-events: none;
+			box-shadow: 0 0 0 0.2rem #458FFF;
+			outline: 0.1rem solid transparent;
 		}
 	}
 }

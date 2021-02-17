@@ -1580,7 +1580,7 @@
     &:after {
         content: "";
         position: absolute;
-        background-color: $indicator-after-bgcolor;
+        background-color: $indicator-bgcolor;
         right: -.4rem;
         top: -.4rem;
         width: 1rem;
@@ -1591,7 +1591,7 @@
     &:before {
         content: "";
         position: absolute;
-        background-color: $indicator-before-bgcolor;
+        background-color: $indicator-bgcolor;
         right: -.4rem;
         top: -.4rem;
         width: 1rem;
@@ -1619,8 +1619,8 @@
 .Polaris-KeyboardKey {
     display: inline-block;
     height: 2.4rem;
-    margin: 0 .2rem 2px;
-    padding: 0 .4rem;
+    margin: 0 0.2rem 2px;
+    padding: 0 0.4rem;
     background-color: $keyboardkey-bgcolor;
     box-shadow: $keyboardkey-box-shadow;
     border-radius: $keyboardkey-border-radius;
@@ -1656,50 +1656,30 @@
 
     &:hover {
         color: $link-border-hover-color;
-        text-decoration: underline;
+        text-decoration: none;
     } 
 
     &:focus {
-        -webkit-text-decoration: var(--p-override-none, underline);
-        text-decoration: var(--p-override-none, underline);
-        outline: var(--p-override-none, rgba(0, 103, 244, .247) auto .45rem);
+        outline: none;
 
         &:not(:active) {
-            position: relative;
-
-            &:after {
-                content: var(--p-non-null-content, none);
-                position: absolute;
-                z-index: 1;
-                top: -.3rem;
-                right: -.3rem;
-                bottom: -.3rem;
-                left: -.3rem;
-                display: block;
-                border: $link-border-focus-after-border;
-                border-radius: $link-border-focus-after-border-radius;
-                pointer-events: none;
-            }
+            outline: #458FFF auto 1px;
         }
     }
 
     &:active {
         position: relative;
         color: $link-border-active-color;
-        -webkit-text-decoration: var(--p-override-none, underline);
-        text-decoration: var(--p-override-none, underline);
-
         &:before {
-            content: var(--p-non-null-content, none);
-            position: absolute;
-            z-index: -1;
-            top: -.2rem;
-            right: -.5rem;
-            bottom: -.2rem;
-            left: -.5rem;
-            display: block;
-            border-radius: $link-border-active-before-border-radius;
-            background: $link-border-active-before-bgcolor;
+             content: '';
+              position: absolute;
+              z-index: -1;
+              top: -0.2rem;
+              right: -0.5rem;
+              bottom: -0.2rem;
+              left: -0.5rem;
+              display: block;
+              border-radius: $link-border-active-before-border-radius;
         }
     }
 }
@@ -2153,7 +2133,7 @@
     cursor: pointer;
 
     &:hover {
-        background-image: $resourceitem-hover-bgimage;
+        background-color: $resourceitem-hover-bgcolor;
 
         &:not(.Polaris-ResourceItem--persistActions) {
             .Polaris-ResourceItem__Actions {
@@ -2166,7 +2146,7 @@
     }
 
     &:active {
-        background-image: $resourceitem-active-bgimage;
+        background-color: $resourceitem-active-bgcolor;
     }
 }
 
@@ -2183,39 +2163,39 @@
 }
 
 .Polaris-ResourceItem--selected {
-    background-image: $resourceitem-selected-bgimage;
+    background-color: $resourceitem-selected-bgcolor;
 
     &:hover {
-        background-image: $resourceitem-selected-hover-bgimage;
+        background-color: $resourceitem-selected-hover-bgcolor;
     }
 
     &:active {
-        background-image: $resourceitem-selected-active-bgimage;
+        background-color: $resourceitem-selected-active-bgcolor;
     }
 }
 
 .Polaris-ResourceItem--selected.Polaris-ResourceItem--focused {
     box-shadow: $resourceitem-selected-focused-box-shadow;
-    background-image: $resourceitem-selected-focused-bgimage;
+    background-color: $resourceitem-selected-focused-bgcolor;
 
     &:hover {
         box-shadow: $resourceitem-selected-focused-hover-box-shadow;
-        background-image: $resourceitem-selected-focused-hover-bgimage;
+        background-color: $resourceitem-selected-focused-hover-bgcolor;
     }
 }
 
 .Polaris-ResourceItem--focused {
     box-shadow: $resourceitem-focused-box-shadow;
-    background-image: $resourceitem-focused-bgimage;
+    background-color: $resourceitem-focused-bgcolor;
 
     &:hover {
         box-shadow: $resourceitem-focused-hover-box-shadow;
-        background-image: $resourceitem-focused-hover-bgimage;
+        background-color: $resourceitem-focused-hover-bgcolor;
     }
 
     &:active {
         box-shadow: $resourceitem-focused-active-box-shadow;
-        background-image: $resourceitem-focused-active-bgimage;
+        background-color: $resourceitem-focused-active-bgcolor;
     }
 
     .Polaris-ResourceItem__Actions {

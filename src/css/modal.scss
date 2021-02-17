@@ -24,9 +24,7 @@
 	max-height: calc(100vh - 60px);
 	background: $modal-dialog-modal-bgcolor;
 	box-shadow: $modal-dialog-modal-box-shadow;
-	@media (-ms-high-contrast:active) {
-		border: 1px solid windowText;
-	}
+	
 	@media (max-width:48.0525em) {
 		bottom: 0;
 		max-height: 100%;

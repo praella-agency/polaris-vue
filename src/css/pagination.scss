@@ -25,17 +25,10 @@
 
 .Polaris-Pagination--plain {
 	.Polaris-Pagination__Button {
-		position: relative;
-		margin-top: -.4rem;
-		margin-bottom: -.4rem;
-		padding-top: .8rem;
-		padding-bottom: .8rem;
+	
 		background: $pagination-plain-btn-bgcolor;
 		border: $pagination-plain-btn-border;
-		cursor: pointer;
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		appearance: none;
+		
 		box-shadow: $pagination-plain-btn-box-shadow;
 		&:active {
 			background: $pagination-plain-btn-active-bgcolor;

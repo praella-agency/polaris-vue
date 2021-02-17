@@ -57,16 +57,25 @@
 		font-size: $tabs-media-font-size;
 	}
 	&:visited {
-		color: inherit;
 		color: $tabs-visited-color;
+	}
+	&:active{
+		.Polaris-Tabs__Title{
+			background-color: $tabs-hover-active-title-bgcolor;
+			&:after{
+				 background: $tabs-hover-active-title-after-bgcolor;
+			}
+		}
 	}
 	&:focus {
 		outline: none;
-		box-shadow: $tabs-focus-box-shadow;
-		.Polaris-Tabs__Title {
-			font-weight: $tabs-focus-title-font-weight;
-			color: $tabs-focus-title-color;
-			border-bottom: $tabs-focus-border;
+		&:not(:active){
+			.Polaris-Tabs__Title{
+				&:after{
+					box-shadow: $tabs-hover-focus-title-after-box-shadow;
+					outline: 0.1rem solid transparent;
+				}
+			}
 		}
 	}
 	&:hover {
@@ -74,20 +83,16 @@
 			font-weight: $tabs-hover-title-font-weight;
 			color: $tabs-hover-title-color;
 			text-decoration: none;
-			border-bottom: $tabs-hover-border;
-			@media (-ms-high-contrast:active) {
-				border-bottom-color: highlight;
+			background-color: transparent;
+			&:before{
+				background-color: #999EA4;
 			}
 		}
 	}
 }
 .Polaris-Tabs__Tab.Polaris-Tabs__Tab--selected {
 	.Polaris-Tabs__Title {
-		border-bottom: $tabs-selected-title-border;
-		@media (-ms-high-contrast:active) {
-			background: highlight;
-			border-bottom-color: highlight;
-		}
+		border-radius: $tabs-selected-title-border-radius;
 	}
 }
 .Polaris-Tabs__Tab--selected {
@@ -95,10 +100,12 @@
 	color: $tabs-selected-color;
 }
 .Polaris-Tabs__Title {
+ 	position: relative;
+	border-radius: 0.4rem;
 	display: block;
-	padding: 1.6rem 0 1.3rem;
-	border-bottom: $tabs-title-border;
+	padding: 0.8rem 1.6rem;
 	min-width: 5rem;
+	color: $tabs-selected-title-color;
 }
 .Polaris-Tabs__Panel {
 	display: block;
