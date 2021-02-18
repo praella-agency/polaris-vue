@@ -1670,82 +1670,85 @@ $tabs-hover-title-font-weight: 400;
 $tabs-hover-title-color: #202223;
 $tabs-hover-title-bgcolor: #999EA4;
 
-
 $tabs-selected-font-weight: 400;
 $tabs-selected-color: #202223;
 
 $tabs-selected-title-border-radius: 0.4rem;
 $tabs-selected-title-color: #6D7175;
 
-$tabs-title-border: .3rem solid transparent;
-
 $tabs-item-font-size: inherit;
 $tabs-item-line-height: inherit;
 $tabs-item-background: none;
 $tabs-item-border: none;
+$tabs-item-after-box-shadow: 0 0 0 -0.1rem #458FFF;
+
+$tabs-item-border-radius: 0.4rem;
 
 $tabs-item-visited-color: inherit;
 
-$tabs-item-focus-box-shadow: inset .2rem 0 0 #5c6ac4;
-$tabs-item-focus-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+/*$tabs-item-focus-box-shadow: inset .2rem 0 0 #5c6ac4;
+$tabs-item-focus-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));*/
 
-$tabs-item-active-bgimage: linear-gradient(rgba(179,188,245,.1),rgba(179,188,245,.1));
-$tabs-item-active-hover-bgimage: linear-gradient(rgba(179,188,245,.1),rgba(179,188,245,.1)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
-$tabs-item-active-hover-focus-bgimage: linear-gradient(rgba(179,188,245,.1),rgba(179,188,245,.1)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
-$tabs-item-active-hover-focus-box-shadow: inset .2rem 0 0 #5c6ac4;
+$tabs-item-active-bgcolor: #A2BCB0;
 
-$tabs-item-hover-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
-$tabs-item-hover-focus-box-shadow: inset .2rem 0 0 #5c6ac4;
-$tabs-item-hover-focus-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+$tabs-item-hover-bgcolor: #F6F6F7;
 
-$tabs-disclosureactivator-bgcolor: initial;
+$tabs-disclosureactivator-bgcolor: transparent;
 $tabs-disclosureactivator-svg-fill: #637381;
 
-$tabs-disclosureactivator-hover-title-border: .3rem solid #dfe3e8;
-$tabs-disclosureactivator-hover-title-svg-fill: #212b36;
-$tabs-disclosureactivator-focus-box-shadow: inset 0 0 2px 0 rgba(92,106,196,.8),0 0 2px 0 rgba(92,106,196,.8);
-$tabs-disclosureactivator-focus-title-border: .3rem solid #b3bcf5;
+$tabs-disclosureactivator-hover-title-svg-fill: #5C5F62;
+
+$tabs-disclosureactivator-after-box-shadow: 0 0 0 -0.1rem #458FFF;
+
+$tabs-disclosureactivator-hover-title-before-bgcolor: #999EA4;
+$tabs-disclosureactivator-focus-title-after-box-shadow: 0 0 0 0.2rem #458FFF;
 
 /* Thumbnail */
 
-$thumbnail-bgcolor: #fff;
-$thumbnail-border-radius: 3px;
-$thumbnail-after-box-shadow: inset 0 0 0 1px rgba(33, 43, 54, .1);
+$thumbnail-bgcolor: #FFFFFF;
+$thumbnail-border-radius: 0.4rem;
+$thumbnail-border: 0.1rem solid #E1E3E5;
+$thumbnail-color: #637381;
 
 /* TopBar-Search */
 
 $topbar-searchfield-border: 1px solid transparent;
-$topbar-searchfield-border-radius: 3px;		
+$topbar-searchfield-border-radius: 0.8rem;		
 $topbar-searchfield-focused-input-border: none;
-$topbar-searchfield-focused-input-color: #212b36;
+$topbar-searchfield-focused-input-color: #202223;
+$topbar-searchfield-svg-fill: #5C5F62;
 
-$topbar-searchfield-focused-input-placeholder-color: #919eab;
+
+$topbar-searchfield-focused-input-placeholder-color: #6D7175;
 
 $topbar-searchfield-focused-backdrop-bgcolor: #fff;
-$topbar-searchfield-focused-icon-svg-fill: #919eab;
+$topbar-searchfield-focused-icon-svg-fill: #5C5F62;
 
 $topbar-searchfield-input-focus-border: none;
-$topbar-searchfield-input-focus-color: #212b36;
+$topbar-searchfield-input-focus-color: #202223;
 
-$topbar-searchfield-input-focus-backdrop-bgcolor: #fff;
-$topbar-searchfield-input-focus-icon-svg-fill: #919eab;
+$topbar-searchfield-input-focus-backdrop-bgcolor: #F1F2F3;
+$topbar-searchfield-input-focus-icon-svg-fill: #5C5F62;
 
 $topbar-searchfield-input-font-size: 1.6rem;
 $topbar-searchfield-input-font-weight: 400;
 $topbar-searchfield-input-line-height: 2.4rem;
 $topbar-searchfield-input-border: none;
 $topbar-searchfield-input-bgcolor: initial;
+$topbar-searchfield-input-color: #202223;
 $topbar-searchfield-input-media-font-size: 1.4rem;
 
-$topbar-searchfield-clear-svg-fill: #919eab;
-$topbar-searchfield-clear-focus-svg-fill: #637381;
-$topbar-searchfield-clear-hover-svg-fill: #637381;
+$topbar-searchfield-clear-svg-fill: #5C5F62;
+$topbar-searchfield-clear-focus-svg-fill: #1A1C1D;
+$topbar-searchfield-clear-hover-svg-fill: #1A1C1D;
+$topbar-searchfield-clear-active-svg-fill: #44474A;
 
 /* MessageIndicator__MessageIndicatorWrapper */
 
 $messageindicator-border-radius: 100%;
 $messageindicator-bgcolor: #47c1bf;
-$messageindicator-border: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+$messageindicator-border: solid 0.2rem #f6f6f7,#ffffff;
+$messageindicator-section-border: 0.1rem solid #E1E3E5;
 
 /* Menu__Activator */
 
@@ -1754,17 +1757,18 @@ $topbar-menu-activator-line-height: inherit;
 $topbar-menu-activator-bgcolor: none;
 $topbar-menu-activator-border-radius: 3px;
 
-$topbar-menu-activator-focus-bgcolor: hsla(0,0%,100%,.16);
-$topbar-menu-activator-hover-bgcolor: hsla(0,0%,100%,.08);
+$topbar-menu-activator-focus-bgcolor: transparent;
+$topbar-menu-activator-hover-bgcolor: #F6F6F7;
 
-$topbar-menu-activator-active-bgcolor: rgba(0,0,0,.28);
+$topbar-menu-activator-active-bgcolor: #F1F2F3;
 
-$topbar-menu-section-border: .1rem solid var(--p-border-subdued-on-surface, #dfe3e8);
+$topbar-menu-section-border: 0.1rem solid #E1E3E5;
 
 $topbar-usermenu-font-size: 1.5rem;
 $topbar-usermenu-font-weight: 500;
 $topbar-usermenu-line-height: 1.6rem;
 $topbar-usermenu-media-font-size: 1.4rem;
+$topbar-usermenu-color: #202223;
 
 $topbar-usermenu-detail-font-size: 1.3rem;
 $topbar-usermenu-detail-font-weight: 400;
@@ -1779,12 +1783,9 @@ $topbar-navigationicon-focused-active-bgcolor: rgba(0, 0, 0, .28);
 
 /* Avatar */
 
-$avatar-bgcolor: #e4e5e7;
-$avatar-color: #e4e5e7;
+$avatar-bgcolor: #E4E5E7;
+$avatar-color: #8C9196;
 $avatar-color-radius: 3rem;
-
-$avatar-styleone-bgcolor: #ffc96b;
-$avatar-styleone-color: #3d2800;
 
 
 

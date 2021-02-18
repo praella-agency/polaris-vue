@@ -106,6 +106,30 @@
 	padding: 0.8rem 1.6rem;
 	min-width: 5rem;
 	color: $tabs-selected-title-color;
+	&:after{
+		content:"";
+		position: absolute;
+		z-index: 1;
+		top: -0.1rem;
+		right: -0.1rem;
+		bottom: -0.1rem;
+		left: -0.1rem;
+		display: block;
+		pointer-events: none;
+		box-shadow: $tabs-item-after-box-shadow;
+		transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+		border-radius: calc(0.4rem + 0.1rem);
+	}
+	&:before{
+		content: '';
+		position: absolute;
+		bottom: -0.8rem;
+		left: 0;
+		right: 0;
+		height: 0.3rem;
+		border-top-left-radius: 0.4rem;
+		border-top-right-radius: 0.4rem;
+	}
 }
 .Polaris-Tabs__Panel {
 	display: block;
@@ -119,7 +143,7 @@
 .Polaris-Tabs__List {
 	list-style: none;
 	margin: 0;
-	padding: .8rem 0;
+	padding: 0.8rem;
 }
 .Polaris-Tabs__Item {
 	color: inherit;
@@ -138,30 +162,40 @@
 	padding: .8rem 1.6rem;
 	text-align: left;
 	cursor: pointer;
+	border-radius: $tabs-item-border-radius;
 	&:visited {
 		color: $tabs-item-visited-color;
 	}
 	&:focus {
 		outline: none;
-		box-shadow: $tabs-item-focus-box-shadow;
-		background-image: $tabs-item-focus-bgimage;
+	/*	box-shadow: $tabs-item-focus-box-shadow;
+		background-image: $tabs-item-focus-bgimage;*/
+		&:not(:active)::after {
+			box-shadow: $tabs-hover-focus-title-after-box-shadow;
+			outline: 0.1rem solid transparent;
+		}
+	}
+	&:after{
+		content: var(--p-non-null-content, none);
+		position: absolute;
+		z-index: 1;
+		top: -0.1rem;
+		right: -0.1rem;
+		bottom: -0.1rem;
+		left: -0.1rem;
+		display: block;
+		pointer-events: none;
+		box-shadow: $tabs-item-after-box-shadow;
+		transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+		border-radius: calc(0.4rem + 0.1rem);
 	}
 	&:active {
-		background-image: $tabs-item-active-bgimage;
-		&:hover {
-			background-image: $tabs-item-active-hover-bgimage;
-			&:focus {
-				box-shadow: $tabs-item-active-hover-focus-box-shadow;
-				background-image: $tabs-item-active-hover-focus-bgimage;
-			}
-		}
+		background-color: $tabs-item-active-bgcolor;
+		
 	}
 	&:hover {
-		background-image: $tabs-item-hover-bgimage;
-		&:focus {
-			box-shadow: $tabs-item-hover-focus-box-shadow;
-			background-image: $tabs-item-hover-focus-bgimage;
-		}
+		background-color: $tabs-item-hover-bgcolor;
+		
 	}
 	&::-moz-focus-inner {
 		border: none;
@@ -188,25 +222,39 @@
 	svg {
 		fill: $tabs-disclosureactivator-svg-fill;
 	}
+	&:after {
+	  content: var(--p-non-null-content, none);
+	  position: absolute;
+	  z-index: 1;
+	  top: -0.1rem;
+	  right: -0.1rem;
+	  bottom: -0.1rem;
+	  left: -0.1rem;
+	  display: block;
+	  pointer-events: none;
+	  box-shadow: $tabs-disclosureactivator-after-box-shadow;
+	  transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+	  border-radius: calc(0.4rem + 0.1rem);
+	}
+
 	&:hover {
 		.Polaris-Tabs__Title {
-			border-bottom: $tabs-disclosureactivator-hover-title-border;
-			@media (-ms-high-contrast:active) {
-				background-image: linear-gradient(rgba(179,188,245,.1),rgba(179,188,245,.1)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
-				border-bottom-color: highlight;
-			}
 			svg {
 				fill: $tabs-disclosureactivator-hover-title-svg-fill;
-				@media (-ms-high-contrast:active) {
-					fill: #000;
-				}
+			}
+			&:before{
+			 	background-color: $tabs-disclosureactivator-hover-title-before-bgcolor;
 			}
 		}
 	}
 	&:focus {
-		box-shadow: $tabs-disclosureactivator-focus-box-shadow;
 		.Polaris-Tabs__Title {
-			border-bottom: $tabs-disclosureactivator-focus-title-border;
+			
+			&:after{
+				box-shadow: $tabs-disclosureactivator-focus-title-after-box-shadow;
+				outline: 0.1rem solid transparent;
+			}
+
 		}
 	}
 }

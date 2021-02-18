@@ -37,38 +37,34 @@
 }
 
 .Polaris-Avatar--styleOne {
-    color: $avatar-styleone-color;
-    background: $avatar-styleone-bgcolor;
+  color: #3D2800;
+  background: #FFC96B;
 }
 
 .Polaris-Avatar--styleTwo {
-    color: #fff;
-    background: #de3618;
+  color: #490B1C;
+  background: #FFC4B0;
 }
 
 .Polaris-Avatar--styleThree {
-    color: #fff;
-    background: #f49342;
+  color: #002F19;
+  background: #92E6B5;
 }
 
 .Polaris-Avatar--styleFour {
-    color: #fff;
-    background: #50b83c;
+  color: #002D2D;
+  background: #91E0D6;
 }
 
 .Polaris-Avatar--styleFive {
-    color: #fff;
-    background: #006fbb;
-}
-
-.Polaris-Avatar--styleSix {
-    color: #fff;
-    background: #9c6ade;
+  color: #4F0E1F;
+  background: #FDC9D0;
 }
 
 .Polaris-Avatar--hasImage {
-    background: transparent;
+  background: transparent;
 }
+
 
 .Polaris-Avatar__Image {
     position: absolute;
@@ -2717,16 +2713,13 @@
     max-width: 100%;
     position: relative;
     display: block;
+    border: $thumbnail-border;
     border-radius: $thumbnail-border-radius;
 
     &:after {
-        position: relative;
-        display: block;
-        border-radius: $thumbnail-border-radius;
-        content: "";
-        z-index: 20;
-        padding-bottom: 100%;
-        box-shadow: $thumbnail-after-box-shadow;
+        content: '';
+          display: block;
+          padding-bottom: 100%;
     }
 }
 
@@ -2741,6 +2734,19 @@
 .Polaris-Thumbnail--sizeLarge {
     width: 8rem;
 }
+
+.Polaris-Thumbnail>* {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  color: $thumbnail-color;
+}
+
 
 .Polaris-Thumbnail__Image {
     position: absolute;
@@ -2880,6 +2886,10 @@
 
     &:focus~.Polaris-TopBar-SearchField__Backdrop {
         background-color: $topbar-searchfield-input-focus-backdrop-bgcolor;
+        &:after{
+            box-shadow: 0 0 0 0.2rem #458FFF;
+            outline: 0.1rem solid transparent;
+        }   
     }
 
     &:focus~.Polaris-TopBar-SearchField__Icon {
@@ -2900,7 +2910,7 @@
     border: $topbar-searchfield-input-border;
     background-color: $topbar-searchfield-input-bgcolor;
     outline: none;
-    color: var(--p-text-on-surface, var(--top-bar-color));
+    color: $topbar-searchfield-input-color;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     will-change: fill,
@@ -2937,7 +2947,7 @@
     transform: translateY(-50%);
 
     svg {
-        fill: var(--p-icon-on-surface, var(--top-bar-color));
+        fill: $topbar-searchfield-svg-fill;
     }
 }
 
@@ -2955,12 +2965,36 @@
     svg {
         fill: $topbar-searchfield-clear-svg-fill;
     }
-
+    &:after{
+        content: var(--p-non-null-content, none);
+        position: absolute;
+        z-index: 1;
+        top: -0.1rem;
+        right: -0.1rem;
+        bottom: -0.1rem;
+        left: -0.1rem;
+        display: block;
+        pointer-events: none;
+        box-shadow: 0 0 0 -0.1rem #458FFF;
+        transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+        border-radius: calc(0.8rem + 0.1rem);
+    }
     &:focus {
         outline: none;
-
+        &:after{
+            box-shadow: 0 0 0 0.2rem #458FFF;
+            outline: 0.1rem solid transparent;
+        }
         svg {
             fill: $topbar-searchfield-clear-focus-svg-fill;
+        }
+    }
+    &:active{
+        &:after{
+            border: none;
+        }
+        svg {
+           fill: $topbar-searchfield-clear-active-svg-fill; 
         }
     }
 
@@ -2974,19 +3008,34 @@
 }
 
 .Polaris-TopBar-SearchField__Backdrop {
+    position: relative;
     position: absolute;
     z-index: 1;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: var(--p-neutral-action, var(--top-bar-background-lighter));
+    background-color: var(--p-on-surface-background, var(--top-bar-background-lighter));
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     will-change: background-color;
-    transition: background-color .2s cubic-bezier(.64, 0, .35, 1);
-    border-radius: 3px;
-    animation: Polaris-TopBar-SearchField--toLightBackground .01ms;
+    transition: background-color 200ms cubic-bezier(0.64, 0, 0.35, 1);
+    border-radius: var(--p-border-radius-base, 3px);
+    animation: Polaris-TopBar-SearchField--toLightBackground 0.01ms;
+    &:after{
+        content: var(--p-non-null-content, none);
+        position: absolute;
+        z-index: 1;
+        top: -0.1rem;
+        right: -0.1rem;
+        bottom: -0.1rem;
+        left: -0.1rem;
+        display: block;
+        pointer-events: none;
+        box-shadow: 0 0 0 -0.1rem #458FFF;
+        transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+        border-radius: calc(0.4rem + 0.1rem);
+    }
 }
 
 /*=================== Polaris-TopBar-SearchField  =======================*/
@@ -3004,14 +3053,14 @@
     height: 1.2rem;
     border-radius: $messageindicator-border-radius;
     background-color: $messageindicator-bgcolor;
-    border: .2rem solid var(--p-surface-background, var(--top-bar-background));
+    border: $messageindicator-border;
 }
 
 .Polaris-Menu-Message__Section {
     max-width: 32.5rem;
     margin-top: .8rem;
     padding-top: .8rem;
-    border-top: $messageindicator-border;
+    border-top: $messageindicator-section-border;
 }
 
 /*=================== Polaris-TopBar-Menu  =======================*/
@@ -3047,8 +3096,25 @@
     &:focus {
         background-color: $topbar-menu-activator-focus-bgcolor;
         outline: none;
+        &:after{
+            box-shadow: 0 0 0 0.2rem #458FFF;
+            outline: 0.1rem solid transparent;
+        }
     }
-
+    &:after{
+        content: var(--p-non-null-content, none);
+        position: absolute;
+        z-index: 1;
+        top: -0.1rem;
+        right: -0.1rem;
+        bottom: -0.1rem;
+        left: -0.1rem;
+        display: block;
+        pointer-events: none;
+        box-shadow: 0 0 0 -0.1rem #458FFF;
+        transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+        border-radius: calc(0.4rem + 0.1rem);
+    }
     &:hover {
         background-color: $topbar-menu-activator-hover-bgcolor
     }
@@ -3096,7 +3162,7 @@
     letter-spacing: normal;
     font-weight: $topbar-usermenu-font-weight;
     line-height: $topbar-usermenu-line-height;
-    color: var(--p-text-on-surface, var(--top-bar-color));
+    color: $topbar-usermenu-color;
     text-align: left;
     @media (min-width:40em) {
         font-size: $topbar-usermenu-media-font-size;
@@ -3111,7 +3177,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     opacity: .7;
-    color: var(--p-text-on-surface, var(--top-bar-color));
+    color: $topbar-usermenu-color;
     text-align: left;
     @media (min-width:40em) {
         font-size: $topbar-usermenu-detail-media-font-size;
@@ -3123,7 +3189,7 @@
     position: relative;
     display: flex;
     height: 5.6rem;
-    background-color: var(--p-surface-background, var(--top-bar-background));
+    background-color: #F1F2F3;
     &:after {
         content: "";
         position: absolute;
