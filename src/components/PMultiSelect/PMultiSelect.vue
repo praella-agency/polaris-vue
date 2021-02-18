@@ -32,7 +32,7 @@
           </div>
         </template>
       </multiselect>
-      <div class="Polaris-Select__Backdrop"></div>
+      
     </div>
   </div>
 </template>

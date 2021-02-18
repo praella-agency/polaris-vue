@@ -3330,3 +3330,57 @@
 }
 
 /*=================== Polaris-TopBar-Menu  ====================== */
+
+
+/* multi select */
+
+
+/*.multiselect__placeholder:after{
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: -.2rem;
+    right: -.2rem;
+    bottom: -.2rem;
+    left: -.2rem;
+    display: block;
+    pointer-events: none;
+    transition: box-shadow 0.1s var(--p-ease);
+    box-shadow: 0 0 0 -0.2rem #458fff;
+    border-radius: calc(0.4rem + 0.1rem);
+}
+*/
+
+/*.multiselect .multiselect__input:focus{ 
+    box-shadow: 0 0 0 0.2rem #458fff;
+    outline: none;
+    top: -.1rem;
+    right: -.1rem;
+    bottom: -.1rem;
+    left: -.1rem;
+    border-radius: calc(0.4rem + 0.1rem);
+    display: block;
+    pointer-events: none;
+    transition: box-shadow 0.1s var(--p-ease);
+    width: 100% !important;
+    padding: 0 10px!important;
+}*/
+
+.multiselect{
+    border-radius: calc(0.4rem + 0.1rem);
+    border: .1rem solid transparent;
+}
+.multiselect.multiselect--active{
+    box-shadow: 0 0 0 0.2rem #458fff;
+    border: .1rem solid transparent;
+}
+/*.multiselect__tags:focus-within {
+  border: 1px solid #000;
+}*/
+
+/* multi select */
+
+/*[data-focus-visible-added].focus-visible{
+    outline: none  !important;
+    box-shadow: none !important;
+}*/
