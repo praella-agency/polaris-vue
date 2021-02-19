@@ -147,6 +147,7 @@
         value: string;
         label: string;
         disabled?: boolean;
+        $isDisabled?: boolean;
         hidden?: boolean;
     }
 
@@ -179,11 +180,12 @@
                 options.push({
                     label: this.placeholder,
                     value: '',
-                    disabled: true,
+                    $isDisabled: true,
                 });
             }
             this.options.map((value) => {
                 if (typeof value === 'object') {
+                    if (value.disabled) value.$isDisabled = value.disabled;
                     options.push(value);
                 } else {
                     options.push({label: value, value});
