@@ -3,6 +3,7 @@ PDataTable example:
 ```vue
 <template>
   <PDataTable
+    loading
     :sort="sort"
     hasPagination
     @input-filter-changed="handleSearch"
@@ -15,13 +16,11 @@ PDataTable example:
     @sort-changed="handleSortChange"
       :actions="[
         {
-          accessibilityLabel: 'Secondary action label',
           onAction: handleUpdate,
-          icon: 'DuplicateMinor'
+          icon: 'EditMajorMonotone'
         },{
-          accessibilityLabel: 'Secondary action label',
           onAction: handleDelete,
-          icon: 'DuplicateMinor',
+          icon: 'DeleteMajorMonotone',
           destructive: true
         }
       ]"
@@ -45,35 +44,28 @@ PDataTable example:
         value: 'qty',
         type: 'numeric',
         sortable: true,
-      },{
-        content: 'Net sales',
-        value: 'sales',
-        type: 'numeric',
-        sortable: true,
       }]"
     :rows="[
       [
-        {action:{link: 'https://www.google.com/', content: 'Emerald Silk Gown'}},
-        {content:'$875.00'},
-        {badge: {status:'success',content: 121212, progress:'incomplete'}},
-        {content:140},
-        {content:'$122,500.00'},
-      ],[
-        {action:{link: 'https://www.google.com/', content: 'Mauve Cashmere Scarf'}},
-        {content:'$230.00'},
-        {badge: {status:'success',content: 1313131, progress:'incomplete'}},
-        {content:83},
-        {content:'$19,090.00'},
-      ],[
-        {action:{link: 'https://www.google.com/', content: 'Navy Merino Wool Blazer with khaki chinos and yellow belt'}},
-        {content:'$445.00'},
-        {badge: {status:'success',content: 1414141, progress:'incomplete'}},
-        {content:32},
-        {content:'$14,240.00'},
+        {content: 'Emerald Silk Gown', url: 'https://www.google.com/'},
+        '$875.00',
+        {content: 121212, status:'success', progress:'incomplete'},
+        140,
+      ],
+      [
+        {content: 'Mauve Cashmere Scarf', url: 'https://www.google.com/'},
+        '$230.00',
+        {content: 'A-1234', status:'success', progress:'incomplete'},
+        2,
+      ],
+      [
+        {content: 'Mauve Cashmere', url: 'https://www.google.com/'},
+        '$230.00',
+        {content: 'A-1234', status:'success', progress:'incomplete'},
+        {content: 299},
       ],
     ]"
     :ids="[1,2,3]"
-    :totals="['', '', '', 255, '$155,830.00']"
     footerContent="Showing 3 of 3 results">
     <template slot="filter">
     <PPopover :active="active" full-width @close="toggleRatingFilter" id="popover_1" zIndex="999">
@@ -143,11 +135,11 @@ export default {
       this.search = val;
     },
     updateRatingFilter(selected) {
-      this.selected= selected
+      this.selected= selected;
       console.log('selected rating',selected)
     },
     updateStatusFilter(selected) {
-      this.status = selected
+      this.status = selected;
       console.log('selected status',selected)
     },
     handleNext() {

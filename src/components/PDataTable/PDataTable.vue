@@ -6,7 +6,7 @@
     <div class="Polaris-DataTable">
       <div class="Polaris-DataTable__ScrollContainer">
         <table class="Polaris-DataTable__Table">
-          <thead>
+          <thead ref="thead">
           <slot name="head" v-if="$slots.hasOwnProperty('head')"></slot>
           <template v-else>
             <tr>
@@ -20,7 +20,7 @@
                   :sort="sort"
                   :sortable="heading.sortable"
                   :defaultSortDirection="defaultSortDirection"
-                  :contentType="heading.type"
+                  :contentType="heading.type ? heading.type : columnContentTypes[index]"
                   :firstColumn="index === 0"
                   :truncate="truncate"
                   :verticalAlign="verticalAlign"/>
@@ -54,7 +54,13 @@
             </tr>
           </template>
           </thead>
-          <tbody>
+          <tbody ref="tbody">
+          <template v-if="loading">
+            <tr class="Polaris-ResourceList__SpinnerContainer" :style="{'padding-top': `${topPadding}px`}">
+              <PSpinner :size="!$slots.hasOwnProperty('body') && rows.length < 2 ? 'small' : 'large'" />
+            </tr>
+            <tr class="Polaris-ResourceList__LoadingOverlay"></tr>
+          </template>
           <slot name="body" v-if="$slots.hasOwnProperty('body')"></slot>
           <tr v-else
               class="Polaris-DataTable__TableRow"
@@ -66,7 +72,7 @@
                 :content="typeof data !== 'object' ? data : data.content"
                 :action="data.url || data.onAction ? data : null"
                 :badge="typeof data === 'object' && !data.url && !data.onAction ? data : null"
-                :contentType="columnContentTypes[cIndex]"
+                :contentType="headings[cIndex].type ? headings[cIndex].type : columnContentTypes[cIndex]"
                 :firstColumn="cIndex === 0"
                 :truncate="truncate"
                 :verticalAlign="verticalAlign"/>
@@ -113,6 +119,8 @@
 
     import PDataTableCell from './PDataTableCell.vue';
     import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
+    import { PFilter } from '@/components/PFilter';
+    import { PSpinner } from '@/components/PSpinner';
     import { ComplexAction, LinkAction } from '@/types';
 
     type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
@@ -137,7 +145,7 @@
     }
 
     @Component({
-        components: { PDataTableCell, PPagination },
+        components: { PDataTableCell, PPagination, PFilter, PSpinner },
     })
 
     export default class PDataTable extends Vue {
@@ -168,10 +176,10 @@
          */
         @Prop(Boolean) public showTotalsInFooter!: boolean;
 
-  /**
-   * Display only search filter
-   */
-  @Prop(Boolean) public hasFilter!: boolean;
+        /**
+         * Display only search filter
+         */
+        @Prop(Boolean) public hasFilter!: boolean;
 
         /**
          * Table rows
@@ -208,6 +216,11 @@
         @Prop(Boolean) public hasPagination!: boolean;
 
         /**
+         * Data table is loading
+         */
+        @Prop(Boolean) public loading!: boolean;
+
+        /**
          * Pagination object
          */
         @Prop(Object) public pagination!: PPaginationDescriptor;
@@ -216,9 +229,33 @@
 
         @Prop(Array) public ids!: number[];
 
+        public topPadding = 8;
+
         public get hasActions() {
 
             return this.actions && this.actions.length > 0;
+        }
+
+        public mounted() {
+
+          let loadingPosition = 0;
+
+          if (typeof window !== 'undefined') {
+
+            const overlay = (this.$refs.tbody as Element).getBoundingClientRect();
+
+            const viewportHeight = Math.max(document.documentElement ? document.documentElement.clientHeight : 0, window.innerHeight || 0);
+
+            const overflow = viewportHeight - overlay.height;
+
+            const spinnerHeight = this.rows.length === 1 ? 28 : 45;
+
+            loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 : (viewportHeight - overlay.top - spinnerHeight) / 2;
+
+            loadingPosition = loadingPosition + (this.$refs.thead as Element).getBoundingClientRect().height;
+
+            this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
+          }
         }
 
         public onRemoveFilter(tag) {
