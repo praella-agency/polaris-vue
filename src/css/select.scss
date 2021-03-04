@@ -165,7 +165,7 @@
 		background: $select-input-focus-backdrop-bgcolor;
 		box-shadow: $select-input-focus-backdrop-box-shadow;
 		&:after {
-		    box-shadow: 0 0 0 .2rem #458FFF;
+		    box-shadow: 0 0 0 .2rem $theme-primary-color;
     		outline: .1rem solid transparent;
 		}
 		@media (-ms-high-contrast:active) {

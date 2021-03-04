@@ -95,11 +95,11 @@
         }
 
         .multiselect__option--highlight {
-            background: #5f6dc5;
+            background: #007B5C;
         }
 
         .multiselect__option--highlight:after {
-            background: #5f6dc5;
+            background: #007B5C;
         }
 
         .multiselect__content-wrapper {
@@ -111,7 +111,7 @@
 
         .multiselect__tag {
             border-radius: 3px;
-            background: linear-gradient(180deg, #6371c7, #5563c1);
+            background: linear-gradient(180deg, #006e52, #007B5C);
             margin: 6px 5px 6px 0;
         }
 
@@ -184,7 +184,7 @@
             }
             this.options.map((value) => {
                 if (typeof value === 'object') {
-                    if (value.disabled) value.$isDisabled = value.disabled;
+                    if (value.disabled) value.disabled = value.disabled;
                     options.push(value);
                 } else {
                     options.push({label: value, value});
