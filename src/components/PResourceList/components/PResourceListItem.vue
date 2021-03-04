@@ -23,42 +23,41 @@
 
 
 <script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { classNames, variationName } from '@/utilities/css';
+import { PCheckbox } from '@/components/PCheckbox';
+import { PAvatar } from '@/components/PAvatar';
 
-    import { Component, Vue, Prop } from 'vue-property-decorator';
-    import { classNames, variationName } from '@/utilities/css';
-    import { PCheckbox } from '@/components/PCheckbox';
-    import { PAvatar } from '@/components/PAvatar';
+@Component({
+    components: {
+        PCheckbox, PAvatar,
+    },
+})
+export default class PResourceListItem extends Vue {
 
-    @Component({
-        components: {
-            PCheckbox, PAvatar
-        },
-    })
-    export default class PResourceListItem extends Vue {
+    @Prop({type: Number, required: true}) public id!: number;
+    @Prop(String) public url!: string;
+    @Prop(String) public image!: string;
+    @Prop(String) public initials!: string;
+    @Prop({type: Boolean, default: false}) public checked!: boolean;
+    @Prop({type: Boolean, default: false}) public selectable!: boolean;
 
-        @Prop({type: Number, required: true}) public id!: number;
-        @Prop(String) public url!: string;
-        @Prop(String) public image!: string;
-        @Prop(String) public initials!: string;
-        @Prop({type: Boolean, default: false}) public checked!: boolean;
-        @Prop({type: Boolean, default: false}) public selectable!: boolean;
-
-        public get className() {
-            return classNames(
-                'Polaris-ResourceItem',
-                this.selectable && 'Polaris-ResourceItem--selectable'
-            );
-        }
-
-        public get checkboxId() {
-
-            return 'ResourceListCheckBox--'+this.id
-        }
-
-        public handleChange(event) {
-
-            this.$emit('change',this.id, event.checked)
-        }
-
+    public get className() {
+        return classNames(
+            'Polaris-ResourceItem',
+            this.selectable && 'Polaris-ResourceItem--selectable',
+        );
     }
+
+    public get checkboxId() {
+
+        return 'ResourceListCheckBox--' + this.id;
+    }
+
+    public handleChange(event) {
+
+        this.$emit('change', this.id, event.checked);
+    }
+
+}
 </script>

@@ -6,9 +6,6 @@
 
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
-  import { classNames, variationName } from '@/utilities/css';
-
-  import { PHeading } from '@/components/PHeading';
 
   @Component
   export default class PCardFooter extends Vue {

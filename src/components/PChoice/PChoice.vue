@@ -1,7 +1,14 @@
 <template>
   <div>
+    <!--
+      Triggered on click
+      @event click
+    -->
     <label :class="className" :for="id" @click="$emit('click', $event)">
-      <span class="Polaris-Choice__Control"><slot/></span>
+      <span class="Polaris-Choice__Control">
+      <!-- @slot Title for choice control -->
+        <slot/>
+      </span>
       <span class="Polaris-Choice__Label">
         <slot v-if="$slots.label" name="label" />
         <template v-else>{{ label }}</template>
@@ -24,17 +31,39 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
 import {PFieldError} from '@/components/PFieldError';
 
-
 @Component({
-  components: { PFieldError},
+  components: { PFieldError },
 })
 export default class PChoice extends Vue {
-  @Prop({type: String, default: `PolarisChoice${new Date().getUTCMilliseconds()}`}) public id!: string;
+
+  /**
+   * ID for form input
+   */
+  @Prop({type: String, required: true}) public id!: string;
+
+  /**
+   * Label for the checkbox
+   */
   @Prop(String) public label!: string;
+
+  /**
+   * Disable input
+   */
   @Prop(Boolean) public disabled!: boolean;
+
+  /**
+   * Visually hide the label
+   */
   @Prop(Boolean) public labelHidden!: boolean;
-  @Prop(Boolean) public vertical!: boolean;
+
+  /**
+   * Additional text to aide in use
+   */
   @Prop(String) public helpText!: string;
+
+  /**
+   * Display an error message
+   */
   @Prop({type: [String, Boolean]}) public error!: string | boolean;
 
   public get className() {

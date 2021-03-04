@@ -20,7 +20,7 @@ import {PDisplayText} from '@/components/PDisplayText';
 @Component({
   components: {
     ExampleContainer, ExampleContent,
-    PDisplayText
+    PDisplayText,
   },
 })
 export default class TitlesAndTextExample extends Vue {

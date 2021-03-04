@@ -24,18 +24,46 @@
   })
 
   export default class PColorPicker extends Vue {
+
+    /**
+     * Label for the colorPicker
+     */
     @Prop(String) public label!: string;
-    @Prop({type: String, default: `PolarisColorPicker${new Date().getUTCMilliseconds()}`}) public id!: string;
+
+    /**
+     * ID for form input
+     */
+    @Prop({type: String, required: true}) public id!: string;
+
+    /**
+     * LabelClass for input
+     */
     @Prop(String) public labelClass!: string;
+
+    /**
+     * Hide/Show input
+     */
     @Prop(Boolean) public showInput!: boolean;
+
+    /**
+     * PropsClass for input
+     */
     @Prop(String) public propsClass!: string;
+
+    /**
+     * Selected color
+     */
     @Prop({type: String, default: '#FFF'}) public color!: string;
-    @Prop(String) public connectedLeft!: string;
-    @Prop(String) public connectedRight!: string;
 
     public showPicker = false;
 
     public updateColor(color: any) {
+
+      /**
+       * Triggers when color is changed
+       *
+       * @property {string} color new color hex
+       */
       this.$emit('update:color', color.hex);
     }
 

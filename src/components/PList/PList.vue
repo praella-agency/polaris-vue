@@ -5,7 +5,6 @@
 </template>
 
 <script lang="ts">
-
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import { classNames } from '@/utilities/css';
 
@@ -16,6 +15,10 @@
 
         @Prop({ type: String, default: 'bullet' }) public type!: Type;
 
+        /**
+         * Type of list
+         * @values bullet, Number
+         */
         public element = this.type === 'bullet' ? 'ul' : 'ol';
 
         public get className() {

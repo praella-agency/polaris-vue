@@ -1,7 +1,9 @@
 <template>
     <PChoice :label="label" :label-hidden="labelHidden" :help-text="helpText" :id="id" :error="error">
+        <!-- @slot Content of a label -->
         <slot slot="label" name="label" />
         <template v-if="$slots.helpText" slot="helpText">
+            <!-- @slot Body of Help text -->
             <slot name="helpText"></slot>
         </template>
 
@@ -29,59 +31,110 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
-    import {classNames, variationName} from '@/utilities/css';
+import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import {classNames, variationName} from '@/utilities/css';
 
-    import {PIcon} from '@/components/PIcon';
-    import {PChoice} from '@/components/PChoice';
-    import {MinusMinor, TickSmallMinor} from '@/assets/shopify-polaris-icons';
+import {PIcon} from '@/components/PIcon';
+import {PChoice} from '@/components/PChoice';
+import {MinusMinor, TickSmallMinor} from '@/assets/shopify-polaris-icons';
 
-    @Component({
-        components: {
-            PIcon, PChoice,
-        },
-    })
-    export default class PCheckbox extends Vue {
-        @Prop({type: String, default: `PolarisCheckBox${new Date().getUTCMilliseconds()}`}) public id!: string;
-        @Prop(String) public name!: string;
-        @Prop(String) public label!: string;
-        @Prop(String) public helpText!: string;
-        @Prop(Boolean) public labelHidden!: boolean;
-        @Prop(Boolean) public indeterminate!: boolean;
-        @Prop({type: Boolean, default: false}) public checked!: boolean;
-        @Prop({type: [String, Boolean]}) public value!: string | boolean;
-        @Prop(Boolean) public disabled!: boolean;
-        @Prop(String) public error!: string;
+@Component({
+    components: {
+        PIcon, PChoice,
+    },
+})
+export default class PCheckbox extends Vue {
 
-        public get wrapperClassName() {
-            return classNames(
-                'Polaris-Checkbox',
-                this.error && 'Polaris-Checkbox--error'
-            );
-        }
+    /**
+     * ID for form input
+     */
+    @Prop({type: String, required: true}) public id!: string;
 
-        public get inputClassName() {
-            return classNames(
-                'Polaris-Checkbox__Input',
-                this.indeterminate && 'Polaris-Checkbox__Input--indeterminate',
-            );
-        }
+    /**
+     * Name for form input
+     */
+    @Prop({type: String}) public name!: string;
 
-        public get iconSource() {
-            return this.indeterminate ? MinusMinor : TickSmallMinor;
-        }
+    /**
+     * Label for the checkbox
+     */
+    @Prop(String) public label!: string;
 
-        public onChange(e: any) {
-            const target = e.target || e.srcElement;
-            this.$emit('change', {checked: target.checked, value: target.value});
-        }
+    /**
+     * Additional text to aide in use
+     */
+    @Prop(String) public helpText!: string;
 
-        public onFocus() {
-            this.$emit('focus');
-        }
+    /**
+     * Visually hide the label
+     */
+    @Prop(Boolean) public labelHidden!: boolean;
 
-        public onBlur() {
-            this.$emit('blur');
-        }
+    /**
+     * `indeterminate` shows a horizontal line in the checkbox
+     */
+    @Prop(Boolean) public indeterminate!: boolean;
+
+    /**
+     * Checkbox is selected.
+     */
+    @Prop({type: Boolean, default: false}) public checked!: boolean;
+
+    /**
+     * Value for form input
+     */
+    @Prop({type: [String, Boolean]}) public value!: string | boolean;
+
+    /**
+     * Disable input
+     */
+    @Prop(Boolean) public disabled!: boolean;
+
+    /**
+     * Display an error message
+     */
+    @Prop(String) public error!: string;
+
+    public get wrapperClassName() {
+        return classNames(
+            'Polaris-Checkbox',
+            this.error && 'Polaris-Checkbox--error',
+        );
     }
+
+    public get inputClassName() {
+        return classNames(
+            'Polaris-Checkbox__Input',
+            this.indeterminate && 'Polaris-Checkbox__Input--indeterminate',
+        );
+    }
+
+    public get iconSource() {
+        return this.indeterminate ? MinusMinor : TickSmallMinor;
+    }
+
+    public onChange(e: any) {
+        const target = e.target || e.srcElement;
+        /**
+         * Change event.
+         *
+         * @property {Object} {check:true|false, value: `target value`}
+         */
+        this.$emit('change', {checked: target.checked, value: target.value});
+    }
+
+    public onFocus() {
+        /**
+         * Focus event.
+         */
+        this.$emit('focus');
+    }
+
+    public onBlur() {
+        /**
+         * Blur event.
+         */
+        this.$emit('blur');
+    }
+}
 </script>

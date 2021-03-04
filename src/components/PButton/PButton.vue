@@ -1,4 +1,19 @@
 <template>
+  <!--
+    Triggered on click
+    @event click
+  -->
+
+  <!--
+    Triggered on focus
+    @event focus
+  -->
+
+  <!--
+    Triggered on blur
+    @event blur
+  -->
+
   <component
           :is="(to ? 'router-link' : (href ? 'a' : 'button'))"
           :to="to"
@@ -27,6 +42,7 @@
         <PIcon :source="loading ? 'placeholder' : icon"/>
       </span>
       <span v-if="!hasNoChildren" class="Polaris-Button__Text">
+        <!-- @slot Use this for button content -->
         <slot/>
       </span>
       <span v-if="disclosure" class="Polaris-Button__Icon">
@@ -56,24 +72,101 @@ const DEFAULT_SIZE = 'medium';
   components: { PIcon, PSpinner },
 })
 export default class PButton extends Vue {
+
+  /**
+   * A destination to link to, rendered in the href attribute of a link
+   */
   @Prop(String) public href!: string;
-  @Prop(String) public to!: string;
+
+  /**
+   * VueRouter link | link object
+   */
+  @Prop([String, Object]) public to!: string | object;
+
+  /**
+   * Define aria-controls, aria-haspopup, aria-owns
+   */
   @Prop(Boolean) public ariaProps!: boolean;
+
+  /**
+   * Define aria-label
+   */
   @Prop(String) public ariaLabel!: string;
-  @Prop(Boolean) public submit!: boolean;
+
+  /**
+   * Type of the button
+   * @values submit, reset, button
+   */
   @Prop(String) public type!: Type;
+
+  /**
+   * Provides extra visual weight and identifies the primary action in a set of buttons
+   */
   @Prop(Boolean) public primary!: boolean;
+
+  /**
+   * Gives the button a subtle alternative to the default button styling, appropriate for certain backdrops
+   */
   @Prop(Boolean) public outline!: boolean;
+
+  /**
+   * Indicates a dangerous or potentially negative action
+   */
   @Prop(Boolean) public destructive!: boolean;
+
+  /**
+   * Disables the button, disallowing merchant interaction
+   */
   @Prop(Boolean) public disabled!: boolean;
+
+  /**
+   * Replaces button text with a spinner while a background action is being performed
+   */
   @Prop(Boolean) public loading!: boolean;
+
+  /**
+   * Renders a button that looks like a link
+   */
   @Prop(Boolean) public plain!: boolean;
+
+  /**
+   * Makes `plain` and `outline` Button colors (text, borders, icons) the same as the current text color.
+   * Also adds an underline to `plain` Buttons
+   */
   @Prop(Boolean) public monochrome!: boolean;
+
+  /**
+   * Allows the button to grow to the width of its container
+   */
   @Prop(Boolean) public fullWidth!: boolean;
+
+  /**
+   * Displays the button with a disclosure icon. Defaults to `down` when set to true
+   * @values up, down, boolean
+   */
   @Prop([Boolean, String]) public disclosure!: boolean|string;
+
+  /**
+   * Changes the size of the button, giving it more or less padding
+   * @values slim, medium, large
+   */
   @Prop(String) public size!: Size;
+
+  /**
+   * Changes the inner text alignment of the button
+   * @values left, right, center
+   */
   @Prop(String) public textAlign!: TextAlign;
+
+  /**
+   * Icon to display to the left of the button content
+   * @see https://polaris-icons.shopify.com/?icon=AbandonedCartMajor available icon list.
+   */
   @Prop(String) public icon!: string;
+
+  /**
+   * Button content
+   */
   @Prop([String, Array, Number]) public value!: Any;
 
   public get className() {

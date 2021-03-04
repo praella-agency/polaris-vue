@@ -4,33 +4,44 @@
       {{prefix}}
       <slot v-if="$slots.prefix" name="prefix"></slot>
     </div>
+    <ckeditor v-if="richEditor" :id="id" :editor="editor" :config="{}"
+              @input="onInput"
+              v-model="computedValue"
+              :disabled="disabled"
+              :readonly="readOnly"
+              :autofocus="autoFocus"
+              :placeholder="placeholder"
+              :autocomplete="normalizeAutoComplete(autoComplete)"
+              :aria-describedby="describedBy"
+              :aria-labelledby="labelledBy"
+              :aria-invalid="hasError"
+    ></ckeditor>
     <input
-
-            :tag="multiline?'textarea':'input'"
-            ref="input"
-            :is="multiline ? 'textarea' : 'input'"
-            :name="name"
-            class="Polaris-TextField__Input"
-            :id="id"
-            :disabled="disabled"
-            :readonly="readOnly"
-            :autofocus="autoFocus"
-            :value="computedValue"
-            v-text="multiline?computedValue:''"
-            :placeholder="placeholder"
-            :autocomplete="normalizeAutoComplete(autoComplete)"
-            :class="inputClass"
-            :min="min"
-            :max="max"
-            :step="step"
-            :minlength="minLength"
-            :style="{ height: (multiline && computedHeight) ? computedHeight+'px' : null,overflow: (multiline && computedHeight) ? 'hidden' : null }"
-            :maxlength="maxLength"
-            :type="inputType"
-            :aria-describedby="describedBy"
-            :aria-labelledby="labelledBy"
-            :aria-invalid="hasError"
-            @input="onInput"
+      v-else
+      :tag="multiline?'textarea':'input'"
+      ref="input"
+      :is="multiline ? 'textarea' : 'input'"
+      :name="name"
+      :class="inputClassName"
+      :id="id"
+      :disabled="disabled"
+      :readonly="readOnly"
+      :autofocus="autoFocus"
+      :value="computedValue"
+      v-text="multiline?computedValue:''"
+      :placeholder="placeholder"
+      :autocomplete="normalizeAutoComplete(autoComplete)"
+      :min="min"
+      :max="max"
+      :step="step"
+      :minlength="minLength"
+      :style="{ height: (multiline && computedHeight) ? computedHeight+'px' : null,overflow: (multiline && computedHeight) ? 'hidden' : null }"
+      :maxlength="maxLength"
+      :type="inputType"
+      :aria-describedby="describedBy"
+      :aria-labelledby="labelledBy"
+      :aria-invalid="hasError"
+      @input="onInput"
     />
     <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" v-if="showSuffix">
       {{suffix}}
@@ -41,7 +52,7 @@
       <span class="Polaris-VisuallyHidden">Clear</span>
       <PIcon source="CircleCancelMinor" color="inkLightest"></PIcon>
     </button>-->
-    <div class="Polaris-TextField__Backdrop"></div>
+    <div class="Polaris-TextField__Backdrop" v-if="!richEditor"></div>
 
     <PFieldResizer
             v-if="multiline"
@@ -60,6 +71,8 @@
   import PSpinner from './PSpinner.vue';
   import PFieldResizer from '@/components/PTextField/components/PFieldResizer.vue';
   import { PIcon } from '@/components/PIcon';
+  import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+  import CKEditor from '@ckeditor/ckeditor5-vue2';
 
   type Type =
           | 'text'
@@ -76,16 +89,22 @@
           | 'week'
           | 'currency';
 
+  type Align =
+          | 'left'
+          | 'right'
+          | 'center';
+
   @Component({
-    components: { PFieldResizer, PSpinner, PIcon  },
+    components: { PFieldResizer, PSpinner, PIcon, ckeditor: CKEditor.component  },
   })
   export default class PInput extends Vue {
-    @Prop(String) public label!: string;
     @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
     @Prop() public value!: any;
     @Prop(String) public type!: Type;
+    @Prop(String) public align!: Align;
     @Prop(String) public placeholder!: string;
     @Prop(Boolean) public multiline!: boolean;
+    @Prop(Boolean) public richEditor!: boolean;
     @Prop(Boolean) public disabled!: boolean;
     @Prop(Boolean) public readOnly!: boolean;
     @Prop({type: Boolean, default: true}) public showInput!: boolean;
@@ -109,6 +128,7 @@
 
     public content = this.value !== null ? this.value : '';
     public height = this.minHeight;
+    public editor = ClassicEditor;
 
     public get inputType() {
       return this.type === 'currency' ? 'text' : this.type;
@@ -124,8 +144,20 @@
       );
     }
 
+    public get inputClassName() {
+      return classNames(
+              'Polaris-TextField__Input',
+              this.inputClass,
+              this.align && `Polaris-TextField__Input Polaris-TextField__Input--align${this.textAlign}`,
+      );
+    }
+
     public get showPrefix() {
       return this.prefix || this.$slots.prefix;
+    }
+
+    public get textAlign() {
+      return this.align.replace(/^_*(.)|_+(.)/g, (s, c, d) => c ? c.toUpperCase() : ' ' + d.toUpperCase());
     }
 
     public get showSuffix() {
@@ -194,7 +226,6 @@
         }
       });
     }
-
 
     public handleExpandingResize(e) {
       this.computedHeight = (e < this.minHeight) ? this.minHeight : e;

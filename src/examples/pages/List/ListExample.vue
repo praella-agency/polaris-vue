@@ -23,12 +23,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 import { ExampleContainer, ExampleContent } from '@/examples/components';
-import { PListItem, PList } from "@/components/PList";
+import { PListItem, PList } from '@/components/PList';
 
 @Component({
   components: {
     ExampleContainer, ExampleContent,
-    PList, PListItem
+    PList, PListItem,
   },
 })
 export default class TitlesAndTextExample extends Vue {

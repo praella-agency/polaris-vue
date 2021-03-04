@@ -8,7 +8,6 @@
 </template>
 
 <script lang="ts">
-
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import {PIcon} from '@/components/PIcon';
 
@@ -19,7 +18,14 @@
     })
     export default class PInlineError extends Vue {
 
+        /**
+         * Unique identifier of the invalid form field that the message describes
+         */
         @Prop(String) public message!: string;
+
+        /**
+         * Content briefly explaining how to resolve the invalid form field input.
+         */
         @Prop(String) public fieldID!: string;
     }
 </script>

@@ -40,10 +40,4 @@
       }
     }
   }
-
 </script>
-
-
-<style scoped>
-
-</style>

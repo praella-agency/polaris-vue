@@ -5,7 +5,7 @@ type MenuDescriptorWithIndex = (MenuActionDescriptor | MenuGroupDescriptor) & {
 };
 
 export function sortAndOverrideActionOrder(
-    actions: (MenuActionDescriptor | MenuGroupDescriptor)[],
+    actions: Array<MenuActionDescriptor | MenuGroupDescriptor>,
 ) {
     const actionsWithOverrides = actions.filter(
         (action) => action.index !== undefined,
@@ -25,7 +25,7 @@ export function sortAndOverrideActionOrder(
         (action) => action.index === undefined,
     );
 
-    const overriddenActions: (MenuActionDescriptor | MenuGroupDescriptor)[] = [
+    const overriddenActions: Array<MenuActionDescriptor | MenuGroupDescriptor> = [
         ...actionsWithoutOverrides,
     ];
 

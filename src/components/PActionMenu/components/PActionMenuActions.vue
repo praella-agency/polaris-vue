@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts">
-
     import {Vue, Component, Prop} from 'vue-property-decorator';
     import {MenuActionDescriptor, MenuGroupDescriptor} from '@/types';
     import {sortAndOverrideActionOrder} from '../utilities';

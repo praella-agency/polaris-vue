@@ -1,23 +1,37 @@
 <template>
   <div :class="className">
-    <template v-if="$slots.hasOwnProperty('title')">
+    <template v-if="$slots.hasOwnProperty('title') || title || $slots.hasOwnProperty('short_description') || shortDescription">
       <PCardHeader>
-        <slot slot="title" name="title"/>
-        <slot slot="short_description" name="short_description"/>
+        <!-- @slot Title content for the card -->
+        <slot slot="title" name="title" v-if="$slots.hasOwnProperty('title') || title">
+          <PHeading>{{title}}</PHeading>
+        </slot>
+        <!-- @slot Short Description content for the card -->
+        <slot slot="short_description" name="short_description" v-if="$slots.hasOwnProperty('short_description') || shortDescription">
+          <PCaption>{{shortDescription}}</PCaption>
+        </slot>
       </PCardHeader>
     </template>
 
-    <template v-if="sectioned">
-      <PCardSection>
+    <div v-if="$slots.hasOwnProperty('default') && $slots.default.filter((item)=>{return item.tag !== undefined || (item.text && item.text.trim().length > 0)}).length === 1">
+      <template v-if="sectioned">
+        <PCardSection>
+          <!-- @slot Body content for the card -->
+          <slot name="default" />
+        </PCardSection>
+      </template>
+      <template v-else>
+        <!-- @slot Body content for the card -->
         <slot name="default" />
-      </PCardSection>
-    </template>
-    <template v-else>
-      <slot name="default" />
-    </template>
+      </template>
+    </div>
+    <div v-else>
+      <slot/>
+    </div>
 
     <template v-if="$slots.hasOwnProperty('footer')">
       <PCardFooter>
+        <!-- @slot Footer content for the card -->
         <slot name="footer" />
       </PCardFooter>
     </template>
@@ -25,31 +39,50 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Prop } from 'vue-property-decorator';
-  import { classNames, variationName } from '@/utilities/css';
+    import { Component, Vue, Prop } from 'vue-property-decorator';
+    import { classNames, variationName } from '@/utilities/css';
 
-  import PCardHeader from './PCardHeader.vue';
-  import PCardSection from './PCardSection.vue';
-  import PCardFooter from '@/components/PCard/PCardFooter.vue';
+    import PCardHeader from './PCardHeader.vue';
+    import PCardSection from './PCardSection.vue';
+    import PCardFooter from '@/components/PCard/PCardFooter.vue';
+    import { PHeading } from '@/components/PHeading';
+    import { PCaption } from '@/components/PCaption';
 
-  @Component({
-    components: {
-      PCardFooter,
-      PCardHeader, PCardSection,
-    },
+    @Component({
+        components: {
+            PCardFooter,
+            PCardHeader, PCardSection, PHeading, PCaption,
+        },
 
-  })
-  export default class PCard extends Vue {
-    @Prop(String) public title!: string;
-    @Prop(Boolean) public subdued!: boolean;
-    @Prop(Boolean) public sectioned!: boolean;
+    })
+    export default class PCard extends Vue {
 
-    public get className() {
-      return classNames(
-              'Polaris-Card',
-              this.subdued && 'Polaris-Card--subdued',
-      );
+        /**
+         * Title content for the card
+         */
+        @Prop(String) public title!: string;
+
+        /**
+         * Card description
+         */
+        @Prop(String) public shortDescription!: string;
+
+        /**
+         * A less prominent card
+         */
+        @Prop(Boolean) public subdued!: boolean;
+
+        /**
+         * Auto wrap content in section
+         */
+        @Prop(Boolean) public sectioned!: boolean;
+
+        public get className() {
+            return classNames(
+                'Polaris-Card',
+                this.subdued && 'Polaris-Card--subdued',
+            );
+        }
     }
-  }
 </script>
 

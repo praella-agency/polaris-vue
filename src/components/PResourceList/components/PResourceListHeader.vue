@@ -49,76 +49,75 @@
 </template>
 
 <script lang="ts">
+import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
+import { classNames } from '@/utilities/css';
+import { PButtonGroup } from '@/components/PButtonGroup';
+import { PButton } from '@/components/PButton';
+import PCheckableButton from '@/components/PResourceList/components/PCheckableButton.vue';
+import PBulkActionButtonWrapper from '@/components/PResourceList/components/PBulkActionButtonWrapper.vue';
+import { PPopover } from '@/components/PPopover';
+import { PActionList } from '@/components/PActionList';
+import ComponentHelpers from '@/ComponentHelpers';
+import {PSelect} from '@/components/PSelect';
 
-    import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
-    import { classNames } from '@/utilities/css';
-    import { PButtonGroup } from '@/components/PButtonGroup';
-    import { PButton } from '@/components/PButton';
-    import PCheckableButton from '@/components/PResourceList/components/PCheckableButton.vue';
-    import PBulkActionButtonWrapper from '@/components/PResourceList/components/PBulkActionButtonWrapper.vue';
-    import { PPopover } from "@/components/PPopover";
-    import { PActionList } from "@/components/PActionList";
-    import ComponentHelpers from "@/ComponentHelpers";
-    import {PSelect} from "@/components/PSelect";
+interface BulkActionsInterface {
+    content: string;
+    onAction: void;
+}
 
-    interface BulkActionsInterface {
-        content: string;
-        onAction: void;
+interface SortOptionsInterface {
+    label: string;
+    value: void;
+}
+
+@Component({
+    components: {
+        PCheckableButton, PButtonGroup, PButton, PBulkActionButtonWrapper, PPopover, PActionList, PSelect,
+    },
+})
+export default class PResourceListHeader extends Vue {
+
+    @Prop({type: String, default: `PolarisPopover${ComponentHelpers.uuid()}`}) public popoverId!: string;
+    @Prop(String) public resourceTitle!: string;
+    @Prop(Object) public promotedBulkActions!: object;
+    @Prop(Array) public bulkActions!: BulkActionsInterface[];
+    @Prop(Array) public sortOptions!: SortOptionsInterface[];
+    @Prop({type: String, default: 'Sort By'}) public sortLabel!: string;
+    @Prop(Number) public totalCount!: number;
+    @Prop(Boolean) public selectable!: boolean;
+    @Prop(Boolean) public checked!: boolean;
+    @Prop(Number) public checkedCount!: number;
+    @Prop(Boolean) public hasMore!: boolean;
+    @Prop(Boolean) public selectedMore!: boolean;
+    @Prop({required: true, type: Number}) public count!: number;
+
+    public bulkActionsShown: boolean = false;
+
+    public get className() {
+
+        return classNames(
+            'Polaris-ResourceList__HeaderWrapper',
+            this.selectable && 'Polaris-ResourceList__HeaderWrapper--hasSelect',
+            this.checked && 'Polaris-ResourceList__HeaderWrapper--inSelectMode',
+            this.promotedBulkActions && 'Polaris-ResourceList__HeaderWrapper--hasSort',
+        );
     }
 
-    interface SortOptionsInterface {
-        label: string;
-        value: void;
-    }
+    public get resourceHeaderTitle() {
 
-    @Component({
-        components: {
-            PCheckableButton, PButtonGroup, PButton, PBulkActionButtonWrapper, PPopover, PActionList, PSelect
-        },
-    })
-    export default class PResourceListHeader extends Vue {
+        if (!this.checked) {
 
-        @Prop({type: String, default: `PolarisPopover${ComponentHelpers.uuid()}`}) public popoverId!: string;
-        @Prop(String) public resourceTitle!: string;
-        @Prop(Object) public promotedBulkActions!: object;
-        @Prop(Array) public bulkActions!: Array<BulkActionsInterface>;
-        @Prop(Array) public sortOptions!: Array<SortOptionsInterface>;
-        @Prop({type: String, default: 'Sort By'}) public sortLabel!: string;
-        @Prop(Number) public totalCount!: number;
-        @Prop(Boolean) public selectable!: boolean;
-        @Prop(Boolean) public checked!: boolean;
-        @Prop(Number) public checkedCount!: number;
-        @Prop(Boolean) public hasMore!: boolean;
-        @Prop(Boolean) public selectedMore!: boolean;
-        @Prop({required: true, type: Number}) public count!: number;
+            const resource = this.resourceTitle;
+            return `Showing ${this.count} ${this.totalCount ? ' of ' + this.totalCount : ''} ${resource}`;
+        } else if (this.checkedCount) {
 
-        public bulkActionsShown : boolean = false;
-
-        public get className() {
-
-            return classNames(
-                'Polaris-ResourceList__HeaderWrapper',
-                this.selectable && 'Polaris-ResourceList__HeaderWrapper--hasSelect',
-                this.checked && 'Polaris-ResourceList__HeaderWrapper--inSelectMode',
-                this.promotedBulkActions && 'Polaris-ResourceList__HeaderWrapper--hasSort',
-            );
-        }
-
-        public get resourceHeaderTitle() {
-
-            if (!this.checked) {
-
-                const resource = this.resourceTitle;
-                return `Showing ${this.count} ${this.totalCount ? ' of ' + this.totalCount : ''} ${resource}`;
-            } else if (this.checkedCount) {
-
-                return `${this.checkedCount}${this.selectedMore?'+':''} selected`
-            }
-        }
-
-        public handleToggleSelectMore() {
-
-            this.$emit('toggle-select-more')
+            return `${this.checkedCount}${this.selectedMore ? '+' : ''} selected`;
         }
     }
+
+    public handleToggleSelectMore() {
+
+        this.$emit('toggle-select-more');
+    }
+}
 </script>

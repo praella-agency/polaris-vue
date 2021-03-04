@@ -48,6 +48,8 @@ import { POptionList } from './POptionList';
 import { PBreadcrumbs } from './PBreadcrumbs';
 import { PActionMenu } from './PActionMenu';
 import { PPageActions } from './PPageActions';
+import { PMultiSelect } from './PMultiSelect';
+import VTooltip from 'v-tooltip'
 
 import '@/scss/main.scss';
 
@@ -56,7 +58,7 @@ const Components = {
   PBanner,
   PButton,
   PButtonGroup,
-  PCard, PCardHeader, PCardSection, PCardSubsection,
+  PCard, PCardSubsection, PCardSection,
   PCheckbox,
   PDataTable,
   PDisplayText,
@@ -101,6 +103,7 @@ const Components = {
   PBreadcrumbs,
   PActionMenu,
   PPageActions,
+  PMultiSelect,
 };
 
 const PolarisVue = {
@@ -108,6 +111,8 @@ const PolarisVue = {
     for (let componentKey in Components) {
       Vue.component(componentKey, Components[componentKey]);
     }
+
+    Vue.use(VTooltip)
   },
 };
 

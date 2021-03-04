@@ -26,7 +26,6 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 
 import PConnectedItem from './PConnectedItem.vue';
 
-
 @Component({
   components: { PConnectedItem },
 })

@@ -1,4 +1,16 @@
-import changeCase from 'change-case';
+import {
+    camelCase,
+    capitalCase,
+    constantCase,
+    dotCase,
+    headerCase,
+    noCase,
+    paramCase,
+    pascalCase,
+    pathCase,
+    sentenceCase,
+    snakeCase,
+} from "change-case";
 
 class ComponentHelpers {
     constructor() {
@@ -38,7 +50,19 @@ class ComponentHelpers {
     }
 
     getComponentName(polarisName) {
-        return this.componentNameFormat(polarisName, changeCase);
+        return this.componentNameFormat(polarisName, {
+            camelCase,
+            capitalCase,
+            constantCase,
+            dotCase,
+            headerCase,
+            noCase,
+            paramCase,
+            pascalCase,
+            pathCase,
+            sentenceCase,
+            snakeCase,
+        });
     }
 
     wrapNodesWithComponent(createElement, nodes, component, ignoredComponents = []) {

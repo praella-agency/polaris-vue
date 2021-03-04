@@ -1,6 +1,6 @@
 <template>
     <div :class="labelHidden && 'Polaris-Labelled--hidden'">
-        <div class="Polaris-Labelled__LabelWrapper">
+        <div class="Polaris-Labelled__LabelWrapper" v-if="label">
             <div class="Polaris-Label">
                 <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text">
                     {{ label }}

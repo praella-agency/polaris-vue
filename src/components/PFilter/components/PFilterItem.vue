@@ -1,13 +1,10 @@
 <template>
     <div class="Polaris-Filters-ConnectedFilterControl__Item">
-        <div>
-            <slot />
-        </div>
+        <slot />
     </div>
 </template>
 
 <script lang="ts">
-
     import { Component, Vue, Prop } from 'vue-property-decorator';
 
     @Component

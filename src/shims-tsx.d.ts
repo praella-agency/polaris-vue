@@ -9,8 +9,8 @@ declare global {
     interface IntrinsicElements {
       [elem: string]: any;
     }
-    interface ElementAttributesProperty{
-      $props: {}
+    interface ElementAttributesProperty {
+      $props: {};
     }
   }
 }

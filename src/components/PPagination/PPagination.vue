@@ -20,7 +20,6 @@
 </template>
 
 <script lang="ts">
-
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import {classNames, variationName} from '@/utilities/css';
     import {PUnstyledLink} from '@/components/PUnstyledLink';
