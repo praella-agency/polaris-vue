@@ -13,6 +13,8 @@ $body-line-height: 2rem;
 $font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
 $body-bg-color: #f4f6f8;
 
+$theme-primary-color: #007B5C;
+
 $body-media-fontsize: 1.4rem;
 
 /* button variable */
@@ -48,7 +50,7 @@ $btn-default-disable-svg-icon-color: #babec3;
 
 $buttongroup-segmented-border-radius: 0;
 
-$btn-primary-bgcolor: #008060;
+$btn-primary-bgcolor: $theme-primary-color;
 $btn-primary-color: #ffffff;
 $btn-primary-border-color: transparent;
 $btn-primary-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05),inset 0 -1px 0 rgba(0, 0, 0, 0.02);
@@ -1260,17 +1262,17 @@ $navigation-item-active-icon-svg-fill: #5C5F62;
 $navigation-item-selected-font-weight: 600;
 $navigation-item-selected-color: #007B5C;
 $navigation-item-selected-bgcolor: #EDEEEF;
-$navigation-item-selected-icon-svg-fill: #008060;
+$navigation-item-selected-icon-svg-fill: $theme-primary-color;
 $navigation-item-selected-icon-svg-color: transparent;
 
 $navigation-item-selected-focus-icon-svg-color: transparent;
-$navigation-item-selected-focus-icon-svg-fill: #008060;
+$navigation-item-selected-focus-icon-svg-fill: $theme-primary-color;
 $navigation-item-selected-focus-color: #202223;
 
 $navigation-item-selected-hover-bgcolor: #F1F2F3;
-$navigation-item-selected-hover-color: #006C50;
+$navigation-item-selected-hover-color: #006c50;
 $navigation-item-selected-hover-icon-svg-color: transparent;
-$navigation-item-selected-hover-icon-svg-fill: #008060;
+$navigation-item-selected-hover-icon-svg-fill: $theme-primary-color;
 
 $navigation-item-selected-active-bgcolor: #EDEEEF;
 $navigation-item-selected-active-color: #007B5C;
@@ -1283,13 +1285,13 @@ $navigation-item-disabled-icon-svg-color: #fff;
 $navigation-icon-svg-color: transparent;
 $navigation-icon-svg-fill: #5C5F62;
 
-$navigation-subnavigationactive-icon-svg-fill: #008060;
+$navigation-subnavigationactive-icon-svg-fill: $theme-primary-color;
 $navigation-subnavigationactive-icon-svg-color: transparent;
 $navigation-subnavigationactive-focus-icon-svg-color: transparent;
-$navigation-subnavigationactive-focus-icon-svg-fill: #008060;
+$navigation-subnavigationactive-focus-icon-svg-fill: $theme-primary-color;
 
 $navigation-subnavigationactive-hover-icon-svg-color: transparent;
-$navigation-subnavigationactive-hover-icon-svg-fill: #008060;
+$navigation-subnavigationactive-hover-icon-svg-fill: $theme-primary-color;
 
 $secondarynavigation-item-font-size: 1.5rem;
 $secondarynavigation-item-font-weight: 500;
@@ -1367,7 +1369,7 @@ $navigation-sectionheading-action-active-after-border: none;
 $navigation-rolluptoggle-font-weight: 400;
 $navigation-rolluptoggle-color: #6D7175;
 $navigation-rolluptoggle-hover-color: #007B5C;
-$navigation-rolluptoggle-hover-svg-fill: #008060;
+$navigation-rolluptoggle-hover-svg-fill: $theme-primary-color;
 
 $navigation-message-color: #47c1bf;
 
