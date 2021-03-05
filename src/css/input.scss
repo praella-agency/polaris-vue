@@ -47,7 +47,7 @@
 	}
 	&:focus~.Polaris-TextField__Backdrop {
 		&:after {
-			box-shadow: 0 0 0 .2rem $theme-primary-color;
+			box-shadow: 0 0 0 .2rem $theme-secondary-color;
     		outline: .1rem solid transparent;
 		}
 	}
@@ -180,7 +180,7 @@
 		right: -.2rem;
 		bottom: -.2rem;
 		left: -.2rem;
-		box-shadow: 0 0 0 -.2rem $theme-primary-color;
+		box-shadow: 0 0 0 -.2rem $theme-secondary-color;
 		border-radius: calc(0.4rem + .1rem);
 		transition: box-shadow .1s cubic-bezier(0.4, 0.22, 0.28, 1);
 		pointer-events: none;

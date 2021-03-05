@@ -5,6 +5,8 @@
 
 $theme-primary-color: #007B5C;
 $theme-primary-hover-color: #006e52;
+$theme-secondary-color: #2C6ECB;
+$theme-secondary-hover-color: #9ca8f2;
 $theme-default-button-color: #ffffff;
 $theme-bgcolor: #E4E5E7;
 $theme-border-color: #e1e3e5;
@@ -380,7 +382,7 @@ $actionlist-item-border-top: 1px solid rgba(255, 255, 255, 1);
 
 $actionlist-item-visited-color: inherit;
 
-$actionlist-item-after-box-shadow: 0 0 0 -0.1rem $theme-primary-color;
+$actionlist-item-after-box-shadow: 0 0 0 -0.1rem $theme-secondary-color;
 
 $actionlist-item-active-svg-fill: $theme-primary-color;
 $actionlist-item-active-before-bgcolor: $theme-primary-color;
@@ -388,7 +390,7 @@ $actionlist-item-active-bgcolor: $theme-default-btn-active-color;
 	
 $actionlist-item-hover-bgcolor: $theme-btn-default-hover-bgcolor;
 
-$actionlist-item-focus-after-box-shadow: 0 0 0 0.2rem $theme-primary-color;
+$actionlist-item-focus-after-box-shadow: 0 0 0 0.2rem $theme-secondary-color;
 
 $actionlist-item-destructive-color: $theme-destructive-color;
 $actionlist-item-destructive-svg-color: #d72c0d;
@@ -461,24 +463,24 @@ $actionmenu-menuaction-iconwrapper-disabled-svg-fill: $theme-resource-list-disab
 
 $optionlist-checkbox-input-border: 0 !important;
 
-$optionlist-checkbox-input-checked-backdrop-bgcolor: $theme-primary-color;
-$optionlist-checkbox-input-checked-backdrop-border-color: $theme-primary-color;
+$optionlist-checkbox-input-checked-backdrop-bgcolor: $theme-secondary-color;
+$optionlist-checkbox-input-checked-backdrop-border-color: $theme-secondary-color;
 
 $optionlist-checkbox-input-disabled-backdrop-box-shadow: none;
-$optionlist-checkbox-input-disabled-backdrop-bgcolor: $theme-primary-color;
+$optionlist-checkbox-input-disabled-backdrop-bgcolor: $theme-secondary-color;
 $optionlist-checkbox-input-disabled-backdrop-after-bgcolor: #f9fafb;
 
 $optionlist-checkbox-input-disabled-icon-svg-fill: $theme-resource-list-disabled-color;
 
-$optionlist-checkbox-active-backdrop-bgcolor: $theme-primary-color;
-$optionlist-checkbox-active-backdrop-box-shadow: 0 0 0 1px $theme-primary-color,0 0 0 0 transparent;
+$optionlist-checkbox-active-backdrop-bgcolor: $theme-secondary-color;
+$optionlist-checkbox-active-backdrop-box-shadow: 0 0 0 1px $theme-secondary-color,0 0 0 0 transparent;
 $optionlist-checkbox-active-backdrop-after-bgcolor: $theme-common-color;
 
 $optionlist-checkbox-backdrop-bgcolor: $theme-default-button-color;
 $optionlist-checkbox-backdrop-border: 0.2rem solid $btn-default-disable-color;
 $optionlist-checkbox-backdrop-border-radius: 4px;
 
-$optionlist-checkbox-backdrop-after-bgcolor: $theme-primary-color;
+$optionlist-checkbox-backdrop-after-bgcolor: $theme-secondary-color;
 $optionlist-checkbox-backdrop-after-border-radius: 4px;
 
 $optionlist-checkbox-icon-svg-fill: $theme-common-color;
@@ -492,9 +494,9 @@ $optionlist-option-visited-color: inherit;
 $optionlist-option-hover-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
 
 $optionlist-option-focused-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
-$optionlist-option-focused-box-shadow: inset .2rem 0 0 $theme-primary-color;
+$optionlist-option-focused-box-shadow: inset .2rem 0 0 $theme-secondary-color;
 
-$optionlist-option-focused-hover-box-shadow: inset .2rem 0 0 $theme-primary-color;
+$optionlist-option-focused-hover-box-shadow: inset .2rem 0 0 $theme-secondary-color;
 $optionlist-option-focused-hover-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
 
 $optionlist-option-disabled-bgimage: linear-gradient(#f9fafb,#f9fafb);
@@ -504,10 +506,10 @@ $optionlist-option-disabled-media-svg-color: $theme-common-color;
 $optionlist-option-select-bgimage: linear-gradient(rgba(179,188,245,.15),rgba(179,188,245,.15));
 
 $optionlist-option-select-focused-bgimage: linear-gradient(rgba(179,188,245,.15),rgba(179,188,245,.15)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
-$optionlist-option-select-focused-box-shadow: inset .2rem 0 0 $theme-primary-color;
+$optionlist-option-select-focused-box-shadow: inset .2rem 0 0 $theme-secondary-color;
 
 $optionlist-option-select-focused-hover-bgimage: linear-gradient(rgba(179,188,245,.15),rgba(179,188,245,.15)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
-$optionlist-option-select-focused-hover-box-shadow: inset .2rem 0 0 $theme-primary-color;
+$optionlist-option-select-focused-hover-box-shadow: inset .2rem 0 0 $theme-secondary-color;
 
 $optionlist-option-active-bgimage: linear-gradient(rgba(179,188,245,.1),rgba(179,188,245,.1));
 $optionlist-option-media-svg-fill: #454f5b; 
@@ -718,7 +720,7 @@ $breadcrumbs-hover-color: $theme-topbar-color;
 $breadcrumbs-hover-icon-svg-fill: $theme-topbar-color;
 
 $breadcrumbs-focus-content-bgcolor: transparent;
-$breadcrumbs-focus-after-box-shadow: 0 0 0 .2rem $theme-primary-color;
+$breadcrumbs-focus-after-box-shadow: 0 0 0 .2rem $theme-secondary-color;
 
 $breadcrumbs-content-border-radius: 0.8rem;
 $breadcrumbs-icon-svg: $theme-svg-fill-color;
@@ -773,46 +775,46 @@ $checkbox-input-active-backdrop-box-shadow: 0 0 0 1px $theme-primary-color,0 0 0
 
 $checkbox-input-active-backdrop-after-bgcolor: $theme-common-color;*/
 
-$checkbox-input-checked-backdrop-bgcolor: $theme-primary-color;
+$checkbox-input-checked-backdrop-bgcolor: $theme-secondary-color;
 $checkbox-input-checked-backdrop-border-color: $theme-bgcolor;
 
-/*$checkbox-input-focus-backdrop-bgcolor: $theme-primary-color;
+/*$checkbox-input-focus-backdrop-bgcolor: $theme-secondary-color;
 $checkbox-input-focus-backdrop-box-shadow: 0 0 0 1px $theme-primary-color,0 0 0 0 transparent;*/
 
 /*$checkbox-input-focus-backdrop-after-bgcolor: $theme-common-color;*/
 
 $checkbox-input-disabled-backdrop-box-shadow: none;
-$checkbox-input-disabled-backdrop-bgcolor: $theme-primary-color;
+$checkbox-input-disabled-backdrop-bgcolor: $theme-secondary-color;
 $checkbox-input-disabled-backdrop-after-bgcolor: #f9fafb;
 
 $checkbox-input-disabled-icon-svg-fill: $theme-resource-list-disabled-color;
 
-$checkbox-active-backdrop-bgcolor: $theme-primary-color;
-$checkbox-active-backdrop-box-shadow: 0 0 0 1px $theme-primary-color,0 0 0 0 transparent;
+$checkbox-active-backdrop-bgcolor: $theme-secondary-color;
+$checkbox-active-backdrop-box-shadow: 0 0 0 1px $theme-secondary-color,0 0 0 0 transparent;
 $checkbox-active-backdrop-after-bgcolor: $theme-common-color;
 
-$checkbox-input-indeterminate-backdrop-border-color: $theme-primary-color;
-$checkbox-input-indeterminate-backdrop-bgcolor: $theme-primary-color;
+$checkbox-input-indeterminate-backdrop-border-color: $theme-secondary-color;
+$checkbox-input-indeterminate-backdrop-bgcolor: $theme-secondary-color;
 
 $checkbox-backdrop-bgcolor: $theme-default-button-color;
 $checkbox-backdrop-border: 0.2rem solid $btn-default-disable-color;
 $checkbox-backdrop-border-radius: 4px;
 
-$checkbox-backdrop-after-bgcolor: $theme-primary-color;
+$checkbox-backdrop-after-bgcolor: $theme-secondary-color;
 $checkbox-backdrop-after-border-radius: 4px;
 
 $checkbox-icon-svg-fill: $theme-common-color;
 
 /* radio button */
 
-$radio-input-active-backdrop-bgcolor: $theme-primary-color;
-$radio-input-active-backdrop-box-shadow: 0 0 0 1px $theme-primary-color,0 0 0 0 transparent;
+$radio-input-active-backdrop-bgcolor: $theme-secondary-color;
+$radio-input-active-backdrop-box-shadow: 0 0 0 1px $theme-secondary-color,0 0 0 0 transparent;
 $radio-input-active-backdrop-after-bgcolor: $theme-common-color;
 
-$radio-input-checked-backdrop-bgcolor: $theme-primary-color;
+$radio-input-checked-backdrop-bgcolor: $theme-secondary-color;
 
-$radio-input-focus-backdrop-bgcolor: $theme-primary-color;
-$radio-input-focus-backdrop-box-shadow: 0 0 0 1px $theme-primary-color,0 0 0 0 transparent;
+$radio-input-focus-backdrop-bgcolor: $theme-secondary-color;
+$radio-input-focus-backdrop-box-shadow: 0 0 0 1px $theme-secondary-color,0 0 0 0 transparent;
 $radio-input-focus-backdrop-after-bgcolor: $theme-common-color;
 
 $radio-input-disabled-backdrop-bgcolor: $theme-resource-list-border;
@@ -828,7 +830,7 @@ $radio-backdrop-border-radius: 50%;
 
 $radio-backdrop-after-bgcolor: linear-gradient(180deg,$theme-common-color,#f9fafb);
 
-$radio-icon-bgcolor: $theme-primary-color;
+$radio-icon-bgcolor: $theme-secondary-color;
 
 /* ColorPicker */
 
@@ -880,10 +882,10 @@ $datatable-heading-font-size: inherit;
 $datatable-heading-line-height: inherit;
 $datatable-heading-bgcolor: none;
 
-$datatable-heading-focus-color: $theme-primary-color;
-$datatable-heading-focus-svg-fill: $theme-primary-color;
+$datatable-heading-focus-color: $theme-secondary-color;
+$datatable-heading-focus-svg-fill: $theme-secondary-color;
 
-$datatable-heading-hover-color: $theme-primary-color;
+$datatable-heading-hover-color: $theme-secondary-color;
 $datatable-heading-hover-svg-fill: $theme-primary-color;
 
 $datatable-cell-total-font-weight: 600;
@@ -903,20 +905,20 @@ $datepicker-day-bgcolor: transparent;
 $datepicker-day-font-size: 1.2rem;
 
 $datepicker-day-hover-bgcolor: $theme-resource-list-border;
-$datepicker-day-focus-box-shadow:  inset 0 0 0 2px $theme-primary-color;
+$datepicker-day-focus-box-shadow:  inset 0 0 0 2px $theme-secondary-color;
 
 $datepicker-day-today-font-weight: 700;
 
-$datepicker-day-inrange-bgcolor: $theme-primary-color;
-$datepicker-day-inrange-border: .1rem solid $theme-primary-hover-color;
+$datepicker-day-inrange-bgcolor: $theme-secondary-color;
+$datepicker-day-inrange-border: .1rem solid $theme-secondary-color;
 
-$datepicker-day-inrange-hover-bgcolor: $theme-primary-hover-color;
+$datepicker-day-inrange-hover-bgcolor: $theme-secondary-hover-color;
 
-$datepicker-day-selected-bgcolor: $theme-primary-color;
-$datepicker-day-selected-border: .1rem solid $theme-primary-color;
+$datepicker-day-selected-bgcolor: $theme-secondary-color;
+$datepicker-day-selected-border: .1rem solid $theme-secondary-color;
 $datepicker-day-selected-color: $theme-common-color;
-$datepicker-day-selected-hover-bgcolor: $theme-primary-color;
-$datepicker-day-selected-focus-box-shadow:  inset 0 0 0 2px $theme-primary-color;
+$datepicker-day-selected-hover-bgcolor: $theme-secondary-color;
+$datepicker-day-selected-focus-box-shadow:  inset 0 0 0 2px $theme-secondary-color;
 
 $datepicker-day-disabled-bgcolor: #f9fafb;
 $datepicker-day-disabled-color: $theme-disable-backdrop-color;
@@ -1105,7 +1107,7 @@ $filters-trigger-color: $theme-topbar-color;
 $filters-trigger-hover-bgcolor: $theme-btn-default-hover-bgcolor;
 
 $filters-trigger-focus-box-shadow: none;
-$filters-trigger-focus-after-box-shadow: 0 0 0 0.2rem $theme-primary-color;
+$filters-trigger-focus-after-box-shadow: 0 0 0 0.2rem $theme-secondary-color;
 
 $filters-trigger-title-font-size: 1.5rem;
 $filters-trigger-title-font-weight: 600;
@@ -1182,8 +1184,8 @@ $frame-skipanchor-svg-fill: $theme-label-color;
 $frame-skipanchor-hover-bgcolor: linear-gradient(180deg,#f9fafb,$body-bg-color);
 $frame-skipanchor-hover-border-color: $theme-disable-backdrop-color;
 
-$frame-skipanchor-focus-border-color: $theme-primary-color;
-$frame-skipanchor-focus-box-shadow: 0 0 0 1px $theme-primary-color;
+$frame-skipanchor-focus-border-color: $theme-secondary-color;
+$frame-skipanchor-focus-box-shadow: 0 0 0 1px $theme-secondary-color;
 
 $frame-skipanchor-active-bgcolor: linear-gradient(180deg,$body-bg-color,$body-bg-color);
 $frame-skipanchor-active-border-color: $theme-disable-backdrop-color;
@@ -1584,8 +1586,8 @@ $select-error-backdrop-bgcolor: #FED3D1;
 $select-error-backdrop-border-color: $theme-destructive-color;
 $select-error-backdrop-hover-bgcolor: $theme-destructive-color;
 
-$select-error-input-focus-backdrop-bgcolor: $theme-primary-color;
-$select-error-input-focus-backdrop-box-shadow: 0 0 0 0.2rem $theme-primary-color;
+$select-error-input-focus-backdrop-bgcolor: $theme-secondary-color;
+$select-error-input-focus-backdrop-box-shadow: 0 0 0 0.2rem $theme-secondary-color;
 
 $select-placeholder-error-input-color: #9c9798;
 $select-placeholder-error-input-text-shadow: 0 0 0 $theme-action-menu-svg;
@@ -1601,10 +1603,10 @@ $select-icon-svg-fill: $theme-label-color;
 
 $select-backdrop-bgcolor: $theme-default-button-color;
 $select-backdrop-border: 0.1rem solid $theme-btn-default-top-border-color;
-$select-backdrop-box-shadow: 0 0 0 -0.2rem $theme-primary-color !important;
+$select-backdrop-box-shadow: 0 0 0 -0.2rem $theme-secondary-color !important;
 $select-backdrop-border-radius: 0.4rem;
 
-$select-backdrop-after-box-shadow: 0 0 0 -0.2rem $theme-primary-color;
+$select-backdrop-after-box-shadow: 0 0 0 -0.2rem $theme-secondary-color;
 $select-backdrop-after-border-radius: calc(0.4rem + 0.1rem);
 
 $select-input-font-size: 1.6rem;
@@ -1612,8 +1614,8 @@ $select-input-font-weight: 400;
 $select-input-line-height: 2.4rem;
 $select-input-media-font-size: 1.4rem;
 
-$select-input-focus-backdrop-bgcolor: $theme-primary-color;
-$select-input-focus-backdrop-box-shadow: 0 0 0 1px $theme-primary-color,0 0 0 0 transparent;
+$select-input-focus-backdrop-bgcolor: $theme-secondary-color;
+$select-input-focus-backdrop-box-shadow: 0 0 0 1px $theme-secondary-color,0 0 0 0 transparent;
 $select-input-focus-backdrop-after-bgcolor: $theme-common-color;
 
 /* ResourceList CheckableButton */
@@ -1638,7 +1640,7 @@ $resourcelist-checkablebutton-plain-hover-bgcolor: transparent;
 $resourcelist-checkablebutton-selectmode-color: $theme-label-color;
 $resourcelist-checkablebutton-selectmode-font-weight: 600;
 
-$resourcelist-checkablebutton-selected-color: $theme-primary-color;
+$resourcelist-checkablebutton-selected-color: $theme-secondary-color;
 $resourcelist-checkablebutton-selected-border-color: $theme-disable-backdrop-color;
 
 $resourcelist-bulkactions-group-font-size: 1.6rem;
@@ -1685,7 +1687,7 @@ $tabs-visited-color: inherit;
 
 $tabs-hover-active-title-bgcolor: transparent;
 $tabs-hover-active-title-after-bgcolor: #A2BCB0;
-$tabs-hover-focus-title-after-box-shadow: 0 0 0 0.2rem $theme-primary-hover-color;
+$tabs-hover-focus-title-after-box-shadow: 0 0 0 0.2rem $theme-secondary-color;
 
 $tabs-hover-title-font-weight: 400;
 $tabs-hover-title-color: $theme-topbar-color;

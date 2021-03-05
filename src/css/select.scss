@@ -165,7 +165,7 @@
 		background: $select-input-focus-backdrop-bgcolor;
 		box-shadow: $select-input-focus-backdrop-box-shadow;
 		&:after {
-		    box-shadow: 0 0 0 .2rem $theme-primary-color;
+		    box-shadow: 0 0 0 .2rem $theme-secondary-color;
     		outline: .1rem solid transparent;
 		}
 		@media (-ms-high-contrast:active) {
@@ -178,4 +178,8 @@
 	.Polaris-Select__Input:focus~.Polaris-Select__Content {
 		color: highlightText;
 	}
+}
+
+.Polaris-Select option:hover {
+	background-color: $theme-secondary-color;
 }
