@@ -1,6 +1,10 @@
 module.exports = {
     components: 'src/components/**/*.vue',
     ignore: [
+        "**/components/PActionMenu/components/PActionMenuActions.vue",
+        "**/components/PActionMenu/components/PActionMenuMenuAction.vue",
+        "**/components/PActionMenu/components/PActionMenuMenuGroup.vue",
+        "**/components/PActionMenu/components/PActionMenuRollupActions.vue",
         "**/components/PActionList/components/*",
         "**/components/PActionMenu/*",
         "**/components/PButton/utils/*",
@@ -27,6 +31,7 @@ module.exports = {
         "**/components/PPage/components/components/PPageHeaderTitle.vue",
         "**/components/PPagination/PPagination.vue",
         "**/components/PModal/components/*",
+        "**/components/PSpinner/PSpinner.vue",
     ],
     require: ['./src/scss/main.scss','./src/mixins/tooltip.js'],
     usageMode: 'expand',
