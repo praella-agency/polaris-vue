@@ -1659,7 +1659,7 @@
         outline: none;
 
         &:not(:active) {
-            outline: #458FFF auto 1px;
+            outline: $theme-shadow-color auto 1px;
         }
     }
 
@@ -2887,7 +2887,7 @@
     &:focus~.Polaris-TopBar-SearchField__Backdrop {
         background-color: $topbar-searchfield-input-focus-backdrop-bgcolor;
         &:after{
-            box-shadow: 0 0 0 0.2rem #458FFF;
+            box-shadow: 0 0 0 0.2rem $theme-shadow-color;
             outline: 0.1rem solid transparent;
         }   
     }
@@ -2975,14 +2975,14 @@
         left: -0.1rem;
         display: block;
         pointer-events: none;
-        box-shadow: 0 0 0 -0.1rem #458FFF;
+        box-shadow: 0 0 0 -0.1rem $theme-shadow-color;
         transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
         border-radius: calc(0.8rem + 0.1rem);
     }
     &:focus {
         outline: none;
         &:after{
-            box-shadow: 0 0 0 0.2rem #458FFF;
+            box-shadow: 0 0 0 0.2rem $theme-shadow-color;
             outline: 0.1rem solid transparent;
         }
         svg {
@@ -3008,7 +3008,6 @@
 }
 
 .Polaris-TopBar-SearchField__Backdrop {
-    position: relative;
     position: absolute;
     z-index: 1;
     top: 0;
@@ -3032,7 +3031,7 @@
         left: -0.1rem;
         display: block;
         pointer-events: none;
-        box-shadow: 0 0 0 -0.1rem #458FFF;
+        box-shadow: 0 0 0 -0.1rem $theme-shadow-color;
         transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
         border-radius: calc(0.4rem + 0.1rem);
     }
@@ -3097,7 +3096,7 @@
         background-color: $topbar-menu-activator-focus-bgcolor;
         outline: none;
         &:after{
-            box-shadow: 0 0 0 0.2rem #458FFF;
+            box-shadow: 0 0 0 0.2rem $theme-shadow-color;
             outline: 0.1rem solid transparent;
         }
     }
@@ -3111,7 +3110,7 @@
         left: -0.1rem;
         display: block;
         pointer-events: none;
-        box-shadow: 0 0 0 -0.1rem #458FFF;
+        box-shadow: 0 0 0 -0.1rem $theme-shadow-color;
         transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
         border-radius: calc(0.4rem + 0.1rem);
     }
@@ -3346,13 +3345,13 @@
     display: block;
     pointer-events: none;
     transition: box-shadow 0.1s var(--p-ease);
-    box-shadow: 0 0 0 -0.2rem #458fff;
+    box-shadow: 0 0 0 -0.2rem $theme-shadow-color;
     border-radius: calc(0.4rem + 0.1rem);
 }
 */
 
 /*.multiselect .multiselect__input:focus{ 
-    box-shadow: 0 0 0 0.2rem #458fff;
+    box-shadow: 0 0 0 0.2rem $theme-shadow-color;
     outline: none;
     top: -.1rem;
     right: -.1rem;
@@ -3371,7 +3370,7 @@
     border: .1rem solid transparent;
 }
 .multiselect.multiselect--active{
-    box-shadow: 0 0 0 0.2rem #458fff;
+    box-shadow: 0 0 0 0.2rem $theme-shadow-color;
     border: .1rem solid transparent;
 }
 /*.multiselect__tags:focus-within {

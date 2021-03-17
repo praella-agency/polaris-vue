@@ -9,9 +9,6 @@
 		background: $checkbox-error-backdrop-bgcolor;
 		border-color: $checkbox-error-backdrop-border-color;
 	}
-	.Polaris-Checkbox__Input.Polaris-Checkbox__Input--indeterminate+.Polaris-Checkbox__Backdrop {
-		border-color: #2c6ecb;
-	}
 	.Polaris-Checkbox__Input {
 		&:checked+.Polaris-Checkbox__Backdrop {
 			border-color: $checkbox-error-input-checked-backdrop-border-color;
@@ -138,10 +135,6 @@
 			fill: $checkbox-input-disabled-icon-svg-fill;
 		}
 	}
-}
-.Polaris-Checkbox__Input.Polaris-Checkbox__Input--indeterminate+.Polaris-Checkbox__Backdrop {
-	background: $checkbox-input-indeterminate-backdrop-bgcolor;
-	border-color: $checkbox-input-indeterminate-backdrop-border-color;
 }
 .Polaris-Checkbox__Input.Polaris-Checkbox__Input--indeterminate~.Polaris-Checkbox__Icon {
 	transform: translate(-50%,-50%) scale(1);

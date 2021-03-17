@@ -1,5 +1,5 @@
 module.exports = {
-
+    components: 'src/components/**/*.vue',
     ignore: [
         "**/components/PActionList/components/*",
         "**/components/PActionMenu/*",
@@ -28,5 +28,8 @@ module.exports = {
         "**/components/PPagination/PPagination.vue",
         "**/components/PModal/components/*",
     ],
-    require: ['./src/scss/main.scss','./src/mixins/tooltip.js']
+    require: ['./src/scss/main.scss','./src/mixins/tooltip.js'],
+    usageMode: 'expand',
+    exampleMode: 'expand',
+
 }

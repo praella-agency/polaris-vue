@@ -26,7 +26,7 @@ $theme-resource-list-border: #dfe3e8;
 $theme-common-color: #fff;
 $theme-common-gray-color: #6D7175;
 $theme-resource-list-disabled-color: #919eab;
-
+$theme-shadow-color: #458FFF;
 
 /* for body */
 
@@ -214,7 +214,7 @@ $btn-pressed-active-box-shadow: 0 0 0 1px transparent,inset 0 1px 1px 0 rgba(99,
 $btn-pressed-active-bgcolor: #d3d9df;
 
 $btn-plain-bgcolor: transparent;
-$btn-plain-color: rgba(216, 44, 13, 1);
+$btn-plain-color: #2c6ecb;
 $btn-plain-box-shadow: none;
 
 $btn-plain-svg-icon-color: rgba(216, 44, 13, 1);
@@ -223,23 +223,23 @@ $btn-plain-btn-content-bgcolor: rgba(33,43,54,.1);
 $btn-plain-pressed-content-font-weight: 400;
 
 $btn-plain-active-bgcolor: transparent;
-$btn-plain-active-color: $theme-primary-color;
+$btn-plain-active-color: #103262;
 $btn-plain-active-box-shadow: none;
 
 $btn-plain-active-svg-icon-color: $theme-primary-color;
 
 $btn-plain-focus-bgcolor: transparent;
-$btn-plain-focus-color: $theme-primary-color;
+$btn-plain-focus-color: #1f5199;
 $btn-plain-focus-box-shadow: none;	
 $btn-plain-focus-svg-icon-color: $theme-primary-color;
 
 $btn-plain-hover-bgcolor: transparent;
-$btn-plain-hover-color: $theme-primary-hover-color;
+$btn-plain-hover-color: #1f5199;
 $btn-plain-hover-box-shadow: none;	
 $btn-plain-hover-svg-icon-color: $theme-primary-hover-color;
 
 $btn-plain-pressed-bgcolor: transparent;
-$btn-plain-pressed-color: $theme-primary-color;
+$btn-plain-pressed-color: #103262;
 $btn-plain-pressed-box-shadow: none;	
 $btn-plain-pressed-svg-icon-color: $theme-primary-hover-color;
 
@@ -776,7 +776,7 @@ $checkbox-input-active-backdrop-box-shadow: 0 0 0 1px $theme-primary-color,0 0 0
 $checkbox-input-active-backdrop-after-bgcolor: $theme-common-color;*/
 
 $checkbox-input-checked-backdrop-bgcolor: $theme-secondary-color;
-$checkbox-input-checked-backdrop-border-color: $theme-bgcolor;
+$checkbox-input-checked-backdrop-border-color: $theme-secondary-color;
 
 /*$checkbox-input-focus-backdrop-bgcolor: $theme-secondary-color;
 $checkbox-input-focus-backdrop-box-shadow: 0 0 0 1px $theme-primary-color,0 0 0 0 transparent;*/

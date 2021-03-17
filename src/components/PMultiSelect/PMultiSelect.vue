@@ -136,92 +136,92 @@
     }
 </style>
 <script lang="ts">
-    import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
-    import {ArrowUpDownMinor} from '@/assets/shopify-polaris-icons';
-    import Multiselect from 'vue-multiselect';
-    import {classNames} from '@/utilities/css';
+import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import {ArrowUpDownMinor} from '@/assets/shopify-polaris-icons';
+import Multiselect from 'vue-multiselect';
+import {classNames} from '@/utilities/css';
 
-    import {PIcon} from '@/components/PIcon';
+import {PIcon} from '@/components/PIcon';
 
-    interface StrictOption {
-        value: string;
-        label: string;
-        disabled?: boolean;
-        hidden?: boolean;
-    }
+interface StrictOption {
+    value: string;
+    label: string;
+    disabled?: boolean;
+    hidden?: boolean;
+}
 
-    @Component({
-        components: {PIcon, Multiselect},
-        mixins: [
-            {
-                data() {
-                    return {ArrowUpDownMinor};
-                },
+@Component({
+    components: {PIcon, Multiselect},
+    mixins: [
+        {
+            data() {
+                return {ArrowUpDownMinor};
             },
-        ],
-    })
+        },
+    ],
+})
 
-    export default class PMultiSelect extends Vue {
-        @Prop(Boolean) public disabled!: boolean;
-        @Prop(String) public label!: string;
-        @Prop() public options!: StrictOption[];
-        @Prop({default: []}) public value!: any [];
-        @Prop({type: Boolean, default: true}) public searchable!: string;
-        @Prop({type: Boolean, default: false}) public taggable!: string;
-        @Prop(String) public placeholder!: string;
+export default class PMultiSelect extends Vue {
+    @Prop(Boolean) public disabled!: boolean;
+    @Prop(String) public label!: string;
+    @Prop() public options!: StrictOption[];
+    @Prop({default: []}) public value!: any [];
+    @Prop({type: Boolean, default: true}) public searchable!: string;
+    @Prop({type: Boolean, default: false}) public taggable!: string;
+    @Prop(String) public placeholder!: string;
 
-        public id = `PolarisMultiSelect${new Date().getUTCMilliseconds()}`;
-        public selected = this.value;
+    public id = `PolarisMultiSelect${new Date().getUTCMilliseconds()}`;
+    public selected = this.value;
 
-        public get computedOptions() {
-            const options: StrictOption[] = [];
-            if (this.placeholder) {
-                options.push({
-                    label: this.placeholder,
-                    value: '',
-                    disabled: true,
-                });
-            }
-            this.options.map((value) => {
-                if (typeof value === 'object') {
-                    if (value.disabled) value.disabled = value.disabled;
-                    options.push(value);
-                } else {
-                    options.push({label: value, value});
-                }
+    public get computedOptions() {
+        const options: StrictOption[] = [];
+        if (this.placeholder) {
+            options.push({
+                label: this.placeholder,
+                value: '',
+                disabled: true,
             });
-
-            return options;
         }
+        this.options.map((value) => {
+            if (typeof value === 'object') {
+                if (value.disabled) { value.disabled = value.disabled; }
+                options.push(value);
+            } else {
+                options.push({label: value, value});
+            }
+        });
 
-        public get computedValue() {
-            return this.selected;
-        }
-
-        public set computedValue(value) {
-            this.selected = value;
-            this.$emit('change', value);
-        }
-
-        public get className() {
-            return classNames(
-                'Polaris-Select',
-                this.disabled && 'Polaris-Select--disabled',
-            );
-        }
-
-        public addTag(newTag) {
-            const tag = {
-                label: newTag,
-                value: newTag,
-            };
-            this.selected.push(tag);
-            this.options.push(tag);
-        }
-
-        @Watch('value')
-        public onValueChanged(value: any) {
-            this.selected = value;
-        }
+        return options;
     }
+
+    public get computedValue() {
+        return this.selected;
+    }
+
+    public set computedValue(value) {
+        this.selected = value;
+        this.$emit('change', value);
+    }
+
+    public get className() {
+        return classNames(
+            'Polaris-Select',
+            this.disabled && 'Polaris-Select--disabled',
+        );
+    }
+
+    public addTag(newTag) {
+        const tag = {
+            label: newTag,
+            value: newTag,
+        };
+        this.selected.push(tag);
+        this.options.push(tag);
+    }
+
+    @Watch('value')
+    public onValueChanged(value: any) {
+        this.selected = value;
+    }
+}
 </script>
