@@ -1,3 +1,7 @@
+.Polaris-Tabs__Wrapper {
+	border-bottom: .1rem solid $theme-border-color;
+	padding: 0 .8rem;
+}
 .Polaris-Tabs {
 	display: flex;
 	flex-wrap: wrap;
@@ -47,7 +51,7 @@
 	width: 100%;
 	min-width: 100%;
 	margin: 1px 0 -1px;
-	padding: 0 1.6rem;
+	padding: .8rem .4rem;
 	outline: none;
 	text-align: center;
 	white-space: nowrap;
@@ -93,11 +97,19 @@
 .Polaris-Tabs__Tab.Polaris-Tabs__Tab--selected {
 	.Polaris-Tabs__Title {
 		border-radius: $tabs-selected-title-border-radius;
+		color: $theme-topbar-color;
 	}
 }
 .Polaris-Tabs__Tab--selected {
 	font-weight: $tabs-selected-font-weight;
 	color: $tabs-selected-color;
+
+	.Polaris-Tabs__Title {
+
+		&:before{
+			background: $theme-primary-color;
+		}
+	}
 }
 .Polaris-Tabs__Title {
  	position: relative;
@@ -264,4 +276,22 @@
 	display: flex;
 	visibility: hidden;
 	height: 0;
+}
+
+
+.Polaris-Tabs__Navigation {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	> ul {
+		border-bottom: none;
+	}
+
+	.Polaris-Tabs__Title {
+
+		&:before{
+			border-top-left-radius: 0 !important;
+			border-top-right-radius: 0 !important;
+		}
+	}
 }
