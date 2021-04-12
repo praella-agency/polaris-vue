@@ -1,0 +1,185 @@
+.Polaris-Select {
+	position: relative;
+	select {
+		&::-ms-expand {
+			display: none;
+		}
+	}
+}
+.Polaris-Select--disabled {
+	.Polaris-Select__Content {
+		color: $select-disabled-content-color;
+		@media (-ms-high-contrast:active) {
+			color: grayText;
+		}
+	}
+	.Polaris-Select__InlineLabel {
+		color: inherit;
+	}
+	.Polaris-Select__Icon {
+		opacity: .4;
+		@media (-ms-high-contrast:active) {
+			opacity: 1;
+		}
+		svg{
+			@media (-ms-high-contrast:active) {
+				fill: grayText;
+			}
+		}
+	}
+	.Polaris-Select__Backdrop {
+		background: $select-disabled-backdrop-bgcolor;
+		box-shadow: $select-disabled-backdrop-box-shadow;
+		
+		@media (-ms-high-contrast:active) {
+			color: grayText;
+		}
+	}
+}
+.Polaris-Select--error {
+	.Polaris-Select__Backdrop {
+		background: $select-error-backdrop-bgcolor;
+		
+	}
+	.Polaris-Select__Input {
+		&:focus~.Polaris-Select__Backdrop {
+			background: $select-error-input-focus-backdrop-bgcolor;
+			box-shadow: $select-error-input-focus-backdrop-box-shadow;
+			&:after {
+				box-shadow: $select-error-input-focus-backdrop-box-shadow;
+			}
+		}
+	}
+}
+.Polaris-Select--placeholder.Polaris-Select--error {
+	.Polaris-Select__Input {
+		color: $select-placeholder-error-input-color;
+		&:-moz-focusring {
+			color: transparent;
+			text-shadow: $select-placeholder-error-input-text-shadow;
+		}
+	}
+}
+.Polaris-Select__Content {
+	font-size: $select-content-font-size;
+	font-weight: $select-content-font-weight;
+	line-height: $select-content-line-height;
+	text-transform: none;
+	letter-spacing: normal;
+	position: relative;
+	z-index: 20;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	min-height: 3.6rem;
+	padding: .5rem .8rem .5rem 1.2rem;
+	@media (min-width:40em) {
+		font-size: $select-content-media-font-size;
+	}
+	@media (-ms-high-contrast:active) {
+		color: windowText;
+		-ms-high-contrast-adjust: none;
+	}
+}
+.Polaris-Select__InlineLabel {
+	color: $select-inlinelabel-color;
+	margin-right: .4rem;
+	white-space: nowrap;
+	overflow: hidden;
+	@media (-ms-high-contrast:active) {
+		color: inherit;
+	}
+	&:after{
+		@media (-ms-high-contrast:active) {
+			content: ":";
+		}
+	}
+}
+.Polaris-Select__SelectedOption {
+	flex: 1 1;
+	white-space: nowrap;
+	overflow: hidden;
+	@media (-ms-high-contrast:active) {
+		color: inherit;
+	}
+}
+.Polaris-Select__Icon {
+	svg {
+		fill: $select-icon-svg-fill;
+		@media (-ms-high-contrast:active) {
+			fill: buttonText;
+		}	
+	}
+}
+.Polaris-Select__Backdrop {
+	background-color: $select-backdrop-bgcolor !important;
+	border: $select-backdrop-border;
+	box-shadow: $select-backdrop-box-shadow;
+	border-radius: $select-backdrop-border-radius;
+	transition-property: box-shadow,background-color;
+	transition-duration: .2s;
+	transition-timing-function: cubic-bezier(.64,0,.35,1);
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	&:after {
+		content: "";
+	    position: absolute;
+	    z-index: 1;
+	    top: -.2rem;
+	    right: -.2rem;
+	    bottom: -.2rem;
+	    left: -.2rem;
+	    display: block;
+	    pointer-events: none;
+	    transition: box-shadow .1s var(--p-ease);
+		box-shadow: $select-backdrop-after-box-shadow ;
+		border-radius: $select-backdrop-after-border-radius;
+	}
+}
+.Polaris-Select__Input {
+	font-size: $select-input-font-size;
+	font-weight: $select-input-font-weight;
+	line-height: $select-input-line-height;
+	text-transform: none;
+	letter-spacing: normal;
+	position: absolute;
+	text-rendering: auto;
+	top: 0;
+	left: 0;
+	z-index: 30;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	opacity: .001;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	@media (min-width:40em) {
+		font-size: $select-input-media-font-size;
+	}
+	&:focus~.Polaris-Select__Backdrop {
+		background: $select-input-focus-backdrop-bgcolor;
+		box-shadow: $select-input-focus-backdrop-box-shadow;
+		&:after {
+		    box-shadow: 0 0 0 .2rem $theme-secondary-color;
+    		outline: .1rem solid transparent;
+		}
+		@media (-ms-high-contrast:active) {
+			background-color: highlight;
+		}
+	}
+}
+
+@media (-ms-high-contrast:active) {
+	.Polaris-Select__Input:focus~.Polaris-Select__Content {
+		color: highlightText;
+	}
+}
+
+.Polaris-Select option:hover {
+	background-color: $theme-secondary-color;
+}

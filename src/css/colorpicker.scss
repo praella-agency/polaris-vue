@@ -1,0 +1,112 @@
+/*.Polaris-ColorPicker {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	display: flex;
+}
+.Polaris-ColorPicker__MainColor {
+	background-image: $colorpicker-maincolor-bgimage;
+	background-size: 1.6rem 1.6rem;
+	background-position: 0 0,0 .8rem,.8rem -.8rem,-.8rem 0;
+	position: relative;
+	overflow: hidden;
+	height: 16rem;
+	width: 16rem;
+	border-radius: $colorpicker-maincolor-border-radius;
+	cursor: pointer;
+	.Polaris-ColorPicker__Dragger {
+		right: .9rem;
+		margin: 0;
+	}
+	.Polaris-ColorPicker__ColorLayer {
+		box-shadow: $colorpicker-maincolor-layer-box-shadow;
+		border-radius: $colorpicker-maincolor-border-radius;
+	}
+	&:after {
+		content: "";
+		position: absolute;
+		z-index: 20;
+		top: 0;
+		left: 0;
+		display: block;
+		height: 100%;
+		width: 100%;
+		pointer-events: none;
+		border-radius: $colorpicker-maincolor-before-border-radius;
+		background-image: $colorpicker-maincolor-after-bgimage;
+		box-shadow: $colorpicker-maincolor-after-box-shadow;
+	}
+	&:before {
+		content: "";
+		position: absolute;
+		z-index: 20;
+		top: 0;
+		left: 0;
+		display: block;
+		height: 100%;
+		width: 100%;
+		pointer-events: none;
+		border-radius: $colorpicker-maincolor-before-border-radius;
+		background: $colorpicker-maincolor-before-bgcolor;
+	}
+}
+.Polaris-ColorPicker__Dragger {
+	position: relative;
+	z-index: 30;
+	bottom: .9rem;
+	transform: none;
+	height: 1.8rem;
+	width: 1.8rem;
+	margin: 0 auto;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	will-change: transform;
+	background: $colorpicker-dragger-background;
+	border: $colorpicker-dragger-border;
+	box-shadow: $colorpicker-dragger-box-shadow;
+	border-radius: $colorpicker-dragger-border-radius;
+	pointer-events: none;
+}
+.Polaris-ColorPicker__AlphaPicker {
+	position: relative;
+	overflow: hidden;
+	height: 16rem;
+	width: 2.4rem;
+	margin-left: .8rem;
+	border-width: 3px;
+	border-radius: $colorpicker-alphapicker-border-radius;
+	background-image: $colorpicker-alphapicker-bgimage;
+	background-size: 1.6rem 1.6rem;
+	background-position: 0 0,0 .8rem,.8rem -.8rem,-.8rem 0;
+	.Polaris-ColorPicker__ColorLayer {
+		border-radius: $colorpicker-alphapicker-border-radius;
+	}
+}
+.Polaris-ColorPicker__HuePicker {
+	position: relative;
+	overflow: hidden;
+	height: 16rem;
+	width: 2.4rem;
+	margin-left: .8rem;
+	border-width: 3px;
+	border-radius: $colorpicker-huepicker-border-radius;
+	background-image: $colorpicker-huepicker-bgimage;
+	box-shadow: $colorpicker-huepicker-box-shadow;
+}
+.Polaris-ColorPicker__ColorLayer {
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	box-shadow: $colorpicker-color-layer-box-shadow;
+	pointer-events: none;
+}
+.Polaris-ColorPicker__Slidable {
+	height: 100%;
+	width: 100%;
+	cursor: pointer;
+}
+*/

@@ -1,0 +1,140 @@
+.Polaris-DatePicker {
+	position: relative;
+}
+.Polaris-DatePicker__MonthContainer {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: -1.6rem;
+	margin-left: -1.6rem;
+}
+.Polaris-DatePicker__Month {
+	flex: 1 1 auto;
+	margin-top: 1.6rem;
+	margin-left: 1.6rem;
+	max-width: calc(100% - 1.6rem);
+	min-width: 23rem;
+}
+.Polaris-DatePicker__Month--current {
+	font-weight: $datepicker-month-current-font-weight;
+}
+.Polaris-DatePicker__Week {
+	display: flex;
+}
+.Polaris-DatePicker__WeekHeadings {
+	display: flex;
+}
+.Polaris-DatePicker__Week+.Polaris-DatePicker__Week {
+	margin-top: -1px;
+}
+.Polaris-DatePicker__WeekHeadings+.Polaris-DatePicker__Week {
+	margin-top: -1px;
+}
+.Polaris-DatePicker__Day {
+	display: block;
+	flex: 1 0;
+	width: 14.28571%;
+	margin: 0;
+	padding: .8rem;
+	background: $datepicker-day-bgcolor;
+	border: $datepicker-day-border;
+	border-radius: $datepicker-day-border-radius;
+	outline: none;
+	font-size: $datepicker-day-font-size;
+	text-align: center;
+	cursor: pointer;
+	&:hover {
+		background: $datepicker-day-hover-bgcolor;
+	}
+	&:focus {
+		box-shadow: $datepicker-day-focus-box-shadow;
+	}
+}
+.Polaris-DatePicker__Day+.Polaris-DatePicker__Day {
+	margin-left: -1px;
+}
+.Polaris-DatePicker__Day+.Polaris-DatePicker__EmptyDay {
+	margin-left: -1px;
+}
+.Polaris-DatePicker__Day--today {
+	font-weight: $datepicker-day-today-font-weight;
+}
+.Polaris-DatePicker__Day--inRange {
+	z-index: 20;
+	background: $datepicker-day-inrange-bgcolor;
+	border: $datepicker-day-inrange-border;
+	@media screen and (-ms-high-contrast:active) {
+		background: highlight;
+	}
+	&:hover {
+		background: $datepicker-day-inrange-hover-bgcolor;
+	}
+}
+.Polaris-DatePicker__Day--selected {
+	z-index: 30;
+	background: $datepicker-day-selected-bgcolor;
+	border: $datepicker-day-selected-border;
+	color: $datepicker-day-selected-color;
+	@media screen and (-ms-high-contrast:active) {
+		background: highlight;
+	}
+	&:hover {
+		background: $datepicker-day-selected-hover-bgcolor;
+	}
+	&:focus {
+		box-shadow: $datepicker-day-selected-focus-box-shadow;
+	}
+}
+.Polaris-DatePicker__Day--disabled {
+	background-color: $datepicker-day-disabled-bgcolor;
+	color: $datepicker-day-disabled-color;
+	cursor: default;
+	&:hover {
+		background-color: $datepicker-day-disabled-hover-bgcolor;
+	}
+	&:focus {
+		box-shadow: $datepicker-day-disabled-focus-box-shadow;
+	}
+}
+.Polaris-DatePicker__EmptyDay {
+	display: block;
+	flex: 1 0;
+	width: 14.28571%;
+	margin: 0;
+	padding: .8rem;
+	border: $datepicker-day-emptyday-border;
+}
+.Polaris-DatePicker__EmptyDay+.Polaris-DatePicker__Day {
+	margin-left: -1px;
+}
+.Polaris-DatePicker__EmptyDay+.Polaris-DatePicker__EmptyDay {
+	margin-left: -1px;
+}
+.Polaris-DatePicker__Weekday {
+	display: block;
+	flex: 1 0;
+	padding: .8rem;
+	background: $datepicker-day-weekday-bgcolor;
+	font-size: $datepicker-day-weekday-font-size;
+	color: $datepicker-day-weekday-color;
+	text-align: center;
+}
+.Polaris-DatePicker__Weekday+.Polaris-DatePicker__Weekday {
+	margin-left: -1px;
+}
+.Polaris-DatePicker__Weekday--current {
+	font-weight: $datepicker-day-weekday-current-font-weight;
+	color: $datepicker-day-weekday-current-color;
+}
+.Polaris-DatePicker__Header {
+	position: absolute;
+	top: 1.6rem;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+.Polaris-DatePicker__Title {
+	flex: 1 1 auto;
+	margin-top: .2rem;
+	padding-bottom: .4rem;
+	text-align: center;
+}

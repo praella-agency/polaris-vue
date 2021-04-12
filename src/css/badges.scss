@@ -1,0 +1,76 @@
+
+.Polaris-Badge {
+	display: inline-flex;
+	align-items: center;
+	padding: .3rem .8rem;
+	background-color: $badge-bgcolor;
+	border: $badge-border;
+	border-radius: $badge-border-radius;
+	font-size: $badge-font-size;
+	line-height: $badge-line-height;
+	font-weight: $badge-font-weight;
+	color: $badge-color;
+	.Polaris-Badge__Pip {
+		color: $badge-pip-color;
+	}
+}
+.Polaris-Badge--sizeSmall {
+	font-size: $badge-small-font-size;
+	line-height: $badge-small-line-height;
+}
+.Polaris-Badge--statusSuccess {
+	background-color: $badge-status-success-bgcolor;
+	color: $badge-status-success-color;
+	.Polaris-Badge__Pip {
+		color: $badge-status-success-pip-color;
+	}
+}
+.Polaris-Badge--statusInfo {
+	background-color: $badge-status-info-bgcolor;
+	color: $badge-status-info-color;
+	.Polaris-Badge__Pip {
+		color: $badge-status-info-pip-color;
+	}
+}
+.Polaris-Badge--statusAttention {
+	background-color: $badge-status-attention-bgcolor;
+	color: $badge-status-attention-color;
+	.Polaris-Badge__Pip {
+		color: $badge-status-attention-pip-color;
+	}
+}
+.Polaris-Badge--statusWarning {
+	background-color: $badge-status-warning-bgcolor;
+	color: $badge-status-warning-color;
+	.Polaris-Badge__Pip {
+		color: $badge-status-warning-pip-color;
+	}
+}
+.Polaris-Badge--statusNew {
+	background-color: $badge-status-new-bgcolor;
+	color: $badge-status-new-color;
+	font-weight: $badge-status-new-font-weight;
+	border: $badge-status-new-border;
+}
+.Polaris-Badge__Pip {
+	height: 1rem;
+	width: 1rem;
+	margin: 0 .4rem 0 -.3rem;
+	border: $badge-pip-border;
+	border-radius: $badge-pip-border-radius;
+}
+.Polaris-Badge--progressIncomplete {
+	.Polaris-Badge__Pip {
+		background: $badge-progress-incomplete-pip-bgcolor;
+	}
+}
+.Polaris-Badge--progressPartiallyComplete {
+	.Polaris-Badge__Pip {
+		background: $badge-progress-partially-complete-pip-bgcolor;
+	}
+}
+.Polaris-Badge--progressComplete {
+	.Polaris-Badge__Pip {
+		background: $badge-progress-complete-pip-bgcolor;
+	}
+}

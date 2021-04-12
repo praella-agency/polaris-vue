@@ -1,0 +1,66 @@
+@charset "UTF-8";
+@keyframes "polaris-SkeletonShimmerAnimation" {
+	0% {
+		opacity: .45;
+	}
+	to {
+		opacity: .9;
+	}
+}
+@keyframes "Polaris-Spinner--loading" {
+	to {
+		transform: rotate(1turn);
+	}
+}
+@keyframes "Polaris-Button--loading" {
+	to {
+		transform: rotate(1turn);
+	}
+}
+@keyframes "Polaris-Backdrop__fade--in" {
+	0% {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+@keyframes "Polaris-Indicator--bounce" {
+	0%,65%,85% {
+		transform: scale(1);
+	}
+	75% {
+		transform: scale(.85);
+	}
+	82.5% {
+		transform: scale(1.05);
+	}
+}
+@keyframes "Polaris-Indicator--pulse" {
+	0%,75% {
+		transform: scale(.85);
+		opacity: 1;
+	}
+	to {
+		transform: scale(2.5);
+		opacity: 0;
+	}
+}
+@keyframes "Polaris-Navigation__fade--in" {
+	0% {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+@keyframes "Polaris-ProgressBar--fillup" {
+	0% {
+		width: 0;
+	}
+}
+@keyframes "Polaris-TopBar-SearchField--toLightBackground" {
+	to {
+		background-color: var(--p-neutral-action,var(--top-bar-background-lighter));
+	}
+}

@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import { PBadge } from './PBadge';
 import { PBanner } from './PBanner';
 import { PButton } from './PButton';

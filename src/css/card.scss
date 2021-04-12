@@ -1,0 +1,147 @@
+@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
+    [data-has-navigation] .Polaris-Card {
+        border-radius: $card-border-radius;
+    }
+}
+
+.Polaris-Card {
+    outline: 0.1rem solid transparent;
+    background-color: $card-bgcolor;
+    box-shadow: $card-box-shadow;
+    overflow: hidden;
+    @media (min-width:30.625em) {
+        border-radius: $card-border-radius;
+    }
+}
+
+
+
+
+.Polaris-Card+.Polaris-Card {
+    margin-top: 1.6rem;
+}
+
+.Polaris-Card--subdued {
+    background-color: $card-subdued-bgcolor;
+}
+
+@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
+    [data-has-navigation] .Polaris-Card__Header {
+        padding: 2rem 2rem 0;
+    }
+}
+
+.Polaris-Card__Header {
+    padding: 1.6rem 1.6rem 0;
+    @media (min-width:30.625em) {
+        padding: 2rem 2rem 0;
+    }
+}
+
+@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
+    [data-has-navigation] .Polaris-Card__Section {
+        padding: 2rem;
+    }
+}
+
+.Polaris-Card__Section {
+    padding: 1.6rem;
+    @media (min-width:30.625em) {
+        padding: 2rem;
+    }
+}
+
+.Polaris-Card__Section+.Polaris-Card__Section {
+    border-top: $card-border;
+}
+
+.Polaris-Card__Section:first-child {
+  border-top-left-radius: var(--p-border-radius-wide, 3px);
+  border-top-right-radius: var(--p-border-radius-wide, 3px);
+}
+
+.Polaris-Card__Section:last-child {
+  border-bottom-left-radius: var(--p-border-radius-wide, 3px);
+  border-bottom-right-radius: var(--p-border-radius-wide, 3px);
+}
+
+.Polaris-Card__Section--fullWidth {
+    padding: 1.6rem 0;
+    @media (min-width:30.625em) {
+        padding: 2rem 0;
+    }
+    .Polaris-Card__SectionHeader {
+        padding-left: 1.6rem;
+        padding-right: 1.6rem;
+        @media (min-width:30.625em) {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+    }
+}
+
+@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
+    [data-has-navigation] .Polaris-Card__Section--fullWidth {
+        padding: 2rem 0;
+    }
+}
+
+@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
+    [data-has-navigation] .Polaris-Card__Section--fullWidth .Polaris-Card__SectionHeader {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+.Polaris-Card__Section--subdued {
+    background-color: $card-subdued-bgcolor;
+}
+
+
+.Polaris-Card__Header+.Polaris-Card__Section--subdued {
+    border-top: $card-border;
+    margin-top: 2rem;
+}
+
+.Polaris-Card__SectionHeader {
+    padding-bottom: .8rem;
+}
+
+@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
+    [data-has-navigation] .Polaris-Card__Section--fullWidth .Polaris-Card__SectionHeader {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+.Polaris-Card__Subsection+.Polaris-Card__Subsection {
+    margin-top: 1.6rem;
+    padding-top: 1.6rem;
+    border-top: $card-border;
+}
+
+.Polaris-Card__Footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 1.6rem 1.6rem;
+    @media (min-width:30.625em) {
+        padding: 0 2rem 2rem;
+    }
+}
+
+@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
+    [data-has-navigation] .Polaris-Card__Footer {
+        padding: 0 2rem 2rem;
+    }
+}
+
+
+.Polaris-Card__Footer.Polaris-Card__LeftJustified {
+    justify-content: flex-start;
+}
+
+.Polaris-Card__Section--subdued+.Polaris-Card__Footer {
+    border-top: $card-border;
+    padding: 2rem;
+}

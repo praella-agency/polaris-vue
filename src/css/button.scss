@@ -1,0 +1,1361 @@
+.Polaris-Button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.6rem;
+  min-width: 3.6rem;
+  margin: 0;
+  padding: .7rem 1.6rem;
+  background: $btn-default-bgcolor;
+  border: $btn-default-border;
+  border-top-color: #c9cccf;
+  border-bottom-color: #babfc4;
+  //box-shadow: $btn-default-shadow;
+  border-radius: $btn-border-radius;
+  color: $body-font-color;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+
+  svg {
+    fill: $btn-default-svg-icon-color;
+  }
+
+  &:hover {
+    background: $btn-default-hover-bgcolor;
+    outline: .1rem solid transparent;
+  }
+
+  &:active {
+    background: $btn-default-active-bgcolor;
+    box-shadow: $btn-default-active-shadow;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: -.2rem;
+    right: -.2rem;
+    bottom: -.2rem;
+    left: -.2rem;
+    display: block;
+    pointer-events: none;
+    box-shadow: 0 0 0 -0.2rem $theme-shadow-color;
+    transition: box-shadow .1s cubic-bezier(0.4, 0.22, 0.28, 1);
+    border-radius: calc(0.4rem + .1rem);
+  }
+
+  &:focus {
+    outline: 0;
+    box-shadow: $btn-default-focus-shadow;
+    @media (-ms-high-contrast: active) {
+      outline: 2px dotted;
+    }
+
+    &:not(.Polaris-Button--plain):after {
+      box-shadow: 0 0 0 0.2rem $theme-shadow-color;
+      outline: .1rem solid transparent;
+    }
+  }
+}
+
+/*.Polaris-Button.Polaris-Button--globalTheming {
+	background: var(--p-neutral-action);
+	border: none;
+	box-shadow: none;
+	border-radius: var(--p-border-radius-base);
+	color: var(--p-text-on-surface);
+	svg {
+		fill: var(--p-icon-on-surface);
+	}
+	&:hover {
+		background: var(--p-neutral-action-hovered);
+		border-color: transparent;
+	}
+	&:focus {
+		border-color: transparent;
+		box-shadow: none;
+		position: relative;
+		&:after {
+			content: var(--p-non-null-content,none);
+			position: absolute;
+			z-index: 1;
+			top: -.3rem;
+			right: -.3rem;
+			bottom: -.3rem;
+			left: -.3rem;
+			display: block;
+			border: .2rem solid var(--p-interactive-focus);
+			border-radius: calc(var(--p-border-radius-base) + .3rem);
+			pointer-events: none;
+		}
+	}
+	&:active {
+		background: var(--p-neutral-action-pressed);
+		border-color: transparent;
+		box-shadow: none;
+		&:after {
+			border: none;
+		}
+	}
+}*/
+
+
+.Polaris-Button.Polaris-Button--disabled {
+  transition: none;
+  background: $btn-default-disable-bgcolor;
+  box-shadow: none;
+  border-color: $btn-default-disable-border-color;
+  color: $btn-default-disable-color;
+
+  svg {
+    fill: $btn-default-disable-svg-icon-color;
+  }
+}
+
+/*.Polaris-Button.Polaris-Button--disabled.Polaris-Button--globalTheming {
+	background: var(--p-neutral-action-disabled);
+	color: var(--p-text-disabled-on-surface);
+	svg {
+		fill: var(--p-icon-disabled-on-surface);
+	}
+}
+*/
+[data-buttongroup-segmented] .Polaris-Button {
+  border-radius: $buttongroup-segmented-border-radius;
+}
+
+[data-buttongroup-segmented] > :first-child .Polaris-Button {
+  border-top-left-radius: $btn-border-radius;
+  border-bottom-left-radius: $btn-border-radius;
+}
+
+[data-buttongroup-segmented] > :last-child .Polaris-Button {
+  border-top-right-radius: $btn-border-radius;
+  border-bottom-right-radius: $btn-border-radius;
+}
+
+
+[data-buttongroup-segmented] {
+  .Polaris-ResourceList-CheckableButton {
+    border-top-right-radius: $buttongroup-segmented-border-radius;
+    border-bottom-right-radius: $buttongroup-segmented-border-radius;
+    border-right: none;
+  }
+}
+
+[data-buttongroup-connected-top] > :first-child .Polaris-Button {
+  border-top-left-radius: $buttongroup-segmented-border-radius;
+}
+
+[data-buttongroup-connected-top] > :last-child .Polaris-Button {
+  border-top-right-radius: $buttongroup-segmented-border-radius;
+}
+
+[data-buttongroup-full-width] {
+  .Polaris-Button {
+    display: flex;
+    width: 100%;
+  }
+}
+
+.Polaris-Button__Content {
+  font-size: $btn-content-fontsize;
+  font-weight: $btn-content-fontweight;
+  line-height: $btn-content-lineheight;
+  text-transform: none;
+  letter-spacing: normal;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 1px;
+  min-height: 1px;
+  @media (min-width: 40em) {
+    font-size: $btn-content-media-fontsize;
+  }
+}
+
+.Polaris-Button--textAlignLeft {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.Polaris-Button--textAlignCenter {
+  justify-content: center;
+  text-align: center;
+}
+
+.Polaris-Button--textAlignRight {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.Polaris-Button__Icon {
+  transition: color .2s cubic-bezier(.64, 0, .35, 1);
+
+  &:first-child {
+    margin-left: -.4rem;
+  }
+
+  &:last-child {
+    margin-right: -.8rem;
+    margin-left: .4rem;
+  }
+}
+
+.Polaris-Button__Icon + :not(.Polaris-Button__Icon) {
+  margin-left: .4rem;
+}
+
+.Polaris-Button__Spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -1rem;
+  margin-left: -1rem;
+}
+
+.Polaris-Button--primary {
+  background: $btn-primary-bgcolor;
+  border-color: $btn-primary-border-color;
+  box-shadow: $btn-primary-box-shadow;
+  color: $btn-primary-color;
+
+  &:hover {
+    background: $btn-primary-hover-bgcolor;
+    border-color: $btn-primary-hover-border-color;
+    color: $btn-primary-hover-color;
+  }
+
+  &:focus {
+    border-color: $btn-primary-focus-border-color;
+    box-shadow: $btn-primary-focus-box-shadow;
+  }
+
+  &:active {
+    background: $btn-primary-active-bgcolor;
+    border-color: $btn-primary-active-bgcolor;
+    box-shadow: $btn-primary-active-box-shadow;
+  }
+
+  svg {
+    fill: $btn-primary-svg-icon-color;
+  }
+}
+
+/*.Polaris-Button--primary.Polaris-Button--globalTheming {
+	background: var(--p-button-color);
+	border-color: transparent;
+	box-shadow: none;
+	color: var(--p-button-text);
+	&:hover {
+		background: var(--p-button-color-hover);
+		border-color: transparent;
+		color: var(--p-button-text);
+	}
+	&:focus {
+		border-color: transparent;
+		box-shadow: none;
+	}
+	&:active {
+		background: var(--p-button-color-active);
+		border-color: transparent;
+		box-shadow: none;
+	}
+	svg {
+		fill: var(--p-icon-on-branded);
+	}
+}
+*/
+
+
+.Polaris-Button--primary.Polaris-Button--disabled {
+  background: $btn-primary-disable-bgcolor;
+  border-color: $btn-primary-disable-border-color;
+  box-shadow: $btn-primary-disable-box-shadow;
+  color: $btn-primary-disable-color;
+
+  svg {
+    fill: $btn-primary-disable-svg-icon-color;
+  }
+}
+
+/*.Polaris-Button--primary.Polaris-Button--disabled.Polaris-Button--globalTheming {
+	border-color: transparent;
+	background: var(--p-neutral-action-disabled);
+	color: var(--p-text-disabled-on-surface);
+	svg {
+		fill: var(--p-icon-disabled-on-surface);
+	}
+}*/
+
+
+.Polaris-Button--primary.Polaris-Button--pressed {
+  background: $btn-primary-pressed-bgcolor;
+  border-color: $btn-primary-pressed-border-color;
+  box-shadow: $btn-primary-pressed-box-shadow;
+  color: $btn-primary-pressed-color;
+
+  &:focus {
+    transition-duration: .1s;
+    background: $btn-primary-pressed-focus-bgcolor;
+    box-shadow: $btn-primary-pressed-focus-box-shadow;
+  }
+
+  &:hover {
+    transition-duration: .1s;
+    background: $btn-primary-pressed-hover-bgcolor;
+    box-shadow: $btn-primary-pressed-hover-box-shadow;
+  }
+}
+
+.Polaris-Button--destructive {
+  background: $btn-destructive-bgcolor;
+  border-color: $btn-destructive-border-color;
+  box-shadow: $btn-destructive-box-shadow;
+  color: $btn-destructive-color;
+
+  &:hover {
+    background: $btn-destructive-hover-bgcolor;
+    border-color: $btn-destructive-hover-border-color;
+    color: $btn-destructive-hover-color;
+    text-decoration: none;
+  }
+
+  &:focus {
+    border-color: $btn-destructive-focus-border-color;
+    box-shadow: $btn-destructive-focus-box-shadow;
+  }
+
+  &:active {
+    background: $btn-destructive-active-bgcolor;
+    border-color: $btn-destructive-active-border-color;
+    box-shadow: $btn-destructive-active-box-shadow;
+  }
+
+  svg {
+    fill: $btn-destructive-svg-icon-color;
+  }
+}
+
+/*.Polaris-Button--destructive.Polaris-Button--globalTheming {
+	background: var(--p-button-color);
+	border-color: transparent;
+	box-shadow: none;
+	color: var(--p-button-text);
+	&:hover {
+		background: var(--p-button-color-hover);
+		border-color: transparent;
+		color: var(--p-button-text);
+	}
+	&:focus {
+		border-color: transparent;
+		box-shadow: none;
+	}
+	&:active {
+		background: var(--p-button-color-active);
+		border-color: transparent;
+		box-shadow: none;
+	}
+}*/
+
+.Polaris-Button--destructive.Polaris-Button--disabled {
+  background: $btn-destructive-disable-bgcolor;
+  border-color: $btn-destructive-disable-border-color;
+  box-shadow: $btn-destructive-disable-box-shadow;
+  color: $btn-destructive-disable-color;
+
+  svg {
+    fill: $btn-destructive-disable-svg-icon-color;
+  }
+}
+
+/*.Polaris-Button--destructive.Polaris-Button--disabled.Polaris-Button--globalTheming {
+	border-color: transparent;
+	background: var(--p-neutral-action-disabled);
+	color: var(--p-text-disabled-on-surface);
+	svg {
+		fill: var(--p-icon-disabled-on-surface);
+	}
+}*/
+
+
+.Polaris-Button--destructive.Polaris-Button--pressed {
+  background: $btn-destructive-pressed-bgcolor;
+  border-color: $btn-destructive-pressed-border-color;
+  box-shadow: $btn-destructive-pressed-box-shadow;
+  color: $btn-destructive-pressed-color;
+
+  &:focus {
+    transition-duration: .1s;
+    background: $btn-destructive-pressed-focus-bgcolor;
+    box-shadow: $btn-destructive-pressed-focus-box-shadow;
+  }
+
+  &:hover {
+    transition-duration: .1s;
+    background: $btn-destructive-pressed-hover-bgcolor;
+    box-shadow: $btn-destructive-pressed-hover-box-shadow;
+  }
+}
+
+
+.Polaris-Button--outline {
+  background: $btn-outline-bgcolor;
+  border-color: $btn-outline-border-color;
+  box-shadow: $btn-outline-box-shadow;
+  color: $btn-outline-color;
+  position: relative;
+
+  &:hover {
+    background: $btn-outline-hover-bgcolor;
+    border-color: $btn-outline-hover-border-color;
+    box-shadow: $btn-outline-hover-box-shadow;
+  }
+
+  &:focus {
+    border-color: $btn-outline-focus-border-color;
+    box-shadow: $btn-outline-focus-box-shadow;
+  }
+
+  &:active {
+    background: $btn-outline-active-bgcolor;
+    box-shadow: $btn-outline-active-box-shadow;
+    border-color: $btn-outline-active-border-color;
+  }
+}
+
+
+/*.Polaris-Button--outline.Polaris-Button--globalTheming {
+	background: transparent;
+	box-shadow: 0 0 0 .1rem var(--p-border-subdued-on-surface);
+	color: var(--p-text-on-surface);
+	&:hover {
+		box-shadow: 0 0 0 .1rem var(--p-border-subdued-on-surface);
+		background: var(--p-surface-hovered);
+	}
+	&:focus {
+		box-shadow: 0 0 0 .2rem var(--p-border-subdued-on-surface);
+		&:after {
+			border: none;
+		}
+	}
+	&:active {
+		box-shadow: 0 0 0 .1rem var(--p-border-subdued-on-surface);
+		background: var(--p-surface-pressed);
+	}
+}
+.Polaris-Button--outline.Polaris-Button--globalTheming.Polaris-Button--disabled {
+	box-shadow: 0 0 0 .1rem var(--p-border-disabled-on-surface);
+	background: transparent;
+	color: var(--p-text-disabled-on-surface);
+}
+.Polaris-Button--outline.Polaris-Button--globalTheming.Polaris-Button--destructive {
+	background: transparent;
+	box-shadow: 0 0 0 .1rem var(--p-critical-border);
+	color: var(--p-critical-link);
+	&:hover {
+		box-shadow: 0 0 0 .1rem var(--p-critical-border);
+		background: var(--p-critical-surface-subdued);
+	}
+	&:focus {
+		box-shadow: 0 0 0 .2rem var(--p-critical-border);
+		&:after {
+			border: none;
+		}
+	}
+	&:active {
+		box-shadow: 0 0 0 .1rem var(--p-critical-border);
+		background: var(--p-critical-surface-subdued);
+	}
+}
+
+.Polaris-Button--outline.Polaris-Button--globalTheming.Polaris-Button--destructive.Polaris-Button--disabled {
+	box-shadow: 0 0 0 .1rem var(--p-critical-border-disabled);
+	background: transparent;
+	color: var(--p-critical-link-disabled);
+}*/
+
+
+.Polaris-Button--outline.Polaris-Button--disabled {
+  background: $btn-outline-disabled-bgcolor;
+  border-color: $btn-outline-disabled-border-color;
+  box-shadow: $btn-outline-disabled-box-shadow;
+  color: $btn-outline-disabled-color;
+}
+
+.Polaris-Button--destructive.Polaris-Button--outline {
+  background: $btn-destructive-outline-bgcolor;
+  border-color: $btn-destructive-outline-border-color;
+  box-shadow: $btn-destructive-outline-box-shadow;
+  color: $btn-destructive-outline-color;
+
+  &:hover {
+    background: $btn-destructive-outline-hover-bgcolor;
+    border-color: $btn-destructive-outline-hover-border-color;
+  }
+
+  &:focus {
+    border-color: $btn-destructive-outline-focus-border-color;
+    box-shadow: $btn-destructive-outline-focus-box-shadow;
+  }
+
+  &:active {
+    background: $btn-destructive-outline-active-bgcolor;
+    box-shadow: $btn-destructive-outline-active-box-shadow;
+  }
+
+  svg {
+    fill: $btn-destructive-outline-svg-icon-color;
+  }
+}
+
+/*
+.Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--globalTheming {
+	background: transparent;
+	box-shadow: 0 0 0 .1rem var(--p-border-subdued-on-surface);
+	color: var(--p-text-on-surface);
+	&:hover {
+		box-shadow: 0 0 0 .1rem var(--p-border-subdued-on-surface);
+		background: var(--p-surface-hovered);
+	}
+	&:focus {
+		box-shadow: 0 0 0 .2rem var(--p-border-subdued-on-surface);
+		&:after {
+			border: none;
+		}
+	}
+	&:active {
+		box-shadow: 0 0 0 .1rem var(--p-border-subdued-on-surface);
+		background: var(--p-surface-pressed);
+	}
+}
+.Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--globalTheming.Polaris-Button--disabled {
+	box-shadow: 0 0 0 .1rem var(--p-border-disabled-on-surface);
+	background: transparent;
+	color: var(--p-text-disabled-on-surface);
+}
+.Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--globalTheming.Polaris-Button--destructive {
+	background: transparent;
+	box-shadow: 0 0 0 .1rem var(--p-critical-border);
+	color: var(--p-critical-link);
+	&:hover {
+		box-shadow: 0 0 0 .1rem var(--p-critical-border);
+		background: var(--p-critical-surface-subdued);
+	}
+	&:focus {
+		box-shadow: 0 0 0 .2rem var(--p-critical-border);
+		&:after {
+			border: none;
+		}
+	}
+	&:active {
+		box-shadow: 0 0 0 .1rem var(--p-critical-border);
+		background: var(--p-critical-surface-subdued);
+	}
+}
+.Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--globalTheming.Polaris-Button--destructive.Polaris-Button--disabled {
+	box-shadow: 0 0 0 .1rem var(--p-critical-border-disabled);
+	background: transparent;
+	color: var(--p-critical-link-disabled);
+}*/
+
+
+.Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--pressed {
+  background: $btn-destructive-outline-pressed-bgcolor;
+  border-color: $btn-destructive-outline-pressed-border-color;
+  box-shadow: $btn-destructive-outline-pressed-box-shadow;
+  color: $btn-destructive-outline-pressed-color;
+
+  svg {
+    fill: $btn-destructive-outline-pressed-svg-icon-color;
+  }
+}
+
+/*.Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--pressed.Polaris-Button--globalTheming {
+	background: transparent;
+	box-shadow: 0 0 0 .1rem var(--p-border-subdued-on-surface);
+	color: var(--p-text-on-surface);
+	&:hover {
+		box-shadow: 0 0 0 .1rem var(--p-border-subdued-on-surface);
+		background: var(--p-surface-hovered);
+	}
+	&:focus {
+		box-shadow: 0 0 0 .2rem var(--p-border-subdued-on-surface);
+		&:after {
+			border: none;
+		}
+	}
+	&:active {
+		box-shadow: 0 0 0 .1rem var(--p-border-subdued-on-surface);
+		background: var(--p-surface-pressed);
+	}
+}
+.Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--pressed.Polaris-Button--globalTheming.Polaris-Button--disabled {
+	box-shadow: 0 0 0 .1rem var(--p-border-disabled-on-surface);
+	background: transparent;
+	color: var(--p-text-disabled-on-surface);
+}
+.Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--pressed.Polaris-Button--globalTheming.Polaris-Button--destructive {
+	background: transparent;
+	box-shadow: 0 0 0 .1rem var(--p-critical-border);
+	color: var(--p-critical-link);
+	&:hover {
+		box-shadow: 0 0 0 .1rem var(--p-critical-border);
+		background: var(--p-critical-surface-subdued);
+	}
+	&:focus {
+		box-shadow: 0 0 0 .2rem var(--p-critical-border);
+		&:after {
+			border: none;
+		}
+	}
+	&:active {
+		box-shadow: 0 0 0 .1rem var(--p-critical-border);
+		background: var(--p-critical-surface-subdued);
+	}
+}
+.Polaris-Button--destructive.Polaris-Button--outline.Polaris-Button--pressed.Polaris-Button--globalTheming.Polaris-Button--destructive.Polaris-Button--disabled {
+	box-shadow: 0 0 0 .1rem var(--p-critical-border-disabled);
+	background: transparent;
+	color: var(--p-critical-link-disabled);
+}
+
+
+*/
+
+.Polaris-Button--disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+/*.Polaris-Button--globalTheming.Polaris-Button--loading {
+	position: relative;
+	transition: border-color .2s cubic-bezier(.64,0,.35,1);
+	color: transparent;
+	&:hover {
+		color: transparent;
+	}
+}*/
+
+.Polaris-Button--loading {
+  position: relative;
+  transition: border-color .2s cubic-bezier(.64, 0, .35, 1);
+  color: transparent;
+
+  &:hover {
+    color: transparent;
+  }
+}
+
+/*.Polaris-Button--globalTheming.Polaris-Button--loading.Polaris-Button--disabled {
+	color: transparent;
+}*/
+
+.Polaris-Button--loading.Polaris-Button--disabled {
+  color: transparent;
+}
+
+.Polaris-Button--pressed {
+  background: $btn-pressed-bgcolor;
+  border-color: $btn-pressed-border-color;
+  box-shadow: $btn-pressed-box-shadow;
+  @media (-ms-high-contrast: active) {
+    color: buttonText;
+    background: buttonFace;
+  }
+
+  &:hover {
+    border-color: $btn-pressed-hover-bgcolor;
+    box-shadow: $btn-pressed-hover-box-shadow;
+    transition-duration: .1s;
+    background: $btn-pressed-hover-bgcolor;
+  }
+
+  &:focus {
+    border-color: $btn-pressed-focus-border-color;
+    box-shadow: $btn-pressed-focus-box-shadow;
+  }
+
+  &:active {
+    background: $btn-pressed-active-bgcolor;
+    border-color: $btn-pressed-active-border-color;
+    box-shadow: $btn-pressed-active-box-shadow;
+  }
+}
+
+.Polaris-Button--plain {
+  margin: -.7rem -.8rem;
+  padding-left: .8rem;
+  padding-right: .8rem;
+  background: $btn-plain-bgcolor;
+  border: 0;
+  box-shadow: $btn-plain-box-shadow;
+  color: $btn-plain-color;
+
+  svg {
+    fill: $btn-plain-svg-icon-color;
+  }
+
+  &:active {
+    background: $btn-plain-active-bgcolor;
+    border: 0;
+    box-shadow: $btn-plain-active-box-shadow;
+    color: $btn-plain-active-color;
+    text-decoration: underline;
+
+    svg {
+      fill: $btn-plain-active-svg-icon-color;
+    }
+  }
+
+  &:focus {
+    background: $btn-plain-focus-bgcolor;
+    border: 0;
+    box-shadow: $btn-plain-focus-box-shadow;
+    color: $btn-plain-focus-color;
+    text-decoration: underline;
+    @media (-ms-high-contrast: active) {
+      outline: none;
+    }
+
+    svg {
+      fill: $btn-plain-focus-svg-icon-color;
+    }
+
+    &:not(.Polaris-Button--iconOnly) {
+      > .Polaris-Button__Content {
+        padding: 2px 5px;
+        margin: -2px -5px;
+        //background: $btn-plain-btn-content-bgcolor;
+        //border-radius: $btn-border-radius;
+        transition: opacity .2s cubic-bezier(.64, 0, .35, 1);
+      }
+    }
+
+    &:not(:active) {
+      > .Polaris-Button__Content:after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: -.1rem;
+        right: -.1rem;
+        bottom: -.1rem;
+        left: -.1rem;
+        display: block;
+        pointer-events: none;
+        transition: box-shadow .1s cubic-bezier(0.4, 0.22, 0.28, 1);
+        border-radius: calc(0.4rem + .1rem);
+        box-shadow: 0 0 0 0.2rem $theme-shadow-color;
+        outline: .1rem solid transparent;
+      }
+    }
+  }
+
+  &:hover {
+    background: $btn-plain-hover-bgcolor;
+    border: 0;
+    box-shadow: $btn-plain-hover-box-shadow;
+    color: $btn-plain-hover-color;
+    text-decoration: underline;
+
+    svg {
+      fill: $btn-plain-hover-svg-icon-color;
+    }
+  }
+
+  .Polaris-Button__Icon {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  &:after {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.Polaris-Button--plain.Polaris-Button--pressed {
+  background: $btn-plain-pressed-bgcolor;
+  border: 0;
+  box-shadow: $btn-plain-pressed-box-shadow;
+  color: $btn-plain-pressed-color;
+  text-decoration: underline;
+
+  @media (-ms-high-contrast: active) {
+    outline: none;
+  }
+
+  svg {
+    fill: $btn-plain-pressed-svg-icon-color;
+  }
+
+  > .Polaris-Button__Content {
+    padding: 2px 5px;
+    margin: -2px -5px;
+    background: $btn-plain-pressed-content-bgcolor;
+    font-weight: $btn-plain-pressed-content-font-weight;
+    border-radius: $btn-border-radius;
+    transition: opacity .2s cubic-bezier(.64, 0, .35, 1);
+    @media (-ms-high-contrast: active) {
+      outline: 2px dotted;
+    }
+  }
+
+  &:active {
+    &:not(.Polaris-Button--iconOnly) {
+      > .Polaris-Button__Content {
+        padding: 2px 5px;
+        margin: -2px -5px;
+        background: $btn-plain-pressed-active-content-bgcolor;
+        border-radius: $btn-border-radius;
+        transition: opacity .2s cubic-bezier(.64, 0, .35, 1);
+      }
+    }
+  }
+
+  &:hover {
+    &:not(.Polaris-Button--iconOnly) {
+      > .Polaris-Button__Content {
+        padding: 2px 5px;
+        margin: -2px -5px;
+        background: $btn-plain-pressed-hover-content-bgcolor;
+        border-radius: 3px;
+        transition: opacity .2s cubic-bezier(.64, 0, .35, 1);
+      }
+    }
+  }
+}
+
+.Polaris-Button--plain.Polaris-Button--fullWidth {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.Polaris-Button--plain.Polaris-Button--destructive {
+  color: $btn-plain-destructive-color;
+
+  &:hover {
+    color: $btn-plain-destructive-hover-color;
+  }
+}
+
+.Polaris-Button--plain.Polaris-Button--disabled {
+  background: $btn-plain-disabled-bgcolor;
+  color: $btn-plain-disabled-color;
+}
+
+.Polaris-Button--plain.Polaris-Button--sizeSlim {
+  margin-top: -.4rem;
+  margin-bottom: -.4rem;
+}
+
+.Polaris-Button--plain.Polaris-Button--sizeLarge {
+  margin: -1.1rem -2rem;
+}
+
+.Polaris-Button--plain.Polaris-Button--iconOnly {
+  margin: -.8rem;
+
+  svg {
+    fill: $btn-plain-icononly-svg-color;
+  }
+
+  &:active {
+    background: $btn-plain-icononly-active-bgcolor;
+
+    svg {
+      fill: $btn-plain-icononly-active-svg-icon-color;
+
+    }
+  }
+
+  &:focus {
+    background: $btn-plain-icononly-focus-bgcolor;
+
+    svg {
+      fill: $btn-plain-icononly-focus-svg-icon-color;
+    }
+  }
+
+  &:hover {
+    svg {
+      fill: $btn-plain-icononly-hover-svg-icon-color;
+    }
+  }
+
+  > .Polaris-Button__Content {
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.Polaris-Button--plain.Polaris-Button--iconOnly.Polaris-Button--disabled {
+  svg {
+    fill: $btn-plain-icononly-disabled-svg-icon-color;
+  }
+}
+
+/*
+.Polaris-Button--plain.Polaris-Button--globalTheming {
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+	color: var(--p-interactive-action);
+	svg {
+		fill: var(--p-interactive-action);
+	}
+	&:active {
+		background: transparent;
+		border: 0;
+		box-shadow: none;
+		color: var(--p-interactive-action-pressed);
+		text-decoration: none;
+		svg {
+			fill: var(--p-interactive-action-pressed);
+		}
+		&:not(.Polaris-Button--iconOnly) {
+			>.Polaris-Button__Content {
+				padding: 2px 5px;
+				margin: -2px -5px;
+				background: var(--p-neutral-action);
+				border-radius: 3px;
+				transition: opacity .2s cubic-bezier(.64,0,.35,1);
+			}
+		}
+	}
+	&:focus {
+		background: transparent;
+		border: 0;
+		box-shadow: none;
+		color: var(--p-interactive-action);
+		text-decoration: none;
+		svg {
+			fill: var(--p-interactive-action);
+		}
+		&:after {
+			border: none;
+		}
+		&:not(:active) {
+			>.Polaris-Button__Content {
+				position: relative;
+				&:after {
+					content: var(--p-non-null-content,none);
+					position: absolute;
+					z-index: 1;
+					top: -.3rem;
+					right: -.3rem;
+					bottom: -.3rem;
+					left: -.3rem;
+					display: block;
+					border: .2rem solid var(--p-interactive-focus);
+					border-radius: calc(var(--p-border-radius-base) + .3rem);
+					pointer-events: none;
+				}
+			}
+		}
+		&:not(.Polaris-Button--iconOnly) {
+			>.Polaris-Button__Content {
+				background: none;
+			}
+		}
+	}
+	&:hover {
+		background: transparent;
+		border: 0;
+		box-shadow: none;
+		color: var(--p-interactive-action-hovered);
+		text-decoration: underline;
+		svg {
+			fill: var(--p-interactive-action-hovered);
+		}
+	}
+	>.Polaris-Button__Content {
+		font-weight: 400;
+	}
+}
+.Polaris-Button--plain.Polaris-Button--globalTheming.Polaris-Button--destructive {
+	color: var(--p-critical-link);
+	svg {
+		fill: var(--p-critical-link);
+	}
+	&:hover {
+		color: var(--p-critical-link-hovered);
+	}
+	&:active {
+		color: var(--p-critical-link-pressed);
+	}
+}
+.Polaris-Button--plain.Polaris-Button--globalTheming.Polaris-Button--destructive.Polaris-Button--disabled {
+	color: var(--p-critical-link-disabled);
+}
+.Polaris-Button--plain.Polaris-Button--globalTheming.Polaris-Button--disabled {
+	color: var(--p-text-disabled-on-surface);
+	background: none;
+}
+.Polaris-Button--plain.Polaris-Button--globalTheming.Polaris-Button--iconOnly {
+	svg {
+		fill: var(--p-interactive-action);
+	}
+	&:hover {
+		svg {
+			fill: var(--p-interactive-action-hovered);
+		}
+	}
+	&:focus {
+		svg {
+			fill: var(--p-interactive-action);
+		}
+	}
+	&:active {
+		svg {
+			fill: var(--p-interactive-action-pressed);
+		}
+	}
+}
+.Polaris-Button--plain.Polaris-Button--globalTheming.Polaris-Button--iconOnly.Polaris-Button--disabled {
+	svg {
+		fill: var(--p-interactive-action-disabled);
+	}
+}
+.Polaris-Button--plain.Polaris-Button--globalTheming.Polaris-Button--destructive.Polaris-Button--iconOnly {
+	svg {
+		fill: var(--p-critical-action);
+	}
+	&:hover {
+		svg {
+			fill: var(--p-critical-action-hovered);
+		}
+	}
+	&:focus {
+		svg {
+			fill: var(--p-critical-action);
+		}
+	}
+	&:active {
+		svg {
+			fill: var(--p-critical-action-pressed);
+		}
+	}
+}
+.Polaris-Button--plain.Polaris-Button--globalTheming.Polaris-Button--destructive.Polaris-Button--iconOnly.Polaris-Button--disabled {
+	svg {
+		fill: var(--p-critical-action-disabled);
+	}
+}
+
+*/
+.Polaris-Button--sizeSlim {
+  min-height: 3rem;
+  padding: .4rem 1.2rem;
+}
+
+.Polaris-Button--sizeLarge {
+  min-height: 4.4rem;
+  min-width: 4.4rem;
+  padding: 1.1rem 2.4rem;
+
+  .Polaris-Button__Content {
+    font-size: 1.7rem;
+    font-weight: var(--p-button-font-weight, 400);
+    line-height: 2rem;
+    text-transform: none;
+    letter-spacing: normal;
+    @media (min-width: 40em) {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.Polaris-Button--fullWidth {
+  display: flex;
+  width: 100%;
+}
+
+.Polaris-Button--iconOnly {
+  padding-left: .8rem;
+  padding-right: .8rem;
+
+  .Polaris-Button__Icon {
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: -.4rem;
+    }
+
+    &:only-child {
+      margin-right: 0;
+    }
+  }
+
+  .Polaris-Button__Icon + .Polaris-Button__Icon {
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.Polaris-Button--iconOnly.Polaris-Button--sizeLarge {
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+}
+
+.Polaris-Button--monochrome.Polaris-Button--outline {
+  color: currentColor;
+  position: relative;
+  border-color: currentColor;
+
+  svg {
+    fill: currentColor;
+  }
+
+  &:active {
+    color: currentColor;
+    background-color: initial;
+    border-color: currentColor;
+
+    svg {
+      fill: currentColor;
+    }
+
+    &:before {
+      opacity: .07;
+    }
+  }
+
+  &:focus {
+    color: currentColor;
+    background-color: initial;
+    border-color: currentColor;
+
+    svg {
+      fill: currentColor;
+    }
+
+    &:before {
+      opacity: .07;
+    }
+  }
+
+  &:hover {
+    color: currentColor;
+    background-color: initial;
+    border-color: currentColor;
+
+    svg {
+      fill: currentColor;
+    }
+
+    &:before {
+      opacity: .07;
+    }
+  }
+
+  &:before {
+    content: "";
+    transition: opacity .2s cubic-bezier(.64, 0, .35, 1);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    opacity: 0;
+    z-index: 0;
+  }
+}
+
+.Polaris-Button--monochrome.Polaris-Button--plain {
+  color: currentColor;
+
+  svg {
+    fill: currentColor;
+  }
+
+  &:active {
+    color: currentColor;
+
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  &:focus {
+    color: currentColor;
+
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  &:hover {
+    color: currentColor;
+
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  .Polaris-Button__Text {
+    text-decoration: underline;
+    outline: none;
+  }
+}
+
+.Polaris-Button--monochrome.Polaris-Button--outline.Polaris-Button--disabled {
+  color: currentColor;
+  opacity: .4;
+
+  svg {
+    fill: currentColor;
+  }
+}
+
+.Polaris-Button--monochrome.Polaris-Button--plain.Polaris-Button--disabled {
+  color: currentColor;
+  opacity: .4;
+
+  svg {
+    fill: currentColor;
+  }
+}
+
+.Polaris-Button--monochrome.Polaris-Button--outline.Polaris-Button--iconOnly.Polaris-Button--disabled {
+  svg {
+    fill: currentColor;
+  }
+}
+
+.Polaris-Button--monochrome.Polaris-Button--outline.Polaris-Button--iconOnly {
+  &:active {
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  &:focus {
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  svg {
+    fill: currentColor;
+  }
+}
+
+.Polaris-Button--monochrome.Polaris-Button--plain.Polaris-Button--iconOnly.Polaris-Button--disabled {
+  svg {
+    fill: currentColor;
+  }
+}
+
+.Polaris-Button--monochrome.Polaris-Button--plain.Polaris-Button--iconOnly {
+  &:active {
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  &:focus {
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  svg {
+    fill: currentColor;
+  }
+}
+
+.Polaris-Button--monochrome.Polaris-Button--outline.Polaris-Button--pressed {
+  background: transparent;
+  border-color: currentColor;
+  box-shadow: none;
+
+  &:before {
+    opacity: .05;
+  }
+}
+
+.Polaris-Button--monochrome.Polaris-Button--outline.Polaris-Button--globalTheming {
+  box-shadow: 0 0 0 .1rem currentColor;
+
+  &:focus {
+    box-shadow: 0 0 0 .2rem currentColor;
+
+    &:after {
+      border: none;
+    }
+  }
+}
+
+.Polaris-Button__DisclosureIcon {
+  transition-property: transform;
+  transition-duration: .3s;
+  transition-timing-function: cubic-bezier(0, 0, .42, 1);
+}
+
+.Polaris-Button__DisclosureIconFacingUp {
+  transform: rotate(-180deg);
+}
+
+.Polaris-ButtonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: -.8rem;
+  margin-left: -.8rem;
+}
+
+.Polaris-ButtonGroup__Item {
+  margin-top: .8rem;
+  margin-left: .8rem;
+}
+
+.Polaris-ButtonGroup__Item--plain {
+  &:not(:first-child) {
+    margin-left: 1.6rem;
+  }
+
+  &:not(:last-child) {
+    margin-right: .8rem;
+  }
+}
+
+.Polaris-ButtonGroup--segmented {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 0;
+  margin-left: 0;
+
+  .Polaris-ButtonGroup__Item {
+    position: relative;
+    z-index: 10;
+    margin-top: 0;
+    margin-left: 0;
+
+    &:not(:first-child) {
+      margin-left: var(--p-button-group-item-spacing, -.1rem);
+    }
+  }
+
+  .Polaris-ButtonGroup__Item--focused {
+    z-index: 20;
+  }
+}
+
+.Polaris-ButtonGroup--fullWidth {
+  .Polaris-ButtonGroup__Item {
+    flex: 1 1 auto;
+  }
+}

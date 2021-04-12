@@ -1,0 +1,297 @@
+.Polaris-Tabs__Wrapper {
+	border-bottom: .1rem solid $theme-border-color;
+	padding: 0 .8rem;
+}
+.Polaris-Tabs {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+	padding: 0;
+	border-bottom: $tabs-border;
+	list-style: none;
+}
+.Polaris-Tabs--fitted {
+	flex-wrap: nowrap;
+	.Polaris-Tabs__TabContainer {
+		flex: 1 1 100%;
+	}
+	.Polaris-Tabs__Tab {
+		padding: 0;
+	}
+	.Polaris-Tabs__Title {
+		width: 100%;
+		padding: .8rem 1.6rem;
+	}
+}
+.Polaris-Tabs--fillSpace {
+	.Polaris-Tabs__TabContainer {
+		flex: 1 1 auto;
+	}
+}
+.Polaris-Tabs__TabContainer {
+	display: flex;
+	margin: 0;
+	padding: 0;
+}
+.Polaris-Tabs__Tab {
+	color: inherit;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: none;
+	border: none;
+	font-size: $tabs-font-size;
+	font-weight: $tabs-font-weight;
+	line-height: $tabs-line-height;
+	text-transform: none;
+	letter-spacing: normal;
+	color: $tabs-color;
+	position: relative;
+	justify-content: center;
+	width: 100%;
+	min-width: 100%;
+	margin: 1px 0 -1px;
+	padding: .8rem .4rem;
+	outline: none;
+	text-align: center;
+	white-space: nowrap;
+	text-decoration: none;
+	cursor: pointer;
+	@media (min-width:40em) {
+		font-size: $tabs-media-font-size;
+	}
+	&:visited {
+		color: $tabs-visited-color;
+	}
+	&:active{
+		.Polaris-Tabs__Title{
+			background-color: $tabs-hover-active-title-bgcolor;
+			&:after{
+				 background: $tabs-hover-active-title-after-bgcolor;
+			}
+		}
+	}
+	&:focus {
+		outline: none;
+		&:not(:active){
+			.Polaris-Tabs__Title{
+				&:after{
+					box-shadow: $tabs-hover-focus-title-after-box-shadow;
+					outline: 0.1rem solid transparent;
+				}
+			}
+		}
+	}
+	&:hover {
+		.Polaris-Tabs__Title {
+			font-weight: $tabs-hover-title-font-weight;
+			color: $tabs-hover-title-color;
+			text-decoration: none;
+			background-color: transparent;
+			&:before{
+				background-color: #999EA4;
+			}
+		}
+	}
+}
+.Polaris-Tabs__Tab.Polaris-Tabs__Tab--selected {
+	.Polaris-Tabs__Title {
+		border-radius: $tabs-selected-title-border-radius;
+		color: $theme-topbar-color;
+	}
+}
+.Polaris-Tabs__Tab--selected {
+	font-weight: $tabs-selected-font-weight;
+	color: $tabs-selected-color;
+
+	.Polaris-Tabs__Title {
+
+		&:before{
+			background: $theme-primary-color;
+		}
+	}
+}
+.Polaris-Tabs__Title {
+ 	position: relative;
+	border-radius: 0.4rem;
+	display: block;
+	padding: 0.8rem 1.6rem;
+	min-width: 5rem;
+	color: $tabs-selected-title-color;
+	&:after{
+		content:"";
+		position: absolute;
+		z-index: 1;
+		top: -0.1rem;
+		right: -0.1rem;
+		bottom: -0.1rem;
+		left: -0.1rem;
+		display: block;
+		pointer-events: none;
+		box-shadow: $tabs-item-after-box-shadow;
+		transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+		border-radius: calc(0.4rem + 0.1rem);
+	}
+	&:before{
+		content: '';
+		position: absolute;
+		bottom: -0.8rem;
+		left: 0;
+		right: 0;
+		height: 0.3rem;
+		border-top-left-radius: 0.4rem;
+		border-top-right-radius: 0.4rem;
+	}
+}
+.Polaris-Tabs__Panel {
+	display: block;
+	&:focus {
+		outline: none;
+	}
+}
+.Polaris-Tabs__Panel--hidden {
+	display: none;
+}
+.Polaris-Tabs__List {
+	list-style: none;
+	margin: 0;
+	padding: 0.8rem;
+}
+.Polaris-Tabs__Item {
+	color: inherit;
+	text-decoration: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	margin: 0;
+	background: $tabs-item-background;
+	border: $tabs-item-border;
+	font-size: $tabs-item-font-size;
+	line-height: $tabs-item-line-height;
+	display: block;
+	width: 100%;
+	min-height: 1.6rem;
+	padding: .8rem 1.6rem;
+	text-align: left;
+	cursor: pointer;
+	border-radius: $tabs-item-border-radius;
+	&:visited {
+		color: $tabs-item-visited-color;
+	}
+	&:focus {
+		outline: none;
+	/*	box-shadow: $tabs-item-focus-box-shadow;
+		background-image: $tabs-item-focus-bgimage;*/
+		&:not(:active)::after {
+			box-shadow: $tabs-hover-focus-title-after-box-shadow;
+			outline: 0.1rem solid transparent;
+		}
+	}
+	&:after{
+		content: var(--p-non-null-content, none);
+		position: absolute;
+		z-index: 1;
+		top: -0.1rem;
+		right: -0.1rem;
+		bottom: -0.1rem;
+		left: -0.1rem;
+		display: block;
+		pointer-events: none;
+		box-shadow: $tabs-item-after-box-shadow;
+		transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+		border-radius: calc(0.4rem + 0.1rem);
+	}
+	&:active {
+		background-color: $tabs-item-active-bgcolor;
+		
+	}
+	&:hover {
+		background-color: $tabs-item-hover-bgcolor;
+		
+	}
+	&::-moz-focus-inner {
+		border: none;
+	}
+}
+.Polaris-Tabs__DisclosureTab {
+	display: none;
+}
+.Polaris-Tabs__DisclosureTab--visible {
+	display: flex;
+}
+.Polaris-Tabs__DisclosureActivator {
+	position: relative;
+	display: block;
+	justify-content: center;
+	height: 100%;
+	margin: 1px 1px -1px 0;
+	padding: 0 1.6rem;
+	background-color: $tabs-disclosureactivator-bgcolor;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	text-align: center;
+	svg {
+		fill: $tabs-disclosureactivator-svg-fill;
+	}
+	&:after {
+	  content: var(--p-non-null-content, none);
+	  position: absolute;
+	  z-index: 1;
+	  top: -0.1rem;
+	  right: -0.1rem;
+	  bottom: -0.1rem;
+	  left: -0.1rem;
+	  display: block;
+	  pointer-events: none;
+	  box-shadow: $tabs-disclosureactivator-after-box-shadow;
+	  transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+	  border-radius: calc(0.4rem + 0.1rem);
+	}
+
+	&:hover {
+		.Polaris-Tabs__Title {
+			svg {
+				fill: $tabs-disclosureactivator-hover-title-svg-fill;
+			}
+			&:before{
+			 	background-color: $tabs-disclosureactivator-hover-title-before-bgcolor;
+			}
+		}
+	}
+	&:focus {
+		.Polaris-Tabs__Title {
+			
+			&:after{
+				box-shadow: $tabs-disclosureactivator-focus-title-after-box-shadow;
+				outline: 0.1rem solid transparent;
+			}
+
+		}
+	}
+}
+
+
+.Polaris-Tabs__TabMeasurer {
+	display: flex;
+	visibility: hidden;
+	height: 0;
+}
+
+
+.Polaris-Tabs__Navigation {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	> ul {
+		border-bottom: none;
+	}
+
+	.Polaris-Tabs__Title {
+
+		&:before{
+			border-top-left-radius: 0 !important;
+			border-top-right-radius: 0 !important;
+		}
+	}
+}

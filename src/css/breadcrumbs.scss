@@ -1,0 +1,140 @@
+.Polaris-Breadcrumbs__Breadcrumb{
+    font-size: $breadcrumbs-font-size;
+    font-weight: $breadcrumbs-font-weight;
+    line-height: $breadcrumbs-line-height;
+    text-transform: none;
+    letter-spacing: normal;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: inherit;
+    line-height: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    min-height: 3.6rem;
+    color: $breadcrumbs-color;
+    text-decoration: none;
+    margin: 0;
+    padding: .2rem;
+    border-radius: 0.4rem;
+    border: $breadcrumbs-border;
+    position: relative;
+
+    @media (min-width:40em) {
+        font-size: $breadcrumbs-media-font-size;
+    }
+
+    &:after{
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: -.2rem;
+        right: -.2rem;
+        bottom: -.2rem;
+        left: -.2rem;
+        display: block;
+        pointer-events: none;
+        box-shadow: 0 0 0 -.2rem #458fff;
+        transition: box-shadow .1s cubic-bezier(0.4, 0.22, 0.28, 1);
+        border-radius: calc( 0.4rem + .1rem);
+    }
+    &:active {
+        background-color: $breadcrumbs-active-bgcolor;
+        color: $breadcrumbs-active-color;
+        text-decoration: none;
+
+        .Polaris-Breadcrumbs__Icon {
+            svg {
+                fill: $breadcrumbs-active-icon-fill;
+            }
+        }
+
+        .Polaris-Breadcrumbs__ContentWrapper {
+            background: $breadcrumbs-active-content-bgcolor;
+        }
+    }
+
+    &:hover {
+        color: $breadcrumbs-hover-color;
+        background-color: $breadcrumbs-hover-bgcolor;
+        text-decoration: none;
+
+        .Polaris-Breadcrumbs__Icon {
+            svg {
+                fill: $breadcrumbs-hover-icon-svg-fill;
+            }
+        }
+    }
+
+    &:focus {
+        outline: none;
+
+        .Polaris-Breadcrumbs__ContentWrapper {
+            background: $breadcrumbs-focus-content-bgcolor;
+        }
+
+        &:not(:active) {
+            &:after{
+                box-shadow: $breadcrumbs-focus-after-box-shadow;
+                outline: .1rem solid transparent;
+            }
+            .Polaris-Breadcrumbs__ContentWrapper {
+                position: relative;
+
+                &:after {
+                    content: var(--p-non-null-content, none);
+                    position: absolute;
+                    z-index: 1;
+                    top: -.3rem;
+                    right: -.3rem;
+                    bottom: -.3rem;
+                    left: -.3rem;
+                    display: block;
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+}
+
+.Polaris-Breadcrumbs__ContentWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+    background: transparent;
+    height: 2.8rem;
+    border-radius: $breadcrumbs-content-border-radius;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: background;
+    transition: background .2s cubic-bezier(.64, 0, .35, 1);
+}
+
+.Polaris-Breadcrumbs__Content {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: relative;
+    position: absolute!important;
+    top: 0;
+    clip: rect(1px,1px,1px,1px)!important;
+    overflow: hidden!important;
+    height: 1px!important;
+    width: 1px!important;
+    padding: 0!important;
+    border: 0!important;
+}
+
+.Polaris-Breadcrumbs__Icon {
+    width: 2rem;
+    height: 2rem;
+    /*margin: 0 0 0 -.8rem;*/
+
+    svg {
+        fill: $breadcrumbs-icon-svg;
+    }
+}

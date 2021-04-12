@@ -1,0 +1,192 @@
+
+
+.Polaris-ActionList {
+    list-style: none;
+    margin: 0;
+    padding: .8rem 0;
+
+    >.Polaris-ActionList__Section--withoutTitle {
+        .Polaris-ActionList__Actions {
+            border-top: none;
+        }
+    }
+}
+
+.Polaris-ActionList.Polaris-ActionList--globalTheming {
+    padding: .8rem;
+}
+
+.Polaris-ActionList__Section--withoutTitle {
+    &:not(:first-child) {
+        border-top: $actionlist-section-border;
+        margin-top: .8rem;
+        padding-top: .8rem;
+    }
+}
+
+.Polaris-ActionList__Actions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: $actionlist-section-border;
+}
+
+.Polaris-ActionList__Section {
+    &:first-child {
+        >.Polaris-ActionList__Section--withoutTitle {
+            .Polaris-ActionList__Actions {
+                border-top: $actionlist-section-border-0;
+            }
+        }
+    }
+}
+
+.Polaris-ActionList__Title {
+    font-size: $actionlist-title-font-size;
+    font-weight: $actionlist-title-font-weight;
+    line-height: $actionlist-title-line-height;
+    text-transform: uppercase;
+    padding: 1.2rem 1.6rem;
+    @media (min-width:40em) {
+        font-size: $actionlist-title-media-font-size;
+    }
+}
+
+.Polaris-ActionList__Item {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+    background: $actionlist-item-bgcolor;
+    border: $actionlist-item-border;
+    font-size: $actionlist-item-font-size;
+    line-height: inherit;
+    color: $actionlist-item-color;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    min-height: 4rem;
+    padding: 1rem 1.6rem;
+    text-align: left;
+    cursor: pointer;
+    border-radius: $actionlist-item-border-radius;
+    border-top: $actionlist-item-border-top;
+    &:after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: -0.1rem;
+      right: -0.1rem;
+      bottom: -0.1rem;
+      left: -0.1rem;
+      display: block;
+      pointer-events: none;
+      box-shadow: $actionlist-item-after-box-shadow;
+      transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+      border-radius: calc(0.4rem + 0.1rem);
+    }
+    &:focus {
+        outline: none;
+        &:not(:active) {
+            &::after {
+                box-shadow: $actionlist-item-focus-after-box-shadow;
+                outline: 0.1rem solid transparent;
+            }
+        }
+    }
+
+    &:visited {
+        color: $actionlist-item-visited-color;
+    }
+
+    &:hover {
+        background-color: $actionlist-item-hover-bgcolor;
+        text-decoration: none;
+    }
+
+    &:active {
+        background-color: $actionlist-item-active-bgcolor;
+        svg{
+            fill: $actionlist-item-active-svg-fill;
+        }
+    }
+}
+
+.Polaris-ActionList__Item.Polaris-ActionList--active {
+    background-color: $actionlist-item-active-bgcolor;
+    svg {
+        fill: $actionlist-item-active-svg-fill;
+    }
+    &:before {
+      content: '';
+      background-color: $actionlist-item-active-before-bgcolor;
+      position: absolute;
+      top: 0;
+      left: -0.8rem;
+      height: 100%;
+      display: block;
+      width: 0.3rem;
+      border-top-right-radius: $actionlist-section-border-radius;
+      border-bottom-right-radius: $actionlist-section-border-radius;
+    }
+}
+
+.Polaris-ActionList__Item.Polaris-ActionList--destructive {
+    color: $actionlist-item-destructive-color;
+
+    svg {
+        fill: $actionlist-item-destructive-svg-color;
+    }
+    
+    &:hover {
+        background-color:  $actionlist-item-destructive-hover-bgcolor;
+    }
+
+    &:active {
+        background-color: $actionlist-item-destructive-active-bgcolor;
+    }
+}
+
+.Polaris-ActionList__Item.Polaris-ActionList--disabled {
+    background-image: none;
+    color: $actionlist-item-disabled-color;
+    pointer-events: none;
+
+    .Polaris-ActionList__Image {
+        svg {
+            fill: $actionlist-item-disabled-image-svg-fill;
+        }
+    }
+}
+
+.Polaris-ActionList__Content {
+    display: flex;
+    align-items: center;
+}
+
+.Polaris-ActionList__Image {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    justify-content: center;
+    height: 2rem;
+    width: 2rem;
+    border-radius: $actionlist-image-radius;
+    margin: -1rem 1.6rem -1rem 0;
+    background-size: cover;
+    background-position: 50%;
+
+    svg {
+        fill: $actionlist-image-svg-fill;
+    }
+}
+
+.Polaris-ActionList__Text {
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 auto;
+}
+
+.Polaris-ActionList__BadgeWrapper {
+    margin-left: 1.6rem;
+}
