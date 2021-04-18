@@ -34,7 +34,7 @@ export default class PTextStyle extends Vue {
 
   public get className() {
     return classNames(
-      this.variation && `Polaris-TextStyle--${variationName('variation', this.variation)}`,
+        this.variation && `Polaris-TextStyle--${variationName('variation', this.variation)}`,
     );
   }
 

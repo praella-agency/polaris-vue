@@ -17,7 +17,7 @@
     @Prop(String) public label!: string;
     @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
     @Prop(String) public propsClass!: string;
-    @Prop({type: [String, Boolean]}) public value!: string | boolean;
+    @Prop({type: [String, Boolean, Number]}) public value!: string | boolean | number;
     @Prop(Boolean) public disabled!: boolean;
     @Prop(Boolean) public checked!: boolean;
 

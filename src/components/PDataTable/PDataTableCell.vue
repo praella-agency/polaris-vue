@@ -24,8 +24,9 @@
   <td v-else :class="className">
     <template v-if="!hasActions">
       <template v-if="hasAction">
-        <PLink v-if="action" :url="action.url" :external="action.external" :monochrome="action.monochrome">{{action.content}}</PLink>
+        <PLink v-if="action && (action.url || action.external)" :url="action.url" :external="action.external" :monochrome="action.monochrome">{{action.content}}</PLink>
         <PBadge v-if="badge" :status="badge.status" :progress="badge.progress">{{badge.content}}</PBadge>
+        <PToggle v-if="toggle" :checked="toggle.status" :value="toggle.id" @change="toggle.onAction" />
       </template>
       <template v-else>
         {{content}}
@@ -42,10 +43,11 @@
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import { classNames, variationName } from '@/utilities/css';
     import { PIcon } from '@/components/PIcon';
-    import {ComplexAction, LinkAction} from '@/types';
+    import {Action, ComplexAction, LinkAction} from '@/types';
     import { PButton } from '@/components/PButton';
     import { PButtonGroup } from '@/components/PButtonGroup';
     import { PLink } from '@/components/PLink';
+    import { PToggle } from '@/components/PToggle';
 
     type SortDirection = 'ascending' | 'descending' | 'none';
     type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
@@ -65,8 +67,14 @@
         size?: Size;
     }
 
+    interface Toggle {
+        id?: number;
+        status?: Status;
+        onAction?: Action;
+    }
+
     @Component({
-        components: { PIcon, PButton, PButtonGroup, PLink },
+        components: { PIcon, PButton, PButtonGroup, PLink, PToggle },
     })
 
     export default class PDataTableCell extends Vue {
@@ -85,6 +93,7 @@
         @Prop(Array) public actions!: ComplexAction[];
         @Prop(Object) public action!: LinkAction | ComplexAction;
         @Prop(Object) public badge!: Badge;
+        @Prop(Object) public toggle!: Toggle;
 
         public get className() {
             return classNames(
@@ -127,7 +136,7 @@
 
         public get hasAction() {
 
-            return this.action || this.badge;
+            return this.action || this.badge || this.toggle;
         }
 
         public get sorted() {

@@ -34,6 +34,16 @@
                   :firstColumn="false"
                   :truncate="false"
                   :verticalAlign="verticalAlign"/>
+
+              <PDataTableCell
+                  v-if="hasStatus"
+                  header
+                  content="Status"
+                  :sortable="false"
+                  contentType="text"
+                  :firstColumn="false"
+                  :truncate="false"
+                  :verticalAlign="verticalAlign"/>
             </tr>
             <tr v-if="!showTotalsInFooter">
               <PDataTableCell
@@ -71,6 +81,7 @@
                 :key="`cell-${cIndex}-row-${rIndex}`"
                 :content="typeof data !== 'object' ? data : data.content"
                 :action="data.url || data.onAction ? data : null"
+                :toggle="typeof data.status == 'boolean' && data.onAction ? data : null"
                 :badge="typeof data === 'object' && !data.url && !data.onAction ? data : null"
                 :contentType="headings[cIndex].type ? headings[cIndex].type : columnContentTypes[cIndex]"
                 :firstColumn="cIndex === 0"
@@ -81,6 +92,12 @@
                 v-if="hasActions"
                 :actions="actions"
                 :value="ids[rIndex]"
+                :verticalAlign="verticalAlign"/>
+
+            <PDataTableCell
+                v-if="hasStatus"
+                :status="actions"
+                :action="actions"
                 :verticalAlign="verticalAlign"/>
           </tr>
           </tbody>
@@ -214,6 +231,11 @@
          * Data table has pagination
          */
         @Prop(Boolean) public hasPagination!: boolean;
+
+        /**
+         * Data table has hasStatus toggle
+         */
+        @Prop(Boolean) public hasStatus!: boolean;
 
         /**
          * Data table is loading

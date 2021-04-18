@@ -3,7 +3,6 @@ PDataTable example:
 ```vue
 <template>
   <PDataTable
-    loading
     :sort="sort"
     hasPagination
     @input-filter-changed="handleSearch"
@@ -44,6 +43,11 @@ PDataTable example:
         value: 'qty',
         type: 'numeric',
         sortable: true,
+      },{
+        content: 'Status',
+        value: 'status',
+        type: 'string',
+        sortable: false,
       }]"
     :rows="[
       [
@@ -51,18 +55,22 @@ PDataTable example:
         '$875.00',
         {content: 121212, status:'success', progress:'incomplete'},
         140,
+        {status: false,onAction:handleToggle,id: 1},
+
       ],
       [
         {content: 'Mauve Cashmere Scarf', url: 'https://www.google.com/'},
         '$230.00',
         {content: 'A-1234', status:'success', progress:'incomplete'},
         2,
+        {status: true,onAction:handleToggle,id: 3},
       ],
       [
         {content: 'Mauve Cashmere', url: 'https://www.google.com/'},
         '$230.00',
         {content: 'A-1234', status:'success', progress:'incomplete'},
         {content: 299},
+        {status: true,onAction:handleToggle,id: 2},
       ],
     ]"
     :ids="[1,2,3]"
@@ -147,6 +155,9 @@ export default {
     },
     handlePrevious() {
       alert('Go to previous page')
+    },
+    handleToggle($val) {
+      console.log($val)
     }
   }
 }
