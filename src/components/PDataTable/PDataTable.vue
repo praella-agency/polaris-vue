@@ -34,16 +34,6 @@
                   :firstColumn="false"
                   :truncate="false"
                   :verticalAlign="verticalAlign"/>
-
-              <PDataTableCell
-                  v-if="hasStatus"
-                  header
-                  content="Status"
-                  :sortable="false"
-                  contentType="text"
-                  :firstColumn="false"
-                  :truncate="false"
-                  :verticalAlign="verticalAlign"/>
             </tr>
             <tr v-if="!showTotalsInFooter">
               <PDataTableCell
@@ -94,11 +84,6 @@
                 :value="ids[rIndex]"
                 :verticalAlign="verticalAlign"/>
 
-            <PDataTableCell
-                v-if="hasStatus"
-                :status="actions"
-                :action="actions"
-                :verticalAlign="verticalAlign"/>
           </tr>
           </tbody>
           <tfoot v-if="showTotalsInFooter">
@@ -232,10 +217,6 @@
          */
         @Prop(Boolean) public hasPagination!: boolean;
 
-        /**
-         * Data table has hasStatus toggle
-         */
-        @Prop(Boolean) public hasStatus!: boolean;
 
         /**
          * Data table is loading
