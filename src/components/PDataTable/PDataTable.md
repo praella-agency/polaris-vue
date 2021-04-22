@@ -4,7 +4,7 @@ PDataTable example:
 <template>
   <PDataTable
     :sort="sort"
-    hasPagination
+    hasPagination 
     @input-filter-changed="handleSearch"
     :pagination="{
         hasPrevious: true,
@@ -28,6 +28,7 @@ PDataTable example:
         value: 'product',
         type: 'text',
         sortable: true,
+        width: '30%'
       },{
         content: 'Price',
         value: 'price',

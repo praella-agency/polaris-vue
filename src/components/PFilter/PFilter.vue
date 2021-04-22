@@ -40,13 +40,13 @@ interface AppliedFiltersInterface {
 })
 export default class PFilter extends Vue {
 
-    @Prop({type: String, default: ''}) public resourceTitle!: string;
+    @Prop({type: String, default: 'Filter'}) public resourceTitle!: string;
     @Prop(String) public inputFilter!: string;
     @Prop(Array) public appliedFilters!: AppliedFiltersInterface[];
 
     public get prefix() {
 
-        return `Filter ${this.resourceTitle.toLowerCase()}`;
+        return `${this.resourceTitle.toLowerCase()}`;
     }
 }
 </script>

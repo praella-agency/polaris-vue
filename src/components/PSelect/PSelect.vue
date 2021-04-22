@@ -50,7 +50,7 @@
 
     function getSelectedOption(
         options: StrictOption[],
-        value: string,
+        value: string|number,
     ): string {
         let selectedOption = options.find((option) => value === option.value);
 
@@ -78,7 +78,7 @@
         @Prop(Boolean) public labelHidden!: boolean;
         @Prop(String) public label!: string;
         @Prop({type: Array, default: []}) public options!: [];
-        @Prop({type: String, default: PLACEHOLDER_VALUE}) public value!: string;
+        @Prop({type: [String, Number], default: PLACEHOLDER_VALUE}) public value!: string|number;
         @Prop(String) public placeholder!: string;
         @Prop(String) public error!: string;
         @Prop(String) public inlineLabel!: string;
@@ -109,7 +109,7 @@
             return this.selected;
         }
 
-        public set computedValue(value: string) {
+        public set computedValue(value: string|number) {
             this.selected = value;
             this.$emit('change', value);
         }

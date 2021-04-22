@@ -1,5 +1,5 @@
 <template>
-  <th v-if="header" data-polaris-header-cell='true' :class="className" scope='col' :aria-sort="sortLabel">
+  <th v-if="header" data-polaris-header-cell='true' :class="className" :width="width" scope='col' :aria-sort="sortLabel">
     <template v-if="sortable">
       <button :class="headerClassName" @click="handleSortChange">
                 <span class="Polaris-DataTable__Icon">
@@ -14,6 +14,9 @@
   </th>
   <th v-else-if="firstColumn" scope="row" :class="className">
     <template v-if="hasAction">
+      <router-link v-if="action && action.to" :class="className" :to="action.to" >
+        <span>{{action.content}}</span>
+      </router-link>
       <PLink v-if="action" :url="action.url" :external="action.external" :monochrome="action.monochrome">{{action.content}}</PLink>
       <PBadge v-if="badge" :status="badge.status" :progress="badge.progress">{{badge.content}}</PBadge>
     </template>
@@ -24,6 +27,7 @@
   <td v-else :class="className">
     <template v-if="!hasActions">
       <template v-if="hasAction">
+        <PButton plain v-if="action && action.to" :to="action.to">{{action.content}}</PButton>
         <PLink v-if="action && (action.url || action.external)" :url="action.url" :external="action.external" :monochrome="action.monochrome">{{action.content}}</PLink>
         <PBadge v-if="badge" :status="badge.status" :progress="badge.progress">{{badge.content}}</PBadge>
         <PToggle v-if="toggle" :checked="toggle.status" :value="toggle.id" @change="toggle.onAction" />
@@ -48,6 +52,7 @@
     import { PButtonGroup } from '@/components/PButtonGroup';
     import { PLink } from '@/components/PLink';
     import { PToggle } from '@/components/PToggle';
+    import { PBadge } from '@/components/PBadge';
 
     type SortDirection = 'ascending' | 'descending' | 'none';
     type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
@@ -74,7 +79,7 @@
     }
 
     @Component({
-        components: { PIcon, PButton, PButtonGroup, PLink, PToggle },
+        components: { PIcon, PButton, PButtonGroup, PLink, PToggle, PBadge },
     })
 
     export default class PDataTableCell extends Vue {
@@ -86,6 +91,7 @@
         @Prop(Boolean) public header!: boolean;
         @Prop(Boolean) public total!: boolean;
         @Prop(Boolean) public sortable!: boolean;
+        @Prop([String, Number]) public width!: string | number;
         @Prop(Object) public sort!: Sort;
         @Prop({ type: String, default: 'ascending' }) public defaultSortDirection!: SortDirection;
         @Prop(Boolean) public totalInFooter!: boolean;

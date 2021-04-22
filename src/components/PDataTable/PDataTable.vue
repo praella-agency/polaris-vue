@@ -17,6 +17,7 @@
                   header
                   :content="heading.content"
                   :value="heading.value"
+                  :width="heading.width"
                   :sort="sort"
                   :sortable="heading.sortable"
                   :defaultSortDirection="defaultSortDirection"
@@ -216,7 +217,6 @@
          * Data table has pagination
          */
         @Prop(Boolean) public hasPagination!: boolean;
-
 
         /**
          * Data table is loading
