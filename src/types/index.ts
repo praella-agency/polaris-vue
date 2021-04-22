@@ -65,6 +65,7 @@ export interface LinkAction {
   content?: string;
   accessibilityLabel?: string;
   url: string;
+  to: string;
   external: boolean;
 }
 

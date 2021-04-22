@@ -52,7 +52,7 @@ PDataTable example:
       }]"
     :rows="[
       [
-        {content: 'Emerald Silk Gown', url: 'https://www.google.com/'},
+        {content: 'Emerald Silk Gown', to: 'https://www.google.com/'},
         '$875.00',
         {content: 121212, status:'success', progress:'incomplete'},
         140,
@@ -60,14 +60,14 @@ PDataTable example:
 
       ],
       [
-        {content: 'Mauve Cashmere Scarf', url: 'https://www.google.com/'},
+        {content: 'Mauve Cashmere Scarf', to: 'https://www.google.com/'},
         '$230.00',
         {content: 'A-1234', status:'success', progress:'incomplete'},
         2,
         {status: true,onAction:handleToggle,id: 3},
       ],
       [
-        {content: 'Mauve Cashmere', url: 'https://www.google.com/'},
+        {content: 'Mauve Cashmere', to: 'https://www.google.com/'},
         '$230.00',
         {content: 'A-1234', status:'success', progress:'incomplete'},
         {content: 299},
