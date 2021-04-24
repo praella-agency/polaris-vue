@@ -1,11 +1,9 @@
 <template>
   <div :class="labelHidden && 'Polaris-Labelled--hidden'">
-    <div class="Polaris-Labelled__LabelWrapper" v-if="label || $slots.hasOwnProperty('label')" :class="labelClass">
+    <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.hasOwnProperty('label')" :class="labelClass">
       <slot name="label">
         <div class="Polaris-Label">
-          <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text">
-            {{ label }}
-          </label>
+          <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text" v-html="emptyLabel?'&nbsp':label" />
         </div>
       </slot>
     </div>
@@ -93,6 +91,11 @@
      * Visually hide the label
      */
     @Prop(Boolean) public labelHidden!: boolean;
+
+    /**
+     * Visually hide the label
+     */
+    @Prop(Boolean) public emptyLabel!: boolean;
 
     /**
      * Enable rich text editor

@@ -1,10 +1,8 @@
 <template>
     <div :class="labelHidden && 'Polaris-Labelled--hidden'">
-        <div class="Polaris-Labelled__LabelWrapper" v-if="label">
+        <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel">
             <div class="Polaris-Label">
-                <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text">
-                    {{ label }}
-                </label>
+                <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text" v-html="emptyLabel ? '&nbsp' : label" />
             </div>
         </div>
         <div :class="className">
@@ -76,6 +74,7 @@
         @Prop(String) public name!: string;
         @Prop(Boolean) public disabled!: boolean;
         @Prop(Boolean) public labelHidden!: boolean;
+        @Prop(Boolean) public emptyLabel!: boolean;
         @Prop(String) public label!: string;
         @Prop({type: Array, default: []}) public options!: [];
         @Prop({type: [String, Number], default: PLACEHOLDER_VALUE}) public value!: string|number;

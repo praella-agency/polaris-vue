@@ -1,7 +1,9 @@
 <template>
   <div :class="className">
-    <div v-if="title" class="Polaris-Card__SectionHeader">
-      <PSubheading v-bind="$attrs">{{ title }}</PSubheading>
+    <div v-if="title || $slots.hasOwnProperty('title')" class="Polaris-Card__SectionHeader">
+      <PSubheading v-bind="$attrs">
+        <slot name="title" />
+      </PSubheading>
     </div>
     <!-- @slot Body of Card section -->
     <slot/>

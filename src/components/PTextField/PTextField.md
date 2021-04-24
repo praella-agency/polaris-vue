@@ -4,7 +4,17 @@
 PTextField example:
 
 ```vue
-<PTextField id="input_field" label="Store Name" value="Test Store" />
+<PTextField id="input_field"  label="Store Name" value="Test Store" />
+```
+
+Empty label
+```vue
+<PTextField id="input_field" emptyLabel value="Test Store" />
+```
+
+Label Hidden
+```vue
+<PTextField id="input_field" labelHidden value="Test Store" />
 ```
 
 Disabled TextField
