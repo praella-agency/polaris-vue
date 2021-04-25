@@ -48,6 +48,7 @@ import { PBreadcrumbs } from './PBreadcrumbs';
 import { PActionMenu } from './PActionMenu';
 import { PPageActions } from './PPageActions';
 import { PMultiSelect } from './PMultiSelect';
+import { PDatePicker } from './PDatePicker';
 import VTooltip from 'v-tooltip'
 
 import '@/scss/main.scss';
@@ -103,6 +104,7 @@ const Components = {
   PActionMenu,
   PPageActions,
   PMultiSelect,
+  PDatePicker,
 };
 
 const PolarisVue = {
