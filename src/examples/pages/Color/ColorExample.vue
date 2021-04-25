@@ -1,7 +1,7 @@
 <template>
   <ExampleContainer title="Color Picker">
     <ExampleContent :code="example">
-      <PColorPicker label="Color Picker" :color.sync="color" />
+      <PColorPicker id="color_picker" label="Color Picker" :color.sync="color" />
     </ExampleContent>
   </ExampleContainer>
 </template>

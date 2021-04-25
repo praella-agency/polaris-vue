@@ -15,7 +15,7 @@
   <th v-else-if="firstColumn" scope="row" :class="className">
     <template v-if="hasAction">
       <PButton plain v-if="action && action.to" :to="action.to">{{action.content}}</PButton>
-      <PLink v-if="action && (action.url || action.external)" :url="action.url" :external="action.external" :monochrome="action.monochrome">{{action.url}}</PLink>
+      <PLink v-if="action && (action.url || action.external)" :url="action.url" :external="action.external" :monochrome="action.monochrome">{{action.content ? action.content : action.url}}</PLink>
       <PBadge v-if="badge" :status="badge.status" :progress="badge.progress">{{badge.content}}</PBadge>
       <PToggle v-if="toggle" :checked="toggle.status" :value="toggle.id" @change="toggle.onAction" />
     </template>
@@ -27,7 +27,7 @@
     <template v-if="!hasActions">
       <template v-if="hasAction">
         <PButton plain v-if="action && action.to" :to="action.to">{{action.content}}</PButton>
-        <PLink v-if="action && (action.url || action.external)" :url="action.url" :external="action.external" :monochrome="action.monochrome">{{action.url}}</PLink>
+        <PLink v-if="action && (action.url || action.external)" :url="action.url" :external="action.external" :monochrome="action.monochrome">{{action.content ? action.content : action.url}}</PLink>
         <PBadge v-if="badge" :status="badge.status" :progress="badge.progress">{{badge.content}}</PBadge>
         <PToggle v-if="toggle" :checked="toggle.status" :value="toggle.id" @change="toggle.onAction" />
       </template>

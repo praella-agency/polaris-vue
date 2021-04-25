@@ -6,7 +6,8 @@
         <PTextField label="Description" v-model="val" multiline @input="handleInput"></PTextField>
         <PTextField error="Please enter valid email" type="email" label="Account email"/>
         <PTextField type="number" label="Number" v-model="number" @input="handleNumberChange"/>
-        <PTextField type="date" label="Date Picker"/>
+        <PDatePicker id="date-picker" :ranges="false" single-date-picker label="Date Picker" @change="handleDateChange" :dateRange="date" />
+        <PDatePicker id="date-range-picker" label="Date Range Picker" @change="handleChange" :dateRange="dateRange" />
         <PSelect
           label="Date range"
           :options="[{label: 'Today', value: 'today'}, {label: 'Yesterday', value: 'yesterday'}, {label: 'Last 7 days', value: 'lastWeek'}]"
@@ -53,14 +54,17 @@ import { PCheckbox } from '@/components/PCheckbox';
 import { PRadioButton } from '@/components/PRadioButton';
 import { PFormLayout, PFormLayoutItem, PFormLayoutGroup } from '@/components/PFormLayout';
 import { PMultiSelect } from '@/components/PMultiSelect';
+import PDatePicker from '@/components/PDatePicker/PDatePicker.vue';
+import {PIcon} from '@/components/PIcon';
 
 @Component({
   components: {
+    PDatePicker,
     PMultiSelect,
     PRadioButton,
     ExampleContainer, ExampleContent,
     PFormLayout, PFormLayoutItem, PFormLayoutGroup,
-    PSelect, PTextField, PCheckbox,
+    PSelect, PTextField, PCheckbox, PIcon,
   },
 })
 export default class FormExample extends Vue {
@@ -70,6 +74,8 @@ export default class FormExample extends Vue {
   public selectedMultiValue = [];
   public selectedMultiValue2 = [];
   public val = '';
+  public dateRange = {startDate: new Date(), endDate: this.endDate};
+  public date = {startDate: new Date()};
   public checkboxValue = true;
   public options = [{label: 'Today', value: 'today', disabled: true}, {label: 'Yesterday', value: 'yesterday'}, {label: 'Last 7 days', value: 'lastWeek'}];
   public arrayOptions = [ 'Today', 'Yesterday', 'Last 7 days'];
@@ -131,6 +137,22 @@ export default class FormExample extends Vue {
 
   public handleNumberChange(val) {
     this.number = val;
+  }
+
+  public get endDate() {
+    const date = new Date();
+    date.setDate(date.getDate() + 5);
+    return date;
+  }
+
+  public handleChange(val) {
+
+    this.dateRange = val;
+  }
+
+  public handleDateChange(val) {
+
+    this.date = val;
   }
 }
 </script>

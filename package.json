@@ -18,7 +18,7 @@
     "component library"
   ],
   "license": "MIT",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -35,6 +35,7 @@
     "@vue/babel-preset-jsx": "^1.1.1",
     "change-case": "^4.1.1",
     "core-js": "^3.3.2",
+    "dayjs": "^1.10.4",
     "v-click-outside": "^3.0.1",
     "v-tooltip": "^2.1.2",
     "vue": "^2.6.10",
@@ -42,7 +43,8 @@
     "vue-color": "^2.7.1",
     "vue-multiselect": "^2.1.6",
     "vue-property-decorator": "^8.3.0",
-    "vue-router": "^3.4.3"
+    "vue-router": "^3.4.3",
+    "vue2-daterange-picker": "^0.6.5"
   },
   "files": [
     "dist/*",

@@ -110,6 +110,7 @@ import { PFormLayout } from '@/components/PFormLayout';
 import { PHeading } from '@/components/PHeading';
 import { PTextField } from '@/components/PTextField';
 import { PBadge } from '@/components/PBadge';
+import {PCaption} from '@/components/PCaption';
 
 @Component({
   components: {
@@ -120,6 +121,7 @@ import { PBadge } from '@/components/PBadge';
     PHeading,
     PTextField,
     PBadge,
+    PCaption,
   },
 })
 export default class StructureExample extends Vue {
