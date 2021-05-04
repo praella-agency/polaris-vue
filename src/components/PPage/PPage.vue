@@ -99,6 +99,9 @@ export default class PPage extends Vue {
             this.primaryAction != null ||
             (this.secondaryActions != null && this.secondaryActions.length > 0) ||
             (this.actionGroups != null && this.actionGroups.length > 0) ||
+            (this.$slots.hasOwnProperty('primaryAction')) ||
+            (this.$slots.hasOwnProperty('additionalNavigation')) ||
+            (this.$slots.hasOwnProperty('thumbnail')) ||
             (this.breadcrumbs != null && this.breadcrumbs.length > 0);
     }
 

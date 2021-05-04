@@ -1,0 +1,10 @@
+.Polaris-Link {
+  color: $theme-interactive;
+  text-decoration: underline;
+  &:hover {
+    color: $theme-interactive-hovered;
+  }
+  &:focus {
+    color: $theme-interactive-focused;
+  }
+}
