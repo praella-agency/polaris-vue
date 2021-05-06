@@ -1,5 +1,5 @@
 <template>
-    <PUnstyledLink v-if="url || to" :id="id" :url="url" :external="external" :class="className" v-on="$listeners" data-polaris-unstyled="true">
+    <PUnstyledLink v-if="url || to" :id="id" :to="to" :url="url" :external="external" :class="className" v-on="$listeners" data-polaris-unstyled="true">
         <slot/>
         <span v-if="isStringSlot" class="Polaris-Link__IconLockup">
             <span class="Polaris-Link__IconLayout">
