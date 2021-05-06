@@ -1,9 +1,10 @@
 <template>
   <div :class="labelHidden && 'Polaris-Labelled--hidden'">
-    <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.hasOwnProperty('label')" :class="labelClass">
+    <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.hasOwnProperty('label')"
+         :class="labelClass">
       <slot name="label">
         <div class="Polaris-Label">
-          <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text" v-html="emptyLabel?'&nbsp':label" />
+          <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text" v-html="emptyLabel?'&nbsp':label"/>
         </div>
       </slot>
     </div>
@@ -31,7 +32,7 @@
     >
       <template v-slot:input="picker" style="min-width: 100%">
         <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
-          {{prefix}}
+          {{ prefix }}
           <slot v-if="$slots.prefix" name="prefix"></slot>
         </div>
         <div :class="className">
@@ -42,8 +43,8 @@
             {{ formatDate(picker.startDate) }}
           </template>
         </div>
-        <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" >
-          {{suffix}}
+        <div class="Polaris-TextField__Suffix" :id="id+'Suffix'">
+          {{ suffix }}
           <slot name="suffix">
             <PIcon slot="suffix" source="CalendarMajorMonotone"/>
           </slot>
@@ -59,7 +60,7 @@
 
 <script lang="ts">
 import {Component, Vue, Prop, Emit, Watch} from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
+import {classNames, variationName} from '@/utilities/css';
 import DateRangePicker from 'vue2-daterange-picker';
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 import {PIcon} from '@/components/PIcon';
@@ -74,7 +75,7 @@ interface DateRange {
 }
 
 @Component({
-  components: { DateRangePicker, PIcon, PFieldError },
+  components: {DateRangePicker, PIcon, PFieldError},
 })
 export default class PDatePicker extends Vue {
 
@@ -93,12 +94,13 @@ export default class PDatePicker extends Vue {
   @Prop(String) public minDate!: string;
   @Prop(String) public maxDate!: string;
   @Prop({type: String, default: 'MM/DD/YYYY'}) public format!: string;
-  @Prop(Boolean) public singleDatePicker!: boolean;
+  @Prop([Boolean, String]) public singleDatePicker!: boolean | string;
   @Prop(Boolean) public timePicker!: boolean;
   @Prop(Boolean) public timePicker24Hour!: boolean;
   @Prop({type: Boolean, default: false}) public showWeekNumbers!: boolean;
   @Prop(Boolean) public showDropdowns!: boolean;
-  @Prop({type: [Boolean, Object], default: () => {
+  @Prop({
+    type: [Boolean, Object], default: () => {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
 
@@ -107,12 +109,14 @@ export default class PDatePicker extends Vue {
       return {
         'Today': [today, today],
         'Yesterday': [yesterday, yesterday],
-        'This week': [dayjs().startOf('week').toDate(), dayjs().endOf('week').toDate()],
-        'This month': [dayjs().startOf('month').toDate(), dayjs().endOf('month').toDate()],
-        'This year': [dayjs().startOf('year').toDate(), dayjs().endOf('year').toDate()],
-        'Last month': [dayjs().subtract(1, 'month').startOf('month').toDate(), dayjs().subtract(1, 'month').endOf('month').toDate()],
+        'This week': [dayjs().startOf('week').add(1, 'day').toDate(), dayjs().endOf('week').toDate()],
+        'This month': [dayjs().startOf('month').add(1, 'day').toDate(), dayjs().endOf('month').toDate()],
+        'This year': [dayjs().startOf('year').add(1, 'day').toDate(), dayjs().endOf('year').toDate()],
+        'Last month': [dayjs().subtract(1, 'month').startOf('month').add(1, 'day').toDate(),
+          dayjs().subtract(1, 'month').endOf('month').toDate()],
       };
-    }}) public ranges!: boolean | object;
+    },
+  }) public ranges!: boolean | object;
   @Prop({type: Boolean, default: true}) public autoApply!: boolean;
   @Prop(Object) public dateRange!: DateRange;
   @Prop(Boolean) public linkedCalendars!: boolean;

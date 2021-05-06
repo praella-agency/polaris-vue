@@ -1,5 +1,5 @@
 <template>
-    <PUnstyledLink v-if="url" :id="id" :url="url" :external="external" :class="className" v-on="$listeners" data-polaris-unstyled="true">
+    <PUnstyledLink v-if="url || to" :id="id" :url="url" :external="external" :class="className" v-on="$listeners" data-polaris-unstyled="true">
         <slot/>
         <span v-if="isStringSlot" class="Polaris-Link__IconLockup">
             <span class="Polaris-Link__IconLayout">
@@ -31,6 +31,7 @@
 
         @Prop(String) public id!: string;
         @Prop(String) public url!: string;
+        @Prop(String) public to!: string;
         @Prop(Boolean) public external!: boolean;
         @Prop(Boolean) public monochrome!: boolean;
 
