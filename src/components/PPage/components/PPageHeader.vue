@@ -12,8 +12,8 @@
             </div>
         </div>
         <div class="Polaris-Page-Header__MainContent">
-            <div class="Polaris-Page-Header__TitleActionMenuWrapper">
-                <div class="Polaris-Page-Header__TitleWrapper">
+            <div class="Polaris-Page-Header__TitleActionMenuWrapper" v-if="hasTitle || hasActionMenu">
+                <div class="Polaris-Page-Header__TitleWrapper" v-if="hasTitle">
                     <PPageHeaderTitle :title="title" :subtitle="subtitle" :titleMetadata="titleMetadata">
                         <slot name="thumbnail" slot="thumbnail" />
                         <slot name="titleMetadata" slot="titleMetadata" />
@@ -99,6 +99,11 @@
 
         public get hasActionMenu() {
             return this.secondaryActions.length > 0 || new hasGroupsWithActions(this.actionGroups);
+        }
+
+        public get hasTitle() {
+            return this.title || this.subtitle || this.titleMetadata || this.$slots.hasOwnProperty('thumbnail') ||
+                this.$slots.hasOwnProperty('titleMetadata');
         }
 
         public get headerClassNames() {

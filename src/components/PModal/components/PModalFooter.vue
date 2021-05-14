@@ -5,7 +5,7 @@
                 <PStackItem fill><slot /></PStackItem>
                 <PButtonGroup v-if="primaryAction || secondaryActions">
                     <PButton v-if="secondaryActions" v-for="(secondaryAction, secondaryActionIndex) in secondaryActions" :key="`secondaryAction-${secondaryActionIndex}`" :destructive="secondaryAction.destructive" :disabled="secondaryAction.disabled" @click="secondaryAction.onAction()">{{secondaryAction.content}}</PButton>
-                    <PButton v-if="primaryAction" :disabled="primaryAction.disabled" primary @click="primaryAction.onAction()">{{primaryAction.content}}</PButton>
+                    <PButton v-if="primaryAction" :disabled="primaryAction.disabled" :destructive="primaryAction.destructive" :primary="!primaryAction.destructive" @click="primaryAction.onAction()">{{primaryAction.content}}</PButton>
                 </PButtonGroup>
             </PStack>
         </div>

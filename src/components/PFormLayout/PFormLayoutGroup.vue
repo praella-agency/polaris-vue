@@ -17,7 +17,7 @@
              class="Polaris-FormLayout__HelpText">
             <!-- @slot Form group helpText -->
             <slot name="helpText">
-                <template v-html="helpText"/>
+              {{ helpText }}
             </slot>
         </div>
     </div>

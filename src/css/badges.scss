@@ -46,6 +46,13 @@
 		color: $badge-status-warning-pip-color;
 	}
 }
+.Polaris-Badge--statusCritical {
+	background-color: $badge-status-critical-bgcolor;
+	color: $badge-status-critical-color;
+	.Polaris-Badge__Pip {
+		color: $badge-status-critical-pip-color;
+	}
+}
 .Polaris-Badge--statusNew {
 	background-color: $badge-status-new-bgcolor;
 	color: $badge-status-new-color;

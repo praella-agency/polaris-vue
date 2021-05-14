@@ -314,8 +314,8 @@ $badge-status-success-color: $theme-topbar-color;
 
 $badge-status-success-pip-color: rgba(0, 127, 95, 1);
 
-$badge-status-info-color: #a4e8f2;
-$badge-status-info-bgcolor: $theme-topbar-color;
+$badge-status-info-color: $theme-topbar-color;
+$badge-status-info-bgcolor: #a4e8f2;
 
 $badge-status-info-pip-color: rgba(0, 160, 172, 1);
 
@@ -327,7 +327,12 @@ $badge-status-attention-pip-color: #8a6116;
 $badge-status-warning-bgcolor: #ffd79d;
 $badge-status-warning-color: $theme-topbar-color;
 
-$badge-status-warning-pip-color: rgba(185, 137, 0, 1);	
+$badge-status-warning-pip-color: rgba(185, 137, 0, 1);
+
+$badge-status-critical-bgcolor: #fed3d1;
+$badge-status-critical-color: $theme-topbar-color;
+
+$badge-status-critical-pip-color: rgb(215, 44, 13);
 
 $badge-status-new-bgcolor: $theme-bgcolor;
 $badge-status-new-color: $theme-topbar-color;
