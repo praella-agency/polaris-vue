@@ -49,6 +49,7 @@ import { PActionMenu } from './PActionMenu';
 import { PPageActions } from './PPageActions';
 import { PMultiSelect } from './PMultiSelect';
 import { PDatePicker } from './PDatePicker';
+import { PMediaCard } from './PMediaCard';
 import VTooltip from 'v-tooltip'
 
 import '@/scss/main.scss';
@@ -105,6 +106,7 @@ const Components = {
   PPageActions,
   PMultiSelect,
   PDatePicker,
+  PMediaCard
 };
 
 const PolarisVue = {

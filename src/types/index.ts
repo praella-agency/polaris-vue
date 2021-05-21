@@ -145,6 +145,11 @@ export interface ConnectedDisclosure {
   disabled?: boolean;
   actions: ActionListItemDescriptor[];
 }
+export interface Video {
+  src: string;
+  size?: number;
+  type: string;
+}
 
 export interface CheckboxHandles {
   focus(): void;

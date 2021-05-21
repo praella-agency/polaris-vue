@@ -18,7 +18,7 @@
     "component library"
   ],
   "license": "MIT",
-  "version": "2.0.13",
+  "version": "2.1.0",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -42,6 +42,7 @@
     "vue-class-component": "^7.0.2",
     "vue-color": "^2.7.1",
     "vue-multiselect": "^2.1.6",
+    "vue-plyr": "^7.0.0",
     "vue-property-decorator": "^8.3.0",
     "vue-router": "^3.4.3",
     "vue2-daterange-picker": "^0.6.5"
