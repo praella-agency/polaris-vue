@@ -8,22 +8,45 @@
     <template v-else>{{label}}</template>
   </div>
 </template>
-
-<script lang="ts">
-  import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
-  @Component({})
-
-  export default class PToggle extends Vue {
-    @Prop(String) public label!: string;
-    @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
-    @Prop(String) public propsClass!: string;
-    @Prop({type: [String, Boolean, Number]}) public value!: string | boolean | number;
-    @Prop(Boolean) public disabled!: boolean;
-    @Prop(Boolean) public checked!: boolean;
-
-    public onChange(e: any) {
-      const target = e.target || e.srcElement;
-      this.$emit('change', {checked: target.checked, value: target.value});
+<script>
+  export default {
+    props: {
+      label: {
+        required: false,
+        type: String,
+      },
+      id: {
+        required: false,
+        type: String,
+        default: `PolarisTextField${new Date().getUTCMilliseconds()}`
+      },
+      propsClass: {
+        required: false,
+        type: String,
+      },
+      value: {
+        required: false,
+        type: [String, Boolean]
+      },
+      disabled: {
+        required: false,
+        type: Boolean
+      },
+      /**
+      * Defined if toggle enabled/disabled
+       * @values true, false
+      * */
+      checked: {
+        default: false,
+        required: false,
+        type: Boolean
+      }
+    },
+    methods: {
+      onChange(e) {
+        const target = e.target || e.srcElement;
+        this.$emit('change', {checked: target.checked, value: target.value});
+      }
     }
   }
 </script>
