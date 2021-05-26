@@ -45,6 +45,8 @@
 
     .Polaris-Filters-ConnectedFilterControl__Item {
         >* {
+            margin-left: -1px;
+            border-radius: 0 !important;
             >* {
                 margin-left: -1px;
                 border-radius: 0 !important;
@@ -53,8 +55,8 @@
 
         &:first-child {
             >* {
-                border-top-right-radius: 0 !important;
-                border-bottom-right-radius: 0 !important;
+                border-top-left-radius: 4px !important;
+                border-bottom-left-radius: 4px !important;
                 >* {
                     border-top-left-radius: 4px !important;
                     border-bottom-left-radius: 4px !important;
@@ -64,8 +66,8 @@
 
         &:last-child {
             >* {
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
+                border-top-right-radius: 4px !important;
+                border-bottom-right-radius: 4px !important;
                 >* {
                     border-top-right-radius: 4px !important;
                     border-bottom-right-radius: 4px !important;

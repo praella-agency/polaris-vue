@@ -3,7 +3,9 @@ PFilter example
 ```vue
 
 <template>
-  <PFilter @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
+  <PFilter resourceTitle="Search" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
+    <PButton>Change Order</PButton>
+    <PButton>Submit</PButton>
     <PPopover
         id="status_popover"
         :active="popoverActive"
@@ -20,14 +22,13 @@ PFilter example
       <POptionList
           slot="content"
           :options="[
-              {label: 'Active', value: 1},
+              {label: 'Active Little Long Content', value: 1},
               {label: 'In-Active', value: 0},
           ]"
           :selected="status"
           @change="updateStatusFilter"
       ></POptionList>
     </PPopover>
-    <PButton>Test</PButton>
   </PFilter>
 </template>
 

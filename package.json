@@ -33,6 +33,7 @@
     "@ckeditor/ckeditor5-vue2": "^1.0.5",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "@vue/babel-preset-jsx": "^1.1.1",
+    "apexcharts": "^3.26.3",
     "change-case": "^4.1.1",
     "core-js": "^3.3.2",
     "dayjs": "^1.10.4",
