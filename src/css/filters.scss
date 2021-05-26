@@ -33,14 +33,15 @@
 .Polaris-Filters-ConnectedFilterControl.Polaris-Filters-ConnectedFilterControl--right {
     .Polaris-Filters-ConnectedFilterControl__CenterContainer {
         * {
-            border-top-right-radius: 0 !important;
-            border-bottom-right-radius: 0 !important;
+            //border-top-right-radius: 0 !important;
+            //border-bottom-right-radius: 0 !important;
         }
     }
 }
 
 .Polaris-Filters-ConnectedFilterControl__RightContainer {
     display: flex;
+    margin-left: .8rem;
 
     .Polaris-Filters-ConnectedFilterControl__Item {
         >* {
@@ -50,8 +51,21 @@
             }
         }
 
+        &:first-child {
+            >* {
+                border-top-right-radius: 0 !important;
+                border-bottom-right-radius: 0 !important;
+                >* {
+                    border-top-left-radius: 4px !important;
+                    border-bottom-left-radius: 4px !important;
+                }
+            }
+        }
+
         &:last-child {
             >* {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
                 >* {
                     border-top-right-radius: 4px !important;
                     border-bottom-right-radius: 4px !important;
