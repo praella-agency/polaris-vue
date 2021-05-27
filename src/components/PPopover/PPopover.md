@@ -1,15 +1,24 @@
 PPopover example:
 
-```vue
-<PPopover :active="active">Default Example Usage</PPopover>
+PPopover
 
-<script >
-    export default {
-        data() {
-            return {
-                active: false            
-            }
-        }    
+```vue
+
+<template>
+  <PPopover
+      :active="active"
+      :activate="activator"
+  ></PPopover>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      active: false,
+      activator: '<PButton>My</PButton>',
     }
+  },
+}
 </script>
 ```

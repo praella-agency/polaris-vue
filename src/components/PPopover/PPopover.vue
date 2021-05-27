@@ -47,10 +47,11 @@ export default class PPopover extends Vue {
     @Prop({type: String, default: `PolarisPopover${new Date().getUTCMilliseconds()}`}) public id!: string;
 
     @Prop(Boolean) public active!: boolean;
+
     /**
      * Preferred Position
      *
-     * */
+     */
     @Prop({ type: String, default: 'below' }) public preferredPosition!: string;
     @Prop(String) public activatorWrapper!: string;
     @Prop(Boolean) public preventAutofocus!: boolean;

@@ -23,7 +23,7 @@ module.exports = {
         "**/components/PPageActions/PPageActions.vue",
         "**/components/PPopover/components/PPopoverOverlay.vue",
         "**/components/PPopover/components/PPositionedOverlay.vue",
-        "**/components/PResourceList/components/PBulkActionButtonWrapper.vue",
+        "**/components/PResourceList/components/*",
         "**/components/PTextField/components/PFieldResizer.vue",
         "**/components/PDataTable/PDataTableCell.vue",
         "**/components/PDataTable/PDataTableCell.vue",

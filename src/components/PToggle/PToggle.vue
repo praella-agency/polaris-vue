@@ -1,52 +1,53 @@
 <template>
   <div :class="propsClass">
     <label class="switch" :style="label ? 'margin-right:3px' : ''">
-      <input type="checkbox" :id="id" :value="value" :checked="disabled ? false : checked" :disabled="disabled" @change="onChange">
+      <input type="checkbox" :id="id" :value="value" :checked="disabled ? false : checked" :disabled="disabled"
+             @change="onChange">
       <span class="slider round"></span>
     </label>
-    <slot v-if="$slots.label" name="label" />
-    <template v-else>{{label}}</template>
+    <slot v-if="$slots.label" name="label"/>
+    <template v-else>{{ label }}</template>
   </div>
 </template>
 <script>
-  export default {
-    props: {
-      label: {
-        required: false,
-        type: String,
-      },
-      id: {
-        required: false,
-        type: String,
-        default: `PolarisTextField${new Date().getUTCMilliseconds()}`
-      },
-      propsClass: {
-        required: false,
-        type: String,
-      },
-      value: {
-        required: false,
-        type: [String, Boolean]
-      },
-      disabled: {
-        required: false,
-        type: Boolean
-      },
-      /**
-      * Defined if toggle enabled/disabled
-       * @values true, false
-      * */
-      checked: {
-        default: false,
-        required: false,
-        type: Boolean
-      }
+export default {
+  props: {
+    label: {
+      required: false,
+      type: String,
     },
-    methods: {
-      onChange(e) {
-        const target = e.target || e.srcElement;
-        this.$emit('change', {checked: target.checked, value: target.value});
-      }
-    }
-  }
+    id: {
+      required: false,
+      type: String,
+      default: `PolarisTextField${new Date().getUTCMilliseconds()}`,
+    },
+    propsClass: {
+      required: false,
+      type: String,
+    },
+    value: {
+      required: false,
+      type: [String, Boolean],
+    },
+    disabled: {
+      required: false,
+      type: Boolean,
+    },
+    /**
+     * Defined if toggle enabled/disabled
+     * @values true, false
+     */
+    checked: {
+      default: false,
+      required: false,
+      type: Boolean,
+    },
+  },
+  methods: {
+    onChange(e) {
+      const target = e.target || e.srcElement;
+      this.$emit('change', {checked: target.checked, value: target.value});
+    },
+  },
+};
 </script>

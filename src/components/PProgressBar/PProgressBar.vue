@@ -1,44 +1,52 @@
 <template>
-    <div :class="className">
-        <progress class="Polaris-ProgressBar__Progress" :value="parsedProgress" max="100" />
-        <div class="Polaris-ProgressBar__Indicator" :style="{width: `${parsedProgress}%`}">
-            <span class="Polaris-ProgressBar__Label">{{parsedProgress}}%</span>
-        </div>
+  <div :class="className">
+    <progress class="Polaris-ProgressBar__Progress" :value="parsedProgress" max="100"/>
+    <div class="Polaris-ProgressBar__Indicator" :style="{width: `${parsedProgress}%`}">
+      <span class="Polaris-ProgressBar__Label">{{ parsedProgress }}%</span>
     </div>
+  </div>
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Prop } from 'vue-property-decorator';
-    import {classNames, variationName} from '@/utilities/css';
+import {Component, Vue, Prop} from 'vue-property-decorator';
+import {classNames, variationName} from '@/utilities/css';
 
-    type Size = 'small' | 'medium' | 'large';
+type Size = 'small' | 'medium' | 'large';
 
-    @Component
-    export default class PProgressBar extends Vue {
+@Component
+export default class PProgressBar extends Vue {
 
-        @Prop({type: Number, default: 0}) public progress!: number;
-        @Prop({type: String, default: 'medium'}) public size!: Size;
+  /**
+   * The progression of certain tasks
+   */
+  @Prop({type: Number, default: 0, required: true}) public progress!: number;
 
-        public get className() {
-            return classNames(
-                'Polaris-ProgressBar',
-                this.size && `Polaris-ProgressBar--${variationName('size', this.size)}`,
-            );
-        }
+  /**
+   * Size of Progressbar
+   * @values small, medium, large
+   */
+  @Prop({type: String, default: 'medium'}) public size!: Size;
 
-        public get parsedProgress() {
+  public get className() {
+    return classNames(
+        'Polaris-ProgressBar',
+        this.size && `Polaris-ProgressBar--${variationName('size', this.size)}`,
+    );
+  }
 
-            let progressWidth;
+  public get parsedProgress() {
 
-            if (this.progress < 0) {
-                progressWidth = 0;
-            } else if (this.progress > 100) {
-                progressWidth = 100;
-            } else {
-                progressWidth = this.progress;
-            }
+    let progressWidth;
 
-            return progressWidth;
-        }
+    if (this.progress < 0) {
+      progressWidth = 0;
+    } else if (this.progress > 100) {
+      progressWidth = 100;
+    } else {
+      progressWidth = this.progress;
     }
+
+    return progressWidth;
+  }
+}
 </script>
