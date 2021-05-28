@@ -31,10 +31,13 @@ module.exports = {
         "**/components/PPage/components/components/PPageHeaderTitle.vue",
         "**/components/PPagination/PPagination.vue",
         "**/components/PModal/components/*",
-        "**/components/PSpinner/PSpinner.vue",
+        "**/components/PTextField/components/PSpinner.vue",
+        "**/components/PTabs/PPanel.vue",
+        "**/components/PTabs/PTab.vue",
+        "**/components/PTextField/components/PInput.vue",
     ],
     require: ['./src/scss/main.scss','./src/mixins/tooltip.js'],
     usageMode: 'expand',
     exampleMode: 'expand',
 
-}
+};

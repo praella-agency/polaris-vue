@@ -10,6 +10,9 @@ type Size = 'small' | 'medium' | 'large';
 
 @Component
 export default class PSkeletonThumbnail extends Vue {
+  /**
+   * Size of Skeleton - Can be 'small' | 'medium' | 'large'
+   */
   @Prop({ type: String, default: 'medium' }) public size!: Size;
 
   public get className() {

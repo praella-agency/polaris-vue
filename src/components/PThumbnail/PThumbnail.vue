@@ -18,9 +18,7 @@
     export default class PThumbnail extends Vue {
 
         /**
-         * Thumbnail Size
-         *
-         * Available Size Options: small,medium & large
+         * Thumbnail Size - Can be small,medium & large
          */
         @Prop({type: String, default: 'medium'}) public size!: Size;
 

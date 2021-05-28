@@ -10,7 +10,13 @@ import { classNames } from '@/utilities/css';
 
 @Component
 export default class PStackItem extends Vue {
+  /**
+   * Fill the available horizontal space in the stack with the item
+   */
   @Prop(Boolean) public fill!: boolean;
+  /**
+   * Width of Item - Can be 100 or 100px
+   */
   @Prop([String, Number]) public width!: string | number;
 
   public get className() {

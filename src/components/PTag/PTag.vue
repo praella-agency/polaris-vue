@@ -23,8 +23,13 @@ interface TagInterface {
     },
 })
 export default class PTag extends Vue {
-
+    /**
+     * Tag object - Can be { value: 'Test', key: 'test'}
+     */
     @Prop(Object) public tag!: TagInterface;
+    /**
+     * Set true if you want to make it removable
+     */
     @Prop(Boolean) public removable!: boolean;
 
     public get className() {

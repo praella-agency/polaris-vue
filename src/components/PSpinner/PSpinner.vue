@@ -15,7 +15,13 @@ const COLORS_FOR_LARGE_SPINNER = ['teal', 'inkLightest'];
 
 @Component
 export default class PSpinner extends Vue {
+  /**
+   * Color for spinner - Can be 'white' | 'teal' | 'inkLightest'
+   */
   @Prop({ type: String, default: 'teal' }) public color!: Color;
+  /**
+   * Size of spinner - Can be 'small' | 'large'
+   */
   @Prop({ type: String, default: 'large' }) public size!: Size;
 
   public type: string = '';

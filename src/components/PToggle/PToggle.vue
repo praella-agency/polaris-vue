@@ -10,44 +10,63 @@
   </div>
 </template>
 <script>
-export default {
-  props: {
-    label: {
-      required: false,
-      type: String,
+  export default {
+    props: {
+      /**
+       * Label of toggle
+       */
+      label: {
+        required: false,
+        type: String,
+      },
+      /**
+       * ID of toggle
+       */
+      id: {
+        required: false,
+        type: String,
+        default: `PolarisTextField${new Date().getUTCMilliseconds()}`,
+      },
+      /**
+       * propsClass of toggle
+       */
+      propsClass: {
+        required: false,
+        type: String,
+      },
+      /**
+       * Value of toggle
+       */
+      value: {
+        required: false,
+        type: [String, Boolean],
+      },
+      /**
+       * Set true for disable
+       */
+      disabled: {
+        required: false,
+        type: Boolean,
+      },
+      /**
+       * Defined if toggle enabled/disabled
+       * @values true, false
+       */
+      checked: {
+        default: false,
+        required: false,
+        type: Boolean,
+      },
     },
-    id: {
-      required: false,
-      type: String,
-      default: `PolarisTextField${new Date().getUTCMilliseconds()}`,
+    methods: {
+      /**
+       * On change event handler
+       * @param e
+       */
+      onChange(e) {
+        const target = e.target || e.srcElement;
+        this.$emit('change', {checked: target.checked, value: target.value});
+      },
     },
-    propsClass: {
-      required: false,
-      type: String,
-    },
-    value: {
-      required: false,
-      type: [String, Boolean],
-    },
-    disabled: {
-      required: false,
-      type: Boolean,
-    },
-    /**
-     * Defined if toggle enabled/disabled
-     * @values true, false
-     */
-    checked: {
-      default: false,
-      required: false,
-      type: Boolean,
-    },
-  },
-  methods: {
-    onChange(e) {
-      const target = e.target || e.srcElement;
-      this.$emit('change', {checked: target.checked, value: target.value});
-    },
-  },
-};
+  };
 </script>

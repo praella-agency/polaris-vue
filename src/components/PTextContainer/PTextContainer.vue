@@ -12,6 +12,9 @@ type Spacing = 'tight' | 'loose';
 
 @Component
 export default class PTextContainer extends Vue {
+  /**
+   * The amount of vertical spacing children will get between them - Can be 'tight' | 'loose'
+   */
   @Prop(String) public spacing!: Spacing;
 
   public get className() {
