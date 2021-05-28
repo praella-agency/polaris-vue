@@ -44,12 +44,35 @@ interface SectionDescriptor {
 })
 export default class POptionList extends Vue {
 
-    @Prop(Boolean) public allowMultiple!: boolean;
+    /**
+     * Add to allow multiple options.
+     */
+    @Prop({type: Boolean, default: false}) public allowMultiple!: boolean;
+
+    /**
+     * A unique identifier for the option list.
+     */
     @Prop(String) public id!: string;
+
+    /**
+     * List title.
+     */
     @Prop(String) public title!: string;
-    @Prop(Array) public options!: OptionDescriptor[];
-    @Prop(Array) public sections!: SectionDescriptor[];
-    @Prop(Array) public selected!: string[];
+
+    /**
+     * Collection of options to be listed.
+     */
+    @Prop({type: Array, default: () => []}) public options!: OptionDescriptor[];
+
+    /**
+     * Sections containing a header and related options.
+     */
+    @Prop({type: Array, default: () => []}) public sections!: SectionDescriptor[];
+
+    /**
+     * The selected options.
+     */
+    @Prop({type: Array, required: true, default: []}) public selected!: string[];
 
     public get normalizedOptions() {
 

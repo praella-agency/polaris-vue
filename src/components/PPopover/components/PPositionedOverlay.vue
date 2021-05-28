@@ -16,10 +16,9 @@
 
 <script lang="ts">
 import {Component, Vue, Prop, Ref, Watch} from 'vue-property-decorator';
-import PPositionedOverlay from '@/components/PPopover/components/PPositionedOverlay.vue';
 
 @Component({
-    components: { PPositionedOverlay },
+    components: {  },
 })
 export default class PPopoverOverlay extends Vue {
 
@@ -91,7 +90,7 @@ export default class PPopoverOverlay extends Vue {
         if (!activator) { return; }
 
         const activatorRect = activator.getBoundingClientRect();
-        const currentOverlayRect = this.overlay.getBoundingClientRect();
+        // const currentOverlayRect = this.overlay.getBoundingClientRect();
         const scrollableElement = (!this.scrollableElement || this.scrollableElement === document) ?
             document.body : this.scrollableElement;
         let scrollableContainerRect = scrollableElement.getBoundingClientRect();
@@ -110,7 +109,7 @@ export default class PPopoverOverlay extends Vue {
             };
         }
 
-        const overlayMargins = this.overlay.firstElementChild
+        const overlayMargins = this.overlay && this.overlay.firstElementChild
             ? this.getMarginsForNode(this.overlay.firstElementChild)
             : { activator: 0, container: 0, horizontal: 0 };
 
@@ -225,6 +224,9 @@ export default class PPopoverOverlay extends Vue {
     }
 
     public getBoundingClientRect(element: HTMLElement) {
+        if(!element) {
+          return false;
+        }
         const rect = element.getBoundingClientRect();
         return {
             top: rect.top,

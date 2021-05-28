@@ -12,8 +12,9 @@
         </div>
 
         <div class="Polaris-ResourceList__BulkActionsWrapper" v-if="checked">
-            <div class="Polaris-ResourceList-BulkActions__Group Polaris-ResourceList-BulkActions__Group--largeScreen Polaris-ResourceList-BulkActions__Group--entered">
-                <div class="Polaris-ResourceList-BulkActions__ButtonGroupWrapper">
+<!--            <div class="Polaris-ResourceList-BulkActions__Group Polaris-ResourceList-BulkActions__Group&#45;&#45;largeScreen Polaris-ResourceList-BulkActions__Group&#45;&#45;entered">-->
+          <div class="Polaris-BulkActions__Group Polaris-BulkActions__Group--largeScreen Polaris-BulkActions__Group--exited">
+            <div class="Polaris-ResourceList-BulkActions__ButtonGroupWrapper">
                     <PButtonGroup segmented>
                         <PCheckableButton v-bind="$attrs" :checked="checked" v-on="$listeners">{{resourceHeaderTitle}}</PCheckableButton>
                         <PBulkActionButtonWrapper :action="promotedBulkActions"></PBulkActionButtonWrapper>

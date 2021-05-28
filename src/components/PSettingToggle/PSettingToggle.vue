@@ -29,9 +29,22 @@
   })
 
   export default class PSettingToggle extends Vue {
+    /**
+     * Label for form input.
+     */
     @Prop(String) public label!: string;
-    @Prop() public action!: any;
+
+    /**
+     * Card header actions.
+     */
+    @Prop({type: Object,default: () => {}}) public action!: object;
+
+    /**
+     * Sets toggle state.
+     * @values true|false
+     */
     @Prop(Boolean) public enabled!: boolean;
+
     @Prop(String) public propsClass!: string;
 
     public handleAction(action: any) {
