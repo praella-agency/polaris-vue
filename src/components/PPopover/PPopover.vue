@@ -7,10 +7,11 @@
         :active="active"
         :activatorId="activatorId"
         :preferredPosition="preferredPosition"
+        :preferredAlignment="preferredAlignment"
         :fullWidth="fullWidth"
         @close="onClose">
       <template v-slot:overlay="props">
-        <div :class="className" ref="content">
+        <div :class="className" :ref="`content-${id}`">
           <div v-if="!props.data.measuring"
                :style="{ left: props.data.tipPosition+'px' }"
                class="Polaris-Popover__Tip">
@@ -59,6 +60,8 @@ export default class PPopover extends Vue {
    * @values below|above|mostSpace
    */
   @Prop({type: String, default: 'below'}) public preferredPosition!: string;
+
+  @Prop({type: String, default: 'center'}) public preferredAlignment!: string;
 
   /**
    * The element type to wrap the activator with.
@@ -124,11 +127,12 @@ export default class PPopover extends Vue {
 
   public handlePageClick(e) {
     const target = e.target;
-    const contentNode = this.$refs.content;
+    const contentNode = this.$refs['content-'+this.id];
     if ((contentNode != null && this.nodeContainsDescendant(contentNode, target)) ||
         this.nodeContainsDescendant(this.findActivator(), target) || !this.active) {
       return;
     }
+
     this.$emit('close', 'Click');
   }
 

@@ -18,14 +18,16 @@ PResourceList example:
     >
       <template slot="filter">
         <PPopover
-            id="status_popover"
+            @close="statusFilterActive = false"
             :active="statusFilterActive"
             full-width
+            preferredPosition="mostSpace"
+            preferredAlignment="right"
         >
           <PButton
               slot="activator"
               :disclosure="statusFilterActive ? 'up' : 'down'"
-              @click="statusFilterActive = !statusFilterActive"
+              @click.stop="statusFilterActive = !statusFilterActive"
           >
             Status
           </PButton>

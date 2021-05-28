@@ -22,6 +22,7 @@
                             <PPopover
                                     :id="popoverId"
                                     :active="bulkActionsShown"
+                                    preferredAlignment="right"
                                     :fullWidth="false"
                                     @close="bulkActionsShown = false">
                                 <template slot="activator">
@@ -31,7 +32,6 @@
                                 </template>
                                 <template slot="content">
                                     <PActionList :items="bulkActions"></PActionList>
-
                                 </template>
                             </PPopover>
                         </PBulkActionButtonWrapper>

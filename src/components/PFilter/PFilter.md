@@ -7,10 +7,10 @@ PFilter example
     <PButton>Change Order</PButton>
     <PButton>Submit</PButton>
     <PPopover
-        id="status_popover"
         :active="popoverActive"
         @close="popoverActive = !popoverActive"
         full-width
+        preferredAlignment="center"
     >
       <PButton
           slot="activator"
