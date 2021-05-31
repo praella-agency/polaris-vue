@@ -18,17 +18,20 @@
     export default class PThumbnail extends Vue {
 
         /**
-         * Thumbnail Size - Can be small,medium & large
+         * Thumbnail Size.
+         * @values small | medium | large
          */
         @Prop({type: String, default: 'medium'}) public size!: Size;
 
         /**
          * Image source.
+         * @values URL | Path
          */
         @Prop(String) public source!: string;
 
         /**
          * Image alt
+         * @values text
          */
         @Prop(String) public alt!: string;
 

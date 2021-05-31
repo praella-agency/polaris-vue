@@ -37,6 +37,7 @@
                     </PButtonGroup>
                 </div>
                 <div class="Polaris-ResourceList-BulkActions__PaginatedSelectAll" v-if="hasMore && checked">
+                    {{ checked }}
                     <PButton @click="handleToggleSelectMore" plain v-if="!selectedMore">Select all {{count}}+ {{resourceTitle}} in your store</PButton>
                     <div v-else>
                         <span>All {{count}}+ {{resourceTitle}} in your store are selected. </span>

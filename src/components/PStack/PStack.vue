@@ -22,23 +22,27 @@ type Distribution = 'equalSpacing' | 'leading' | 'trailing' | 'center' | 'fill' 
 export default class PStack extends Vue {
   /**
    * Set it true of you need items in vertical
+   * @values true | false
    */
   @Prop(Boolean) public vertical!: boolean;
   /**
    * Set it true for Word-Wrap
+   * @values true | false
    */
   @Prop({ type: Boolean, default: true }) public wrap!: boolean;
   /**
-   * Space between two items - Can be 'extraTight' | 'tight' | 'loose' | 'extraLoose' | 'none'
+   * Space between two items -
+   * @values extraTight | tight | loose | extraLoose | none
    */
   @Prop(String) public spacing!: Spacing;
   /**
-   * Distribution of free space among items -
-   * Can be  'equalSpacing' | 'leading' | 'trailing' | 'center' | 'fill' | 'fillEvenly'
+   * Distribution of free space among items
+   * @values equalSpacing | leading | trailing | center | fill | fillEvenly
    */
   @Prop(String) public distribution!: Distribution;
   /**
-   * Alignment of items - Can be  'leading' | 'trailing' | 'center' | 'fill' | 'baseline'
+   * Alignment of items
+   * @values leading | trailing | center | fill | baseline
    */
   @Prop(String) public alignment!: Alignment;
 

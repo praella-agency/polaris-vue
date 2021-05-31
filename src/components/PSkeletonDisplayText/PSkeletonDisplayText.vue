@@ -11,7 +11,8 @@ type Size = 'small' | 'medium' | 'large' | 'extraLarge';
 @Component
 export default class PSkeletonDisplayText extends Vue {
   /**
-   * Size of Skeleton - Can be 'small' | 'medium' | 'large' | 'extraLarge'
+   * Size of Skeleton
+   * @values small | medium | large | extraLarge
    */
   @Prop({ type: String, default: 'medium' }) public size!: Size;
 

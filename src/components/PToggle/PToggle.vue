@@ -14,6 +14,7 @@
     props: {
       /**
        * Label of toggle
+       * @values Any String
        */
       label: {
         required: false,
@@ -29,6 +30,7 @@
       },
       /**
        * propsClass of toggle
+       * @values true, false
        */
       propsClass: {
         required: false,
@@ -36,6 +38,7 @@
       },
       /**
        * Value of toggle
+       * @values Any String or boolean
        */
       value: {
         required: false,
@@ -43,6 +46,7 @@
       },
       /**
        * Set true for disable
+       * @values true, false
        */
       disabled: {
         required: false,
