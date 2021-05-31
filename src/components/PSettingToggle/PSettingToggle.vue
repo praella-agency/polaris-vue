@@ -5,14 +5,14 @@
         <slot></slot>
       </template>
       <PButton slot="action"
-                      :primary="!enabled"
-                      @click="handleAction(action)"
-                      :url="action.url"
-                      :accessibility-label="action.accessibilityLabel"
-                      :disabled="action.disabled"
-                      :destructive="action.destructive"
-                      :icon="action.icon">
-        {{ action.contentStatus }}
+          :primary="!enabled"
+          @click="handleAction(action)"
+          :url="action.url"
+          :accessibility-label="action.accessibilityLabel"
+          :disabled="action.disabled"
+          :destructive="action.destructive"
+          :icon="action.icon"
+      > {{ action.contentStatus }}
       </PButton>
     </PSettingAction>
   </PCard>
@@ -37,7 +37,7 @@
     /**
      * Card header actions.
      */
-    @Prop({type: Object,default: () => {}}) public action!: object;
+    @Prop({type: Object, default: () => ({})}) public action!: object;
 
     /**
      * Sets toggle state.

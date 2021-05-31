@@ -26,7 +26,7 @@
         @Prop(String) public id!: string;
         @Prop(Boolean) public active!: boolean;
         @Prop(String) public preferredPosition!: string;
-        @Prop(String) public preferredAlignment!: string; //right, left, center
+        @Prop(String) public preferredAlignment!: string; // right, left, center
         @Prop(String) public activatorId!: string;
         @Prop(Boolean) public fullWidth!: boolean;
         @Prop() public activator!: any;
@@ -98,7 +98,7 @@
 
             const activatorRect = activator.getBoundingClientRect();
             const currentOverlayRect = this.overlay.getBoundingClientRect();
-            console.log('this.scrollableElement', this.scrollableElement)
+            console.log('this.scrollableElement', this.scrollableElement);
             const scrollableElement = (!this.scrollableElement || this.scrollableElement === document) ?
                 document.body : this.scrollableElement;
             let scrollableContainerRect = scrollableElement.getBoundingClientRect();
@@ -135,6 +135,7 @@
                 scrollableContainerRect,
                 containerRect,
                 this.preferredPosition);
+            console.log('verticalPosition', verticalPosition);
             const horizontalPosition = this.calculateHorizontalPosition(activatorRect,
                 overlayRect,
                 containerRect, overlayMargins, this.preferredAlignment);
@@ -205,7 +206,6 @@
             const spaceBelow = containerRect.height - activatorRect.top - activatorRect.height;
 
             const desiredHeight = overlayRect.height;
-            console.log('desiredHeight', desiredHeight, spaceBelow);
             const verticalMargins = overlayMargins.activator + overlayMargins.container;
             const minimumSpaceToScroll = overlayMargins.container;
             const distanceToTopScroll = activatorRect.top - Math.max(scrollableContainerRect.top, 0);

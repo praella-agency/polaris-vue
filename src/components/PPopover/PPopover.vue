@@ -21,7 +21,13 @@
                tabindex="0">
           </div>
           <div class="Polaris-Popover__Wrapper">
-            <slot name="content"></slot>
+            <div class="Polaris-Popover__Content">
+              <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical
+                          Polaris-Scrollable--hasBottomShadow Polaris-Scrollable--verticalHasScrolling"
+                   data-polaris-scrollable="true">
+                  <slot name="content"></slot>
+              </div>
+            </div>
           </div>
           <div class="Polaris-Popover__FocusTracker"
                @focus="handleFocusLastItem"
@@ -127,7 +133,7 @@ export default class PPopover extends Vue {
 
   public handlePageClick(e) {
     const target = e.target;
-    const contentNode = this.$refs['content-'+this.id];
+    const contentNode = this.$refs['content-' + this.id];
     if ((contentNode != null && this.nodeContainsDescendant(contentNode, target)) ||
         this.nodeContainsDescendant(this.findActivator(), target) || !this.active) {
       return;

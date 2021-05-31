@@ -1,5 +1,5 @@
 <template>
-    <component :is="(hasMultipleSections ? 'div' : 'ul')" :class="className">
+    <component :is="(hasMultipleSections ? 'ul' : 'div')" :class="className">
         <PActionListSection v-for="(section, key) in finalSections" :key="key" :section="section"
                             @itemAction="onItemAction"
                             :hasMultipleSections="hasMultipleSections" />
@@ -45,7 +45,7 @@ export default class PActionList extends Vue {
 
     public get hasMultipleSections() {
 
-        return this.finalSections.length > 0;
+        return this.finalSections.length > 1;
     }
 
     public onItemAction(action) {

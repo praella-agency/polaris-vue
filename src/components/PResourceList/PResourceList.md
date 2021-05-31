@@ -6,13 +6,15 @@ PResourceList example:
   <PCard>
     <PResourceList
         selectable
+        :hasMore="pagination.hasPrevious || pagination.hasNext"
+        :totalCount="pagination.total"
         :selected="selected"
         :resourceName="{singular: 'book', plural: 'books'}"
         :bulkActions="[
             {content: 'Publish', onAction: 'toggleStatusToPublished'},
             {content: 'Unpublish', onAction: 'toggleStatusToUnpublished'},
             {content: 'Archive', onAction: 'toggleStatusToArchived'},
-            {content: 'Delete', onAction: 'deleteSelected'}
+            {content: 'Delete', onAction: 'deleteSelected'},
         ]"
         @change="toggleSelected"
     >
@@ -22,7 +24,7 @@ PResourceList example:
             :active="statusFilterActive"
             full-width
             preferredPosition="mostSpace"
-            preferredAlignment="right"
+            preferredAlignment="left"
         >
           <PButton
               slot="activator"
@@ -78,21 +80,62 @@ export default {
       selectedAll: false,
       statusFilterActive: false,
       status: [],
+      pagination: {
+        total: 12,
+        hasPrevious: false,
+        hasNext: true,
+      },
       items: [
         {
           id: 100,
-          url: 'customers/341',
           name: 'PHP',
-          location: 'Decatur, USA',
           status: true,
         },
         {
           id: 200,
-          url: 'customers/256',
           name: 'Vue',
-          location: 'Los Angeles, USA',
           status: null,
         },
+        // {
+        //   id: 300,
+        //   name: 'React',
+        //   status: false,
+        // },
+        // {
+        //   id: 400,
+        //   name: 'Python',
+        //   status: false,
+        // },
+        // {
+        //   id: 500,
+        //   name: 'Node',
+        //   status: true,
+        // },
+        // {
+        //   id: 600,
+        //   name: 'Shopify',
+        //   status: false,
+        // },
+        // {
+        //   id: 700,
+        //   name: 'Ruby',
+        //   status: null,
+        // },
+        // {
+        //   id: 800,
+        //   name: 'Laravel',
+        //   status: null,
+        // },
+        // {
+        //   id: 900,
+        //   name: 'Javascript',
+        //   status: true,
+        // },
+        // {
+        //   id: 1000,
+        //   name: 'Angular',
+        //   status: true,
+        // },
       ]
     };
   },
