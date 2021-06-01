@@ -18,7 +18,7 @@
     "component library"
   ],
   "license": "MIT",
-  "version": "2.1.4",
+  "version": "2.1.6",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -31,7 +31,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^24.0.0",
     "@ckeditor/ckeditor5-vue2": "^1.0.5",
-    "@hulkapps/vue-plyr": "^7.0.1",
+    "@hulkapps/vue-plyr": "^7.0.2",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "@vue/babel-preset-jsx": "^1.1.1",
     "apexcharts": "^3.26.3",

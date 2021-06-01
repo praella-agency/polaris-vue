@@ -62,7 +62,6 @@ export default class PResourceList extends Vue {
      */
     @Prop({type: Array, default: () => []}) public selected!: number[];
 
-
     /**
      * Whether or not there are more items than currently set
      * on the items prop. Determines whether or not to set
@@ -93,15 +92,16 @@ export default class PResourceList extends Vue {
     public showEmptySearchState = !this.showEmptyState && !this.itemsExist && !this.loading;
 
     public count() {
-        if(typeof this.$scopedSlots.default === 'function' && this.$scopedSlots.default()) {
-            return this.$scopedSlots.default().filter((vnode) => {
-                return vnode.tag !== undefined;
-            }).length
+        if (typeof this.$scopedSlots !== 'undefined'
+            && typeof this.$scopedSlots.default === 'function'
+            && this.$scopedSlots.default({})) {
+            const slots = this.$scopedSlots.default({});
+            return slots ? slots.filter((vnode) => vnode.tag !== undefined).length : 0;
         }
-        if(this.$slots.default) {
+        if (this.$slots.default) {
             return this.$slots.default.filter((vnode) => {
                 return vnode.tag !== undefined;
-            }).length
+            }).length;
         }
 
         return 0;
