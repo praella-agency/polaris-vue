@@ -7,7 +7,6 @@
             :activatorId="activatorId"
             @scrollout="handleScrollOut">
         <template slot="overlay" slot-scope="props">
-          {{ propsData(props) }}
             <slot name="overlay" :data="props"></slot>
         </template>
     </PPositionedOverlay>
@@ -33,10 +32,6 @@ export default class PPopoverOverlay extends Vue {
 
     public handleScrollOut() {
         this.$emit('scrollout');
-    }
-
-    public propsData(items) {
-      console.log('items', items);
     }
 }
 </script>

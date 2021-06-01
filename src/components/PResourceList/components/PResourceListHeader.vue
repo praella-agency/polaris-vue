@@ -25,7 +25,9 @@
                                     :fullWidth="false"
                                     @close="bulkActionsShown = false">
                                 <template slot="activator">
-                                    <PButton @click="bulkActionsShown = !bulkActionsShown">
+                                    <PButton
+                                            :disclosure="bulkActionsShown ? 'up' : 'down'"
+                                            @click="bulkActionsShown = !bulkActionsShown">
                                         More actions
                                     </PButton>
                                 </template>

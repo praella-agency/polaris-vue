@@ -9,7 +9,7 @@ PResourceList example:
         :hasMore="pagination.hasPrevious || pagination.hasNext"
         :totalCount="pagination.total"
         :selected="selected"
-        :resourceName="{singular: 'book', plural: 'books'}"
+        :resourceName="{singular: 'Book', plural: 'Books'}"
         :bulkActions="[
             {content: 'Publish', onAction: 'toggleStatusToPublished'},
             {content: 'Unpublish', onAction: 'toggleStatusToUnpublished'},
@@ -24,7 +24,7 @@ PResourceList example:
             :active="statusFilterActive"
             full-width
             preferredPosition="mostSpace"
-            preferredAlignment="left"
+            preferredAlignment="right"
         >
           <PButton
               slot="activator"
@@ -36,7 +36,7 @@ PResourceList example:
           <POptionList
               slot="content"
               :options="[
-                  {label: 'Active Little Long Content', value: 1},
+                  {label: 'Active', value: 1},
                   {label: 'In-Active', value: 0},
               ]"
               :selected="status"
@@ -45,39 +45,44 @@ PResourceList example:
         </PPopover>
       </template>
 
-      <PResourceListItem
-          v-for="(item, key) in items"
-          :key="key"
-          :id="item.id"
-          :checked="selected.indexOf(item.id) >= 0"
-          @change="updateSelected"
-          selectable
-      >
-        <div class="resource-list-item">
-          <div class="resource-list-item__book--name">
-            <p>{{item.name}}</p>
+      <template v-slot:default="{selectable}">
+          <PResourceListItem
+            v-for="(item, key) in items"
+            :key="key"
+            :id="item.id"
+            :checked="selected.indexOf(item.id) >= 0"
+            @change="updateSelected"
+            :selectable="selectable"
+        >
+          <div class="resource-list-item">
+            <div class="resource-list-item__book--name">
+              <p>{{item.name}}</p>
+            </div>
+            <div class="resource-list-item__resource--status">
+              <PBadge v-if="item.status === true" status="success">Published</PBadge>
+              <PBadge v-if="item.status === null" status="warning">Pending</PBadge>
+              <PBadge v-if="item.status === false" status="critical">Archived</PBadge>
+            </div>
           </div>
-          <div class="resource-list-item__resource--status">
-            <PBadge v-if="item.status === true" status="success">Published</PBadge>
-            <PBadge v-if="item.status === null" status="warning">Pending</PBadge>
-            <PBadge v-if="item.status === false" status="critical">Archived</PBadge>
-          </div>
-        </div>
-      </PResourceListItem>
+        </PResourceListItem>
+    </template>
     </PResourceList>
+
+      <PCardSection v-if="pagination.hasPrevious || pagination.hasNext">
+        <div class="resource-list-pagination">
+          <PPagination :hasPrevious="pagination.hasPrevious" :hasNext="pagination.hasNext" :onPrevious="onPrevious" :onNext="onNext"></PPagination>
+        </div>
+      </PCardSection>
   </PCard>
-<!--  <PCardSection v-if="pagination.hasPrevious || pagination.hasNext">-->
-<!--    <div class="resource-list-pagination">-->
-<!--      <PPagination :hasPrevious="pagination.hasPrevious" :hasNext="pagination.hasNext" :onPrevious="onPrevious" :onNext="onNext"></PPagination>-->
-<!--    </div>-->
-<!--  </PCardSection>-->
 </template>
 <script>
 import PResourceListItem from "./components/PResourceListItem";
+import {PPagination} from "../PPagination";
 
 export default {
   components: {
     PResourceListItem,
+    PPagination,
   },
   data() {
     return {
@@ -90,6 +95,12 @@ export default {
         hasPrevious: false,
         hasNext: true,
       },
+    queryParams: {
+        page: null,
+        search: null,
+        statuses: [],
+        id: null,
+    },
       items: [
         {
           id: 100,
@@ -101,56 +112,58 @@ export default {
           name: 'Vue',
           status: null,
         },
-        // {
-        //   id: 300,
-        //   name: 'React',
-        //   status: false,
-        // },
-        // {
-        //   id: 400,
-        //   name: 'Python',
-        //   status: false,
-        // },
-        // {
-        //   id: 500,
-        //   name: 'Node',
-        //   status: true,
-        // },
-        // {
-        //   id: 600,
-        //   name: 'Shopify',
-        //   status: false,
-        // },
-        // {
-        //   id: 700,
-        //   name: 'Ruby',
-        //   status: null,
-        // },
-        // {
-        //   id: 800,
-        //   name: 'Laravel',
-        //   status: null,
-        // },
-        // {
-        //   id: 900,
-        //   name: 'Javascript',
-        //   status: true,
-        // },
-        // {
-        //   id: 1000,
-        //   name: 'Angular',
-        //   status: true,
-        // },
+         {
+           id: 300,
+           name: 'React',
+           status: false,
+         },
+         {
+           id: 400,
+           name: 'Python',
+           status: false,
+         },
+         {
+           id: 500,
+           name: 'Node',
+           status: true,
+         },
+         {
+           id: 600,
+           name: 'Shopify',
+           status: false,
+         },
+         {
+           id: 700,
+           name: 'Ruby',
+           status: null,
+         },
+         {
+           id: 800,
+           name: 'Laravel',
+           status: null,
+         },
+         {
+           id: 900,
+           name: 'Javascript',
+           status: true,
+         },
+         {
+           id: 1000,
+           name: 'Angular',
+           status: true,
+         },
       ]
     };
   },
   methods: {
     toggleSelected(item) {
+console.log("toggled");
       this.selected = item.selected ? this.items.map(book => book.id) : [];
       this.selectedAll = item.selectedMore;
       console.log(this.selected, this.selectedAll);
     },
     updateSelected(id, checked) {
+console.log("updated");
       if (checked) this.selected.push(id);
       if (!checked) this.selected.splice(this.selected.indexOf(id), 1);
     },
@@ -159,6 +172,14 @@ export default {
     },
     updateStatusFilter(selected) {
       this.queryParams.statuses = selected;
+        this.toggleStatusFilter();
+
+    },
+   onPrevious() {
+        this.queryParams.page--;
+    },
+    onNext() {
+        this.queryParams.page++;
     },
   },
 }

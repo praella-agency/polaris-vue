@@ -21,7 +21,7 @@
                tabindex="0">
           </div>
           <div class="Polaris-Popover__Wrapper">
-            <div class="Polaris-Popover__Content" :style="{height: props.data.desiredHeight + 'px'}">
+            <div class="Polaris-Popover__Content">
               <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical
                           Polaris-Scrollable--hasBottomShadow Polaris-Scrollable--verticalHasScrolling"
                    data-polaris-scrollable="true">

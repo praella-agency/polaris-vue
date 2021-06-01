@@ -97,14 +97,12 @@
             }
 
             const activatorRect = activator.getBoundingClientRect();
-            const currentOverlayRect = this.overlay.getBoundingClientRect();
-            console.log('this.scrollableElement', this.scrollableElement);
             const scrollableElement = (!this.scrollableElement || this.scrollableElement === document) ?
                 document.body : this.scrollableElement;
             let scrollableContainerRect = scrollableElement.getBoundingClientRect();
 
-          const overlayRect = this.getBoundingClientRect(this.overlay);
-          if (this.fullWidth) {
+            const overlayRect = this.getBoundingClientRect(this.overlay);
+            if (this.fullWidth) {
                 overlayRect.width = activatorRect.width;
             }
 
@@ -135,7 +133,6 @@
                 scrollableContainerRect,
                 containerRect,
                 this.preferredPosition);
-            console.log('verticalPosition', verticalPosition);
             const horizontalPosition = this.calculateHorizontalPosition(activatorRect,
                 overlayRect,
                 containerRect, overlayMargins, this.preferredAlignment);
@@ -161,12 +158,6 @@
         }
 
         public calculateHorizontalPosition(activatorRect, overlayRect, containerRect, overlayMargins, preferredAlignment) {
-            // const maximum = containerRect.width - overlayRect.width;
-            // const center = {
-            //     x: activatorRect.left + (activatorRect.width / 2),
-            //     y: activatorRect.top + (activatorRect.height / 2),
-            // };
-            // return Math.min(maximum, Math.max(0, center.x - (overlayRect.width / 2)));
             const maximum = containerRect.width - overlayRect.width;
 
             if (preferredAlignment === 'left') {
@@ -225,11 +216,10 @@
                 positioning: 'above',
             };
 
-          console.log('heightIfBelow', heightIfBelow, verticalMargins)
             const positionIfBelow = {
-                height: (heightIfBelow - verticalMargins === 0) ? 131 :verticalMargins / 2,
+                height: heightIfBelow - verticalMargins,
                 top: activatorBottom + containerRect.top,
-                positioning: 'bottom',
+                positioning: 'below',
             };
 
             if (preferredPosition === 'above') {
@@ -241,11 +231,6 @@
             }
 
             if (preferredPosition === 'below') {
-              // console.log('below', ((enoughSpaceFromBottomScroll ||
-              //     (distanceToBottomScroll >= distanceToTopScroll && !enoughSpaceFromTopScroll)) &&
-              //     (spaceBelow > desiredHeight || spaceBelow > spaceAbove))
-              //     ? positionIfBelow
-              //     : positionIfAbove);
                 return ((enoughSpaceFromBottomScroll ||
                     (distanceToBottomScroll >= distanceToTopScroll && !enoughSpaceFromTopScroll)) &&
                     (spaceBelow > desiredHeight || spaceBelow > spaceAbove))
@@ -269,7 +254,6 @@
                 return false;
             }
             const rect = element.getBoundingClientRect();
-          console.log(rect)
             return {
                 top: rect.top,
                 right: rect.right,

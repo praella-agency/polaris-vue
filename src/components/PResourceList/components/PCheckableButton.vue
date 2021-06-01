@@ -68,7 +68,7 @@ export default class PCheckableButton extends Vue {
     }
 
     public handleToggleAll() {
-
+        console.log('toggle-all', this.checkedAll);
         this.$emit('toggle-all', this.checkedAll);
     }
 
