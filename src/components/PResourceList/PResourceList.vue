@@ -23,7 +23,7 @@
             />
         </div>
         <ul class="Polaris-ResourceList" aria-live="polite">
-            <slot/>
+            <slot :selectable="selectable"/>
         </ul>
 
         <slot v-if="showEmptySearchState" name="emptySearchState" />
@@ -51,11 +51,36 @@ interface ResourceNameInterface {
 })
 export default class PResourceList extends Vue {
 
-    @Prop(String) public source!: string;
-    @Prop({type: Array, default: () => []}) public selected!: number[];
+    /**
+     * Renders a Select All button at the top
+     * of the list and checkboxes in front of each list item.
+     */
     @Prop(Boolean) public selectable!: boolean;
+
+    /**
+     * Get the value of the selected items in array.
+     */
+    @Prop({type: Array, default: () => []}) public selected!: number[];
+
+
+    /**
+     * Whether or not there are more items than currently set
+     * on the items prop. Determines whether or not to set
+     * the paginatedSelectAllAction and paginatedSelectAllText
+     * props on the BulkActions component.
+     */
     @Prop(Boolean) public hasMore!: boolean;
+
+    /**
+     * Overlays item list with a spinner while a
+     * background action is being performed.
+     */
     @Prop(Boolean) public loading!: boolean;
+
+    /**
+     * Name of the resource, such as customers or books.
+     * @values {plural: string, singular: string}
+     */
     @Prop({required: true, type: Object}) public resourceName!: ResourceNameInterface;
 
     public selectedItems = this.selectable && this.selected ? this.selected : [];
@@ -63,14 +88,23 @@ export default class PResourceList extends Vue {
     public selectedAll: boolean = false;
 
     public itemsExist = this.$slots.default;
+
     public showEmptyState = this.$slots.emptyState && !this.itemsExist && !this.loading;
     public showEmptySearchState = !this.showEmptyState && !this.itemsExist && !this.loading;
 
     public count() {
+        if(typeof this.$scopedSlots.default === 'function' && this.$scopedSlots.default()) {
+            return this.$scopedSlots.default().filter((vnode) => {
+                return vnode.tag !== undefined;
+            }).length
+        }
+        if(this.$slots.default) {
+            return this.$slots.default.filter((vnode) => {
+                return vnode.tag !== undefined;
+            }).length
+        }
 
-        return this.$slots.default ? this.$slots.default.filter((vnode) => {
-            return vnode.tag !== undefined;
-        }).length : 0;
+        return 0;
     }
 
     public get className() {
@@ -80,7 +114,6 @@ export default class PResourceList extends Vue {
     }
 
     public get checkedAll() {
-
         return this.checked && this.count() === this.checkedCount;
     }
 
@@ -105,6 +138,10 @@ export default class PResourceList extends Vue {
     public set computedValue(items: any) {
         this.selectedAll = items.selectedAll;
         this.selectedMore = items.selectedMore;
+
+        /**
+         * Callback when selection is changed.
+         */
         this.$emit('change', items);
     }
 

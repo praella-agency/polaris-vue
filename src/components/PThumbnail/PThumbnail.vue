@@ -1,6 +1,6 @@
 <template>
     <span :class="className">
-      <PImage v-bind="$attrs" class="Polaris-Thumbnail__Image" />
+      <PImage v-bind="$attrs" :source="source" :alt="alt" class="Polaris-Thumbnail__Image" />
     </span>
 </template>
 
@@ -17,7 +17,22 @@
     })
     export default class PThumbnail extends Vue {
 
+        /**
+         * Thumbnail Size
+         *
+         * Available Size Options: small,medium & large
+         */
         @Prop({type: String, default: 'medium'}) public size!: Size;
+
+        /**
+         * Image source.
+         */
+        @Prop(String) public source!: string;
+
+        /**
+         * Image alt
+         */
+        @Prop(String) public alt!: string;
 
         public get className() {
             return classNames(

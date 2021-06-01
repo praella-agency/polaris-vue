@@ -5,14 +5,14 @@
         <slot></slot>
       </template>
       <PButton slot="action"
-                      :primary="!enabled"
-                      @click="handleAction(action)"
-                      :url="action.url"
-                      :accessibility-label="action.accessibilityLabel"
-                      :disabled="action.disabled"
-                      :destructive="action.destructive"
-                      :icon="action.icon">
-        {{ action.contentStatus }}
+          :primary="!enabled"
+          @click="handleAction(action)"
+          :url="action.url"
+          :accessibility-label="action.accessibilityLabel"
+          :disabled="action.disabled"
+          :destructive="action.destructive"
+          :icon="action.icon"
+      > {{ action.contentStatus }}
       </PButton>
     </PSettingAction>
   </PCard>
@@ -29,9 +29,22 @@
   })
 
   export default class PSettingToggle extends Vue {
+    /**
+     * Label for form input.
+     */
     @Prop(String) public label!: string;
-    @Prop() public action!: any;
+
+    /**
+     * Card header actions.
+     */
+    @Prop({type: Object, default: () => ({})}) public action!: object;
+
+    /**
+     * Sets toggle state.
+     * @values true|false
+     */
     @Prop(Boolean) public enabled!: boolean;
+
     @Prop(String) public propsClass!: string;
 
     public handleAction(action: any) {

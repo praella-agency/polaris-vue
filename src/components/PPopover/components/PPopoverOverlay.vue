@@ -3,6 +3,7 @@
             :fullWidth="fullWidth"
             :active="active"
             :preferredPosition="preferredPosition"
+            :preferredAlignment="preferredAlignment"
             :activatorId="activatorId"
             @scrollout="handleScrollOut">
         <template slot="overlay" slot-scope="props">
@@ -23,6 +24,7 @@ export default class PPopoverOverlay extends Vue {
     @Prop(String) public id!: string;
     @Prop(Boolean) public active!: boolean;
     @Prop(Boolean) public preventAutofocus!: boolean;
+    @Prop(String) public preferredAlignment!: string;
     @Prop(Boolean) public sectioned!: boolean;
     @Prop(Boolean) public fullWidth!: boolean;
     @Prop(String) public preferredPosition!: string;

@@ -1,7 +1,7 @@
 <template>
     <div :class="className" @click="handleToggleAll">
         <div class="Polaris-ResourceList-CheckableButton__Checkbox">
-            <PCheckbox label="Select all 2 customers" :checked="checkedAll" :indeterminate="!checkedAll && checked" labelHidden :id="id"></PCheckbox>
+            <PCheckbox label="Select all 2 customers" :checked="checked" :indeterminate="!checkedAll && checked" labelHidden :id="id"></PCheckbox>
         </div>
         <span class="Polaris-ResourceList-CheckableButton__Label"><slot/></span>
     </div>
@@ -68,7 +68,7 @@ export default class PCheckableButton extends Vue {
     }
 
     public handleToggleAll() {
-
+        console.log('toggle-all', this.checkedAll);
         this.$emit('toggle-all', this.checkedAll);
     }
 
