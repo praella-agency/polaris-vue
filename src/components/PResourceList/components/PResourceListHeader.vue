@@ -12,7 +12,7 @@
         </div>
 
         <div class="Polaris-ResourceList__BulkActionsWrapper" v-if="checked">
-            <div class="Polaris-ResourceList-BulkActions__Group Polaris-ResourceList-BulkActions__Group--largeScreen Polaris-ResourceList-BulkActions__Group--entered">
+             <div class="Polaris-ResourceList-BulkActions__Group Polaris-ResourceList-BulkActions__Group--largeScreen Polaris-ResourceList-BulkActions__Group--entered">
                 <div class="Polaris-ResourceList-BulkActions__ButtonGroupWrapper">
                     <PButtonGroup segmented>
                         <PCheckableButton v-bind="$attrs" :checked="checked" v-on="$listeners">{{resourceHeaderTitle}}</PCheckableButton>
@@ -21,24 +21,26 @@
                             <PPopover
                                     :id="popoverId"
                                     :active="bulkActionsShown"
+                                    preferredAlignment="right"
                                     :fullWidth="false"
                                     @close="bulkActionsShown = false">
                                 <template slot="activator">
-                                    <PButton @click="bulkActionsShown = !bulkActionsShown">
+                                    <PButton
+                                            :disclosure="bulkActionsShown ? 'up' : 'down'"
+                                            @click="bulkActionsShown = !bulkActionsShown">
                                         More actions
                                     </PButton>
                                 </template>
                                 <template slot="content">
                                     <PActionList :items="bulkActions"></PActionList>
-
                                 </template>
                             </PPopover>
                         </PBulkActionButtonWrapper>
                     </PButtonGroup>
                 </div>
                 <div class="Polaris-ResourceList-BulkActions__PaginatedSelectAll" v-if="hasMore && checked">
-                    {{ checked }}
-                    <PButton @click="handleToggleSelectMore" plain v-if="!selectedMore">Select all {{count}}+ {{resourceTitle}} in your store</PButton>
+                    <PButton @click="handleToggleSelectMore"
+                             plain v-if="!selectedMore">Select all {{count}}+ {{resourceTitle}} in your store</PButton>
                     <div v-else>
                         <span>All {{count}}+ {{resourceTitle}} in your store are selected. </span>
                         <PButton plain @click="handleToggleSelectMore">Undo</PButton>

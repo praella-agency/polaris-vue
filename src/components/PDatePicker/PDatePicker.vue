@@ -25,6 +25,7 @@
         :closeOnEsc="closeOnEsc"
         :localeData="localeData"
         :ranges="ranges"
+        v-bind="$attrs"
         v-model="computedValue"
         @update="updateValues"
         @toggle="checkOpen"

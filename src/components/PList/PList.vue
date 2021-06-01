@@ -13,12 +13,12 @@
     @Component
     export default class PList extends Vue {
 
-        @Prop({ type: String, default: 'bullet' }) public type!: Type;
-
         /**
          * Type of list
-         * @values bullet, Number
+         * @values bullet|number
          */
+        @Prop({ type: String, default: 'bullet' }) public type!: Type;
+
         public element = this.type === 'bullet' ? 'ul' : 'ol';
 
         public get className() {

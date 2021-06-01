@@ -147,6 +147,22 @@
 .Polaris-ResourceList-BulkActions__Group--largeScreen {
 	display: none;
 }
+
+@media (min-width:28.625em) {
+	.Polaris-ResourceList-BulkActions__Group--largeScreen {
+		display: flex;
+	}
+
+	.Polaris-ResourceList-BulkActions__Group--largeScreen.Polaris-ResourceList-BulkActions__Group--exiting {
+		transition: none;
+	}
+
+	.Polaris-ResourceList-BulkActions__Group--largeScreen.Polaris-ResourceList-BulkActions__Group--exited {
+		opacity: 0;
+		display: none;
+	}
+}
+
 .Polaris-ResourceList-BulkActions__ButtonGroupWrapper {
 	width: 100%;
 	max-width: 100%;
