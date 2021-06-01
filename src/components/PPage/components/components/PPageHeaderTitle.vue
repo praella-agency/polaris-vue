@@ -1,31 +1,4 @@
 <template>
-  <!--    <div :class="pageTitleClassName">
-          <div v-if="$slots.thumbnail">
-              <slot name="thumbnail" />
-          </div>
-          <div class="Polaris-Header-Title__TitleAndSubtitleWrapper">
-              <div v-if="titleMetadata || $slots.titleMetadata" class="Polaris-Header-Title__TitleWithMetadataWrapper">
-                  <div class="Polaris-Header-Title">
-                      <PDisplayText size="large" element="h1">
-                          <PTextStyle variation="strong">{{title}}</PTextStyle>
-                      </PDisplayText>
-                  </div>
-                  <div class="Polaris-Header-Title__TitleMetadata">
-                      <template v-if="titleMetadata">{{titleMetadata}}</template>
-                      <slot v-else name="titleMetadata" />
-                  </div>
-              </div>
-              <div v-else class="Polaris-Header-Title">
-                  <PDisplayText size="large" element="h1">
-                      <PTextStyle variation="strong">{{title}}</PTextStyle>
-                  </PDisplayText>
-              </div>
-              <div v-if="subtitle" class="Polaris-Header-Title__SubTitle">
-                  <p>{{subtitle}}</p>
-              </div>
-          </div>
-      </div>-->
-
   <div :class="pageTitleClassName">
     <div v-if="source">
       <PThumbnail size="medium" :source="source" :alt="alt"/>

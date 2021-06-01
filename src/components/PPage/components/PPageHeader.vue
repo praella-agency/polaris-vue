@@ -1,35 +1,4 @@
 <template>
-  <!--    <div :class="headerClassNames">
-          <div v-if="hasNavigation" class="Polaris-Page-Header__Navigation">
-              <div v-if="breadcrumbs.length > 0" class="Polaris-Page-Header__BreadcrumbWrapper">
-                  <PBreadcrumbs :breadcrumbs="breadcrumbs" />
-              </div>
-              <div v-if="$slots.additionalNavigation" class="Polaris-Page-Header__AdditionalNavigationWrapper">
-                  <slot name="additionalNavigation" />
-              </div>
-              <div v-if="pagination" class="Polaris-Page-Header__PaginationWrapper">
-                  <PPagination v-bind="pagination" plain />
-              </div>
-          </div>
-          <div class="Polaris-Page-Header__MainContent">
-              <div class="Polaris-Page-Header__TitleActionMenuWrapper" v-if="hasTitle || hasActionMenu">
-                  <div class="Polaris-Page-Header__TitleWrapper" v-if="hasTitle">
-                      <PPageHeaderTitle :title="title" :subtitle="subtitle" :titleMetadata="titleMetadata">
-                          <slot name="thumbnail" slot="thumbnail" />
-                          <slot name="titleMetadata" slot="titleMetadata" />
-                      </PPageHeaderTitle>
-                  </div>
-                  <div v-if="hasActionMenu" class="Polaris-Page-Header__ActionMenuWrapper">
-                      <PActionMenu :actions="secondaryActions" :groups="actionGroups" :rollup="false" />
-                  </div>
-              </div>
-              <div v-if="primaryAction" class="Polaris-Page-Header__PrimaryActionWrapper">
-                  <PButton v-bind="primaryAction" :primary="primaryAction.primary === undefined ? true : primaryAction.primary" @click="primaryAction.onAction()">{{primaryAction.content}}</PButton>
-              </div>
-              <slot v-else name="primaryAction" />
-          </div>
-      </div>-->
-
   <div :class="headerClassNames">
     <div class="Polaris-Page-Header__Row">
       <div v-if="breadcrumbs.length > 0" class="Polaris-Page-Header__BreadcrumbWrapper">
@@ -60,6 +29,7 @@
                class="Polaris-Page-Header__PrimaryActionWrapper">
             <slot name="primaryAction">
               <PButton
+                  v-if="primaryAction"
                   v-bind="primaryAction"
                   :primary="primaryAction.primary === undefined ? true : primaryAction.primary"
                   @click="primaryAction.onAction()">{{ primaryAction.content }}
@@ -69,8 +39,8 @@
           <div class="Polaris-Page-Header__PaginationWrapper" v-if="pagination">
             <nav aria-label="Pagination">
               <PButtonGroup segmented spacing="tight">
-                <PButton icon="ChevronLeftMinor" outline @click="pagination.onPrevious()"/>
-                <PButton icon="ChevronRightMinor" outline @click="pagination.onNext()"/>
+                <PButton icon="ChevronLeftMinor" :disabled="!pagination.hasPrevious" outline @click="pagination.onPrevious()"/>
+                <PButton icon="ChevronRightMinor" :disabled="!pagination.hasNext" outline @click="pagination.onNext()"/>
               </PButtonGroup>
             </nav>
           </div>
