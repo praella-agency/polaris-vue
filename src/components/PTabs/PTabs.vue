@@ -35,8 +35,17 @@ import PPanel from './PPanel.vue';
 
 export default class PTabs extends Vue {
 
+  /**
+   * Lists of tabs
+   */
   @Prop(Array) public tabs!: TabDescriptor[];
+  /**
+   * Selected tab ID
+   */
   @Prop(Number) public selected!: number;
+  /**
+   * Set true to enable navigation
+   */
   @Prop(Boolean) public navigation!: boolean;
 
   public get className() {

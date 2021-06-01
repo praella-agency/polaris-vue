@@ -34,13 +34,48 @@ import PChoice from '@/components/PChoice/PChoice.vue';
 })
 
 export default class PRadioButton extends Vue {
-  @Prop({type: String, default: `PolarisRadioButton${new Date().getUTCMilliseconds()}`}) public id!: string;
+  /**
+   * Id for the radio button.
+   */
+  @Prop({
+    type: String,
+    default: `PolarisRadioButton${new Date().getUTCMilliseconds()}`,
+    required: true,
+  }) public id!: string;
+
+  /**
+   * Label for the radio button.
+   */
   @Prop(String) public label!: string;
+
+  /**
+   * Additional text to display.
+   */
   @Prop(String) public helpText!: string;
+
+  /**
+   * Name for the radio button.
+   */
   @Prop(String) public name!: string;
+
+  /**
+   * Value for the form input.
+   */
   @Prop({type: [String, Boolean]}) public value!: string|boolean;
+
+  /**
+   * Disable input.
+   */
   @Prop(Boolean) public disabled!: boolean;
+
+  /**
+   * Visually hide the label.
+   */
   @Prop(Boolean) public labelHidden!: boolean;
+
+  /**
+   * Selected radio button.
+   */
   @Prop({type: Boolean, default: false}) public checked!: boolean;
 
   public get className() {
@@ -51,15 +86,25 @@ export default class PRadioButton extends Vue {
     );
   }
 
+  /**
+   * Callback when radio button is triggered.
+   * @param e
+   */
   public onChange(e: any) {
     const target = e.target || e.srcElement;
     this.$emit('change', {checked: target.checked, value: target.value});
   }
 
+  /**
+   * Callback when radio button is focused.
+   */
   public onFocus() {
     this.$emit('focus');
   }
 
+  /**
+   * Callback when focus is removed.
+   */
   public onBlur() {
     this.$emit('blur');
   }

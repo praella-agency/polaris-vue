@@ -10,6 +10,10 @@ import { classNames, variationName } from '@/utilities/css';
 
 @Component
 export default class PSkeletonBodyText extends Vue {
-  @Prop({ type: Number, default: 3 }) public lines!: boolean;
+  /**
+   * Number of line of skeleton
+   * @values Any number
+   */
+  @Prop({ type: Number, default: 3 }) public lines!: number;
 }
 </script>

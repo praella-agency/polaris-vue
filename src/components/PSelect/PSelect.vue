@@ -70,17 +70,60 @@
         ],
     })
     export default class PSelect extends Vue {
+        /**
+         * ID for form input.
+         */
         @Prop({type: String, default: `PolarisSelect${new Date().getUTCMilliseconds()}`}) public id!: string;
+
+        /**
+         * Name for form input.
+         */
         @Prop(String) public name!: string;
+
+        /**
+         * Disable input.
+         */
         @Prop(Boolean) public disabled!: boolean;
+
+        /**
+         * Visually hide the label.
+         */
         @Prop(Boolean) public labelHidden!: boolean;
+
+        /**
+         * Empty label.
+         */
         @Prop(Boolean) public emptyLabel!: boolean;
+
+        /**
+         * Label for the select.
+         */
         @Prop(String) public label!: string;
+
+        /**
+         * List of Options or option to choose from.
+         */
         @Prop({type: Array, default: []}) public options!: [];
+
+        /**
+         * Value for form input.
+         */
         @Prop({type: [String, Number], default: PLACEHOLDER_VALUE}) public value!: string|number;
+
+        /**
+         * Example text to display as placeholder.
+         */
         @Prop(String) public placeholder!: string;
+
+        /**
+         * Display an error state.
+         */
         @Prop(String) public error!: string;
-        @Prop(String) public inlineLabel!: string;
+
+        /**
+         * Show the label to the left of the value, inside the control
+         */
+        @Prop(Boolean) public inlineLabel!: boolean;
 
         public selected = this.value;
 

@@ -23,7 +23,7 @@ module.exports = {
         "**/components/PPageActions/PPageActions.vue",
         "**/components/PPopover/components/PPopoverOverlay.vue",
         "**/components/PPopover/components/PPositionedOverlay.vue",
-        "**/components/PResourceList/components/PBulkActionButtonWrapper.vue",
+        "**/components/PResourceList/components/*",
         "**/components/PTextField/components/PFieldResizer.vue",
         "**/components/PDataTable/PDataTableCell.vue",
         "**/components/PDataTable/PDataTableCell.vue",
@@ -31,10 +31,17 @@ module.exports = {
         "**/components/PPage/components/components/PPageHeaderTitle.vue",
         "**/components/PPagination/PPagination.vue",
         "**/components/PModal/components/*",
-        "**/components/PSpinner/PSpinner.vue",
+        "**/components/PTextField/components/PSpinner.vue",
+        "**/components/PList/PListItem.vue",
+        "**/components/POptionList/POptionsListCheckbox.vue",
+        "**/components/POptionList/POptionsListOption.vue",
+        "**/components/PSettingToggle/PSettingAction.vue",
+        "**/components/PTabs/PPanel.vue",
+        "**/components/PTabs/PTab.vue",
+        "**/components/PTextField/components/PInput.vue",
     ],
     require: ['./src/scss/main.scss','./src/mixins/tooltip.js'],
     usageMode: 'expand',
     exampleMode: 'expand',
 
-}
+};
