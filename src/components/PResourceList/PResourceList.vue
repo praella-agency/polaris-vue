@@ -52,10 +52,36 @@ interface ResourceNameInterface {
 export default class PResourceList extends Vue {
 
     @Prop(String) public source!: string;
+
+    /**
+     * Get the value of the selected items in list.
+     */
     @Prop({type: Array, default: () => []}) public selected!: number[];
+
+    /**
+     * Renders a Select All button at the top
+     * of the list and checkboxes in front of each list item.
+     */
     @Prop(Boolean) public selectable!: boolean;
+
+    /**
+     * Whether or not there are more items than currently set
+     * on the items prop. Determines whether or not to set
+     * the paginatedSelectAllAction and paginatedSelectAllText
+     * props on the BulkActions component.
+     */
     @Prop(Boolean) public hasMore!: boolean;
+
+    /**
+     * Overlays item list with a spinner while a
+     * background action is being performed.
+     */
     @Prop(Boolean) public loading!: boolean;
+
+    /**
+     * Name of the resource, such as customers or books.
+     * @values {plural: string, singular: string}
+     */
     @Prop({required: true, type: Object}) public resourceName!: ResourceNameInterface;
 
     public selectedItems = this.selectable && this.selected ? this.selected : [];
@@ -105,6 +131,10 @@ export default class PResourceList extends Vue {
     public set computedValue(items: any) {
         this.selectedAll = items.selectedAll;
         this.selectedMore = items.selectedMore;
+
+        /**
+         * Callback when selection is changed.
+         */
         this.$emit('change', items);
     }
 

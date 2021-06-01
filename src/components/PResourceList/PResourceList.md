@@ -36,9 +36,9 @@ PResourceList example:
           <POptionList
               slot="content"
               :options="[
-              {label: 'Active Little Long Content', value: 1},
-              {label: 'In-Active', value: 0},
-          ]"
+                  {label: 'Active Little Long Content', value: 1},
+                  {label: 'In-Active', value: 0},
+              ]"
               :selected="status"
               @change="updateStatusFilter"
           ></POptionList>
@@ -66,6 +66,11 @@ PResourceList example:
       </PResourceListItem>
     </PResourceList>
   </PCard>
+<!--  <PCardSection v-if="pagination.hasPrevious || pagination.hasNext">-->
+<!--    <div class="resource-list-pagination">-->
+<!--      <PPagination :hasPrevious="pagination.hasPrevious" :hasNext="pagination.hasNext" :onPrevious="onPrevious" :onNext="onNext"></PPagination>-->
+<!--    </div>-->
+<!--  </PCardSection>-->
 </template>
 <script>
 import PResourceListItem from "./components/PResourceListItem";

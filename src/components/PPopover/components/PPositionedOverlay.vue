@@ -103,8 +103,8 @@
                 document.body : this.scrollableElement;
             let scrollableContainerRect = scrollableElement.getBoundingClientRect();
 
-            const overlayRect = this.getBoundingClientRect(this.overlay);
-            if (this.fullWidth) {
+          const overlayRect = this.getBoundingClientRect(this.overlay);
+          if (this.fullWidth) {
                 overlayRect.width = activatorRect.width;
             }
 
@@ -225,8 +225,9 @@
                 positioning: 'above',
             };
 
+          console.log('heightIfBelow', heightIfBelow, verticalMargins)
             const positionIfBelow = {
-                height: heightIfBelow - verticalMargins,
+                height: (heightIfBelow - verticalMargins === 0) ? 131 :verticalMargins / 2,
                 top: activatorBottom + containerRect.top,
                 positioning: 'bottom',
             };
@@ -240,6 +241,11 @@
             }
 
             if (preferredPosition === 'below') {
+              // console.log('below', ((enoughSpaceFromBottomScroll ||
+              //     (distanceToBottomScroll >= distanceToTopScroll && !enoughSpaceFromTopScroll)) &&
+              //     (spaceBelow > desiredHeight || spaceBelow > spaceAbove))
+              //     ? positionIfBelow
+              //     : positionIfAbove);
                 return ((enoughSpaceFromBottomScroll ||
                     (distanceToBottomScroll >= distanceToTopScroll && !enoughSpaceFromTopScroll)) &&
                     (spaceBelow > desiredHeight || spaceBelow > spaceAbove))
@@ -263,6 +269,7 @@
                 return false;
             }
             const rect = element.getBoundingClientRect();
+          console.log(rect)
             return {
                 top: rect.top,
                 right: rect.right,
