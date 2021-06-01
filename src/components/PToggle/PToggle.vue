@@ -42,7 +42,7 @@
        */
       value: {
         required: false,
-        type: [String, Boolean],
+        type: [String, Boolean, Number],
       },
       /**
        * Set true for disable
