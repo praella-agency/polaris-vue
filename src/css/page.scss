@@ -1,0 +1,450 @@
+
+.Polaris-Header-Title {
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-weight: 600;
+  font-size: 2.4rem;
+  line-height: 2.8rem;
+}
+
+@media (min-width: 40em) {
+  .Polaris-Header-Title {
+    font-size: 2rem;
+  }
+}
+
+.Polaris-Header-Title__SubTitle {
+  margin-top: 0.8rem;
+  color: rgba(109, 113, 117, 1);
+}
+
+.Polaris-Header-Title--hasThumbnail {
+  display: grid;
+  grid-gap: 1.6rem;
+  grid-template-columns:auto 1fr;
+}
+
+.Polaris-Header-Title--hasThumbnail .Polaris-Header-Title__TitleAndSubtitleWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Polaris-Header-Title__TitleWithMetadataWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.Polaris-Header-Title__TitleWithMetadataWrapper .Polaris-Header-Title {
+  display: inline;
+  margin-right: 0.8rem;
+}
+
+.Polaris-Header-Title__TitleWithMetadataWrapper .Polaris-Header-Title > * {
+  display: inline;
+}
+
+.Polaris-Header-Title__TitleWithMetadataWrapper .Polaris-Header-Title__TitleMetadata {
+  margin-top: 0;
+  vertical-align: bottom;
+}
+
+
+.Polaris-Page-Header {
+  padding: 1.6rem 1.6rem 0;
+  position: relative;
+}
+
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em) {
+  [data-has-navigation] .Polaris-Page-Header {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (min-width: 30.625em) {
+  .Polaris-Page-Header {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 48.0625em) and (min-width: 46.5em), (min-width: 61.5em) {
+  [data-has-navigation] .Polaris-Page-Header {
+    padding-top: 1.6rem;
+  }
+}
+
+@media (min-width: 46.5em) {
+  .Polaris-Page-Header {
+    padding-top: 1.6rem;
+  }
+}
+
+.Polaris-Page-Header--titleHidden {
+  position: absolute !important;
+  top: 0;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  overflow: hidden !important;
+  height: 1px !important;
+  width: 1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.Polaris-Page-Header__TitleWrapper {
+  grid-area: title;
+  margin-top: 0.4rem;
+  align-self: center;
+  flex: 1 1 auto;
+}
+
+@media (min-width: 29.25em) {
+  .Polaris-Page-Header__TitleWrapper {
+    margin-top: 0;
+  }
+}
+
+.Polaris-Page-Header__Navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.Polaris-Page-Header--hasActionMenu.Polaris-Page-Header--mobileView .Polaris-Page-Header__Navigation {
+  padding-right: 4rem;
+}
+
+@media print {
+  .Polaris-Page-Header__Navigation {
+    display: none !important;
+  }
+}
+
+.Polaris-Page-Header__BreadcrumbWrapper {
+  flex: 0 0 auto;
+  grid-area: breadcrumbs;
+  max-width: 100%;
+  margin-right: 1.6rem;
+}
+
+@media print {
+  .Polaris-Page-Header__BreadcrumbWrapper {
+    display: none !important;
+  }
+}
+
+.Polaris-Page-Header__PaginationWrapper {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 0.4rem;
+  line-height: 1;
+}
+
+.Polaris-Page-Header__PaginationWrapper button {
+  border: 1px solid rgba(186, 191, 195, 1) !important;
+  box-shadow: none !important;
+}
+
+.Polaris-Page-Header__PaginationWrapper button:hover, .Polaris-Page-Header__PaginationWrapper button:active, .Polaris-Page-Header__PaginationWrapper button:focus {
+  border: 1px solid rgba(186, 191, 195, 1) !important;
+}
+
+@media print {
+  .Polaris-Page-Header__PaginationWrapper {
+    display: none !important;
+  }
+}
+
+.Polaris-Page-Header__AdditionalNavigationWrapper {
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: flex-end;
+}
+
+@media print {
+  .Polaris-Page-Header__AdditionalNavigationWrapper {
+    display: none !important;
+  }
+}
+
+.Polaris-Page-Header:not(.Polaris-Page-Header--mobileView) .Polaris-Page-Header__MainContent {
+  display: flex;
+  align-items: center;
+}
+
+.Polaris-Page-Header__TitleActionMenuWrapper {
+  flex: 1 1 auto;
+}
+
+.Polaris-Page-Header:not(.Polaris-Page-Header--mobileView) .Polaris-Page-Header__TitleActionMenuWrapper {
+  padding-right: 2rem;
+}
+
+.Polaris-Page-Header--hasActionMenu.Polaris-Page-Header--mobileView:not(.Polaris-Page-Header--hasNavigation) .Polaris-Page-Header__TitleActionMenuWrapper {
+  padding-right: 4rem;
+}
+
+.Polaris-Page-Header__PrimaryActionWrapper {
+  flex: 0 0 auto;
+  margin-top: 0;
+  margin-left: 0.4rem;
+}
+
+@media (min-width: 48em) {
+  .Polaris-Page-Header__PrimaryActionWrapper {
+    margin-left: 1.6rem;
+  }
+
+  .Polaris-ActionMenu-SecondaryAction a, .Polaris-ActionMenu-SecondaryAction button {
+    border: none !important;
+    position: relative;
+  }
+}
+
+@media print {
+  .Polaris-Page-Header__PrimaryActionWrapper {
+    display: none !important;
+  }
+}
+
+.Polaris-Page-Header__ActionMenuWrapper {
+  margin-top: 0;
+}
+
+.Polaris-Page-Header--mobileView .Polaris-Page-Header__ActionMenuWrapper {
+  position: absolute;
+  top: 2.9rem;
+  right: 2rem;
+  margin-top: 0;
+}
+
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em) {
+  [data-has-navigation] .Polaris-Page-Header--mobileView .Polaris-Page-Header__ActionMenuWrapper {
+    right: -0.8rem;
+  }
+}
+
+@media (min-width: 30.625em) {
+  .Polaris-Page-Header--mobileView .Polaris-Page-Header__ActionMenuWrapper {
+    right: -0.8rem;
+  }
+}
+
+.Polaris-Page-Header--mobileView.Polaris-Page-Header--hasNavigation .Polaris-Page-Header__ActionMenuWrapper {
+  top: 1.8rem;
+}
+
+@media print {
+  .Polaris-Page-Header__ActionMenuWrapper {
+    display: none !important;
+  }
+}
+
+.Polaris-Page-Header__Row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Polaris-Page-Header__Row + .Polaris-Page-Header__Row {
+  margin-top: 0.4rem;
+}
+
+.Polaris-Page-Header--mobileView .Polaris-Page-Header__Row + .Polaris-Page-Header__Row {
+  margin-top: 0.8rem;
+}
+
+.Polaris-Page-Header__Row + .Polaris-Page-Header__Row .Polaris-Page-Header__RightAlign {
+  margin-left: 0;
+}
+
+.Polaris-Page-Header__LeftAlign {
+  display: flex;
+  align-content: flex-start;
+  align-items: center;
+}
+
+.Polaris-Page-Header__RightAlign {
+  grid-area: actions;
+  display: flex;
+  align-content: flex-end;
+  flex: 1 1 auto;
+  align-items: flex-start;
+  justify-content: flex-end;
+  margin-left: 1.6rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 29.25em) {
+  .Polaris-Page-Header--noBreadcrumbs .Polaris-Page-Header__RightAlign {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 29.25em) {
+  .Polaris-Page-Header__AdditionalMetaData {
+    margin-left: 5.2rem;
+  }
+}
+
+.Polaris-Page-Header--noBreadcrumbs .Polaris-Page-Header__AdditionalMetaData {
+  margin-left: 0;
+}
+
+@media print {
+  .Polaris-Page-Header__AdditionalMetaData {
+    margin-left: 0 !important;
+  }
+}
+
+.Polaris-Page-Header__Actions {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+@media (max-width: 67.5em) {
+  .Polaris-Page-Header--longTitle .Polaris-Page-Header__AdditionalMetaData {
+    margin-left: 0;
+  }
+
+  .Polaris-Page-Header--longTitle .Polaris-Page-Header__Row {
+    display: grid;
+    gap: 0.8rem 1.6rem;
+    grid-template-columns:auto 1fr;
+    grid-template-areas:'breadcrumbs actions' 'title title';
+  }
+
+  .Polaris-Page-Header--longTitle .Polaris-Page-Header__Row + .Polaris-Page-Header__Row {
+    gap: 0;
+  }
+}
+
+@media (max-width: 53.75em) {
+  .Polaris-Page-Header--mediumTitle:not(.Polaris-Page-Header--noBreadcrumbs) .Polaris-Page-Header__AdditionalMetaData {
+    margin-left: 0;
+  }
+
+  .Polaris-Page-Header--mediumTitle:not(.Polaris-Page-Header--noBreadcrumbs) .Polaris-Page-Header__Row {
+    display: grid;
+    gap: 0.8rem 1.6rem;
+    grid-template-columns:auto 1fr;
+    grid-template-areas:'breadcrumbs actions' 'title title';
+  }
+
+  .Polaris-Page-Header--mediumTitle:not(.Polaris-Page-Header--noBreadcrumbs) .Polaris-Page-Header__Row + .Polaris-Page-Header__Row {
+    gap: 0;
+  }
+}
+
+.Polaris-Page-Header--mediumTitle.Polaris-Page-Header--noBreadcrumbs .Polaris-Page-Header__TitleWrapper {
+  margin-top: 0;
+}
+
+.Polaris-Page-Header--mediumTitle.Polaris-Page-Header--noBreadcrumbs .Polaris-Page-Header__RightAlign {
+  margin-bottom: 0.4rem;
+}
+
+.Polaris-Page-Header--mediumTitle.Polaris-Page-Header--noBreadcrumbs .Polaris-Page-Header__Row {
+  flex-wrap: wrap-reverse;
+}
+
+@media (min-width: 48.0625em) {
+  .Polaris-Page-Header--mediumTitle.Polaris-Page-Header--noBreadcrumbs .Polaris-Page-Header__Row {
+    flex-wrap: nowrap;
+  }
+}
+
+.Polaris-Page-Header--isSingleRow .Polaris-Page-Header__Row {
+  gap: 0;
+}
+
+
+.Polaris-Page {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 99.8rem;
+}
+
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em) {
+  [data-has-navigation] .Polaris-Page {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 30.625em) {
+  .Polaris-Page {
+    padding: 0 2rem;
+  }
+}
+
+
+@media (max-width: 48.0625em) and (min-width: 46.5em), (min-width: 61.5em) {
+  [data-has-navigation] .Polaris-Page {
+    padding: 0 3.2rem;
+  }
+}
+
+@media (min-width: 46.5em) {
+  .Polaris-Page {
+    padding: 0 3.2rem;
+  }
+}
+
+.Polaris-Page::after {
+  content: '';
+  display: table;
+}
+
+.Polaris-Page--fullWidth {
+  max-width: none;
+}
+
+.Polaris-Page--narrowWidth {
+  max-width: 66.2rem;
+}
+
+.Polaris-Page__Content {
+  margin: 1.6rem 0;
+}
+
+@media (max-width: 48.0625em) and (min-width: 46.5em), (min-width: 61.5em) {
+  [data-has-navigation] .Polaris-Page__Content {
+    margin-top: 1.6rem;
+  }
+}
+
+@media (min-width: 46.5em) {
+  .Polaris-Page__Content {
+    margin-top: 1.6rem;
+  }
+}
+
+
+.Polaris-PageActions {
+  margin: 0 auto;
+  padding: 2rem;
+  border-top: 0.1rem solid rgba(225, 227, 229, 1);
+}
+
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em) {
+  [data-has-navigation] .Polaris-PageActions {
+    padding: 2rem 0;
+  }
+}
+
+@media (min-width: 30.625em) {
+  .Polaris-PageActions {
+    padding: 2rem 0;
+  }
+}
+
+@media (min-width: 48em) {
+
+}

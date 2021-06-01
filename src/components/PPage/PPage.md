@@ -25,10 +25,9 @@ PPage example:
         onNext: handleNext,
         onPrevious: handlePrevious
       }"
-
+      thumbnail="https://burst.shopifycdn.com/photos/black-leather-choker-necklace_373x@2x.jpg"
       title="3/4 inch Leather pet collar" subtitle="Perfect for any pet" :breadcrumbs="[{content: 'Products', url: '/products'}]">
         <PBadge slot="titleMetadata" status="success">Paid</PBadge>
-        <PThumbnail source="https://burst.shopifycdn.com/photos/black-leather-choker-necklace_373x@2x.jpg" slot="thumbnail"></PThumbnail>
         <PAvatar initials="HA" slot="additionalNavigation"></PAvatar>
         Page Content
     </PPage>

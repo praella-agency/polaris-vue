@@ -1,64 +1,86 @@
 <template>
-    <div :class="pageTitleClassName">
-        <div v-if="$slots.thumbnail">
-            <slot name="thumbnail" />
-        </div>
-        <div class="Polaris-Header-Title__TitleAndSubtitleWrapper">
-            <div v-if="titleMetadata || $slots.titleMetadata" class="Polaris-Header-Title__TitleWithMetadataWrapper">
-                <div class="Polaris-Header-Title">
-                    <PDisplayText size="large" element="h1">
-                        <PTextStyle variation="strong">{{title}}</PTextStyle>
-                    </PDisplayText>
-                </div>
-                <div class="Polaris-Header-Title__TitleMetadata">
-                    <template v-if="titleMetadata">{{titleMetadata}}</template>
-                    <slot v-else name="titleMetadata" />
-                </div>
-            </div>
-            <div v-else class="Polaris-Header-Title">
-                <PDisplayText size="large" element="h1">
-                    <PTextStyle variation="strong">{{title}}</PTextStyle>
-                </PDisplayText>
-            </div>
-            <div v-if="subtitle" class="Polaris-Header-Title__SubTitle">
-                <p>{{subtitle}}</p>
-            </div>
-        </div>
+  <!--    <div :class="pageTitleClassName">
+          <div v-if="$slots.thumbnail">
+              <slot name="thumbnail" />
+          </div>
+          <div class="Polaris-Header-Title__TitleAndSubtitleWrapper">
+              <div v-if="titleMetadata || $slots.titleMetadata" class="Polaris-Header-Title__TitleWithMetadataWrapper">
+                  <div class="Polaris-Header-Title">
+                      <PDisplayText size="large" element="h1">
+                          <PTextStyle variation="strong">{{title}}</PTextStyle>
+                      </PDisplayText>
+                  </div>
+                  <div class="Polaris-Header-Title__TitleMetadata">
+                      <template v-if="titleMetadata">{{titleMetadata}}</template>
+                      <slot v-else name="titleMetadata" />
+                  </div>
+              </div>
+              <div v-else class="Polaris-Header-Title">
+                  <PDisplayText size="large" element="h1">
+                      <PTextStyle variation="strong">{{title}}</PTextStyle>
+                  </PDisplayText>
+              </div>
+              <div v-if="subtitle" class="Polaris-Header-Title__SubTitle">
+                  <p>{{subtitle}}</p>
+              </div>
+          </div>
+      </div>-->
+
+  <div :class="pageTitleClassName">
+    <div v-if="source">
+      <PThumbnail size="medium" :source="source" :alt="alt"/>
     </div>
+    <div class="Polaris-Header-Title__TitleAndSubtitleWrapper" v-if="title || subtitle">
+      <div class="Polaris-Header-Title__TitleWithMetadataWrapper">
+        <PDisplayText element="h1" v-html="title" class="Polaris-Header-Title" />
+        <div class="Polaris-Header-Title__TitleMetadata" v-if="titleMetadata || $slots.hasOwnProperty('titleMetadata')">
+          <template v-if="titleMetadata">{{titleMetadata}}</template>
+          <slot v-else name="titleMetadata" />
+        </div>
+      </div>
+      <div v-if="subtitle" class="Polaris-Header-Title__SubTitle">
+        <p>{{subtitle}}</p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-    import {Vue, Component, Prop} from 'vue-property-decorator';
-    import {PDisplayText} from '@/components/PDisplayText';
-    import {PTextStyle} from '@/components/PTextStyle';
-    import {classNames} from '@/utilities/css';
+import {Vue, Component, Prop} from 'vue-property-decorator';
+import {PDisplayText} from '@/components/PDisplayText';
+import {PTextStyle} from '@/components/PTextStyle';
+import {classNames} from '@/utilities/css';
+import {PThumbnail} from '@/components/PThumbnail';
 
-    export interface PPageHeaderTitleProps {
-        title?: string;
-        subtitle?: string;
-        titleMetadata?: string;
-    }
+export interface PPageHeaderTitleProps {
+  title?: string;
+  subtitle?: string;
+  titleMetadata?: string;
+}
 
-    @Component({
-        components: {
-            PDisplayText,
-            PTextStyle,
-        },
-    })
-    export default class PPageHeaderTitle extends Vue {
+@Component({
+  components: {
+    PDisplayText,
+    PTextStyle,
+    PThumbnail,
+  },
+})
+export default class PPageHeaderTitle extends Vue {
 
-        @Prop(String) public title!: string;
-        @Prop(String) public subtitle!: string;
-        @Prop(String) public titleMetadata!: string;
+  @Prop(String) public title!: string;
+  @Prop(String) public source!: string;
+  @Prop(String) public alt!: string;
+  @Prop(String) public subtitle!: string;
+  @Prop(String) public titleMetadata!: string;
 
-        public get pageTitleClassName() {
-            return classNames(
-                this.hasThumbnailSlot() && 'Polaris-Header-Title--hasThumbnail',
-            );
-        }
+  public get pageTitleClassName() {
+    return classNames(
+        this.source && 'Polaris-Header-Title--hasThumbnail',
+    );
+  }
 
-        public hasThumbnailSlot() {
-            return !!this.$slots.thumbnail;
-        }
-    }
+  public hasThumbnailSlot() {
+    return !!this.$slots.thumbnail;
+  }
+}
 </script>
