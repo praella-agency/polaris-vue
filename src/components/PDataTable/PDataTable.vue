@@ -257,7 +257,7 @@ export default class PDataTable extends Vue {
 
       let loadingPosition = 0;
 
-      if (typeof window !== 'undefined') {
+      if (typeof window !== 'undefined' && this.$refs.hasOwnProperty('tbody')) {
 
         const overlay = (this.$refs.tbody as Element).getBoundingClientRect();
 
