@@ -53,7 +53,7 @@ Button Actions
 export default {
   methods: {
     handleButtonEvent(event) {
-        alert(`Triggered ${event} event`)
+        alert(`Triggered ${event} event`);
     }
   }
 }

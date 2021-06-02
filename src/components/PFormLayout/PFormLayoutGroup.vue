@@ -40,17 +40,17 @@
         /**
          * Form group title
          */
-        @Prop(String) public title!: string;
+        @Prop({type: String, default: null}) public title!: string;
 
         /**
          * Form group helpText
          */
-        @Prop(String) public helpText!: string;
+        @Prop({type: String, default: null}) public helpText!: string;
 
         /**
          * For very short inputs, the width of the inputs may be reduced in order to fit more fields in the row.
          */
-        @Prop(Boolean) public condensed!: boolean;
+        @Prop({type: Boolean, default: false}) public condensed!: boolean;
 
         /**
          * Use field groups to arrange multiple fields in a row.

@@ -22,7 +22,7 @@ export default class PActionList extends Vue {
     /**
      * Collection of actions for list
      */
-    @Prop(Array) public items!: any[];
+    @Prop({type: Array, default: () => []}) public items!: any[];
 
     /**
      * Collection of sectioned action items

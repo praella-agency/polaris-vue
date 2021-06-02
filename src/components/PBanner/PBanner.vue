@@ -2,7 +2,7 @@
   <div :class="className">
     <div v-if="isDismissable" class="Polaris-Banner__Dismiss">
       <!--
-        triggered to dismiss the banner
+        Triggered to dismiss the banner
         @event dismiss
       -->
       <PButton
@@ -84,16 +84,17 @@ export default class PBanner extends Vue {
   /**
    * Title content for the banner.
    */
-  @Prop(String) public title!: string;
+  @Prop({type: String, default: null}) public title!: string;
 
   /**
    * Set the status of the banner
-   * @values success, info, warning, critical
+   * @values success | info | warning | critical
    */
-  @Prop(String) public status!: string;
+  @Prop({type: String, default: null}) public status!: string;
 
   /**
    * Action of the banner
+   * @ignore
    */
   @Prop(Object) public action!: DisableableAction & LoadableAction;
 

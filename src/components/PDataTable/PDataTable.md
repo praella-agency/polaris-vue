@@ -77,7 +77,13 @@ PDataTable example:
     :ids="[1,2,3]"
     footerContent="Showing 3 of 3 results">
     <template slot="filter">
-    <PPopover :active="active" full-width @close="toggleRatingFilter" id="popover_1" zIndex="999">
+    <PPopover
+        id="popover_1"
+        :active="active"
+        preferred-alignment="right"
+        @close="toggleRatingFilter" 
+        full-width 
+    >
       <PButton slot="activator" @click="toggleRatingFilter" :disclosure="active ? 'up' : 'down'">Filter Options</PButton>
       <POptionList
               slot="content"
@@ -92,7 +98,12 @@ PDataTable example:
           @change="updateRatingFilter"
       ></POptionList>
     </PPopover>
-    <PPopover :active="active2" @close="toggleRatingFilter" id="popover_2">
+    <PPopover
+        id="popover_2"
+        :active="active2"
+        @close="toggleRatingFilter2"
+        preferred-alignment="right"
+    >
       <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">Status</PButton>
       <POptionList
               slot="content"
@@ -109,6 +120,7 @@ PDataTable example:
     </template>
   </PDataTable>
 </template>
+
 <script>
 export default {
   data() {
@@ -145,20 +157,20 @@ export default {
     },
     updateRatingFilter(selected) {
       this.selected= selected;
-      console.log('selected rating',selected)
+      console.log('selected rating',selected);
     },
     updateStatusFilter(selected) {
       this.status = selected;
-      console.log('selected status',selected)
+      console.log('selected status',selected);
     },
     handleNext() {
-      alert('Go to next page')
+      alert('Go to next page');
     },
     handlePrevious() {
-      alert('Go to previous page')
+      alert('Go to previous page');
     },
     handleToggle($val) {
-      console.log($val)
+      console.log($val);
     }
   }
 }

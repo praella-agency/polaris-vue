@@ -15,7 +15,7 @@
     components: { PIcon },
   })
   export default class PFieldError extends Vue {
-    @Prop(String) public error!: string;
+    @Prop({type: String, default: null}) public error!: string;
   }
 </script>
 

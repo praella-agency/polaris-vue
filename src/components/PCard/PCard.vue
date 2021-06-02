@@ -60,22 +60,22 @@
         /**
          * Title content for the card
          */
-        @Prop(String) public title!: string;
+        @Prop({type: String, default: null}) public title!: string;
 
         /**
          * Card description
          */
-        @Prop(String) public shortDescription!: string;
+        @Prop({type: String, default: null}) public shortDescription!: string;
 
         /**
          * A less prominent card
          */
-        @Prop(Boolean) public subdued!: boolean;
+        @Prop({type: Boolean, default: false}) public subdued!: boolean;
 
         /**
          * Auto wrap content in section
          */
-        @Prop(Boolean) public sectioned!: boolean;
+        @Prop({type: Boolean, default: false}) public sectioned!: boolean;
 
         public get className() {
             return classNames(

@@ -1,12 +1,14 @@
 <template>
   <div>
     <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs" :resourceTitle="searchPlaceholder" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
+      <!-- @slot Filter content -->
       <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
     </PFilter>
     <div class="Polaris-DataTable">
       <div class="Polaris-DataTable__ScrollContainer">
         <table class="Polaris-DataTable__Table">
           <thead ref="thead">
+          <!-- @slot Header content -->
           <slot name="head" v-if="$slots.hasOwnProperty('head')"></slot>
           <template v-else>
             <tr>
@@ -62,6 +64,7 @@
             </tr>
             <tr class="Polaris-ResourceList__LoadingOverlay"></tr>
           </template>
+          <!-- @slot Body content -->
           <slot name="body" v-if="$slots.hasOwnProperty('body')"></slot>
           <tr v-else
               class="Polaris-DataTable__TableRow"
@@ -155,7 +158,7 @@
 
         /**
          * Type of a column
-         * @values text, numeric
+         * @values text | numeric
          */
         @Prop({ type: Array, default: () => [] }) public columnContentTypes!: ColumnContentType[];
 
@@ -177,12 +180,12 @@
         /**
          * Display totals on footer
          */
-        @Prop(Boolean) public showTotalsInFooter!: boolean;
+        @Prop({type: Boolean, default: false}) public showTotalsInFooter!: boolean;
 
         /**
          * Display only search filter
          */
-        @Prop(Boolean) public hasFilter!: boolean;
+        @Prop({type: Boolean, default: false}) public hasFilter!: boolean;
 
         /**
          * Table rows
@@ -199,38 +202,38 @@
          */
         @Prop({ type: String, default: 'top' }) public verticalAlign!: VerticalAlign;
 
-        @Prop(Object) public sort!: Sort;
+        @Prop({type: Object, default: () => ({})}) public sort!: Sort;
 
         @Prop({ type: String, default: 'ascending' }) public defaultSortDirection!: SortDirection;
 
         /**
          * Footer data
          */
-        @Prop() public footerContent!: TableData;
+        @Prop({type: [String, Number]}) public footerContent!: TableData;
 
         /**
          * Footer data
          */
-        @Prop(String) public searchPlaceholder!: string;
+        @Prop({type: String, default: null}) public searchPlaceholder!: string;
 
         /**
          * Data table has pagination
          */
-        @Prop(Boolean) public hasPagination!: boolean;
+        @Prop({type: Boolean, default: false}) public hasPagination!: boolean;
 
         /**
          * Data table is loading
          */
-        @Prop(Boolean) public loading!: boolean;
+        @Prop({type: Boolean, default: false}) public loading!: boolean;
 
         /**
          * Pagination object
          */
-        @Prop(Object) public pagination!: PPaginationDescriptor;
+        @Prop({type: Object, default: () => ({})}) public pagination!: PPaginationDescriptor;
 
-        @Prop(Array) public actions!: ComplexAction[];
+        @Prop({ type: Array, default: () => [] }) public actions!: ComplexAction[];
 
-        @Prop(Array) public ids!: number[];
+        @Prop({ type: Array, default: () => [] }) public ids!: number[];
 
         public topPadding = 8;
 

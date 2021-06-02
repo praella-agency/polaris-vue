@@ -9,17 +9,17 @@
     /**
      * Remove top left and right border radius
      */
-    @Prop(Boolean) public segmented!: boolean;
+    @Prop({type: Boolean, default: false}) public segmented!: boolean;
 
     /**
      * Buttons will stretch/shrink to occupy the full width
      */
-    @Prop(Boolean) public fullWidth!: boolean;
+    @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
 
     /**
      * Remove top left and right border radius
      */
-    @Prop(Boolean) public connectedTop!: boolean;
+    @Prop({type: Boolean, default: false}) public connectedTop!: boolean;
 
     public get className() {
       return classNames(

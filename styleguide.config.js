@@ -9,6 +9,8 @@ module.exports = {
         "**/components/PActionMenu/*",
         "**/components/PButton/utils/*",
         "**/components/PCard/",
+        "**/components/PCard/PCardSection.vue",
+        "**/components/PCard/PCardSubsection.vue",
         "**/components/PCard/PCardFooter.vue",
         "**/components/PCard/PCardHeader.vue",
         "**/components/PDropZone/PDropZone.vue",

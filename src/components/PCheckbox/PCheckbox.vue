@@ -53,27 +53,27 @@ export default class PCheckbox extends Vue {
     /**
      * Name for form input
      */
-    @Prop({type: String}) public name!: string;
+    @Prop({type: String, default: null}) public name!: string;
 
     /**
      * Label for the checkbox
      */
-    @Prop(String) public label!: string;
+    @Prop({type: String, default: null}) public label!: string;
 
     /**
      * Additional text to aide in use
      */
-    @Prop(String) public helpText!: string;
+    @Prop({type: String, default: null}) public helpText!: string;
 
     /**
      * Visually hide the label
      */
-    @Prop(Boolean) public labelHidden!: boolean;
+    @Prop({type: Boolean, default: false}) public labelHidden!: boolean;
 
     /**
      * `indeterminate` shows a horizontal line in the checkbox
      */
-    @Prop(Boolean) public indeterminate!: boolean;
+    @Prop({type: Boolean, default: false}) public indeterminate!: boolean;
 
     /**
      * Checkbox is selected.
@@ -88,12 +88,12 @@ export default class PCheckbox extends Vue {
     /**
      * Disable input
      */
-    @Prop(Boolean) public disabled!: boolean;
+    @Prop({type: Boolean, default: false}) public disabled!: boolean;
 
     /**
      * Display an error message
      */
-    @Prop(String) public error!: string;
+    @Prop({type: String, default: null}) public error!: string;
 
     public get wrapperClassName() {
         return classNames(
