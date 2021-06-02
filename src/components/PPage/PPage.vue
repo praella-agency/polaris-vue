@@ -7,12 +7,12 @@
             :primaryAction="primaryAction"
             :secondaryActions="secondaryActions"
             :actionGroups="actionGroups"
+            :thumbnail="thumbnail"
+            :thumbnailAlt="thumbnailAlt"
             v-bind="$attrs"
             v-on="$listeners">
             <!-- @slot Use slot if you want to use some other component for primary Action -->
             <slot slot="primaryAction" name="primaryAction" />
-            <!-- @slot Use slot if you want to use some other component for thumb -->
-            <slot slot="thumbnail" name="thumbnail" />
             <!-- @slot Use slot if you want to use some other component for title meta data -->
             <slot slot="titleMetadata" name="titleMetadata" />
             <!-- @slot Use slot if you want to use some other component for additional navigation -->
@@ -74,6 +74,16 @@ export default class PPage extends Vue {
     @Prop(String) public title!: string;
 
     /**
+     * Page thumbnail
+     */
+    @Prop(String) public thumbnail!: string;
+
+    /**
+     * Thumbnail alt text
+     */
+    @Prop(String) public thumbnailAlt!: string;
+
+    /**
      * Primary page-level action
      */
     @Prop(Object) public primaryAction!: PrimaryAction;
@@ -97,11 +107,11 @@ export default class PPage extends Vue {
     public get hasHeaderContent() {
         return (this.title != null && this.title !== '') ||
             this.primaryAction != null ||
+            this.thumbnail ||
             (this.secondaryActions != null && this.secondaryActions.length > 0) ||
             (this.actionGroups != null && this.actionGroups.length > 0) ||
             (this.$slots.hasOwnProperty('primaryAction')) ||
             (this.$slots.hasOwnProperty('additionalNavigation')) ||
-            (this.$slots.hasOwnProperty('thumbnail')) ||
             (this.breadcrumbs != null && this.breadcrumbs.length > 0);
     }
 

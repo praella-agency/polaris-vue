@@ -251,7 +251,7 @@
 
         public getBoundingClientRect(element: HTMLElement) {
             if (!element) {
-                return false;
+                return {};
             }
             const rect = element.getBoundingClientRect();
             return {

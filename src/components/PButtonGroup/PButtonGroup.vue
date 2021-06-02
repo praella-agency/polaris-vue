@@ -1,49 +1,58 @@
 <script lang="tsx">
-  import { Component, Vue, Prop } from 'vue-property-decorator';
-  import { classNames } from '@/utilities/css';
+import {Component, Vue, Prop} from 'vue-property-decorator';
+import {classNames, variationName} from '@/utilities/css';
 
-  @Component
+type Spacing = 'extraTight' | 'tight' | 'loose';
 
-  export default class PButtonGroup extends Vue {
+@Component
 
-    /**
-     * Remove top left and right border radius
-     */
-    @Prop({type: Boolean, default: false}) public segmented!: boolean;
+export default class PButtonGroup extends Vue {
 
-    /**
-     * Buttons will stretch/shrink to occupy the full width
-     */
-    @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
+  /**
+   * Remove top left and right border radius
+   */
+  @Prop(Boolean) public segmented!: boolean;
 
-    /**
-     * Remove top left and right border radius
-     */
-    @Prop({type: Boolean, default: false}) public connectedTop!: boolean;
+  /**
+   * Buttons will stretch/shrink to occupy the full width
+   */
+  @Prop(Boolean) public fullWidth!: boolean;
 
-    public get className() {
-      return classNames(
-              'Polaris-ButtonGroup',
-              this.segmented && 'Polaris-ButtonGroup--segmented',
-              this.fullWidth && 'Polaris-ButtonGroup--fullWidth',
-              this.connectedTop && 'Polaris-ButtonGroup--connectedTop',
-      );
-    }
+  /**
+   * Remove top left and right border radius
+   */
+  @Prop(Boolean) public connectedTop!: boolean;
 
-    public render(h: any) {
+  /**
+   * Remove top left and right border radius
+   * @values loose, tight, extraTight
+   */
+  @Prop(String) public spacing!: Spacing;
 
-        return (
-            <div class={this.className}
-                 data-buttongroup-segmented={this.segmented}
-                 data-buttongroup-full-width={this.fullWidth}
-                 data-buttongroup-connected-top={this.connectedTop}>
-                {(this.$slots.default || []).map((item: any) => (
-                    <div class='Polaris-ButtonGroup__Item'>
-                        {item}
-                    </div>
-                ))}
-            </div>
-        );
-    }
+  public get className() {
+    return classNames(
+        'Polaris-ButtonGroup',
+        this.segmented && 'Polaris-ButtonGroup--segmented',
+        this.fullWidth && 'Polaris-ButtonGroup--fullWidth',
+        this.connectedTop && 'Polaris-ButtonGroup--connectedTop',
+        this.spacing && `Polaris-ButtonGroup--${this.spacing}`,
+    );
   }
+
+  public render(h: any) {
+
+    return (
+        <div class={this.className}
+             data-buttongroup-segmented={this.segmented}
+             data-buttongroup-full-width={this.fullWidth}
+             data-buttongroup-connected-top={this.connectedTop}>
+          {(this.$slots.default || []).map((item: any) => (
+              <div class='Polaris-ButtonGroup__Item'>
+                {item}
+              </div>
+          ))}
+        </div>
+    );
+  }
+}
 </script>
