@@ -32,6 +32,13 @@
         @toggle="checkOpen"
         :linkedCalendars="linkedCalendars"
     >
+      <template #ranges="ranges">
+        <PStack>
+          <PStackItem fill>
+            <PSelect label="Date range" returnKey="returnValue" :options="rangeOptions(ranges.ranges)"  @change="(range) => changeRange(range, ranges)" />
+          </PStackItem>
+        </PStack>
+      </template>
       <template v-slot:input="picker" style="min-width: 100%">
         <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
           {{ prefix }}
@@ -55,7 +62,18 @@
         </div>
         <div class="Polaris-TextField__Backdrop"></div>
       </template>
-
+      <template slot="footer" slot-scope="data" class="slot">
+        <PStack distribution="equalSpacing" alignment="center">
+          <PStackItem>
+            <PButton @click="data.clickCancel" v-if="!data.in_selection">Cancel</PButton>
+          </PStackItem>
+          <PStackItem>
+            <PButtonGroup>
+              <PButton primary @click="data.clickApply" v-if="!data.in_selection">Apply</PButton>
+            </PButtonGroup>
+          </PStackItem>
+        </PStack>
+      </template>
     </DateRangePicker>
     <PFieldError v-if="error" :error="error"/>
 
@@ -70,6 +88,11 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 import {PIcon} from '@/components/PIcon';
 import dayjs from 'dayjs';
 import {PFieldError} from '@/components/PFieldError';
+import {PButton} from '@/components/PButton';
+import {PButtonGroup} from '@/components/PButtonGroup';
+import {PStack, PStackItem} from '@/components/PStack';
+import {PCard} from '@/components/PCard';
+import {PSelect} from '@/components/PSelect';
 
 type DateType = Date | null | string;
 
@@ -79,7 +102,7 @@ interface DateRange {
 }
 
 @Component({
-  components: {DateRangePicker, PIcon, PFieldError},
+  components: {DateRangePicker, PIcon, PFieldError, PButton,PButtonGroup, PStack, PStackItem, PCard, PSelect},
 })
 export default class PDatePicker extends Vue {
 
@@ -297,6 +320,16 @@ export default class PDatePicker extends Vue {
   public get showPrefix() {
     return this.prefix || this.$slots.prefix;
   }
+
+  public rangeOptions(ranges) {
+    return Object.keys(ranges);
+  }
+
+  public changeRange(range, ranges) {
+    if(typeof ranges.ranges[range] !== 'undefined') {
+      ranges.clickRange(ranges.ranges[range])
+    }
+  }
 }
 </script>
 
@@ -304,4 +337,49 @@ export default class PDatePicker extends Vue {
 .vue-daterange-picker {
   min-width: 100%;
 }
+</style>
+<style>
+  @media screen and (min-width: 339px) {
+  .vue-daterange-picker div.daterangepicker.single.show-ranges.show-weeknumbers,
+  .vue-daterange-picker div.daterangepicker.single.show-ranges {
+    min-width: 250px;
+  }
+  }
+  @media screen and (min-width: 768px) {
+    .vue-daterange-picker div.daterangepicker.show-ranges.show-weeknumbers,
+    .vue-daterange-picker div.daterangepicker.show-ranges {
+      min-width: 500px;
+    }
+  }
+
+  .daterangepicker .calendars {
+    display: block;
+    border-bottom: 1px solid #ddd;
+  }
+  .daterangepicker .Polaris-Stack {
+    padding: 10px;
+  }
+
+
+  .daterangepicker td.in-range {
+    background-color: #f2f7fe;
+  }
+
+  .daterangepicker td.active,
+  .daterangepicker td.active:hover {
+    background-color: #2c6ecb;
+    color: #FFF;
+  }
+
+  .daterangepicker td:hover {
+    background: #1f5199;
+    color: #ffffff;
+    outline: .1rem solid transparent;
+  }
+
+  .daterangepicker td.start-date {border-radius: 3rem 0 0 3rem;}
+
+  .daterangepicker td.end-date {
+    border-radius: 0 3rem 3rem 0;
+  }
 </style>

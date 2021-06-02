@@ -11,23 +11,23 @@ export default class PButtonGroup extends Vue {
   /**
    * Remove top left and right border radius
    */
-  @Prop(Boolean) public segmented!: boolean;
+  @Prop({type: Boolean, default: false}) public segmented!: boolean;
 
   /**
    * Buttons will stretch/shrink to occupy the full width
    */
-  @Prop(Boolean) public fullWidth!: boolean;
+  @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
 
   /**
    * Remove top left and right border radius
    */
-  @Prop(Boolean) public connectedTop!: boolean;
+  @Prop({type: Boolean, default: false}) public connectedTop!: boolean;
 
   /**
    * Remove top left and right border radius
    * @values loose, tight, extraTight
    */
-  @Prop(String) public spacing!: Spacing;
+  @Prop({type: String, default: null}) public spacing!: Spacing;
 
   public get className() {
     return classNames(
