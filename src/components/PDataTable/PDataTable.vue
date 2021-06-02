@@ -3,7 +3,7 @@
     <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs" :resourceTitle="searchPlaceholder" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
       <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
     </PFilter>
-    <div class="Polaris-DataTable">
+    <div class="Polaris-DataTable" v-if="rows.length > 0 || $slots.hasOwnProperty('body')">
       <div class="Polaris-DataTable__ScrollContainer">
         <table class="Polaris-DataTable__Table">
           <thead ref="thead">
@@ -113,171 +113,185 @@
       </div>
       <div v-if="footerContent" class="Polaris-DataTable__Footer">{{ footerContent }}</div>
     </div>
+    <div v-else>
+      <slot name="emptyState">
+        <PEmptyState
+            :heading="emptyStateTitle"
+            image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png">
+        </PEmptyState>
+      </slot>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Prop } from 'vue-property-decorator';
-    import { classNames, variationName } from '@/utilities/css';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { classNames, variationName } from '@/utilities/css';
 
-    import PDataTableCell from './PDataTableCell.vue';
-    import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
-    import { PFilter } from '@/components/PFilter';
-    import { PSpinner } from '@/components/PSpinner';
-    import { ComplexAction, LinkAction } from '@/types';
+import PDataTableCell from './PDataTableCell.vue';
+import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
+import { PFilter } from '@/components/PFilter';
+import { PSpinner } from '@/components/PSpinner';
+import { ComplexAction, LinkAction } from '@/types';
+import {PEmptyState} from '@/components/PEmptyState';
 
-    type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
-    type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
-    type Size = 'medium' | 'small';
+type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
+type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
+type Size = 'medium' | 'small';
 
-    interface Badge {
-        content?: string;
-        status?: Status;
-        progress?: Progress;
-        size?: Size;
+interface Badge {
+    content?: string;
+    status?: Status;
+    progress?: Progress;
+    size?: Size;
+}
+
+type TableData = string | number | LinkAction | ComplexAction | Badge;
+type ColumnContentType = 'text' | 'numeric';
+type SortDirection = 'ascending' | 'descending' | 'none';
+type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
+
+interface Sort {
+    value: string;
+    direction: SortDirection;
+}
+
+@Component({
+    components: { PDataTableCell, PPagination, PFilter, PSpinner, PEmptyState },
+})
+
+export default class PDataTable extends Vue {
+
+    /**
+     * Type of a column
+     * @values text, numeric
+     */
+    @Prop({ type: Array, default: () => [] }) public columnContentTypes!: ColumnContentType[];
+
+    /**
+     * Heading list
+     */
+    @Prop({ type: Array, default: () => [] }) public headings!: string[];
+
+    /**
+     * Heading list
+     */
+    @Prop({ type: Array, default: () => [] }) public headings2!: string[];
+
+    /**
+     * Total fields
+     */
+    @Prop({ type: Array, default: () => [] }) public totals!: TableData[];
+
+    /**
+     * Display totals on footer
+     */
+    @Prop(Boolean) public showTotalsInFooter!: boolean;
+
+    /**
+     * Display only search filter
+     */
+    @Prop(Boolean) public hasFilter!: boolean;
+
+    /**
+     * Table rows
+     */
+    @Prop({ type: Array, default: () => [[]] }) public rows!: TableData[][];
+
+    /**
+     * truncate cell data
+     */
+    @Prop({ type: Boolean, default: false }) public truncate!: boolean;
+
+    /**
+     * Vertical align of cell
+     */
+    @Prop({ type: String, default: 'top' }) public verticalAlign!: VerticalAlign;
+
+    @Prop(Object) public sort!: Sort;
+
+    @Prop({ type: String, default: 'ascending' }) public defaultSortDirection!: SortDirection;
+
+    /**
+     * Footer data
+     */
+    @Prop() public footerContent!: TableData;
+
+    /**
+     * Footer data
+     */
+    @Prop(String) public searchPlaceholder!: string;
+
+    /**
+     * Data table has pagination
+     */
+    @Prop(Boolean) public hasPagination!: boolean;
+
+    /**
+     * Data table is loading
+     */
+    @Prop(Boolean) public loading!: boolean;
+
+    /**
+     * Title to show when there is no data
+     */
+    @Prop({type: String, default: 'No records available'}) public emptyStateTitle!: string;
+
+    /**
+     * Pagination object
+     */
+    @Prop(Object) public pagination!: PPaginationDescriptor;
+
+    @Prop(Array) public actions!: ComplexAction[];
+
+    @Prop(Array) public ids!: number[];
+
+    public topPadding = 8;
+
+    public get hasActions() {
+
+        return this.actions && this.actions.length > 0;
     }
 
-    type TableData = string | number | LinkAction | ComplexAction | Badge;
-    type ColumnContentType = 'text' | 'numeric';
-    type SortDirection = 'ascending' | 'descending' | 'none';
-    type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
+    public mounted() {
 
-    interface Sort {
-        value: string;
-        direction: SortDirection;
+      let loadingPosition = 0;
+
+      if (typeof window !== 'undefined') {
+
+        const overlay = (this.$refs.tbody as Element).getBoundingClientRect();
+
+        const viewportHeight = Math.max(document.documentElement ?
+            document.documentElement.clientHeight : 0, window.innerHeight || 0);
+
+        const overflow = viewportHeight - overlay.height;
+
+        const spinnerHeight = this.rows.length === 1 ? 28 : 45;
+
+        loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
+            (viewportHeight - overlay.top - spinnerHeight) / 2;
+
+        loadingPosition = loadingPosition + (this.$refs.thead as Element).getBoundingClientRect().height;
+
+        this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
+      }
     }
 
-    @Component({
-        components: { PDataTableCell, PPagination, PFilter, PSpinner },
-    })
+    public onRemoveFilter(tag) {
 
-    export default class PDataTable extends Vue {
-
-        /**
-         * Type of a column
-         * @values text, numeric
-         */
-        @Prop({ type: Array, default: () => [] }) public columnContentTypes!: ColumnContentType[];
-
-        /**
-         * Heading list
-         */
-        @Prop({ type: Array, default: () => [] }) public headings!: string[];
-
-        /**
-         * Heading list
-         */
-        @Prop({ type: Array, default: () => [] }) public headings2!: string[];
-
-        /**
-         * Total fields
-         */
-        @Prop({ type: Array, default: () => [] }) public totals!: TableData[];
-
-        /**
-         * Display totals on footer
-         */
-        @Prop(Boolean) public showTotalsInFooter!: boolean;
-
-        /**
-         * Display only search filter
-         */
-        @Prop(Boolean) public hasFilter!: boolean;
-
-        /**
-         * Table rows
-         */
-        @Prop({ type: Array, default: () => [[]] }) public rows!: TableData[][];
-
-        /**
-         * truncate cell data
-         */
-        @Prop({ type: Boolean, default: false }) public truncate!: boolean;
-
-        /**
-         * Vertical align of cell
-         */
-        @Prop({ type: String, default: 'top' }) public verticalAlign!: VerticalAlign;
-
-        @Prop(Object) public sort!: Sort;
-
-        @Prop({ type: String, default: 'ascending' }) public defaultSortDirection!: SortDirection;
-
-        /**
-         * Footer data
-         */
-        @Prop() public footerContent!: TableData;
-
-        /**
-         * Footer data
-         */
-        @Prop(String) public searchPlaceholder!: string;
-
-        /**
-         * Data table has pagination
-         */
-        @Prop(Boolean) public hasPagination!: boolean;
-
-        /**
-         * Data table is loading
-         */
-        @Prop(Boolean) public loading!: boolean;
-
-        /**
-         * Pagination object
-         */
-        @Prop(Object) public pagination!: PPaginationDescriptor;
-
-        @Prop(Array) public actions!: ComplexAction[];
-
-        @Prop(Array) public ids!: number[];
-
-        public topPadding = 8;
-
-        public get hasActions() {
-
-            return this.actions && this.actions.length > 0;
-        }
-
-        public mounted() {
-
-          let loadingPosition = 0;
-
-          if (typeof window !== 'undefined') {
-
-            const overlay = (this.$refs.tbody as Element).getBoundingClientRect();
-
-            const viewportHeight = Math.max(document.documentElement ?
-                document.documentElement.clientHeight : 0, window.innerHeight || 0);
-
-            const overflow = viewportHeight - overlay.height;
-
-            const spinnerHeight = this.rows.length === 1 ? 28 : 45;
-
-            loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
-                (viewportHeight - overlay.top - spinnerHeight) / 2;
-
-            loadingPosition = loadingPosition + (this.$refs.thead as Element).getBoundingClientRect().height;
-
-            this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
-          }
-        }
-
-        public onRemoveFilter(tag) {
-
-            this.$emit('filter-removed', tag);
-        }
-
-        public onFilterInputChanged(value) {
-
-            this.$emit('input-filter-changed', value);
-        }
-
-        public handleSortChange(value, direction) {
-
-            this.$emit('sort-changed', value, direction);
-        }
+        this.$emit('filter-removed', tag);
     }
+
+    public onFilterInputChanged(value) {
+
+        this.$emit('input-filter-changed', value);
+    }
+
+    public handleSortChange(value, direction) {
+
+        this.$emit('sort-changed', value, direction);
+    }
+}
 </script>
 
 <style scoped>

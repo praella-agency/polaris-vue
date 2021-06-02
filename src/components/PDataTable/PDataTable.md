@@ -51,28 +51,6 @@ PDataTable example:
         sortable: false,
       }]"
     :rows="[
-      [
-        {content: 'Emerald Silk Gown', url: 'https://www.google.com/'},
-        '$875.00',
-        {content: 121212, status:'success', progress:'incomplete'},
-        140,
-        {status: false,onAction:handleToggle,id: 1},
-
-      ],
-      [
-        {content: 'Mauve Cashmere Scarf', url: 'https://www.google.com/'},
-        '$230.00',
-        {content: 'A-1234', status:'success', progress:'incomplete'},
-        2,
-        {status: true,onAction:handleToggle,id: 3},
-      ],
-      [
-        {content: 'Mauve Cashmere', url: 'https://www.google.com/'},
-        '$230.00',
-        {content: 'A-1234', status:'success', progress:'incomplete'},
-        {content: 299},
-        {status: true,onAction:handleToggle,id: 2},
-      ],
     ]"
     :ids="[1,2,3]"
     footerContent="Showing 3 of 3 results">
@@ -159,7 +137,85 @@ export default {
     },
     handleToggle($val) {
       console.log($val)
+    },
+    handlePrimaryAction() {
+      alert(`transferred`)
+    },
+    handleSecondaryAction() {
+      alert(`Learn more`)
     }
+  }
+}
+</script>
+```
+
+Empty Table
+
+```vue
+<template>
+  <PDataTable
+    @input-filter-changed="handleSearch"
+    hasFilter
+    :rows="[
+    ]">
+
+    <PEmptyState
+        slot="emptyState"
+        heading="Manage your inventory transfers"
+        :fullWidth="true"
+        :primaryAction="{ content: 'Add transfer', onAction: this.handlePrimaryAction}"
+        :secondaryAction="{ content: 'Learn more', onAction: this.handleSecondaryAction}"
+        image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png">
+      <div slot="footer" class="Polaris-TextContainer"><p>If you don’t want to add a transfer, you can import your inventory
+        from <a class="Polaris-Link Polaris-Link--monochrome" href="/settings" data-polaris-unstyled="true">settings</a>.
+      </p></div>
+      <p>You can use the Files section to upload images, videos, and
+        other documents. This example shows the content with a centered layout and full width.</p>
+    </PEmptyState>
+  </PDataTable>
+</template>
+<script>
+export default {
+  methods: {
+    handlePrimaryAction() {
+      alert(`transferred`)
+    },
+    handleSecondaryAction() {
+      alert(`Learn more`)
+    },
+    handleSearch(val) {
+      alert('handle search ' + val);
+      this.search = val;
+    },
+  }
+}
+</script>
+```
+
+
+Empty table with default layout
+
+```vue
+<template>
+  <PDataTable
+    @input-filter-changed="handleSearch"
+    hasFilter
+    :rows="[]">
+  </PDataTable>
+</template>
+<script>
+export default {
+  methods: {
+    handlePrimaryAction() {
+      alert(`transferred`)
+    },
+    handleSecondaryAction() {
+      alert(`Learn more`)
+    },
+    handleSearch(val) {
+      alert('handle search ' + val);
+      this.search = val;
+    },
   }
 }
 </script>

@@ -51,6 +51,7 @@ import { PMultiSelect } from './PMultiSelect';
 import { PDatePicker } from './PDatePicker';
 import { PMediaCard } from './PMediaCard';
 import { PChart } from './PChart';
+import { PEmptyState } from './PEmptyState';
 import VTooltip from 'v-tooltip'
 
 import '@/scss/main.scss';
@@ -109,6 +110,7 @@ const Components = {
   PDatePicker,
   PMediaCard,
   PChart,
+  PEmptyState,
 };
 
 const PolarisVue = {
