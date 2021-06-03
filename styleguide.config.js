@@ -1,4 +1,5 @@
 module.exports = {
+    // name: "Polaris Vue",
     components: 'src/components/**/*.vue',
     ignore: [
         "**/components/PActionMenu/components/PActionMenuActions.vue",
@@ -45,5 +46,6 @@ module.exports = {
     require: ['./src/scss/main.scss','./src/mixins/tooltip.js'],
     usageMode: 'expand',
     exampleMode: 'expand',
-
+    theme: './styleguide/theme.js',
+    styles: './styleguide/styles.js',
 };

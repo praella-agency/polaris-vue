@@ -11,7 +11,7 @@
     </div>
     <DateRangePicker
         ref="picker"
-        :opens="opens"
+        :opens="computedOpens"
         :controlContainerClass="containerClass"
         :readonly="readOnly"
         :disabled="disabled"
@@ -25,7 +25,7 @@
         :autoApply="autoApply"
         :closeOnEsc="closeOnEsc"
         :localeData="localeData"
-        :ranges="ranges"
+        :ranges="computedRanges"
         v-bind="$attrs"
         v-model="computedValue"
         @update="updateValues"
@@ -40,27 +40,17 @@
         </PStack>
       </template>
       <template v-slot:input="picker" style="min-width: 100%">
-        <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
-          {{ prefix }}
-          <!-- @slot Display prefix for the element -->
-          <slot v-if="$slots.prefix" name="prefix"></slot>
-        </div>
-        <div :class="className">
-          <template v-if="ranges !== false">
-            {{ formatDate(picker.startDate) }} - {{ formatDate(picker.endDate) }}
-          </template>
-          <template v-else>
-            {{ formatDate(picker.startDate) }}
-          </template>
-        </div>
-        <div class="Polaris-TextField__Suffix" :id="id+'Suffix'">
-          {{ suffix }}
-          <!-- @slot Display suffix for the element -->
-          <slot name="suffix">
+        <PTextField v-if="!button" readOnly aria-readonly="true" :value="computedTextValue(picker)" style="min-width:100%" labelHidden>
+          <template  slot="suffix">
             <PIcon slot="suffix" source="CalendarMajorMonotone"/>
-          </slot>
-        </div>
-        <div class="Polaris-TextField__Backdrop"></div>
+          </template>
+          <template v-if="showPrefix" slot="prefix">
+            {{ prefix }}
+          </template>
+        </PTextField>
+        <PButton icon="CalendarMajorMonotone" v-else>
+          {{computedTextValue(picker)}}
+        </PButton>
       </template>
       <template slot="footer" slot-scope="data" class="slot">
         <PStack distribution="equalSpacing" alignment="center">
@@ -93,6 +83,7 @@ import {PButtonGroup} from '@/components/PButtonGroup';
 import {PStack, PStackItem} from '@/components/PStack';
 import {PCard} from '@/components/PCard';
 import {PSelect} from '@/components/PSelect';
+import {PTextField} from '@/components/PTextField';
 
 type DateType = Date | null | string;
 
@@ -107,7 +98,13 @@ interface DateRange {
 export default class PDatePicker extends Vue {
 
   /**
-   *  Which way the picker opens
+   *  Show button as picker instead of input field
+   *  @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public button!: boolean;
+
+  /**
+   *  Which way the picker opens. Works without button attribute
    *  @values left | center | right | inline
    */
   @Prop({type: String, default: 'center'}) public opens!: string;
@@ -158,14 +155,9 @@ export default class PDatePicker extends Vue {
   @Prop({type: String, default: null}) public error!: string;
 
   /**
-   * Define prefix for the element
+   * Define prefix for the element. Works without button attribute
    */
   @Prop({type: String, default: null}) public prefix!: string;
-
-  /**
-   * Define prefix for the element
-   */
-  @Prop({type: String, default: null}) public suffix!: string;
 
   /**
    * Minimum date allowed to be selected
@@ -260,6 +252,19 @@ export default class PDatePicker extends Vue {
     return classNames(
         'Polaris-TextField__Input',
     );
+  }
+
+  public get computedOpens() {
+    return this.button ? 'right' : this.opens;
+  }
+
+  public get computedRanges() {
+    return !this.singleDatePicker ? this.ranges : false;
+  }
+
+  public computedTextValue(picker) {
+    //
+    return !this.singleDatePicker ? `${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}` : this.formatDate(picker.startDate);
   }
 
   public get hasError() {
