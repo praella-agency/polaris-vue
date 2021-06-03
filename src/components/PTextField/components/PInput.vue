@@ -213,7 +213,7 @@
 
     public handleNumberChange(steps: number) {
       const numericValue = this.computedValue ? parseFloat(this.computedValue) : 0;
-      if (isNaN(numericValue)) { return; }
+      if (isNaN(numericValue) || this.disabled) { return; }
 
       const min = this.min || -Infinity;
       const max = this.max || +Infinity;
