@@ -32,10 +32,10 @@ export const color = {
     codePunctuation: '#999',
     codeProperty: '#ff61b9',
     codeDeleted: '#ff61b9',
-    codeString: '#7fba01',
-    codeInserted: '#690',
+    codeString: '#A9F94C',
+    codeInserted: '#A9F94C',
     codeOperator: '#9a6e3a',
-    codeKeyword: '#3897d9',
+    codeKeyword: '#3687CC',
     codeFunction: '#DD4A68',
     codeVariable: '#e90',
 };

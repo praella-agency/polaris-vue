@@ -1,5 +1,9 @@
 module.exports = {
-    // name: "Polaris Vue",
+    title: 'Polaris Vue',
+    template: {
+        favicon: 'https://cdn.shopify.com/s/files/1/1564/7647/files/favicon_5_32x32.png?v=1583161286',
+        title: 'Polaris Vue',
+    },
     components: 'src/components/**/*.vue',
     ignore: [
         "**/components/PActionMenu/components/PActionMenuActions.vue",
@@ -48,4 +52,5 @@ module.exports = {
     exampleMode: 'expand',
     theme: './styleguide/theme.js',
     styles: './styleguide/styles.js',
+
 };
