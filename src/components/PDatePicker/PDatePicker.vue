@@ -11,7 +11,7 @@
     </div>
     <DateRangePicker
         ref="picker"
-        :opens="opens"
+        :opens="computedOpens"
         :controlContainerClass="containerClass"
         :readonly="readOnly"
         :disabled="disabled"
@@ -25,7 +25,7 @@
         :autoApply="autoApply"
         :closeOnEsc="closeOnEsc"
         :localeData="localeData"
-        :ranges="ranges"
+        :ranges="computedRanges"
         v-bind="$attrs"
         v-model="computedValue"
         @update="updateValues"
@@ -40,26 +40,17 @@
         </PStack>
       </template>
       <template v-slot:input="picker" style="min-width: 100%">
-        <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
-          {{ prefix }}
-          <!-- @slot Display prefix for the element -->
-          <slot v-if="$slots.prefix" name="prefix"></slot>
-        </div>
-        <div :class="className">
-          <template v-if="ranges !== false">
-            {{ formatDate(picker.startDate) }} - {{ formatDate(picker.endDate) }}
-          </template>
-          <template v-else>
-            {{ formatDate(picker.startDate) }}
-          </template>
-        </div>
-        <div class="Polaris-TextField__Suffix" :id="id+'Suffix'">
-          <!-- @slot Display suffix for the element -->
-          <slot name="suffix">
+        <PTextField v-if="!button" readOnly aria-readonly="true" :value="computedTextValue(picker)" style="min-width:100%" labelHidden>
+          <template  slot="suffix">
             <PIcon slot="suffix" source="CalendarMajorMonotone"/>
-          </slot>
-        </div>
-        <div class="Polaris-TextField__Backdrop"></div>
+          </template>
+          <template v-if="showPrefix" slot="prefix">
+            {{ prefix }}
+          </template>
+        </PTextField>
+        <PButton icon="CalendarMajorMonotone" v-else>
+          {{computedTextValue(picker)}}
+        </PButton>
       </template>
       <template slot="footer" slot-scope="data" class="slot">
         <PStack distribution="equalSpacing" alignment="center">
@@ -92,6 +83,7 @@ import {PButtonGroup} from '@/components/PButtonGroup';
 import {PStack, PStackItem} from '@/components/PStack';
 import {PCard} from '@/components/PCard';
 import {PSelect} from '@/components/PSelect';
+import {PTextField} from '@/components/PTextField';
 
 type DateType = Date | null | string;
 
@@ -101,12 +93,18 @@ interface DateRange {
 }
 
 @Component({
-  components: {DateRangePicker, PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect},
+  components: {DateRangePicker, PIcon, PFieldError, PButton,PButtonGroup, PStack, PStackItem, PCard, PSelect},
 })
 export default class PDatePicker extends Vue {
 
   /**
-   *  Which way the picker opens
+   *  Show button as picker instead of input field
+   *  @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public button!: boolean;
+
+  /**
+   *  Which way the picker opens. Works without button attribute
    *  @values left | center | right | inline
    */
   @Prop({type: String, default: 'center'}) public opens!: string;
@@ -157,7 +155,7 @@ export default class PDatePicker extends Vue {
   @Prop({type: String, default: null}) public error!: string;
 
   /**
-   * Define prefix for the element
+   * Define prefix for the element. Works without button attribute
    */
   @Prop({type: String, default: null}) public prefix!: string;
 
@@ -256,6 +254,19 @@ export default class PDatePicker extends Vue {
     );
   }
 
+  public get computedOpens() {
+    return this.button ? 'right' : this.opens;
+  }
+
+  public get computedRanges() {
+    return !this.singleDatePicker ? this.ranges : false;
+  }
+
+  public computedTextValue(picker) {
+    //
+    return !this.singleDatePicker ? `${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}` : this.formatDate(picker.startDate);
+  }
+
   public get hasError() {
     return this.error && this.error.length > 0;
   }
@@ -320,59 +331,60 @@ export default class PDatePicker extends Vue {
   }
 
   public changeRange(range, ranges) {
-    if (typeof ranges.ranges[range] !== 'undefined') {
-      ranges.clickRange(ranges.ranges[range]);
+    if(typeof ranges.ranges[range] !== 'undefined') {
+      ranges.clickRange(ranges.ranges[range])
     }
   }
 }
 </script>
 
 <style scoped>
-  .vue-daterange-picker {
-    min-width: 100%;
-  }
+.vue-daterange-picker {
+  min-width: 100%;
+}
 </style>
 <style>
-  @media screen and (min-width: 339px) {
+@media screen and (min-width: 339px) {
   .vue-daterange-picker div.daterangepicker.single.show-ranges.show-weeknumbers,
   .vue-daterange-picker div.daterangepicker.single.show-ranges {
     min-width: 250px;
   }
+}
+@media screen and (min-width: 768px) {
+  .vue-daterange-picker div.daterangepicker.show-ranges.show-weeknumbers,
+  .vue-daterange-picker div.daterangepicker.show-ranges {
+    min-width: 500px;
   }
-  @media screen and (min-width: 768px) {
-    .vue-daterange-picker div.daterangepicker.show-ranges.show-weeknumbers,
-    .vue-daterange-picker div.daterangepicker.show-ranges {
-      min-width: 500px;
-    }
-  }
+}
 
-  .daterangepicker .calendars {
-    display: block;
-    border-bottom: 1px solid #ddd;
-  }
-  .daterangepicker .Polaris-Stack {
-    padding: 10px;
-  }
+.daterangepicker .calendars {
+  display: block;
+  border-bottom: 1px solid #ddd;
+}
+.daterangepicker .Polaris-Stack {
+  padding: 10px;
+}
 
-  .daterangepicker td.in-range {
-    background-color: #f2f7fe;
-  }
 
-  .daterangepicker td.active,
-  .daterangepicker td.active:hover {
-    background-color: #2c6ecb;
-    color: #FFF;
-  }
+.daterangepicker td.in-range {
+  background-color: #f2f7fe;
+}
 
-  .daterangepicker td:hover {
-    background: #1f5199;
-    color: #ffffff;
-    outline: .1rem solid transparent;
-  }
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
+  background-color: #2c6ecb;
+  color: #FFF;
+}
 
-  .daterangepicker td.start-date {border-radius: 3rem 0 0 3rem;}
+.daterangepicker td:hover {
+  background: #1f5199;
+  color: #ffffff;
+  outline: .1rem solid transparent;
+}
 
-  .daterangepicker td.end-date {
-    border-radius: 0 3rem 3rem 0;
-  }
+.daterangepicker td.start-date {border-radius: 3rem 0 0 3rem;}
+
+.daterangepicker td.end-date {
+  border-radius: 0 3rem 3rem 0;
+}
 </style>
