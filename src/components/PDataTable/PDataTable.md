@@ -13,7 +13,7 @@ PDataTable example:
         onPrevious: handlePrevious
     }"
     @sort-changed="handleSortChange"
-      :actions="[
+    :actions="[
         {
           onAction: handleUpdate,
           icon: 'EditMajorMonotone'
@@ -22,7 +22,7 @@ PDataTable example:
           icon: 'DeleteMajorMonotone',
           destructive: true
         }
-      ]"
+    ]"
     :headings="[{
         content: 'Product',
         value: 'product',
@@ -135,6 +135,7 @@ export default {
   methods: {
     handleSortChange(sort,direction) {
        this.sort = {value: sort,direction: direction};
+      console.log(this.sort);
     },
     handleUpdate(id) {
       alert('Handle update for id '+id);

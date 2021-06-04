@@ -67,16 +67,19 @@ export default class PCheckbox extends Vue {
 
     /**
      * Visually hide the label
+     * @values true | false
      */
     @Prop({type: Boolean, default: false}) public labelHidden!: boolean;
 
     /**
      * `indeterminate` shows a horizontal line in the checkbox
+     * @values true | false
      */
     @Prop({type: Boolean, default: false}) public indeterminate!: boolean;
 
     /**
      * Checkbox is selected.
+     * @values true | false
      */
     @Prop({type: Boolean, default: false}) public checked!: boolean;
 
@@ -87,6 +90,7 @@ export default class PCheckbox extends Vue {
 
     /**
      * Disable input
+     * @values true | false
      */
     @Prop({type: Boolean, default: false}) public disabled!: boolean;
 

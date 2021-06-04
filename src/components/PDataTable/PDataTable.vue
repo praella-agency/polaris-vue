@@ -179,11 +179,13 @@
 
         /**
          * Display totals on footer
+         * @values true | false
          */
         @Prop({type: Boolean, default: false}) public showTotalsInFooter!: boolean;
 
         /**
          * Display only search filter
+         * @values true | false
          */
         @Prop({type: Boolean, default: false}) public hasFilter!: boolean;
 
@@ -194,6 +196,7 @@
 
         /**
          * truncate cell data
+         * @values true | false
          */
         @Prop({ type: Boolean, default: false }) public truncate!: boolean;
 
@@ -202,8 +205,17 @@
          */
         @Prop({ type: String, default: 'top' }) public verticalAlign!: VerticalAlign;
 
+        /**
+         * Define sort column and direction
+         * @values {value: 'columnName', direction: 'sortDirection'}
+         */
         @Prop({type: Object, default: () => ({})}) public sort!: Sort;
 
+        /**
+         * The direction to sort the table rows on first click or keypress
+         * of a sortable column heading
+         * @values ascending | descending | none
+         */
         @Prop({ type: String, default: 'ascending' }) public defaultSortDirection!: SortDirection;
 
         /**
@@ -218,11 +230,13 @@
 
         /**
          * Data table has pagination
+         * @values true | false
          */
         @Prop({type: Boolean, default: false}) public hasPagination!: boolean;
 
         /**
          * Data table is loading
+         * @values true | false
          */
         @Prop({type: Boolean, default: false}) public loading!: boolean;
 
@@ -231,8 +245,14 @@
          */
         @Prop({type: Object, default: () => ({})}) public pagination!: PPaginationDescriptor;
 
+        /**
+         * Handle action events for the button.
+         */
         @Prop({ type: Array, default: () => [] }) public actions!: ComplexAction[];
 
+        /**
+         * Data ids
+         */
         @Prop({ type: Array, default: () => [] }) public ids!: number[];
 
         public topPadding = 8;
@@ -267,17 +287,26 @@
         }
 
         public onRemoveFilter(tag) {
-
+            /**
+             * Removes filter tag
+             * @property {String} tag
+             */
             this.$emit('filter-removed', tag);
         }
 
         public onFilterInputChanged(value) {
-
+            /**
+             * Works on keypress
+             * @property {String} input-value
+             */
             this.$emit('input-filter-changed', value);
         }
 
         public handleSortChange(value, direction) {
-
+            /**
+             * Handle sorting on columns
+             * @property {Object} {value: 'columnName', direction:'sortDirection'}
+             */
             this.$emit('sort-changed', value, direction);
         }
     }

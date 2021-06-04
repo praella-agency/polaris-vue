@@ -54,7 +54,6 @@
           </template>
         </div>
         <div class="Polaris-TextField__Suffix" :id="id+'Suffix'">
-          {{ suffix }}
           <!-- @slot Display suffix for the element -->
           <slot name="suffix">
             <PIcon slot="suffix" source="CalendarMajorMonotone"/>
@@ -102,7 +101,7 @@ interface DateRange {
 }
 
 @Component({
-  components: {DateRangePicker, PIcon, PFieldError, PButton,PButtonGroup, PStack, PStackItem, PCard, PSelect},
+  components: {DateRangePicker, PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect},
 })
 export default class PDatePicker extends Vue {
 
@@ -161,11 +160,6 @@ export default class PDatePicker extends Vue {
    * Define prefix for the element
    */
   @Prop({type: String, default: null}) public prefix!: string;
-
-  /**
-   * Define prefix for the element
-   */
-  @Prop({type: String, default: null}) public suffix!: string;
 
   /**
    * Minimum date allowed to be selected
@@ -326,17 +320,17 @@ export default class PDatePicker extends Vue {
   }
 
   public changeRange(range, ranges) {
-    if(typeof ranges.ranges[range] !== 'undefined') {
-      ranges.clickRange(ranges.ranges[range])
+    if (typeof ranges.ranges[range] !== 'undefined') {
+      ranges.clickRange(ranges.ranges[range]);
     }
   }
 }
 </script>
 
 <style scoped>
-.vue-daterange-picker {
-  min-width: 100%;
-}
+  .vue-daterange-picker {
+    min-width: 100%;
+  }
 </style>
 <style>
   @media screen and (min-width: 339px) {
@@ -359,7 +353,6 @@ export default class PDatePicker extends Vue {
   .daterangepicker .Polaris-Stack {
     padding: 10px;
   }
-
 
   .daterangepicker td.in-range {
     background-color: #f2f7fe;

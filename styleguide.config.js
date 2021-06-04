@@ -44,6 +44,6 @@ module.exports = {
     ],
     require: ['./src/scss/main.scss','./src/mixins/tooltip.js'],
     usageMode: 'expand',
-    exampleMode: 'expand',
+    exampleMode: 'collapse',
 
 };

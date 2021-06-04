@@ -1,7 +1,7 @@
 <template>
-    <div class="Polaris-ActionMenu">
-        <PActionMenuRollupActions v-if="rollup" :items="actions" :sections="rollupSections" />
-        <PActionMenuActions v-else :actions="actions" :groups="groups" />
+    <div :class="actionMenuClassNames">
+      <PActionMenuRollupActions v-if="rollup" :items="actions" :sections="rollupSections" />
+      <PActionMenuActions v-else :actions="actions" :groups="groups" />
     </div>
 </template>
 
@@ -33,7 +33,7 @@ export default class PActionMenu extends Vue {
 
     @Prop(Array) public actions!: MenuActionDescriptor[];
     @Prop(Array) public groups!: MenuGroupDescriptor[];
-    @Prop(Boolean) public rollup!: boolean;
+    @Prop({type: Boolean, default: false}) public rollup!: boolean;
 
     public get rollupSections() {
         return this.groups.map((group) => this.convertGroupToSection(group));
