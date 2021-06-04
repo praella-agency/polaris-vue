@@ -1,5 +1,6 @@
 <template>
   <div :class="className">
+    <!-- @slot Stack content -->
     <slot/>
   </div>
 </template>

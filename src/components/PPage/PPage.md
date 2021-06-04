@@ -2,8 +2,7 @@ PPage example:
 
 ```vue
 <template>
-    
-    <PPage
+  <PPage
       separator
       :secondaryActions="[
         {
@@ -18,6 +17,19 @@ PPage example:
           icon: ''
         },
       ]"
+      :actionGroups="[
+          {
+              title: 'Promote',
+              accessibilityLabel: 'Action group label',
+              actions: [
+                {
+                  content: 'Share on Facebook',
+                  accessibilityLabel: 'Individual action label',
+                  onAction: () => alert('Share on Facebook action'),
+                },
+              ],
+          },
+      ]"
       :pagination="{
         hasPrevious: true,
         hasNext: true,
@@ -25,13 +37,15 @@ PPage example:
         onPrevious: handlePrevious
       }"
       thumbnail="https://burst.shopifycdn.com/photos/black-leather-choker-necklace_373x@2x.jpg"
-      title="3/4 inch Leather pet collar" subtitle="Perfect for any pet" :breadcrumbs="[{content: 'Products', url: '/products'}]">
-      <PButton slot="primaryAction">Test</PButton>
-        <PBadge slot="titleMetadata" status="success">Paid</PBadge>
-        <PAvatar initials="HA" slot="additionalNavigation"></PAvatar>
-        Page Content
-    </PPage>
+      title="3/4 inch Leather pet collar" subtitle="Perfect for any pet"
+      :breadcrumbs="[{content: 'Products', url: '/products'}]">
+    <PButton slot="primaryAction">Test</PButton>
+    <PBadge slot="titleMetadata" status="success">Paid</PBadge>
+    <PAvatar initials="HA" slot="additionalNavigation"></PAvatar>
+    Page Content
+  </PPage>
 </template>
+
 <script>
 export default {
   data() {
@@ -44,19 +58,19 @@ export default {
   },
   methods: {
     triggerPrimaryAction() {
-        alert(`Saved`)
+      alert(`Saved`)
     },
     triggerSecondaryAction1() {
-        alert(`Duplicate Action`)
+      alert(`Duplicate Action`)
     },
     triggerSecondaryAction2() {
-        alert(`View on your store`)
+      alert(`View on your store`)
     },
     handleNext() {
-        alert(`Next`)
+      alert(`Next`)
     },
     handlePrevious() {
-        alert(`Previous`)
+      alert(`Previous`)
     }
   }
 }
@@ -64,10 +78,10 @@ export default {
 ```
 
 Fullwidth Page
+
 ```vue
 <template>
-    
-    <PPage
+  <PPage
       fullWidth
       title="Orders"
       :primaryAction="primaryAction"
@@ -90,16 +104,17 @@ Fullwidth Page
           icon: 'DuplicateMinor'
         },
       ]"
-    
+
       :pagination="{
         hasPrevious: false,
         hasNext: true,
         onNext: handleNext,
         onPrevious: handlePrevious
       }">
-        Wide page content
-    </PPage>
+    Wide page content
+  </PPage>
 </template>
+
 <script>
 export default {
   data() {

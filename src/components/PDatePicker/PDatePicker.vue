@@ -93,7 +93,7 @@ interface DateRange {
 }
 
 @Component({
-  components: {DateRangePicker, PIcon, PFieldError, PButton,PButtonGroup, PStack, PStackItem, PCard, PSelect},
+  components: {DateRangePicker, PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect},
 })
 export default class PDatePicker extends Vue {
 
@@ -263,8 +263,8 @@ export default class PDatePicker extends Vue {
   }
 
   public computedTextValue(picker) {
-    //
-    return !this.singleDatePicker ? `${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}` : this.formatDate(picker.startDate);
+     return !this.singleDatePicker ? `${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}` :
+        this.formatDate(picker.startDate);
   }
 
   public get hasError() {
@@ -331,8 +331,8 @@ export default class PDatePicker extends Vue {
   }
 
   public changeRange(range, ranges) {
-    if(typeof ranges.ranges[range] !== 'undefined') {
-      ranges.clickRange(ranges.ranges[range])
+    if (typeof ranges.ranges[range] !== 'undefined') {
+      ranges.clickRange(ranges.ranges[range]);
     }
   }
 }

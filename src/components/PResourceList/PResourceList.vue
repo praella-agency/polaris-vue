@@ -2,6 +2,7 @@
     <div :class="className">
         <div class="Polaris-ResourceList__FiltersWrapper">
             <PFilter v-if="$slots.hasOwnProperty('filter')" v-bind="$attrs" :resourceTitle="resourceTitle" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
+                <!-- @slot Filter content -->
                 <slot name="filter" ></slot>
             </PFilter>
         </div>
@@ -23,9 +24,11 @@
             />
         </div>
         <ul class="Polaris-ResourceList" aria-live="polite">
+            <!-- @slot Displays when Selectable is true -->
             <slot :selectable="selectable"/>
         </ul>
 
+        <!-- @slot Content for empty search state -->
         <slot v-if="showEmptySearchState" name="emptySearchState" />
     </div>
 </template>
@@ -54,8 +57,9 @@ export default class PResourceList extends Vue {
     /**
      * Renders a Select All button at the top
      * of the list and checkboxes in front of each list item.
+     * @values true | false
      */
-    @Prop(Boolean) public selectable!: boolean;
+    @Prop({type: Boolean, default: false}) public selectable!: boolean;
 
     /**
      * Get the value of the selected items in array.
@@ -67,14 +71,16 @@ export default class PResourceList extends Vue {
      * on the items prop. Determines whether or not to set
      * the paginatedSelectAllAction and paginatedSelectAllText
      * props on the BulkActions component.
+     * @values true | false
      */
-    @Prop(Boolean) public hasMore!: boolean;
+    @Prop({type: Boolean, default: false}) public hasMore!: boolean;
 
     /**
      * Overlays item list with a spinner while a
      * background action is being performed.
+     * @values true | false
      */
-    @Prop(Boolean) public loading!: boolean;
+    @Prop({type: Boolean, default: false}) public loading!: boolean;
 
     /**
      * Name of the resource, such as customers or books.
@@ -141,6 +147,7 @@ export default class PResourceList extends Vue {
 
         /**
          * Callback when selection is changed.
+         * @property {Array} selectedItems
          */
         this.$emit('change', items);
     }
@@ -160,12 +167,18 @@ export default class PResourceList extends Vue {
     }
 
     public onRemoveFilter(tag) {
-
+        /**
+         * Calls when filter removes
+         * @property {String} tag
+         */
         this.$emit('filter-removed', tag);
     }
 
     public onFilterInputChanged(value) {
-
+        /**
+         * Calls when filter is adding
+         * @property {String} input-value
+         */
         this.$emit('input-filter-changed', value);
     }
 }

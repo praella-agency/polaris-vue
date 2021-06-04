@@ -24,13 +24,15 @@ interface TagInterface {
 })
 export default class PTag extends Vue {
     /**
-     * Tag object - Can be { value: 'Test', key: 'test'}
+     * Tag object
+     * @values { value: 'Test', key: 'test'}
      */
-    @Prop(Object) public tag!: TagInterface;
+    @Prop({type: Object, default: () => ({})}) public tag!: TagInterface;
     /**
      * Set true if you want to make it removable
+     * @values true | false
      */
-    @Prop(Boolean) public removable!: boolean;
+    @Prop({type: Boolean, default: false}) public removable!: boolean;
 
     public get className() {
         return classNames(
@@ -45,7 +47,10 @@ export default class PTag extends Vue {
     }
 
     public handleRemove() {
-
+        /**
+         * Method to remove tag
+         * @property tag-key
+         */
         this.$emit('remove-tag', this.tag.key);
     }
 }

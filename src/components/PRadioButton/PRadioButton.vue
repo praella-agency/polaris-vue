@@ -1,7 +1,9 @@
 <template>
   <PChoice :label="label" :label-hidden="labelHidden" :help-text="helpText" :id="id">
+    <!-- @slot Label content -->
     <slot slot="label" name="label" />
     <template v-if="$slots.helpText" slot="helpText">
+      <!-- @slot Help text content -->
       <slot name="helpText"></slot>
     </template>
 
@@ -46,17 +48,17 @@ export default class PRadioButton extends Vue {
   /**
    * Label for the radio button.
    */
-  @Prop(String) public label!: string;
+  @Prop({type: String, default: null}) public label!: string;
 
   /**
    * Additional text to display.
    */
-  @Prop(String) public helpText!: string;
+  @Prop({type: String, default: null}) public helpText!: string;
 
   /**
    * Name for the radio button.
    */
-  @Prop(String) public name!: string;
+  @Prop({type: String, default: null}) public name!: string;
 
   /**
    * Value for the form input.
@@ -65,16 +67,19 @@ export default class PRadioButton extends Vue {
 
   /**
    * Disable input.
+   * @values true | false
    */
-  @Prop(Boolean) public disabled!: boolean;
+  @Prop({type: Boolean, default: false}) public disabled!: boolean;
 
   /**
    * Visually hide the label.
+   * @values true | false
    */
-  @Prop(Boolean) public labelHidden!: boolean;
+  @Prop({type: Boolean, default: false}) public labelHidden!: boolean;
 
   /**
-   * Selected radio button.
+   * Selected radio butto
+   * @values true | false
    */
   @Prop({type: Boolean, default: false}) public checked!: boolean;
 
@@ -85,27 +90,27 @@ export default class PRadioButton extends Vue {
       this.disabled && 'Polaris-RadioButton--disabled',
     );
   }
-
-  /**
-   * Callback when radio button is triggered.
-   * @param e
-   */
   public onChange(e: any) {
     const target = e.target || e.srcElement;
+
+    /**
+     * Callback when radio button is triggered.
+     * @param e
+     */
     this.$emit('change', {checked: target.checked, value: target.value});
   }
 
-  /**
-   * Callback when radio button is focused.
-   */
   public onFocus() {
+    /**
+     * Callback when radio button is focused.
+     */
     this.$emit('focus');
   }
 
-  /**
-   * Callback when focus is removed.
-   */
   public onBlur() {
+    /**
+     * Callback when focus is removed.
+     */
     this.$emit('blur');
   }
 }

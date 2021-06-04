@@ -2,6 +2,7 @@
   <PCard sectioned>
     <PSettingAction>
       <template slot="children">
+        <!-- @slot SettingAction child content -->
         <slot></slot>
       </template>
       <PButton slot="action"
@@ -32,7 +33,7 @@
     /**
      * Label for form input.
      */
-    @Prop(String) public label!: string;
+    @Prop({type: String, default: null}) public label!: string;
 
     /**
      * Card header actions.
@@ -43,9 +44,12 @@
      * Sets toggle state.
      * @values true|false
      */
-    @Prop(Boolean) public enabled!: boolean;
+    @Prop({type: Boolean, default: false}) public enabled!: boolean;
 
-    @Prop(String) public propsClass!: string;
+    /**
+     * @ignore
+     */
+    @Prop({type: String, default: null}) public propsClass!: string;
 
     public handleAction(action: any) {
       if (action.onAction) {

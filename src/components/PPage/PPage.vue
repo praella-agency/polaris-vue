@@ -60,33 +60,35 @@ export default class PPage extends Vue {
 
     /**
      * Remove the normal max-width on the page
+     * @values true | false
      */
-    @Prop(Boolean) public fullWidth!: boolean;
+    @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
 
     /**
      * Decreases the maximum layout width. Intended for single-column layouts
+     * @values true | false
      */
-    @Prop(Boolean) public narrowWidth!: boolean;
+    @Prop({type: Boolean, default: false}) public narrowWidth!: boolean;
 
     /**
      * Page title, in large type
      */
-    @Prop(String) public title!: string;
+    @Prop({type: String, default: null}) public title!: string;
 
     /**
      * Page thumbnail
      */
-    @Prop(String) public thumbnail!: string;
+    @Prop({type: String, default: null}) public thumbnail!: string;
 
     /**
      * Thumbnail alt text
      */
-    @Prop(String) public thumbnailAlt!: string;
+    @Prop({type: String, default: null}) public thumbnailAlt!: string;
 
     /**
      * Primary page-level action
      */
-    @Prop(Object) public primaryAction!: PrimaryAction;
+    @Prop({type: Object, default: () => ({})}) public primaryAction!: PrimaryAction;
 
     /**
      * Collection of secondary page-level actions

@@ -36,6 +36,7 @@ export default class PActionMenu extends Vue {
     @Prop({type: Boolean, default: false}) public rollup!: boolean;
 
     public get rollupSections() {
+      console.log(this.groups.map((group) => this.convertGroupToSection(group)));
         return this.groups.map((group) => this.convertGroupToSection(group));
     }
 

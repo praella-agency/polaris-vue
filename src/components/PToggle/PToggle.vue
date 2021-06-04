@@ -19,6 +19,7 @@
       label: {
         required: false,
         type: String,
+        default: null,
       },
       /**
        * ID of toggle
@@ -35,6 +36,7 @@
       propsClass: {
         required: false,
         type: String,
+        default: null,
       },
       /**
        * Value of toggle
@@ -51,6 +53,7 @@
       disabled: {
         required: false,
         type: Boolean,
+        default: false,
       },
       /**
        * Defined if toggle enabled/disabled

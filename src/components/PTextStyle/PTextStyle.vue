@@ -30,7 +30,7 @@ export default class PTextStyle extends Vue {
    * Give text additional visual meaning
    * @values positive, negative, strong, subdued, code
    */
-  @Prop(String) public variation!: Variation;
+  @Prop({type: String, default: null}) public variation!: Variation;
 
   public get className() {
     return classNames(
