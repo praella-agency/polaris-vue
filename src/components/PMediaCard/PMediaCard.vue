@@ -37,6 +37,7 @@
               </div>
             </PStackItem>
             <PStackItem>
+              <!-- @slot Default slot -->
               <slot/>
             </PStackItem>
             <PStackItem v-if="hasAction">
@@ -95,15 +96,43 @@ interface PrimaryAction
 })
 export default class PTag extends Vue {
 
-  @Prop(String) public title!: string;
-  @Prop(String) public description!: string;
-  @Prop(Boolean) public portrait!: boolean;
-  @Prop(String) public size!: Size;
-  @Prop(Object) public primaryAction!: PrimaryAction;
-  @Prop(Object) public secondaryAction!: PrimaryAction;
-  @Prop(String) public imageSrc!: string;
-  @Prop(String) public videoThumbSrc!: string;
-  @Prop(Array) public videoSrc!: Video[];
+  /**
+   * Heading content.
+   */
+  @Prop({type: String, default: null}) public title!: string;
+  /**
+   * Body content
+   */
+  @Prop({type: String, default: null}) public description!: string;
+  /**
+   * Whether or not card content should be laid out vertically.
+   */
+  @Prop({type: Boolean, default: false}) public portrait!: boolean;
+  /**
+   * Size of the visual media in the card.
+   * @values small | medium
+   */
+  @Prop({type: String, default: 'small'}) public size!: Size;
+  /**
+   * Main call action, rendered as basic button.
+   */
+  @Prop({type: Object, default: []}) public primaryAction!: PrimaryAction;
+  /**
+   * Secondary call action, rendered as plain button.
+   */
+  @Prop({type: Object, default: []}) public secondaryAction!: PrimaryAction;
+  /**
+   * Source of image.
+   */
+  @Prop({type: String, default: null}) public imageSrc!: string;
+  /**
+   * Source of thumbnail video.
+   */
+  @Prop({type: String, default: null}) public videoThumbSrc!: string;
+  /**
+   * Source of video.
+   */
+  @Prop({type: Array, default: []}) public videoSrc!: Video[];
 
   public get hasAction() {
     return this.primaryAction || this.secondaryAction;

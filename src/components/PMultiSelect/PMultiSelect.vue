@@ -164,13 +164,14 @@ interface StrictOption {
 export default class PMultiSelect extends Vue {
     /**
      * Disable the PMultiSelect.
+     * @values true | false
      */
-    @Prop(Boolean) public disabled!: boolean;
+    @Prop({type: Boolean, default: false}) public disabled!: boolean;
 
     /**
      * Label for the PMultiSelect.
      */
-    @Prop(String) public label!: string;
+    @Prop({type: String, default: null}) public label!: string;
 
     /**
      * Options of PMultiSelect.
@@ -184,18 +185,20 @@ export default class PMultiSelect extends Vue {
 
     /**
      * Disable the searchable options feature.
+     * @values true | false
      */
     @Prop({type: Boolean, default: true}) public searchable!: string;
 
     /**
      * Taggable feature for PMultiSelect.
+     * @values true | false
      */
     @Prop({type: Boolean, default: false}) public taggable!: string;
 
     /**
      * Provide Placeholder.
      */
-    @Prop(String) public placeholder!: string;
+    @Prop({type: String, default: null}) public placeholder!: string;
 
     public id = `PolarisMultiSelect${new Date().getUTCMilliseconds()}`;
     public selected = this.value;

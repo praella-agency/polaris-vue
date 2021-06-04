@@ -23,11 +23,34 @@
         },
     })
     export default class PLayout extends Vue {
-        @Prop(Boolean) public sectioned!: boolean;
-        @Prop(Boolean) public fullWidth!: boolean;
-        @Prop(Boolean) public oneHalf!: boolean;
-        @Prop(Boolean) public oneThird!: boolean;
-        @Prop(Boolean) public secondary!: boolean;
+
+
+      /**
+       * Automatically adds sections to layout.
+       .
+       * @values true | false
+       */
+      @Prop({type: Boolean, default: false}) public sectioned!: boolean;
+      /**
+       * Set it true to make it full width.
+       * @values true | false
+       */
+      @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
+      /**
+       * Set it true to make it one half.
+       * @values true | false
+       */
+      @Prop({type: Boolean, default: false}) public oneHalf!: boolean;
+      /**
+       * Set it true to make it one third.
+       * @values true | false
+       */
+      @Prop({type: Boolean, default: false}) public oneThird!: boolean;
+      /**
+       * Set it true to make it secondary.
+       * @values true | false
+       */
+      @Prop({type: Boolean, default: false}) public secondary!: boolean;
     }
 </script>
 

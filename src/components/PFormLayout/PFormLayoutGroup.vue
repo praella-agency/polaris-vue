@@ -49,11 +49,13 @@
 
         /**
          * For very short inputs, the width of the inputs may be reduced in order to fit more fields in the row.
+         *  @values true | false
          */
         @Prop({type: Boolean, default: false}) public condensed!: boolean;
 
         /**
          * Use field groups to arrange multiple fields in a row.
+         *  @values true | false
          */
         @Prop({type: Boolean, default: true}) public grouped!: boolean;
 
