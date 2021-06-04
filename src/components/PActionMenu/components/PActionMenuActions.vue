@@ -3,7 +3,14 @@
         <template v-for="(action, index) in overriddenActions">
             <template v-if="'title' in action">
                 <div v-if="actions.length > 0" :key="`MenuGroup-${index}`">
-                    <PActionMenuMenuGroup :title="action.title" :active="action.title === computedActiveMenuGroup" :actions="[...computedHiddenActions, ...actions]" v-bind="action" @open="handleMenuGroupToggle" @close="handleMenuGroupClose" />
+                    <PActionMenuMenuGroup
+                        :title="action.title"
+                        :active="action.title === computedActiveMenuGroup"
+                        :actions="[...computedHiddenActions, ...actions]"
+                        v-bind="action"
+                        @open="handleMenuGroupToggle"
+                        @close="handleMenuGroupClose"
+                    />
                 </div>
             </template>
             <PActionMenuMenuAction v-else :key="`MenuAction-${index}`" :content="action.content" v-bind="action" />

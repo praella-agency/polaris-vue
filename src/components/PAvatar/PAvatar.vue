@@ -37,6 +37,7 @@
 
         /**
          * Whether the avatar is for a customer
+         * @values true | false
          */
         @Prop({type: Boolean, default: false}) public customer!: boolean;
 

@@ -69,11 +69,13 @@
 
         /**
          * A less prominent card
+         * @values true | false
          */
         @Prop({type: Boolean, default: false}) public subdued!: boolean;
 
         /**
          * Auto wrap content in section
+         * @values true | false
          */
         @Prop({type: Boolean, default: false}) public sectioned!: boolean;
 

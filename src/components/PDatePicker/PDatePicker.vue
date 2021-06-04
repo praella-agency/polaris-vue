@@ -344,47 +344,47 @@ export default class PDatePicker extends Vue {
 }
 </style>
 <style>
-  @media screen and (min-width: 339px) {
+@media screen and (min-width: 339px) {
   .vue-daterange-picker div.daterangepicker.single.show-ranges.show-weeknumbers,
   .vue-daterange-picker div.daterangepicker.single.show-ranges {
     min-width: 250px;
   }
+}
+@media screen and (min-width: 768px) {
+  .vue-daterange-picker div.daterangepicker.show-ranges.show-weeknumbers,
+  .vue-daterange-picker div.daterangepicker.show-ranges {
+    min-width: 500px;
   }
-  @media screen and (min-width: 768px) {
-    .vue-daterange-picker div.daterangepicker.show-ranges.show-weeknumbers,
-    .vue-daterange-picker div.daterangepicker.show-ranges {
-      min-width: 500px;
-    }
-  }
+}
 
-  .daterangepicker .calendars {
-    display: block;
-    border-bottom: 1px solid #ddd;
-  }
-  .daterangepicker .Polaris-Stack {
-    padding: 10px;
-  }
+.daterangepicker .calendars {
+  display: block;
+  border-bottom: 1px solid #ddd;
+}
+.daterangepicker .Polaris-Stack {
+  padding: 10px;
+}
 
 
-  .daterangepicker td.in-range {
-    background-color: #f2f7fe;
-  }
+.daterangepicker td.in-range {
+  background-color: #f2f7fe;
+}
 
-  .daterangepicker td.active,
-  .daterangepicker td.active:hover {
-    background-color: #2c6ecb;
-    color: #FFF;
-  }
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
+  background-color: #2c6ecb;
+  color: #FFF;
+}
 
-  .daterangepicker td:hover {
-    background: #1f5199;
-    color: #ffffff;
-    outline: .1rem solid transparent;
-  }
+.daterangepicker td:hover {
+  background: #1f5199;
+  color: #ffffff;
+  outline: .1rem solid transparent;
+}
 
-  .daterangepicker td.start-date {border-radius: 3rem 0 0 3rem;}
+.daterangepicker td.start-date {border-radius: 3rem 0 0 3rem;}
 
-  .daterangepicker td.end-date {
-    border-radius: 0 3rem 3rem 0;
-  }
+.daterangepicker td.end-date {
+  border-radius: 0 3rem 3rem 0;
+}
 </style>

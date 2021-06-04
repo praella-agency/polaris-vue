@@ -541,8 +541,10 @@
 }
 
 .Polaris-ActionMenu-RollupActions__RollupActivator {
+    text-align: right;
     button[type=button] {
         margin: 0;
+        border: 1px solid #babfc3;
     }
 }
 

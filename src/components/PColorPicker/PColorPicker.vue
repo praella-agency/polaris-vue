@@ -42,6 +42,7 @@
 
     /**
      * Hide/Show input
+     * @values true | false
      */
     @Prop({type: Boolean, default: false}) public showInput!: boolean;
 
