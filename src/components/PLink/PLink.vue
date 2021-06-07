@@ -34,16 +34,16 @@
         /**
          * ID for the link.
          */
-        @Prop({type: Boolean, default: false}) public id!: string;
+        @Prop({type: String, default: null}) public id!: string;
         /**
          * The url to link to.
          */
-        @Prop({type: Boolean, default: false}) public url!: string;
+        @Prop({type: String, default: null}) public url!: string;
         /**
          * The router link.
          * @values true | false
          */
-        @Prop({type: Boolean, default: false}) public to!: string;
+        @Prop({type: String, default: null}) public to!: string;
         /**
          * Makes the link open in a new tab.
          * @values true | false

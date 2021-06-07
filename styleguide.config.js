@@ -46,6 +46,7 @@ module.exports = {
         "**/components/PTabs/PPanel.vue",
         "**/components/PTabs/PTab.vue",
         "**/components/PTextField/components/PInput.vue",
+        "**/components/PBreadcrumbs/**",
     ],
     require: ['./src/scss/main.scss','./src/mixins/tooltip.js'],
     usageMode: 'expand',

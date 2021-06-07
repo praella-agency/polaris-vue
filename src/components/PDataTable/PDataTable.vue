@@ -167,10 +167,10 @@
          */
         @Prop({ type: Array, default: () => [] }) public headings!: string[];
 
-        /**
-         * Heading list
-         */
-        @Prop({ type: Array, default: () => [] }) public headings2!: string[];
+        // /**
+        //  * Heading list 2
+        //  */
+        // @Prop({ type: Array, default: () => [] }) public headings2!: string[];
 
         /**
          * Total fields
@@ -219,12 +219,12 @@
         @Prop({ type: String, default: 'ascending' }) public defaultSortDirection!: SortDirection;
 
         /**
-         * Footer data
+         * Table data
          */
         @Prop({type: [String, Number]}) public footerContent!: TableData;
 
         /**
-         * Footer data
+         * Search Placeholder
          */
         @Prop({type: String, default: null}) public searchPlaceholder!: string;
 
