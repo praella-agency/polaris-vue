@@ -19,7 +19,7 @@
                 </div>
                 <!-- @slot Footer slot -->
                 <slot name="footer" v-if="$slots.footer && !primaryAction && !secondaryActions" />
-                <PModalFooter v-else-if="primaryAction || secondaryActions" :primaryAction="primaryAction" :secondaryActions="secondaryActions" />
+                <PModalFooter v-else-if="Object.keys(primaryAction).length || secondaryActions.length" :primaryAction="primaryAction" :secondaryActions="secondaryActions" />
             </PModalDialog>
         </div>
         <div v-if="open" class="Polaris-Backdrop"></div>
@@ -83,7 +83,7 @@ export default class PModel extends Vue {
     /**
      * Primary Action.
      */
-    @Prop({type: Object, default: []}) public primaryAction!: object;
+    @Prop({type: Object, default: {}}) public primaryAction!: object;
     /**
      * Secondary Action.
      */
