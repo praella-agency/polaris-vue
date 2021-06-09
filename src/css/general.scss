@@ -1680,6 +1680,22 @@
               border-radius: $link-border-active-before-border-radius;
         }
     }
+    &.Polaris-Link--monochrome {
+        color: inherit;
+        text-decoration: underline;
+
+        &:active {
+            color: inherit;
+        }
+
+        &:focus {
+            color: inherit;
+        }
+
+        &:hover {
+            color: inherit;
+        }
+    }
 }
 
 .Polaris-Link__IconLockup {
@@ -1703,22 +1719,7 @@
     }
 }
 
-.Polaris-Link--monochrome {
-    color: inherit;
-    text-decoration: underline;
 
-    &:active {
-        color: inherit;
-    }
-
-    &:focus {
-        color: inherit;
-    }
-
-    &:hover {
-        color: inherit;
-    }
-}
 
 
 /*=================== Polaris-Link  =======================*/

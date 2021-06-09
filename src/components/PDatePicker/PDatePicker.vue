@@ -121,16 +121,19 @@ export default class PDatePicker extends Vue {
 
   /**
    * Disabled state. If true picker do not popup on click.
+   *  @values true | false
    */
   @Prop({type: Boolean, default: false}) public disabled!: boolean;
 
   /**
    * Whether to close the dropdown on "esc"
+   *  @values true | false
    */
   @Prop({type: Boolean, default: true}) public closeOnEsc!: boolean;
 
   /**
    * Visually hide the label
+   *  @values true | false
    */
   @Prop({type: Boolean, default: false}) public labelHidden!: boolean;
 
@@ -146,6 +149,7 @@ export default class PDatePicker extends Vue {
 
   /**
    * Empty Label for the element
+   *  @values true | false
    */
   @Prop({type: Boolean, default: false}) public emptyLabel!: boolean;
 
@@ -170,7 +174,7 @@ export default class PDatePicker extends Vue {
   @Prop({type: String, default: null}) public maxDate!: string;
 
   /**
-   * Dateformat for the element
+   * Date format for the element
    */
   @Prop({type: String, default: 'MM/DD/YYYY'}) public format!: string;
 
@@ -183,22 +187,26 @@ export default class PDatePicker extends Vue {
   @Prop([Boolean, String]) public singleDatePicker!: boolean | string;
 
   /**
-   * Show the dropdowns for time (hour/minute) selection below the calendars
+   * Show the dropdown for time (hour/minute) selection below the calendars
+   *  @values true | false
    */
   @Prop({type: Boolean, default: false}) public timePicker!: boolean;
 
   /**
    * Use 24h format for the time
+   *  @values true | false
    */
   @Prop({type: Boolean, default: true}) public timePicker24Hour!: boolean;
 
   /**
    * Show the week numbers on the left side of the calendar
+   *  @values true | false
    */
   @Prop({type: Boolean, default: false}) public showWeekNumbers!: boolean;
 
   /**
    * Show the dropdowns for month and year selection above the calendars
+   *  @values true | false
    */
   @Prop({type: Boolean, default: false}) public showDropdowns!: boolean;
 

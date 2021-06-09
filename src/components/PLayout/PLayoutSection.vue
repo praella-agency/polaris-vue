@@ -1,5 +1,6 @@
 <template>
   <div :class="className">
+    <!-- @slot Default -->
     <slot/>
   </div>
 </template>
@@ -10,10 +11,26 @@ import { classNames } from '@/utilities/css';
 
 @Component
 export default class PLayoutSection extends Vue {
-  @Prop(Boolean) public secondary!: boolean;
-  @Prop(Boolean) public fullWidth!: boolean;
-  @Prop(Boolean) public oneHalf!: boolean;
-  @Prop(Boolean) public oneThird!: boolean;
+  /**
+   * Set it true to make it secondary.
+   * @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public secondary!: boolean;
+  /**
+   * Set it true to make it full width.
+   * @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
+  /**
+   * Set it true to make it one half.
+   * @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public oneHalf!: boolean;
+  /**
+   * Set it true to make it one third.
+   * @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public oneThird!: boolean;
 
   public get className() {
     return classNames(
