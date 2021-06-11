@@ -1,8 +1,10 @@
-<!--<template>
-    <div class='Polaris-FormLayout'>
-        <slot/>
-    </div>
-</template>-->
+<!--<template>-->
+<!--    <div class='Polaris-FormLayout'>-->
+<!--      <div class="Polaris-FormLayout__Item">-->
+<!--        <slot/>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--</template>-->
 <script lang="tsx">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import {PFormLayoutItem} from '@/components/PFormLayout/index';

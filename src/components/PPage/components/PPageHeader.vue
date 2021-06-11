@@ -16,15 +16,17 @@
       </div>
       <div class="Polaris-Page-Header__RightAlign">
         <div class="Polaris-Page-Header__Actions" v-if="hasActions">
-          <div class="Polaris-ActionMenu" v-if="hasActionMenu">
-            <div class="Polaris-ActionMenu-Actions__ActionsLayout">
-              <PButtonGroup spacing="extraTight">
-                <div class="Polaris-ActionMenu-SecondaryAction" v-for="(action, key) in secondaryActions" :key="key">
-                  <PButton aria-label="Secondary action label" @click="action.onAction()">{{ action.content }}</PButton>
-                </div>
-              </PButtonGroup>
-            </div>
-          </div>
+          <PActionMenu :groups="actionGroups" :actions="secondaryActions" v-if="hasActionMenu"
+                       :rollup="isNavigationCollapsed.rollup"/>
+<!--          <div class="Polaris-ActionMenu" v-if="hasActionMenu">-->
+<!--            <div class="Polaris-ActionMenu-Actions__ActionsLayout">-->
+<!--              <PButtonGroup spacing="extraTight">-->
+<!--                <div class="Polaris-ActionMenu-SecondaryAction" v-for="(action, key) in secondaryActions" :key="key">-->
+<!--                  <PButton aria-label="Secondary action label" @click="action.onAction()">{{ action.content }}</PButton>-->
+<!--                </div>-->
+<!--              </PButtonGroup>-->
+<!--            </div>-->
+<!--          </div>-->
           <div v-if="primaryAction || $slots.hasOwnProperty('primaryAction')"
                class="Polaris-Page-Header__PrimaryActionWrapper">
             <slot name="primaryAction">
@@ -36,13 +38,14 @@
               </PButton>
             </slot>
           </div>
-          <div class="Polaris-Page-Header__PaginationWrapper" v-if="pagination">
+          <div class="Polaris-Page-Header__PaginationWrapper" v-if="pagination && !isNavigationCollapsed.rollup">
             <nav aria-label="Pagination">
-              <PButtonGroup segmented spacing="tight">
-                <PButton icon="ChevronLeftMinor" :disabled="!pagination.hasPrevious" outline @click="pagination.onPrevious()"/>
-                <PButton icon="ChevronRightMinor" :disabled="!pagination.hasNext" outline @click="pagination.onNext()"/>
-              </PButtonGroup>
+              <PPagination v-bind="pagination" />
             </nav>
+<!--              <PButtonGroup segmented spacing="tight">-->
+<!--                <PButton icon="ChevronLeftMinor" :disabled="!pagination.hasPrevious" outline @click="pagination.onPrevious()"/>-->
+<!--                <PButton icon="ChevronRightMinor" :disabled="!pagination.hasNext" outline @click="pagination.onNext()"/>-->
+<!--              </PButtonGroup>-->
           </div>
         </div>
       </div>
@@ -117,6 +120,7 @@ export interface PPageHeaderProps extends PPageHeaderTitleProps {
     PAvatar,
   },
 })
+
 export default class PPageHeader extends Vue {
 
   @Prop(String) public title!: string;
@@ -134,6 +138,14 @@ export default class PPageHeader extends Vue {
   @Prop({type: Array, default: () => []}) public breadcrumbs!: PBreadcrumbsProps['breadcrumbs'];
   @Prop({type: Array, default: () => []}) public secondaryActions!: MenuActionDescriptor[];
   @Prop({type: Array, default: () => []}) public actionGroups!: MenuGroupDescriptor[];
+
+  /**
+   * To Check that view collapsed or not
+   * @values true | false
+   */
+  public isNavigationCollapsed = {
+    rollup: false,
+  };
 
   public bulkActionsShown: boolean = false;
 
@@ -159,6 +171,10 @@ export default class PPageHeader extends Vue {
   }
 
   public get mobileView() {
+    if (window.innerWidth <= 768) {
+      console.log(window.innerWidth, this.isNavigationCollapsed);
+      return true;
+    }
     return false;
   }
 
@@ -174,8 +190,21 @@ export default class PPageHeader extends Vue {
         this.hasNavigation && 'Polaris-Page-Header--hasNavigation',
         this.hasActionMenu && 'Polaris-Page-Header--hasActionMenu',
         this.title && 'Polaris-Page-Header--mediumTitle',
-        this.mobileView && 'Polaris-Page-Header--mobileView',
+        this.isNavigationCollapsed.rollup && 'Polaris-Page-Header--mobileView',
     );
+  }
+
+  public created() {
+    window.addEventListener('resize', this.useMediaQuery);
+    this.useMediaQuery();
+  }
+
+  public useMediaQuery() {
+    if (window.innerWidth <= 768) {
+      this.$set(this.isNavigationCollapsed, 'rollup', true);
+    } else {
+      this.$set(this.isNavigationCollapsed, 'rollup', false);
+    }
   }
 }
 </script>

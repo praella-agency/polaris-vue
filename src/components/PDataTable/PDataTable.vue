@@ -1,12 +1,14 @@
 <template>
   <div>
     <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs" :resourceTitle="searchPlaceholder" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
+      <!-- @slot Filter content -->
       <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
     </PFilter>
     <div class="Polaris-DataTable" v-if="rows.length > 0 || $slots.hasOwnProperty('body')">
       <div class="Polaris-DataTable__ScrollContainer">
         <table class="Polaris-DataTable__Table">
           <thead ref="thead">
+          <!-- @slot Header content -->
           <slot name="head" v-if="$slots.hasOwnProperty('head')"></slot>
           <template v-else>
             <tr>
@@ -62,6 +64,7 @@
             </tr>
             <tr class="Polaris-ResourceList__LoadingOverlay"></tr>
           </template>
+          <!-- @slot Body content -->
           <slot name="body" v-if="$slots.hasOwnProperty('body')"></slot>
           <tr v-else
               class="Polaris-DataTable__TableRow"
@@ -125,133 +128,148 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
+    import { Component, Vue, Prop } from 'vue-property-decorator';
+    import { classNames, variationName } from '@/utilities/css';
 
-import PDataTableCell from './PDataTableCell.vue';
-import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
-import { PFilter } from '@/components/PFilter';
-import { PSpinner } from '@/components/PSpinner';
-import { ComplexAction, LinkAction } from '@/types';
-import {PEmptyState} from '@/components/PEmptyState';
+    import PDataTableCell from './PDataTableCell.vue';
+    import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
+    import { PFilter } from '@/components/PFilter';
+    import { PSpinner } from '@/components/PSpinner';
+    import { ComplexAction, LinkAction } from '@/types';
+    import {PEmptyState} from '@/components/PEmptyState';
 
-type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
-type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
-type Size = 'medium' | 'small';
+    type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
+    type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
+    type Size = 'medium' | 'small';
 
-interface Badge {
-    content?: string;
-    status?: Status;
-    progress?: Progress;
-    size?: Size;
-}
-
-type TableData = string | number | LinkAction | ComplexAction | Badge;
-type ColumnContentType = 'text' | 'numeric';
-type SortDirection = 'ascending' | 'descending' | 'none';
-type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
-
-interface Sort {
-    value: string;
-    direction: SortDirection;
-}
-
-@Component({
-    components: { PDataTableCell, PPagination, PFilter, PSpinner, PEmptyState },
-})
-
-export default class PDataTable extends Vue {
-
-    /**
-     * Type of a column
-     * @values text, numeric
-     */
-    @Prop({ type: Array, default: () => [] }) public columnContentTypes!: ColumnContentType[];
-
-    /**
-     * Heading list
-     */
-    @Prop({ type: Array, default: () => [] }) public headings!: string[];
-
-    /**
-     * Heading list
-     */
-    @Prop({ type: Array, default: () => [] }) public headings2!: string[];
-
-    /**
-     * Total fields
-     */
-    @Prop({ type: Array, default: () => [] }) public totals!: TableData[];
-
-    /**
-     * Display totals on footer
-     */
-    @Prop(Boolean) public showTotalsInFooter!: boolean;
-
-    /**
-     * Display only search filter
-     */
-    @Prop(Boolean) public hasFilter!: boolean;
-
-    /**
-     * Table rows
-     */
-    @Prop({ type: Array, default: () => [[]] }) public rows!: TableData[][];
-
-    /**
-     * truncate cell data
-     */
-    @Prop({ type: Boolean, default: false }) public truncate!: boolean;
-
-    /**
-     * Vertical align of cell
-     */
-    @Prop({ type: String, default: 'top' }) public verticalAlign!: VerticalAlign;
-
-    @Prop(Object) public sort!: Sort;
-
-    @Prop({ type: String, default: 'ascending' }) public defaultSortDirection!: SortDirection;
-
-    /**
-     * Footer data
-     */
-    @Prop() public footerContent!: TableData;
-
-    /**
-     * Footer data
-     */
-    @Prop(String) public searchPlaceholder!: string;
-
-    /**
-     * Data table has pagination
-     */
-    @Prop(Boolean) public hasPagination!: boolean;
-
-    /**
-     * Data table is loading
-     */
-    @Prop(Boolean) public loading!: boolean;
-
-    /**
-     * Title to show when there is no data
-     */
-    @Prop({type: String, default: 'No records available'}) public emptyStateTitle!: string;
-
-    /**
-     * Pagination object
-     */
-    @Prop(Object) public pagination!: PPaginationDescriptor;
-
-    @Prop(Array) public actions!: ComplexAction[];
-
-    @Prop(Array) public ids!: number[];
-
-    public topPadding = 8;
-
-    public get hasActions() {
-
-        return this.actions && this.actions.length > 0;
+    interface Badge {
+        content?: string;
+        status?: Status;
+        progress?: Progress;
+        size?: Size;
     }
+
+    type TableData = string | number | LinkAction | ComplexAction | Badge;
+    type ColumnContentType = 'text' | 'numeric';
+    type SortDirection = 'ascending' | 'descending' | 'none';
+    type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
+
+    interface Sort {
+        value: string;
+        direction: SortDirection;
+    }
+
+    @Component({
+        components: { PDataTableCell, PPagination, PFilter, PSpinner, PEmptyState },
+    })
+
+    export default class PDataTable extends Vue {
+
+        /**
+         * Type of a column
+         * @values text | numeric
+         */
+        @Prop({ type: Array, default: () => [] }) public columnContentTypes!: ColumnContentType[];
+
+        /**
+         * Heading list
+         */
+        @Prop({ type: Array, default: () => [] }) public headings!: string[];
+
+        // /**
+        //  * Heading list 2
+        //  */
+        // @Prop({ type: Array, default: () => [] }) public headings2!: string[];
+
+        /**
+         * Total fields
+         */
+        @Prop({ type: Array, default: () => [] }) public totals!: TableData[];
+
+        /**
+         * Display totals on footer
+         * @values true | false
+         */
+        @Prop({type: Boolean, default: false}) public showTotalsInFooter!: boolean;
+
+        /**
+         * Display only search filter
+         * @values true | false
+         */
+        @Prop({type: Boolean, default: false}) public hasFilter!: boolean;
+
+        /**
+         * Table rows
+         */
+        @Prop({ type: Array, default: () => [[]] }) public rows!: TableData[][];
+
+        /**
+         * truncate cell data
+         * @values true | false
+         */
+        @Prop({ type: Boolean, default: false }) public truncate!: boolean;
+
+        /**
+         * Vertical align of cell
+         */
+        @Prop({ type: String, default: 'top' }) public verticalAlign!: VerticalAlign;
+
+        /**
+         * Define sort column and direction
+         * @values {value: 'columnName', direction: 'sortDirection'}
+         */
+        @Prop({type: Object, default: () => ({})}) public sort!: Sort;
+
+        /**
+         * The direction to sort the table rows on first click or keypress
+         * of a sortable column heading
+         * @values ascending | descending | none
+         */
+        @Prop({ type: String, default: 'ascending' }) public defaultSortDirection!: SortDirection;
+
+        /**
+         * Table data
+         */
+        @Prop({type: [String, Number]}) public footerContent!: TableData;
+
+        /**
+         * Search Placeholder
+         */
+        @Prop({type: String, default: null}) public searchPlaceholder!: string;
+
+        /**
+         * Data table has pagination
+         * @values true | false
+         */
+        @Prop({type: Boolean, default: false}) public hasPagination!: boolean;
+
+        /**
+         * Data table is loading
+         * @values true | false
+         */
+        @Prop({type: Boolean, default: false}) public loading!: boolean;
+
+        /**
+         * Pagination object
+         */
+        @Prop({type: Object, default: () => ({})}) public pagination!: PPaginationDescriptor;
+
+        /**
+         * Handle action events for the button.
+         */
+        @Prop({ type: Array, default: () => [] }) public actions!: ComplexAction[];
+
+        /**
+         * Data ids
+         */
+        @Prop({ type: Array, default: () => [] }) public ids!: number[];
+
+        public topPadding = 8;
+
+        public get hasActions() {
+
+            return this.actions && this.actions.length > 0;
+        }
 
     public mounted() {
 
@@ -277,21 +295,30 @@ export default class PDataTable extends Vue {
       }
     }
 
-    public onRemoveFilter(tag) {
+        public onRemoveFilter(tag) {
+            /**
+             * Removes filter tag
+             * @property {String} tag
+             */
+            this.$emit('filter-removed', tag);
+        }
 
-        this.$emit('filter-removed', tag);
+        public onFilterInputChanged(value) {
+            /**
+             * Works on keypress
+             * @property {String} input-value
+             */
+            this.$emit('input-filter-changed', value);
+        }
+
+        public handleSortChange(value, direction) {
+            /**
+             * Handle sorting on columns
+             * @property {Object} {value: 'columnName', direction:'sortDirection'}
+             */
+            this.$emit('sort-changed', value, direction);
+        }
     }
-
-    public onFilterInputChanged(value) {
-
-        this.$emit('input-filter-changed', value);
-    }
-
-    public handleSortChange(value, direction) {
-
-        this.$emit('sort-changed', value, direction);
-    }
-}
 </script>
 
 <style scoped>

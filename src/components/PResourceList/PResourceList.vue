@@ -2,7 +2,7 @@
     <div :class="className">
         <div class="Polaris-ResourceList__FiltersWrapper">
             <PFilter v-if="$slots.hasOwnProperty('filter')" v-bind="$attrs" :resourceTitle="resourceTitle" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
-                <slot name="filter" ></slot>
+                <slot name="filter" />
             </PFilter>
         </div>
         <div class="Polaris-ResourceList__HeaderOuterWrapper">

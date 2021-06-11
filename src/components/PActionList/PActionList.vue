@@ -14,7 +14,6 @@ import PActionListSection from '@/components/PActionList/components/PActionListS
 @Component({
     components: {
         PActionListSection,
-
     },
 })
 export default class PActionList extends Vue {
@@ -22,7 +21,7 @@ export default class PActionList extends Vue {
     /**
      * Collection of actions for list
      */
-    @Prop(Array) public items!: any[];
+    @Prop({type: Array, default: () => []}) public items!: any[];
 
     /**
      * Collection of sectioned action items
@@ -40,7 +39,8 @@ export default class PActionList extends Vue {
         if (this.items) {
             return [{items: this.items}, ...this.sections];
         }
-        return this.sections;
+
+      return this.sections;
     }
 
     public get hasMultipleSections() {

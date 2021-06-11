@@ -20,7 +20,8 @@
                     :multiple="true"
                     :taggable="taggable"
                     :close-on-select="false"
-                    :clear-on-select="false" :preserve-search="true"
+                    :clear-on-select="false"
+                    :preserve-search="true"
                     label="label"
                     @tag="addTag"
             >
@@ -35,6 +36,127 @@
         </div>
     </div>
 </template>
+
+<script lang="ts">
+import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import {ArrowUpDownMinor} from '@/assets/shopify-polaris-icons';
+import Multiselect from 'vue-multiselect';
+import {classNames} from '@/utilities/css';
+
+import {PIcon} from '@/components/PIcon';
+
+interface StrictOption {
+    value: string;
+    label: string;
+    disabled?: boolean;
+    hidden?: boolean;
+}
+
+@Component({
+    components: {PIcon, Multiselect},
+    mixins: [
+        {
+            data() {
+                return {ArrowUpDownMinor};
+            },
+        },
+    ],
+})
+
+export default class PMultiSelect extends Vue {
+    /**
+     * Disable the PMultiSelect.
+     * @values true | false
+     */
+    @Prop({type: Boolean, default: false}) public disabled!: boolean;
+
+    /**
+     * Label for the PMultiSelect.
+     */
+    @Prop({type: String, default: null}) public label!: string;
+
+    /**
+     * Options of PMultiSelect.
+     */
+    @Prop({required: true, default: []}) public options!: StrictOption[];
+
+    /**
+     * Value for PMultiSelect.
+     */
+    @Prop({default: () => []}) public value!: any [];
+
+    /**
+     * Disable the searchable options feature.
+     * @values true | false
+     */
+    @Prop({type: Boolean, default: true}) public searchable!: string;
+
+    /**
+     * Taggable feature for PMultiSelect.
+     * @values true | false
+     */
+    @Prop({type: Boolean, default: false}) public taggable!: string;
+
+    /**
+     * Provide Placeholder.
+     */
+    @Prop({type: String, default: null}) public placeholder!: string;
+
+    public id = `PolarisMultiSelect${new Date().getUTCMilliseconds()}`;
+    public selected = this.value;
+
+    public get computedOptions() {
+        const options: StrictOption[] = [];
+        if (this.placeholder) {
+            options.push({
+                label: this.placeholder,
+                value: '',
+                disabled: true,
+            });
+        }
+        this.options.map((value) => {
+            if (typeof value === 'object') {
+                if (value.disabled) { value.$isDisabled = value.disabled; }
+                options.push(value);
+            } else {
+                options.push({label: value, value});
+            }
+        });
+        console.log(this.options)
+        return options;
+    }
+
+    public get computedValue() {
+        return this.selected;
+    }
+
+    public set computedValue(value) {
+        this.selected = value;
+        this.$emit('change', value);
+    }
+
+    public get className() {
+        return classNames(
+            'Polaris-Select',
+            this.disabled && 'Polaris-Select--disabled',
+        );
+    }
+
+    public addTag(newTag) {
+        const tag = {
+            label: newTag,
+            value: newTag,
+        };
+        this.selected.push(tag);
+        this.options.push(tag);
+    }
+
+    @Watch('value')
+    public onValueChanged(value: any) {
+        this.selected = value;
+    }
+}
+</script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style lang="scss">
@@ -135,120 +257,3 @@
         }
     }
 </style>
-<script lang="ts">
-import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
-import {ArrowUpDownMinor} from '@/assets/shopify-polaris-icons';
-import Multiselect from 'vue-multiselect';
-import {classNames} from '@/utilities/css';
-
-import {PIcon} from '@/components/PIcon';
-
-interface StrictOption {
-    value: string;
-    label: string;
-    disabled?: boolean;
-    hidden?: boolean;
-}
-
-@Component({
-    components: {PIcon, Multiselect},
-    mixins: [
-        {
-            data() {
-                return {ArrowUpDownMinor};
-            },
-        },
-    ],
-})
-
-export default class PMultiSelect extends Vue {
-    /**
-     * Disable the PMultiSelect.
-     */
-    @Prop(Boolean) public disabled!: boolean;
-
-    /**
-     * Label for the PMultiSelect.
-     */
-    @Prop(String) public label!: string;
-
-    /**
-     * Options of PMultiSelect.
-     */
-    @Prop({required: true, default: []}) public options!: StrictOption[];
-
-    /**
-     * Value for PMultiSelect.
-     */
-    @Prop({default: () => []}) public value!: any [];
-
-    /**
-     * Disable the searchable options feature.
-     */
-    @Prop({type: Boolean, default: true}) public searchable!: string;
-
-    /**
-     * Taggable feature for PMultiSelect.
-     */
-    @Prop({type: Boolean, default: false}) public taggable!: string;
-
-    /**
-     * Provide Placeholder.
-     */
-    @Prop(String) public placeholder!: string;
-
-    public id = `PolarisMultiSelect${new Date().getUTCMilliseconds()}`;
-    public selected = this.value;
-
-    public get computedOptions() {
-        const options: StrictOption[] = [];
-        if (this.placeholder) {
-            options.push({
-                label: this.placeholder,
-                value: '',
-                disabled: true,
-            });
-        }
-        this.options.map((value) => {
-            if (typeof value === 'object') {
-                if (value.disabled) { value.disabled = value.disabled; }
-                options.push(value);
-            } else {
-                options.push({label: value, value});
-            }
-        });
-
-        return options;
-    }
-
-    public get computedValue() {
-        return this.selected;
-    }
-
-    public set computedValue(value) {
-        this.selected = value;
-        this.$emit('change', value);
-    }
-
-    public get className() {
-        return classNames(
-            'Polaris-Select',
-            this.disabled && 'Polaris-Select--disabled',
-        );
-    }
-
-    public addTag(newTag) {
-        const tag = {
-            label: newTag,
-            value: newTag,
-        };
-        this.selected.push(tag);
-        this.options.push(tag);
-    }
-
-    @Watch('value')
-    public onValueChanged(value: any) {
-        this.selected = value;
-    }
-}
-</script>

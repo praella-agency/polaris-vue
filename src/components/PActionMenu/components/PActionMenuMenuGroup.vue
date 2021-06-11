@@ -34,7 +34,7 @@ export default class PActionMenuMenuGroup extends Vue {
     @Prop(Boolean) public active!: boolean;
     @Prop(Array) public actions!: ActionListItemDescriptor[];
     @Prop(String) public title!: string;
-    @Prop(String) public icon!: string;
+    @Prop({type: String, default: null}) public icon!: string;
     @Prop(Function) public onAction!: any;
 
     public handleClose() {

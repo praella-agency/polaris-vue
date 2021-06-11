@@ -13,7 +13,7 @@ PDataTable example:
         onPrevious: handlePrevious
     }"
     @sort-changed="handleSortChange"
-      :actions="[
+    :actions="[
         {
           onAction: handleUpdate,
           icon: 'EditMajorMonotone'
@@ -22,7 +22,7 @@ PDataTable example:
           icon: 'DeleteMajorMonotone',
           destructive: true
         }
-      ]"
+    ]"
     :headings="[{
         content: 'Product',
         value: 'product',
@@ -51,11 +51,39 @@ PDataTable example:
         sortable: false,
       }]"
     :rows="[
+      [
+        {content: 'Emerald Silk Gown', url: 'https://www.google.com/'},
+        '$875.00',
+        {content: 121212, status:'success', progress:'incomplete'},
+        140,
+        {status: false,onAction:handleToggle,id: 1},
+
+      ],
+      [
+        {content: 'Mauve Cashmere Scarf', url: 'https://www.google.com/'},
+        '$230.00',
+        {content: 'A-1234', status:'success', progress:'incomplete'},
+        2,
+        {status: true,onAction:handleToggle,id: 3},
+      ],
+      [
+        {content: 'Mauve Cashmere', url: 'https://www.google.com/'},
+        '$230.00',
+        {content: 'A-1234', status:'success', progress:'incomplete'},
+        {content: 299},
+        {status: true,onAction:handleToggle,id: 2},
+      ],
     ]"
     :ids="[1,2,3]"
     footerContent="Showing 3 of 3 results">
     <template slot="filter">
-    <PPopover :active="active" full-width @close="toggleRatingFilter" id="popover_1" zIndex="999">
+    <PPopover
+        id="popover_1"
+        :active="active"
+        preferred-alignment="right"
+        @close="toggleRatingFilter" 
+        full-width 
+    >
       <PButton slot="activator" @click="toggleRatingFilter" :disclosure="active ? 'up' : 'down'">Filter Options</PButton>
       <POptionList
               slot="content"
@@ -70,7 +98,12 @@ PDataTable example:
           @change="updateRatingFilter"
       ></POptionList>
     </PPopover>
-    <PPopover :active="active2" @close="toggleRatingFilter" id="popover_2">
+    <PPopover
+        id="popover_2"
+        :active="active2"
+        @close="toggleRatingFilter2"
+        preferred-alignment="right"
+    >
       <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">Status</PButton>
       <POptionList
               slot="content"
@@ -87,6 +120,7 @@ PDataTable example:
     </template>
   </PDataTable>
 </template>
+
 <script>
 export default {
   data() {
@@ -101,6 +135,7 @@ export default {
   methods: {
     handleSortChange(sort,direction) {
        this.sort = {value: sort,direction: direction};
+      console.log(this.sort);
     },
     handleUpdate(id) {
       alert('Handle update for id '+id);
@@ -123,99 +158,21 @@ export default {
     },
     updateRatingFilter(selected) {
       this.selected= selected;
-      console.log('selected rating',selected)
+      console.log('selected rating',selected);
     },
     updateStatusFilter(selected) {
       this.status = selected;
-      console.log('selected status',selected)
+      console.log('selected status',selected);
     },
     handleNext() {
-      alert('Go to next page')
+      alert('Go to next page');
     },
     handlePrevious() {
-      alert('Go to previous page')
+      alert('Go to previous page');
     },
     handleToggle($val) {
-      console.log($val)
-    },
-    handlePrimaryAction() {
-      alert(`transferred`)
-    },
-    handleSecondaryAction() {
-      alert(`Learn more`)
+      console.log($val);
     }
-  }
-}
-</script>
-```
-
-Empty Table
-
-```vue
-<template>
-  <PDataTable
-    @input-filter-changed="handleSearch"
-    hasFilter
-    :rows="[
-    ]">
-
-    <PEmptyState
-        slot="emptyState"
-        heading="Manage your inventory transfers"
-        :fullWidth="true"
-        :primaryAction="{ content: 'Add transfer', onAction: this.handlePrimaryAction}"
-        :secondaryAction="{ content: 'Learn more', onAction: this.handleSecondaryAction}"
-        image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png">
-      <div slot="footer" class="Polaris-TextContainer"><p>If you don’t want to add a transfer, you can import your inventory
-        from <a class="Polaris-Link Polaris-Link--monochrome" href="/settings" data-polaris-unstyled="true">settings</a>.
-      </p></div>
-      <p>You can use the Files section to upload images, videos, and
-        other documents. This example shows the content with a centered layout and full width.</p>
-    </PEmptyState>
-  </PDataTable>
-</template>
-<script>
-export default {
-  methods: {
-    handlePrimaryAction() {
-      alert(`transferred`)
-    },
-    handleSecondaryAction() {
-      alert(`Learn more`)
-    },
-    handleSearch(val) {
-      alert('handle search ' + val);
-      this.search = val;
-    },
-  }
-}
-</script>
-```
-
-
-Empty table with default layout
-
-```vue
-<template>
-  <PDataTable
-    @input-filter-changed="handleSearch"
-    hasFilter
-    :rows="[]">
-  </PDataTable>
-</template>
-<script>
-export default {
-  methods: {
-    handlePrimaryAction() {
-      alert(`transferred`)
-    },
-    handleSecondaryAction() {
-      alert(`Learn more`)
-    },
-    handleSearch(val) {
-      alert('handle search ' + val);
-      this.search = val;
-    },
   }
 }
 </script>

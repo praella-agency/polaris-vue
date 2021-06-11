@@ -1,4 +1,9 @@
 module.exports = {
+    title: 'Polaris Vue by HulkApps',
+    template: {
+        favicon: 'https://cdn.shopify.com/s/files/1/1564/7647/files/favicon_5_32x32.png?v=1583161286',
+        title: 'Polaris Vue by HulkApps',
+    },
     components: 'src/components/**/*.vue',
     ignore: [
         "**/components/PActionMenu/components/PActionMenuActions.vue",
@@ -9,6 +14,8 @@ module.exports = {
         "**/components/PActionMenu/*",
         "**/components/PButton/utils/*",
         "**/components/PCard/",
+        "**/components/PCard/PCardSection.vue",
+        "**/components/PCard/PCardSubsection.vue",
         "**/components/PCard/PCardFooter.vue",
         "**/components/PCard/PCardHeader.vue",
         "**/components/PDropZone/PDropZone.vue",
@@ -39,9 +46,12 @@ module.exports = {
         "**/components/PTabs/PPanel.vue",
         "**/components/PTabs/PTab.vue",
         "**/components/PTextField/components/PInput.vue",
+        "**/components/PBreadcrumbs/**",
     ],
     require: ['./src/scss/main.scss','./src/mixins/tooltip.js'],
     usageMode: 'expand',
-    exampleMode: 'expand',
+    exampleMode: 'collapse',
+    theme: './styleguide/theme.js',
+    styles: './styleguide/styles.js',
 
 };

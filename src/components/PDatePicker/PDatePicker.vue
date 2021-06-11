@@ -2,6 +2,7 @@
   <div :class="labelHidden && 'Polaris-Labelled--hidden'">
     <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.hasOwnProperty('label')"
          :class="labelClass">
+      <!-- @slot Display label for the element -->
       <slot name="label">
         <div class="Polaris-Label">
           <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text" v-html="emptyLabel?'&nbsp':label"/>
@@ -10,7 +11,7 @@
     </div>
     <DateRangePicker
         ref="picker"
-        :opens="opens"
+        :opens="computedOpens"
         :controlContainerClass="containerClass"
         :readonly="readOnly"
         :disabled="disabled"
@@ -24,35 +25,45 @@
         :autoApply="autoApply"
         :closeOnEsc="closeOnEsc"
         :localeData="localeData"
-        :ranges="ranges"
+        :ranges="computedRanges"
         v-bind="$attrs"
         v-model="computedValue"
         @update="updateValues"
         @toggle="checkOpen"
         :linkedCalendars="linkedCalendars"
     >
-      <template v-slot:input="picker" style="min-width: 100%">
-        <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
-          {{ prefix }}
-          <slot v-if="$slots.prefix" name="prefix"></slot>
-        </div>
-        <div :class="className">
-          <template v-if="ranges !== false">
-            {{ formatDate(picker.startDate) }} - {{ formatDate(picker.endDate) }}
-          </template>
-          <template v-else>
-            {{ formatDate(picker.startDate) }}
-          </template>
-        </div>
-        <div class="Polaris-TextField__Suffix" :id="id+'Suffix'">
-          {{ suffix }}
-          <slot name="suffix">
-            <PIcon slot="suffix" source="CalendarMajorMonotone"/>
-          </slot>
-        </div>
-        <div class="Polaris-TextField__Backdrop"></div>
+      <template #ranges="ranges">
+        <PStack>
+          <PStackItem fill>
+            <PSelect label="Date range" returnKey="returnValue" :options="rangeOptions(ranges.ranges)"  @change="(range) => changeRange(range, ranges)" />
+          </PStackItem>
+        </PStack>
       </template>
-
+      <template v-slot:input="picker" style="min-width: 100%">
+        <PTextField v-if="!button" readOnly aria-readonly="true" :value="computedTextValue(picker)" style="min-width:100%" labelHidden>
+          <template  slot="suffix">
+            <PIcon slot="suffix" source="CalendarMajorMonotone"/>
+          </template>
+          <template v-if="showPrefix" slot="prefix">
+            {{ prefix }}
+          </template>
+        </PTextField>
+        <PButton icon="CalendarMajorMonotone" v-else>
+          {{computedTextValue(picker)}}
+        </PButton>
+      </template>
+      <template slot="footer" slot-scope="data" class="slot">
+        <PStack distribution="equalSpacing" alignment="center">
+          <PStackItem>
+            <PButton @click="data.clickCancel" v-if="!data.in_selection">Cancel</PButton>
+          </PStackItem>
+          <PStackItem>
+            <PButtonGroup>
+              <PButton primary @click="data.clickApply" v-if="!data.in_selection">Apply</PButton>
+            </PButtonGroup>
+          </PStackItem>
+        </PStack>
+      </template>
     </DateRangePicker>
     <PFieldError v-if="error" :error="error"/>
 
@@ -67,6 +78,12 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 import {PIcon} from '@/components/PIcon';
 import dayjs from 'dayjs';
 import {PFieldError} from '@/components/PFieldError';
+import {PButton} from '@/components/PButton';
+import {PButtonGroup} from '@/components/PButtonGroup';
+import {PStack, PStackItem} from '@/components/PStack';
+import {PCard} from '@/components/PCard';
+import {PSelect} from '@/components/PSelect';
+import {PTextField} from '@/components/PTextField';
 
 type DateType = Date | null | string;
 
@@ -76,30 +93,127 @@ interface DateRange {
 }
 
 @Component({
-  components: {DateRangePicker, PIcon, PFieldError},
+  components: {DateRangePicker, PIcon, PFieldError, PButton,PButtonGroup, PStack, PStackItem, PCard, PSelect},
 })
 export default class PDatePicker extends Vue {
 
+  /**
+   *  Show button as picker instead of input field
+   *  @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public button!: boolean;
+
+  /**
+   *  Which way the picker opens. Works without button attribute
+   *  @values left | center | right | inline
+   */
   @Prop({type: String, default: 'center'}) public opens!: string;
+
+  /**
+   * ID for the element
+   */
   @Prop({type: String, required: true}) public id!: string;
-  @Prop(Boolean) public readOnly!: boolean;
-  @Prop(Boolean) public disabled!: boolean;
-  @Prop(Boolean) public closeOnEsc!: boolean;
-  @Prop(Boolean) public labelHidden!: boolean;
-  @Prop(String) public label!: string;
-  @Prop(String) public labelClass!: string;
-  @Prop(Boolean) public emptyLabel!: boolean;
-  @Prop(String) public error!: string;
-  @Prop(String) public prefix!: string;
-  @Prop(String) public suffix!: string;
-  @Prop(String) public minDate!: string;
-  @Prop(String) public maxDate!: string;
+
+  /**
+   * Makes the picker readonly. No button in footer. No ranges. Cannot change.
+   */
+  @Prop({type: Boolean, default: false}) public readOnly!: boolean;
+
+  /**
+   * Disabled state. If true picker do not popup on click.
+   *  @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public disabled!: boolean;
+
+  /**
+   * Whether to close the dropdown on "esc"
+   *  @values true | false
+   */
+  @Prop({type: Boolean, default: true}) public closeOnEsc!: boolean;
+
+  /**
+   * Visually hide the label
+   *  @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public labelHidden!: boolean;
+
+  /**
+   * Label for the element
+   */
+  @Prop({type: String, default: null}) public label!: string;
+
+  /**
+   * Label class for the element
+   */
+  @Prop({type: String, default: null}) public labelClass!: string;
+
+  /**
+   * Empty Label for the element
+   *  @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public emptyLabel!: boolean;
+
+  /**
+   * Display an error message
+   */
+  @Prop({type: String, default: null}) public error!: string;
+
+  /**
+   * Define prefix for the element. Works without button attribute
+   */
+  @Prop({type: String, default: null}) public prefix!: string;
+
+  /**
+   * Minimum date allowed to be selected
+   */
+  @Prop({type: String, default: null}) public minDate!: string;
+
+  /**
+   * Maximum date allowed to be selected
+   */
+  @Prop({type: String, default: null}) public maxDate!: string;
+
+  /**
+   * Date format for the element
+   */
   @Prop({type: String, default: 'MM/DD/YYYY'}) public format!: string;
+
+  /**
+   * Only show a single calendar, with or without ranges.
+   * Set true or 'single' for a single calendar with no ranges, single dates only.
+   * Set 'range' for a single calendar WITH ranges.
+   * Set false for a double calendar with ranges.
+   */
   @Prop([Boolean, String]) public singleDatePicker!: boolean | string;
-  @Prop(Boolean) public timePicker!: boolean;
-  @Prop(Boolean) public timePicker24Hour!: boolean;
+
+  /**
+   * Show the dropdown for time (hour/minute) selection below the calendars
+   *  @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public timePicker!: boolean;
+
+  /**
+   * Use 24h format for the time
+   *  @values true | false
+   */
+  @Prop({type: Boolean, default: true}) public timePicker24Hour!: boolean;
+
+  /**
+   * Show the week numbers on the left side of the calendar
+   *  @values true | false
+   */
   @Prop({type: Boolean, default: false}) public showWeekNumbers!: boolean;
-  @Prop(Boolean) public showDropdowns!: boolean;
+
+  /**
+   * Show the dropdowns for month and year selection above the calendars
+   *  @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public showDropdowns!: boolean;
+
+  /**
+   * You can set this to false in order to hide the ranges selection.
+   * Otherwise it is an object with key/value.
+   */
   @Prop({
     type: [Boolean, Object], default: () => {
       const today = new Date();
@@ -118,9 +232,25 @@ export default class PDatePicker extends Vue {
       };
     },
   }) public ranges!: boolean | object;
-  @Prop({type: Boolean, default: true}) public autoApply!: boolean;
+
+  /**
+   * Auto apply selected range. If false you need to click an apply button
+   */
+  @Prop({type: Boolean, default: false}) public autoApply!: boolean;
+
+  /**
+   * This should be an object containing startDate and endDate.
+   */
   @Prop(Object) public dateRange!: DateRange;
-  @Prop(Boolean) public linkedCalendars!: boolean;
+
+  /**
+   * Each calendar has separate navigation when this is false
+   */
+  @Prop({type: Boolean, default: true}) public linkedCalendars!: boolean;
+
+  /**
+   * Object containing locale data used by the picker
+   */
   @Prop(Object) public localeData!: object;
 
   public content: DateRange = (this.dateRange !== null && this.dateRange !== undefined) ?
@@ -130,6 +260,19 @@ export default class PDatePicker extends Vue {
     return classNames(
         'Polaris-TextField__Input',
     );
+  }
+
+  public get computedOpens() {
+    return this.button ? 'right' : this.opens;
+  }
+
+  public get computedRanges() {
+    return !this.singleDatePicker ? this.ranges : false;
+  }
+
+  public computedTextValue(picker) {
+    //
+    return !this.singleDatePicker ? `${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}` : this.formatDate(picker.startDate);
   }
 
   public get hasError() {
@@ -146,6 +289,11 @@ export default class PDatePicker extends Vue {
     );
   }
 
+  /**
+   * Emits when the user selects a range from the picker
+   * and clicks "apply" (if autoApply is true).
+   * @param values {startDate, endDate}
+   */
   @Emit('updateValues')
   public updateValues(values) {
     this.$emit('change', values);
@@ -153,6 +301,9 @@ export default class PDatePicker extends Vue {
 
   @Emit('checkOpen')
   public checkOpen() {
+    /**
+     * Emits whenever the picker opens/closes
+     */
     this.$emit('checkOpen');
   }
 
@@ -163,6 +314,10 @@ export default class PDatePicker extends Vue {
   public set computedValue(dateRange: DateRange) {
 
     this.content = dateRange;
+    /**
+     * Change date range
+     * @property {Object} { startDate: DateType, endDate: DateType }
+     */
     this.$emit('change', dateRange);
   }
 
@@ -178,11 +333,66 @@ export default class PDatePicker extends Vue {
   public get showPrefix() {
     return this.prefix || this.$slots.prefix;
   }
+
+  public rangeOptions(ranges) {
+    return Object.keys(ranges);
+  }
+
+  public changeRange(range, ranges) {
+    if(typeof ranges.ranges[range] !== 'undefined') {
+      ranges.clickRange(ranges.ranges[range])
+    }
+  }
 }
 </script>
 
 <style scoped>
 .vue-daterange-picker {
   min-width: 100%;
+}
+</style>
+<style>
+@media screen and (min-width: 339px) {
+  .vue-daterange-picker div.daterangepicker.single.show-ranges.show-weeknumbers,
+  .vue-daterange-picker div.daterangepicker.single.show-ranges {
+    min-width: 250px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .vue-daterange-picker div.daterangepicker.show-ranges.show-weeknumbers,
+  .vue-daterange-picker div.daterangepicker.show-ranges {
+    min-width: 500px;
+  }
+}
+
+.daterangepicker .calendars {
+  display: block;
+  border-bottom: 1px solid #ddd;
+}
+.daterangepicker .Polaris-Stack {
+  padding: 10px;
+}
+
+
+.daterangepicker td.in-range {
+  background-color: #f2f7fe;
+}
+
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
+  background-color: #2c6ecb;
+  color: #FFF;
+}
+
+.daterangepicker td:hover {
+  background: #1f5199;
+  color: #ffffff;
+  outline: .1rem solid transparent;
+}
+
+.daterangepicker td.start-date {border-radius: 3rem 0 0 3rem;}
+
+.daterangepicker td.end-date {
+  border-radius: 0 3rem 3rem 0;
 }
 </style>

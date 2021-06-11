@@ -1,7 +1,6 @@
 PResourceList example:
 
 ```vue
-
 <template>
   <PCard>
     <PResourceList
@@ -46,7 +45,7 @@ PResourceList example:
       </template>
 
       <template v-slot:default="{selectable}">
-          <PResourceListItem
+        <PResourceListItem
             v-for="(item, key) in items"
             :key="key"
             :id="item.id"
@@ -65,24 +64,26 @@ PResourceList example:
             </div>
           </div>
         </PResourceListItem>
-    </template>
+      </template>
     </PResourceList>
 
-      <PCardSection v-if="pagination.hasPrevious || pagination.hasNext">
-        <div class="resource-list-pagination">
-          <PPagination :hasPrevious="pagination.hasPrevious" :hasNext="pagination.hasNext" :onPrevious="onPrevious" :onNext="onNext"></PPagination>
-        </div>
-      </PCardSection>
+    <PCardSection>
+        <PStack v-if="pagination.hasPrevious || pagination.hasNext" distribution="center" >
+            <PPagination v-bind="pagination" />
+        </PStack>
+    </PCardSection>
   </PCard>
 </template>
 <script>
 import PResourceListItem from "./components/PResourceListItem";
+import PCardSection from "../PCard/PCardSection";
 import {PPagination} from "../PPagination";
 
 export default {
   components: {
     PResourceListItem,
     PPagination,
+    PCardSection
   },
   data() {
     return {
@@ -95,12 +96,12 @@ export default {
         hasPrevious: false,
         hasNext: true,
       },
-    queryParams: {
+      queryParams: {
         page: null,
         search: null,
         statuses: [],
         id: null,
-    },
+      },
       items: [
         {
           id: 100,
@@ -112,58 +113,56 @@ export default {
           name: 'Vue',
           status: null,
         },
-         {
-           id: 300,
-           name: 'React',
-           status: false,
-         },
-         {
-           id: 400,
-           name: 'Python',
-           status: false,
-         },
-         {
-           id: 500,
-           name: 'Node',
-           status: true,
-         },
-         {
-           id: 600,
-           name: 'Shopify',
-           status: false,
-         },
-         {
-           id: 700,
-           name: 'Ruby',
-           status: null,
-         },
-         {
-           id: 800,
-           name: 'Laravel',
-           status: null,
-         },
-         {
-           id: 900,
-           name: 'Javascript',
-           status: true,
-         },
-         {
-           id: 1000,
-           name: 'Angular',
-           status: true,
-         },
+        {
+          id: 300,
+          name: 'React',
+          status: false,
+        },
+        {
+          id: 400,
+          name: 'Python',
+          status: false,
+        },
+        {
+          id: 500,
+          name: 'Node',
+          status: true,
+        },
+        {
+          id: 600,
+          name: 'Shopify',
+          status: false,
+        },
+        {
+          id: 700,
+          name: 'Ruby',
+          status: null,
+        },
+        {
+          id: 800,
+          name: 'Laravel',
+          status: null,
+        },
+        {
+          id: 900,
+          name: 'Javascript',
+          status: true,
+        },
+        {
+          id: 1000,
+          name: 'Angular',
+          status: true,
+        },
       ]
     };
   },
   methods: {
     toggleSelected(item) {
-console.log("toggled");
       this.selected = item.selected ? this.items.map(book => book.id) : [];
       this.selectedAll = item.selectedMore;
       console.log(this.selected, this.selectedAll);
     },
     updateSelected(id, checked) {
-console.log("updated");
       if (checked) this.selected.push(id);
       if (!checked) this.selected.splice(this.selected.indexOf(id), 1);
     },
@@ -172,14 +171,14 @@ console.log("updated");
     },
     updateStatusFilter(selected) {
       this.queryParams.statuses = selected;
-        this.toggleStatusFilter();
+      this.toggleStatusFilter();
 
     },
-   onPrevious() {
-        this.queryParams.page--;
+    onPrevious() {
+      this.queryParams.page--;
     },
     onNext() {
-        this.queryParams.page++;
+      this.queryParams.page++;
     },
   },
 }

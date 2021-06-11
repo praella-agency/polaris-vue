@@ -42,13 +42,13 @@ export default {
   },
   methods: {
     onRemoveFilter() {
-      alert("Hello");
+      alert("Removed");
     },
     onFilterInputChanged() {
-      alert("Hello");
+      alert("Changed");
     },
     updateStatusFilter() {
-      alert("Hello");
+      alert("Updated");
     }
   },
 }

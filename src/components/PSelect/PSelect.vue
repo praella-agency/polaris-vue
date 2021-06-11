@@ -21,8 +21,8 @@
                 <span v-if="inlineLabel" class="Polaris-Select__InlineLabel">{{inlineLabel}}</span>
                 <span class="Polaris-Select__SelectedOption">{{ selectedOption }}</span>
                 <span class="Polaris-Select__Icon">
-          <PIcon :source="ArrowUpDownMinor"></PIcon>
-        </span>
+                    <PIcon :source="ArrowUpDownMinor" />
+                </span>
             </div>
             <div class="Polaris-Select__Backdrop"></div>
         </div>
@@ -153,6 +153,9 @@
 
         public set computedValue(value: string|number) {
             this.selected = value;
+            /**
+             * Event for option changed
+             */
             this.$emit('change', value);
         }
 

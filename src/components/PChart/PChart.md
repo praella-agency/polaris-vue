@@ -3,7 +3,6 @@ PChart example:
 Default chart
 
 ```vue
-
 <template>
   <div>
     <PChart
@@ -14,6 +13,7 @@ Default chart
     />
   </div>
 </template>
+
 <script>
 export default {
   data() {
@@ -39,7 +39,6 @@ export default {
 Vertical Grouped Bar Chart
 
 ```vue
-
 <template>
   <div>
     <PChart
@@ -55,6 +54,7 @@ Vertical Grouped Bar Chart
     />
   </div>
 </template>
+
 <script>
 export default {
   data() {
@@ -85,7 +85,6 @@ export default {
 Line Chart
 
 ```vue
-
 <template>
   <div>
     <PChart
@@ -97,6 +96,7 @@ Line Chart
     />
   </div>
 </template>
+
 <script>
 export default {
   data() {

@@ -28,7 +28,7 @@ export default class PChart extends Vue {
   /**
    * Title content for the chart.
    */
-  @Prop(String) public title!: string;
+  @Prop({type: String, default: null}) public title!: string;
 
   /**
    * Type of chart
@@ -47,6 +47,7 @@ export default class PChart extends Vue {
 
   /**
    * To get vertical view of chart.
+   * @values true | false
    */
   @Prop({type: Boolean, default: false}) public vertical!: boolean;
 
@@ -147,7 +148,7 @@ export default class PChart extends Vue {
     };
 
     return Object.assign({}, object, this.chartOptions);
-}
+  }
 
   @Watch('xAxis')
   public onValueChanged(value) {

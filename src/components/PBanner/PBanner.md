@@ -21,14 +21,17 @@ Banner with status
 Banner with dismiss action
 ```vue
 <template>
-    <PBanner status='success' @dismiss="handleDismissAction">Success banner</PBanner>
+    <PBanner 
+        status='success' 
+        @dismiss="handleDismissAction"
+    >Success banner</PBanner>
 </template>
 
 <script>
 export default {
   methods: {
     handleDismissAction() {
-        alert('Dismiss the banner')
+        alert('Dismiss the banner');
     }
   }
 }
@@ -38,14 +41,17 @@ export default {
 Banner with Loadable Action
 ```vue
 <template>
-    <PBanner title="Action Banner" :action="{content:'Do Action', onAction: handleAction}">Banner with action</PBanner>
+    <PBanner 
+        title="Action Banner" 
+        :action="{content:'Do Action', onAction: handleAction}"
+    >Banner with action</PBanner>
 </template>
 
 <script>
 export default {
   methods: {
     handleAction() {
-        alert('Action triggered')
+        alert('Action triggered');
     }
   }
 }
@@ -55,6 +61,9 @@ export default {
 Banner with Disabled Action
 ```vue
 <template>
-    <PBanner title="Action Banner" :action="{content:'Do Action', disabled:true}">Banner with disabled action</PBanner>
+    <PBanner 
+        title="Action Banner" 
+        :action="{content:'Do Action', disabled:true}"
+    >Banner with disabled action</PBanner>
 </template>
 ```

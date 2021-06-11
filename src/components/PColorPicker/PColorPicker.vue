@@ -28,7 +28,7 @@
     /**
      * Label for the colorPicker
      */
-    @Prop(String) public label!: string;
+    @Prop({type: String, default: null}) public label!: string;
 
     /**
      * ID for form input
@@ -38,17 +38,18 @@
     /**
      * LabelClass for input
      */
-    @Prop(String) public labelClass!: string;
+    @Prop({type: String, default: null}) public labelClass!: string;
 
     /**
      * Hide/Show input
+     * @values true | false
      */
-    @Prop(Boolean) public showInput!: boolean;
+    @Prop({type: Boolean, default: false}) public showInput!: boolean;
 
     /**
      * PropsClass for input
      */
-    @Prop(String) public propsClass!: string;
+    @Prop({type: String, default: null}) public propsClass!: string;
 
     /**
      * Selected color

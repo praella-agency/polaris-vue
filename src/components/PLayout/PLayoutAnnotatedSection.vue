@@ -3,6 +3,7 @@
     <div class="Polaris-Layout__AnnotationWrapper">
       <div class="Polaris-Layout__Annotation">
         <PTextContainer>
+          <!-- @slot Short Description content for the layout  -->
           <slot name="title" />
           <PHeading v-if="title">{{ title }}</PHeading>
           <div v-if="description" class="Polaris-Layout__AnnotationDescription">
@@ -12,6 +13,7 @@
       </div>
 
       <div class="Polaris-Layout__AnnotationContent">
+        <!-- @slot Default slot for content  -->
         <slot/>
       </div>
     </div>
@@ -30,7 +32,13 @@ import { PTextContainer } from '@/components/PTextContainer';
   },
 })
 export default class PLayoutAnnotatedSection extends Vue {
-  @Prop(String) public title!: string;
-  @Prop(String) public description!: string;
+  /**
+   * Title of layout
+   */
+  @Prop({type: String, default: null}) public title!: string;
+  /**
+   * Description of layout
+   */
+  @Prop({type: String, default: null}) public description!: string;
 }
 </script>

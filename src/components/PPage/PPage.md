@@ -10,12 +10,12 @@ PPage example:
           content: 'Duplicate',
           accessibilityLabel: 'Secondary action label',
           onAction: triggerSecondaryAction1,
-          icon: 'DuplicateMinor'
+          icon: ''
         },
         {
           content: 'View on your store',
           onAction: triggerSecondaryAction2,
-          icon: 'DuplicateMinor'
+          icon: ''
         },
       ]"
       :pagination="{
