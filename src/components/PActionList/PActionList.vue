@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
+import { classNames} from '@/utilities/css';
 import PActionListSection from '@/components/PActionList/components/PActionListSection.vue';
 
 @Component({

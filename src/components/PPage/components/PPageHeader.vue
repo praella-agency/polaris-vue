@@ -170,14 +170,6 @@ export default class PPageHeader extends Vue {
         this.$slots.hasOwnProperty('titleMetadata');
   }
 
-  public get mobileView() {
-    if (window.innerWidth <= 768) {
-      console.log(window.innerWidth, this.isNavigationCollapsed);
-      return true;
-    }
-    return false;
-  }
-
   public get hasAvatar() {
     return this.avatar || this.avatarInitials;
   }

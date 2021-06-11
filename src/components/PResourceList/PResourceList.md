@@ -76,6 +76,7 @@ PResourceList example:
   </PCard>
 </template>
 <script>
+import { PCard, PCardSection } from "../PCard";
 import PResourceListItem from "./components/PResourceListItem";
 import {PPagination} from "../PPagination";
 
@@ -83,6 +84,8 @@ export default {
   components: {
     PResourceListItem,
     PPagination,
+    PCard,
+    PCardSection,
   },
   data() {
     return {
