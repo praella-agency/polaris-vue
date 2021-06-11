@@ -36,19 +36,18 @@ export default class PActionMenu extends Vue {
     @Prop({type: Boolean, default: false}) public rollup!: boolean;
 
     public get rollupSections() {
-      console.log(this.groups.map((group) => this.convertGroupToSection(group)));
-        return this.groups.map((group) => this.convertGroupToSection(group));
+      return this.groups.map((group) => this.convertGroupToSection(group));
     }
 
     public convertGroupToSection({title, actions}: MenuGroupDescriptor): ActionListSection {
-        return {title, items: actions};
+      return {title, items: actions};
     }
 
     public get actionMenuClassNames() {
-        return classNames(
-            'Polaris-ActionMenu',
-            this.rollup && 'Polaris-ActionMenu--rollup',
-        );
+      return classNames(
+          'Polaris-ActionMenu',
+          this.rollup && 'Polaris-ActionMenu--rollup',
+      );
     }
 }
 </script>

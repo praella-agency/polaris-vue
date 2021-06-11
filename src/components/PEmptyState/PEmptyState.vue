@@ -7,15 +7,18 @@
             <div class="Polaris-EmptyState__Details">
               <PTextContainer>
                 <PDisplayText size="small">
+                  <!-- @slot Heading Content -->
                   <slot name="heading">
                     {{ heading }}
                   </slot>
                 </PDisplayText>
                 <div class="Polaris-EmptyState__Content">
+                  <!-- @slot Default Content -->
                   <slot/>
                 </div>
               </PTextContainer>
               <div class="Polaris-EmptyState__Actions" v-if="hasAction">
+                <!-- @slot Actions Content -->
                 <slot name="actions">
                   <PStack spacing="tight" distribution="center" alignment="center">
                     <PStackItem v-if="primaryAction">
@@ -28,11 +31,13 @@
                 </slot>
               </div>
               <div class="Polaris-EmptyState__FooterContent">
+                <!-- @slot Footer Content -->
                 <slot name="footer"/>
               </div>
             </div>
           </div>
           <div class="Polaris-EmptyState__ImageContainer">
+            <!-- @slot Image Content -->
             <slot name="image">
               <PImage :source="image" class="Polaris-EmptyState__Image"/>
             </slot>
@@ -71,34 +76,36 @@ export default class PEmptyState extends Vue {
   /**
    * The empty state heading
    */
-  @Prop(String) public heading!: string;
+  @Prop({type: String, default: null}) public heading!: string;
 
   /**
    * Whether or not the content should span the full width of its container
+   * @values true | false
    */
-  @Prop(Boolean) public fullWidth!: boolean;
+  @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
 
   /**
    * Whether or not to limit the image to the size of its container on large screens
+   * @values true | false
    */
-  @Prop(Boolean) public imageContained!: boolean;
+  @Prop({type: Boolean, default: false}) public imageContained!: boolean;
 
   /**
    * The path to the image to display.
    * The image should have ~40px of white space above when empty state is used within a card,
    * modal, or navigation component
    */
-  @Prop(String) public image!: string;
+  @Prop({type: String, default: null}) public image!: string;
 
   /**
    * Primary action for empty state
    */
-  @Prop(Object) public primaryAction!: DisableableAction & LoadableAction;
+  @Prop({type: Object, default: () => ({})}) public primaryAction!: DisableableAction & LoadableAction;
 
   /**
    * Secondary action for empty state
    */
-  @Prop(Object) public secondaryAction!: ComplexAction;
+  @Prop({type: Object, default: () => ({})}) public secondaryAction!: ComplexAction;
 
   public get className() {
     return classNames(

@@ -44,8 +44,7 @@
     })
     export default class PActionMenuMenuAction extends Vue {
 
-
-      @Prop({type: String, default: `ActionMenuMenuAction${new Date().getUTCMilliseconds()}`}) public id!: string;
+        @Prop({type: String, default: `ActionMenuMenuAction${new Date().getUTCMilliseconds()}`}) public id!: string;
         @Prop(String) public content!: string;
         @Prop(String) public url!: string;
         @Prop(Boolean) public external!: boolean;
@@ -65,7 +64,7 @@
 
         public mounted() {
           const actionsLayoutRef = this.$refs[this.id];
-          if(typeof this.getOffsetWidth === 'function' && actionsLayoutRef) {
+          if (typeof this.getOffsetWidth === 'function' && actionsLayoutRef) {
             this.getOffsetWidth(actionsLayoutRef.offsetWidth);
           }
 

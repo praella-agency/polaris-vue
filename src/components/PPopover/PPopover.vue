@@ -140,6 +140,12 @@ export default class PPopover extends Vue {
     document.addEventListener('keyup', this.handleKeyPress);
   }
 
+  public destroyed() {
+    window.removeEventListener('click', this.handlePageClick);
+    window.removeEventListener('touchstart', this.handlePageClick);
+    window.removeEventListener('keyup', this.handleKeyPress);
+  }
+
   public findActivator() {
     return document.getElementById(this.activatorId);
   }

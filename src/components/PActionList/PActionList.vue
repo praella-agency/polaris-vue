@@ -39,8 +39,7 @@ export default class PActionList extends Vue {
         if (this.items) {
             return [{items: this.items}, ...this.sections];
         }
-
-      return this.sections;
+        return this.sections;
     }
 
     public get hasMultipleSections() {

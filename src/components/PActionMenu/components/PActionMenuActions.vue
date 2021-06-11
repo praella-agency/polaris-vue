@@ -43,10 +43,10 @@ type MenuDescriptorWithIndex = (MenuActionDescriptor | MenuGroupDescriptor) & {
     PActionMenuMenuAction,
   },
 })
+
 export default class PActionMenuActions extends Vue {
 
   @Prop({type: String, default: `ActionMenuLayout${new Date().getUTCMilliseconds()}`}) public id!: string;
-
   @Prop(Array) public actions!: MenuActionDescriptor[];
   @Prop(Array) public groups!: MenuGroupDescriptor[];
 
@@ -67,6 +67,7 @@ export default class PActionMenuActions extends Vue {
   public get lastMenuGroup() {
     return [...this.groups].pop();
   }
+
   /* Measure Variables End*/
 
   public get computedShowableActions() {
@@ -114,9 +115,13 @@ export default class PActionMenuActions extends Vue {
     this.handleResize();
   }
 
+  public destroyed() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
   public handleResize() {
     const actionsLayoutRef = this.$refs[this.id];
-    if(actionsLayoutRef) {
+    if (actionsLayoutRef) {
       this.availableWidthRef = actionsLayoutRef.offsetWidth;
     }
 
@@ -147,12 +152,12 @@ export default class PActionMenuActions extends Vue {
 
     let currentAvailableWidth = this.availableWidthRef;
     let newShowableActions: MenuActionDescriptor[] = [];
-    let newRolledUpActions: (MenuActionDescriptor | MenuGroupDescriptor)[] = [];
+    let newRolledUpActions: (MenuActionDescriptor[] | MenuGroupDescriptor[]) = [];
 
     actionsAndGroups.forEach((action, index) => {
       const canFitAction =
           this.actionWidthsRef[index] +
-          0 + //menuGroupWidthRef.current
+          0 + // menuGroupWidthRef.current
           ACTION_SPACING +
           this.lastMenuGroupWidth <=
           currentAvailableWidth;
@@ -164,7 +169,9 @@ export default class PActionMenuActions extends Vue {
       } else {
         currentAvailableWidth = 0;
         // Find last group if it exists and always render it as a rolled up action below
-        if (action === this.lastMenuGroup) return;
+        if (action === this.lastMenuGroup) {
+          return;
+        }
         newRolledUpActions = [...newRolledUpActions, action];
       }
     });

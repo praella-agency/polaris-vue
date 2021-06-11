@@ -35,20 +35,24 @@
          * ID for the link.
          */
         @Prop({type: String, default: null}) public id!: string;
+
         /**
          * The url to link to.
          */
         @Prop({type: String, default: null}) public url!: string;
+
         /**
          * The router link.
          * @values true | false
          */
         @Prop({type: String, default: null}) public to!: string;
+
         /**
          * Makes the link open in a new tab.
          * @values true | false
          */
         @Prop({type: Boolean, default: false}) public external!: boolean;
+
         /**
          * Makes the link color the same as the current text color and adds an underline.
          * @values true | false
