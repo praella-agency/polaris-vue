@@ -39,7 +39,7 @@ export default class PActionList extends Vue {
         if (this.items) {
             return [{items: this.items}, ...this.sections];
         }
-      console.log(this.sections)
+
       return this.sections;
     }
 

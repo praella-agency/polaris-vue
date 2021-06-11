@@ -13,17 +13,17 @@
         /**
          * Image source
          */
-        @Prop(String) public source!: string;
+        @Prop({type: String, default: null}) public source!: string;
 
         /**
          * Image alt
          */
-        @Prop(String) public alt!: string;
+        @Prop({type: String, default: null}) public alt!: string;
 
         /**
          * Image class
          */
-        @Prop(String) public imgClass!: string;
+        @Prop({type: String, default: null}) public imgClass!: string;
 
         public get className() {
             return classNames(

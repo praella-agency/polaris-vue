@@ -67,11 +67,10 @@ PResourceList example:
       </template>
     </PResourceList>
 
-    <PCardSection v-if="pagination.hasPrevious || pagination.hasNext">
-      <div class="resource-list-pagination">
-        <PPagination :hasPrevious="pagination.hasPrevious" :hasNext="pagination.hasNext" :onPrevious="onPrevious"
-                     :onNext="onNext"></PPagination>
-      </div>
+    <PCardSection>
+        <PStack v-if="pagination.hasPrevious || pagination.hasNext" distribution="center" >
+            <PPagination v-bind="pagination" />
+        </PStack>
     </PCardSection>
   </PCard>
 </template>

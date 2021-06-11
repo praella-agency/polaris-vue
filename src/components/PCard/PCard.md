@@ -15,9 +15,24 @@ Sectioned Card
 
 Card with inline Header (Title and description)
 ```vue
-<PCard sectioned title="Online store dashboard" shortDescription="Store performance">
+<template>
+<PCard sectioned 
+    title="Online store dashboard" 
+    shortDescription="Store performance" 
+    :actions="[
+        {
+            content: 'Test1',
+            url: 'www.goggle.com'
+        },
+        {
+            content: 'Test2',
+            url: 'www.goggle.com'
+        }       
+    ]"
+> 
   View a summary of your online store’s performance.
 </PCard>
+</template>
 ```
 
 Card with subdued

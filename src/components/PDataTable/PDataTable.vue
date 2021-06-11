@@ -4,7 +4,7 @@
       <!-- @slot Filter content -->
       <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
     </PFilter>
-    <div class="Polaris-DataTable">
+    <div class="Polaris-DataTable" v-if="rows.length > 0 || $slots.hasOwnProperty('body')">
       <div class="Polaris-DataTable__ScrollContainer">
         <table class="Polaris-DataTable__Table">
           <thead ref="thead">
@@ -116,6 +116,14 @@
       </div>
       <div v-if="footerContent" class="Polaris-DataTable__Footer">{{ footerContent }}</div>
     </div>
+    <div v-else>
+      <slot name="emptyState">
+        <PEmptyState
+            :heading="emptyStateTitle"
+            image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png">
+        </PEmptyState>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -128,6 +136,7 @@
     import { PFilter } from '@/components/PFilter';
     import { PSpinner } from '@/components/PSpinner';
     import { ComplexAction, LinkAction } from '@/types';
+    import {PEmptyState} from '@/components/PEmptyState';
 
     type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
     type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
@@ -151,7 +160,7 @@
     }
 
     @Component({
-        components: { PDataTableCell, PPagination, PFilter, PSpinner },
+        components: { PDataTableCell, PPagination, PFilter, PSpinner, PEmptyState },
     })
 
     export default class PDataTable extends Vue {
@@ -167,10 +176,10 @@
          */
         @Prop({ type: Array, default: () => [] }) public headings!: string[];
 
-        /**
-         * Heading list
-         */
-        @Prop({ type: Array, default: () => [] }) public headings2!: string[];
+        // /**
+        //  * Heading list 2
+        //  */
+        // @Prop({ type: Array, default: () => [] }) public headings2!: string[];
 
         /**
          * Total fields
@@ -219,12 +228,12 @@
         @Prop({ type: String, default: 'ascending' }) public defaultSortDirection!: SortDirection;
 
         /**
-         * Footer data
+         * Table data
          */
         @Prop({type: [String, Number]}) public footerContent!: TableData;
 
         /**
-         * Footer data
+         * Search Placeholder
          */
         @Prop({type: String, default: null}) public searchPlaceholder!: string;
 
@@ -262,29 +271,29 @@
             return this.actions && this.actions.length > 0;
         }
 
-        public mounted() {
+    public mounted() {
 
-          let loadingPosition = 0;
+      let loadingPosition = 0;
 
-          if (typeof window !== 'undefined') {
+      if (typeof window !== 'undefined' && this.$refs.hasOwnProperty('tbody')) {
 
-            const overlay = (this.$refs.tbody as Element).getBoundingClientRect();
+        const overlay = (this.$refs.tbody as Element).getBoundingClientRect();
 
-            const viewportHeight = Math.max(document.documentElement ?
-                document.documentElement.clientHeight : 0, window.innerHeight || 0);
+        const viewportHeight = Math.max(document.documentElement ?
+            document.documentElement.clientHeight : 0, window.innerHeight || 0);
 
-            const overflow = viewportHeight - overlay.height;
+        const overflow = viewportHeight - overlay.height;
 
-            const spinnerHeight = this.rows.length === 1 ? 28 : 45;
+        const spinnerHeight = this.rows.length === 1 ? 28 : 45;
 
-            loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
-                (viewportHeight - overlay.top - spinnerHeight) / 2;
+        loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
+            (viewportHeight - overlay.top - spinnerHeight) / 2;
 
-            loadingPosition = loadingPosition + (this.$refs.thead as Element).getBoundingClientRect().height;
+        loadingPosition = loadingPosition + (this.$refs.thead as Element).getBoundingClientRect().height;
 
-            this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
-          }
-        }
+        this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
+      }
+    }
 
         public onRemoveFilter(tag) {
             /**
