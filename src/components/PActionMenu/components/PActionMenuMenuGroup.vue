@@ -1,7 +1,7 @@
 <template>
-    <PPopover :active="Boolean(active)" preferredAlignment="left" hideOnPrint @close="handleClose">
-        <PActionMenuMenuAction slot="activator" disclosure :content="title" :icon="icon" :onAction="handleOpen" />
-        <PActionList :items="actions" @item-action="handleClose" />
+    <PPopover :active="Boolean(active)" preferredAlignment="center" hideOnPrint @close="handleClose">
+        <PActionMenuMenuAction slot="activator" disclosure :content="title" :getOffsetWidth="getOffsetWidth" :icon="icon" :onAction="handleOpen" />
+        <PActionList slot="content" :items="actions" @item-action="handleClose" />
         <div v-if="$slots.details" class="">
             <slot name="details" />
         </div>
@@ -36,6 +36,7 @@ export default class PActionMenuMenuGroup extends Vue {
     @Prop(String) public title!: string;
     @Prop({type: String, default: null}) public icon!: string;
     @Prop(Function) public onAction!: any;
+    @Prop(Function) public getOffsetWidth!: any;
 
     public handleClose() {
         this.onAction(this.title);
