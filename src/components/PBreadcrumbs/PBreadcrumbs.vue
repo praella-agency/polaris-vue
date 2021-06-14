@@ -45,10 +45,11 @@ export default class PBreadcrumbs extends Vue {
         );
 
         const breadcrumbMarkup =
-            'url' in breadcrumb ? (
+            'url' in breadcrumb || 'to' in breadcrumb ? (
                 <PUnstyledLink
                     key={content}
                     url={breadcrumb.url}
+                    to={breadcrumb.to}
                     class={breadcrumbClassNames}
                 >
                     {contentMarkup}

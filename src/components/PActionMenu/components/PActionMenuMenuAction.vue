@@ -11,7 +11,7 @@
         </span>
         <template v-else>{{content}}</template>
     </PUnstyledLink>
-    <button :ref="id" v-else type="button" :class="menuActionClassNames" :disabled="disabled" @click="onAction()">
+    <button :ref="id" v-else type="button" :class="menuActionClassNames" :disabled="disabled" @click.stop="onAction()">
         <span v-if="icon || disclosure" class="Polaris-ActionMenu-MenuAction__ContentWrapper">
             <span v-if="icon" class="Polaris-ActionMenu-MenuAction__IconWrapper">
                 <PIcon :source="icon" />

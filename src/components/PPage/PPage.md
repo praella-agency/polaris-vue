@@ -39,7 +39,7 @@ PPage example:
       }"
       thumbnail="https://burst.shopifycdn.com/photos/black-leather-choker-necklace_373x@2x.jpg"
       title="3/4 inch Leather pet collar" subtitle="Perfect for any pet"
-      :breadcrumbs="[{content: 'Products', url: '/products'}]">
+      :breadcrumbs="[{content: 'Products', to: '/new-page'}]">
     <PButton slot="primaryAction">Test</PButton>
     <PBadge slot="titleMetadata" status="success">Paid</PBadge>
     <PAvatar initials="HA" slot="additionalNavigation"></PAvatar>

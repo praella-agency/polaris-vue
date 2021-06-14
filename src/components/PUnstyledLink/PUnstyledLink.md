@@ -4,6 +4,11 @@ PUnstyledLink example:
 <PUnstyledLink url="https://www.hulkapps.com/">HulkApps</PUnstyledLink>
 ```
 
+Vue Router Link
+```vue
+<PUnstyledLink to="/dashboard">Dashboard</PUnstyledLink>
+```
+
 External Url:
 
 ```vue
