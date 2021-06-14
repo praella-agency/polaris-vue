@@ -3,9 +3,7 @@
        <div slot="activator" class="Polaris-ActionMenu-RollupActions__RollupActivator">
            <PButton :plain="true" :outline="false" icon="HorizontalDotsMinor" type="button" @click="toggleRollupOpen" />
        </div>
-      <template slot="content">
-        <PActionList :items="items" :sections="sections" @item-action="toggleRollupOpen"></PActionList>
-      </template>
+       <PActionList slot="content" :items="items" :sections="sections" @item-action="toggleRollupOpen" />
    </PPopover>
 </template>
 
@@ -32,12 +30,7 @@ export default class PActionMenuRollupActions extends Vue {
     public rollupOpen = false;
 
     public toggleRollupOpen() {
-      console.log('this.rollupOpen' ,this.rollupOpen);
         this.rollupOpen = !this.rollupOpen;
-    }
-
-    created() {
-      console.log('Action', this.items, this.sections);
     }
 }
 </script>

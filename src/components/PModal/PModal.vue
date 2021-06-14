@@ -70,6 +70,7 @@ export default class PModel extends Vue {
     @Prop({type: Boolean, default: false}) public open!: boolean;
     /**
      * Automatically adds sections to modal.
+     * @values true | false
      */
     @Prop({type: Boolean, default: false}) public sectioned!: boolean;
     /**

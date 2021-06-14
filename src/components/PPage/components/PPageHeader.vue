@@ -18,15 +18,6 @@
         <div class="Polaris-Page-Header__Actions" v-if="hasActions">
           <PActionMenu :groups="actionGroups" :actions="secondaryActions" v-if="hasActionMenu"
                        :rollup="isNavigationCollapsed.rollup"/>
-<!--          <div class="Polaris-ActionMenu" v-if="hasActionMenu">-->
-<!--            <div class="Polaris-ActionMenu-Actions__ActionsLayout">-->
-<!--              <PButtonGroup spacing="extraTight">-->
-<!--                <div class="Polaris-ActionMenu-SecondaryAction" v-for="(action, key) in secondaryActions" :key="key">-->
-<!--                  <PButton aria-label="Secondary action label" @click="action.onAction()">{{ action.content }}</PButton>-->
-<!--                </div>-->
-<!--              </PButtonGroup>-->
-<!--            </div>-->
-<!--          </div>-->
           <div v-if="primaryAction || $slots.hasOwnProperty('primaryAction')"
                class="Polaris-Page-Header__PrimaryActionWrapper">
             <slot name="primaryAction">
@@ -42,10 +33,6 @@
             <nav aria-label="Pagination">
               <PPagination v-bind="pagination" />
             </nav>
-<!--              <PButtonGroup segmented spacing="tight">-->
-<!--                <PButton icon="ChevronLeftMinor" :disabled="!pagination.hasPrevious" outline @click="pagination.onPrevious()"/>-->
-<!--                <PButton icon="ChevronRightMinor" :disabled="!pagination.hasNext" outline @click="pagination.onNext()"/>-->
-<!--              </PButtonGroup>-->
           </div>
         </div>
       </div>
@@ -170,14 +157,6 @@ export default class PPageHeader extends Vue {
         this.$slots.hasOwnProperty('titleMetadata');
   }
 
-  public get mobileView() {
-    if (window.innerWidth <= 768) {
-      console.log(window.innerWidth, this.isNavigationCollapsed);
-      return true;
-    }
-    return false;
-  }
-
   public get hasAvatar() {
     return this.avatar || this.avatarInitials;
   }
@@ -197,6 +176,10 @@ export default class PPageHeader extends Vue {
   public created() {
     window.addEventListener('resize', this.useMediaQuery);
     this.useMediaQuery();
+  }
+
+  public destroyed() {
+    window.removeEventListener('resize', this.useMediaQuery);
   }
 
   public useMediaQuery() {

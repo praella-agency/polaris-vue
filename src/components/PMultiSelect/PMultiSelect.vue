@@ -89,13 +89,13 @@ export default class PMultiSelect extends Vue {
      * Disable the searchable options feature.
      * @values true | false
      */
-    @Prop({type: Boolean, default: true}) public searchable!: string;
+    @Prop({type: Boolean, default: true}) public searchable!: boolean;
 
     /**
      * Taggable feature for PMultiSelect.
      * @values true | false
      */
-    @Prop({type: Boolean, default: false}) public taggable!: string;
+    @Prop({type: Boolean, default: false}) public taggable!: boolean;
 
     /**
      * Provide Placeholder.
@@ -122,7 +122,6 @@ export default class PMultiSelect extends Vue {
                 options.push({label: value, value});
             }
         });
-        console.log(this.options)
         return options;
     }
 
@@ -132,6 +131,10 @@ export default class PMultiSelect extends Vue {
 
     public set computedValue(value) {
         this.selected = value;
+        /**
+         * Change event
+         * @property {event}
+         */
         this.$emit('change', value);
     }
 

@@ -159,6 +159,7 @@
             this.selected = value;
             /**
              * Event for option changed
+             * @property {event}
              */
             this.$emit('change', value);
         }

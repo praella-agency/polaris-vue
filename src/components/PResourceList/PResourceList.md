@@ -75,15 +75,16 @@ PResourceList example:
   </PCard>
 </template>
 <script>
+import { PCard, PCardSection } from "../PCard";
 import PResourceListItem from "./components/PResourceListItem";
-import PCardSection from "../PCard/PCardSection";
 import {PPagination} from "../PPagination";
 
 export default {
   components: {
     PResourceListItem,
     PPagination,
-    PCardSection
+    PCard,
+    PCardSection,
   },
   data() {
     return {

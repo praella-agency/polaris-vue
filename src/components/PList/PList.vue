@@ -1,5 +1,6 @@
 <template>
     <component :is="element" :class="className">
+        <!-- @slot Default content -->
         <slot/>
     </component>
 </template>
@@ -15,7 +16,7 @@
 
         /**
          * Type of list
-         * @values bullet|number
+         * @values bullet | number
          */
         @Prop({ type: String, default: 'bullet' }) public type!: Type;
 

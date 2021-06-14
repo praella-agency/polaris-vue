@@ -1,0 +1,214 @@
+.Polaris-EmptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 0;
+  padding-top: 2rem;
+  padding-bottom: 6rem;
+  max-width: 99.8rem;
+}
+.Polaris-EmptyState__Section {
+  display: flex;
+  flex-direction: column-reverse;
+  flex: 1 1 auto;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.Polaris-EmptyState__Details {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+}
+.Polaris-EmptyState__Image {
+  margin: 0;
+  width: initial;
+}
+.Polaris-EmptyState__ImageContainer {
+  flex: 1 1 auto;
+  padding: 0;
+  margin: 0;
+}
+.Polaris-EmptyState__DetailsContainer {
+  flex: 1 1 auto;
+  padding: 0;
+  margin: 0;
+}
+.Polaris-EmptyState--withinContentContainer {
+  margin: 0 auto;
+  padding-top: 2rem;
+  padding-bottom: 6rem;
+  .Polaris-EmptyState__Section {
+    position: unset;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+  .Polaris-EmptyState__Details {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  .Polaris-EmptyState__Image {
+    margin: 0;
+    width: initial;
+  }
+  .Polaris-EmptyState__Content {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2rem;
+    text-transform: initial;
+    letter-spacing: initial;
+    padding-bottom: 0.8rem;
+  }
+}
+.Polaris-EmptyState--fullWidth {
+  .Polaris-EmptyState__Details {
+    max-width: 100%;
+  }
+}
+.Polaris-EmptyState__Content {
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 2rem;
+  text-transform: initial;
+  letter-spacing: initial;
+  color: rgba(109, 113, 117, 1);
+  padding-bottom: 0.8rem;
+}
+.Polaris-EmptyState__Actions {
+  margin-top: 1.6rem;
+}
+.Polaris-EmptyState__FooterContent {
+  color: rgba(109, 113, 117, 1);
+  margin-top: 1.6rem;
+}
+@media (max-width: 48.0625em) and (min-width: 46.5em) {
+  [data-has-navigation] {
+    .Polaris-EmptyState__Section {
+      left: 2rem;
+    }
+    .Polaris-EmptyState__ImageContainer {
+      flex-basis: 50%;
+    }
+    .Polaris-EmptyState__DetailsContainer {
+      flex-basis: 50%;
+    }
+    .Polaris-EmptyState--imageContained {
+      .Polaris-EmptyState__Image {
+        position: initial;
+        width: 100%;
+      }
+    }
+  }
+}
+@media (min-width: 61.5em) {
+  [data-has-navigation] {
+    .Polaris-EmptyState__Section {
+      left: 2rem;
+    }
+    .Polaris-EmptyState__ImageContainer {
+      flex-basis: 50%;
+    }
+    .Polaris-EmptyState__DetailsContainer {
+      flex-basis: 50%;
+    }
+    .Polaris-EmptyState--imageContained {
+      .Polaris-EmptyState__Image {
+        position: initial;
+        width: 100%;
+      }
+    }
+  }
+}
+@media (min-width: 46.5em) {
+  .Polaris-EmptyState__Section {
+    left: 2rem;
+  }
+  .Polaris-EmptyState__ImageContainer {
+    flex-basis: 50%;
+  }
+  .Polaris-EmptyState__DetailsContainer {
+    flex-basis: 50%;
+  }
+  .Polaris-EmptyState--imageContained {
+    .Polaris-EmptyState__Image {
+      position: initial;
+      width: 100%;
+    }
+  }
+}
+@media (max-width: 48.0625em) and (min-width: 30.625em) {
+  [data-has-navigation] {
+    .Polaris-EmptyState__Details {
+      max-width: 40rem;
+    }
+    .Polaris-EmptyState--withinContentContainer {
+      .Polaris-EmptyState__Details {
+        max-width: 40rem;
+      }
+    }
+  }
+}
+@media (min-width: 45.625em) {
+  [data-has-navigation] {
+    .Polaris-EmptyState__Details {
+      max-width: 40rem;
+    }
+    .Polaris-EmptyState--withinContentContainer {
+      .Polaris-EmptyState__Details {
+        max-width: 40rem;
+      }
+    }
+  }
+}
+@media (min-width: 30.625em) {
+  .Polaris-EmptyState__Details {
+    max-width: 40rem;
+  }
+  .Polaris-EmptyState--withinContentContainer {
+    .Polaris-EmptyState__Details {
+      max-width: 40rem;
+    }
+  }
+}
+@media (max-width: 30.625em) {
+  [data-has-navigation] {
+    .Polaris-EmptyState__ImageContainer {
+      overflow-x: hidden;
+    }
+    .Polaris-EmptyState__DetailsContainer {
+      overflow-x: hidden;
+    }
+  }
+  .Polaris-EmptyState__ImageContainer {
+    overflow-x: hidden;
+  }
+  .Polaris-EmptyState__DetailsContainer {
+    overflow-x: hidden;
+  }
+}
+@media (min-width: 48.0625em) and (max-width: 47.125em) {
+  [data-has-navigation] {
+    .Polaris-EmptyState__ImageContainer {
+      overflow-x: hidden;
+    }
+    .Polaris-EmptyState__DetailsContainer {
+      overflow-x: hidden;
+    }
+  }
+}
+@media (min-width: 40em) {
+  .Polaris-EmptyState--withinContentContainer {
+    .Polaris-EmptyState__Content {
+      font-size: 1.4rem;
+    }
+  }
+  .Polaris-EmptyState__Content {
+    font-size: 1.4rem;
+  }
+}

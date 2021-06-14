@@ -2,7 +2,8 @@ PPage example:
 
 ```vue
 <template>
-  <PPage
+    
+    <PPage
       separator
       :secondaryActions="[
         {
@@ -25,7 +26,7 @@ PPage example:
                 {
                   content: 'Share on Facebook',
                   accessibilityLabel: 'Individual action label',
-                  onAction: () => alert('Share on Facebook action'),
+                  onAction: triggerSecondaryAction3,
                 },
               ],
           },
@@ -58,19 +59,22 @@ export default {
   },
   methods: {
     triggerPrimaryAction() {
-      alert(`Saved`)
+        alert(`Saved`)
     },
     triggerSecondaryAction1() {
-      alert(`Duplicate Action`)
+        alert(`Duplicate Action`)
     },
     triggerSecondaryAction2() {
-      alert(`View on your store`)
+        alert(`View on your store`)
+    },
+    triggerSecondaryAction3() {
+      alert(`Share on facebook`)
     },
     handleNext() {
-      alert(`Next`)
+        alert(`Next`)
     },
     handlePrevious() {
-      alert(`Previous`)
+        alert(`Previous`)
     }
   }
 }
@@ -78,10 +82,10 @@ export default {
 ```
 
 Fullwidth Page
-
 ```vue
 <template>
-  <PPage
+    
+    <PPage
       fullWidth
       title="Orders"
       :primaryAction="primaryAction"
@@ -104,15 +108,15 @@ Fullwidth Page
           icon: 'DuplicateMinor'
         },
       ]"
-
+    
       :pagination="{
         hasPrevious: false,
         hasNext: true,
         onNext: handleNext,
         onPrevious: handlePrevious
       }">
-    Wide page content
-  </PPage>
+        Wide page content
+    </PPage>
 </template>
 
 <script>

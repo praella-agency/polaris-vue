@@ -190,3 +190,49 @@
 .Polaris-ActionList__BadgeWrapper {
     margin-left: 1.6rem;
 }
+
+
+.Polaris-ActionMenu-Actions__ActionsLayout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1 1 auto;
+}
+
+.Polaris-ActionMenu-Actions__ActionsLayout > * {
+    flex: 0 0 auto;
+}
+
+
+.Polaris-ActionMenu-RollupActions__RollupActivator {
+    text-align: right;
+}
+
+.Polaris-ActionMenu-RollupActions__RollupActivator button[type='button'] {
+    margin: 0;
+    border: 1px solid rgba(186, 191, 195, 1);
+}
+
+.Polaris-ActionMenu-RollupActions__RollupActivator button[type='button']:hover,
+.Polaris-ActionMenu-RollupActions__RollupActivator button[type='button']:active,
+.Polaris-ActionMenu-RollupActions__RollupActivator button[type='button']:focus {
+    border: 1px solid rgba(186, 191, 195, 1);
+}
+
+
+.Polaris-ActionMenu {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media print {
+    .Polaris-ActionMenu {
+        display: none !important;
+    }
+}
+
+.Polaris-ActionMenu:not(.Polaris-ActionMenu--rollup) {
+    margin-left: 0;
+}

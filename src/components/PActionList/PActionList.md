@@ -28,7 +28,7 @@ export default {
       alert('action 1 handled');
     },
     handleAction2() {
-      alert('action 1 handled');
+      alert('action 2 handled');
     }
   }
 }

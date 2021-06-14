@@ -86,6 +86,11 @@
             this.handleMeasurement();
         }
 
+        public destroyed() {
+          window.removeEventListener('resize', this.handleMeasurement);
+          window.removeEventListener('scroll', this.handleMeasurement);
+        }
+
         public updated() {
             this.overlay = this.$refs.overlay;
         }
