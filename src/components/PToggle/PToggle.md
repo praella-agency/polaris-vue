@@ -7,6 +7,7 @@ PToggle example:
 
 <script>
 export default {
+  title: 'PToggle',
   methods: {
     handleToggleEvent(event) {
       alert(`Toggle changed`)
@@ -22,4 +23,10 @@ Disabled toggle
 <template>
   <PToggle disabled label="Disabled Toggle Button"/>
 </template>
+
+<script>
+export default {
+  title: 'PToggle',
+}
+</script>
 ```
