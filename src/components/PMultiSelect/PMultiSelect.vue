@@ -49,6 +49,7 @@ interface StrictOption {
     value: string;
     label: string;
     disabled?: boolean;
+    $isDisabled?: boolean;
     hidden?: boolean;
 }
 

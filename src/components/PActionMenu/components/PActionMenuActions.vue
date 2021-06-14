@@ -15,7 +15,8 @@
           />
         </div>
       </template>
-      <PActionMenuMenuAction v-else-if="!computedHiddenActions.includes(action)" :key="`MenuAction-${index}`" :getOffsetWidth="handleActionsOffsetWidth" :content="action.content" v-bind="action"/>
+      <PActionMenuMenuAction v-else-if="!computedHiddenActions.includes(action)" :key="`MenuAction-${index}`"
+                             :getOffsetWidth="handleActionsOffsetWidth" :content="action.content" v-bind="action"/>
     </template>
   </div>
 </template>
@@ -120,10 +121,8 @@ export default class PActionMenuActions extends Vue {
   }
 
   public handleResize() {
-    const actionsLayoutRef = this.$refs[this.id];
-    if (actionsLayoutRef) {
-      this.availableWidthRef = actionsLayoutRef.offsetWidth;
-    }
+    const actionsLayoutRef = this.$refs[this.id] as HTMLElement;
+    this.availableWidthRef = actionsLayoutRef.offsetWidth;
 
     // // Set timesMeasured to 0 to allow re-measuring
     this.timesMeasured = 0;

@@ -63,7 +63,7 @@
         }
 
         public mounted() {
-          const actionsLayoutRef = this.$refs[this.id];
+          const actionsLayoutRef = this.$refs[this.id] as HTMLElement;
           if (typeof this.getOffsetWidth === 'function' && actionsLayoutRef) {
             this.getOffsetWidth(actionsLayoutRef.offsetWidth);
           }
