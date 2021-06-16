@@ -1,6 +1,6 @@
 <script lang="tsx">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import ComponentHelpers from '@/ComponentHelpers';
+import ComponentHelpers from '../../../ComponentHelpers.js';
 import PFilterItem from '@/components/PFilter/components/PFilterItem.vue';
 import {classNames, variationName} from '@/utilities/css';
 

@@ -60,7 +60,7 @@ import PCheckableButton from '@/components/PResourceList/components/PCheckableBu
 import PBulkActionButtonWrapper from '@/components/PResourceList/components/PBulkActionButtonWrapper.vue';
 import { PPopover } from '@/components/PPopover';
 import { PActionList } from '@/components/PActionList';
-import ComponentHelpers from '@/ComponentHelpers';
+import ComponentHelpers from '../../../ComponentHelpers';
 import {PSelect} from '@/components/PSelect';
 
 interface BulkActionsInterface {
