@@ -1,18 +1,8 @@
-<template>
-  <div :class="className"
-       :data-buttongroup-segmented="segmented"
-       :data-buttongroup-full-width="fullWidth"
-       :data-buttongroup-connected-top="connectedTop"
-  >
-    <div v-for="(item, key) in ($slots.default || [])" :key="key" class='Polaris-ButtonGroup__Item'>
-      {{ item }}
-    </div>
-  </div>
-</template>
-
 <script lang="tsx">
 import {Component, Vue, Prop} from 'vue-property-decorator';
 import {classNames, variationName} from '@/utilities/css';
+import ComponentHelpers from '../../ComponentHelpers';
+import {PButtonGroupItem} from "@/components/PButtonGroup";
 
 type Spacing = 'extraTight' | 'tight' | 'loose';
 
@@ -58,8 +48,19 @@ export default class PButtonGroup extends Vue {
     console.log(this.$slots.default);
   }
 
-  //
-  // public render(h: any) {
+  public render(createElement: any) {
+    return createElement('div', {
+          class: this.className,
+          dataButtongroupSegmented: this.segmented,
+          dataButtongroupFullWidth: this.fullWidth,
+          dataButtongroupConnectedTop: this.connectedTop,
+        },
+        ComponentHelpers.wrapNodesWithComponent(createElement,
+            this.$slots.default, PButtonGroupItem)
+    );
+
+  }
+  // public renderOld(h: any) {
   //
   //   return (
   //       <div class={this.className}

@@ -29,7 +29,9 @@
         </ul>
 
         <!-- @slot Content for empty search state -->
-        <slot v-if="showEmptySearchState" name="emptySearchState" />
+        <slot v-if="showEmptySearchState" name="emptySearchState">
+          Loading...
+        </slot>
     </div>
 </template>
 
@@ -95,7 +97,7 @@ export default class PResourceList extends Vue {
     public itemsExist = this.$slots.default;
 
     public showEmptyState = this.$slots.emptyState && !this.itemsExist && !this.loading;
-    public showEmptySearchState = !this.showEmptyState && !this.itemsExist && !this.loading;
+    public showEmptySearchState = !this.showEmptyState && !this.itemsExist && this.loading;
 
     public count() {
         if (typeof this.$scopedSlots !== 'undefined'
