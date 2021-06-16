@@ -9,7 +9,7 @@ import {PPagination} from "../PPagination";
 import {PStack} from "../PStack";
 
 export default {
-    title: 'Example/PResourceList',
+    title: 'Lists & Tables / Resource List',
     component: PResourceList,
     parameters: {
         docs: {
@@ -202,86 +202,16 @@ const Template = (args, {argTypes}) => ({
     },
 });
 
-export const Default = Template.bind({});
+export const ResourceList = Template.bind({});
 
-// let pagination = {
-//     total: 12,
-//     hasPrevious: false,
-//     hasNext: true,
-// };
 
-Default.args = {
+ResourceList.args = {
     selectable: true,
     resourceName: {singular: 'Book', plural: 'Books'},
     hasMore: true,
     loading: false,
-    // totalCount: pagination.total,
-    // bulkActions: [
-    //     {content: 'Publish', onAction: 'toggleStatusToPublished'},
-    //     {content: 'Unpublish', onAction: 'toggleStatusToUnpublished'},
-    //     {content: 'Archive', onAction: 'toggleStatusToArchived'},
-    //     {content: 'Delete', onAction: 'deleteSelected'},
-    // ],
-    // items: [
-    //     {
-    //         id: 100,
-    //         name: 'PHP',
-    //         status: true,
-    //     },
-    //     {
-    //         id: 200,
-    //         name: 'Vue',
-    //         status: null,
-    //     },
-    //     {
-    //         id: 300,
-    //         name: 'React',
-    //         status: false,
-    //     },
-    //     {
-    //         id: 400,
-    //         name: 'Python',
-    //         status: false,
-    //     },
-    //     {
-    //         id: 500,
-    //         name: 'Node',
-    //         status: true,
-    //     },
-    //     {
-    //         id: 600,
-    //         name: 'Shopify',
-    //         status: false,
-    //     },
-    //     {
-    //         id: 700,
-    //         name: 'Ruby',
-    //         status: null,
-    //     },
-    //     {
-    //         id: 800,
-    //         name: 'Laravel',
-    //         status: null,
-    //     },
-    //     {
-    //         id: 900,
-    //         name: 'Javascript',
-    //         status: true,
-    //     },
-    //     {
-    //         id: 1000,
-    //         name: 'Angular',
-    //         status: true,
-    //     },
-    // ],
-    // // statusFilterActivate: false,
-    // active: false,
-    // fullWidth: true,
-    // preferredPosition: "mostSpace",
-    // preferredAlignment: "right",
-    // disclosure: "down",
 }
 
-Default.parameters = {
+ResourceList.parameters = {
 
 }
