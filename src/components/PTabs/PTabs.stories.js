@@ -1,7 +1,7 @@
 import PTabs from '@/components/PTabs/PTabs.vue';
 
 export default {
-    title: 'Example/PTabs',
+    title: 'Navigation / Tabs',
     component: PTabs,
 };
 
@@ -17,8 +17,8 @@ const Template = (args, { argTypes }) => ({
     }
 });
 
-export const Default = Template.bind({});
-Default.args = {
+export const Tabs = Template.bind({});
+Tabs.args = {
     tabs: [
         {
             id: 'collections',
