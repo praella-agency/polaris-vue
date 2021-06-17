@@ -8,9 +8,9 @@ export default {
 const Template = (args, { argTypes }) => ({
     props: Object.keys(argTypes),
     components: { PTabs },
-    template: '<PTabs v-bind="$props" @select="select"/>',
+    template: '<PTabs v-bind="$props" @select="selectMenu"/>',
     methods: {
-        select(menuIndex) {
+        selectMenu(menuIndex) {
             this.selected = menuIndex;
             alert('Tab changed.' + this.tabs[this.selected].path);
         },
@@ -18,6 +18,7 @@ const Template = (args, { argTypes }) => ({
 });
 
 export const Default = Template.bind({});
+
 Default.args = {
     tabs: [
         {

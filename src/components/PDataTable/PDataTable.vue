@@ -169,7 +169,7 @@
          * Type of a column
          * @values text | numeric
          */
-        @Prop({ type: Array, default: () => [] }) public columnContentTypes!: ColumnContentType[];
+        @Prop({ type: Array, default: () => [], required: true }) public columnContentTypes!: ColumnContentType[];
 
         /**
          * Heading list
@@ -272,25 +272,17 @@
         }
 
     public mounted() {
-
       let loadingPosition = 0;
 
       if (typeof window !== 'undefined' && this.$refs.hasOwnProperty('tbody')) {
-
         const overlay = (this.$refs.tbody as Element).getBoundingClientRect();
-
         const viewportHeight = Math.max(document.documentElement ?
             document.documentElement.clientHeight : 0, window.innerHeight || 0);
-
         const overflow = viewportHeight - overlay.height;
-
         const spinnerHeight = this.rows.length === 1 ? 28 : 45;
-
         loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
             (viewportHeight - overlay.top - spinnerHeight) / 2;
-
         loadingPosition = loadingPosition + (this.$refs.thead as Element).getBoundingClientRect().height;
-
         this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
       }
     }

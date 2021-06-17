@@ -4,6 +4,7 @@ PResourceList example:
 <template>
   <PCard>
     <PResourceList
+        loading
         selectable
         :hasMore="pagination.hasPrevious || pagination.hasNext"
         :totalCount="pagination.total"

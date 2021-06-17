@@ -2,9 +2,10 @@
 import {Component, Vue, Prop} from 'vue-property-decorator';
 import {classNames, variationName} from '@/utilities/css';
 import ComponentHelpers from '../../ComponentHelpers';
-import {PButtonGroupItem} from "@/components/PButtonGroup";
+import {PButtonGroupItem} from '@/components/PButtonGroup';
 
 type Spacing = 'extraTight' | 'tight' | 'loose';
+
 
 @Component
 
@@ -44,10 +45,6 @@ export default class PButtonGroup extends Vue {
     );
   }
 
-  public mounted() {
-    console.log(this.$slots.default);
-  }
-
   public render(createElement: any) {
     return createElement('div', {
           class: this.className,
@@ -56,24 +53,9 @@ export default class PButtonGroup extends Vue {
           dataButtongroupConnectedTop: this.connectedTop,
         },
         ComponentHelpers.wrapNodesWithComponent(createElement,
-            this.$slots.default, PButtonGroupItem)
+            this.$slots.default, PButtonGroupItem),
     );
 
   }
-  // public renderOld(h: any) {
-  //
-  //   return (
-  //       <div class={this.className}
-  //            data-buttongroup-segmented={this.segmented}
-  //            data-buttongroup-full-width={this.fullWidth}
-  //            data-buttongroup-connected-top={this.connectedTop}>
-  //         {(this.$slots.default || []).map((item: any) => (
-  //             <div class='Polaris-ButtonGroup__Item'>
-  //               {item}
-  //             </div>
-  //         ))}
-  //       </div>
-  //   );
-  // }
 }
 </script>

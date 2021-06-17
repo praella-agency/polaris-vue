@@ -6,7 +6,7 @@
                 <slot name="filter" ></slot>
             </PFilter>
         </div>
-        <div class="Polaris-ResourceList__HeaderOuterWrapper">
+        <div ref="PResourceListHeader" class="Polaris-ResourceList__HeaderOuterWrapper">
             <PResourceListHeader
                     v-bind="$attrs"
                     :selectable="selectable"
@@ -30,7 +30,10 @@
 
         <!-- @slot Content for empty search state -->
         <slot v-if="showEmptySearchState" name="emptySearchState">
-          Loading...
+          <div class="Polaris-ResourceList__SpinnerContainer" :style="{'padding-top': `${topPadding}px`}">
+            <PSpinner size="large" />
+          </div>
+          <div class="Polaris-ResourceList__LoadingOverlay"></div>
         </slot>
     </div>
 </template>
@@ -41,6 +44,7 @@ import { classNames, variationName } from '@/utilities/css';
 import {PImage} from '@/components/PImage';
 import PResourceListHeader from '@/components/PResourceList/components/PResourceListHeader.vue';
 import PFilter from '@/components/PFilter/PFilter.vue';
+import {PSpinner} from '@/components/PSpinner';
 
 interface ResourceNameInterface {
     singular: string;
@@ -52,6 +56,7 @@ interface ResourceNameInterface {
         PFilter,
         PResourceListHeader,
         PImage,
+        PSpinner,
     },
 })
 export default class PResourceList extends Vue {
@@ -98,6 +103,24 @@ export default class PResourceList extends Vue {
 
     public showEmptyState = this.$slots.emptyState && !this.itemsExist && !this.loading;
     public showEmptySearchState = !this.showEmptyState && !this.itemsExist && this.loading;
+
+    public topPadding = 8;
+
+    public mounted() {
+      let loadingPosition = 0;
+
+      if (typeof window !== 'undefined' && this.$refs.hasOwnProperty('PResourceListHeader')) {
+        const overlay = (this.$refs.PResourceListHeader as Element).getBoundingClientRect();
+        const viewportHeight = Math.max(document.documentElement ?
+            document.documentElement.clientHeight : 0, window.innerHeight || 0);
+        const overflow = viewportHeight - overlay.height;
+        const spinnerHeight = 45;
+        loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
+            (viewportHeight - overlay.top - spinnerHeight) / 2;
+        loadingPosition = loadingPosition + (this.$refs.PResourceListHeader as Element).getBoundingClientRect().height;
+        this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
+      }
+    }
 
     public count() {
         if (typeof this.$scopedSlots !== 'undefined'
