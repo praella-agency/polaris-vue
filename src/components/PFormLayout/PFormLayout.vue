@@ -19,6 +19,9 @@ export default class PFormLayout extends Vue {
     public render(createElement: any) {
         return createElement('div', {
           class: 'Polaris-FormLayout',
+          attrs: {
+            id: this.id,
+          },
         },
         ComponentHelpers.wrapNodesWithComponent(createElement,
             this.$slots.default, PFormLayoutItem),
