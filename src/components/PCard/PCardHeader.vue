@@ -21,13 +21,12 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Prop } from 'vue-property-decorator';
-    import { classNames, variationName } from '@/utilities/css';
+    import { Component, Vue } from 'vue-property-decorator';
 
-    import { PHeading } from '@/components/PHeading';
+    import { PStack, PStackItem } from '@/components/PStack';
 
     @Component({
-        components: { PHeading },
+        components: { PStack, PStackItem },
     })
     export default class PCardHeader extends Vue {
     }

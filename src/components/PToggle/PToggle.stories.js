@@ -1,7 +1,7 @@
 import PToggle from './PToggle.vue';
 
 export default {
-    title: 'Example/PToggle',
+    title: 'Forms / Toggle',
     component: PToggle,
     argTypes: {
        label: {
@@ -18,8 +18,8 @@ const Template = (args, { argTypes }) => ({
     template: '<PToggle v-bind="$props"/>'
 });
 
-export const Default = Template.bind({});
+export const Toggle = Template.bind({});
 
-Default.args = {
+Toggle.args = {
     label: 'Toggle Switch'
 }

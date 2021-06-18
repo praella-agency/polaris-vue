@@ -1,13 +1,8 @@
 <script lang="tsx">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
-import { CallbackAction, LinkAction } from '@/types';
 import { PUnstyledLink } from '@/components/PUnstyledLink';
 import { PIcon } from '@/components/PIcon';
-
-export interface PBreadcrumbsProps {
-    breadcrumbs: Array<CallbackAction | LinkAction>;
-}
 
 @Component({
     components: {
@@ -20,7 +15,7 @@ export default class PBreadcrumbs extends Vue {
     /**
      * Collection of breadcrumbs
      */
-    @Prop({type: Array, default: []}) public breadcrumbs!: PBreadcrumbsProps['breadcrumbs'];
+    @Prop({type: Array, default: Array}) public breadcrumbs!: [];
 
     public render(h: any) {
 

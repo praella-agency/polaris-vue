@@ -93,7 +93,9 @@ interface DateRange {
 }
 
 @Component({
-  components: {DateRangePicker, PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect},
+  components: {
+    DateRangePicker, PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField,
+  },
 })
 export default class PDatePicker extends Vue {
 

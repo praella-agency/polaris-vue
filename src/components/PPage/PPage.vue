@@ -29,7 +29,7 @@
 import {Component, Vue, Prop} from 'vue-property-decorator';
 import {classNames} from '@/utilities/css';
 import {PPageHeader, PPageHeaderProps} from './components';
-import {PBreadcrumbsProps} from '@/components/PBreadcrumbs';
+
 import {
     DestructableAction,
     DisableableAction, IconableAction,
@@ -104,7 +104,7 @@ export default class PPage extends Vue {
     /**
      * Collection of breadcrumbs
      */
-    @Prop({type: Array, default: () => []}) public breadcrumbs!: PBreadcrumbsProps['breadcrumbs'];
+    @Prop({type: Array, default: Array}) public breadcrumbs!: [];
 
     public get hasHeaderContent() {
         return (this.title != null && this.title !== '') ||

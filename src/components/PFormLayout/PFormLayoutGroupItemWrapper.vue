@@ -1,7 +1,7 @@
 <script lang="tsx">
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import {PFormLayoutItem} from '@/components/PFormLayout/index';
-    import ComponentHelpers from '@/ComponentHelpers';
+    import ComponentHelpers from '../../ComponentHelpers';
 
     @Component
     export default class PFormLayoutGroupItemWrapper extends Vue {

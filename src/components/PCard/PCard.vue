@@ -53,11 +53,11 @@
     import PCardFooter from '@/components/PCard/PCardFooter.vue';
     import { PHeading } from '@/components/PHeading';
     import { PCaption } from '@/components/PCaption';
+    import { PButtonGroup } from '@/components/PButtonGroup';
 
     @Component({
         components: {
-            PCardFooter,
-            PCardHeader, PCardSection, PHeading, PCaption,
+            PCardFooter, PCardHeader, PCardSection, PHeading, PCaption, PButtonGroup,
         },
     })
 

@@ -4,7 +4,7 @@ import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';
 
 export default {
-    title: 'Example/PDataTable',
+    title: 'Lists & Tables / Data Table',
     component: PDataTable,
     argTypes: {
         verticalAlign: {
@@ -130,9 +130,9 @@ const Template = (args, {argTypes}) => ({
     }
 });
 
-export const Default = Template.bind({});
+export const DataTable = Template.bind({});
 
-Default.args = {
+DataTable.args = {
     sort: {value: 'price', direction: 'ascending'},
     hasPagination: true,
     actions: [

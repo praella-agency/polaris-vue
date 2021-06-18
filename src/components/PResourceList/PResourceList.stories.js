@@ -9,7 +9,7 @@ import { PPagination } from '../PPagination';
 import { PStack } from '../PStack';
 
 export default {
-    title: 'Example/PResourceList',
+    title: 'Lists & Tables / Resource List',
     component: PResourceList,
     argTypes: {
         selected: {
@@ -202,9 +202,9 @@ const Template = (args, {argTypes}) => ({
     },
 });
 
-export const Default = Template.bind({});
+export const ResourceList = Template.bind({});
 
-Default.args = {
+ResourceList.args = {
     selectable: true,
     resourceName: {singular: 'Book', plural: 'Books'},
     hasMore: true,

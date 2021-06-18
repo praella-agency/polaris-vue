@@ -55,7 +55,7 @@ export default class PFilter extends Vue {
      * Applied filters which are rendered as tags.
      * The remove callback is called with respective key
      */
-    @Prop({type: Array, default: () => []}) public appliedFilters!: AppliedFiltersInterface[];
+    @Prop({type: Array, default: Array}) public appliedFilters!: AppliedFiltersInterface[];
 
     public get prefix() {
 

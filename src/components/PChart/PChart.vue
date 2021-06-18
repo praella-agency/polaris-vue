@@ -71,7 +71,7 @@ export default class PChart extends Vue {
    * Visit this [Documentation](https://apexcharts.com/docs/options/annotations/)
    * to get detailed option values.
    */
-  @Prop({type: Object, default: () => ({})}) public chartOptions!: object;
+  @Prop({type: Object, default: Object}) public chartOptions!: object;
 
   /**
    * Method to getChartObject

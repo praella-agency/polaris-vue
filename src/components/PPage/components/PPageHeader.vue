@@ -64,7 +64,7 @@ import {
   IconableAction,
 } from '@/types';
 import {PTextStyle} from '@/components/PTextStyle';
-import {PBreadcrumbs, PBreadcrumbsProps} from '@/components/PBreadcrumbs';
+import {PBreadcrumbs} from '@/components/PBreadcrumbs';
 import {PPagination, PPaginationDescriptor} from '@/components/PPagination';
 import {PActionMenu, hasGroupsWithActions} from '@/components/PActionMenu';
 import {PButton} from '@/components/PButton';
@@ -87,7 +87,7 @@ export interface PPageHeaderProps extends PPageHeaderTitleProps {
   separator?: boolean;
   primaryAction?: PrimaryAction;
   pagination?: PPaginationDescriptor;
-  breadcrumbs?: PBreadcrumbsProps['breadcrumbs'];
+  breadcrumbs?: [];
   secondaryActions?: MenuActionDescriptor[];
   actionGroups?: MenuGroupDescriptor[];
   additionalMetaData?: string;
@@ -122,7 +122,7 @@ export default class PPageHeader extends Vue {
   @Prop(Boolean) public separator!: boolean;
   @Prop(Object) public primaryAction!: PrimaryAction;
   @Prop(Object) public pagination!: PPaginationDescriptor;
-  @Prop({type: Array, default: () => []}) public breadcrumbs!: PBreadcrumbsProps['breadcrumbs'];
+  @Prop({type: Array, default: Array}) public breadcrumbs!: [];
   @Prop({type: Array, default: () => []}) public secondaryActions!: MenuActionDescriptor[];
   @Prop({type: Array, default: () => []}) public actionGroups!: MenuGroupDescriptor[];
 

@@ -6,9 +6,7 @@ import {PButtonGroupItem} from '@/components/PButtonGroup';
 
 type Spacing = 'extraTight' | 'tight' | 'loose';
 
-
 @Component
-
 export default class PButtonGroup extends Vue {
 
   /**
@@ -55,7 +53,6 @@ export default class PButtonGroup extends Vue {
         ComponentHelpers.wrapNodesWithComponent(createElement,
             this.$slots.default, PButtonGroupItem),
     );
-
   }
 }
 </script>
