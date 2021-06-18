@@ -11,7 +11,7 @@
                     <PCaption>{{shortDescription}}</PCaption>
                 </slot>
                 <slot slot="actions" name="actions">
-                    <PButtonGroup connectedTop>
+                    <PButtonGroup  connectedTop>
                         <PLink v-for="(action, index) in actions" :url="action.url" :key="index" > {{ action.content }} </PLink>
                     </PButtonGroup>
                 </slot>

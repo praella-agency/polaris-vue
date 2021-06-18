@@ -10,13 +10,15 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PLayout, PCard,
+        PLayout, PCard, PLayoutSection
     },
     template: `
       <PLayout v-bind="$props">
-        <PCard sectioned>
-          View a summary of your online store’s performance
-        </PCard>
+        <PLayoutSection>
+          <PCard sectioned>
+            View a summary of your online store’s performance
+          </PCard>
+        </PLayoutSection>
       </PLayout>`,
 });
 
@@ -32,7 +34,7 @@ const Template1 = (args, {argTypes}) => ({
        PLayout, PLayoutSection, PCard,
     },
     template: `
-      <PLayout>
+      <PLayout v-bind="$props">
           <PLayoutSection>
             <PCard sectioned title="Order details">
               View a summary of your order.
@@ -54,7 +56,7 @@ const Template2 = (args, {argTypes}) => ({
        PLayout, PLayoutSection, PCard,
     },
     template: `
-      <PLayout>
+      <PLayout v-bind="$props">
           <PLayoutSection one-half>
             <PCard sectioned title="Order details">
               View a summary of your order.
@@ -76,7 +78,7 @@ const Template3 = (args, {argTypes}) => ({
        PLayout, PLayoutSection, PCard,
     },
     template: `
-      <PLayout>
+      <PLayout v-bind="$props">
           <PLayoutSection oneThird>
             <PCard sectioned title="Order details">
               View a summary of your order.

@@ -41,6 +41,7 @@ Chart.args = {
         'Italy', 'France', 'Japan', 'United States', 'India',
         'Germany',
     ],
+    chartOptions: {},
 }
 
 const Template1 = (args, {argTypes}) => ({

@@ -3,16 +3,28 @@ import PTabs from '@/components/PTabs/PTabs.vue';
 export default {
     title: 'Navigation / Tabs',
     component: PTabs,
+    argTypes: {
+        selected: {
+            control: {
+                type: 'none'
+            }
+        }
+    }
 };
 
 const Template = (args, { argTypes }) => ({
     props: Object.keys(argTypes),
     components: { PTabs },
-    template: '<PTabs v-bind="$props" @select="selectMenu"/>',
+    data() {
+        return {
+            selectedTab: 0
+        }
+    },
+    template: '<PTabs v-bind="$props" @select="selectMenu" :selected="selectedTab"/>',
     methods: {
         selectMenu(menuIndex) {
-            this.selected = menuIndex;
-            alert('Tab changed.' + this.tabs[this.selected].path);
+            this.selectedTab = menuIndex;
+            alert('Tab changed.' + this.tabs[this.selectedTab].path);
         },
     }
 });
@@ -42,6 +54,5 @@ Tabs.args = {
             path: '/products'
         },
     ],
-    selected: 0,
 }
 

@@ -51,7 +51,7 @@ export default class PButtonGroup extends Vue {
           dataButtongroupConnectedTop: this.connectedTop,
         },
         ComponentHelpers.wrapNodesWithComponent(createElement,
-            this.$slots.default, PButtonGroupItem),
+            this.$slots.default || [], PButtonGroupItem),
     );
   }
 }
