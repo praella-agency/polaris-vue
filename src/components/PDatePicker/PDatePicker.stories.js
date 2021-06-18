@@ -7,7 +7,7 @@ export default {
         singleDatePicker: {
             options: [true, false],
             control: {
-                type: 'radio',
+                type: 'boolean',
             },
         },
         opens: {

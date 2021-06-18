@@ -5,6 +5,13 @@ import { PCard } from '../PCard';
 export default {
     title: 'Structure / Layout',
     component: PLayout,
+    argTypes: {
+        default: {
+            table: {
+                disable: true,
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({

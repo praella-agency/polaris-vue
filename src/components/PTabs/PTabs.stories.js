@@ -8,8 +8,13 @@ export default {
             control: {
                 type: 'none'
             }
-        }
-    }
+        },
+        default: {
+            table: {
+                disable: true,
+            },
+        },
+    },
 };
 
 const Template = (args, { argTypes }) => ({
@@ -18,7 +23,7 @@ const Template = (args, { argTypes }) => ({
     data() {
         return {
             selectedTab: 0
-        }
+        };
     },
     template: '<PTabs v-bind="$props" @select="selectMenu" :selected="selectedTab"/>',
     methods: {

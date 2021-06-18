@@ -11,6 +11,11 @@ export default {
                 type: 'text',
             },
         },
+        default: {
+            table: {
+                disable: true,
+            },
+        },
     },
 }
 
@@ -21,12 +26,12 @@ const Template = (args, {argTypes}) => ({
     },
     template: `
       <PFormLayout>
-          <PFormLayoutGroup v-bind="$props">
-            <PTextField type='currency' label="Price" align="right" suffix="$" />
-            <PTextField type='number' label="Minimum order" />
-            <PTextField type='number' label="Maximum order" />
-            <PTextField type='text' label="Product" />
-          </PFormLayoutGroup>
+      <PFormLayoutGroup v-bind="$props">
+        <PTextField type='currency' label="Price" align="right" suffix="$"/>
+        <PTextField type='number' label="Minimum order"/>
+        <PTextField type='number' label="Maximum order"/>
+        <PTextField type='text' label="Product"/>
+      </PFormLayoutGroup>
       </PFormLayout>`,
 });
 

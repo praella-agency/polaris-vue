@@ -155,11 +155,9 @@ export default class PButton extends Vue {
 
   /**
    * Displays the button with a disclosure icon.
-   *
-   * Defaults to `down` when set to true.
    * @values up | down | true | false
    */
-  @Prop([Boolean, String]) public disclosure!: boolean|string;
+  @Prop({type: [Boolean, String], default: false}) public disclosure!: boolean|string;
 
   /**
    * Changes the size of the button, giving it more or less padding

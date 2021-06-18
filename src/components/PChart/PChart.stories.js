@@ -7,10 +7,10 @@ export default {
         type: {
             options: ['bar', 'line'],
             control: {
-                type: 'radio'
-            }
-        }
-    }
+                type: 'boolean',
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({

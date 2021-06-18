@@ -75,9 +75,7 @@ export default class PResourceList extends Vue {
 
     /**
      * Whether or not there are more items than currently set
-     * on the items prop. Determines whether or not to set
-     * the paginatedSelectAllAction and paginatedSelectAllText
-     * props on the BulkActions component.
+     * on the items prop
      * @values true | false
      */
     @Prop({type: Boolean, default: false}) public hasMore!: boolean;

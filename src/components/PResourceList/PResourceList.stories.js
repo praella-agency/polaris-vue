@@ -16,8 +16,23 @@ export default {
             control: {
                 type: 'none'
             }
-        }
-    }
+        },
+        default: {
+            table: {
+                disable: true,
+            },
+        },
+        emptySearchState: {
+            table: {
+                disable: true,
+            },
+        },
+        filter: {
+            table: {
+                disable: true,
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({
