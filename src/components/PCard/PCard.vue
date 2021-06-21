@@ -21,7 +21,7 @@
 
         <div v-if="$slots.hasOwnProperty('default') && $slots.default.filter((item)=>{return item.tag !== undefined || (item.text && item.text.trim().length > 0)}).length === 1">
             <template v-if="sectioned">
-                <PCardSection>
+                <PCardSection :subdued="subdued">
                     <!-- @slot Body content for the card -->
                     <slot name="default" />
                 </PCardSection>
@@ -99,7 +99,6 @@
         public get className() {
             return classNames(
                 'Polaris-Card',
-                this.subdued && 'Polaris-Card--subdued',
             );
         }
     }

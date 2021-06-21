@@ -80,7 +80,7 @@ const Template1 = (args, {argTypes}) => ({
     },
     template: `
       <PTextField v-bind="$props">
-        <PIcon source="CustomersMajorFilled" slot="prefix" />
+        <PIcon source="DeleteMajor" slot="prefix" />
       </PTextField>`,
 });
 
