@@ -54,10 +54,11 @@
     import { PHeading } from '@/components/PHeading';
     import { PCaption } from '@/components/PCaption';
     import { PButtonGroup } from '@/components/PButtonGroup';
+    import { PLink } from '@/components/PLink';
 
     @Component({
         components: {
-            PCardFooter, PCardHeader, PCardSection, PHeading, PCaption, PButtonGroup,
+            PCardFooter, PCardHeader, PCardSection, PHeading, PCaption, PButtonGroup, PLink
         },
     })
 
