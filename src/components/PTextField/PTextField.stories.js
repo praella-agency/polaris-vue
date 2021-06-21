@@ -8,7 +8,7 @@ export default {
     component: PTextField,
     argTypes: {
         type: {
-            options: ['text', 'password', 'number', 'currency', 'date', 'time', 'datetime-local', 'week', 'month',
+            options: ['text', 'password', 'number', 'date', 'time', 'datetime-local', 'week', 'month',
                 'email'],
             control: {
                 type: 'select',

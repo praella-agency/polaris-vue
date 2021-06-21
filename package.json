@@ -41,7 +41,6 @@
     "core-js": "^3.3.2",
     "dayjs": "^1.10.4",
     "v-click-outside": "^3.0.1",
-    "v-tooltip": "^2.1.2",
     "vue": "^2.6.10",
     "vue-apexcharts": "^1.6.1",
     "vue-class-component": "^7.0.2",

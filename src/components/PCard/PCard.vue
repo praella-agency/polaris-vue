@@ -19,9 +19,9 @@
             </PCardHeader>
         </template>
 
-        <div v-if="$slots.hasOwnProperty('default') && $slots.default.filter((item)=>{return item.tag !== undefined || (item.text && item.text.trim().length > 0)}).length === 1">
+        <template v-if="$slots.hasOwnProperty('default')">
             <template v-if="sectioned">
-                <PCardSection :subdued="subdued">
+                <PCardSection>
                     <!-- @slot Body content for the card -->
                     <slot name="default" />
                 </PCardSection>
@@ -30,7 +30,7 @@
                 <!-- @slot Body content for the card -->
                 <slot name="default" />
             </template>
-        </div>
+        </template>
         <div v-else>
             <slot/>
         </div>
@@ -58,7 +58,7 @@
 
     @Component({
         components: {
-            PCardFooter, PCardHeader, PCardSection, PHeading, PCaption, PButtonGroup, PLink
+            PCardFooter, PCardHeader, PCardSection, PHeading, PCaption, PButtonGroup, PLink,
         },
     })
 
@@ -89,7 +89,7 @@
         /**
          * Actions for Header
          */
-        @Prop({type: Array, default: () => []}) public actions!: [];
+        @Prop({type: Array, default: []}) public actions!: [];
 
         public get hasActions() {
 

@@ -42,7 +42,7 @@ const Template = (args, {argTypes}) => ({
         PButton,
     },
     template: `
-      <PButton v-bind="$props" v-tooltip="'This is example button'" @click="handleButtonEvent('click')">
+      <PButton v-bind="$props" @click="handleButtonEvent('click')">
         Button
       </PButton>`,
     methods: {
