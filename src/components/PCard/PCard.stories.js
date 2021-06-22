@@ -115,11 +115,13 @@ const Template2 = (args, {argTypes}) => ({
             statusFilterActive: false,
             items: [
                 {
+                    id: 1,
                     sales: 'Orders',
                     amount: 'USD$0.00',
                     url: 'reports/orders',
                 },
                 {
+                    id: 2,
                     sales: 'Returns',
                     amount: '-USD$250.00',
                     url: 'reports/returns',
@@ -130,20 +132,18 @@ const Template2 = (args, {argTypes}) => ({
     template: `
         <PCard v-bind="$props">
             <PCardHeader>
-              <div slot="actions">
-                  <PPopover
-                      :active="false",
-                      @close="statusFilterActive = false"
-                  >
-                    <PButton
-                        slot="activator"
-                        :disclosure="statusFilterActive ? 'up' : 'down'"
-                        @click.stop="statusFilterActive = !statusFilterActive"
-                    >
-                      Status
-                    </PButton>
-                  </PPopover>
-              </div>
+              <PPopover
+                  :active="false",
+                  @close="statusFilterActive = false"
+              >
+                <PButton
+                    slot="activator"
+                    :disclosure="statusFilterActive ? 'up' : 'down'"
+                    @click.stop="statusFilterActive = !statusFilterActive"
+                >
+                  Status
+                </PButton>
+              </PPopover>
             </PCardHeader>
             
             <PCardSection>
@@ -154,21 +154,34 @@ const Template2 = (args, {argTypes}) => ({
             </PCardSection>
             
             <PCardSection title="Total Sales Breakdown">
-<!--              <PResourceList-->
-<!--                  :resource-name="{singular: 'Sale', plural: 'Sales'}"-->
-<!--              >-->
-<!--                <PResourceListItem-->
-<!--                    v-for="(item, key) in items"-->
-<!--                    :key="key"-->
-<!--                    :id="item.id"-->
-<!--                >-->
-<!--                  <PStack>-->
-<!--                    <PStackItem>-->
-<!--                      -->
-<!--                    </PStackItem>-->
-<!--                  </PStack>-->
-<!--                </PResourceListItem>-->
-<!--              </PResourceList>-->
+              <PResourceList
+                  :resource-name="{singular: 'Sale', plural: 'Sales'}"
+              >
+                <PResourceListItem
+                    v-for="(item, key) in items"
+                    :key="key"
+                    :id="item.id"
+                >
+                  <PStack>
+                    <PStackItem fill>{{ item.sales }}</PStackItem>
+                    <PStackItem>{{ item.amount }}</PStackItem>
+                  </PStack>
+                </PResourceListItem>
+              </PResourceList>
+            </PCardSection>
+            
+            <PCardSection title="Deactivated reports" subdued>
+              <PList>
+                <PListItem>Payouts</PListItem>
+                <PListItem>Total Sales By Channel</PListItem>
+              </PList>
+            </PCardSection>
+            
+            <PCardSection title="Note">
+              <PTextContainer>
+                The sales reports are available only if your store is on the Shopify plan
+                or higher.
+              </PTextContainer>
             </PCardSection>
             
             <PButtonGroup slot="footer">
@@ -195,4 +208,5 @@ AllElements.args = {
             content: 'Total Sales',
         }
     ],
+    subdued: true,
 }

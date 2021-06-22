@@ -89,7 +89,7 @@
         /**
          * Actions for Header
          */
-        @Prop({type: Array, default: []}) public actions!: [];
+        @Prop({type: Array, default: () => []}) public actions!: [];
 
         public get hasActions() {
 

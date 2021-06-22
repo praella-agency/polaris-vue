@@ -132,7 +132,7 @@ const Template = (args, {argTypes}) => ({
                     {content: 'Unpublish', onAction: 'toggleStatusToUnpublished'},
                     {content: 'Archive', onAction: 'toggleStatusToArchived'},
                     {content: 'Delete', onAction: 'deleteSelected'},
-                ]"
+              ]"
               @change="toggleSelected"
           >
             <template slot="filter">

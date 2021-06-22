@@ -39,6 +39,12 @@ export default {
                 disable: true,
             },
         },
+        input: {
+            description: 'Get inserted data',
+            table: {
+                category: 'events',
+            },
+        },
     },
 }
 
@@ -53,7 +59,11 @@ const Template = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PTextField v-bind="$props" :value="this.formData" @input="getData"/>`,
+      <PTextField 
+          v-bind="$props" 
+          :value="this.formData" 
+          @input="getData"
+      />`,
     methods: {
         getData(value) {
             this.formData = value;

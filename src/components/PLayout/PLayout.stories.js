@@ -1,6 +1,10 @@
 import PLayout from './PLayout';
 import PLayoutSection from './PLayoutSection';
 import { PCard } from '../PCard';
+import { PBanner } from '../PBanner';
+import PLayoutAnnotatedSection from './PLayoutAnnotatedSection';
+import { PFormLayout } from '../PFormLayout';
+import { PTextField } from '../PTextField';
 
 export default {
     title: 'Structure / Layout',
@@ -55,7 +59,7 @@ const Template1 = (args, {argTypes}) => ({
       </PLayout>`,
 });
 
-export const TowColumnWithPrimaryAndSecondaryWidth = Template1.bind({});
+export const TwoColumnWithPrimaryAndSecondaryWidth = Template1.bind({});
 
 const Template2 = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
@@ -106,3 +110,35 @@ const Template3 = (args, {argTypes}) => ({
 
 export const ThreeColumnsWithEqualWidth = Template3.bind({});
 
+const Template4 = (args, { argTypes }) => ({
+    props: Object.keys(argTypes),
+    components: {
+        PLayout, PLayoutSection, PBanner, PLayoutAnnotatedSection, PCard, PFormLayout, PTextField
+    },
+    template: `
+        <PLayout v-bind="$props">
+          <PLayoutSection>
+            <PBanner title="Order archived" :action="{}" @dismiss="handleDismissAction">
+              <p>This order was archived on March 7, 2017 at 3:12pm EDT.</p>        
+            </PBanner>
+          </PLayoutSection>
+          <PLayoutAnnotatedSection 
+              title="Store details" 
+              description="Shopify and your customers will use this information to contact you."
+          >
+            <PCard sectioned>
+              <PFormLayout>
+                <PTextField label="Store name"></PTextField>
+                <PTextField type="email" label="Account email"></PTextField>
+              </PFormLayout>
+            </PCard>  
+          </PLayoutAnnotatedSection>
+        </PLayout>`,
+    methods: {
+        handleDismissAction() {
+            alert('Dismiss');
+        },
+    },
+});
+
+export const AnnotatedLayout = Template4.bind({});
