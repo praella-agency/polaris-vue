@@ -14,18 +14,28 @@ export default {
             options: ['slim', 'medium', 'large', null],
             control: {
                 type: 'select',
+                labels: {
+                    null: 'Default',
+                }
+
             },
         },
         textAlign: {
             options: ['left', 'right', 'center', null],
             control: {
                 type: 'select',
+                labels: {
+                    null: 'Default',
+                }
             },
         },
         type: {
             options: ['submit', 'button', 'reset', null],
             control: {
                 type: 'select',
+                labels: {
+                    null: 'Default',
+                }
             },
         },
         default: {

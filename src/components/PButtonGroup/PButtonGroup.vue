@@ -46,9 +46,12 @@ export default class PButtonGroup extends Vue {
   public render(createElement: any) {
     return createElement('div', {
           class: this.className,
-          dataButtongroupSegmented: this.segmented,
-          dataButtongroupFullWidth: this.fullWidth,
-          dataButtongroupConnectedTop: this.connectedTop,
+          attrs: {
+            'data-buttongroup-segmented': this.segmented,
+            'data-buttongroup-full-width': this.fullWidth,
+            'data-buttongroup-connected-top': this.connectedTop,
+          },
+
         },
         ComponentHelpers.wrapNodesWithComponent(createElement,
             this.$slots.default || [], PButtonGroupItem),

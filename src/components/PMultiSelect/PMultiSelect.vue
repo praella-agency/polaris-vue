@@ -93,7 +93,7 @@ export default class PMultiSelect extends Vue {
     @Prop({type: Boolean, default: true}) public searchable!: boolean;
 
     /**
-     * Taggable feature for PMultiSelect.
+     * Taggable provides ability to add new user-input value on multiselect.
      * @values true | false
      */
     @Prop({type: Boolean, default: false}) public taggable!: boolean;
