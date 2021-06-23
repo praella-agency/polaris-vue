@@ -158,7 +158,7 @@
         public set computedValue(value: string|number) {
             this.selected = value;
             /**
-             * Event for option changed
+             * Callback when selection is changed
              * @property {event}
              */
             this.$emit('change', value);

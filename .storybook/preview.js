@@ -15,7 +15,6 @@ export const parameters = {
       method: "alphabetical",
       order: [
         "Introduction",
-        ["Actions", "Structure", "Forms", "Image and icons", "Feedback indicators", "Titles and text", "Behaviour", "List & Tables", "Navigation", "Overlays"],
       ]
     }
   },

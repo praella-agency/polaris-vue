@@ -4,17 +4,22 @@ export default {
     title: 'Forms / Toggle',
     component: PToggle,
     argTypes: {
-       label: {
-           control: {
-               type: 'text',
-           }
-       }
-    }
-};
+        label: {
+            control: {
+                type: 'text',
+            },
+            table: {
+                type: {
+                    summary: 'string',
+                },
+            },
+        },
+    },
+}
 
-const Template = (args, { argTypes }) => ({
+const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
-    components: { PToggle },
+    components: {PToggle},
     template: '<PToggle v-bind="$props"/>'
 });
 

@@ -8,6 +8,10 @@ export default {
     component: PTextField,
     argTypes: {
         type: {
+            type: {
+                name: 'select'
+            },
+            description: 'Determine type of input',
             options: ['text', 'password', 'number', 'date', 'time', 'datetime-local', 'week', 'month',
                 'email'],
             control: {
@@ -18,15 +22,30 @@ export default {
             control: {
                 type: 'text',
             },
+            table: {
+                type: {
+                    summary: 'string',
+                },
+            },
         },
         prefix: {
             control: {
                 type: 'text',
             },
+            table: {
+                type: {
+                    summary: 'string',
+                },
+            },
         },
         label: {
             control: {
                 type: 'text',
+            },
+            table: {
+                type: {
+                    summary: 'string',
+                },
             },
         },
         connectedLeft: {
@@ -42,8 +61,29 @@ export default {
         input: {
             description: 'Get inserted data',
             table: {
+                type: {
+                    summary: null,
+                },
                 category: 'events',
             },
+        },
+        disabled: {
+            type: {
+                name: 'boolean',
+            },
+            description: 'Disable the input',
+        },
+        minHeight: {
+            type: {
+                name: 'number',
+            },
+            description: 'Minimum height for the input (If `multiline` is true)',
+        },
+        multiline: {
+            type: {
+                name: 'boolean',
+            },
+            description: 'Allow for multiple lines of input',
         },
     },
 }
@@ -55,7 +95,7 @@ const Template = (args, {argTypes}) => ({
     },
     data() {
         return {
-            formData: ''
+            formData: 'Hello World!'
         };
     },
     template: `
@@ -90,7 +130,7 @@ const Template1 = (args, {argTypes}) => ({
     },
     template: `
       <PTextField v-bind="$props">
-        <PIcon source="DeleteMajor" slot="prefix" />
+        <PIcon source="DeleteMajorMonotone" slot="prefix" />
       </PTextField>`,
 });
 

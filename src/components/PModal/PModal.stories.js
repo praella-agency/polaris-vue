@@ -7,6 +7,18 @@ import { PButton } from '../PButton';
 export default {
     title: 'Overlays / Modal',
     component: PModal,
+    argTypes: {
+        default: {
+            table: {
+                disable: true,
+            },
+        },
+        footer: {
+            table: {
+                disable: true,
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({
@@ -42,7 +54,7 @@ const Template = (args, {argTypes}) => ({
                 <PTextField label="First Name"/>
                 <PTextField label="Last Name Name"/>
                 <PTextField label="Email" type="email"/>
-                <PBanner status="critical" title="Notice">
+                <PBanner status="critical" title="Notice" :action="{}">
                   We ensure complete privacy all of out customers
                 </PBanner>
               </PFormLayout>

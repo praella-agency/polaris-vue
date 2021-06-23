@@ -3,6 +3,13 @@ import PUnstyledLink from './PUnstyledLink';
 export default {
     title: 'Navigation / Unstyled Link',
     component: PUnstyledLink,
+    argTypes: {
+        default: {
+            table: {
+                disable: true,
+            },
+        },
+    },
 }
 
 const Template = (args, { argTypes }) => ({

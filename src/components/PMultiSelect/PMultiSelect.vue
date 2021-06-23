@@ -133,7 +133,7 @@ export default class PMultiSelect extends Vue {
     public set computedValue(value) {
         this.selected = value;
         /**
-         * Change event
+         * Callback when selection is changed
          * @property {event}
          */
         this.$emit('change', value);

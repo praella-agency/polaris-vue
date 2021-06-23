@@ -27,6 +27,30 @@ export default {
                 disable: true,
             },
         },
+        actionGroups: {
+            type: {
+                name: 'json',
+            },
+            description: 'Collection of page-level groups of secondary actions',
+        },
+        pagination: {
+            type: {
+                name: 'json',
+            },
+            description: 'Page-level pagination',
+        },
+        separator: {
+            type: {
+                name: 'boolean',
+            },
+            description: 'Separator for page',
+        },
+        subtitle: {
+            type: {
+                name: 'string',
+            },
+            description: 'Page subtitle, in regular type',
+        },
     },
 }
 

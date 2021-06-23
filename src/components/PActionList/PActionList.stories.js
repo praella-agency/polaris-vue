@@ -11,7 +11,9 @@ const Template = (args, { argTypes }) => ({
         PActionList,
     },
     template: `
-        <PActionList v-bind="$props"></PActionList>`,
+        <PActionList 
+            v-bind="$props"
+        ></PActionList>`,
 });
 
 export const ActionList = Template.bind({});

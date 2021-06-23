@@ -6,8 +6,8 @@ export default {
     argTypes: {
         selected: {
             control: {
-                type: 'none'
-            }
+                type: null,
+            },
         },
         default: {
             table: {

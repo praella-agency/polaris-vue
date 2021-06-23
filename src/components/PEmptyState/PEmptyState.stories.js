@@ -3,7 +3,7 @@ import { PLink } from '../PLink';
 import { PTextContainer } from '../PTextContainer';
 
 export default {
-    title: ' Structure / Empty State',
+    title: 'Structure / Empty State',
     component: PEmptyState,
     argTypes: {
         default: {
@@ -20,6 +20,11 @@ export default {
             control: {
                 type: 'text',
             },
+            table: {
+                type: {
+                    summary: 'string',
+                },
+            },
         },
         footer: {
             table: {
@@ -29,6 +34,11 @@ export default {
         heading: {
             control: {
                 type: 'text',
+            },
+            table: {
+                type: {
+                    summary: 'string',
+                },
             },
         },
     },
@@ -43,19 +53,12 @@ const Template = (args, { argTypes }) => ({
       <PEmptyState
           v-bind="$props"
       >
-          <p>
-            You can use the Files section to upload images, videos, and
-            other documents. This example shows the content with a centered layout and full width.
+          <p slot="footer">
+            If you don’t want to add a transfer, you can import your inventory from
+            <PLink url="https://www.hulkapps.com/" monochrome>settings</PLink>
+            .
           </p>
-          <PTextContainer slot="footer" v-bind="$props">
-            <p>
-              If you don’t want to add a transfer, 
-              you can import your inventory from
-              <PLink url="https://www.hulkapps.com/" external >
-                Settings
-              </PLink>.
-            </p>
-          </PTextContainer>
+          <p>Track and receive your incoming inventory from suppliers.</p>
       </PEmptyState>`,
 });
 
@@ -67,7 +70,7 @@ EmptyState.args = {
     primaryAction: {
         content: 'Add transfer',
         onAction: () => {
-            alert('transferred');
+            alert('Transferred');
         },
     },
     secondaryAction: {
