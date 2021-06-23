@@ -35,17 +35,17 @@ export default class PStack extends Vue {
    * Space between two items -
    * @values extraTight | tight | loose | extraLoose | none
    */
-  @Prop(String) public spacing!: Spacing;
+  @Prop({type: String, default: null}) public spacing!: Spacing;
   /**
    * Distribution of free space among items
    * @values equalSpacing | leading | trailing | center | fill | fillEvenly
    */
-  @Prop(String) public distribution!: Distribution;
+  @Prop({type: String, default: null}) public distribution!: Distribution;
   /**
    * Alignment of items
    * @values leading | trailing | center | fill | baseline
    */
-  @Prop(String) public alignment!: Alignment;
+  @Prop({type: String, default: null}) public alignment!: Alignment;
 
   public get className() {
     return classNames(

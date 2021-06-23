@@ -19,7 +19,7 @@ export default class PProgressBar extends Vue {
   /**
    * The progression of certain tasks
    */
-  @Prop({type: Number, default: 0, required: true}) public progress!: number;
+  @Prop({type: Number, default: 10}) public progress!: number;
 
   /**
    * Size of Progressbar
