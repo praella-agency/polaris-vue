@@ -14,8 +14,8 @@ export default {
     argTypes: {
         selected: {
             control: {
-                type: 'none'
-            }
+                type: null,
+            },
         },
         default: {
             table: {
@@ -128,10 +128,10 @@ const Template = (args, {argTypes}) => ({
               :resourceName="resourceName"
               :loading="loading"
               :bulkActions="[
-                    {content: 'Publish', onAction: 'toggleStatusToPublished'},
-                    {content: 'Unpublish', onAction: 'toggleStatusToUnpublished'},
-                    {content: 'Archive', onAction: 'toggleStatusToArchived'},
-                    {content: 'Delete', onAction: 'deleteSelected'},
+                    {content: 'Publish', onAction: toggleStatusToPublished},
+                    {content: 'Unpublish', onAction: toggleStatusToUnpublished},
+                    {content: 'Archive', onAction: toggleStatusToArchived},
+                    {content: 'Delete', onAction: deleteSelected},
               ]"
               @change="toggleSelected"
           >
@@ -191,6 +191,18 @@ const Template = (args, {argTypes}) => ({
           </PCardSection>
       </PCard>`,
     methods: {
+        toggleStatusToPublished() {
+            alert('Publish');
+        },
+        toggleStatusToUnpublished() {
+            alert('Unpublish');
+        },
+        toggleStatusToArchived() {
+            alert('Archived');
+        },
+        deleteSelected() {
+            alert('Deleted');
+        },
         toggleSelected(item) {
             this.selectedItems = item.selected ? this.items.map(book => book.id) : [];
             this.selectedAllItems = item.selectedMore;

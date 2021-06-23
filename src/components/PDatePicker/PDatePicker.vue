@@ -243,7 +243,7 @@ export default class PDatePicker extends Vue {
   /**
    * This should be an object containing startDate and endDate.
    */
-  @Prop(Object) public dateRange!: DateRange;
+  @Prop({type: Object}) public dateRange!: DateRange;
 
   /**
    * Each calendar has separate navigation when this is false

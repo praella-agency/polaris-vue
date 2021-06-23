@@ -8,10 +8,20 @@ export default {
             control: {
                 type: 'text',
             },
+            table: {
+                type: {
+                    summary: 'string',
+                },
+            },
         },
         helpText: {
             control: {
                 type: 'text',
+            },
+            table: {
+                type: {
+                    summary: 'string',
+                },
             },
         },
     },

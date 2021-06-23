@@ -10,6 +10,11 @@ export default {
             control: {
                 type: 'text',
             },
+            table: {
+                type: {
+                    summary: 'string',
+                },
+            },
         },
         default: {
             table: {

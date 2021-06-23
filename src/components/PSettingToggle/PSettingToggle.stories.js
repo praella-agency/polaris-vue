@@ -12,12 +12,13 @@ export default {
         },
         action: {
             control: {
-                type: 'object'
+                type: 'object',
+                readonly: true
             },
             defaultValue: {
-                contentStatus: status ? 'Deactivate' : 'Activate',
+                contentStatus: 'Deactivate',
                 onAction: () => {
-                    this.status = !this.status;
+                    alert('Action Triggered!');
                 },
             },
         }
@@ -29,25 +30,20 @@ const Template = (args, { argTypes }) => ({
     components: {
         PSettingToggle, PTextStyle,
     },
-    data() {
-        return {
-            status: false,
-        };
-    },
     template: `  
       <PSettingToggle
           :action="{
-            contentStatus: status ? 'Deactivate' : 'Activate',
+            contentStatus: enabled ? 'Deactivate' : 'Activate',
             onAction: toggleStatus,
           }"
-          :enabled="status"
+          :enabled="enabled"
           v-bind="$props"
       >
-        This setting is <PTextStyle variation="strong">{{ status ? 'activated' : 'deactivated' }}</PTextStyle>
+        This setting is <PTextStyle variation="strong">{{ enabled ? 'activated' : 'deactivated' }}</PTextStyle>
       </PSettingToggle>`,
     methods: {
         toggleStatus() {
-            this.status = !this.status;
+            alert('Action Triggered!');
         },
     },
 });

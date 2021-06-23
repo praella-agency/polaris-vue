@@ -31,6 +31,11 @@ export default {
             control: {
                 type: 'text',
             },
+            table: {
+                type: {
+                    summary: 'string',
+                },
+            },
         },
         short_description: {
             table: {
@@ -40,6 +45,11 @@ export default {
         actions: {
             control: {
                 type: 'array',
+            },
+            table: {
+                type: {
+                    summary: 'array',
+                },
             },
         },
     },

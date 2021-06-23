@@ -14,20 +14,20 @@ const Template = (args, { argTypes }) => ({
     },
     data() {
         return {
-            color: '#FF0000',
+            colorAttr: '#FF0000',
         };
     },
     template: `
       <PStack vertical>
         <PStackItem>
           <PColorPicker
-              :color.sync="color"
+              :color.sync="colorAttr"
               v-bind = "$props"
           />
         </PStackItem>
         <PStackItem>
-          <PBadge :color="color">
-            {{ color }}
+          <PBadge :color="colorAttr">
+            {{ colorAttr }}
           </PBadge>
         </PStackItem>
       </PStack>`,
