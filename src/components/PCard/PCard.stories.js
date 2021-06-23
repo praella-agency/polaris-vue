@@ -166,6 +166,7 @@ const Template2 = (args, {argTypes}) => ({
             <PCardSection title="Total Sales Breakdown">
               <PResourceList
                   :resource-name="{singular: 'Sale', plural: 'Sales'}"
+                  :hideFilters="false"
               >
                 <PResourceListItem
                     v-for="(item, key) in items"

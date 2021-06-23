@@ -5,6 +5,13 @@ import { PStack, PStackItem } from '../PStack';
 export default {
     title: 'Forms / Color Picker',
     component: PColorPicker,
+    argTypes: {
+        color: {
+            control: {
+                type: null
+            },
+        },
+    },
 }
 
 const Template = (args, { argTypes }) => ({

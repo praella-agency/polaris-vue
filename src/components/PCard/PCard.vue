@@ -15,7 +15,6 @@
                         <PLink v-for="(action, index) in actions" :url="action.url" :key="index" > {{ action.content }} </PLink>
                     </PButtonGroup>
                 </slot>
-
             </PCardHeader>
         </template>
 

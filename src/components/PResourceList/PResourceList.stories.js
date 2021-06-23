@@ -133,6 +133,7 @@ const Template = (args, {argTypes}) => ({
                     {content: 'Archive', onAction: toggleStatusToArchived},
                     {content: 'Delete', onAction: deleteSelected},
               ]"
+              v-bind="$props"
               @change="toggleSelected"
           >
             <template slot="filter">
@@ -236,4 +237,6 @@ ResourceList.args = {
     resourceName: {singular: 'Book', plural: 'Books'},
     hasMore: true,
     loading: false,
+    showHeader: true,
+    hideFilters: true,
 }
