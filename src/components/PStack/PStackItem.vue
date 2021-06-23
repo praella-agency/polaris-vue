@@ -31,7 +31,7 @@ export default class PStackItem extends Vue {
 
   public get style() {
     if (this.width) {
-      return {width: this.width};
+      return {width: this.width + 'px'};
     } else { return null; }
   }
 }
