@@ -1,5 +1,5 @@
 <template>
-    <p class="Polaris-Caption">
+    <p class="Polaris-Caption" :id="id">
         <!-- @slot Caption content -->
         <slot/>
     </p>
@@ -11,5 +11,10 @@
     @Component
 
     export default class PCaption extends Vue {
+
+      /**
+       * Id for the element
+       */
+      @Prop({type: String, default: null}) public id!: string;
     }
 </script>

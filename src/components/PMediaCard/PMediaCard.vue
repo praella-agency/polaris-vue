@@ -72,6 +72,7 @@ import {PStack, PStackItem} from '@/components/PStack';
 import {PHeading} from '@/components/PHeading';
 import {PImage} from '@/components/PImage';
 import {PButtonGroup} from '@/components/PButtonGroup';
+import {PButton} from '@/components/PButton';
 
 type Size = 'small' | 'medium';
 
@@ -92,6 +93,7 @@ interface PrimaryAction
     PHeading,
     PImage,
     PButtonGroup,
+    PButton,
   },
 })
 export default class PTag extends Vue {

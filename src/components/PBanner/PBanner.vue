@@ -25,7 +25,7 @@
         <!-- @slot Banner content -->
         <slot/>
         <div v-if="action" class="Polaris-Banner__Actions">
-          <PButtonGroup>
+          <PButtonGroup v-if="Object.keys(this.action).length > 0">
             <div class="Polaris-Banner__PrimaryAction">
               <PButtonsFrom :actions="action" :overrides="{ outline: true }"/>
             </div>
@@ -94,9 +94,8 @@ export default class PBanner extends Vue {
 
   /**
    * Action of the banner
-   * @ignore
    */
-  @Prop(Object) public action!: DisableableAction & LoadableAction;
+  @Prop({type: Object, default: {}}) public action!: DisableableAction & LoadableAction;
 
   public get className() {
     return classNames(

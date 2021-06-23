@@ -7,15 +7,19 @@
                 <PCheckableButton plain v-bind="$attrs" v-on="$listeners">{{resourceHeaderTitle}}</PCheckableButton>
             </div>
             <div class="Polaris-ResourceList__SortWrapper" v-if="sortOptions">
-                <PSelect :inlineLabel="sortLabel" labelHidden :options="sortOptions" @change="$emit('sort-change', $event)"></PSelect>
+                <PSelect :inlineLabel="sortLabel" labelHidden :options="sortOptions" @change="$emit('sort-change', $event)">
+                </PSelect>
             </div>
         </div>
 
         <div class="Polaris-ResourceList__BulkActionsWrapper" v-if="checked">
-             <div class="Polaris-ResourceList-BulkActions__Group Polaris-ResourceList-BulkActions__Group--largeScreen Polaris-ResourceList-BulkActions__Group--entered">
+             <div class="Polaris-ResourceList-BulkActions__Group Polaris-ResourceList-BulkActions__Group--largeScreen
+             Polaris-ResourceList-BulkActions__Group--entered">
                 <div class="Polaris-ResourceList-BulkActions__ButtonGroupWrapper">
                     <PButtonGroup segmented>
-                        <PCheckableButton v-bind="$attrs" :checked="checked" v-on="$listeners">{{resourceHeaderTitle}}</PCheckableButton>
+                        <PCheckableButton v-bind="$attrs" :checked="checked" v-on="$listeners">
+                          {{resourceHeaderTitle}}
+                        </PCheckableButton>
                         <PBulkActionButtonWrapper :action="promotedBulkActions"></PBulkActionButtonWrapper>
                         <PBulkActionButtonWrapper>
                             <PPopover

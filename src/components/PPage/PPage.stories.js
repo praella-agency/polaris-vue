@@ -6,6 +6,28 @@ import { PAvatar } from '../PAvatar';
 export default {
     title: 'Structure / Page ',
     component: PPage,
+    argTypes: {
+        additionalNavigation: {
+            table: {
+                disable: true,
+            },
+        },
+        default: {
+            table: {
+                disable: true,
+            },
+        },
+        primaryAction: {
+            table: {
+                disable: true,
+            },
+        },
+        titleMetadata: {
+            table: {
+                disable: true,
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({
@@ -24,9 +46,9 @@ const Template = (args, {argTypes}) => ({
       </PPage>`,
 });
 
-export const AllHeaderElements = Template.bind({});
+export const Page = Template.bind({});
 
-AllHeaderElements.args = {
+Page.args = {
     separator: true,
     secondaryActions: [
         {
@@ -76,7 +98,7 @@ AllHeaderElements.args = {
     breadcrumbs: [
         {
             content: 'Products',
-            url: '/new-page'
+            to: '/new-page'
         }
     ],
     primaryAction: {
@@ -85,61 +107,5 @@ AllHeaderElements.args = {
             alert('Saved');
         },
         disabled: true,
-    },
-}
-
-const Template1 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
-    components: { PPage },
-    template: `
-      <PPage
-          v-bind="$props"
-      >Wide page content
-      </PPage>`,
-})
-
-export const FullWidthPage = Template1.bind({});
-
-FullWidthPage.args = {
-    fullWidth: true,
-    title:"Orders",
-    primaryAction: {
-        content: 'Save',
-        onAction: () => {
-            alert('Saved');
-        },
-    },
-    secondaryActions: [
-        {
-            content: 'Duplicate',
-            accessibilityLabel: 'Secondary action label',
-            onAction: () => {
-                alert('Duplicate Action');
-            },
-            icon: 'DuplicateMinor'
-        },
-        {
-            content: 'View on your store',
-            onAction: () => {
-                alert('View on your store');
-            },
-            icon: 'DuplicateMinor'
-        },
-        {
-            content: 'View on your store',
-            url: 'https://jsfiddle.net/nm55jnjk/17/',
-            external: true,
-            icon: 'DuplicateMinor'
-        },
-    ],
-    pagination:{
-        hasPrevious: false,
-        hasNext: true,
-        onNext: () => {
-            alert('Next');
-        },
-        onPrevious: () => {
-            alert('Previous');
-        }
     },
 }

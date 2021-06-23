@@ -8,6 +8,7 @@ export const parameters = {
       color: /(background|color|backgroundColor)$/i,
       date: /Date$/,
     },
+    sort: 'alpha',
   },
   options: {
     storySort: {

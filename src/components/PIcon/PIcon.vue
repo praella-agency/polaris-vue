@@ -86,7 +86,7 @@ export default class PIcon extends Vue {
    *
    * Backdrop is compatible with following colors: teal, tealDark, greenDark, redDark, yellowDark, ink, inkLighter
    */
-  @Prop({type: String, default: null}) public backdrop!: boolean;
+  @Prop({type: Boolean, default: null}) public backdrop!: boolean;
 
   public get className() {
     return classNames(

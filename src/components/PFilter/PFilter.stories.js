@@ -6,6 +6,13 @@ import { POptionList } from '../POptionList';
 export default {
     title: 'Lists & Tables / Filter',
     component: PFilter,
+    argTypes: {
+        default: {
+            table: {
+                disable: true,
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({

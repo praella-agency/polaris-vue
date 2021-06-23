@@ -19,7 +19,7 @@
             </PCardHeader>
         </template>
 
-        <div v-if="$slots.hasOwnProperty('default') && $slots.default.filter((item)=>{return item.tag !== undefined || (item.text && item.text.trim().length > 0)}).length === 1">
+        <template v-if="$slots.hasOwnProperty('default')">
             <template v-if="sectioned">
                 <PCardSection>
                     <!-- @slot Body content for the card -->
@@ -30,7 +30,7 @@
                 <!-- @slot Body content for the card -->
                 <slot name="default" />
             </template>
-        </div>
+        </template>
         <div v-else>
             <slot/>
         </div>
@@ -54,10 +54,11 @@
     import { PHeading } from '@/components/PHeading';
     import { PCaption } from '@/components/PCaption';
     import { PButtonGroup } from '@/components/PButtonGroup';
+    import { PLink } from '@/components/PLink';
 
     @Component({
         components: {
-            PCardFooter, PCardHeader, PCardSection, PHeading, PCaption, PButtonGroup,
+            PCardFooter, PCardHeader, PCardSection, PHeading, PCaption, PButtonGroup, PLink,
         },
     })
 
@@ -98,7 +99,6 @@
         public get className() {
             return classNames(
                 'Polaris-Card',
-                this.subdued && 'Polaris-Card--subdued',
             );
         }
     }

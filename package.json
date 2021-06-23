@@ -41,14 +41,13 @@
     "core-js": "^3.3.2",
     "dayjs": "^1.10.4",
     "v-click-outside": "^3.0.1",
-    "v-tooltip": "^2.1.2",
     "vue": "^2.6.10",
     "vue-apexcharts": "^1.6.1",
     "vue-class-component": "^7.0.2",
     "vue-color": "^2.7.1",
     "vue-multiselect": "^2.1.6",
     "vue-property-decorator": "^8.3.0",
-    "vue-router": "^3.4.3",
+    "vue-router": "^3.5.1",
     "vue2-daterange-picker": "^0.6.5"
   },
   "files": [

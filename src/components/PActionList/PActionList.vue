@@ -21,7 +21,7 @@ export default class PActionList extends Vue {
     /**
      * Collection of actions for list
      */
-    @Prop({type: Array, default: () => []}) public items!: any[];
+    @Prop({type: Array, default: []}) public items!: any[];
 
     /**
      * Collection of sectioned action items

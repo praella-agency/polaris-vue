@@ -7,10 +7,10 @@ export default {
         type: {
             options: ['bar', 'line'],
             control: {
-                type: 'radio'
-            }
-        }
-    }
+                type: 'select',
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({
@@ -27,7 +27,7 @@ const Template = (args, {argTypes}) => ({
 export const Chart = Template.bind({});
 
 Chart.args = {
-    title: "Bar Chart",
+    title: "Default Chart",
     height: "500",
     series: [
         {

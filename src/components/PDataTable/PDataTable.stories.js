@@ -18,8 +18,28 @@ export default {
             control: {
                 type: 'select',
             }
-        }
-    }
+        },
+        body: {
+            table: {
+                disable: true,
+            },
+        },
+        emptyState: {
+            table: {
+                disable: true,
+            },
+        },
+        filter: {
+            table: {
+                disable: true,
+            },
+        },
+        head: {
+            table: {
+                disable: true,
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({
