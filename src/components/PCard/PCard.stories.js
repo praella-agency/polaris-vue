@@ -75,11 +75,11 @@ Card.args = {
     actions: [
         {
             content: 'Test1',
-            url: 'https://www.goggle.com'
+            url: 'https://www.google.com'
         },
         {
             content: 'Test2',
-            url: 'https://www.goggle.com'
+            url: 'https://www.google.com'
         }
     ],
 }
