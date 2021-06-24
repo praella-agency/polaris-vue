@@ -26,7 +26,7 @@
     "build-bundle": "vue-cli-service build --target lib --name polaris-vue ./src/components/index.js",
     "styleguide": "vue-styleguidist server",
     "styleguide:build": "vue-styleguidist build",
-    "storybook": "start-storybook -p 6006 -s public",
+    "storybook": "start-storybook -p 6006 -s public --no-manager-cache",
     "build-storybook": "build-storybook"
   },
   "main": "./dist/polaris-vue.common.js",

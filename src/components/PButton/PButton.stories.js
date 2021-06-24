@@ -8,6 +8,9 @@ export default {
             options: ['up', 'down', false,],
             control: {
                 type: 'select',
+                labels: {
+                    false: 'Default',
+                },
             },
         },
         size: {
@@ -16,8 +19,7 @@ export default {
                 type: 'select',
                 labels: {
                     null: 'Default',
-                }
-
+                },
             },
         },
         textAlign: {

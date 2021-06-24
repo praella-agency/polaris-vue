@@ -1,33 +1,55 @@
 <template>
-    <div class="Polaris-Card__Header">
-        <PStack distribution="baseline">
-            <PStackItem fill>
-                <slot name="title" />
-            </PStackItem>
-            <PStackItem>
-                <slot name="actions" />
-            </PStackItem>
-        </PStack>
-        <PStack>
-            <PStackItem>
-                <span class="Polaris-Card__TagLine">
-                    <template>
-                      <slot name="short_description"/>
-                    </template>
-                </span>
-            </PStackItem>
-        </PStack>
-    </div>
+  <div class="Polaris-Card__Header">
+    <PStack distribution="baseline">
+      <PStackItem fill>
+        <slot name="title">
+          <PHeading>{{ title }}</PHeading>
+        </slot>
+      </PStackItem>
+      <PStackItem>
+        <PButtonGroup connectedTop>
+          <PButton v-for="(action, key) in actions" :key="key" plain @click="action.onAction()">
+            {{ action.content }}
+          </PButton>
+        </PButtonGroup>
+      </PStackItem>
+      <PStackItem>
+        <slot name="children"/>
+      </PStackItem>
+    </PStack>
+    <PStack>
+      <PStackItem>
+        <span class="Polaris-Card__TagLine">
+            <template>
+              <slot name="short_description">
+                {{short_description}}
+              </slot>
+            </template>
+        </span>
+      </PStackItem>
+    </PStack>
+  </div>
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator';
+import {Component, Vue, Prop} from 'vue-property-decorator';
 
-    import { PStack, PStackItem } from '@/components/PStack';
+import {PStack, PStackItem} from '@/components/PStack';
+import {PHeading} from '@/components/PHeading';
+import {PButtonGroup} from '@/components/PButtonGroup';
+import {PButton} from '@/components/PButton';
 
-    @Component({
-        components: { PStack, PStackItem },
-    })
-    export default class PCardHeader extends Vue {
-    }
+@Component({
+  components: {
+    PStack, PStackItem, PHeading, PButtonGroup, PButton
+  },
+})
+export default class PCardHeader extends Vue {
+
+  @Prop({type: String, default: null}) public title!: string;
+
+  @Prop({type: String, default: null}) public short_description!: string;
+
+  @Prop({type: Array, default: () => []}) public actions!: [];
+}
 </script>

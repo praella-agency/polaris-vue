@@ -34,7 +34,7 @@ export default {
 const Template = (args, { argTypes }) => ({
     props: Object.keys(argTypes),
     components: {
-        PPopover, PButton, POptionList,
+        PPopover, PButton, POptionList
     },
     data() {
         return {
@@ -49,12 +49,12 @@ const Template = (args, { argTypes }) => ({
         };
     },
     template: `
-        <PPopover 
+        <PPopover
             :active="statusFilterActive"
             v-bind="$props"
             @change="toggleStatusFilter"
         >
-          <PButton 
+          <PButton
               slot="activator"
               :disclosure="statusFilterActive ? 'up' : 'down'"
               @click="toggleStatusFilter"

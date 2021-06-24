@@ -17,6 +17,9 @@ export default {
             options: ['ascending', 'descending', 'none'],
             control: {
                 type: 'select',
+                labels: {
+                    'none': 'Default',
+                },
             }
         },
         body: {

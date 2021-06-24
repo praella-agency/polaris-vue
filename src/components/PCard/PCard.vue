@@ -1,22 +1,20 @@
 <template>
     <div :class="className">
-        <template v-if="$slots.hasOwnProperty('title') || title || $slots.hasOwnProperty('short_description') || shortDescription">
-            <PCardHeader>
-                <!-- @slot Title content for the card -->
-                <slot slot="title" name="title" v-if="$slots.hasOwnProperty('title') || title">
-                    <PHeading>{{title}}</PHeading>
-                </slot>
-                <!-- @slot Short Description content for the card -->
-                <slot slot="short_description" name="short_description" v-if="$slots.hasOwnProperty('short_description') || shortDescription">
-                    <PCaption>{{shortDescription}}</PCaption>
-                </slot>
-                <slot slot="actions" name="actions">
-                    <PButtonGroup  connectedTop>
-                        <PLink v-for="(action, index) in actions" :url="action.url" :key="index" > {{ action.content }} </PLink>
-                    </PButtonGroup>
-                </slot>
-            </PCardHeader>
-        </template>
+      <template v-if="$slots.hasOwnProperty('title') || title || $slots.hasOwnProperty('short_description') || shortDescription">
+        <PCardHeader :actions="actions">
+          <!-- @slot Title content for the card -->
+          <slot slot="title" name="title" v-if="$slots.hasOwnProperty('title') || title">
+            <PHeading>{{title}}</PHeading>
+          </slot>
+          <!-- @slot Short Description content for the card -->
+          <slot slot="short_description" name="short_description" v-if="$slots.hasOwnProperty('short_description') || shortDescription">
+            <PCaption>{{shortDescription}}</PCaption>
+          </slot>
+          <template slot="children" v-if="$slots.hasOwnProperty('children')">
+            <slot name="children"></slot>
+          </template>
+        </PCardHeader>
+      </template>
 
         <template v-if="$slots.hasOwnProperty('default')">
             <template v-if="sectioned">
@@ -88,12 +86,7 @@
         /**
          * Actions for Header
          */
-        @Prop({type: Array, default: () => []}) public actions!: [];
-
-        public get hasActions() {
-
-            return this.actions.length;
-        }
+        @Prop({type: Array, default: []}) public actions!: [];
 
         public get className() {
             return classNames(

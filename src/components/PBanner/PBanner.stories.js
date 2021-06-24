@@ -13,6 +13,9 @@ export default {
             options: ['success', 'info', 'warning', 'critical', null],
             control: {
                 type: 'select',
+                labels: {
+                    null: 'Default',
+                },
             },
         },
     },

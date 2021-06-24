@@ -45,12 +45,12 @@
         public overlay;
 
         public get containerStyle() {
-
             return {
-                width: this.width ? (typeof this.width === 'number' ? this.width + 'px' : this.width) : undefined,
-                zIndex: this.zIndex == null ? undefined : this.zIndex,
-                right: this.right,
-                left: this.left !== 0 ? this.left : undefined,
+              // top: this.top == null || isNaN(this.top) ? undefined : this.top+'px',
+              left: this.left == null || isNaN(this.left) ? undefined : this.left+'px',
+              right: this.right == null || isNaN(this.right) ? undefined : this.right+'px',
+              width: this.width ? (typeof this.width === 'number' ? this.width + 'px' : this.width) : undefined,
+              zIndex: this.zIndex == null ? undefined : this.zIndex,
             };
         }
 
@@ -100,8 +100,8 @@
             if (!activator) {
                 return;
             }
-
             const activatorRect = activator.getBoundingClientRect();
+
             const scrollableElement = (!this.scrollableElement || this.scrollableElement === document) ?
                 document.body : this.scrollableElement;
             let scrollableContainerRect = scrollableElement.getBoundingClientRect();
@@ -138,9 +138,13 @@
                 scrollableContainerRect,
                 containerRect,
                 this.preferredPosition);
-            const horizontalPosition = this.calculateHorizontalPosition(activatorRect,
+            const horizontalPosition = this.calculateHorizontalPosition(
+                activatorRect,
                 overlayRect,
-                containerRect, overlayMargins, this.preferredAlignment);
+                containerRect,
+                overlayMargins,
+                this.preferredAlignment
+            );
             this.measuring = false;
             // this.left = horizontalPosition;
             this.left = this.preferredAlignment !== 'right' ? horizontalPosition : undefined;

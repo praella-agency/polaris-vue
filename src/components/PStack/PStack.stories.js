@@ -17,18 +17,27 @@ export default {
             options: ['extraTight', 'tight', 'loose', 'extraLoose', 'none', null],
             control: {
                 type: 'select',
+                labels: {
+                    null: 'Default',
+                },
             },
         },
         distribution: {
             options: ['equalSpacing', 'leading', 'trailing', 'center', 'fill', 'fillEvenly', null],
             control: {
                 type: 'select',
+                labels: {
+                    null: 'Default',
+                },
             },
         },
         alignment: {
             options: ['leading', 'trailing', 'center', 'fill', 'baseline', null],
             control: {
                 type: 'select',
+                labels: {
+                    null: 'Default',
+                },
             },
         },
     },

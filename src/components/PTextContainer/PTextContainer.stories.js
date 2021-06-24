@@ -9,6 +9,9 @@ export default {
             options: ['tight', 'loose', null],
             control: {
                 type: 'select',
+                labels: {
+                    null: 'Default',
+                },
             },
         },
         default: {

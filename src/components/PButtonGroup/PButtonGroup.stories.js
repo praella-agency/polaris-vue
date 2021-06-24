@@ -7,8 +7,11 @@ export default {
     argTypes: {
         spacing: {
             options: ['loose', 'tight', 'extraTight', null],
-            controls: {
+            control: {
                 type: 'select',
+                labels: {
+                    null: 'Default',
+                },
             },
         },
     },
