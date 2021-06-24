@@ -14,12 +14,18 @@ export default {
             options: ['incomplete', 'partiallyComplete', 'complete', null],
             control: {
                 type: 'select',
+                labels: {
+                    null: 'Default',
+                },
             },
         },
         status: {
             options: ['success', 'info', 'attention', 'warning', 'new', 'critical', null],
             control: {
                 type: 'select',
+                labels: {
+                    null: 'Default',
+                },
             },
         },
         default: {

@@ -10,9 +10,12 @@ export default {
             },
         },
         variation: {
-            options: ['positive', 'negative', 'strong', 'subdued', 'code'],
+            options: ['positive', 'negative', 'strong', 'subdued', 'code', null],
             control: {
                 type: 'select',
+                labels: {
+                    null: 'Default',
+                },
             },
         },
     },

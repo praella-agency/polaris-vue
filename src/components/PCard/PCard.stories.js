@@ -12,6 +12,7 @@ import { PResourceList } from '../PResourceList';
 import { PResourceListItem } from '../PResourceList';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack';
+import { POptionList } from '../POptionList';
 
 export default {
     title: 'Structure / Card',
@@ -118,7 +119,7 @@ const Template2 = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
         PCard, PCardHeader, PPopover, PButton, PButtonGroup, PActionList, PCardSection, PTextContainer, PResourceList,
-        PResourceListItem, PStack, PStackItem, PList, PListItem,
+        PResourceListItem, PStack, PStackItem, PList, PListItem, POptionList
     },
     data() {
         return {
@@ -141,18 +142,39 @@ const Template2 = (args, {argTypes}) => ({
     },
     template: `
         <PCard v-bind="$props">
-            <PCardHeader>
+            <PCardHeader
+                title="Sales"
+                :actions="[
+                    {
+                      content: 'Total Sales',
+                      onAction: handleActionClick,
+                    },
+                ]"
+                v-slot:children
+            >
               <PPopover
-                  :active="false",
+                  :active="statusFilterActive"
+                  preferredAlignment="right"
                   @close="statusFilterActive = false"
               >
                 <PButton
                     slot="activator"
+                    plain
                     :disclosure="statusFilterActive ? 'up' : 'down'"
                     @click.stop="statusFilterActive = !statusFilterActive"
                 >
                   Status
                 </PButton>
+                <PActionList slot="content"
+                    :items="[
+                        {
+                          content: 'Gross Sales'
+                        },
+                        {
+                          content: 'Net Sales'
+                        }
+                    ]"
+                ></PActionList>
               </PPopover>
             </PCardHeader>
             
@@ -201,6 +223,9 @@ const Template2 = (args, {argTypes}) => ({
             </PButtonGroup>
         </PCard>`,
     methods: {
+        handleActionClick() {
+            alert('Total Sales');
+        },
         handleSecondaryButton() {
             alert('Dismiss');
         },
@@ -213,11 +238,5 @@ const Template2 = (args, {argTypes}) => ({
 export const AllElements = Template2.bind({});
 
 AllElements.args = {
-    title: 'Sales',
-    actions: [
-        {
-            content: 'Total Sales',
-        }
-    ],
     subdued: true,
 }

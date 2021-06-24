@@ -7,6 +7,7 @@ export default {
         label: {
             control: {
                 type: 'text',
+                readonly: true,
             },
             table: {
                 type: {

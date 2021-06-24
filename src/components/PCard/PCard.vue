@@ -1,22 +1,22 @@
 <template>
     <div :class="className">
-        <template v-if="$slots.hasOwnProperty('title') || title || $slots.hasOwnProperty('short_description') || shortDescription">
-            <PCardHeader>
-                <!-- @slot Title content for the card -->
-                <slot slot="title" name="title" v-if="$slots.hasOwnProperty('title') || title">
-                    <PHeading>{{title}}</PHeading>
-                </slot>
-                <!-- @slot Short Description content for the card -->
-                <slot slot="short_description" name="short_description" v-if="$slots.hasOwnProperty('short_description') || shortDescription">
-                    <PCaption>{{shortDescription}}</PCaption>
-                </slot>
-                <slot slot="actions" name="actions">
-                    <PButtonGroup  connectedTop>
-                        <PLink v-for="(action, index) in actions" :url="action.url" :key="index" > {{ action.content }} </PLink>
-                    </PButtonGroup>
-                </slot>
-            </PCardHeader>
-        </template>
+<!--        <template v-if="$slots.hasOwnProperty('title') || title || $slots.hasOwnProperty('short_description') || shortDescription">-->
+<!--            <PCardHeader>-->
+<!--                &lt;!&ndash; @slot Title content for the card &ndash;&gt;-->
+<!--                <slot slot="title" name="title" v-if="$slots.hasOwnProperty('title') || title">-->
+<!--                    <PHeading>{{title}}</PHeading>-->
+<!--                </slot>-->
+<!--                &lt;!&ndash; @slot Short Description content for the card &ndash;&gt;-->
+<!--                <slot slot="short_description" name="short_description" v-if="$slots.hasOwnProperty('short_description') || shortDescription">-->
+<!--                    <PCaption>{{shortDescription}}</PCaption>-->
+<!--                </slot>-->
+<!--                <slot slot="actions" name="actions">-->
+<!--                    <PButtonGroup  connectedTop>-->
+<!--                        <PLink v-for="(action, index) in actions" :url="action.url" :key="index" > {{ action.content }} </PLink>-->
+<!--                    </PButtonGroup>-->
+<!--                </slot>-->
+<!--            </PCardHeader>-->
+<!--        </template>-->
 
         <template v-if="$slots.hasOwnProperty('default')">
             <template v-if="sectioned">
@@ -84,16 +84,16 @@
          * @values true | false
          */
         @Prop({type: Boolean, default: false}) public sectioned!: boolean;
+        //
+        // /**
+        //  * Actions for Header
+        //  */
+        // @Prop({type: Array, default: () => []}) public actions!: [];
 
-        /**
-         * Actions for Header
-         */
-        @Prop({type: Array, default: () => []}) public actions!: [];
-
-        public get hasActions() {
-
-            return this.actions.length;
-        }
+        // public get hasActions() {
+        //
+        //     return this.actions.length;
+        // }
 
         public get className() {
             return classNames(
