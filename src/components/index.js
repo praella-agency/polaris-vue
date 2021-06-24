@@ -53,7 +53,6 @@ import { PMediaCard } from './PMediaCard';
 import { PChart } from './PChart';
 import { PEmptyState } from './PEmptyState';
 import { PFooterHelp } from './PFooterHelp';
-import VTooltip from 'v-tooltip'
 
 import '@/scss/main.scss';
 
@@ -120,8 +119,6 @@ const PolarisVue = {
     for (let componentKey in Components) {
       Vue.component(componentKey, Components[componentKey]);
     }
-
-    Vue.use(VTooltip)
   },
 };
 

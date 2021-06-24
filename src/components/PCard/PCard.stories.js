@@ -75,11 +75,11 @@ Card.args = {
     actions: [
         {
             content: 'Test1',
-            url: 'https://www.goggle.com'
+            url: 'https://www.google.com'
         },
         {
             content: 'Test2',
-            url: 'https://www.goggle.com'
+            url: 'https://www.google.com'
         }
     ],
 }
@@ -166,6 +166,7 @@ const Template2 = (args, {argTypes}) => ({
             <PCardSection title="Total Sales Breakdown">
               <PResourceList
                   :resource-name="{singular: 'Sale', plural: 'Sales'}"
+                  :hideFilters="false"
               >
                 <PResourceListItem
                     v-for="(item, key) in items"

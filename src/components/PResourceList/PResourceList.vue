@@ -1,12 +1,12 @@
 <template>
     <div :class="className">
-        <div class="Polaris-ResourceList__FiltersWrapper">
+        <div class="Polaris-ResourceList__FiltersWrapper" v-if="hideFilters">
             <PFilter v-if="$slots.hasOwnProperty('filter')" v-bind="$attrs" :resourceTitle="resourceTitle" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
                 <!-- @slot Filter content -->
-                <slot name="filter" ></slot>
+                <slot name="filter"/>
             </PFilter>
         </div>
-        <div ref="PResourceListHeader" class="Polaris-ResourceList__HeaderOuterWrapper">
+        <div ref="PResourceListHeader" class="Polaris-ResourceList__HeaderOuterWrapper" v-if="showHeader">
             <PResourceListHeader
                     v-bind="$attrs"
                     :selectable="selectable"
@@ -92,6 +92,18 @@ export default class PResourceList extends Vue {
      * @values {plural: string, singular: string}
      */
     @Prop({required: true, type: Object}) public resourceName!: ResourceNameInterface;
+
+    /**
+     * Boolean to show or hide the header
+     * @value true | false
+     */
+    @Prop({type: Boolean, default: false}) public showHeader!: boolean;
+
+    /**
+     * Boolean to show or hide the filters
+     * @value true | false
+     */
+    @Prop({type: Boolean, default: true}) public hideFilters!: boolean;
 
     public selectedItems = this.selectable && this.selected ? this.selected : [];
     public selectedMore: boolean = false;
