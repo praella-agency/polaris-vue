@@ -1,10 +1,16 @@
 import PPopover from './PPopover';
 import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';
+import PopoverMDX from "./PopoverMDX.mdx";
 
 export default {
     title: 'Overlays / Popover',
     component: PPopover,
+    parameters: {
+        docs: {
+            page: PopoverMDX,
+        },
+    },
     argTypes: {
         preferredAlignment: {
             options: ['center', 'left', 'right'],
