@@ -13,6 +13,7 @@ module.exports = {
         actions: false,
       },
     },
+      "@storybook/addon-actions",
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({

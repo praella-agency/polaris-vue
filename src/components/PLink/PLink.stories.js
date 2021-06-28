@@ -1,7 +1,9 @@
 import PLink from './PLink';
+import StoryRouter from "storybook-vue-router";
 
 export default {
     title: 'Navigation / Link',
+    decorators: [StoryRouter()],
     component: PLink,
     argTypes: {
         default: {

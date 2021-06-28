@@ -1,7 +1,9 @@
 import PUnstyledLink from './PUnstyledLink';
+import StoryRouter from "storybook-vue-router";
 
 export default {
     title: 'Navigation / Unstyled Link',
+    decorators: [StoryRouter()],
     component: PUnstyledLink,
     argTypes: {
         default: {
