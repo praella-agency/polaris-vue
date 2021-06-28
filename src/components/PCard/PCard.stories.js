@@ -144,7 +144,7 @@ const Template2 = (args, {argTypes}) => ({
       <PCard v-bind="$props">
       <PCardHeader
           title="Sales"
-          short_description="Sales Report"
+          shortDescription="Sales Report"
           :actions="[
           {
             content: 'Total Sales',

@@ -22,7 +22,7 @@
         <span class="Polaris-Card__TagLine">
             <template>
               <slot name="short_description">
-                {{short_description}}
+                {{shortDescription}}
               </slot>
             </template>
         </span>
@@ -41,14 +41,14 @@ import {PButton} from '@/components/PButton';
 
 @Component({
   components: {
-    PStack, PStackItem, PHeading, PButtonGroup, PButton
+    PStack, PStackItem, PHeading, PButtonGroup, PButton,
   },
 })
 export default class PCardHeader extends Vue {
 
   @Prop({type: String, default: null}) public title!: string;
 
-  @Prop({type: String, default: null}) public short_description!: string;
+  @Prop({type: String, default: null}) public shortDescription!: string;
 
   @Prop({type: Array, default: () => []}) public actions!: [];
 }

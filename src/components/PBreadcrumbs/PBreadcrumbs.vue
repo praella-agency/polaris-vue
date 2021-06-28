@@ -4,6 +4,13 @@ import { classNames } from '@/utilities/css';
 import { PUnstyledLink } from '@/components/PUnstyledLink';
 import { PIcon } from '@/components/PIcon';
 
+interface PBreadcrumbsProps {
+  content?: any;
+  url?: any;
+  to?: any;
+  onAction?(): void;
+}
+
 @Component({
     components: {
         PUnstyledLink,
@@ -19,21 +26,12 @@ export default class PBreadcrumbs extends Vue {
 
     public render(h: any) {
 
-        const breadcrumb = this.breadcrumbs[this.breadcrumbs.length - 1];
+        const breadcrumb = this.breadcrumbs[this.breadcrumbs.length - 1] as PBreadcrumbsProps;
         if (breadcrumb == null) {
             return null;
         }
 
         const { content } = breadcrumb;
-
-        // const contentOldMarkup = (
-        //     <span class='Polaris-Breadcrumbs__ContentWrapper'>
-        //         <span class='Polaris-Breadcrumbs__Icon'>
-        //             <PIcon source='ChevronLeftMinor' />
-        //         </span>
-        //         <span class='Polaris-Breadcrumbs__Content'>{content}</span>
-        //     </span>
-        // );
 
         const contentMarkup = this.$createElement('span', {
             class: 'Polaris-Breadcrumbs__ContentWrapper',
@@ -56,27 +54,6 @@ export default class PBreadcrumbs extends Vue {
             'Polaris-Breadcrumbs__Breadcrumb',
         );
 
-        // const breadcrumbOldMarkup =
-        //     'url' in breadcrumb || 'to' in breadcrumb ? (
-        //         <PUnstyledLink
-        //             key={content}
-        //             url={breadcrumb.url}
-        //             to={breadcrumb.to}
-        //             class={breadcrumbClassNames}
-        //         >
-        //             {contentMarkup}
-        //         </PUnstyledLink>
-        //     ) : (
-        //         <button
-        //             key={content}
-        //             class={breadcrumbClassNames}
-        //             onClick={breadcrumb.onAction}
-        //             type='button'
-        //         >
-        //             {contentMarkup}
-        //         </button>
-        //     );
-
         const breadcrumbMarkup =
             'url' in breadcrumb || 'to' in breadcrumb ? (
                 this.$createElement(PUnstyledLink, {
@@ -97,7 +74,6 @@ export default class PBreadcrumbs extends Vue {
                 }, [contentMarkup])
             );
 
-        // return <nav role='navigation'>{breadcrumbMarkup}</nav>;
         return this.$createElement('nav', {
           attrs: {
             role: 'navigation',
