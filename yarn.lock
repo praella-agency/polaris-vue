@@ -1649,7 +1649,7 @@
   "resolved" "https://registry.npmjs.org/@soda/get-current-script/-/get-current-script-1.0.2.tgz"
   "version" "1.0.2"
 
-"@storybook/addon-actions@^6.2.9", "@storybook/addon-actions@6.2.9":
+"@storybook/addon-actions@^4.0.0||^5.0.0||5.2.0-beta.13", "@storybook/addon-actions@^6.2.9", "@storybook/addon-actions@6.2.9":
   "integrity" "sha512-CkUYSMt+fvuHfWvtDzlhhaeQBCWlUo99xdL88JTsTml05P43bIHZNIRv2QJ8DwhHuxdIPeHKLmz9y/ymOagOnw=="
   "resolved" "https://registry.npmjs.org/@storybook/addon-actions/-/addon-actions-6.2.9.tgz"
   "version" "6.2.9"
@@ -1816,7 +1816,7 @@
     "prop-types" "^15.7.2"
     "regenerator-runtime" "^0.13.7"
 
-"@storybook/addons@^6.2.9", "@storybook/addons@6.2.9":
+"@storybook/addons@^4.0.0||^5.0.0||5.2.0-beta.13", "@storybook/addons@^6.2.9", "@storybook/addons@6.2.9":
   "integrity" "sha512-GnmEKbJwiN1jncN9NSA8CuR1i2XAlasPcl/Zn0jkfV9WitQeczVcJCPw86SGH84AD+tTBCyF2i9UC0KaOV1YBQ=="
   "resolved" "https://registry.npmjs.org/@storybook/addons/-/addons-6.2.9.tgz"
   "version" "6.2.9"
@@ -13329,6 +13329,11 @@
   "resolved" "https://registry.npmjs.org/store2/-/store2-2.12.0.tgz"
   "version" "2.12.0"
 
+"storybook-vue-router@^1.0.7":
+  "integrity" "sha512-R+DYARQ40YVbMbV5moLDmQvodJX5FQPVy5cULb782P1gD5rAkulWtgt8yrM7pmjYru+LTPdLS4blrFPnWlb0sQ=="
+  "resolved" "https://registry.npmjs.org/storybook-vue-router/-/storybook-vue-router-1.0.7.tgz"
+  "version" "1.0.7"
+
 "stream-browserify@^2.0.1":
   "integrity" "sha512-nX6hmklHs/gr2FuxYDltq8fJA1GDlxKQCz8O/IM4atRqBH8OORmBNgfvW5gG10GT/qQ9u0CzIvr2X5Pkt6ntqg=="
   "resolved" "https://registry.npmjs.org/stream-browserify/-/stream-browserify-2.0.2.tgz"
@@ -14809,7 +14814,7 @@
   dependencies:
     "vue-class-component" "^7.1.0"
 
-"vue-router@^3.5.1":
+"vue-router@^2.7.0 || ^3.0.0", "vue-router@^3.5.1":
   "integrity" "sha512-RRQNLT8Mzr8z7eL4p7BtKvRaTSGdCbTy2+Mm5HTJvLGYSSeG9gDzNasJPP/yOYKLy+/cLG/ftrqq5fvkFwBJEw=="
   "resolved" "https://registry.npmjs.org/vue-router/-/vue-router-3.5.1.tgz"
   "version" "3.5.1"

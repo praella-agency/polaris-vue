@@ -17,9 +17,9 @@
                     track-by="value"
                     :placeholder="placeholder"
                     :searchable="searchable"
-                    :multiple="true"
+                    :multiple="multiple"
                     :taggable="taggable"
-                    :close-on-select="false"
+                    :close-on-select="computedMultiple"
                     :clear-on-select="false"
                     :preserve-search="true"
                     label="label"
@@ -84,7 +84,7 @@ export default class PMultiSelect extends Vue {
     /**
      * Value for PMultiSelect.
      */
-    @Prop({default: []}) public value!: any [];
+    @Prop({default: []}) public value!: any;
 
     /**
      * Disable the searchable options feature.
@@ -102,6 +102,12 @@ export default class PMultiSelect extends Vue {
      * Provide Placeholder.
      */
     @Prop({type: String, default: null}) public placeholder!: string;
+
+    /**
+     * To allow multiple selections
+     * @values true | false
+     */
+    @Prop({type: Boolean, default: true}) public multiple!: boolean;
 
     public id = `PolarisMultiSelect${new Date().getUTCMilliseconds()}`;
     public selected = this.value;
@@ -139,6 +145,10 @@ export default class PMultiSelect extends Vue {
         this.$emit('change', value);
     }
 
+    public get computedMultiple() {
+        return !this.multiple;
+    }
+
     public get className() {
         return classNames(
             'Polaris-Select',
@@ -151,7 +161,11 @@ export default class PMultiSelect extends Vue {
             label: newTag,
             value: newTag,
         };
-        this.selected.push(tag);
+        if(this.multiple) {
+          this.selected.push(tag);
+        } else if(!this.multiple) {
+          this.selected = tag;
+        }
         this.options.push(tag);
     }
 
