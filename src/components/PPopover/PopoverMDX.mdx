@@ -1,0 +1,39 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import PPopover from "./PPopover";
+
+<Meta title="MDX|Popover" component={PPopover} />
+
+# Popover Demo.
+<br/>
+
+## Popover demo is accessible on Canvas due to conflicts with Storybook.
+
+```jsx
+<template>
+  <PPopover
+    id="items-status-filter"
+    :active="false"
+    preferredPosition="below"
+    preferredAlignment="center"
+    :activatorWrapper="null"
+    :preventAutofocus="false"
+    :sectioned="false"
+    :fullWidth="false"
+    :measuring="false"
+    :positioning="false"
+    :content="null"
+    :activator="null"
+    :activate="null"
+    :close="null"
+  >
+    <PButton slot="activator" disclosure="down">More Actions</PButton>
+    <POptionList
+      slot="content"
+      :options='[{"label":"Pending","value":"0"},{"label":"Published","value":"1"},{"label":"Archived","value":"-1"}]'
+      :selected="[]"
+    />
+  </PPopover>
+</template>
+```
+
+<Props of={PPopover} />
