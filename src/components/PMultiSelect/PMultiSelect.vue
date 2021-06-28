@@ -163,10 +163,11 @@ export default class PMultiSelect extends Vue {
         };
         if(this.multiple) {
           this.selected.push(tag);
-        } else if(!this.multiple) {
+        } else {
           this.selected = tag;
         }
         this.options.push(tag);
+      this.$emit('change', this.selected);
     }
 
     @Watch('value')

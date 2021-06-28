@@ -26,8 +26,8 @@
               <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical
                           Polaris-Scrollable--hasBottomShadow Polaris-Scrollable--verticalHasScrolling"
                    data-polaris-scrollable="true">
-                  <!-- @slot Popover Overlay content -->
-                  <slot name="content"></slot>
+                <!-- @slot Popover Overlay content -->
+                <slot name="content"></slot>
               </div>
             </div>
           </div>
@@ -113,6 +113,8 @@ export default class PPopover extends Vue {
 
   @Ref('container') public readonly container!: HTMLElement;
 
+  public isAppended: boolean = false;
+
   public get className() {
     return classNames(
         'Polaris-Popover',
@@ -134,10 +136,29 @@ export default class PPopover extends Vue {
     if (this.container.firstElementChild !== null) {
       this.container.firstElementChild.id = this.activatorId;
     }
+    let popoverOverlay = document.getElementById(this.realId + 'Overlay') as HTMLElement;
+    let rootElemId = this.$root.$el.id;
+    if(rootElemId) {
+      let rootElement = document.getElementById(rootElemId) as HTMLElement;
+      rootElement.append(popoverOverlay);
+      this.isAppended = true;
+    }
+
 
     window.addEventListener('click', this.handlePageClick);
     window.addEventListener('touchstart', this.handlePageClick);
     document.addEventListener('keyup', this.handleKeyPress);
+  }
+  public beforeDestroy() {
+    console.log("unmounting");
+    if(this.isAppended) {
+      let popoverOverlay = document.getElementById(this.realId + 'Overlay') as HTMLElement;
+      if(popoverOverlay) {
+        popoverOverlay.remove();
+      }
+
+      console.log("RemovedPopOver");
+    }
   }
 
   public destroyed() {

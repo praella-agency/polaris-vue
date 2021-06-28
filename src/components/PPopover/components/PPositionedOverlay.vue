@@ -1,5 +1,5 @@
 <template>
-    <div class="Polaris-PositionedOverlay"
+    <div :id="id" class="Polaris-PositionedOverlay"
          :style="containerStyle"
          v-show="active"
          ref="overlay">
@@ -33,10 +33,10 @@
         @Prop() public scrollableElement!: any;
 
         public measuring: boolean = true;
-        public left: any = 0;
-        public right: any = 0;
-        public top: number = 0;
-        public height: number = 0;
+        public left: any = NaN;
+        public right: any = NaN;
+        public top: number = NaN;
+        public height: number = NaN;
         public width: string | null | number = null;
         public positioning: string = 'below';
         public zIndex: number | null = null;
@@ -46,7 +46,7 @@
 
         public get containerStyle() {
             return {
-              // top: this.top == null || isNaN(this.top) ? undefined : this.top+'px',
+              top: this.top == null || isNaN(this.top) ? undefined : this.top+'px',
               left: this.left == null || isNaN(this.left) ? undefined : this.left+'px',
               right: this.right == null || isNaN(this.right) ? undefined : this.right+'px',
               width: this.width ? (typeof this.width === 'number' ? this.width + 'px' : this.width) : undefined,

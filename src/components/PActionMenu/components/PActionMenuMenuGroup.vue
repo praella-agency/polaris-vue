@@ -1,5 +1,5 @@
 <template>
-    <PPopover :active="Boolean(active)" preferredAlignment="center" hideOnPrint @close="handleClose">
+    <PPopover :active="Boolean(active)" preferredAlignment="left" hideOnPrint @close="handleClose">
         <PActionMenuMenuAction slot="activator" disclosure :content="title" :getOffsetWidth="getOffsetWidth" :icon="icon" :onAction="handleOpen" />
         <PActionList slot="content" :items="actions" @item-action="handleClose" />
         <div v-if="$slots.details" class="">
@@ -8,7 +8,7 @@
     </PPopover>
 </template>
 
-<script+ lang="ts">
+<script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
 import {MenuGroupDescriptor, ActionListItemDescriptor} from '@/types';
 import {PActionList} from '@/components/PActionList';
