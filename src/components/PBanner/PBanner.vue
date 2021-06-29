@@ -2,7 +2,7 @@
   <div :class="className">
     <div v-if="isDismissable" class="Polaris-Banner__Dismiss">
       <!--
-        triggered to dismiss the banner
+        Triggered to dismiss the banner
         @event dismiss
       -->
       <PButton
@@ -25,7 +25,7 @@
         <!-- @slot Banner content -->
         <slot/>
         <div v-if="action" class="Polaris-Banner__Actions">
-          <PButtonGroup>
+          <PButtonGroup v-if="Object.keys(this.action).length > 0">
             <div class="Polaris-Banner__PrimaryAction">
               <PButtonsFrom :actions="action" :overrides="{ outline: true }"/>
             </div>
@@ -84,18 +84,18 @@ export default class PBanner extends Vue {
   /**
    * Title content for the banner.
    */
-  @Prop(String) public title!: string;
+  @Prop({type: String, default: null}) public title!: string;
 
   /**
    * Set the status of the banner
-   * @values success, info, warning, critical
+   * @values success | info | warning | critical
    */
-  @Prop(String) public status!: string;
+  @Prop({type: String, default: null}) public status!: string;
 
   /**
    * Action of the banner
    */
-  @Prop(Object) public action!: DisableableAction & LoadableAction;
+  @Prop({type: Object, default: {}}) public action!: DisableableAction & LoadableAction;
 
   public get className() {
     return classNames(

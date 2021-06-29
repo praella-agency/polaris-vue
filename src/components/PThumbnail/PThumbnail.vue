@@ -27,13 +27,13 @@
          * Image source.
          * @values URL | Path
          */
-        @Prop(String) public source!: string;
+        @Prop({type: String, default: null}) public source!: string;
 
         /**
          * Image alt
          * @values text
          */
-        @Prop(String) public alt!: string;
+        @Prop({type: String, default: null}) public alt!: string;
 
         public get className() {
             return classNames(

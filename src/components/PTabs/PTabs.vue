@@ -13,7 +13,10 @@
         </PTab>
       </ul>
     </div>
-    <PPanel v-if="!navigation" v-for="(tab, tabIndex) in tabs" :key="tab.id" :id="tab.id + '-panel'" :tabID="tab.id" :hidden="!(selected === tabIndex)"><slot v-if="selected === tabIndex"/></PPanel>
+    <PPanel v-if="!navigation" v-for="(tab, tabIndex) in tabs" :key="tab.id" :id="tab.id + '-panel'" :tabID="tab.id" :hidden="!(selected === tabIndex)">
+      <!-- @slot Panel content -->
+      <slot v-if="selected === tabIndex"/>
+    </PPanel>
   </div>
 </template>
 
@@ -38,15 +41,16 @@ export default class PTabs extends Vue {
   /**
    * Lists of tabs
    */
-  @Prop(Array) public tabs!: TabDescriptor[];
+  @Prop({type: Array, default: () => []}) public tabs!: TabDescriptor[];
   /**
    * Selected tab ID
    */
-  @Prop(Number) public selected!: number;
+  @Prop({type: Number, default: 0}) public selected!: number;
   /**
    * Set true to enable navigation
+   * @values true | false
    */
-  @Prop(Boolean) public navigation!: boolean;
+  @Prop({type: Boolean, default: false}) public navigation!: boolean;
 
   public get className() {
     return classNames(
@@ -69,7 +73,10 @@ export default class PTabs extends Vue {
     }
 
     const selectedIndex = this.tabs.indexOf(tab!);
-
+    /**
+     * Method to handle tab click
+     * @property {tabId, event}
+     */
     this.$emit('select', selectedIndex, event);
   }
 }

@@ -208,6 +208,9 @@
     margin-right: -.8rem;
     margin-left: .4rem;
   }
+  +.Polaris-Button__Text:not(:empty) {
+    margin-left: 5px;
+  }
 }
 
 /*.Polaris-Button__Icon + :not(.Polaris-Button__Icon) {
@@ -701,7 +704,7 @@
   color: $btn-plain-color;
 
   svg {
-    fill: $btn-plain-svg-icon-color;
+    fill: $btn-plain-color;
   }
 
   &:active {

@@ -1,41 +1,44 @@
 <template>
-  <div :class="className">
-    <template v-if="$slots.hasOwnProperty('title') || title || $slots.hasOwnProperty('short_description') || shortDescription">
-      <PCardHeader>
-        <!-- @slot Title content for the card -->
-        <slot slot="title" name="title" v-if="$slots.hasOwnProperty('title') || title">
-          <PHeading>{{title}}</PHeading>
-        </slot>
-        <!-- @slot Short Description content for the card -->
-        <slot slot="short_description" name="short_description" v-if="$slots.hasOwnProperty('short_description') || shortDescription">
-          <PCaption>{{shortDescription}}</PCaption>
-        </slot>
-      </PCardHeader>
-    </template>
-
-    <div v-if="$slots.hasOwnProperty('default') && $slots.default.filter((item)=>{return item.tag !== undefined || (item.text && item.text.trim().length > 0)}).length === 1">
-      <template v-if="sectioned">
-        <PCardSection>
-          <!-- @slot Body content for the card -->
-          <slot name="default" />
-        </PCardSection>
+    <div :class="className">
+      <template v-if="$slots.hasOwnProperty('title') || title || $slots.hasOwnProperty('short_description') || shortDescription">
+        <PCardHeader :actions="actions">
+          <!-- @slot Title content for the card -->
+          <slot slot="title" name="title" v-if="$slots.hasOwnProperty('title') || title">
+            <PHeading>{{title}}</PHeading>
+          </slot>
+          <!-- @slot Short Description content for the card -->
+          <slot slot="short_description" name="short_description" v-if="$slots.hasOwnProperty('short_description') || shortDescription">
+            <PCaption>{{shortDescription}}</PCaption>
+          </slot>
+          <template slot="children" v-if="$slots.hasOwnProperty('children')">
+            <slot name="children"></slot>
+          </template>
+        </PCardHeader>
       </template>
-      <template v-else>
-        <!-- @slot Body content for the card -->
-        <slot name="default" />
-      </template>
-    </div>
-    <div v-else>
-      <slot/>
-    </div>
 
-    <template v-if="$slots.hasOwnProperty('footer')">
-      <PCardFooter>
-        <!-- @slot Footer content for the card -->
-        <slot name="footer" />
-      </PCardFooter>
-    </template>
-  </div>
+        <template v-if="$slots.hasOwnProperty('default')">
+            <template v-if="sectioned">
+                <PCardSection>
+                    <!-- @slot Body content for the card -->
+                    <slot name="default" />
+                </PCardSection>
+            </template>
+            <template v-else>
+                <!-- @slot Body content for the card -->
+                <slot name="default" />
+            </template>
+        </template>
+        <div v-else>
+            <slot/>
+        </div>
+
+        <template v-if="$slots.hasOwnProperty('footer')">
+            <PCardFooter>
+                <!-- @slot Footer content for the card -->
+                <slot name="footer" />
+            </PCardFooter>
+        </template>
+    </div>
 </template>
 
 <script lang="ts">
@@ -47,40 +50,47 @@
     import PCardFooter from '@/components/PCard/PCardFooter.vue';
     import { PHeading } from '@/components/PHeading';
     import { PCaption } from '@/components/PCaption';
+    import { PButtonGroup } from '@/components/PButtonGroup';
+    import { PLink } from '@/components/PLink';
 
     @Component({
         components: {
-            PCardFooter,
-            PCardHeader, PCardSection, PHeading, PCaption,
+            PCardFooter, PCardHeader, PCardSection, PHeading, PCaption, PButtonGroup, PLink,
         },
-
     })
+
     export default class PCard extends Vue {
 
         /**
          * Title content for the card
          */
-        @Prop(String) public title!: string;
+        @Prop({type: String, default: null}) public title!: string;
 
         /**
          * Card description
          */
-        @Prop(String) public shortDescription!: string;
+        @Prop({type: String, default: null}) public shortDescription!: string;
 
         /**
          * A less prominent card
+         * @values true | false
          */
-        @Prop(Boolean) public subdued!: boolean;
+        @Prop({type: Boolean, default: false}) public subdued!: boolean;
 
         /**
          * Auto wrap content in section
+         * @values true | false
          */
-        @Prop(Boolean) public sectioned!: boolean;
+        @Prop({type: Boolean, default: false}) public sectioned!: boolean;
+
+        /**
+         * Actions for Header
+         */
+        @Prop({type: Array, default: []}) public actions!: [];
 
         public get className() {
             return classNames(
                 'Polaris-Card',
-                this.subdued && 'Polaris-Card--subdued',
             );
         }
     }

@@ -16,17 +16,17 @@ export default class PUnstyledLink extends Vue {
    * Set to for router link
    * @values Internal route link
    */
-  @Prop(String) public to!: string;
+  @Prop({type: String, default: null}) public to!: string;
   /**
    * Set url for URL
-   * @values Any exterenal URL
+   * @values Any external URL
    */
-  @Prop(String) public url!: string;
+  @Prop({type: String, default: null}) public url!: string;
   /**
    * Set true for open URL in new tab
    * @values true | false
    */
-  @Prop(Boolean) public external!: boolean;
+  @Prop({type: Boolean, default: false}) public external!: boolean;
 
   public get target() {
     return this.external ? '_blank' : undefined;

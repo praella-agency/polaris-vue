@@ -1,9 +1,9 @@
 <template>
    <PPopover :active="rollupOpen" preferredAlignment="right" @close="toggleRollupOpen" hideOnPrint>
        <div slot="activator" class="Polaris-ActionMenu-RollupActions__RollupActivator">
-           <PButton :plain="true" :outline="false" icon="HorizontalDotsMinor" @click="toggleRollupOpen" />
+           <PButton :plain="true" :outline="false" icon="HorizontalDotsMinor" type="button" @click="toggleRollupOpen" />
        </div>
-       <PActionList :items="items" :sections="sections" @item-action="toggleRollupOpen"></PActionList>
+       <PActionList slot="content" :items="items" :sections="sections" @item-action="toggleRollupOpen" />
    </PPopover>
 </template>
 

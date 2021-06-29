@@ -67,7 +67,7 @@
 		.Polaris-Tabs__Title{
 			background-color: $tabs-hover-active-title-bgcolor;
 			&:after{
-				 background: $tabs-hover-active-title-after-bgcolor;
+				background: transparent;
 			}
 		}
 	}

@@ -3,7 +3,7 @@
     <div v-if="title || $slots.hasOwnProperty('title')" class="Polaris-Card__SectionHeader">
       <PSubheading v-bind="$attrs">
         <slot name="title">
-          <template v-html="title" />
+          {{ title }}
         </slot>
       </PSubheading>
     </div>

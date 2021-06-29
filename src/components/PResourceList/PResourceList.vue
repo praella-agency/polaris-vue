@@ -1,11 +1,12 @@
 <template>
     <div :class="className">
-        <div class="Polaris-ResourceList__FiltersWrapper">
+        <div class="Polaris-ResourceList__FiltersWrapper" v-if="hideFilters">
             <PFilter v-if="$slots.hasOwnProperty('filter')" v-bind="$attrs" :resourceTitle="resourceTitle" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
-                <slot name="filter" ></slot>
+                <!-- @slot Filter content -->
+                <slot name="filter"/>
             </PFilter>
         </div>
-        <div class="Polaris-ResourceList__HeaderOuterWrapper">
+        <div ref="PResourceListHeader" class="Polaris-ResourceList__HeaderOuterWrapper" v-if="showHeader">
             <PResourceListHeader
                     v-bind="$attrs"
                     :selectable="selectable"
@@ -23,10 +24,17 @@
             />
         </div>
         <ul class="Polaris-ResourceList" aria-live="polite">
+            <!-- @slot Displays when Selectable is true -->
             <slot :selectable="selectable"/>
         </ul>
 
-        <slot v-if="showEmptySearchState" name="emptySearchState" />
+        <!-- @slot Content for empty search state -->
+        <slot v-if="showEmptySearchState" name="emptySearchState">
+          <div class="Polaris-ResourceList__SpinnerContainer" :style="{'padding-top': `${topPadding}px`}">
+            <PSpinner size="large" />
+          </div>
+          <div class="Polaris-ResourceList__LoadingOverlay"></div>
+        </slot>
     </div>
 </template>
 
@@ -36,6 +44,7 @@ import { classNames, variationName } from '@/utilities/css';
 import {PImage} from '@/components/PImage';
 import PResourceListHeader from '@/components/PResourceList/components/PResourceListHeader.vue';
 import PFilter from '@/components/PFilter/PFilter.vue';
+import {PSpinner} from '@/components/PSpinner';
 
 interface ResourceNameInterface {
     singular: string;
@@ -47,6 +56,7 @@ interface ResourceNameInterface {
         PFilter,
         PResourceListHeader,
         PImage,
+        PSpinner,
     },
 })
 export default class PResourceList extends Vue {
@@ -54,8 +64,9 @@ export default class PResourceList extends Vue {
     /**
      * Renders a Select All button at the top
      * of the list and checkboxes in front of each list item.
+     * @values true | false
      */
-    @Prop(Boolean) public selectable!: boolean;
+    @Prop({type: Boolean, default: false}) public selectable!: boolean;
 
     /**
      * Get the value of the selected items in array.
@@ -64,23 +75,35 @@ export default class PResourceList extends Vue {
 
     /**
      * Whether or not there are more items than currently set
-     * on the items prop. Determines whether or not to set
-     * the paginatedSelectAllAction and paginatedSelectAllText
-     * props on the BulkActions component.
+     * on the items prop
+     * @values true | false
      */
-    @Prop(Boolean) public hasMore!: boolean;
+    @Prop({type: Boolean, default: false}) public hasMore!: boolean;
 
     /**
      * Overlays item list with a spinner while a
      * background action is being performed.
+     * @values true | false
      */
-    @Prop(Boolean) public loading!: boolean;
+    @Prop({type: Boolean, default: false}) public loading!: boolean;
 
     /**
      * Name of the resource, such as customers or books.
      * @values {plural: string, singular: string}
      */
     @Prop({required: true, type: Object}) public resourceName!: ResourceNameInterface;
+
+    /**
+     * Boolean to show or hide the header
+     * @value true | false
+     */
+    @Prop({type: Boolean, default: false}) public showHeader!: boolean;
+
+    /**
+     * Boolean to show or hide the filters
+     * @value true | false
+     */
+    @Prop({type: Boolean, default: true}) public hideFilters!: boolean;
 
     public selectedItems = this.selectable && this.selected ? this.selected : [];
     public selectedMore: boolean = false;
@@ -89,7 +112,25 @@ export default class PResourceList extends Vue {
     public itemsExist = this.$slots.default;
 
     public showEmptyState = this.$slots.emptyState && !this.itemsExist && !this.loading;
-    public showEmptySearchState = !this.showEmptyState && !this.itemsExist && !this.loading;
+    public showEmptySearchState = !this.showEmptyState && !this.itemsExist && this.loading;
+
+    public topPadding = 8;
+
+    public mounted() {
+      let loadingPosition = 0;
+
+      if (typeof window !== 'undefined' && this.$refs.hasOwnProperty('PResourceListHeader')) {
+        const overlay = (this.$refs.PResourceListHeader as Element).getBoundingClientRect();
+        const viewportHeight = Math.max(document.documentElement ?
+            document.documentElement.clientHeight : 0, window.innerHeight || 0);
+        const overflow = viewportHeight - overlay.height;
+        const spinnerHeight = 45;
+        loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
+            (viewportHeight - overlay.top - spinnerHeight) / 2;
+        loadingPosition = loadingPosition + (this.$refs.PResourceListHeader as Element).getBoundingClientRect().height;
+        this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
+      }
+    }
 
     public count() {
         if (typeof this.$scopedSlots !== 'undefined'
@@ -141,6 +182,7 @@ export default class PResourceList extends Vue {
 
         /**
          * Callback when selection is changed.
+         * @property {Array} selectedItems
          */
         this.$emit('change', items);
     }
@@ -160,12 +202,18 @@ export default class PResourceList extends Vue {
     }
 
     public onRemoveFilter(tag) {
-
+        /**
+         * Calls when filter removes
+         * @property {String} tag
+         */
         this.$emit('filter-removed', tag);
     }
 
     public onFilterInputChanged(value) {
-
+        /**
+         * Calls when filter is adding
+         * @property {String} input-value
+         */
         this.$emit('input-filter-changed', value);
     }
 }

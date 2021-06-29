@@ -41,32 +41,31 @@
 
         /**
          * Set the color of the badge for the given status.
-         * @values info, success, warning, attention, critical, new
+         * @values info | success | warning | attention | critical | new
          */
-        @Prop(String) public status!: Status;
+        @Prop({type: String, default: null}) public status!: Status;
 
         /**
          * Render a pip showing the progress of a given task.
-         * @values incomplete, partiallyComplete, complete
+         * @values incomplete | partiallyComplete | complete
          */
-        @Prop(String) public progress!: Progress;
+        @Prop({type: String, default: null}) public progress!: Progress;
 
         /**
          * Set Background color
          */
-        @Prop(String) public background!: string;
+        @Prop({type: String, default: null}) public background!: string;
 
         /**
          * Set font color
          */
-        @Prop(String) public color!: string;
+        @Prop({type: String, default: null}) public color!: string;
 
         /**
          * Set size of badge
-         * @values small, medium
-         * @default medium
+         * @values small | medium
          */
-        @Prop({ type: String, default: DEFAULT_SIZE }) public size!: Size;
+        @Prop({ type: String, default: 'medium' }) public size!: Size;
 
         public get className() {
             return classNames(

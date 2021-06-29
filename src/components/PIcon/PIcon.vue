@@ -74,19 +74,19 @@ export default class PIcon extends Vue {
    * Icon to display
    * @see https://polaris-icons.shopify.com/?icon=AbandonedCartMajor available icon list.
    */
-  @Prop(String) public source!: 'placeholder' | string;
+  @Prop({type: String, default: null}) public source!: 'placeholder' | string;
 
   /**
    * Icon color
    */
-  @Prop(String) public color!: Color;
+  @Prop({type: String, default: null}) public color!: Color;
 
   /**
    * Icon backdrop
    *
    * Backdrop is compatible with following colors: teal, tealDark, greenDark, redDark, yellowDark, ink, inkLighter
    */
-  @Prop(Boolean) public backdrop!: boolean;
+  @Prop({type: Boolean, default: null}) public backdrop!: boolean;
 
   public get className() {
     return classNames(

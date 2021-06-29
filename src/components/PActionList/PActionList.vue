@@ -8,13 +8,12 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
+import { classNames} from '@/utilities/css';
 import PActionListSection from '@/components/PActionList/components/PActionListSection.vue';
 
 @Component({
     components: {
         PActionListSection,
-
     },
 })
 export default class PActionList extends Vue {
@@ -22,7 +21,7 @@ export default class PActionList extends Vue {
     /**
      * Collection of actions for list
      */
-    @Prop(Array) public items!: any[];
+    @Prop({type: Array, default: []}) public items!: any[];
 
     /**
      * Collection of sectioned action items

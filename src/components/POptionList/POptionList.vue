@@ -46,18 +46,19 @@ export default class POptionList extends Vue {
 
     /**
      * Add to allow multiple options.
+     * @values true | false
      */
     @Prop({type: Boolean, default: false}) public allowMultiple!: boolean;
 
     /**
      * A unique identifier for the option list.
      */
-    @Prop(String) public id!: string;
+    @Prop({type: String, default: null}) public id!: string;
 
     /**
      * List title.
      */
-    @Prop(String) public title!: string;
+    @Prop({type: String, default: null}) public title!: string;
 
     /**
      * Collection of options to be listed.
@@ -106,6 +107,10 @@ export default class POptionList extends Vue {
             this.$emit('change', newSelection);
             return;
         }
+        /**
+         * Method to handle click event
+         * @property {Default}
+         */
         this.$emit('change', [selectedValue]);
     }
 }

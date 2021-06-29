@@ -21,8 +21,8 @@
                 <span v-if="inlineLabel" class="Polaris-Select__InlineLabel">{{inlineLabel}}</span>
                 <span class="Polaris-Select__SelectedOption">{{ selectedOption }}</span>
                 <span class="Polaris-Select__Icon">
-          <PIcon :source="ArrowUpDownMinor"></PIcon>
-        </span>
+                    <PIcon :source="ArrowUpDownMinor" />
+                </span>
             </div>
             <div class="Polaris-Select__Backdrop"></div>
         </div>
@@ -78,27 +78,30 @@
         /**
          * Name for form input.
          */
-        @Prop(String) public name!: string;
+        @Prop({type: String, default: null}) public name!: string;
 
         /**
          * Disable input.
+         * @values true | false
          */
-        @Prop(Boolean) public disabled!: boolean;
+        @Prop({type: Boolean, default: false}) public disabled!: boolean;
 
         /**
          * Visually hide the label.
+         * @values true | false
          */
-        @Prop(Boolean) public labelHidden!: boolean;
+        @Prop({type: Boolean, default: false}) public labelHidden!: boolean;
 
         /**
          * Empty label.
+         * @values true | false
          */
-        @Prop(Boolean) public emptyLabel!: boolean;
+        @Prop({type: Boolean, default: false}) public emptyLabel!: boolean;
 
         /**
          * Label for the select.
          */
-        @Prop(String) public label!: string;
+        @Prop({type: String, default: null}) public label!: string;
 
         /**
          * List of Options or option to choose from.
@@ -113,17 +116,18 @@
         /**
          * Example text to display as placeholder.
          */
-        @Prop(String) public placeholder!: string;
+        @Prop({type: String, default: null}) public placeholder!: string;
 
         /**
          * Display an error state.
          */
-        @Prop(String) public error!: string;
+        @Prop({type: String, default: null}) public error!: string;
 
         /**
          * Show the label to the left of the value, inside the control
+         * @values true | false
          */
-        @Prop(Boolean) public inlineLabel!: boolean;
+        @Prop({type: Boolean, default: false}) public inlineLabel!: boolean;
 
         public selected = this.value;
 
@@ -153,6 +157,10 @@
 
         public set computedValue(value: string|number) {
             this.selected = value;
+            /**
+             * Callback when selection is changed
+             * @property {event}
+             */
             this.$emit('change', value);
         }
 

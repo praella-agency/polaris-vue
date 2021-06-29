@@ -1,33 +1,37 @@
 <script lang="tsx">
 import {Component, Vue, Prop} from 'vue-property-decorator';
 import {classNames, variationName} from '@/utilities/css';
+import ComponentHelpers from '../../ComponentHelpers';
+import {PButtonGroupItem} from '@/components/PButtonGroup';
 
 type Spacing = 'extraTight' | 'tight' | 'loose';
 
 @Component
-
 export default class PButtonGroup extends Vue {
 
   /**
    * Remove top left and right border radius
+   * @values true | false
    */
-  @Prop(Boolean) public segmented!: boolean;
+  @Prop({type: Boolean, default: false}) public segmented!: boolean;
 
   /**
    * Buttons will stretch/shrink to occupy the full width
+   * @values true | false
    */
-  @Prop(Boolean) public fullWidth!: boolean;
+  @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
 
   /**
    * Remove top left and right border radius
+   * @values true | false
    */
-  @Prop(Boolean) public connectedTop!: boolean;
+  @Prop({type: Boolean, default: false}) public connectedTop!: boolean;
 
   /**
    * Remove top left and right border radius
    * @values loose, tight, extraTight
    */
-  @Prop(String) public spacing!: Spacing;
+  @Prop({type: String, default: null}) public spacing!: Spacing;
 
   public get className() {
     return classNames(
@@ -39,19 +43,18 @@ export default class PButtonGroup extends Vue {
     );
   }
 
-  public render(h: any) {
+  public render(createElement: any) {
+    return createElement('div', {
+          class: this.className,
+          attrs: {
+            'data-buttongroup-segmented': this.segmented,
+            'data-buttongroup-full-width': this.fullWidth,
+            'data-buttongroup-connected-top': this.connectedTop,
+          },
 
-    return (
-        <div class={this.className}
-             data-buttongroup-segmented={this.segmented}
-             data-buttongroup-full-width={this.fullWidth}
-             data-buttongroup-connected-top={this.connectedTop}>
-          {(this.$slots.default || []).map((item: any) => (
-              <div class='Polaris-ButtonGroup__Item'>
-                {item}
-              </div>
-          ))}
-        </div>
+        },
+        ComponentHelpers.wrapNodesWithComponent(createElement,
+            this.$slots.default || [], PButtonGroupItem),
     );
   }
 }

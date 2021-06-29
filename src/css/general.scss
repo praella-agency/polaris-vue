@@ -156,6 +156,7 @@
 
 .Polaris-Scrollable--vertical {
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .Polaris-Scrollable--hasTopShadow {
@@ -541,8 +542,10 @@
 }
 
 .Polaris-ActionMenu-RollupActions__RollupActivator {
+    text-align: right;
     button[type=button] {
         margin: 0;
+        border: 1px solid #babfc3;
     }
 }
 
@@ -1090,7 +1093,7 @@
     max-width: 100%;
     align-items: center;
     min-height: 2.8rem;
-    padding-left: .8rem;
+    padding: 0 .8rem;
     background-color: $tag-bgcolor;
     border-radius: $tag-border-radius;
     color: $tag-color;
@@ -1463,6 +1466,22 @@
               border-radius: $link-border-active-before-border-radius;
         }
     }
+    &.Polaris-Link--monochrome {
+        color: inherit;
+        text-decoration: underline;
+
+        &:active {
+            color: inherit;
+        }
+
+        &:focus {
+            color: inherit;
+        }
+
+        &:hover {
+            color: inherit;
+        }
+    }
 }
 
 .Polaris-Link__IconLockup {
@@ -1486,22 +1505,7 @@
     }
 }
 
-.Polaris-Link--monochrome {
-    color: inherit;
-    text-decoration: underline;
 
-    &:active {
-        color: inherit;
-    }
-
-    &:focus {
-        color: inherit;
-    }
-
-    &:hover {
-        color: inherit;
-    }
-}
 
 
 /*=================== Polaris-Link  =======================*/
@@ -2934,3 +2938,99 @@
     outline: none  !important;
     box-shadow: none !important;
 }*/
+.multiselect, .multiselect__input, .multiselect__single {
+    font-size: unset;
+}
+
+div.multiselect {
+    min-height: 36px;
+
+    .multiselect__input {
+        min-height: 36px;
+        background: unset;
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    &.multiselect--active .multiselect__select {
+        transform: none;
+    }
+
+    .multiselect__select {
+        height: 36px;
+        width: 32px;
+        padding: 4px 5px;
+        right: 2px;
+
+        svg {
+            margin: 4px 0;
+            width: 20px;
+            fill: #637381;
+        }
+    }
+
+    .multiselect__single {
+        padding: 0;
+        margin: 0;
+        line-height: 34px;
+        background: unset;
+    }
+
+    .multiselect__tags {
+        min-height: 36px;
+        padding: 0px 40px 0 8px;
+        border: 1px solid #c4cdd5;
+        box-shadow: 0 0 0 1px transparent, 0 1px 0 0 rgba(22, 29, 37, 0.05);
+        border-radius: 3px;
+        background: linear-gradient(180deg, #fff, #f9fafb);
+    }
+
+    .multiselect__placeholder {
+        color: #3b4b5b;
+        display: inline-block;
+        line-height: 36px;
+        vertical-align: top;
+        margin-bottom: 0;
+        padding-top: 0;
+    }
+
+    .multiselect__option--highlight {
+        background: #007B5C;
+    }
+
+    .multiselect__option--highlight:after {
+        background: #007B5C;
+    }
+
+    .multiselect__content-wrapper {
+        border: 1px solid #c4cdd5;
+        box-shadow: 0 0 0 1px transparent, 0 1px 0 0 rgba(22, 29, 37, 0.05);
+        border-radius: 3px;
+        background: linear-gradient(180deg, #fff, #f9fafb);
+    }
+
+    .multiselect__tag {
+        border-radius: 3px;
+        background: linear-gradient(180deg, #006e52, #007B5C);
+        margin: 6px 5px 6px 0;
+    }
+
+    .multiselect__tags-wrap {
+        display: block;
+        height: 34px;
+    }
+
+    .multiselect__tag-icon:after {
+        color: #FFF;
+        font-size: 13px;
+    }
+
+    .multiselect__tag-icon:focus, .multiselect__tag-icon:hover {
+        background: unset;
+        outline: none;
+    }
+
+    .multiselect__select:before {
+        display: none;
+    }
+}

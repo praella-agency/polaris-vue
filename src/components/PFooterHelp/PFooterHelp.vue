@@ -1,12 +1,14 @@
 <template>
   <div :class="className">
     <div class="Polaris-FooterHelp__Content">
+      <!-- @slot Icon content -->
       <slot name="icon">
         <div class="Polaris-FooterHelp__Icon">
           <PIcon color="teal" source="CircleInformationMajorMonotone" />
         </div>
       </slot>
       <div class="Polaris-FooterHelp__Text">
+        <!-- @slot Default content -->
         <slot/>
       </div>
     </div>
@@ -24,11 +26,32 @@ import {PIcon} from '@/components/PIcon';
 
 export default class PFooterHelp extends Vue {
 
-  @Prop(String) public id!: string;
-  @Prop(String) public url!: string;
-  @Prop(String) public to!: string;
-  @Prop(Boolean) public external!: boolean;
-  @Prop(Boolean) public monochrome!: boolean;
+  /**
+   * Id for the element
+   */
+  @Prop({type: String, default: null}) public id!: string;
+
+  /**
+   * Url for the footer
+   */
+  @Prop({type: String, default: null}) public url!: string;
+
+  /**
+   * Set to for router link
+   */
+  @Prop({type: String, default: null}) public to!: string;
+
+  /**
+   * Makes the link open in a new tab.
+   * @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public external!: boolean;
+
+  /**
+   * Makes the link color the same as the current text color and adds an underline.
+   * @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public monochrome!: boolean;
 
   public get isStringSlot() {
 

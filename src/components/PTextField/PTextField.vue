@@ -1,6 +1,7 @@
 <template>
   <div :class="labelHidden && 'Polaris-Labelled--hidden'">
     <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.hasOwnProperty('label')" :class="labelClass">
+      <!-- @slot Field label -->
       <slot name="label">
         <div class="Polaris-Label">
           <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text" v-html="emptyLabel?'&nbsp':label" />
@@ -50,7 +51,7 @@
     /**
      * Text field label
      */
-    @Prop(String) public label!: string;
+    @Prop({type: String, default: null}) public label!: string;
 
     /**
      * Text field id
@@ -60,47 +61,51 @@
     /**
      * Text field label class
      */
-    @Prop(String) public labelClass!: string;
+    @Prop({type: String, default: null}) public labelClass!: string;
 
     /**
      * Text field help text
      */
-    @Prop(String) public helpText!: string;
+    @Prop({type: String, default: null}) public helpText!: string;
 
     /**
      * Text field connected to left
      */
-    @Prop(String) public connectedLeft!: string;
+    @Prop({type: String, default: null}) public connectedLeft!: string;
 
     /**
      * Text field connected to right
      */
-    @Prop(String) public connectedRight!: string;
+    @Prop({type: String, default: null}) public connectedRight!: string;
 
     /**
      * Text field is connected
+     * @values true | false
      */
-    @Prop(Boolean) public connected!: boolean;
+    @Prop({type: Boolean, default: false}) public connected!: boolean;
 
     /**
      * Text field has error
      */
-    @Prop(String) public error!: string;
+    @Prop({type: String, default: null}) public error!: string;
 
     /**
      * Visually hide the label
+     * @values true | false
      */
-    @Prop(Boolean) public labelHidden!: boolean;
+    @Prop({type: Boolean, default: false}) public labelHidden!: boolean;
 
     /**
      * Visually hide the label
+     * @values true | false
      */
-    @Prop(Boolean) public emptyLabel!: boolean;
+    @Prop({type: Boolean, default: false}) public emptyLabel!: boolean;
 
     /**
      * Enable rich text editor
+     * @values true | false
      */
-    @Prop(Boolean) public richEditor!: boolean;
+    @Prop({type: Boolean, default: false}) public richEditor!: boolean;
   }
 </script>
 

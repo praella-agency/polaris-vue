@@ -2,6 +2,7 @@
   <PCard sectioned>
     <PSettingAction>
       <template slot="children">
+        <!-- @slot SettingAction child content -->
         <slot></slot>
       </template>
       <PButton slot="action"
@@ -30,22 +31,20 @@
 
   export default class PSettingToggle extends Vue {
     /**
-     * Label for form input.
-     */
-    @Prop(String) public label!: string;
-
-    /**
      * Card header actions.
      */
-    @Prop({type: Object, default: () => ({})}) public action!: object;
+    @Prop({type: Object, default: Object}) public action!: object;
 
     /**
      * Sets toggle state.
      * @values true|false
      */
-    @Prop(Boolean) public enabled!: boolean;
+    @Prop({type: Boolean, default: false}) public enabled!: boolean;
 
-    @Prop(String) public propsClass!: string;
+    /**
+     * @ignore
+     */
+    @Prop({type: String, default: null}) public propsClass!: string;
 
     public handleAction(action: any) {
       if (action.onAction) {

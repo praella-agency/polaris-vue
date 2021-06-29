@@ -1,5 +1,6 @@
 <template>
   <div :class="className">
+    <!-- @slot TextContainer content -->
     <slot/>
   </div>
 </template>
@@ -16,7 +17,7 @@ export default class PTextContainer extends Vue {
    * The amount of vertical spacing children will get between them.
    * @values tight | loose
    */
-  @Prop(String) public spacing!: Spacing;
+  @Prop({type: String, default: null}) public spacing!: Spacing;
 
   public get className() {
     return classNames(

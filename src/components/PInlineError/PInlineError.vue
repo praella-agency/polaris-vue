@@ -21,11 +21,11 @@
         /**
          * Unique identifier of the invalid form field that the message describes
          */
-        @Prop(String) public message!: string;
+        @Prop({type: String, default: null}) public message!: string;
 
         /**
          * Content briefly explaining how to resolve the invalid form field input.
          */
-        @Prop(String) public fieldID!: string;
+        @Prop({type: String, default: null}) public fieldID!: string;
     }
 </script>

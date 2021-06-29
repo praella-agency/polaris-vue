@@ -17,10 +17,11 @@
                     track-by="value"
                     :placeholder="placeholder"
                     :searchable="searchable"
-                    :multiple="true"
+                    :multiple="multiple"
                     :taggable="taggable"
-                    :close-on-select="false"
-                    :clear-on-select="false" :preserve-search="true"
+                    :close-on-select="computedMultiple"
+                    :clear-on-select="false"
+                    :preserve-search="true"
                     label="label"
                     @tag="addTag"
             >
@@ -36,105 +37,6 @@
     </div>
 </template>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-<style lang="scss">
-    .multiselect, .multiselect__input, .multiselect__single {
-        font-size: unset;
-    }
-
-    .multiselect {
-        min-height: 36px;
-
-        .multiselect__input {
-            min-height: 36px;
-            background: unset;
-            margin-bottom: 0;
-            padding: 0;
-        }
-
-        &.multiselect--active .multiselect__select {
-            transform: none;
-        }
-
-        .multiselect__select {
-            height: 36px;
-            width: 32px;
-            padding: 4px 5px;
-            right: 2px;
-
-            svg {
-                margin: 4px 0;
-                width: 20px;
-                fill: #637381;
-            }
-        }
-
-        .multiselect__single {
-            padding: 0;
-            margin: 0;
-            line-height: 34px;
-            background: unset;
-        }
-
-        .multiselect__tags {
-            min-height: 36px;
-            padding: 0px 40px 0 8px;
-            border: 1px solid #c4cdd5;
-            box-shadow: 0 0 0 1px transparent, 0 1px 0 0 rgba(22, 29, 37, 0.05);
-            border-radius: 3px;
-            background: linear-gradient(180deg, #fff, #f9fafb);
-        }
-
-        .multiselect__placeholder {
-            color: #3b4b5b;
-            display: inline-block;
-            line-height: 36px;
-            vertical-align: top;
-            margin-bottom: 0;
-            padding-top: 0;
-        }
-
-        .multiselect__option--highlight {
-            background: #007B5C;
-        }
-
-        .multiselect__option--highlight:after {
-            background: #007B5C;
-        }
-
-        .multiselect__content-wrapper {
-            border: 1px solid #c4cdd5;
-            box-shadow: 0 0 0 1px transparent, 0 1px 0 0 rgba(22, 29, 37, 0.05);
-            border-radius: 3px;
-            background: linear-gradient(180deg, #fff, #f9fafb);
-        }
-
-        .multiselect__tag {
-            border-radius: 3px;
-            background: linear-gradient(180deg, #006e52, #007B5C);
-            margin: 6px 5px 6px 0;
-        }
-
-        .multiselect__tags-wrap {
-            display: block;
-            height: 34px;
-        }
-
-        .multiselect__tag-icon:after {
-            color: #FFF;
-            font-size: 13px;
-        }
-
-        .multiselect__tag-icon:focus, .multiselect__tag-icon:hover {
-            background: unset;
-            outline: none;
-        }
-
-        .multiselect__select:before {
-            display: none;
-        }
-    }
-</style>
 <script lang="ts">
 import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import {ArrowUpDownMinor} from '@/assets/shopify-polaris-icons';
@@ -147,6 +49,7 @@ interface StrictOption {
     value: string;
     label: string;
     disabled?: boolean;
+    $isDisabled?: boolean;
     hidden?: boolean;
 }
 
@@ -164,13 +67,14 @@ interface StrictOption {
 export default class PMultiSelect extends Vue {
     /**
      * Disable the PMultiSelect.
+     * @values true | false
      */
-    @Prop(Boolean) public disabled!: boolean;
+    @Prop({type: Boolean, default: false}) public disabled!: boolean;
 
     /**
      * Label for the PMultiSelect.
      */
-    @Prop(String) public label!: string;
+    @Prop({type: String, default: null}) public label!: string;
 
     /**
      * Options of PMultiSelect.
@@ -180,22 +84,30 @@ export default class PMultiSelect extends Vue {
     /**
      * Value for PMultiSelect.
      */
-    @Prop({default: () => []}) public value!: any [];
+    @Prop({default: []}) public value!: any;
 
     /**
      * Disable the searchable options feature.
+     * @values true | false
      */
-    @Prop({type: Boolean, default: true}) public searchable!: string;
+    @Prop({type: Boolean, default: true}) public searchable!: boolean;
 
     /**
-     * Taggable feature for PMultiSelect.
+     * Taggable provides ability to add new user-input value on multiselect.
+     * @values true | false
      */
-    @Prop({type: Boolean, default: false}) public taggable!: string;
+    @Prop({type: Boolean, default: false}) public taggable!: boolean;
 
     /**
      * Provide Placeholder.
      */
-    @Prop(String) public placeholder!: string;
+    @Prop({type: String, default: null}) public placeholder!: string;
+
+    /**
+     * To allow multiple selections
+     * @values true | false
+     */
+    @Prop({type: Boolean, default: true}) public multiple!: boolean;
 
     public id = `PolarisMultiSelect${new Date().getUTCMilliseconds()}`;
     public selected = this.value;
@@ -211,13 +123,12 @@ export default class PMultiSelect extends Vue {
         }
         this.options.map((value) => {
             if (typeof value === 'object') {
-                if (value.disabled) { value.disabled = value.disabled; }
+                if (value.disabled) { value.$isDisabled = value.disabled; }
                 options.push(value);
             } else {
                 options.push({label: value, value});
             }
         });
-
         return options;
     }
 
@@ -227,7 +138,15 @@ export default class PMultiSelect extends Vue {
 
     public set computedValue(value) {
         this.selected = value;
+        /**
+         * Callback when selection is changed
+         * @property {event}
+         */
         this.$emit('change', value);
+    }
+
+    public get computedMultiple() {
+        return !this.multiple;
     }
 
     public get className() {
@@ -242,8 +161,13 @@ export default class PMultiSelect extends Vue {
             label: newTag,
             value: newTag,
         };
-        this.selected.push(tag);
+        if (this.multiple) {
+          this.selected.push(tag);
+        } else {
+          this.selected = tag;
+        }
         this.options.push(tag);
+        this.$emit('change', this.selected);
     }
 
     @Watch('value')
@@ -252,3 +176,5 @@ export default class PMultiSelect extends Vue {
     }
 }
 </script>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

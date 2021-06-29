@@ -1,7 +1,8 @@
 <template>
   <div class="Polaris-Layout">
     <template v-if="sectioned">
-      <PLayoutSection v-bind="$props">
+      <PLayoutSection>
+        <!-- @slot Content for the layout  -->
         <slot/>
       </PLayoutSection>
     </template>
@@ -23,11 +24,13 @@
         },
     })
     export default class PLayout extends Vue {
-        @Prop(Boolean) public sectioned!: boolean;
-        @Prop(Boolean) public fullWidth!: boolean;
-        @Prop(Boolean) public oneHalf!: boolean;
-        @Prop(Boolean) public oneThird!: boolean;
-        @Prop(Boolean) public secondary!: boolean;
+
+      /**
+       * Automatically adds sections to layout.
+       * @values true | false
+       */
+      @Prop({type: Boolean, default: false}) public sectioned!: boolean;
+
     }
 </script>
 

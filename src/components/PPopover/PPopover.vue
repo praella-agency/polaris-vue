@@ -1,5 +1,6 @@
 <template>
   <div ref="container">
+    <!-- @slot Filter Activator content -->
     <slot name="activator" :activate="onActivate"></slot>
 
     <PPopoverOverlay
@@ -25,7 +26,8 @@
               <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical
                           Polaris-Scrollable--hasBottomShadow Polaris-Scrollable--verticalHasScrolling"
                    data-polaris-scrollable="true">
-                  <slot name="content"></slot>
+                <!-- @slot Popover Overlay content -->
+                <slot name="content"></slot>
               </div>
             </div>
           </div>
@@ -58,40 +60,60 @@ export default class PPopover extends Vue {
 
   /**
    * Show or hide the PPopover.
+   * @values true | false
    */
   @Prop({type: Boolean, required: true}) public active!: boolean;
 
   /**
    * Preferred Position.
-   * @values below|above|mostSpace
+   * @values below | above | mostSpace
    */
   @Prop({type: String, default: 'below'}) public preferredPosition!: string;
 
+  /**
+   * Preferred Alignment
+   * @values center | left | right
+   */
   @Prop({type: String, default: 'center'}) public preferredAlignment!: string;
 
   /**
    * The element type to wrap the activator with.
    */
-  @Prop(String) public activatorWrapper!: string;
+  @Prop({type: String, default: null}) public activatorWrapper!: string;
 
   /**
    * Prevent auto focus on the activator
+   * @values true | false
    */
-  @Prop(Boolean) public preventAutofocus!: boolean;
+  @Prop({type: Boolean, default: false}) public preventAutofocus!: boolean;
 
   /**
    * Automatically add wrap content in section.
+   * @values true | false
    */
-  @Prop(Boolean) public sectioned!: boolean;
+  @Prop({type: Boolean, default: false}) public sectioned!: boolean;
 
   /**
    * Allow PPopover to stretch to the full width of its activator.
+   * @values true | false
    */
-  @Prop(Boolean) public fullWidth!: boolean;
-  @Prop(Boolean) public measuring!: boolean;
-  @Prop(Boolean) public positioning!: boolean;
+  @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
+
+  /**
+   * Enable measure
+   * @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public measuring!: boolean;
+
+  /**
+   * Enable positioning
+   * @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public positioning!: boolean;
 
   @Ref('container') public readonly container!: HTMLElement;
+
+  public isAppended: boolean = false;
 
   public get className() {
     return classNames(
@@ -110,14 +132,34 @@ export default class PPopover extends Vue {
   }
 
   public mounted() {
-
     if (this.container.firstElementChild !== null) {
       this.container.firstElementChild.id = this.activatorId;
     }
-
+    const popoverOverlay = document.getElementById(this.realId + 'Overlay') as HTMLElement;
+    const rootElemId = this.$root.$el.id;
+    if (rootElemId) {
+      const rootElement = document.getElementById(rootElemId) as HTMLElement;
+      rootElement.append(popoverOverlay);
+      this.isAppended = true;
+    }
     window.addEventListener('click', this.handlePageClick);
     window.addEventListener('touchstart', this.handlePageClick);
     document.addEventListener('keyup', this.handleKeyPress);
+  }
+
+  public beforeDestroy() {
+    if (this.isAppended) {
+      const popoverOverlay = document.getElementById(this.realId + 'Overlay') as HTMLElement;
+      if (popoverOverlay) {
+        popoverOverlay.remove();
+      }
+    }
+  }
+
+  public destroyed() {
+    window.removeEventListener('click', this.handlePageClick);
+    window.removeEventListener('touchstart', this.handlePageClick);
+    window.removeEventListener('keyup', this.handleKeyPress);
   }
 
   public findActivator() {
@@ -128,6 +170,10 @@ export default class PPopover extends Vue {
     if (e.keyCode !== 27) {
       return;
     }
+    /**
+     * Close filter menu when EscapeKey is pressed
+     * @property {Default}
+     */
     this.$emit('close', 'EscapeKeypress');
   }
 
@@ -138,7 +184,10 @@ export default class PPopover extends Vue {
         this.nodeContainsDescendant(this.findActivator(), target) || !this.active) {
       return;
     }
-
+    /**
+     * Close filter menu when page is clicked
+     * @property {Event} click
+     */
     this.$emit('close', 'Click');
   }
 
@@ -157,6 +206,9 @@ export default class PPopover extends Vue {
   }
 
   public onActivate() {
+    /**
+     * Activate method
+     */
     this.$emit('activate');
   }
 

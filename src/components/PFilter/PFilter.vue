@@ -9,6 +9,7 @@
                         </PTextField>
                     </PFilterItemWrapper>
                     <PFilterItemWrapper v-if="$slots.hasOwnProperty('default')" position="right">
+                        <!-- @slot Filter content -->
                         <slot />
                     </PFilterItemWrapper>
                 </div>
@@ -40,9 +41,21 @@ interface AppliedFiltersInterface {
 })
 export default class PFilter extends Vue {
 
+    /**
+     * Title or placeholder for the element
+     */
     @Prop({type: String, default: 'Filter'}) public resourceTitle!: string;
-    @Prop(String) public inputFilter!: string;
-    @Prop(Array) public appliedFilters!: AppliedFiltersInterface[];
+
+    /**
+     * Add default value to filter
+     */
+    @Prop({type: String, default: null}) public inputFilter!: string;
+
+    /**
+     * Applied filters which are rendered as tags.
+     * The remove callback is called with respective key
+     */
+    @Prop({type: Array, default: Array}) public appliedFilters!: AppliedFiltersInterface[];
 
     public get prefix() {
 

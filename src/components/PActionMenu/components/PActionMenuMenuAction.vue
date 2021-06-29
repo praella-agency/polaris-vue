@@ -1,5 +1,5 @@
 <template>
-    <PUnstyledLink v-if="url" :class="menuActionClassNames" :url="url" :external="external">
+    <PUnstyledLink :ref="id" v-if="url" :class="menuActionClassNames" :url="url" :external="external">
         <span v-if="icon || disclosure" class="Polaris-ActionMenu-MenuAction__ContentWrapper">
             <span v-if="icon" class="Polaris-ActionMenu-MenuAction__IconWrapper">
                 <PIcon :source="icon" />
@@ -11,7 +11,7 @@
         </span>
         <template v-else>{{content}}</template>
     </PUnstyledLink>
-    <button v-else type="button" :class="menuActionClassNames" :disabled="disabled" @click="onAction()">
+    <button :ref="id" v-else type="button" :class="menuActionClassNames" :disabled="disabled" @click.stop="onAction()">
         <span v-if="icon || disclosure" class="Polaris-ActionMenu-MenuAction__ContentWrapper">
             <span v-if="icon" class="Polaris-ActionMenu-MenuAction__IconWrapper">
                 <PIcon :source="icon" />
@@ -44,6 +44,7 @@
     })
     export default class PActionMenuMenuAction extends Vue {
 
+        @Prop({type: String, default: `ActionMenuMenuAction${new Date().getUTCMilliseconds()}`}) public id!: string;
         @Prop(String) public content!: string;
         @Prop(String) public url!: string;
         @Prop(Boolean) public external!: boolean;
@@ -51,6 +52,7 @@
         @Prop(Boolean) public disclosure!: boolean;
         @Prop(Boolean) public disabled!: boolean;
         @Prop({type: Function, default: null}) public onAction!: void;
+        @Prop({type: Function, default: null}) public getOffsetWidth!: any;
 
         public get menuActionClassNames() {
 
@@ -58,6 +60,14 @@
                 'Polaris-ActionMenu-MenuAction',
                 this.disabled && 'Polaris-ActionMenu-MenuAction--disabled',
             );
+        }
+
+        public mounted() {
+          const actionsLayoutRef = this.$refs[this.id] as HTMLElement;
+          if (typeof this.getOffsetWidth === 'function' && actionsLayoutRef) {
+            this.getOffsetWidth(actionsLayoutRef.offsetWidth);
+          }
+
         }
     }
 </script>
