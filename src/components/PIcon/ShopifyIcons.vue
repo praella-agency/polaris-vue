@@ -2,11 +2,14 @@
   <div class="shopify-div">
     <PTextField class="shopify-polaris-text" placeholder="Search Icon" @input="searchIcon"/>
     <div class="container-div">
-      <div v-for="(icon, key) in icons" :key="key" class="icon-div" @click="openModal(icon)">
+      <div v-for="(icon, key) in icons" :key="key" class="icon-div" @click="copyCode">
         <div>
           <PIcon :source="icon" color="tealDark"></PIcon>
           <div class="icon-text-div">
             {{ icon }}
+          </div>
+          <div class="icon-code">
+            {{ iconCode }}
           </div>
         </div>
       </div>
