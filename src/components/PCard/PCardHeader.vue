@@ -8,7 +8,7 @@
       </PStackItem>
       <PStackItem>
         <PButtonGroup connectedTop>
-          <PButton v-for="(action, key) in actions" :key="key" plain @click="action.onAction()">
+          <PButton v-for="(action, key) in actions" :key="key" plain :href="action.url">
             {{ action.content }}
           </PButton>
         </PButtonGroup>

@@ -6,26 +6,19 @@ export default {
     title: 'Images & Icons / Icon',
     component: PIcon,
     parameters: {
+        options: {
+            showPanel: false,
+        },
+        controls: {
+            disabled: true,
+        },
+        actions: {
+            disabled: true,
+        },
         docs: {
             page: IconMDX,
         },
     },
-}
-
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
-    components: {
-        PIcon,
-    },
-    template: `
-        <PIcon v-bind="$props" />`,
-});
-
-export const Icon = Template.bind({});
-
-Icon.args = {
-    source: "CodeMajorTwotone",
-    color: "red",
 }
 
 const Template1 = () => ({
@@ -33,7 +26,7 @@ const Template1 = () => ({
         ShopifyIcons,
     },
     template: `
-        <shopify-icons></shopify-icons>`,
-})
+        <shopify-icons />`,
+});
 
-export const AllIcons = Template1.bind({});
+export const Icon = Template1.bind({});

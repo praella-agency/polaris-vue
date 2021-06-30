@@ -82,11 +82,11 @@ export default class PIcon extends Vue {
   @Prop({type: String, default: null}) public color!: Color;
 
   /**
-   * Icon backdrop
+   * Show a backdrop behind the icon
    *
-   * Backdrop is compatible with following colors: teal, tealDark, greenDark, redDark, yellowDark, ink, inkLighter
+   * @description true | false
    */
-  @Prop({type: Boolean, default: null}) public backdrop!: boolean;
+  @Prop({type: Boolean, default: false}) public backdrop!: boolean;
 
   public get className() {
     return classNames(

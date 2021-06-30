@@ -53,6 +53,11 @@ export default {
                 },
             },
         },
+        children: {
+            table: {
+                disable: true,
+            },
+        },
     },
 }
 
@@ -63,7 +68,7 @@ const Template = (arg, {argTypes}) => ({
     },
     template: `
       <PCard v-bind="$props">
-      View a summary of your online store’s performance.
+        View a summary of your online store’s performance.
       </PCard>`,
 });
 
@@ -92,19 +97,19 @@ const Template1 = (args, {argTypes}) => ({
     },
     template: `
       <PCard v-bind="$props">
-      <PCardSection>
-        <PList>
-          <PListItem>Samsung</PListItem>
-          <PListItem>Apple</PListItem>
-        </PList>
-      </PCardSection>
-
-      <PCardSection :subdued="subdued" title="New Products">
-        <PList>
-          <PListItem>Google</PListItem>
-          <PListItem>Oneplus</PListItem>
-        </PList>
-      </PCardSection>
+          <PCardSection>
+            <PList>
+              <PListItem>Samsung</PListItem>
+              <PListItem>Apple</PListItem>
+            </PList>
+          </PCardSection>
+    
+          <PCardSection :subdued="subdued" title="New Products">
+            <PList>
+              <PListItem>Google</PListItem>
+              <PListItem>Oneplus</PListItem>
+            </PList>
+          </PCardSection>
       </PCard>`,
 });
 

@@ -65,7 +65,6 @@ const Template = (args, {argTypes}) => ({
       <PPage
           v-bind="$props"
       >
-          <PButton :slot="primaryAction"></PButton>
           <PBadge slot="titleMetadata" status="success">Paid</PBadge>
           <PAvatar initials="HA" slot="additionalNavigation"></PAvatar>
           Page Content
