@@ -26,6 +26,7 @@ export const parameters = {
       method: "alphabetical",
       order: [
         "Introduction",
+        "Changelog",
         "Actions",
         "Structure",
         "Forms",
