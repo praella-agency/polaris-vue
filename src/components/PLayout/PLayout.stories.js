@@ -26,7 +26,7 @@ const Template = (args, {argTypes}) => ({
     template: `
       <PLayout v-bind="$props">
         <PLayoutSection>
-          <PCard sectioned>
+          <PCard sectioned :actions=[]>
             View a summary of your online store’s performance
           </PCard>
         </PLayoutSection>
@@ -47,12 +47,12 @@ const Template1 = (args, {argTypes}) => ({
     template: `
       <PLayout v-bind="$props">
           <PLayoutSection>
-            <PCard sectioned title="Order details">
+            <PCard sectioned title="Order details" :actions=[]>
               View a summary of your order.
             </PCard>
           </PLayoutSection>
           <PLayoutSection secondary>
-            <PCard sectioned title="Tags">
+            <PCard sectioned title="Tags" :actions=[]>
               Add tags to your order.
             </PCard>
           </PLayoutSection>
@@ -69,12 +69,12 @@ const Template2 = (args, {argTypes}) => ({
     template: `
       <PLayout v-bind="$props">
           <PLayoutSection one-half>
-            <PCard sectioned title="Order details">
+            <PCard sectioned title="Order details" :actions=[]>
               View a summary of your order.
             </PCard>
           </PLayoutSection>
           <PLayoutSection one-half>
-            <PCard sectioned title="Tags">
+            <PCard sectioned title="Tags" :actions=[]>
               Add tags to your order.
             </PCard>
           </PLayoutSection>
@@ -91,17 +91,17 @@ const Template3 = (args, {argTypes}) => ({
     template: `
       <PLayout v-bind="$props">
           <PLayoutSection oneThird>
-            <PCard sectioned title="Order details">
+            <PCard sectioned title="Order details" :actions=[]>
               View a summary of your order.
             </PCard>
           </PLayoutSection>
           <PLayoutSection oneThird>
-            <PCard sectioned title="Variant">
+            <PCard sectioned title="Variant" :actions=[]>
               Add Variant
             </PCard>
           </PLayoutSection>
           <PLayoutSection oneThird>
-            <PCard sectioned title="Tags">
+            <PCard sectioned title="Tags" :actions=[]>
               Add tags to your order.
             </PCard>
           </PLayoutSection>
@@ -126,7 +126,7 @@ const Template4 = (args, { argTypes }) => ({
               title="Store details" 
               description="Shopify and your customers will use this information to contact you."
           >
-            <PCard sectioned>
+            <PCard sectioned :actions=[]>
               <PFormLayout>
                 <PTextField label="Store name"></PTextField>
                 <PTextField type="email" label="Account email"></PTextField>

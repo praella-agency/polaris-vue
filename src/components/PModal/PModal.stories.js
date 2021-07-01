@@ -58,7 +58,7 @@ const Template = (args, {argTypes}) => ({
                   We ensure complete privacy all of out customers
                 </PBanner>
               </PFormLayout>
-              </PModal>
+          </PModal>
           <PButton @click="openModal">Open Modal</PButton>
       </div>`,
     methods: {

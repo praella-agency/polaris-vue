@@ -39,6 +39,5 @@ export const DatePicker = Template.bind({});
 
 DatePicker.args = {
     id: "pDatePicker",
-    singleDatePicker: true,
-    ranges: {}
+    singleDatePicker: true
 }

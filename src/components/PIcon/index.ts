@@ -1,2 +1,4 @@
 import PIcon from './PIcon.vue';
-export { PIcon };
+import ShopifyIcons from './ShopifyIcons.vue';
+
+export { PIcon, ShopifyIcons };

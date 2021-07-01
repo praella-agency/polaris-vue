@@ -18,7 +18,7 @@
         <div class="Polaris-Page-Header__Actions" v-if="hasActions">
           <PActionMenu :groups="actionGroups" :actions="secondaryActions" v-if="hasActionMenu"
                        :rollup="isNavigationCollapsed.rollup"/>
-          <div v-if="primaryAction || $slots.hasOwnProperty('primaryAction')"
+          <div v-if="Object.keys(primaryAction).length > 0 || $slots.hasOwnProperty('primaryAction')"
                class="Polaris-Page-Header__PrimaryActionWrapper">
             <slot name="primaryAction">
               <PButton
@@ -120,7 +120,7 @@ export default class PPageHeader extends Vue {
   @Prop(String) public additionalMetaData!: string;
   @Prop({type: Boolean, default: false}) public titleHidden!: boolean;
   @Prop(Boolean) public separator!: boolean;
-  @Prop(Object) public primaryAction!: PrimaryAction;
+  @Prop({type: Object, default: {}}) public primaryAction!: PrimaryAction;
   @Prop(Object) public pagination!: PPaginationDescriptor;
   @Prop({type: Array, default: Array}) public breadcrumbs!: [];
   @Prop({type: Array, default: () => []}) public secondaryActions!: MenuActionDescriptor[];
