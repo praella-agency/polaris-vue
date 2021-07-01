@@ -74,7 +74,7 @@ const Template = (arg, {argTypes}) => ({
           :actions="[
           {
             content: 'Total Sales',
-            onAction: handleActionClick,
+            to: '/to-route',
           },
       ]">
       </PCardHeader>

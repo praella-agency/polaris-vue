@@ -86,7 +86,7 @@
         /**
          * Actions for Header. **Deprecated** Actions will be removed on future releases, use PCardHeader instead props.
          */
-        @Prop({type: Array, default: []}) public actions!: [];
+        @Prop({type: [Array, String], default: null}) public actions!: [];
 
         public get className() {
             return classNames(
