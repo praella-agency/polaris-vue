@@ -111,46 +111,42 @@
         font-size: 14px;
     }
 
-    .icon-tooltip:hover .span-tooltip {
-        opacity: 1;
-        filter: alpha(opacity=100);
-        top: -6em;
-        left: 2px;
-        z-index: 99;
-        display: inline-block;
-    }
-
     .icon-tooltip .span-tooltip {
-        background: none repeat scroll 0 0 #00848e; /*-- some basic styling */
+        background: none repeat scroll 0 0 #39a9a2;
         color: #ffffff;
-        font-size: 0.8em;
         font-weight: normal;
-        line-height: 1.5em;
-        padding: 15px 0;
-
+        padding: 8px 10px;
         box-sizing: border-box;
-        width: 400px;
-
-        top: -4em; /*-- this is the original position of the tooltip when it's hidden */
-        left: 2px;
         margin-left: 0;
-        display: none;
-        /*-- set opacity to 0 otherwise our animations won't work */
         opacity: 0;
         filter: alpha(opacity=0);
         position: absolute;
         text-align: center;
-        z-index: 2;
+        white-space: nowrap;
+        border-radius: 5px;
+        box-shadow: 3px 3px 3px #e1e1e1;
+        visibility: hidden;
+        transition: all .3s linear;
+        top: -45px;
+        left: -80px;
+        z-index: 99;
+    }
+
+
+    .icon-tooltip:hover .span-tooltip {
+        opacity: 1;
+        filter: alpha(opacity=100);
+        visibility: visible;
     }
 
     .icon-tooltip .span-tooltip:after {
-        border-color: #00848e rgba(0, 0, 0, 0);
+        border-color: #39a9a2 rgba(0, 0, 0, 0);
         border-style: solid;
-        border-width: 15px 15px 0;
-        bottom: -15px;
+        border-width: 8px 8px 0;
+        bottom: -8px;
         content: "";
         display: block;
-        left: 31px;
+        left: calc(50% - 4px);
         position: absolute;
         width: 0;
     }

@@ -8,9 +8,16 @@
       </PStackItem>
       <PStackItem>
         <PButtonGroup connectedTop>
-          <PButton v-for="(action, key) in actions" :key="key" plain :href="action.url">
+          <component
+                  v-for="(action, key) in actions" :key="key"
+                  :is="(action.to ? 'PLink' : 'PButton')"
+                  plain
+                  :href="action.url ? action.url : null"
+                  :to="action.to ? action.to : null"
+                  v-on="action.onAction ? { click: action.onAction } : {}"
+          >
             {{ action.content }}
-          </PButton>
+          </component>
         </PButtonGroup>
       </PStackItem>
       <PStackItem>
@@ -32,16 +39,17 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Prop} from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
-import {PStack, PStackItem} from '@/components/PStack';
-import {PHeading} from '@/components/PHeading';
-import {PButtonGroup} from '@/components/PButtonGroup';
-import {PButton} from '@/components/PButton';
+import { PStack, PStackItem } from '@/components/PStack';
+import { PHeading } from '@/components/PHeading';
+import { PButtonGroup } from '@/components/PButtonGroup';
+import { PButton } from '@/components/PButton';
+import { PLink } from '@/components/PLink';
 
 @Component({
   components: {
-    PStack, PStackItem, PHeading, PButtonGroup, PButton,
+    PStack, PStackItem, PHeading, PButtonGroup, PButton, PLink,
   },
 })
 export default class PCardHeader extends Vue {

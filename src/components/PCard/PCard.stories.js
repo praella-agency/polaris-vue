@@ -180,7 +180,7 @@ const Template2 = (args, {argTypes}) => ({
                 content: 'Net Sales'
               }
           ]"
-          ></PActionList>
+          />
         </PPopover>
       </PCardHeader>
 
@@ -245,4 +245,5 @@ export const AllElements = Template2.bind({});
 
 AllElements.args = {
     subdued: true,
+    actions: []
 }
