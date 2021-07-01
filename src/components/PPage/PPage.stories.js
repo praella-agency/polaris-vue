@@ -2,12 +2,10 @@ import { PPage } from '../PPage';
 import { PButton } from '../PButton';
 import { PBadge } from '../PBadge';
 import { PAvatar } from '../PAvatar';
-import StoryRouter from 'storybook-vue-router'
 
 export default {
     title: 'Structure / Page ',
     component: PPage,
-    decorators: [StoryRouter()],
     argTypes: {
         additionalNavigation: {
             table: {
@@ -20,8 +18,8 @@ export default {
             },
         },
         primaryAction: {
-            table: {
-                disable: true,
+            type: {
+                name: 'json',
             },
         },
         titleMetadata: {

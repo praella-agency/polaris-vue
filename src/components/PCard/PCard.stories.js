@@ -64,39 +64,40 @@ export default {
 const Template = (arg, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PCard,
+        PCard,PCardHeader,PCardSection
     },
     template: `
       <PCard v-bind="$props">
-        View a summary of your online store’s performance.
+      <PCardHeader
+          title="Sales"
+          shortDescription="Sales Report"
+          :actions="[
+          {
+            content: 'Total Sales',
+            onAction: handleActionClick,
+          },
+      ]">
+      </PCardHeader>
+        <PCardSection>
+          View a summary of your online store’s performance.
+        </PCardSection>
       </PCard>`,
 });
 
 export const Card = Template.bind({});
 
 Card.args = {
-    sectioned: true,
-    title: "Online store dashboard",
-    shortDescription: "Store performance",
-    actions: [
-        {
-            content: 'Test1',
-            url: 'https://www.google.com'
-        },
-        {
-            content: 'Test2',
-            url: 'https://www.google.com'
-        }
-    ],
+    sectioned: false
 }
 
 const Template1 = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PCard, PCardSection, PList, PListItem,
+        PCard, PCardSection, PList, PListItem, PCardHeader
     },
     template: `
       <PCard v-bind="$props">
+          <PCardHeader title="Products"></PCardHeader>
           <PCardSection>
             <PList>
               <PListItem>Samsung</PListItem>
@@ -116,7 +117,6 @@ const Template1 = (args, {argTypes}) => ({
 export const CardWithSubdued = Template1.bind({});
 
 CardWithSubdued.args = {
-    title: 'Products',
     subdued: true,
 }
 
