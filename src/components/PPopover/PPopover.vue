@@ -137,7 +137,7 @@ export default class PPopover extends Vue {
     }
     const popoverOverlay = document.getElementById(this.realId + 'Overlay') as HTMLElement;
     const rootElemId = this.$root.$el.id;
-    if (rootElemId) {
+    if (rootElemId && popoverOverlay) {
       const rootElement = document.getElementById(rootElemId) as HTMLElement;
       rootElement.append(popoverOverlay);
       this.isAppended = true;
