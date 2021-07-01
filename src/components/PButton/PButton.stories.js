@@ -1,9 +1,7 @@
 import PButton from './PButton';
-import StoryRouter from "storybook-vue-router";
 
 export default {
     title: 'Actions / Button',
-    decorators: [StoryRouter()],
     component: PButton,
     argTypes: {
         disclosure: {

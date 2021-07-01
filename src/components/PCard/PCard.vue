@@ -62,12 +62,12 @@
     export default class PCard extends Vue {
 
         /**
-         * Title content for the card
+         * Title content for the card. **Deprecated** Actions will be removed on future releases, use PCardHeader instead props.
          */
         @Prop({type: String, default: null}) public title!: string;
 
         /**
-         * Card description
+         * Card description. **Deprecated** Actions will be removed on future releases, use PCardHeader instead props.
          */
         @Prop({type: String, default: null}) public shortDescription!: string;
 
@@ -84,9 +84,9 @@
         @Prop({type: Boolean, default: false}) public sectioned!: boolean;
 
         /**
-         * Actions for Header
+         * Actions for Header. **Deprecated** Actions will be removed on future releases, use PCardHeader instead props.
          */
-        @Prop({type: Array, default: []}) public actions!: [];
+        @Prop({type: [Array, String], default: null}) public actions!: [];
 
         public get className() {
             return classNames(
