@@ -1,12 +1,28 @@
 <template>
-
+    <div
+        v-on="message ? (active ? {click: openToast} : {click: closeToast}) : {}"
+    ></div>
 </template>
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { Action } from '@/types';
+  import { PButton } from '@/components/PButton';
 
-  @Component
+  import VueToast from 'vue-toast-notification';
+  // Import one of the available themes
+  // import 'vue-toast-notification/dist/theme-default.css';
+  import './PToast.css';
+  Vue.use(VueToast);
+
+  type position = 'bottom-right' | 'top-right' | 'top' | 'top-left' | 'bottom' | 'bottom-left' | undefined;
+
+  type type = 'success' | 'info' | 'warning' | 'error' | 'default';
+
+  @Component({
+    components: {
+      PButton,
+    },
+  })
   export default class PToast extends Vue {
 
     /**
@@ -15,32 +31,71 @@
     @Prop({type: String, default: null}) public id!: string;
 
     /**
-     * The content that should appear in the toast message
+     * The message that should appear in the toast message
      */
-    @Prop({type: String, default: null, required: true}) public content!: string;
+    @Prop({type: String, required: true}) public message!: string;
+
+    /**
+     * Toast type
+     */
+    @Prop({type: String, default: 'success'}) public type!: string;
+
+    /**
+     * Toast Position
+     */
+    @Prop({type: String, default: 'bottom-right'}) public position!: position;
 
     /**
      * The length of time in milliseconds the toast message should persist
-     * @default 5000
      */
-    @Prop({type: Number, default: 5000}) public duration!: number;
+    @Prop({type: Number, default: 3000}) public duration!: number;
 
     /**
-     *  Display an error toast.
+     * Allow user dismiss by clicking
      */
-    @Prop({type: Boolean, default: false}) public error!: string;
+    @Prop({type: Boolean, default: true}) public dismissible!: boolean;
 
     /**
-     *  Callback when the dismiss icon is clicked
+     * Wait for existing to dismiss before showing new
      */
-    @Prop({type: Function}) public onDismiss!: void;
+    @Prop({type: Boolean, default: false}) public queue!: boolean;
 
     /**
-     * Adds an action next to the message
+     * Pause the timer when mouse on over a toast
      */
-    @Prop({type: Object, default: {}}) public action!: Action;
+    @Prop({type: Boolean, default: true}) public pauseOnHover!: boolean;
 
-    public showToast!: boolean;
+    /**
+     * Do something when user clicks
+     */
+    @Prop({type: Function}) public onClick!: any;
+
+    /**
+     * Do something after toast gets dismissed
+     */
+    @Prop({type: Function}) public onDismiss!: any;
+
+    public active = true;
+
+    public openToast() {
+      Vue.$toast.open({
+        message: this.message,
+        type: this.type,
+        position: this.position,
+        duration: this.duration,
+        dismissible: this.dismissible,
+        queue: this.queue,
+        pauseOnHover: this.pauseOnHover,
+        onClick: this.onClick,
+        onDismiss: this.onDismiss,
+      });
+      this.active = false;
+    };
+
+    public closeToast() {
+      Vue.$toast.clear();
+      this.active = true;
+    }
   }
 </script>
 
