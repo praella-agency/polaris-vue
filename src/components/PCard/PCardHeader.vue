@@ -7,7 +7,7 @@
         </slot>
       </PStackItem>
       <PStackItem>
-        <PButtonGroup connectedTop>
+        <PButtonGroup v-if="actions" connectedTop>
           <component
                   v-for="(action, key) in actions" :key="key"
                   :is="(action.to ? 'PLink' : 'PButton')"
@@ -58,6 +58,6 @@ export default class PCardHeader extends Vue {
 
   @Prop({type: String, default: null}) public shortDescription!: string;
 
-  @Prop({type: Array, default: () => []}) public actions!: [];
+  @Prop({type: [Array, String], default: null}) public actions!: [];
 }
 </script>
