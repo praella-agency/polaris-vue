@@ -10,10 +10,10 @@ export default {
             showPanel: false,
         },
         controls: {
-            disabled: true,
+            disable: true,
         },
         actions: {
-            disabled: true,
+            disable: true,
         },
         docs: {
             page: IconMDX,

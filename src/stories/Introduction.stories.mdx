@@ -1,6 +1,16 @@
-import { Meta } from '@storybook/addon-docs/blocks';
+import { Meta } from '@storybook/addon-docs';
 
-<Meta title="Introduction" />
+<Meta
+    title="Introduction"
+    parameters={{
+        viewMode: 'story',
+        previewTabs: {
+          'storybook/docs/panel': {
+              hidden: true,
+          },
+        },
+    }}
+/>
 
 # Welcome to Polaris Vue
 
