@@ -23,12 +23,12 @@ class ComponentHelpers {
 
 
     makeComponentClass(componentName, properties, state) {
-        var classes = {};
+        let classes = {};
         classes[componentName] = true;
 
-        for (var prop of properties) {
-            var value = state[prop];
-            var valueTag = '';
+        for (let prop of properties) {
+            let value = state[prop];
+            let valueTag = '';
             if (value && typeof value === 'string') {
                 valueTag = value.charAt(0).toUpperCase() + value.slice(1);
             }
@@ -43,10 +43,10 @@ class ComponentHelpers {
             return false;
         }
 
-        var nodeComponentTagName = node.componentOptions.tag;
-        var componentTagName = this.getComponentName(component.polarisName);
+        let nodeComponentTagName = node.componentOptions.tag;
+        let componentTagName = this.getComponentName(component.name);
 
-        return nodeComponentTagName == componentTagName;
+        return nodeComponentTagName === componentTagName;
     }
 
     getComponentName(polarisName) {
@@ -66,7 +66,7 @@ class ComponentHelpers {
     }
 
     wrapNodesWithComponent(createElement, nodes, component, ignoredComponents = []) {
-        var children = [];
+        let children = [];
         for (let node of nodes) {
             if (!node.tag && !node.text.trim()) {
                 continue;
