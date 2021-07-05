@@ -2,9 +2,12 @@ import '!style-loader!css-loader!sass-loader!../src/scss/main.scss';
 import '!style-loader!css-loader!sass-loader!./styles/docs.scss';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import pToast from '../src/components/PToast/index';
 
 Vue.use(VueRouter);
 Vue.component('router-link', Vue.component('RouterLink'));
+
+Vue.use(pToast);
 
 export const decorators = [(story) => ({
   components: {story},

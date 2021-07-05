@@ -53,7 +53,7 @@ import { PMediaCard } from './PMediaCard';
 import { PChart } from './PChart';
 import { PEmptyState } from './PEmptyState';
 import { PFooterHelp } from './PFooterHelp';
-import { PToast } from './PToast';
+import pToast from './PToast/index';
 
 import '@/scss/main.scss';
 
@@ -113,7 +113,7 @@ const Components = {
   PChart,
   PEmptyState,
   PFooterHelp,
-  PToast,
+  // PToast,
 };
 
 const PolarisVue = {
@@ -121,6 +121,8 @@ const PolarisVue = {
     for (let componentKey in Components) {
       Vue.component(componentKey, Components[componentKey]);
     }
+
+    Vue.use(pToast);
   },
 };
 

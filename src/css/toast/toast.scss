@@ -6,7 +6,7 @@
     opacity: 0;
   }
 }
-.v-toast--fade-out {
+.p-toast--fade-out {
   animation-name: fadeOut;
 }
 @keyframes fadeInDown {
@@ -19,7 +19,7 @@
     transform: none;
   }
 }
-.v-toast--fade-in-down {
+.p-toast--fade-in-down {
   animation-name: fadeInDown;
 }
 @keyframes fadeInUp {
@@ -32,7 +32,7 @@
     transform: none;
   }
 }
-.v-toast--fade-in-up {
+.p-toast--fade-in-up {
   animation-name: fadeInUp;
 }
 .fade-enter-active,
@@ -43,7 +43,7 @@
 .fade-leave-to {
   opacity: 0;
 }
-.v-toast {
+.p-toast {
   position: fixed;
   display: flex;
   top: 0;
@@ -54,7 +54,7 @@
   z-index: 1052;
   pointer-events: none;
 }
-.v-toast__item {
+.p-toast__item {
   font-size: 2rem;
   font-weight: 400;
   line-height: 2.0rem;
@@ -69,54 +69,53 @@
   align-items: center;
   pointer-events: auto;
   opacity: 0.92;
-  cursor: pointer;
 }
-.v-toast__item--success {
+.p-toast__item--success {
   background-color: #006e52;
 }
-.v-toast__item--info {
+.p-toast__item--info {
   background-color: #00a0ac;
 }
-.v-toast__item--warning {
+.p-toast__item--warning {
   background-color: #b98900;
 }
-.v-toast__item--error {
+.p-toast__item--error {
   background-color: #d72c0d;
 }
-.v-toast__item--default {
+.p-toast__item--default {
   background-color: #202123;
 }
-.v-toast__item.v-toast__item--top,
-.v-toast__item.v-toast__item--bottom {
+.p-toast__item.p-toast__item--top,
+.p-toast__item.p-toast__item--bottom {
   align-self: center;
 }
-.v-toast__item.v-toast__item--top-right,
-.v-toast__item.v-toast__item--bottom-right {
+.p-toast__item.p-toast__item--top-right,
+.p-toast__item.p-toast__item--bottom-right {
   align-self: flex-end;
 }
-.v-toast__item.v-toast__item--top-left,
-.v-toast__item.v-toast__item--bottom-left {
+.p-toast__item.p-toast__item--top-left,
+.p-toast__item.p-toast__item--bottom-left {
   align-self: flex-start;
 }
-.v-toast__text {
+.p-toast__text {
   margin: 0;
   padding: 0.5em 1em;
   word-break: break-word;
 }
-.v-toast__icon {
+.p-toast__icon {
   display: none;
 }
-.v-toast.v-toast--top {
+.p-toast.p-toast--top {
   flex-direction: column;
 }
-.v-toast.v-toast--bottom {
+.p-toast.p-toast--bottom {
   flex-direction: column-reverse;
 }
-.v-toast.v-toast--custom-parent {
+.p-toast.p-toast--custom-parent {
   position: absolute;
 }
 @media screen and (max-width: 768px) {
-  .v-toast {
+  .p-toast {
     padding: 0;
     position: fixed !important;
   }
