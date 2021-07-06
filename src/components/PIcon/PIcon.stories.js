@@ -1,6 +1,6 @@
 import PIcon from './PIcon';
 import ShopifyIcons from './ShopifyIcons';
-import IconMDX from './PIcon.mdx';
+import PIconMDX from './PIcon.mdx';
 
 export default {
     title: 'Images & Icons / Icon',
@@ -16,7 +16,7 @@ export default {
             disable: true,
         },
         docs: {
-            page: IconMDX,
+            page: PIconMDX,
         },
     },
 }

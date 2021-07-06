@@ -1,20 +1,20 @@
-import PToast from './PToast';
-import { PButton } from "../PButton";
+import PToast from './components/PToast';
+import PToastMDX from './PToast.mdx';
+import {PButton} from "../PButton";
 
 export default {
     title: 'Feedback indicators / Toast',
     component: PToast,
     argTypes: {
         position: {
-            options: ['bottom-right', 'top-right', 'top', 'top-left', 'bottom', 'bottom-left'],
+            options: ['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right'],
             control: {
                 type: 'select',
             },
         },
-        type: {
-            options: ['success', 'info', 'warning', 'error', 'default'],
+        error: {
             control: {
-                type: 'select',
+                type: 'boolean',
             },
         },
         onClick: {
@@ -30,11 +30,14 @@ export default {
     },
     parameters: {
         docs: {
-            source: {
-                type: 'code'
-            },
+            page: PToastMDX,
+        },
+        actions: {
+            disable: false,
+            argTypesRegex: "^on[A-Z].*",
         },
     },
+
 }
 
 const Template = (args, {argTypes}) => ({
@@ -43,15 +46,12 @@ const Template = (args, {argTypes}) => ({
         PToast, PButton,
     },
     template: `
-        <div>
-            <PButton @click="showToast">Toast</PButton>
-            <PToast ref="toast"
-                v-bind="$props"
-            ></PToast>
-        </div>`,
+      <div>
+      <PButton @click="showToast($props)">Toast</PButton>
+      </div>`,
     methods: {
-        showToast() {
-            this.$refs.toast.$el.click();
+        showToast(props) {
+            this.$pToast.open(props);
         },
     },
 })
@@ -59,6 +59,5 @@ const Template = (args, {argTypes}) => ({
 export const Toast = Template.bind({});
 
 Toast.args = {
-    message: 'Hello',
-    position: 'bottom-left'
+    message: 'Hello World!',
 }

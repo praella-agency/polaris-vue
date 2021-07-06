@@ -124,11 +124,4 @@ Page.args = {
             to: '/new-page'
         }
     ],
-    primaryAction: {
-        content: 'Save',
-        onAction: () => {
-            alert('Saved');
-        },
-        disabled: true,
-    },
 }

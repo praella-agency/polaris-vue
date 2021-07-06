@@ -1,0 +1,173 @@
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.Polaris-Frame-Toast-Fade-Out {
+  animation-name: fadeOut;
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.Polaris-Frame-Toast-Fade-In-Down {
+  animation-name: fadeInDown;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.Polaris-Frame-Toast-Fade-In-Up {
+  animation-name: fadeInUp;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 150ms ease-out;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.Polaris-Frame-Toast {
+  font-size: $frame-toast-font-size;
+  font-weight: $frame-toast-font-weight;
+  line-height: $frame-toast-line-height;
+  display: inline-flex;
+  max-width: 50rem;
+  padding: .8rem 1.6rem;
+  border-radius: $frame-toast-border-radius;
+  background: $frame-toast-bgcolor;
+  box-shadow: $frame-toast-box-shadow;
+  color: $frame-toast-color;
+  pointer-events: auto;
+  @media (min-width:40em) {
+    font-size: $frame-toast-media-font-size;
+    line-height: $frame-toast-media-line-height;
+    padding: 1.6rem;
+  }
+}
+.Polaris-Frame-Toast__Action {
+  margin-left: 3.2rem;
+  margin-right: 1.6rem;
+}
+.Polaris-Frame-Toast--error {
+  background: $frame-toast-error-bgcolor;
+  color: $frame-toast-error-color;
+  .Polaris-Frame-Toast__CloseButton {
+    fill: $frame-toast-error-closebtn-fill;
+  }
+}
+.Polaris-Frame-Toast__CloseButton {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: -.8rem -1.6rem -.8rem 0;
+  padding: 0 1.6rem;
+  border: $frame-toast-closebtn-border;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: $frame-toast-closebtn-bgcolor;
+  fill: $frame-toast-closebtn-fill;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
+.Polaris-Frame-ToastManager {
+  z-index: 520;
+  text-align: center;
+  animation-duration: 150ms;
+  &.Polaris-Frame-Toast--Position-top {
+    .Polaris-Frame-Toast {
+      margin-top: 2rem;
+    }
+  }
+  &.Polaris-Frame-Toast--Position-bottom {
+    .Polaris-Frame-Toast {
+      margin-bottom: 2rem;
+    }
+  }
+  &.Polaris-Frame-Toast--Position-top-right {
+    .Polaris-Frame-Toast {
+      margin-top: 2rem;
+      margin-right: 2rem;
+    }
+  }
+  &.Polaris-Frame-Toast--Position-bottom-right {
+    .Polaris-Frame-Toast {
+      margin-bottom: 2rem;
+      margin-right: 2rem;
+    }
+  }
+  &.Polaris-Frame-Toast--Position-top-left {
+    .Polaris-Frame-Toast {
+      margin-top: 2rem;
+      margin-left: 2rem;
+    }
+  }
+  &.Polaris-Frame-Toast--Position-bottom-left {
+    .Polaris-Frame-Toast {
+      margin-bottom: 2rem;
+      margin-left: 2rem;
+    }
+  }
+  &.Polaris-Frame-Toast--Position-top,
+  &.Polaris-Frame-Toast--Position-bottom {
+    align-self: center;
+  }
+  &.Polaris-Frame-Toast--Position-top-right,
+  &.Polaris-Frame-Toast--Position-bottom-right {
+    align-self: flex-end;
+  }
+  &.Polaris-Frame-Toast--Position-top-left,
+  &.Polaris-Frame-Toast--Position-bottom-left {
+    align-self: flex-start;
+  }
+}
+.Polaris-Frame-ToastManager__ToastWrapper {
+  display: inline-flex;
+}
+.Polaris-Frame-ToastManager--toastWrapperEnterDone {
+  transform: translateY(0);
+  opacity: 1;
+}
+.Polaris-Frame-Toast-Wrapper {
+  position: fixed;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: 1052;
+  pointer-events: none;
+}
+.Polaris-Frame-Toast-Wrapper.Polaris-Frame-Toast-Wrapper-Top {
+  flex-direction: column;
+}
+.Polaris-Frame-Toast-Wrapper.Polaris-Frame-Toast-Wrapper-Bottom {
+  flex-direction: column-reverse;
+}
+@media screen and (max-width: 768px) {
+  .Polaris-Frame-Toast-Wrapper {
+    padding: 0;
+    position: fixed !important;
+  }
+}

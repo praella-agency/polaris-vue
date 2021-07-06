@@ -18,7 +18,7 @@
     "component library"
   ],
   "license": "MIT",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -38,6 +38,7 @@
     "change-case": "^4.1.1",
     "core-js": "^3.3.2",
     "dayjs": "^1.10.4",
+    "mitt": "^3.0.0",
     "v-click-outside": "^3.0.1",
     "vue": "^2.6.10",
     "vue-apexcharts": "^1.6.1",

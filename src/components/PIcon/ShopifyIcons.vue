@@ -12,7 +12,6 @@
                 </div>
                 <span class="span-tooltip">{{ iconCode }}</span>
             </div>
-            <PToast ref="iconToast" :message="copyText" position="bottom"></PToast>
         </div>
     </div>
 </template>
@@ -24,14 +23,13 @@
     import {PTextStyle} from '../PTextStyle';
     import {PButton} from '../PButton';
     import {PStack, PStackItem} from '../PStack';
-    import {PToast} from '../PToast';
     import PIcon from './PIcon.vue';
     import * as AllIcon from '@/assets/shopify-polaris-icons';
 
     export default {
         name: "ShopifyIcons",
         components: {
-            PTextField, PIcon, PModal, PFormLayout, PTextStyle, PStack, PStackItem, PButton, PToast,
+            PTextField, PIcon, PModal, PFormLayout, PTextStyle, PStack, PStackItem, PButton,
         },
         data() {
             return {
@@ -60,12 +58,15 @@
             },
             changeCode(icon) {
                 this.iconCode = icon;
-                this.iconCode = '<PIcon :source="' + icon + '" />';
+                this.iconCode = '<PIcon source="' + icon + '" />';
             },
             copyCode() {
                 let copy = navigator.clipboard.writeText(this.iconCode);
                 this.copyText = copy ? 'Copied!' : '';
-                this.$refs.iconToast.$el.click();
+                this.$pToast.open({
+                    message: this.copyText,
+                    duration: 3000,
+                });
             },
         },
         created() {

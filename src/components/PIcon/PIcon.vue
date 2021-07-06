@@ -78,13 +78,14 @@ export default class PIcon extends Vue {
 
   /**
    * Icon color
+   * @values true | false
    */
   @Prop({type: String, default: null}) public color!: Color;
 
   /**
    * Show a backdrop behind the icon
    *
-   * @description true | false
+   * @values true | false
    */
   @Prop({type: Boolean, default: false}) public backdrop!: boolean;
 
