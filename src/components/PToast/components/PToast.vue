@@ -72,7 +72,7 @@ export default class PToast extends Vue {
   /**
    * Toast Position
    */
-  @Prop({type: String, default: 'bottom-right'}) public position!: position;
+  @Prop({type: String, default: 'bottom'}) public position!: position;
 
   /**
    * The length of time in milliseconds the toast message should persist

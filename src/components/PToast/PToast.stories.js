@@ -7,7 +7,7 @@ export default {
     component: PToast,
     argTypes: {
         position: {
-            options: ['bottom-right', 'top-right', 'top', 'top-left', 'bottom', 'bottom-left'],
+            options: ['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right'],
             control: {
                 type: 'select',
             },

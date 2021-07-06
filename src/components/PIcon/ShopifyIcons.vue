@@ -65,9 +65,8 @@
                 this.copyText = copy ? 'Copied!' : '';
                 this.$pToast.open({
                     message: this.copyText,
-                    duration: 3000000,
-                    }
-                );
+                    duration: 3000,
+                });
             },
         },
         created() {
