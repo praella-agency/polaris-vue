@@ -53,6 +53,7 @@ import { PMediaCard } from './PMediaCard';
 import { PChart } from './PChart';
 import { PEmptyState } from './PEmptyState';
 import { PFooterHelp } from './PFooterHelp';
+import PToast from './PToast/index';
 
 import '@/scss/main.scss';
 
@@ -61,7 +62,7 @@ const Components = {
   PBanner,
   PButton,
   PButtonGroup,
-  PCard, PCardSubsection, PCardSection,
+  PCard, PCardHeader, PCardSubsection, PCardSection,
   PCheckbox,
   PDataTable,
   PDisplayText,
@@ -111,7 +112,7 @@ const Components = {
   PMediaCard,
   PChart,
   PEmptyState,
-  PFooterHelp
+  PFooterHelp,
 };
 
 const PolarisVue = {
@@ -119,6 +120,8 @@ const PolarisVue = {
     for (let componentKey in Components) {
       Vue.component(componentKey, Components[componentKey]);
     }
+
+    Vue.use(PToast);
   },
 };
 

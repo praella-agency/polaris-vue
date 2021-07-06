@@ -18,6 +18,13 @@ export default {
                 disable: true,
             },
         },
+        primaryAction: {
+            table: {
+                defaultValue: {
+                    summary: '{}'
+                },
+            },
+        },
     },
 }
 

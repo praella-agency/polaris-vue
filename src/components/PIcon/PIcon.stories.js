@@ -1,6 +1,6 @@
 import PIcon from './PIcon';
 import ShopifyIcons from './ShopifyIcons';
-import IconMDX from './PIcon.mdx';
+import PIconMDX from './PIcon.mdx';
 
 export default {
     title: 'Images & Icons / Icon',
@@ -10,13 +10,13 @@ export default {
             showPanel: false,
         },
         controls: {
-            disabled: true,
+            disable: true,
         },
         actions: {
-            disabled: true,
+            disable: true,
         },
         docs: {
-            page: IconMDX,
+            page: PIconMDX,
         },
     },
 }
