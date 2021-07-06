@@ -2,12 +2,12 @@ import '!style-loader!css-loader!sass-loader!../src/scss/main.scss';
 import '!style-loader!css-loader!sass-loader!./styles/docs.scss';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import pToast from '../src/components/PToast/index';
+import PToast from '../src/components/PToast/index';
 
 Vue.use(VueRouter);
 Vue.component('router-link', Vue.component('RouterLink'));
 
-Vue.use(pToast);
+Vue.use(PToast);
 
 export const decorators = [(story) => ({
   components: {story},
@@ -16,7 +16,7 @@ export const decorators = [(story) => ({
 })];
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
+  actions: { disable: true },
   controls: {
     matchers: {
       color: /(background|color|backgroundColor)$/i,

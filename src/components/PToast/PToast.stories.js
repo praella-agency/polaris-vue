@@ -1,6 +1,6 @@
 import PToast from './components/PToast';
 import PToastMDX from './PToast.mdx';
-import { PButton } from "../PButton";
+import {PButton} from "../PButton";
 
 export default {
     title: 'Feedback indicators / Toast',
@@ -32,7 +32,12 @@ export default {
         docs: {
             page: PToastMDX,
         },
+        actions: {
+            disable: false,
+            argTypesRegex: "^on[A-Z].*",
+        },
     },
+
 }
 
 const Template = (args, {argTypes}) => ({
@@ -41,9 +46,9 @@ const Template = (args, {argTypes}) => ({
         PToast, PButton,
     },
     template: `
-        <div>
-            <PButton @click="showToast($props)">Toast</PButton>
-        </div>`,
+      <div>
+      <PButton @click="showToast($props)">Toast</PButton>
+      </div>`,
     methods: {
         showToast(props) {
             this.$pToast.open(props);

@@ -54,6 +54,7 @@
   background: $frame-toast-bgcolor;
   box-shadow: $frame-toast-box-shadow;
   color: $frame-toast-color;
+  pointer-events: auto;
   @media (min-width:40em) {
     font-size: $frame-toast-media-font-size;
     line-height: $frame-toast-media-line-height;
@@ -73,11 +74,11 @@
 }
 .Polaris-Frame-Toast__CloseButton {
   display: flex;
-  align-self: flex-start;
+  align-self: center;
   flex-direction: column;
   justify-content: flex-start;
   margin: -.8rem -1.6rem -.8rem 0;
-  padding: 1.2rem 1.6rem .8rem;
+  padding: 0 1.6rem;
   border: $frame-toast-closebtn-border;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -93,10 +94,41 @@
   z-index: 520;
   text-align: center;
   animation-duration: 150ms;
-  pointer-events: auto;
-  margin: 2rem;
-
-  &.Polaris-Frame-Toast--Position-Top,
+  &.Polaris-Frame-Toast--Position-top {
+    .Polaris-Frame-Toast {
+      margin-top: 2rem;
+    }
+  }
+  &.Polaris-Frame-Toast--Position-bottom {
+    .Polaris-Frame-Toast {
+      margin-bottom: 2rem;
+    }
+  }
+  &.Polaris-Frame-Toast--Position-top-right {
+    .Polaris-Frame-Toast {
+      margin-top: 2rem;
+      margin-right: 2rem;
+    }
+  }
+  &.Polaris-Frame-Toast--Position-bottom-right {
+    .Polaris-Frame-Toast {
+      margin-bottom: 2rem;
+      margin-right: 2rem;
+    }
+  }
+  &.Polaris-Frame-Toast--Position-top-left {
+    .Polaris-Frame-Toast {
+      margin-top: 2rem;
+      margin-left: 2rem;
+    }
+  }
+  &.Polaris-Frame-Toast--Position-bottom-left {
+    .Polaris-Frame-Toast {
+      margin-bottom: 2rem;
+      margin-left: 2rem;
+    }
+  }
+  &.Polaris-Frame-Toast--Position-top,
   &.Polaris-Frame-Toast--Position-bottom {
     align-self: center;
   }
