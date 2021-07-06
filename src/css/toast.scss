@@ -6,7 +6,7 @@
     opacity: 0;
   }
 }
-.p-toast--fade-out {
+.Polaris-Frame-Toast-Fade-Out {
   animation-name: fadeOut;
 }
 @keyframes fadeInDown {
@@ -19,7 +19,7 @@
     transform: none;
   }
 }
-.p-toast--fade-in-down {
+.Polaris-Frame-Toast-Fade-In-Down {
   animation-name: fadeInDown;
 }
 @keyframes fadeInUp {
@@ -32,7 +32,7 @@
     transform: none;
   }
 }
-.p-toast--fade-in-up {
+.Polaris-Frame-Toast-Fade-In-Up {
   animation-name: fadeInUp;
 }
 .fade-enter-active,
@@ -45,7 +45,7 @@
 }
 
 
-.p-toast {
+.Polaris-Frame-Toast-Wrapper {
   position: fixed;
   display: flex;
   top: 0;
@@ -56,68 +56,14 @@
   z-index: 1052;
   pointer-events: none;
 }
-.p-toast__item {
-  font-size: 2rem;
-  font-weight: 400;
-  line-height: 2.0rem;
-  display: inline-flex;
-  max-width: 50rem;
-  padding: .8rem 1.6rem;
-  border-radius: 0.8rem;
-  box-shadow: none;
-  color: #e3e5e7;
-  animation-duration: 150ms;
-  margin: 0.5em 1.6rem 2rem 3.2rem;
-  align-items: center;
-  pointer-events: auto;
-  opacity: 0.92;
-}
-.p-toast__item--success {
-  background-color: #006e52;
-}
-.p-toast__item--info {
-  background-color: #00a0ac;
-}
-.p-toast__item--warning {
-  background-color: #b98900;
-}
-.p-toast__item--error {
-  background-color: #d72c0d;
-}
-.p-toast__item--default {
-  background-color: #202123;
-}
-.p-toast__item.p-toast__item--top,
-.p-toast__item.p-toast__item--bottom {
-  align-self: center;
-}
-.p-toast__item.p-toast__item--top-right,
-.p-toast__item.p-toast__item--bottom-right {
-  align-self: flex-end;
-}
-.p-toast__item.p-toast__item--top-left,
-.p-toast__item.p-toast__item--bottom-left {
-  align-self: flex-start;
-}
-.p-toast__text {
-  margin: 0;
-  padding: 0.5em 1em;
-  word-break: break-word;
-}
-.p-toast__icon {
-  display: none;
-}
-.p-toast.p-toast--top {
+.Polaris-Frame-Toast-Wrapper.Polaris-Frame-Toast-Wrapper-Top {
   flex-direction: column;
 }
-.p-toast.p-toast--bottom {
+.Polaris-Frame-Toast-Wrapper.Polaris-Frame-Toast-Wrapper-Bottom {
   flex-direction: column-reverse;
 }
-.p-toast.p-toast--custom-parent {
-  position: absolute;
-}
 @media screen and (max-width: 768px) {
-  .p-toast {
+  .Polaris-Frame-Toast-Wrapper {
     padding: 0;
     position: fixed !important;
   }

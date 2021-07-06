@@ -12,10 +12,9 @@ export default {
                 type: 'select',
             },
         },
-        type: {
-            options: ['success', 'info', 'warning', 'error', 'default'],
+        error: {
             control: {
-                type: 'select',
+                type: 'boolean',
             },
         },
         onClick: {

@@ -2,11 +2,13 @@
   <transition
       :enter-active-class="transition.enter"
       :leave-active-class="transition.leave">
-    <div :class="`Polaris-Frame-ToastManager ${transition.enter}`">
+    <div v-show="isActive" :class="`Polaris-Frame-ToastManager ${positionClass}`">
       <div class="Polaris-Frame-ToastManager__ToastWrapper">
-        <div class="Polaris-Frame-Toast">
+        <div class="Polaris-Frame-Toast" :class="className"
+             @mouseover="toggleTimer(true)"
+             @mouseleave="toggleTimer(false)">
           {{message}}
-          <button class="Polaris-Frame-Toast__CloseButton" @click="whenClicked">
+          <button v-if="dismissible" class="Polaris-Frame-Toast__CloseButton" @click="whenClicked">
             <PIcon source="MobileCancelMajorMonotone"></PIcon>
           </button>
         </div>
@@ -34,8 +36,6 @@ const Positions = Object.freeze({
   BOTTOM: 'bottom',
   BOTTOM_LEFT: 'bottom-left',
 });
-
-type type = 'success' | 'info' | 'warning' | 'error' | 'default';
 
 type position = 'top-right' | 'top' | 'top-left' | 'bottom-right' | 'bottom' | 'bottom-left';
 
@@ -65,14 +65,14 @@ export default class PToast extends Vue {
   @Prop({type: String, required: true}) public message!: string;
 
   /**
-   * Toast type
+   * Show errored message
    */
-  @Prop({type: String, default: 'default'}) public type!: string;
+  @Prop({type: Boolean, default: false}) public error!: boolean;
 
   /**
    * Toast Position
    */
-  @Prop({type: String, default: 'bottom'}) public position!: position;
+  @Prop({type: String, default: 'bottom-right'}) public position!: position;
 
   /**
    * The length of time in milliseconds the toast message should persist
@@ -130,8 +130,8 @@ export default class PToast extends Vue {
   }
 
   public setupContainer() {
-    this.parentTop = document.querySelector('.p-toast.p-toast--top');
-    this.parentBottom = document.querySelector('.p-toast.p-toast--bottom');
+    this.parentTop = document.querySelector('.Polaris-Frame-Toast-Wrapper.Polaris-Frame-Toast-Wrapper-Top');
+    this.parentBottom = document.querySelector('.Polaris-Frame-Toast-Wrapper.Polaris-Frame-Toast-Wrapper-Bottom');
     // No need to create them, they already exists
     if (this.parentTop && this.parentBottom) {
       return;
@@ -139,12 +139,12 @@ export default class PToast extends Vue {
 
     if (!this.parentTop) {
       this.parentTop = document.createElement('div');
-      this.parentTop.className = 'p-toast p-toast--top';
+      this.parentTop.className = 'Polaris-Frame-Toast-Wrapper Polaris-Frame-Toast-Wrapper-Top';
     }
 
     if (!this.parentBottom) {
       this.parentBottom = document.createElement('div');
-      this.parentBottom.className = 'p-toast p-toast--bottom';
+      this.parentBottom.className = 'Polaris-Frame-Toast-Wrapper Polaris-Frame-Toast-Wrapper-Bottom';
     }
 
     const container = document.body;
@@ -204,8 +204,14 @@ export default class PToast extends Vue {
   }
 
   public get className() {
-    return classNames('p-toast__item--' + this.type,
-        'p-toast__item--' + this.position
+    return classNames(
+        this.error && 'Polaris-Frame-Toast--error',
+    );
+  }
+
+  public get positionClass() {
+    return classNames(
+        'Polaris-Frame-Toast--Position-' + this.position,
     );
   }
 
@@ -215,16 +221,16 @@ export default class PToast extends Vue {
       case Positions.TOP_RIGHT:
       case Positions.TOP_LEFT:
         return {
-          enter: 'p-toast--fade-in-down',
-          leave: 'p-toast--fade-out'
+          enter: 'Polaris-Frame-Toast-Fade-In-Down',
+          leave: 'Polaris-Frame-Toast-Fade-Out'
         };
 
       case Positions.BOTTOM:
       case Positions.BOTTOM_RIGHT:
       case Positions.BOTTOM_LEFT:
         return {
-          enter: 'p-toast--fade-in-up',
-          leave: 'p-toast--fade-out'
+          enter: 'Polaris-Frame-Toast-Fade-In-Up',
+          leave: 'Polaris-Frame-Toast-Fade-Out'
         };
     }
   }

@@ -50,18 +50,26 @@
 	text-align: center;
 	animation-duration: 150ms;
 	pointer-events: auto;
+
+	&.Polaris-Frame-Toast--Position-Top,
+	&.Polaris-Frame-Toast--Position-bottom {
+		align-self: center;
+	}
+	&.Polaris-Frame-Toast--Position-top-right,
+	&.Polaris-Frame-Toast--Position-bottom-right {
+		align-self: flex-end;
+	}
+	&.Polaris-Frame-Toast--Position-top-left,
+	&.Polaris-Frame-Toast--Position-bottom-left {
+		align-self: flex-start;
+		.Polaris-Frame-Toast {
+			margin: 2rem;
+		}
+	}
 }
 .Polaris-Frame-ToastManager__ToastWrapper {
 	display: inline-flex;
 }
-//.Polaris-Frame-ToastManager__ToastWrapper--enter {
-//	opacity: 0;
-//	transform: translateY(15rem);
-//}
-//.Polaris-Frame-ToastManager__ToastWrapper--exit {
-//	opacity: 0;
-//	transform: translateY(15rem);
-//}
 .Polaris-Frame-ToastManager--toastWrapperEnterDone {
 	transform: translateY(0);
 	opacity: 1;
