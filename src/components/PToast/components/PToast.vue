@@ -9,12 +9,10 @@
              @mouseover="toggleTimer(true)"
              @mouseleave="toggleTimer(false)"
         >
-            <div class="Polaris-Frame-Toast">
-                {{ message }}
-                <button class="Polaris-Frame-Toast__CloseButton" @click="whenClicked">
-                    <PIcon source="MobileCancelMajorMonotone"></PIcon>
-                </button>
-            </div>
+            {{ message }}
+            <button class="Polaris-Frame-Toast__CloseButton" @click="whenClicked">
+                <PIcon source="MobileCancelMajorMonotone"></PIcon>
+            </button>
         </div>
     </transition>
 </template>

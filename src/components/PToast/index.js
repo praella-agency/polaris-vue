@@ -1,4 +1,4 @@
-import pToast from './components/PToast.vue';
+import PToast from './components/PToast.vue';
 import Api from './components/api.js';
 
 const Plugin = (Vue, options = {}) => {
@@ -7,7 +7,7 @@ const Plugin = (Vue, options = {}) => {
     Vue.prototype.$pToast = methods;
 };
 
-pToast.install = Plugin;
+PToast.install = Plugin;
 
-export default pToast;
-export {pToast};
+export default PToast;
+export {PToast};

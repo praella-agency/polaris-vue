@@ -88,7 +88,7 @@ export default class PPage extends Vue {
     /**
      * Primary page-level action
      */
-    @Prop({type: Object, default: {}}) public primaryAction!: PrimaryAction;
+    @Prop({type: Object, default: () => ({})}) public primaryAction!: PrimaryAction;
 
     /**
      * Collection of secondary page-level actions
