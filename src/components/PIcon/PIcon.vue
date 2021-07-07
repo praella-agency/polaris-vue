@@ -18,44 +18,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import * as Icon from '@/assets/shopify-polaris-icons';
 import { classNames, variationName } from '@/utilities/css';
 import { encode as encodeSVG } from '@/utilities/svg';
-
-type Color =
-  | 'white'
-  | 'black'
-  | 'skyLighter'
-  | 'skyLight'
-  | 'sky'
-  | 'skyDark'
-  | 'inkLightest'
-  | 'inkLighter'
-  | 'inkLight'
-  | 'ink'
-  | 'blueLighter'
-  | 'blueLight'
-  | 'blue'
-  | 'blueDark'
-  | 'blueDarker'
-  | 'indigoLighter'
-  | 'indigoLight'
-  | 'indigo'
-  | 'indigoDark'
-  | 'indigoDarker'
-  | 'tealLighter'
-  | 'tealLight'
-  | 'teal'
-  | 'tealDark'
-  | 'tealDarker'
-  | 'greenLighter'
-  | 'green'
-  | 'greenDark'
-  | 'yellowLighter'
-  | 'yellow'
-  | 'yellowDark'
-  | 'orange'
-  | 'redLighter'
-  | 'red'
-  | 'redDark'
-  | 'purple';
+import { Color } from '@/types';
 
 const COLORS_WITH_BACKDROPS = [
   'teal',

@@ -1,10 +1,10 @@
 <script lang="tsx">
 import {Component, Vue, Prop} from 'vue-property-decorator';
-import {PFormLayoutItem, PFormLayoutGroup} from '@/components/PFormLayout/index';
+import PFormLayoutItem from '@/components/PFormLayout/PFormLayoutItem.vue';
+import PFormLayoutGroup from '@/components/PFormLayout/PFormLayoutGroup.vue';
 import ComponentHelpers from '../../ComponentHelpers';
 
 @Component({
-
   components: {
     PFormLayoutItem,
     PFormLayoutGroup,

@@ -47,7 +47,6 @@
     "vue-multiselect": "^2.1.6",
     "vue-property-decorator": "^8.3.0",
     "vue-router": "^3.5.1",
-    "vue-toast-notification": "^0.6.2",
     "vue2-daterange-picker": "^0.6.5"
   },
   "files": [

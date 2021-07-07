@@ -97,12 +97,12 @@ export default class PToast extends Vue {
   /**
    * Do something when user clicks
    */
-  @Prop({ type: Function, default: ({})}) public onClick!: any;
+  @Prop({ type: Function, default: () => {}}) public onClick!: any;
 
   /**
    * Do something after toast gets dismissed
    */
-  @Prop({type: Function, default: ({})}) public onDismiss!: any;
+  @Prop({type: Function, default: () => {}}) public onDismiss!: any;
 
   public isActive = false;
   public parentTop: any = null;
