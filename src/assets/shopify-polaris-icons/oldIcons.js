@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-compareFileNames();
+getNewIcons();
 
 function toPascalCase(file) {
     return file
@@ -35,11 +35,13 @@ function getNewFileNames() {
     return newData;
 }
 
-function compareFileNames() {
+function getNewIcons() {
     let oldFiles = getOldFileNames();
     let newFiles = getNewFileNames();
 
-    oldFiles = oldFiles.filter(val => !newFiles.includes(val));
+    let oldIcons = oldFiles.filter(x => !newFiles.includes(x));
+    let newIcons = newFiles.filter(x => !oldFiles.includes(x));
 
-    console.log(oldFiles);
+    console.log('OldIcons', oldIcons);
+    console.log('newIcons', newIcons);
 }
