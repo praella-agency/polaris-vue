@@ -2,6 +2,7 @@ import { PDataTable } from '../PDataTable';
 import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';
+import { PCard } from '../PCard';
 
 export default {
     title: 'Lists & Tables / Data Table',
@@ -48,7 +49,7 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PDataTable, PPopover, PButton, POptionList
+        PDataTable, PPopover, PButton, POptionList, PCard
     },
     data() {
         return {
@@ -59,56 +60,58 @@ const Template = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PDataTable
-          v-bind="$props"
-          @sort-changed="handleSortChange"
-          @input-filter-changed="handleSearch"
-      >
-      <template slot="filter">
-        <PPopover
-            id="popover_1"
-            :active="active"
-            preferred-alignment="right"
-            @close="toggleRatingFilter"
-            full-width
-        >
-          <PButton slot="activator" @click="toggleRatingFilter" :disclosure="active ? 'up' : 'down'">
-            Filter Options
-          </PButton>
-          <POptionList
-              slot="content"
-              allowMultiple
-              :selected="selected"
-              :options="[
-                      {label: 'Rating 1 with a long text', value: '1'},
-                      {label: 'Rating 2', value: '2'},
-                      {label: 'Rating 3', value: '3'},
-                      {label: 'Rating 4', value: '4'},
-                  ]"
-              @change="updateRatingFilter"
-          ></POptionList>
-        </PPopover>
-        <PPopover
-            id="popover_2"
-            :active="active2"
-            @close="toggleRatingFilter2"
-            preferred-alignment="right"
-        >
-          <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">Status</PButton>
-          <POptionList
-              slot="content"
-              allowMultiple
-              :selected="status"
-              :options="[
-                      {label: 'Active', value: 'Active'},
-                      {label: 'Pending', value: 'Pending'},
-                      {label: 'Deleted', value: 'Deleted'},
-                  ]"
-              @change="updateStatusFilter"
-          ></POptionList>
-        </PPopover>
-      </template>
-      </PDataTable>`,
+      <PCard>
+          <PDataTable
+              v-bind="$props"
+              @sort-changed="handleSortChange"
+              @input-filter-changed="handleSearch"
+          >
+          <template slot="filter">
+            <PPopover
+                id="popover_1"
+                :active="active"
+                preferred-alignment="right"
+                @close="toggleRatingFilter"
+                full-width
+            >
+              <PButton slot="activator" @click="toggleRatingFilter" :disclosure="active ? 'up' : 'down'">
+                Filter Options
+              </PButton>
+              <POptionList
+                  slot="content"
+                  allowMultiple
+                  :selected="selected"
+                  :options="[
+                          {label: 'Rating 1 with a long text', value: '1'},
+                          {label: 'Rating 2', value: '2'},
+                          {label: 'Rating 3', value: '3'},
+                          {label: 'Rating 4', value: '4'},
+                      ]"
+                  @change="updateRatingFilter"
+              ></POptionList>
+            </PPopover>
+            <PPopover
+                id="popover_2"
+                :active="active2"
+                @close="toggleRatingFilter2"
+                preferred-alignment="right"
+            >
+              <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">Status</PButton>
+              <POptionList
+                  slot="content"
+                  allowMultiple
+                  :selected="status"
+                  :options="[
+                          {label: 'Active', value: 'Active'},
+                          {label: 'Pending', value: 'Pending'},
+                          {label: 'Deleted', value: 'Deleted'},
+                      ]"
+                  @change="updateStatusFilter"
+              ></POptionList>
+            </PPopover>
+          </template>
+          </PDataTable>
+      </PCard>`,
     methods: {
         handleSortChange(sort, direction) {
             this.sort = {value: sort, direction: direction};

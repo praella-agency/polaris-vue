@@ -59,8 +59,8 @@
     }
 
     &:not(.Polaris-Button--plain):after {
-      box-shadow: 0 0 0 0.2rem $theme-shadow-color;
-      outline: .1rem solid transparent;
+      //box-shadow: 0 0 0 0.2rem $theme-shadow-color;
+      //outline: .1rem solid transparent;
     }
   }
 }

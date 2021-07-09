@@ -16,6 +16,7 @@ export const decorators = [(story) => ({
 })];
 
 export const parameters = {
+  viewMode: 'docs',
   actions: { disable: true },
   controls: {
     matchers: {
@@ -25,6 +26,7 @@ export const parameters = {
     sort: 'alpha',
   },
   options: {
+    showPanel: true,
     storySort: {
       method: "alphabetical",
       order: [

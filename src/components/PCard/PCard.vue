@@ -94,6 +94,7 @@
         public get className() {
             return classNames(
                 'Polaris-Card',
+                this.subdued && 'Polaris-Card__Section--subdued',
             );
         }
     }
