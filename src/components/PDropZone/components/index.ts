@@ -1,3 +1,3 @@
-import FileUpload from './FileUpload.vue';
+import FileUpload from './PFileUpload.vue';
 
 export { FileUpload };

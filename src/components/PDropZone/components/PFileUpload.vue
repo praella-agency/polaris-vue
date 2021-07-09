@@ -97,7 +97,7 @@ export const DropZoneContext = {
     PStack, PCaption, PTextStyle, PStackItem,
   },
 })
-export default class FileUploads extends Vue {
+export default class PFileUploads extends Vue {
   // @Prop({type: String, default: null}) actionTitle!: FileUploadProps['actionTitle'];
   // @Prop({type: String, default: null}) actionHint!: FileUploadProps['actionHint'];
 

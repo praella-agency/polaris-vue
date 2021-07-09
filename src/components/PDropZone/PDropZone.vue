@@ -6,6 +6,10 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
 import { PIcon } from '@/components/PIcon';
+import { UploadMajor, CircleAlertMajor } from '@/assets/shopify-polaris-icons/index';
+import { PStack } from '@/components/PStack';
+import { PCaption } from '@/components/PCaption';
+import { PDisplayText } from '@/components/PDisplayText';
 
 type Type = 'file' | 'image';
 
@@ -30,6 +34,11 @@ export default class PDropZone extends Vue {
       this.outline && 'Polaris-DropZone--hasOutline',
       // this.spacing && `Polaris-DropZone--${variationName('spacing', this.spacing)}`,
     );
+  }
+
+  public capitalize(word = '') {
+    const wordLower = word.toLowerCase();
+    return wordLower.charAt(0).toUpperCase() + wordLower.slice(1);
   }
 }
 </script>
