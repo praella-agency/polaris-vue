@@ -9,7 +9,7 @@
              @mouseleave="toggleTimer(false)">
           {{message}}
           <button v-if="dismissible" class="Polaris-Frame-Toast__CloseButton" @click="whenClicked">
-            <PIcon source="MobileCancelMajorMonotone"></PIcon>
+            <PIcon source="MobileCancelMajor"></PIcon>
           </button>
         </div>
       </div>
