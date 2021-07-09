@@ -41,9 +41,9 @@ type position = 'top-right' | 'top' | 'top-left' | 'bottom-right' | 'bottom' | '
 
 const removeElement = (el) => {
   if (typeof el.remove !== 'undefined') {
-    el.remove()
+    el.remove();
   } else {
-    el.parentNode.removeChild(el)
+    el.parentNode.removeChild(el);
   }
 };
 
@@ -97,18 +97,12 @@ export default class PToast extends Vue {
   /**
    * Do something when user clicks
    */
-  @Prop({
-    type: Function, default: () => {
-    }
-  }) public onClick!: any;
+  @Prop({ type: Function, default: () => {}}) public onClick!: any;
 
   /**
    * Do something after toast gets dismissed
    */
-  @Prop({
-    type: Function, default: () => {
-    }
-  }) public onDismiss!: any;
+  @Prop({type: Function, default: () => {}}) public onDismiss!: any;
 
   public isActive = false;
   public parentTop: any = null;
@@ -125,8 +119,8 @@ export default class PToast extends Vue {
     eventBus.on('toast-clear', this.dismiss);
   }
 
-  beforeDestroy() {
-    eventBus.off('toast-clear', this.dismiss)
+  public beforeDestroy() {
+    eventBus.off('toast-clear', this.dismiss);
   }
 
   public setupContainer() {
@@ -156,7 +150,7 @@ export default class PToast extends Vue {
     if (this.shouldQueue()) {
       // Call recursively if should queue
       this.queueTimer = setTimeout(this.showNotice, 250);
-      return
+      return;
     }
     this.correctParent.insertAdjacentElement('afterbegin', this.$el);
     this.isActive = true;
@@ -167,16 +161,16 @@ export default class PToast extends Vue {
   }
 
   public shouldQueue() {
-    if (!this.queue) return false;
+    if (!this.queue) { return false; }
 
     return (
         this.parentTop.childElementCount > 0 ||
         this.parentBottom.childElementCount > 0
-    )
+    );
   }
 
   public dismiss() {
-    if (this.timer) this.timer.stop();
+    if (this.timer) { this.timer.stop(); }
     clearTimeout(this.queueTimer);
     this.isActive = false;
 
@@ -184,17 +178,17 @@ export default class PToast extends Vue {
     setTimeout(() => {
       this.onDismiss.apply(null, arguments);
       this.$destroy();
-      removeElement(this.$el)
-    }, 150)
+      removeElement(this.$el);
+    }, 150);
   }
 
   public toggleTimer(newVal) {
-    if (!this.pauseOnHover || !this.timer) return;
+    if (!this.pauseOnHover || !this.timer) { return; }
     newVal ? this.timer.pause() : this.timer.resume();
   }
 
   public whenClicked() {
-    if (!this.dismissible) return;
+    if (!this.dismissible) { return; }
     this.onClick.apply(null, arguments);
     this.dismiss();
   }
@@ -222,7 +216,7 @@ export default class PToast extends Vue {
       case Positions.TOP_LEFT:
         return {
           enter: 'Polaris-Frame-Toast-Fade-In-Down',
-          leave: 'Polaris-Frame-Toast-Fade-Out'
+          leave: 'Polaris-Frame-Toast-Fade-Out',
         };
 
       case Positions.BOTTOM:
@@ -230,7 +224,7 @@ export default class PToast extends Vue {
       case Positions.BOTTOM_LEFT:
         return {
           enter: 'Polaris-Frame-Toast-Fade-In-Up',
-          leave: 'Polaris-Frame-Toast-Fade-Out'
+          leave: 'Polaris-Frame-Toast-Fade-Out',
         };
     }
   }
