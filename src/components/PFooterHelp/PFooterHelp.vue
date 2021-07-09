@@ -4,7 +4,7 @@
       <!-- @slot Icon content -->
       <slot name="icon">
         <div class="Polaris-FooterHelp__Icon">
-          <PIcon color="teal" source="CircleInformationMajorMonotone" />
+          <PIcon color="teal" source="CircleInformationMajor" />
         </div>
       </slot>
       <div class="Polaris-FooterHelp__Text">

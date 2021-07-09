@@ -39,7 +39,7 @@
 
 <script lang="ts">
 import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
-import {ArrowUpDownMinor} from '@/assets/shopify-polaris-icons';
+import {SelectMinor} from '@/assets/shopify-polaris-icons/index';
 import Multiselect from 'vue-multiselect';
 import {classNames} from '@/utilities/css';
 
@@ -58,7 +58,7 @@ interface StrictOption {
     mixins: [
         {
             data() {
-                return {ArrowUpDownMinor};
+                return {SelectMinor};
             },
         },
     ],

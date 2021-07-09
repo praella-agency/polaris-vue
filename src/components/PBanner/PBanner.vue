@@ -47,12 +47,12 @@ import { PButtonGroup } from '@/components/PButtonGroup';
 import { PButtonsFrom } from '@/components/PButton/utils';
 import {
   CancelSmallMinor,
-  CircleTickMajorTwotone,
-  FlagMajorTwotone,
-  CircleAlertMajorTwotone,
-  CircleDisabledMajorTwotone,
-  CircleInformationMajorTwotone,
-} from '@/assets/shopify-polaris-icons';
+  CircleTickMajor,
+  FlagMajor,
+  CircleAlertMajor,
+  CircleDisabledMajor,
+  CircleInformationMajor,
+} from '@/assets/shopify-polaris-icons/index';
 import {
   DisableableAction,
   LoadableAction,
@@ -69,11 +69,11 @@ type BannerStatus = 'success' | 'info' | 'warning' | 'critical';
       data() {
         return {
           CancelSmallMinor,
-          CircleTickMajorTwotone,
-          FlagMajorTwotone,
-          CircleAlertMajorTwotone,
-          CircleDisabledMajorTwotone,
-          CircleInformationMajorTwotone,
+          CircleTickMajor,
+          FlagMajor,
+          CircleAlertMajor,
+          CircleDisabledMajor,
+          CircleInformationMajor,
         };
       },
     },
@@ -117,23 +117,23 @@ export default class PBanner extends Vue {
     switch (this.status) {
       case 'success':
         color = 'greenDark';
-        icon = CircleTickMajorTwotone;
+        icon = CircleTickMajor;
         break;
       case 'info':
         color = 'tealDark';
-        icon = CircleInformationMajorTwotone;
+        icon = CircleInformationMajor;
         break;
       case 'warning':
         color = 'yellowDark';
-        icon = CircleAlertMajorTwotone;
+        icon = CircleAlertMajor;
         break;
       case 'critical':
         color = 'redDark';
-        icon = CircleDisabledMajorTwotone;
+        icon = CircleDisabledMajor;
         break;
       default:
         color = 'inkLighter';
-        icon = FlagMajorTwotone;
+        icon = FlagMajor;
     }
 
     return { color, icon };

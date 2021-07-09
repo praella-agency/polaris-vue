@@ -24,7 +24,7 @@
     import {PButton} from '../PButton';
     import {PStack, PStackItem} from '../PStack';
     import PIcon from './PIcon.vue';
-    import * as AllIcon from '@/assets/shopify-polaris-icons';
+    import * as AllIcon from '@/assets/shopify-polaris-icons/index';
 
     export default {
         name: "ShopifyIcons",

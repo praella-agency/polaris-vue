@@ -2,7 +2,7 @@
     <span :class="className">
         <span :title="tag.value" class="Polaris-Tag__TagText">{{tag.value}}</span>
         <button type="button" v-if="removable" :aria-label="`Remove ${tag.value}`" class="Polaris-Tag__Button" @click="handleRemove">
-            <PIcon source="CancelSmallMinor"> </PIcon>
+            <PIcon source="CancelSmallMinor" />
         </button>
     </span>
 </template>

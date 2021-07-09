@@ -15,7 +15,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
-import * as Icon from '@/assets/shopify-polaris-icons';
+import * as Icon from '@/assets/shopify-polaris-icons/index';
 import { classNames, variationName } from '@/utilities/css';
 import { encode as encodeSVG } from '@/utilities/svg';
 import { Color } from '@/types';

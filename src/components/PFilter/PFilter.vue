@@ -5,7 +5,7 @@
                 <div class="Polaris-Filters-ConnectedFilterControl Polaris-Filters-ConnectedFilterControl--right">
                     <PFilterItemWrapper position="center">
                         <PTextField id="Polaris-Input-Filter" :value="inputFilter" connected labelHidden showPrefix showClearButton :placeholder="resourceTitle" v-on="$listeners">
-                            <PIcon source="SearchMinor" slot="prefix"></PIcon>
+                            <PIcon source="SearchMinor" slot="prefix" />
                         </PTextField>
                     </PFilterItemWrapper>
                     <PFilterItemWrapper v-if="$slots.hasOwnProperty('default')" position="right">

@@ -1,6 +1,6 @@
 <template>
     <button :class="className" @click="$emit('click', $event)">
-        <PIcon source="MobileCancelMajorMonotone" color="inkLighter" />
+        <PIcon source="MobileCancelMajor" color="inkLighter" />
     </button>
 </template>
 

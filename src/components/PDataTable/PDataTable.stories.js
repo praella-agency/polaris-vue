@@ -163,12 +163,12 @@ DataTable.args = {
             onAction: (id) => {
                 alert('Handle update for id ' + id);
             },
-            icon: 'EditMajorMonotone'
+            icon: 'EditMajor'
         }, {
             onAction: (id) => {
                 alert('Handle delete for id ' + id);
             },
-            icon: 'DeleteMajorMonotone',
+            icon: 'DeleteMajor',
             destructive: true
         }
     ],
