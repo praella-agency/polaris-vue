@@ -715,7 +715,7 @@
     text-decoration: underline;
 
     svg {
-      fill: $btn-plain-active-svg-icon-color;
+      fill: currentColor;
     }
   }
 
@@ -730,7 +730,7 @@
     }
 
     svg {
-      fill: $btn-plain-focus-svg-icon-color;
+      fill: currentColor;
     }
 
     &:not(.Polaris-Button--iconOnly) {
@@ -770,7 +770,7 @@
     text-decoration: underline;
 
     svg {
-      fill: $btn-plain-hover-svg-icon-color;
+      fill: currentColor;
     }
   }
 

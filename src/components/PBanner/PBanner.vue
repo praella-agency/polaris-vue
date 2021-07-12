@@ -14,8 +14,7 @@
     <div class="Polaris-Banner__Ribbon">
       <PIcon
         :source="colorAndIcon.icon"
-        :color="colorAndIcon.color"
-        backdrop/>
+        :color="colorAndIcon.color" />
     </div>
     <div>
       <div v-if="title" class="Polaris-Banner__Heading">
