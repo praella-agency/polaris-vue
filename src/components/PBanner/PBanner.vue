@@ -14,8 +14,7 @@
     <div class="Polaris-Banner__Ribbon">
       <PIcon
         :source="colorAndIcon.icon"
-        :color="colorAndIcon.color"
-        backdrop/>
+        :color="colorAndIcon.color" />
     </div>
     <div>
       <div v-if="title" class="Polaris-Banner__Heading">
@@ -52,6 +51,7 @@ import {
   CircleAlertMajor,
   CircleDisabledMajor,
   CircleInformationMajor,
+  DiamondAlertMajor,
 } from '@/assets/shopify-polaris-icons/index';
 import {
   DisableableAction,
@@ -74,6 +74,7 @@ type BannerStatus = 'success' | 'info' | 'warning' | 'critical';
           CircleAlertMajor,
           CircleDisabledMajor,
           CircleInformationMajor,
+          DiamondAlertMajor,
         };
       },
     },
@@ -116,24 +117,24 @@ export default class PBanner extends Vue {
 
     switch (this.status) {
       case 'success':
-        color = 'greenDark';
+        color = 'success';
         icon = CircleTickMajor;
         break;
       case 'info':
-        color = 'tealDark';
+        color = 'highlight';
         icon = CircleInformationMajor;
         break;
       case 'warning':
-        color = 'yellowDark';
+        color = 'warning';
         icon = CircleAlertMajor;
         break;
       case 'critical':
-        color = 'redDark';
-        icon = CircleDisabledMajor;
+        color = 'critical';
+        icon = DiamondAlertMajor;
         break;
       default:
-        color = 'inkLighter';
-        icon = FlagMajor;
+        color = 'base';
+        icon = CircleInformationMajor;
     }
 
     return { color, icon };

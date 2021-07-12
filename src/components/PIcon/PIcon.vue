@@ -1,14 +1,17 @@
 <template>
-  <span :class="className">
-    <div v-if="source === 'placeholder'" class="Polaris-Icon--Placeholder"/>
-    <!-- <img
-      v-else
-      class="Polaris-Icon--Img"
+  <span :class="className" :aria-label="accessibilityLabel">
+    <div v-if="source === 'placeholder'" class="Polaris-Icon__Placeholder" />
+    <img
+      v-else-if="source === 'external'"
+      class="Polaris-Icon__Img"
       :src="`data:image/svg+xml;utf8,${encodedSource}`"
       alt=""
       aria-hidden="true"
-    /> -->
-    <div v-else v-html="enhancedSource"></div>
+    />
+    <div
+       v-else
+       v-html="enhancedSource"
+    />
   </span>
 </template>
 
@@ -21,13 +24,11 @@ import { encode as encodeSVG } from '@/utilities/svg';
 import { Color } from '@/types';
 
 const COLORS_WITH_BACKDROPS = [
-  'teal',
-  'tealDark',
-  'greenDark',
-  'redDark',
-  'yellowDark',
-  'ink',
-  'inkLighter',
+  'base',
+  'critical',
+  'highlight',
+  'success',
+  'warning',
 ];
 
 @Component
@@ -41,22 +42,25 @@ export default class PIcon extends Vue {
 
   /**
    * Icon color
-   * @values true | false
    */
   @Prop({type: String, default: null}) public color!: Color;
 
   /**
    * Show a backdrop behind the icon
-   *
    * @values true | false
    */
   @Prop({type: Boolean, default: false}) public backdrop!: boolean;
+
+  /**
+   * Descriptive text to be read to screenreaders
+   */
+  @Prop({type: String, default: null}) public accessibilityLabel!: string;
 
   public get className() {
     return classNames(
       'Polaris-Icon',
       this.color && `Polaris-Icon--${variationName('color', this.color)}`,
-      this.color && this.color !== 'white' && 'Polaris-Icon--isColored',
+      this.color && 'Polaris-Icon--applyColor',
       this.backdrop && 'Polaris-Icon--hasBackdrop',
     );
   }
@@ -70,7 +74,7 @@ export default class PIcon extends Vue {
     if (!sourceIcon) {
       return this.source.replace('<svg', '<svg class="Polaris-Icon__Svg"');
     }
-    return sourceIcon.replace('<svg', '<svg class="Polaris-Icon__Svg"');
+    return sourceIcon.replace('<svg', '<svg class="Polaris-Icon__Svg" focusable="false" aria-hidden="true"');
   }
 }
 </script>
