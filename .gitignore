@@ -22,4 +22,4 @@ yarn-error.log*
 
 # Icon Script
 /src/assets/shopify-polaris-icons/convertSvgTs.js
-/src/assets/shopify-polaris-icons/oldIcons.js.js
+/src/assets/shopify-polaris-icons/oldIcons.js
