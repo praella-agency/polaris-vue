@@ -3,7 +3,7 @@
         <template v-if="size === 'extraLarge'">
             <PStack vertical>
                 <PStackItem>
-                    <img src="../images/upload-arrow.svg" width="40" alt="" />
+                    <img src="../images/upload-arrow.svg" width="40" alt=""/>
                 </PStackItem>
                 <PStackItem>
                     <template v-if="(size === 'extraLarge' || size === 'large') && buttonStyleClassName">
@@ -22,7 +22,7 @@
         <template v-else-if="size === 'large'">
             <PStack vertical spacing="tight">
                 <PStackItem>
-                    <img src="../images/upload-arrow.svg" width="40" alt="" />
+                    <img src="../images/upload-arrow.svg" width="40" alt=""/>
                 </PStackItem>
                 <PStackItem>
                     <template v-if="(size === 'extraLarge' || size === 'large') && buttonStyleClassName">
@@ -57,101 +57,70 @@
             </PStack>
         </template>
         <template v-else-if="size === 'small'">
-            <img src="../images/upload-arrow.svg" width="20" alt="" />
+            <img src="../images/upload-arrow.svg" width="20" alt=""/>
         </template>
     </div>
 </template>
 
 <script lang="ts">
-import {Vue, Component, Prop} from 'vue-property-decorator';
-import {classNames} from '@/utilities/css';
-import {PStack, PStackItem} from '../../PStack/index';
-import {PCaption} from '../../PCaption/index';
-import {PTextStyle} from '../../PTextStyle/index';
+  import {Vue, Component, Prop} from 'vue-property-decorator';
+  import {classNames} from '@/utilities/css';
+  import {PStack, PStackItem} from '../../PStack/index';
+  import {PCaption} from '../../PCaption/index';
+  import {PTextStyle} from '../../PTextStyle/index';
+  import {Context, createAllowMultipleKey, capitalize} from '../context';
 
-export interface FileUploadProps {
-  actionTitle?: string;
-  actionHint?: string;
-}
+  @Component({
+    components: {
+      PStack, PCaption, PTextStyle, PStackItem,
+    },
+  })
+  export default class PFileUploads extends Vue {
+    @Prop({
+      type: String,
+      default: `Polaris.DropZone.${this.allowMultipleKey}.actionTitle${this.typeSuffix}`
+    }) public actionTitle!: string;
 
-interface DropZoneContextType {
-  disabled: boolean;
-  focused: boolean;
-  measuring: boolean;
-  allowMultiple: boolean;
-  size: string;
-  type: string;
-}
+    @Prop({
+      type: String,
+      default: `Polaris.DropZone.${this.allowMultipleKey}.actionHint${this.typeSuffix}`
+    }) public actionHint!: string;
 
-export const DropZoneContext = {
-  disabled: false,
-  focused: false,
-  size: 'extraLarge',
-  type: 'file',
-  measuring: false,
-  allowMultiple: true,
-} as DropZoneContextType;
+    public size = Context.size;
+    public measuring = Context.measuring;
+    public type = Context.type;
+    public focused = Context.focused;
+    public disabled = Context.disabled;
+    public allowMultiple = Context.allowMultiple;
 
-@Component({
-  components: {
-    PStack, PCaption, PTextStyle, PStackItem,
-  },
-})
-export default class PFileUploads extends Vue {
-  // @Prop({type: String, default: null}) actionTitle!: FileUploadProps['actionTitle'];
-  // @Prop({type: String, default: null}) actionHint!: FileUploadProps['actionHint'];
+    public typeSuffix = capitalize(this.type);
+    public allowMultipleKey = createAllowMultipleKey(this.allowMultiple);
 
-  public size = DropZoneContext.size;
-  public measuring = DropZoneContext.measuring;
-  public type = DropZoneContext.type;
-  public focused = DropZoneContext.focused;
-  public disabled = DropZoneContext.disabled;
-  public allowMultiple = DropZoneContext.allowMultiple;
+    public get className() {
+      return classNames(
+        'Polaris-DropZone-FileUpload',
+        this.measuring && 'Polaris-DropZone--measuring',
+        this.size === 'small' && 'Polaris-DropZone-FileUpload__FileUploadSmallView',
+      );
+    }
 
-  public typeSuffix = this.capitalize(this.type);
-  public allowMultipleKey = this.createAllowMultipleKey(this.allowMultiple);
+    public get buttonStyleClassName() {
+      return classNames(
+        (this.size === 'extraLarge' || this.size === 'large')
+          ? 'Polaris-DropZone-FileUpload__Button ' + ((this.size && this.size !== 'extraLarge')
+          && 'Polaris-DropZone-FileUpload--sizeSlim') + (this.focused && 'Polaris-DropZone-FileUpload--focused')
+          + (this.disabled && 'Polaris-DropZone-FileUpload--disabled')
+          : null,
+      );
+    }
 
-  public get className() {
-    return classNames('Polaris-DropZone-FileUpload',
-      this.measuring && 'Polaris-DropZone--measuring',
-      this.size === 'small' && 'Polaris-DropZone-FileUpload__FileUploadSmallView',
-    );
+    public get actionTitleClassName() {
+      return classNames('Polaris-DropZone-FileUpload__ActionTitle',
+        this.focused && !this.disabled && 'Polaris-DropZone-FileUpload__ActionTitle--focused',
+        this.disabled && 'Polaris-DropZone-FileUpload__ActionTitle--disabled',
+      );
+    }
   }
-
-  public get buttonStyleClassName() {
-    return classNames(
-      (this.size === 'extraLarge' || this.size === 'large')
-        ? 'Polaris-DropZone-FileUpload__Button ' + ((this.size && this.size !== 'extraLarge')
-        && 'Polaris-DropZone-FileUpload--sizeSlim') + (this.focused && 'Polaris-DropZone-FileUpload--focused')
-        + (this.disabled && 'Polaris-DropZone-FileUpload--disabled')
-        : null,
-    );
-  }
-
-  public get actionTitleClassName() {
-    return classNames('Polaris-DropZone-FileUpload__ActionTitle',
-      this.focused && !this.disabled && 'Polaris-DropZone-FileUpload__ActionTitle--focused',
-      this.disabled && 'Polaris-DropZone-FileUpload__ActionTitle--disabled',
-    );
-  }
-
-  public get actionTitle() {
-    return `Polaris.DropZone.${this.allowMultipleKey}.actionTitle${this.typeSuffix}`;
-  }
-
-  public get actionHint() {
-    return `Polaris.DropZone.${this.allowMultipleKey}.actionHint${this.typeSuffix}`;
-  }
-
-  public capitalize(word = '') {
-    const wordLower = word.toLowerCase();
-    return wordLower.charAt(0).toUpperCase() + wordLower.slice(1);
-  }
-
-  public createAllowMultipleKey(allowMultiple: boolean) {
-    return allowMultiple ? 'allowMultiple' : 'single';
-  }
-}
 </script>
 
 <style scoped>

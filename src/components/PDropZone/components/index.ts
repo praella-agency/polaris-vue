@@ -1,5 +1,3 @@
-import FileUpload from './PFileUpload.vue';
-import PLabelled from './PLabelled.vue';
-import PLabel from './PLabel.vue';
+import PFileUpload from './PFileUpload.vue';
 
-export { FileUpload, PLabelled, PLabel };
+export { PFileUpload };

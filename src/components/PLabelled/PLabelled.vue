@@ -40,9 +40,9 @@
 
 <script lang="ts">
   import {Vue, Component, Prop} from 'vue-property-decorator';
-  import {PLabel} from './index';
-  import {PButton} from '@/components/PButton/index';
-  import {PInlineError} from '@/components/PInlineError/index';
+  import {PLabel} from '@/components/PLabel';
+  import {PButton} from '@/components/PButton';
+  import {PInlineError} from '@/components/PInlineError';
   import {Action} from '@/types';
   import {classNames} from '@/utilities/css';
 
