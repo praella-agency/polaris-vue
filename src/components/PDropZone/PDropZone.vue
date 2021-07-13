@@ -10,14 +10,23 @@
   import {PStack} from '@/components/PStack';
   import {PCaption} from '@/components/PCaption';
   import {PDisplayText} from '@/components/PDisplayText';
-  import {PLabelled, FileUpload} from './components/index';
+  import {PFileUpload} from './components/index';
+  import {PLabelled} from '@/components/PLabelled';
   import {Action} from '@/types';
+  import {
+    Context,
+    fileAccepted,
+    defaultAllowMultiple,
+    createAllowMultipleKey,
+    capitalize,
+    isServer
+  } from './context';
 
   type DropZoneFileType = 'file' | 'image';
 
   @Component({
     components: {
-      PIcon,
+      PIcon, PStack, PCaption, PDisplayText, PFileUpload, PLabelled,
     },
   })
   export default class PDropZone extends Vue {
@@ -140,6 +149,10 @@
     // /** Callback triggered when the file dialog is canceled */
     // onFileDialogClose?(): void;
 
+    public mounted() {
+      window.addEventListener('drop', handledrop);
+    }
+
     public get className() {
       return classNames(
         'Polaris-DropZone',
@@ -148,40 +161,5 @@
       );
     }
 
-    public get isServer() {
-      return typeof window === 'undefined' || typeof document === 'undefined';
-    }
-
-    public capitalize(word = '') {
-      const wordLower = word.toLowerCase();
-      return wordLower.charAt(0).toUpperCase() + wordLower.slice(1);
-    }
-
-    public fileAccepted(file: File, accept: string | undefined) {
-      return file.type === 'application/x-moz-file' || this.accepts(file, accept);
-    }
-
-    public accepts(file: File, acceptedFiles: string | string[] | undefined) {
-      if (file && acceptedFiles) {
-        const fileName = file.name || '';
-        const mimeType = file.type || '';
-        const baseMimeType = mimeType.replace(/\/.*$/, '');
-        const acceptedFilesArray = Array.isArray(acceptedFiles)
-          ? acceptedFiles
-          : acceptedFiles.split(',');
-
-        return acceptedFilesArray.some((type) => {
-          const validType = type.trim();
-          if (validType.startsWith('.')) {
-            return fileName.toLowerCase().endsWith(validType.toLowerCase());
-          } else if (validType.endsWith('/*')) {
-            // This is something like a image/* mime type
-            return baseMimeType === validType.replace(/\/.*$/, '');
-          }
-          return mimeType === validType;
-        });
-      }
-      return true;
-    }
   }
 </script>

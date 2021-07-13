@@ -571,102 +571,6 @@
     padding: .8rem 1.6rem;
 }
 
-/*=================== Polaris-Label =======================*/
-
-
-.Polaris-Label {
-    -webkit-tap-highlight-color: transparent;
-}
-
-.Polaris-Label--hidden {
-    position: absolute !important;
-    top: 0;
-    clip: rect(1px, 1px, 1px, 1px) !important;
-    overflow: hidden !important;
-    height: 1px !important;
-    width: 1px !important;
-    padding: 0 !important;
-    border: 0 !important;
-}
-
-.Polaris-Label__Text {
-    font-size: $label-text-font-size;
-    font-weight: $label-text-font-weight;
-    line-height:  $label-text-line-height;
-    text-transform: none;
-    letter-spacing: normal;
-    display: block;
-    flex: 1 1 auto;
-    color: $label-text-color;
-    -webkit-tap-highlight-color: transparent;
-    @media (min-width:40em) {
-        font-size: $label-text-media-font-size;
-    }
-}
-
-.Polaris-InlineError {
-    display: flex;
-    color: rgba(215, 44, 13, 1);
-    fill: rgba(215, 44, 13, 1);
-}
-
-.Polaris-InlineError__Icon {
-    fill: currentColor;
-    margin-left: -.2rem;
-    margin-right: .6rem;
-}
-
-.Polaris-Labelled--hidden {
-    >.Polaris-Labelled__LabelWrapper {
-        position: absolute !important;
-        top: 0;
-        clip: rect(1px, 1px, 1px, 1px) !important;
-        overflow: hidden !important;
-        height: 1px !important;
-        width: 1px !important;
-        padding: 0 !important;
-        border: 0 !important;
-    }
-}
-
-.Polaris-Labelled__LabelWrapper {
-    word-wrap: break-word;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: .4rem;
-}
-
-.Polaris-Labelled__HelpText {
-    font-size: $labelled-helptext-font-size;
-    font-weight: $labelled-helptext-font-weight;
-    line-height: $labelled-helptext-line-height;
-    text-transform: none;
-    letter-spacing: normal;
-    color: $labelled-helptext-color;
-    margin-top: .4rem;
-    @media (min-width:40em) {
-        font-size: $labelled-helptext-media-font-size;
-    }
-}
-
-.Polaris-Labelled__Error {
-    word-wrap: break-word;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    margin-top: .4rem;
-}
-
-.Polaris-Labelled__Action {
-    flex: 0 0 auto;
-}
-
-/*=================== Polaris-Label =======================*/
-
-
 /*=================== Polaris-Connected =======================*/
 
 .Polaris-Connected {
@@ -2344,25 +2248,6 @@
     pointer-events: all;
 }
 
-.Polaris-TopBar-Search__Results{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  max-height:calc(100vh - 5.6rem);
-  margin:0; }
-
-@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em){
-  [data-has-navigation] .Polaris-TopBar-Search__Results{
-    max-height:60vh;
-  }
-}
-
-@media (min-width: 30.625em){
-  .Polaris-TopBar-Search__Results{ max-height:60vh;
-  }
-}
-
-
 .Polaris-TopBar-Search__Overlay {
     position: absolute;
     left: 0;
@@ -2758,21 +2643,18 @@
     }
 }
 
-.Polaris-TopBar{
-  position: relative;
-  display: flex;
-  height: 5.6rem;
-  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.15);
-  background-color: rgba(255, 255, 255, 1);
-  transition: 200ms background-color ease-in-out;
-}
-
-.Polaris-TopBar::after{
-  content: '';
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  border-bottom: 1px solid transparent;
+.Polaris-TopBar {
+    position: relative;
+    display: flex;
+    height: 5.6rem;
+    background-color: #F1F2F3;
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        border-bottom: 1px solid transparent;
+    }
 }
 
 .Polaris-TopBar__LogoContainer {
@@ -2946,10 +2828,10 @@
     border-radius: calc(0.4rem + 0.1rem);
     border: .1rem solid transparent;
 }
-//.multiselect.multiselect--active{
-//    box-shadow: 0 0 0 0.2rem $theme-shadow-color;
-//    border: .1rem solid transparent;
-//}
+.multiselect.multiselect--active{
+    box-shadow: 0 0 0 0.2rem $theme-shadow-color;
+    border: .1rem solid transparent;
+}
 /*.multiselect__tags:focus-within {
   border: 1px solid #000;
 }*/
