@@ -26,6 +26,7 @@
     import {PStack, PStackItem} from '../PStack';
     import PIcon from './PIcon.vue';
     import * as AllIcon from '@/assets/shopify-polaris-icons/index';
+    import {DeprecatedIcons} from './index';
 
     export default {
         name: 'ShopifyIcons',
@@ -54,7 +55,6 @@
         },
         methods: {
             searchIcon(value) {
-                console.log(this.color)
                 if (value === null) {
                     for (let icon in AllIcon) {
                         this.icons.push(icon);
@@ -93,9 +93,12 @@
             },
         },
         created() {
-            for (let icon in AllIcon) {
+            // let allIcon = Object.keys(AllIcon);
+            let difference = Object.keys(AllIcon).filter(icon => !DeprecatedIcons.includes(icon));
+
+            difference.forEach(icon => {
                 this.icons.push(icon);
-            }
+            });
             return this.icons;
         },
     }
