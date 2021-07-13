@@ -93,7 +93,7 @@
             },
         },
         created() {
-            let allIcon = Object.keys(AllIcon);
+            // let allIcon = Object.keys(AllIcon);
             let difference = Object.keys(AllIcon).filter(icon => !DeprecatedIcons.includes(icon));
 
             difference.forEach(icon => {
