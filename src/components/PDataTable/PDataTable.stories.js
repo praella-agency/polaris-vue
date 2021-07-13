@@ -60,7 +60,7 @@ const Template = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PCard>
+      <PCard sectioned>
           <PDataTable
               v-bind="$props"
               @sort-changed="handleSortChange"
