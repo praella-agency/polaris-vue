@@ -42,6 +42,6 @@ function getNewIcons() {
     let oldIcons = oldFiles.filter(x => !newFiles.includes(x));
     let newIcons = newFiles.filter(x => !oldFiles.includes(x));
 
-    console.log('OldIcons', oldIcons);
-    console.log('newIcons', newIcons);
+    // console.log('OldIcons', oldIcons);
+    // console.log('newIcons', newIcons);
 }

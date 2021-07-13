@@ -18,6 +18,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
+import {DeprecatedIcons} from './index';
 import * as Icon from '@/assets/shopify-polaris-icons/index';
 import { classNames, variationName } from '@/utilities/css';
 import { encode as encodeSVG } from '@/utilities/svg';
@@ -70,6 +71,10 @@ export default class PIcon extends Vue {
   }
 
   public get enhancedSource() {
+    if (DeprecatedIcons.includes(this.source)) {
+      console.error('You are using a deprecated icon `' + this.source + '`, please use new instead of this.');
+    }
+
     const sourceIcon = Icon[this.source];
     if (!sourceIcon) {
       return this.source.replace('<svg', '<svg class="Polaris-Icon__Svg"');

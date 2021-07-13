@@ -7,7 +7,7 @@
       -->
       <PButton
         plain
-        :icon="CancelSmallMinor"
+        icon="CancelSmallMinor"
         @click="$emit('dismiss', $event)">
       </PButton>
     </div>
@@ -45,15 +45,6 @@ import { PHeading } from '@/components/PHeading';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PButtonsFrom } from '@/components/PButton/utils';
 import {
-  CancelSmallMinor,
-  CircleTickMajor,
-  FlagMajor,
-  CircleAlertMajor,
-  CircleDisabledMajor,
-  CircleInformationMajor,
-  DiamondAlertMajor,
-} from '@/assets/shopify-polaris-icons/index';
-import {
   DisableableAction,
   LoadableAction,
 } from '@/types';
@@ -64,21 +55,6 @@ type BannerStatus = 'success' | 'info' | 'warning' | 'critical';
     PIcon, PButton, PHeading,
     PButtonGroup, PButtonsFrom,
   },
-  mixins: [
-    {
-      data() {
-        return {
-          CancelSmallMinor,
-          CircleTickMajor,
-          FlagMajor,
-          CircleAlertMajor,
-          CircleDisabledMajor,
-          CircleInformationMajor,
-          DiamondAlertMajor,
-        };
-      },
-    },
-  ],
 })
 export default class PBanner extends Vue {
 
@@ -118,23 +94,23 @@ export default class PBanner extends Vue {
     switch (this.status) {
       case 'success':
         color = 'success';
-        icon = CircleTickMajor;
+        icon = 'CircleTickMajor';
         break;
       case 'info':
         color = 'highlight';
-        icon = CircleInformationMajor;
+        icon = 'CircleInformationMajor';
         break;
       case 'warning':
         color = 'warning';
-        icon = CircleAlertMajor;
+        icon = 'CircleAlertMajor';
         break;
       case 'critical':
         color = 'critical';
-        icon = DiamondAlertMajor;
+        icon = 'DiamondAlertMajor';
         break;
       default:
         color = 'base';
-        icon = CircleInformationMajor;
+        icon = 'CircleInformationMajor';
     }
 
     return { color, icon };
