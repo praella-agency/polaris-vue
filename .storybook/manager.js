@@ -11,6 +11,9 @@ const theme = create({
 });
 
 addons.setConfig({
+    previewTabs: {
+        'canvas': {title: 'Preview'}
+    },
     theme: theme,
     panelPosition: "right",
     isToolshown: true,
