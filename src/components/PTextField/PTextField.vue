@@ -110,7 +110,7 @@
      * Show a clear text button in the input
     */
     @Prop(Boolean) public clearable!: boolean;
-
+    @Prop() public value!: any;
   }
 </script>
 

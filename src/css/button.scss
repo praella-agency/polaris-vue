@@ -252,6 +252,17 @@
     fill: $btn-primary-svg-icon-color;
   }
 }
+.Polaris-Button--destructiveText {
+  color: $btn-destructive-bgcolor;
+
+  &:hover {
+    color: $btn-destructive-hover-bgcolor;
+  }
+
+  svg {
+    fill: $btn-destructive-bgcolor;
+  }
+}
 
 /*.Polaris-Button--primary.Polaris-Button--globalTheming {
 	background: var(--p-button-color);

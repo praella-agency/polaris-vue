@@ -68,7 +68,7 @@
 }
 .Polaris-EmptyState--fullWidth {
   .Polaris-EmptyState__Details {
-    max-width: 100%;
+    max-width: 100% !important;
   }
 }
 .Polaris-EmptyState__Content {

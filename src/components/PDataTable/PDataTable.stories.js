@@ -257,7 +257,7 @@ DataTable.args = {
         'text', 'numeric', 'numeric', 'numeric'
     ],
     totals: [
-        '', '', '', 441, '', ''
+        '', '', '', 441, '',
     ],
     ids: [1, 2, 3]
 }

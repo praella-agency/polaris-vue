@@ -55,7 +55,7 @@ const Template = (args, { argTypes }) => ({
       >
           <p slot="footer">
             If you don’t want to add a transfer, you can import your inventory from
-            <PLink url="https://www.hulkapps.com/" monochrome>settings</PLink>
+            <PLink url="#" monochrome>settings</PLink>
             .
           </p>
           <p>Track and receive your incoming inventory from suppliers.</p>

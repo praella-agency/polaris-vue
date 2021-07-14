@@ -606,8 +606,8 @@
 
 .Polaris-InlineError {
     display: flex;
-    color: $inline-error-color;
-    fill: $inline-error-fill;
+    color: rgba(215, 44, 13, 1);
+    fill: rgba(215, 44, 13, 1);
 }
 
 .Polaris-InlineError__Icon {
@@ -2924,10 +2924,10 @@
     border-radius: calc(0.4rem + 0.1rem);
     border: .1rem solid transparent;
 }
-.multiselect.multiselect--active{
-    box-shadow: 0 0 0 0.2rem $theme-shadow-color;
-    border: .1rem solid transparent;
-}
+//.multiselect.multiselect--active{
+//    box-shadow: 0 0 0 0.2rem $theme-shadow-color;
+//    border: .1rem solid transparent;
+//}
 /*.multiselect__tags:focus-within {
   border: 1px solid #000;
 }*/
