@@ -36,7 +36,7 @@ import {classNames, variationName} from '@/utilities/css';
 
 import {PIcon} from '@/components/PIcon';
 import {PChoice} from '@/components/PChoice';
-import {MinusMinor, TickSmallMinor} from '@/assets/shopify-polaris-icons';
+import {MinusMinor, TickSmallMinor} from '@/assets/shopify-polaris-icons/index';
 
 @Component({
     components: {

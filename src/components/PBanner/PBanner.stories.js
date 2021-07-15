@@ -45,7 +45,6 @@ export const Banner = Template.bind({});
 
 Banner.args = {
     title: 'Some of your product variants are missing weights',
-    status: 'warning',
     action: {
         content: 'Edit variant weights',
         onAction: () => {

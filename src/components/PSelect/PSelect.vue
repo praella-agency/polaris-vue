@@ -21,7 +21,7 @@
                 <span v-if="inlineLabel" class="Polaris-Select__InlineLabel">{{inlineLabel}}</span>
                 <span class="Polaris-Select__SelectedOption">{{ selectedOption }}</span>
                 <span class="Polaris-Select__Icon">
-                    <PIcon :source="ArrowUpDownMinor" />
+                    <PIcon :source="SelectMinor" />
                 </span>
             </div>
             <div class="Polaris-Select__Backdrop"></div>
@@ -32,7 +32,7 @@
 
 <script lang="ts">
     import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
-    import { ArrowUpDownMinor } from '@/assets/shopify-polaris-icons';
+    import { SelectMinor } from '@/assets/shopify-polaris-icons/index';
     import {classNames} from '@/utilities/css';
     import {PIcon} from '@/components/PIcon';
     import {PFieldError} from '@/components/PFieldError';
@@ -64,7 +64,7 @@
         mixins: [
             {
                 data() {
-                    return { ArrowUpDownMinor };
+                    return { SelectMinor };
                 },
             },
         ],

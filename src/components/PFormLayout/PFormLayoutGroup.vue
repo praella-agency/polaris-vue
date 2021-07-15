@@ -1,74 +1,84 @@
 <template>
-    <div role="group"
-         :class="className"
-         :aria-labelledBy="title ? id+'Title' : null"
-         :aria-describedby="helpText ? id+'HelpText' : null">
-        <div v-if="title"
-             :id="id"
-             class="Polaris-FormLayout__Title">
-            {{ title }}
-        </div>
-            <PFormLayoutGroupItemWrapper v-for="(slot,name) in $slots" :key="name">
-                <!-- @slot Form group body -->
-                <slot/>
-            </PFormLayoutGroupItemWrapper>
-        <div v-if="helpText || $slots.helpText"
-             :id="id+'helpText'"
-             class="Polaris-FormLayout__HelpText">
-            <!-- @slot Form group helpText -->
-            <slot name="helpText">
-              {{ helpText }}
-            </slot>
-        </div>
+  <div role="group"
+       :class="className"
+       :aria-labelledBy="title ? id+'Title' : null"
+       :aria-describedby="helpText ? id+'HelpText' : null">
+    <div v-if="title"
+         :id="id"
+         class="Polaris-FormLayout__Title">
+      {{ title }}
     </div>
+    <PFormLayoutGroupItemWrapper v-for="(slot,name) in $slots" :key="name">
+      <!-- @slot Form group body -->
+      <slot/>
+    </PFormLayoutGroupItemWrapper>
+    <div v-if="helpText || $slots.helpText"
+         :id="id+'helpText'"
+         class="Polaris-FormLayout__HelpText">
+      <!-- @slot Form group helpText -->
+      <slot name="helpText">
+        {{ helpText }}
+      </slot>
+    </div>
+  </div>
 </template>
 
-
-<script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator';
-    import {classNames} from '@/utilities/css';
-    import {PFormLayoutItem} from '@/components/PFormLayout/index';
-    import PFormLayoutGroupItemWrapper from '@/components/PFormLayout/PFormLayoutGroupItemWrapper.vue';
-
-    @Component({
-        components: {
-            PFormLayoutItem, PFormLayoutGroupItemWrapper,
-        },
-    })
-    export default class PFormLayoutGroup extends Vue {
-
-        /**
-         * Form group title
-         */
-        @Prop({type: String, default: null}) public title!: string;
-
-        /**
-         * Form group helpText
-         */
-        @Prop({type: String, default: null}) public helpText!: string;
-
-        /**
-         * For very short inputs, the width of the inputs may be reduced in order to fit more fields in the row.
-         *  @values true | false
-         */
-        @Prop({type: Boolean, default: false}) public condensed!: boolean;
-
-        /**
-         * Use field groups to arrange multiple fields in a row.
-         *  @values true | false
-         */
-        @Prop({type: Boolean, default: true}) public grouped!: boolean;
-
-        /**
-         * Form group Id
-         */
-        @Prop({type: String, default: `PolarisFormLayout${new Date().getUTCMilliseconds()}`}) public id!: string;
-
-        public get className() {
-            return classNames(
-                this.condensed && 'Polaris-FormLayout--condensed',
-                !this.condensed && 'Polaris-FormLayout--grouped',
-            );
-        }
+<script>
+import {classNames} from '@/utilities/css';
+import {PFormLayoutItem} from '@/components/PFormLayout/index';
+import PFormLayoutGroupItemWrapper from '@/components/PFormLayout/PFormLayoutGroupItemWrapper.vue';
+export default {
+  name: 'PFormLayoutGroup',
+  components: {
+    PFormLayoutItem,
+    PFormLayoutGroupItemWrapper,
+  },
+  props: {
+    /**
+     * Form group Id
+     */
+    id: {
+      type: String,
+      default: `PolarisFormLayout${new Date().getUTCMilliseconds()}`
+    },
+    /**
+     * Form group title
+     */
+    title: {
+      type: String,
+      default: null
+    },
+    /**
+     * Form group helpText
+     */
+    helpText: {
+      type: String,
+      default: null,
+    },
+    /**
+     * For very short inputs, the width of the inputs may be reduced in order to fit more fields in the row.
+     *  @values true | false
+     */
+    condensed: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Use field groups to arrange multiple fields in a row.
+     *  @values true | false
+     */
+    grouped: {
+      type: Boolean,
+      default: true,
     }
+  },
+  computed: {
+    className() {
+      return classNames(
+          this.condensed && 'Polaris-FormLayout--condensed',
+          !this.condensed && 'Polaris-FormLayout--grouped',
+      );
+    },
+  },
+}
 </script>

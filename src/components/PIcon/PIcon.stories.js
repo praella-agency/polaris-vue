@@ -5,28 +5,51 @@ import PIconMDX from './PIcon.mdx';
 export default {
     title: 'Images & Icons / Icon',
     component: PIcon,
+    argTypes: {
+        color: {
+            options: [null, 'base', 'subdued', 'critical', 'interactive', 'warning', 'highlight', 'success', 'primary'],
+            control: {
+                type: 'select',
+                labels: {
+                    null: 'Default',
+                },
+            },
+        },
+        source: {
+            options: [null, 'placeholder'],
+            control: {
+                type: 'select',
+                labels: {
+                    null: 'Default',
+                },
+            },
+        },
+        accessibilityLabel: {
+            table: {
+                disable: true,
+            },
+        },
+    },
     parameters: {
-        options: {
-            showPanel: false,
-        },
-        controls: {
-            disable: true,
-        },
-        actions: {
-            disable: true,
-        },
         docs: {
             page: PIconMDX,
         },
     },
 }
 
-const Template1 = () => ({
+const Template1 = (args, { argTypes }) => ({
+    props: Object.keys(argTypes),
     components: {
         ShopifyIcons,
     },
     template: `
-        <shopify-icons />`,
+        <shopify-icons 
+            v-bind="$props"
+        />`,
 });
 
 export const Icon = Template1.bind({});
+
+Icon.args = {
+    color: 'base',
+}

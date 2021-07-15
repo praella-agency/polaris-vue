@@ -7,15 +7,14 @@
       -->
       <PButton
         plain
-        :icon="CancelSmallMinor"
+        icon="CancelSmallMinor"
         @click="$emit('dismiss', $event)">
       </PButton>
     </div>
     <div class="Polaris-Banner__Ribbon">
       <PIcon
         :source="colorAndIcon.icon"
-        :color="colorAndIcon.color"
-        backdrop/>
+        :color="colorAndIcon.color" />
     </div>
     <div>
       <div v-if="title" class="Polaris-Banner__Heading">
@@ -46,14 +45,6 @@ import { PHeading } from '@/components/PHeading';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PButtonsFrom } from '@/components/PButton/utils';
 import {
-  CancelSmallMinor,
-  CircleTickMajorTwotone,
-  FlagMajorTwotone,
-  CircleAlertMajorTwotone,
-  CircleDisabledMajorTwotone,
-  CircleInformationMajorTwotone,
-} from '@/assets/shopify-polaris-icons';
-import {
   DisableableAction,
   LoadableAction,
 } from '@/types';
@@ -64,20 +55,6 @@ type BannerStatus = 'success' | 'info' | 'warning' | 'critical';
     PIcon, PButton, PHeading,
     PButtonGroup, PButtonsFrom,
   },
-  mixins: [
-    {
-      data() {
-        return {
-          CancelSmallMinor,
-          CircleTickMajorTwotone,
-          FlagMajorTwotone,
-          CircleAlertMajorTwotone,
-          CircleDisabledMajorTwotone,
-          CircleInformationMajorTwotone,
-        };
-      },
-    },
-  ],
 })
 export default class PBanner extends Vue {
 
@@ -116,24 +93,24 @@ export default class PBanner extends Vue {
 
     switch (this.status) {
       case 'success':
-        color = 'greenDark';
-        icon = CircleTickMajorTwotone;
+        color = 'success';
+        icon = 'CircleTickMajor';
         break;
       case 'info':
-        color = 'tealDark';
-        icon = CircleInformationMajorTwotone;
+        color = 'highlight';
+        icon = 'CircleInformationMajor';
         break;
       case 'warning':
-        color = 'yellowDark';
-        icon = CircleAlertMajorTwotone;
+        color = 'warning';
+        icon = 'CircleAlertMajor';
         break;
       case 'critical':
-        color = 'redDark';
-        icon = CircleDisabledMajorTwotone;
+        color = 'critical';
+        icon = 'DiamondAlertMajor';
         break;
       default:
-        color = 'inkLighter';
-        icon = FlagMajorTwotone;
+        color = 'base';
+        icon = 'CircleInformationMajor';
     }
 
     return { color, icon };

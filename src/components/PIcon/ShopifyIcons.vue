@@ -3,9 +3,10 @@
         <PTextField class="shopify-polaris-text" placeholder="Search Icon" @input="searchIcon"/>
         <div class="container-div">
             <div v-for="(icon, key) in icons" :key="key" class="icon-div icon-tooltip" @mouseover="changeCode(icon)"
-                 @click="copyCode()">
+                 @click="copyCode(icon)">
                 <div>
-                    <PIcon :source="icon" color="tealDark"/>
+                    <PIcon v-if="source" :source="source" />
+                    <PIcon v-else :source="icon" :color="color" :backdrop="backdrop" />
                     <div class="icon-text-div">
                         {{ icon }}
                     </div>
@@ -24,10 +25,11 @@
     import {PButton} from '../PButton';
     import {PStack, PStackItem} from '../PStack';
     import PIcon from './PIcon.vue';
-    import * as AllIcon from '@/assets/shopify-polaris-icons';
+    import * as AllIcon from '@/assets/shopify-polaris-icons/index';
+    import {DeprecatedIcons} from './index';
 
     export default {
-        name: "ShopifyIcons",
+        name: 'ShopifyIcons',
         components: {
             PTextField, PIcon, PModal, PFormLayout, PTextStyle, PStack, PStackItem, PButton,
         },
@@ -38,6 +40,18 @@
                 iconCode: '',
                 copyText: '',
             };
+        },
+        props: {
+            color: {
+                type: String,
+                default: 'base',
+            },
+            backdrop: {
+                type: Boolean,
+            },
+            source: {
+                type: String,
+            },
         },
         methods: {
             searchIcon(value) {
@@ -60,8 +74,17 @@
                 this.iconCode = icon;
                 this.iconCode = '<PIcon source="' + icon + '" />';
             },
-            copyCode() {
-                let copy = navigator.clipboard.writeText(this.iconCode);
+            copyCode(icon) {
+                let copy = '';
+                if (this.backdrop) {
+                    copy = navigator.clipboard.writeText(
+                        '<PIcon source="' + icon + '" color="' + this.color + '" backdrop="' + this.backdrop + '" />'
+                    );
+                } else {
+                    copy = navigator.clipboard.writeText(
+                        '<PIcon source="' + icon + '" color="' + this.color + '"/>'
+                    );
+                }
                 this.copyText = copy ? 'Copied!' : '';
                 this.$pToast.open({
                     message: this.copyText,
@@ -70,9 +93,12 @@
             },
         },
         created() {
-            for (let icon in AllIcon) {
+            // let allIcon = Object.keys(AllIcon);
+            let difference = Object.keys(AllIcon).filter(icon => !DeprecatedIcons.includes(icon));
+
+            difference.forEach(icon => {
                 this.icons.push(icon);
-            }
+            });
             return this.icons;
         },
     }

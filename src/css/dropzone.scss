@@ -1,272 +1,325 @@
-/*
 .Polaris-DropZone-FileUpload {
-	padding: 1.5rem;
-	text-align: center;
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
-.Polaris-DropZone-FileUpload.Polaris-DropZone-FileUpload--measuring {
-	display: none;
+
+.Polaris-DropZone-FileUpload__FileUploadSmallView {
+  padding: 1.25rem;
 }
+
+.Polaris-DropZone-FileUpload img {
+  vertical-align: bottom;
+}
+
 .Polaris-DropZone-FileUpload__Button {
-	position: relative;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 3.6rem;
-	min-width: 3.6rem;
-	margin: 0;
-	padding: .7rem 1.6rem;
-	background: $dropzone-fileupload-btn-bgcolor;
-	border: $dropzone-fileupload-btn-border;
-	box-shadow: $dropzone-fileupload-btn-box-shadow;
-	border-radius: $dropzone-fileupload-btn-border-radius;
-	line-height: $dropzone-fileupload-btn-line-height;
-	color: $dropzone-fileupload-btn-color;
-	text-align: center;
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	text-decoration: none;
-	transition-property: background,border,box-shadow;
-	transition-duration: .2s;
-	transition-timing-function: cubic-bezier(.64,0,.35,1);
-	-webkit-tap-highlight-color: transparent;
-	svg {
-		fill: $dropzone-fileupload-btn-svg-fill;
-	}
-	&:hover {
-		background: $dropzone-fileupload-btn-hover-bgcolor;
-		border-color: $dropzone-fileupload-btn-hover-border-color;
-	}
-	&:focus {
-		border-color: $dropzone-fileupload-btn-focus-border-color;
-		outline: 0;
-		box-shadow: $dropzone-fileupload-btn-focus-box-shadow;
-		@media (-ms-high-contrast:active) {
-			outline: 2px dotted;
-		}
-	}
-	&:active {
-		background: $dropzone-fileupload-btn-active-bgcolor;
-		border-color: $dropzone-fileupload-btn-active-border-color;
-		box-shadow: $dropzone-fileupload-btn-active-box-shadow;
-	}
-	.Polaris-DropZone-FileUpload--sizeSlim {
-		min-height: 3rem;
-		padding: .4rem 1.2rem;
-	}
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.6rem;
+  min-width: 3.6rem;
+  margin: 0;
+  padding: 0.7rem 1.6rem;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 0.4rem;
+  color: rgba(32, 34, 35, 1);
+  border: 1px solid rgba(186, 191, 195, 1);
+  border-top-color: rgba(201, 204, 207, 1);
+  border-bottom-color: rgba(186, 191, 196, 1);
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
-*/
-/*.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--globalTheming {
-	background: var(--p-neutral-action);
-	border: none;
-	box-shadow: none;
-	border-radius: var(--p-border-radius-base);
-	color: var(--p-text-on-surface);
-	svg {
-		fill: var(--p-icon-on-surface);
-	}
-	&:hover {
-		background: var(--p-neutral-action-hovered);
-		border-color: transparent;
-	}
-	&:focus {
-		border-color: transparent;
-		box-shadow: none;
-		position: relative;
-		&:after {
-			content: var(--p-non-null-content,none);
-			position: absolute;
-			z-index: 1;
-			top: -.3rem;
-			right: -.3rem;
-			bottom: -.3rem;
-			left: -.3rem;
-			display: block;
-			border: .2rem solid var(--p-interactive-focus);
-			border-radius: calc(var(--p-border-radius-base) + .3rem);
-			pointer-events: none;
-		}
-	}
-	&:active {
-		background: var(--p-neutral-action-pressed);
-		border-color: transparent;
-		box-shadow: none;
-		&:after {
-			border: none;
-		}
-	}
-}*/
 
+.Polaris-DropZone-FileUpload__Button svg {
+  fill: rgba(92, 95, 98, 1);
+}
 
-/*.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--disabled {
-	transition: none;
-	background: $dropzone-fileupload-btn-disabled-bgcolor;
-	color: $dropzone-fileupload-btn-disabled-color;
-	cursor: not-allowed;
-	box-shadow: $dropzone-fileupload-btn-disabled-box-shadow;
-	svg {
-		fill: $dropzone-fileupload-btn-disabled-svg-fill;
-	}
-}*/
+.Polaris-DropZone-FileUpload__Button::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -0.2rem;
+  right: -0.2rem;
+  bottom: -0.2rem;
+  left: -0.2rem;
+  display: block;
+  pointer-events: none;
+  box-shadow: 0 0 0 -0.2rem rgba(69, 143, 255, 1);
+  transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+  border-radius: calc(0.4rem + 0.1rem);
+}
 
-/*
-.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--disabled.Polaris-DropZone-FileUpload--globalTheming {
-	background: var(--p-neutral-action-disabled);
-	color: var(--p-text-disabled-on-surface);
-	svg {
-		fill: var(--p-icon-disabled-on-surface);
-	}
-}*/
+.Polaris-DropZone-FileUpload__Button:hover {
+  background: #f6f6f7;
+  outline: 0.1rem solid transparent;
+}
 
-/*
+.Polaris-DropZone-FileUpload__Button:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  outline: 0;
+}
+
+.Polaris-DropZone-FileUpload__Button:focus::after {
+  box-shadow: 0 0 0 0.2rem rgba(69, 143, 255, 1);
+  outline: 0.1rem solid transparent;
+}
+
+.Polaris-DropZone-FileUpload__Button:active {
+  background: rgba(241, 242, 243, 1);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.Polaris-DropZone-FileUpload__Button:active::after {
+  border: none;
+  box-shadow: none;
+}
+
+.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--pressed {
+  background: rgba(109, 113, 117, 1);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.15);
+  color: rgba(255, 255, 255, 1);
+  border-color: rgba(87, 89, 89, 1);
+}
+
+.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--pressed svg {
+  fill: currentColor;
+}
+
+@media (-ms-high-contrast: active) {
+  .Polaris-DropZone-FileUpload__Button {
+    border: 1px solid windowText;
+  }
+}
+
+.Polaris-DropZone-FileUpload__Button::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -0.1rem;
+  right: -0.1rem;
+  bottom: -0.1rem;
+  left: -0.1rem;
+  display: block;
+  pointer-events: none;
+  box-shadow: 0 0 0 -0.1rem rgba(69, 143, 255, 1);
+  transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+  border-radius: calc(0.4rem + 0.1rem);
+}
+
+.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--disabled {
+  transition: none;
+  box-shadow: none;
+  border-color: rgba(210, 213, 216, 1);
+  background: rgba(250, 251, 251, 1);
+  color: rgba(140, 145, 150, 1);
+  cursor: not-allowed;
+}
+
+.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--disabled svg {
+  fill: rgba(186, 190, 195, 1);
+}
+
 .Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--focused {
-	border-color: $dropzone-fileupload-btn-focused-border-color;
-	outline: 0;
-	box-shadow: $dropzone-fileupload-btn-focused-box-shadow;
-	@media (-ms-high-contrast:active) {
-		outline: 2px dotted;
-	}
+  outline: 0;
+  box-shadow: none;
 }
+
+.Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--focused::after {
+  box-shadow: 0 0 0 0.2rem rgba(69, 143, 255, 1);
+  outline: 0.1rem solid transparent;
+}
+
+@media (-ms-high-contrast: active) {
+  .Polaris-DropZone-FileUpload__Button.Polaris-DropZone-FileUpload--focused {
+    outline: 2px dotted;
+  }
+}
+
+.Polaris-DropZone-FileUpload__Button .Polaris-DropZone-FileUpload--sizeSlim {
+  min-height: 3rem;
+  padding: 0.4rem 1.2rem;
+}
+
 .Polaris-DropZone-FileUpload__ActionTitle {
-	color: $dropzone-fileupload-actiontitle-color;
-	text-decoration: none;
-	&:not(.Polaris-DropZone-FileUpload__ActionTitle--disabled) {
-		cursor: pointer;
-		&:active {
-			color: $dropzone-fileupload-actiontitle-disabled-active-color;
-			text-decoration: underline;
-		}
-		&:hover {
-			color: $dropzone-fileupload-actiontitle-disabled-hover-color;
-			text-decoration: underline;
-		}
-	}
+  color: rgba(44, 110, 203, 1);
+  text-decoration: none;
 }
+
+.Polaris-DropZone-FileUpload__ActionTitle:not(.Polaris-DropZone-FileUpload__ActionTitle--disabled) {
+  cursor: pointer;
+}
+
+.Polaris-DropZone-FileUpload__ActionTitle:not(.Polaris-DropZone-FileUpload__ActionTitle--disabled):hover,
+.Polaris-DropZone-FileUpload__ActionTitle:not(.Polaris-DropZone-FileUpload__ActionTitle--disabled):active {
+  color: rgba(16, 50, 98, 1);
+  text-decoration: underline;
+}
+
 .Polaris-DropZone-FileUpload__ActionTitle--focused {
-	color: $dropzone-fileupload-actiontitle-focused-color;
-	text-decoration: underline;
+  text-decoration: underline;
 }
+
 .Polaris-DropZone-FileUpload__ActionTitle--disabled {
-	color: $dropzone-fileupload-actiontitle-disabled-color;	
+  color: rgba(189, 193, 204, 1);
 }
-.Polaris-DropZone-FileUpload__Image.Polaris-DropZone-FileUpload--sizeExtraLarge {
-	width: 90px;
-}
-.Polaris-DropZone-FileUpload__Image.Polaris-DropZone-FileUpload--sizeLarge {
-	width: 60px;
-}
+
 .Polaris-DropZone {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	background-color: $dropzone-bgcolor;
-	border-radius: $dropzone-border-radius;
-	&:after {
-		content: "";
-		position: absolute;
-		z-index: 29;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		border: .2rem dashed transparent;
-		border-radius: 3px;
-		pointer-events: none;
-	}
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 0.4rem;
+}
+
+.Polaris-DropZone::after {
+  content: "";
+  position: absolute;
+  z-index: 29;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 0.2rem dashed transparent;
+  border-radius: 0.4rem;
+  pointer-events: none;
+}
+
+.Polaris-DropZone:not(.Polaris-DropZone--focused)::after {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 1;
+  transform: scale(1);
+  border: 0.2rem dashed transparent;
+}
+
+.Polaris-DropZone:hover {
+  outline: 0.1rem solid transparent;
 }
 
 .Polaris-DropZone--hasOutline {
-	padding: .2rem;
-	&:after {
-		border-color: $dropzone-hasoutline-after-border-color;
-	}
-	&:not(.Polaris-DropZone--isDisabled) {
-		&:hover {
-			cursor: pointer;
-			background-color: $dropzone-hasoutline-isdisabled-hover-bgcolor;
-			&:after {
-				border-color: $dropzone-hasoutline-isdisabled-hover-after-border-color;
-			}
-		}
-	}
+  padding: 0.2rem;
 }
-.Polaris-DropZone--focused {
-	&:not(.Polaris-DropZone--isDisabled) {
-		background-color: $dropzone-focused-isdisabled-bgcolor;
-		&:after {
-			border: $dropzone-focused-isdisabled-after-border;
-			@media (-ms-high-contrast:active) {
-				border-style: solid;
-				border-color: highlight;
-			}
-		}
-	}
+
+.Polaris-DropZone--hasOutline::after {
+  border-color: rgba(140, 145, 150, 1);
 }
-.Polaris-DropZone--isDragging {
-	&:not(.Polaris-DropZone--isDisabled) {
-		background-color: $dropzone-isdragging-isdisabled-bgcolor;
-		&:after {
-			border-color: $dropzone-isdragging-isdisabled-after-border-color;
-		}
-	}
+
+.Polaris-DropZone--hasOutline:not(.Polaris-DropZone--isDisabled):hover {
+  cursor: pointer;
+  background-color: rgba(246, 246, 247, 1);
 }
+
+.Polaris-DropZone--hasOutline:not(.Polaris-DropZone--focused)::after {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 1;
+  transform: scale(1);
+  border: 0.2rem dashed transparent;
+  border-radius: calc(0.4rem + 0.3rem);
+  border-color: rgba(140, 145, 150, 1);
+}
+
+.Polaris-DropZone--isDragging:not(.Polaris-DropZone--isDisabled) {
+  background-color: rgba(246, 246, 247, 1);
+}
+
 .Polaris-DropZone--isDisabled {
-	cursor: not-allowed;
-	&:after {
-		border-color: $dropzone-isdisabled-after-border-color;
-	}
+  cursor: not-allowed;
+}
+
+.Polaris-DropZone--isDisabled::after {
+  border-color: rgba(210, 213, 216, 1);
 }
 
 .Polaris-DropZone--sizeExtraLarge {
-	min-height: 20.5rem;
-}
-.Polaris-DropZone--sizeLarge {
-	min-height: 16rem;
-}
-.Polaris-DropZone--sizeMedium {
-	min-height: 10rem;
-	align-items: center;
-}
-.Polaris-DropZone--sizeSmall {
-	padding: 0;
-	align-items: center;
-	min-height: 5rem;
-	.Polaris-DropZone__Overlay {
-		padding: 0;
-	}
-}
-.Polaris-DropZone--measuring {
-	visibility: hidden;
-	min-height: 0;
-}
-.Polaris-DropZone__Container {
-	flex: 1 1;
-}
-.Polaris-DropZone__Overlay {
-	position: absolute;
-	z-index: 30;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 1.5rem;
-	border: $dropzone-overlay-border;
-	border-radius: $dropzone-overlay-border-radius;
-	text-align: center;
-	color: $dropzone-overlay-color;
-	background-color: $dropzone-overlay-bgcolor;
-}
-.Polaris-DropZone--hasError {
-	.Polaris-DropZone__Overlay {
-		border-color: $dropzone-haserror-overlay-bgcolor;
-		color: $dropzone-haserror-overlay-color;
-		background-color: $dropzone-haserror-overlay-border-color;
-	}
+  min-height: 20.5rem;
 }
 
-*/
+.Polaris-DropZone--sizeLarge {
+  min-height: 16rem;
+}
+
+.Polaris-DropZone--sizeMedium {
+  min-height: 10rem;
+  align-items: center;
+}
+
+.Polaris-DropZone--sizeSmall {
+  padding: 0;
+  align-items: center;
+  min-height: 5rem;
+}
+
+.Polaris-DropZone--measuring {
+  visibility: hidden;
+  min-height: 0;
+}
+
+.Polaris-DropZone__Container {
+  position: relative;
+  flex: 1 1;
+}
+
+.Polaris-DropZone__Container::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -0.3rem;
+  right: -0.3rem;
+  bottom: -0.3rem;
+  left: -0.3rem;
+  display: block;
+  pointer-events: none;
+  box-shadow: 0 0 0 -0.3rem rgba(69, 143, 255, 1);
+  transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+  border-radius: calc(0.4rem + 0.1rem);
+}
+
+.Polaris-DropZone__Overlay {
+  border-radius: calc(0.4rem + 0.3rem);
+  position: absolute;
+  z-index: 30;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  border: 0.2rem dashed rgba(44, 110, 203, 1);
+  text-align: center;
+  color: rgba(44, 110, 203, 1);
+  background-color: rgba(242, 247, 254, 1);
+  pointer-events: none;
+}
+
+.Polaris-DropZone--hasError .Polaris-DropZone__Overlay {
+  border-color: rgba(253, 87, 73, 1);
+  color: rgba(215, 44, 13, 1);
+  background-color: rgba(255, 244, 244, 1);
+}
+
+.Polaris-DropZone--sizeSmall .Polaris-DropZone__Overlay {
+  padding: 0;
+}
+
+.Polaris-DropZone--focused:not(.Polaris-DropZone--isDisabled),
+.Polaris-DropZone__Container::after {
+  box-shadow: 0 0 0 0.2rem rgba(69, 143, 255, 1);
+  outline: 0.1rem solid transparent;
+}

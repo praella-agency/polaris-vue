@@ -42,13 +42,13 @@
       <template v-slot:input="picker" style="min-width: 100%">
         <PTextField v-if="!button" readOnly aria-readonly="true" :value="computedTextValue(picker)" style="min-width:100%" labelHidden>
           <template  slot="suffix">
-            <PIcon slot="suffix" source="CalendarMajorMonotone"/>
+            <PIcon slot="suffix" source="CalendarMajor"/>
           </template>
           <template v-if="showPrefix" slot="prefix">
             {{ prefix }}
           </template>
         </PTextField>
-        <PButton icon="CalendarMajorMonotone" v-else>
+        <PButton icon="CalendarMajor" v-else>
           {{computedTextValue(picker)}}
         </PButton>
       </template>
