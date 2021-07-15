@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts">
-  import {Component, Vue, Prop, Emit} from 'vue-property-decorator';
+  import {Component, Vue, Prop, Emit, Ref} from 'vue-property-decorator';
   import {classNames, variationName} from '@/utilities/css';
   import {PIcon} from '@/components/PIcon';
   import {PStack} from '@/components/PStack';
@@ -93,6 +93,9 @@
   } = useToggle(false);
 
   type DropZoneFileType = 'file' | 'image';
+
+  // let node = Ref<HTMLDivElement>();
+  // let dragTargets = [] as EventTarget[];
 
   @Component({
     components: {
@@ -196,6 +199,9 @@
      * Adds custom validations
      */
     @Prop({type: Boolean, default: false}) public customValidator!: boolean;
+
+    @Ref() node!: HTMLDivElement;
+    @Ref() dragTargets!: EventTarget[];
 
     public dragging = false;
     public intervalError = false;
@@ -308,7 +314,7 @@
       const fileList = getDataTransferFiles(event);
       const {files, acceptedFiles, rejectedFiles} = this.getValidatedFiles(fileList);
 
-      // dragTargets.current = [];
+      this.dragTargets = [];
       this.dragging = false;
       this.intervalError = rejectedFiles.length > 0;
       this.handleOnDrop && this.handleOnDrop(files as File[], acceptedFiles, rejectedFiles);
@@ -334,10 +340,8 @@
 
       const fileList = getDataTransferFiles(event);
 
-      if (event.target) {
-        // if (!dragTargets.current.includes(event.target)) {
-        // dragTargets.current.push(event.target);
-        // }
+      if (event.target && !this.dragTargets.includes(event.target)) {
+        this.dragTargets.push(event.target);
       }
 
       if (this.dragging) {
@@ -358,15 +362,15 @@
         return;
       }
 
-      // dragTargets.current = dragTargets.current.filter((el: Node) => {
-      //   const compareNode = dropOnPage && !isServer ? document : node.current;
-      //
-      //   return el !== event.target && compareNode && compareNode.contains(el);
-      // });
+      this.dragTargets = this.dragTargets.filter((el: Node) => {
+        const compareNode = this.dropOnPage && !isServer ? document : this.node;
 
-      // if (dragTargets.current.length > 0) {
-      //   return;
-      // }
+        return el !== event.target && compareNode && compareNode.contains(el);
+      });
+
+      if (this.dragTargets.length > 0) {
+        return;
+      }
 
       this.dragging = false;
       this.intervalError = false;
@@ -375,7 +379,7 @@
     }
 
     public adjustSize() {
-      if (!node.current) {
+      if (!this.node) {
         return;
       }
 
@@ -385,7 +389,7 @@
       }
 
       let size = 'extraLarge';
-      const width = node.current.getBoundingClientRect().width;
+      const width = this.node.getBoundingClientRect().width;
 
       if (width < 100) {
         size = 'small';
@@ -404,12 +408,12 @@
 
     public mounted() {
       this.adjustSize();
-      const dropNode = this.dropOnPage ? document : this.$refs.node;
+      const dropNode = this.dropOnPage ? document : this.node;
       if (!dropNode) {
         return;
       }
 
-      // dropNode.addEventListener('drop', this.handleDrop);
+      dropNode.addEventListener('drop', this.handleDrop);
       document.addEventListener('drop', this.handleDrop);
       document.addEventListener('dragover', this.handleDragOver);
       document.addEventListener('dragenter', this.handleDragEnter);
