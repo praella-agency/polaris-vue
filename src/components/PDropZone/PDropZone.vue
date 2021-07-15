@@ -195,7 +195,7 @@
     /**
      * Adds custom validations
      */
-    @Prop({type: Boolean, default: false}) public customValidator(file: File): boolean;
+    @Prop({type: Boolean, default: false}) public customValidator!: boolean;
 
     public dragging = false;
     public intervalError = false;
@@ -287,7 +287,7 @@
       const rejectedFiles: File[] = [];
 
       Array.from(files as File[]).forEach((file: File) => {
-        !fileAccepted(file, this.accept) || (this.customValidator && !this.customValidator(file))
+        !fileAccepted(file, this.accept) || (this.customValidator && !this.customValidator)
           ? rejectedFiles.push(file) : acceptedFiles.push(file);
       });
 
