@@ -288,7 +288,7 @@
       event.stopPropagation();
     }
 
-    public getValidatedFiles(files: File[] | DataTransferItem[]) {
+    public getValidatedFiles(files: File[] | DataTransferItem[] | ArrayLike<File>) {
       const acceptedFiles: File[] = [];
       const rejectedFiles: File[] = [];
 
@@ -305,13 +305,13 @@
       return {files, acceptedFiles, rejectedFiles};
     }
 
-    public handleDrop(event: DragEvent) {
+    public handleDrop = (event: DragEvent) => {
       this.stopEvent(event);
       if (this.disabled) {
         return;
       }
 
-      const fileList = getDataTransferFiles(event);
+      const fileList = getDataTransferFiles(event) as ArrayLike<File>;
       const {files, acceptedFiles, rejectedFiles} = this.getValidatedFiles(fileList);
 
       this.dragTargets = [];
@@ -338,7 +338,7 @@
         return;
       }
 
-      const fileList = getDataTransferFiles(event);
+      const fileList = getDataTransferFiles(event) as ArrayLike<File>;
 
       if (event.target && !this.dragTargets.includes(event.target)) {
         this.dragTargets.push(event.target);
@@ -362,10 +362,10 @@
         return;
       }
 
-      this.dragTargets = this.dragTargets.filter((el: Node) => {
+      this.dragTargets = this.dragTargets.filter((el) => {
         const compareNode = this.dropOnPage && !isServer ? document : this.node;
 
-        return el !== event.target && compareNode && compareNode.contains(el);
+        return el !== event.target && compareNode && compareNode.contains(el as Node);
       });
 
       if (this.dragTargets.length > 0) {
@@ -413,25 +413,24 @@
         return;
       }
 
-      dropNode.addEventListener('drop', this.handleDrop);
-      document.addEventListener('drop', this.handleDrop);
-      document.addEventListener('dragover', this.handleDragOver);
-      document.addEventListener('dragenter', this.handleDragEnter);
-      document.addEventListener('dragleave', this.handleDragLeave);
+      dropNode.addEventListener('drop', this.handleDrop as EventListener);
+      dropNode.addEventListener('dragover', this.handleDragOver as EventListener);
+      dropNode.addEventListener('dragenter', this.handleDragEnter as EventListener);
+      dropNode.addEventListener('dragleave', this.handleDragLeave as EventListener);
       window.addEventListener('resize', this.adjustSize);
     }
 
     public destroyed() {
-      const dropNode = this.dropOnPage ? document : this.$refs.node;
+      const dropNode = this.dropOnPage ? document : this.node;
       if (!dropNode) {
         return;
       }
 
       // dropNode.addEventListener('drop', this.handleDrop);
-      document.removeEventListener('drop', this.handleDrop);
-      document.removeEventListener('dragover', this.handleDragOver);
-      document.removeEventListener('dragenter', this.handleDragEnter);
-      document.removeEventListener('dragleave', this.handleDragLeave);
+      dropNode.removeEventListener('drop', this.handleDrop as EventListener);
+      dropNode.removeEventListener('dragover', this.handleDragOver as EventListener);
+      dropNode.removeEventListener('dragenter', this.handleDragEnter as EventListener);
+      dropNode.removeEventListener('dragleave', this.handleDragLeave as EventListener);
       window.removeEventListener('resize', this.adjustSize);
     }
 
