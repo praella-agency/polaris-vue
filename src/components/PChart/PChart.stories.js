@@ -28,6 +28,7 @@ export const Chart = Template.bind({});
 
 Chart.args = {
     title: "Default Chart",
+    width: "100%",
     height: "500",
     series: [
         {
@@ -41,7 +42,9 @@ Chart.args = {
         'Italy', 'France', 'Japan', 'United States', 'India',
         'Germany',
     ],
-    chartOptions: {},
+    chartOptions: {
+        colors: ['#007B5C']
+    },
 }
 
 const Template1 = (args, {argTypes}) => ({
@@ -59,7 +62,7 @@ export const GroupedChart = Template1.bind({});
 
 GroupedChart.args = {
     title: "Vertical Grouped Bar Chart",
-    width: "800",
+    width: "100%",
     vertical: true,
     height: "500",
     series: [
@@ -80,6 +83,6 @@ GroupedChart.args = {
         'Germany',
     ],
     chartOptions: {
-        colors: ['#ff0048', '#ff0098']
+        colors: ['#39A9A2', '#f49342']
     },
 }

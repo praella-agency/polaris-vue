@@ -158,7 +158,3 @@
 	color: $datatable-cell-footer-color;
 	text-align: center;
 }
-
-th:last-child { text-align: right; }
-td:last-child { text-align: right; }
-td:last-child > * { float: right; }

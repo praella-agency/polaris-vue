@@ -77,6 +77,16 @@
   }
 </script>
 
+<style>
+.vc-chrome input {
+  font-family: inherit;
+}
+.vc-chrome {
+  font-family: inherit !important;
+  box-shadow: -1px 0px 20px rgb(23 24 24 / 5%), 0px 1px 5px rgb(0 0 0 / 15%) !important;
+  border-radius: 0.8rem !important;
+}
+</style>
 
 <style scoped>
   .color-picker-field span.picker {
