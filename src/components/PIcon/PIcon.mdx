@@ -2,10 +2,33 @@
 
 import { Meta, Story, Preview, Props, ArgsTable } from '@storybook/addon-docs';
 import PIcon from './PIcon.vue';
+import PBanner from '../PBanner/PBanner.vue'
 
 <Meta title="MDX/Icon" component={PIcon} />
 
 # Icon
+
+> **Notice:** We are introducing new Polaris icons, due to this update we will have to remove below listed icons on our future release.
+
+**Deprecated Icons**
+* AnalyticsMajorFilled
+* AppsMajorFilled
+* CircleAlertMajorFilled
+* CircleDisabledMajorFilled
+* CircleInformationMajorFilled
+* CircleTickMajorFilled
+* CustomersMajorFilled
+* DiscountsMajorFilled
+* HomeMajorFilled
+* MarketingMajorFilled
+* NotesMinor
+* OnlineStoreMajorFilled
+* OrdersMajorFilled
+* ProductsMajorFilled
+
+> **Warning:** We are removing **Monotone & Twotone** suffix from most of the icons to keep it synced with Shopify’s Polaris Component library.
+  For example: Currently we have the icon name **AbandonedCartMajorMonotone/AbandonedCartMajorTwotone**, this icon name will be renamed as **AbandonedCartMajor**.
+
 
 ```jsx
 <PIcon source="CancelSmallMinor" />
