@@ -44,7 +44,7 @@
       if (!this.$refs.fileInputNode) {
         return;
       }
-      this.$refs.fileInputNode.$el.click();
+      (this.$refs.fileInputNode as HTMLInputElement).click();
     }
 
     @Emit()

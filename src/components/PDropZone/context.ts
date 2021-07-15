@@ -58,14 +58,13 @@ export function isServer() {
   return typeof window === 'undefined' || typeof document === 'undefined';
 }
 
-type DropZoneEvent = DragEvent | React.ChangeEvent<HTMLInputElement>;
+type DropZoneEvent = DragEvent | HTMLInputElement;
 
 const dragEvents = ['dragover', 'dragenter', 'drop'];
 
 export function getDataTransferFiles(event: DropZoneEvent) {
   if (isDragEvent(event) && event.dataTransfer) {
     const dt = event.dataTransfer;
-
     if (dt.files && dt.files.length) {
       return Array.from(dt.files);
     } else if (dt.items && dt.items.length) {
@@ -73,11 +72,11 @@ export function getDataTransferFiles(event: DropZoneEvent) {
       // events and uses `items` instead of `files` in this case.
       return Array.from(dt.items);
     }
-  } else if (isChangeEvent(event) && event.target.files) {
+  } else if (isChangeEvent(event) && (event.target as HTMLInputElement).files) {
     // Return files from even when a file was selected from an upload dialog
-    return Array.from(event.target.files);
+    const target = event.target as HTMLInputElement;
+    return target.files;
   }
-
   return [];
 }
 
