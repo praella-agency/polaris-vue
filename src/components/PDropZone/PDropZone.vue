@@ -43,23 +43,24 @@
                 </template>
                 <span class="Polaris-VisuallyHidden">
                     <PDropZoneInput
-                        :id="id"
-                        :accept="accept"
-                        :disabled="disabled"
-                        :type="type"
-                        :multiple="allowMultiple"
-                        @change="handleDrop"
-                        @focus="handleFocus"
-                        @blue="handleBlur"
-                        :openFileDialog="openFileDialog"
-                        :onFileDialogClose="handleOnFileDialogClose"
+                            :id="id"
+                            :accept="accept"
+                            :disabled="disabled"
+                            :type="type"
+                            :multiple="allowMultiple"
+                            @change="handleDrop"
+                            @focus="$emit('focus', $event)"
+                            @blur="$emit('blur', $event)"
+                            :openFileDialog="openFileDialog"
+                            :onFileDialogClose="handleOnFileDialogClose"
                     />
                 </span>
                 <div
-                    class="Polaris-DropZone__Container"
+                        class="Polaris-DropZone__Container"
                 >
-                    <slot />
+                    <slot/>
                 </div>
+                <slot name="uploadedFiles"/>
             </div>
         </PLabelled>
     </div>
@@ -72,7 +73,8 @@
   import {PStack} from '@/components/PStack';
   import {PCaption} from '@/components/PCaption';
   import {PDisplayText} from '@/components/PDisplayText';
-  import {PFileUpload, PDropZoneInput} from './components/index';
+  import PFileUpload from './components/PFileUpload.vue';
+  import PDropZoneInput from './components/PDropZoneInput.vue';
   import {PLabelled} from '@/components/PLabelled';
   import {Action} from '@/types';
   import {
@@ -94,22 +96,16 @@
 
   type DropZoneFileType = 'file' | 'image';
 
-  // let node = Ref<HTMLDivElement>();
-  // let dragTargets = [] as EventTarget[];
-
   @Component({
     components: {
-      PIcon, PStack, PCaption, PDisplayText, PFileUpload, PLabelled, PDropZoneInput
+      PIcon, PStack, PCaption, PDisplayText, PFileUpload, PLabelled, PDropZoneInput,
     },
   })
   export default class PDropZone extends Vue {
     /**
      * Label for the file input
      */
-    @Prop({
-      type: String,
-      default: 'Polaris.DropZone.' + this.allowMultipleKey + '.label' + this.typeSuffix
-    }) public label!: string;
+    @Prop({type: String, default: null}) public label!: string;
 
     /**
      * Adds an action to the label
@@ -200,8 +196,51 @@
      */
     @Prop({type: Boolean, default: false}) public customValidator!: boolean;
 
+    /**
+     *  Callback triggered on any file drop
+     *  @param (files: File[], acceptedFiles: File[], rejectedFiles: File[])
+     */
+    @Prop({type: Function}) public handleOnDrop!: any;
+
+    /**
+     * Callback triggered when at least one of the files dropped was accepted
+     */
+    @Prop({type: Function}) public handleOnDropAccepted!: any;
+
+    /**
+     * Callback triggered when at least one of the files dropped was rejected
+     */
+    @Prop({type: Function}) public handleOnDropRejected!: any;
+
+    /**
+     * Callback triggered when one or more files are dragging over the drag area
+     */
+    @Prop({type: Function}) public handleOnDragOver!: any;
+
+    /**
+     * Callback triggered when one or more files entered the drag area
+     */
+    @Prop({type: Function}) public handleOnDragEnter!: any;
+
+    /**
+     * Callback triggered when one or more files left the drag area
+     */
+    @Prop({type: Function}) public handleOnDragLeave!: any;
+
+    /**
+     * Callback triggered when the file dialog is canceled
+     */
+    @Prop({type: Function}) public handleOnFileDialogClose!: any;
+
     @Ref() node!: HTMLDivElement;
     @Ref() dragTargets!: EventTarget[];
+
+    // public get dragTargets() {
+    //   return this.$refs.dragTargets as EventTarget[];
+    // }
+    //
+    // public set dragTargets(value) {
+    // }
 
     public dragging = false;
     public intervalError = false;
@@ -210,78 +249,6 @@
 
     public allowMultipleKey = createAllowMultipleKey(this.allowMultiple);
     public typeSuffix = capitalize(this.type);
-
-    /** Callback triggered on click */
-    @Emit()
-    public handleOnClick(event) {
-      return event;
-    }
-
-    /** Callback triggered on any file drop */
-    @Emit()
-    public handleOnDrop(file: File[], acceptedFiles: File[], rejectedFiles: File[]) {
-
-    }
-
-    /** Callback triggered when at least one of the files dropped was accepted */
-    @Emit()
-    public handleOnDropAccepted(acceptedFiles: File[]) {
-
-    }
-
-    /** Callback triggered when at least one of the files dropped was rejected */
-    @Emit()
-    public handleOnDropRejected(rejectedFiles: File[]) {
-
-    }
-
-    /** Callback triggered when one or more files are dragging over the drag area */
-    @Emit()
-    public handleOnDragOver() {
-
-    }
-
-    /** Callback triggered when one or more files entered the drag area */
-    @Emit()
-    public handleOnDragEnter() {
-
-    }
-
-    /** Callback triggered when one or more files left the drag area */
-    @Emit()
-    public handleOnDragLeave() {
-
-    }
-
-    /** Callback triggered when the file dialog is canceled */
-    @Emit()
-    public handleOnFileDialogClose() {
-
-    }
-
-    // /** Callback triggered on click */
-    // onClick?(event: React.MouseEvent<HTMLElement>): void;
-    //
-    // /** Callback triggered on any file drop */
-    // onDrop?(files: File[], acceptedFiles: File[], rejectedFiles: File[]): void;
-    //
-    // /** Callback triggered when at least one of the files dropped was accepted */
-    // onDropAccepted?(acceptedFiles: File[]): void;
-    //
-    // /** Callback triggered when at least one of the files dropped was rejected */
-    // onDropRejected?(rejectedFiles: File[]): void;
-    //
-    // /** Callback triggered when one or more files are dragging over the drag area */
-    // onDragOver?(): void;
-    //
-    // /** Callback triggered when one or more files entered the drag area */
-    // onDragEnter?(): void;
-    //
-    // /** Callback triggered when one or more files left the drag area */
-    // onDragLeave?(): void;
-    //
-    // /** Callback triggered when the file dialog is canceled */
-    // onFileDialogClose?(): void;
 
     public stopEvent(event: DragEvent) {
       event.preventDefault();
@@ -305,18 +272,20 @@
       return {files, acceptedFiles, rejectedFiles};
     }
 
-    public handleDrop = (event: DragEvent) => {
+    public handleDrop(event: DragEvent) {
       this.stopEvent(event);
       if (this.disabled) {
         return;
       }
-
+      console.log('event', event);
       const fileList = getDataTransferFiles(event) as ArrayLike<File>;
+
       const {files, acceptedFiles, rejectedFiles} = this.getValidatedFiles(fileList);
 
       this.dragTargets = [];
       this.dragging = false;
       this.intervalError = rejectedFiles.length > 0;
+
       this.handleOnDrop && this.handleOnDrop(files as File[], acceptedFiles, rejectedFiles);
       this.handleOnDropAccepted && acceptedFiles.length && this.handleOnDropAccepted(acceptedFiles);
       this.handleOnDropRejected && rejectedFiles.length && this.handleOnDropRejected(rejectedFiles);
@@ -401,9 +370,6 @@
 
       this.size = size;
       this.measuring && (this.measuring = false);
-
-      // 50,
-      //   {trailing: true},
     }
 
     public mounted() {
@@ -426,12 +392,27 @@
         return;
       }
 
-      // dropNode.addEventListener('drop', this.handleDrop);
       dropNode.removeEventListener('drop', this.handleDrop as EventListener);
       dropNode.removeEventListener('dragover', this.handleDragOver as EventListener);
       dropNode.removeEventListener('dragenter', this.handleDragEnter as EventListener);
       dropNode.removeEventListener('dragleave', this.handleDragLeave as EventListener);
       window.removeEventListener('resize', this.adjustSize);
+    }
+
+    /**
+     * Callback triggered on click
+     */
+    public handleOnClick() {
+      if(this.disabled) {
+        return;
+      }
+
+      return onclick ? onclick : this.open();
+    }
+
+    public open() {
+      let fileInputNode = this.node && this.node.querySelector(`#${this.id}`);
+      fileInputNode && fileInputNode instanceof HTMLElement && fileInputNode.click();
     }
 
     public get className() {

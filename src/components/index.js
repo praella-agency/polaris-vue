@@ -53,6 +53,7 @@ import { PMediaCard } from './PMediaCard';
 import { PChart } from './PChart';
 import { PEmptyState } from './PEmptyState';
 import { PFooterHelp } from './PFooterHelp';
+import { PDropZone } from './PDropZone';
 import PToast from './PToast/index';
 
 import '@/scss/main.scss';
@@ -113,6 +114,7 @@ const Components = {
   PChart,
   PEmptyState,
   PFooterHelp,
+  PDropZone,
 };
 
 const PolarisVue = {
