@@ -39,6 +39,7 @@
                 icons: [],
                 iconCode: '',
                 copyText: '',
+                difference: {},
             };
         },
         props: {
@@ -56,17 +57,17 @@
         methods: {
             searchIcon(value) {
                 if (value === null) {
-                    for (let icon in AllIcon) {
+                    this.difference.forEach(icon => {
                         this.icons.push(icon);
-                    }
+                    });
                     return this.icons;
                 } else {
                     this.icons = [];
-                    for (let icon in AllIcon) {
+                    this.difference.forEach(icon => {
                         if (icon.toLowerCase().includes(value.toLowerCase())) {
                             this.icons.push(icon);
                         }
-                    }
+                    });
                     return this.icons;
                 }
             },
@@ -94,9 +95,9 @@
         },
         created() {
             // let allIcon = Object.keys(AllIcon);
-            let difference = Object.keys(AllIcon).filter(icon => !DeprecatedIcons.includes(icon));
+            this.difference = Object.keys(AllIcon).filter(icon => !DeprecatedIcons.includes(icon));
 
-            difference.forEach(icon => {
+            this.difference.forEach(icon => {
                 this.icons.push(icon);
             });
             return this.icons;

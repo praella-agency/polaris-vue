@@ -78,12 +78,12 @@
   export default class PFileUploads extends Vue {
     @Prop({
       type: String,
-      default: `Polaris.DropZone.${this.allowMultipleKey}.actionTitle${this.typeSuffix}`
+      default: `Add files`
     }) public actionTitle!: string;
 
     @Prop({
       type: String,
-      default: `Polaris.DropZone.${this.allowMultipleKey}.actionHint${this.typeSuffix}`
+      default: `or drop files to upload`
     }) public actionHint!: string;
 
     public size = Context.size;
