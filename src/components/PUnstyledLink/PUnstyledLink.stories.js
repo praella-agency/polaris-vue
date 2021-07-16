@@ -26,5 +26,5 @@ const Template = (args, { argTypes }) => ({
 export const UnstyledLink = Template.bind({});
 
 UnstyledLink.args = {
-    url: 'https://www.hulkapps.com',
+    url: 'javascript:void(0);',
 }

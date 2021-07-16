@@ -25,10 +25,15 @@
         color: #FFFFFF !important;
     }
 
+    #storybook-explorer-searchfield:focus,
+    #storybook-explorer-searchfield:active {
+        border-color: #00a9a2 !important;
+    }
+
     input[id^=control-]:focus,
     select[id^=control-]:focus,
     textarea[id^=control-]:focus,
-    td > button[class^=css-]:focus {
+    td > button[class^=css-]:focus:not(tr[title] button) {
         box-shadow: #00a9a2 0 0 0 1px inset !important;
     }
 

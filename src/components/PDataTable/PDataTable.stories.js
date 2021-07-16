@@ -214,7 +214,7 @@ DataTable.args = {
     }],
     rows: [
         [
-            {content: 'Emerald Silk Gown', url: 'https://www.google.com/'},
+            {content: 'Emerald Silk Gown', url: 'javascript:void(0);'},
             '$875.00',
             {content: 121212, status: 'success', progress: 'incomplete'},
             140,
@@ -227,7 +227,7 @@ DataTable.args = {
             },
         ],
         [
-            {content: 'Mauve Cashmere Scarf', url: 'https://www.google.com/'},
+            {content: 'Mauve Cashmere Scarf', url: 'javascript:void(0);'},
             '$230.00',
             {content: 'A-1234', status: 'success', progress: 'incomplete'},
             2,
@@ -240,7 +240,7 @@ DataTable.args = {
             },
         ],
         [
-            {content: 'Mauve Cashmere', url: 'https://www.google.com/'},
+            {content: 'Mauve Cashmere', url: 'javascript:void(0);'},
             '$230.00',
             {content: 'A-1234', status: 'success', progress: 'incomplete'},
             299,
