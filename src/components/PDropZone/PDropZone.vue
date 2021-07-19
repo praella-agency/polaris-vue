@@ -58,9 +58,29 @@
                 <div
                         class="Polaris-DropZone__Container"
                 >
-                    <slot/>
+                    <PFileUpload v-if="!files.length" />
+                    <slot name="uploadedFiles" v-if="uploadedFiles">
+                        <PStack
+                                v-for="(file, key) in files"
+                                :key="key"
+                                alignment="center"
+                        >
+                            <PStackItem>
+                                <PThumbnail
+                                        size="small"
+                                        :alt="file.name"
+                                        :source="['image/gif', 'image/jpeg', 'image/png'].indexOf(file.type) > -1 ?
+                                                createFileURL(file) : 'NoteMinor'"
+                                />
+                            </PStackItem>
+                            <PStackItem>
+                                <div>
+                                    {{ file.name }} <PCaption>{{ file.size }} bytes</PCaption>
+                                </div>
+                            </PStackItem>
+                        </PStack>
+                    </slot>
                 </div>
-                <slot name="uploadedFiles"/>
             </div>
         </PLabelled>
     </div>
@@ -70,12 +90,13 @@
   import {Component, Vue, Prop, Emit, Ref} from 'vue-property-decorator';
   import {classNames, variationName} from '@/utilities/css';
   import {PIcon} from '@/components/PIcon';
-  import {PStack} from '@/components/PStack';
+  import {PStack, PStackItem} from '@/components/PStack';
   import {PCaption} from '@/components/PCaption';
   import {PDisplayText} from '@/components/PDisplayText';
   import PFileUpload from './components/PFileUpload.vue';
   import PDropZoneInput from './components/PDropZoneInput.vue';
   import {PLabelled} from '@/components/PLabelled';
+  import {PThumbnail} from '@/components/PThumbnail';
   import {Action} from '@/types';
   import {
     Context,
@@ -98,7 +119,7 @@
 
   @Component({
     components: {
-      PIcon, PStack, PCaption, PDisplayText, PFileUpload, PLabelled, PDropZoneInput,
+      PIcon, PStack, PCaption, PDisplayText, PFileUpload, PLabelled, PDropZoneInput, PThumbnail, PStackItem
     },
   })
   export default class PDropZone extends Vue {
@@ -233,16 +254,19 @@
      */
     @Prop({type: Function}) public handleOnFileDialogClose!: any;
 
+    /**
+     * Accepted Files
+     */
+    @Prop({type: Array, default: []}) public files!: [];
+
+    /**
+     * Display Uploaded Files in DropZone
+     */
+    @Prop({type: Boolean, default: true}) public uploadedFiles!: boolean;
+
     @Ref() node!: HTMLDivElement;
 
     public dragTargets: EventTarget[] = [];
-
-    // public get dragTargets() {
-    //   return this.$refs.dragTargets as EventTarget[];
-    // }
-    //
-    // public set dragTargets(value) {
-    // }
 
     public dragging = false;
     public intervalError = false;
@@ -415,6 +439,10 @@
     public open() {
       let fileInputNode = this.node && this.node.querySelector(`#${this.id}`);
       fileInputNode && fileInputNode instanceof HTMLElement && fileInputNode.click();
+    }
+
+    public createFileURL(file) {
+      return window.URL.createObjectURL(file);
     }
 
     public get className() {
