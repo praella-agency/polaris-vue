@@ -58,7 +58,7 @@ export function isServer() {
   return typeof window === 'undefined' || typeof document === 'undefined';
 }
 
-type DropZoneEvent = DragEvent | HTMLInputElement;
+type DropZoneEvent = DragEvent | HTMLInputElement | Event;
 
 const dragEvents = ['dragover', 'dragenter', 'drop'];
 
@@ -77,6 +77,7 @@ export function getDataTransferFiles(event: DropZoneEvent) {
     const target = event.target as HTMLInputElement;
     return target.files;
   }
+
   return [];
 }
 
@@ -86,10 +87,8 @@ function isDragEvent(event: DropZoneEvent): event is DragEvent {
 
 function isChangeEvent(
   event: DropZoneEvent,
-): event is HTMLInputElement {
-  console.log('target', HTMLInputElement);
-  console.log('isChangeEvent', event.hasOwnProperty('target'));
-  return Object.prototype.hasOwnProperty.call(event, 'target');
+): event is Event {
+  return event.type === 'change';
 }
 
 export function useToggle(initialState: boolean) {
