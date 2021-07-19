@@ -4,6 +4,9 @@ import PTopBar from './PTopBar.vue';
 export default {
     title: 'Structure / PTopBar',
     component: PTopBar,
+    parameters: {
+        layout: 'fullscreen',
+    },
 }
 
 const Template = (args, {argTypes}) => ({

@@ -2344,6 +2344,25 @@
     pointer-events: all;
 }
 
+.Polaris-TopBar-Search__Results{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  max-height:calc(100vh - 5.6rem);
+  margin:0; }
+
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em){
+  [data-has-navigation] .Polaris-TopBar-Search__Results{
+    max-height:60vh;
+  }
+}
+
+@media (min-width: 30.625em){
+  .Polaris-TopBar-Search__Results{ max-height:60vh;
+  }
+}
+
+
 .Polaris-TopBar-Search__Overlay {
     position: absolute;
     left: 0;
@@ -2739,18 +2758,21 @@
     }
 }
 
-.Polaris-TopBar {
-    position: relative;
-    display: flex;
-    height: 5.6rem;
-    background-color: #F1F2F3;
-    &:after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        border-bottom: 1px solid transparent;
-    }
+.Polaris-TopBar{
+  position: relative;
+  display: flex;
+  height: 5.6rem;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 1);
+  transition: 200ms background-color ease-in-out;
+}
+
+.Polaris-TopBar::after{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 1px solid transparent;
 }
 
 .Polaris-TopBar__LogoContainer {

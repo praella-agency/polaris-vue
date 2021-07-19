@@ -55,8 +55,7 @@ const Template = (args, { argTypes }) => ({
       >
           <p slot="footer">
             If you don’t want to add a transfer, you can import your inventory from
-            <PLink url="javascript:void(0);" monochrome>settings</PLink>
-            .
+            <PLink url="javascript:void(0);" monochrome>settings.</PLink>
           </p>
           <p>Track and receive your incoming inventory from suppliers.</p>
       </PEmptyState>`,

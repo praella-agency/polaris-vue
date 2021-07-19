@@ -1,6 +1,6 @@
 <template>
   <div class="Polaris-TopBar">
-    <PButton
+    <button
         v-show="showNavigationToggle"
         :class="iconClassName"
         @click="onNavigationToggle"
@@ -8,10 +8,10 @@
         @blur="focused = false"
     >
       <PIcon source="MobileHamburgerMajorMonotone" />
-    </PButton>
-    <div :class="className">
+    </button>
+    <div class="Polaris-TopBar__LogoContainer">
       <PUnstyledLink
-          url="http://www.google.com"
+          url="javascript:void(0);"
           class="Polaris-TopBar__LogoLink"
           style="width: 140px"
       >
@@ -22,9 +22,13 @@
         />
       </PUnstyledLink>
     </div>
-    <PTextField id="Polaris-Input-Filter"  connected labelHidden showPrefix showClearButton placeholder="resourceTitle" >
-      <PIcon source="SearchMinor" slot="prefix"></PIcon>
-    </PTextField>
+    <div class="Polaris-TopBar__Contents">
+    <div class="Polaris-TopBar-SearchField">
+      <PTextField id="Polaris-Input-Filter" connected labelHidden showPrefix placeholder="resourceTitle"
+                  class="Polaris-TopBar-SearchField__Input" >
+        <PIcon source="SearchMinor" slot="prefix"></PIcon>
+      </PTextField>
+    </div>
     <PPopover
         :active="popoverActive"
         @close="popoverActive = !popoverActive"
@@ -33,7 +37,7 @@
     >
       <PAvatar
           slot="activator"
-          @click="popoverActive = !popoverActive"
+          @click.native="popoverActive = !popoverActive"
       />
       <POptionList
           slot="content"
@@ -45,6 +49,7 @@
           @change="updateStatusFilter"
       ></POptionList>
     </PPopover>
+    </div>
   </div>
 </template>
 
@@ -72,12 +77,6 @@ export default class PTopBar extends Vue {
 
   @Prop({type: Boolean, default: true}) public showNavigationToggle!: boolean;
   @Prop({type: Function, default: null}) public onNavigationToggle!: void;
-
-  public get className() {
-    return classNames(
-        'Polaris-TopBar__LogoContainer',
-    );
-  }
 
   public get iconClassName() {
     return classNames(
