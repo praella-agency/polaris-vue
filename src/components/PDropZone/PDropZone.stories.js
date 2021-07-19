@@ -1,5 +1,5 @@
 import {PDropZone} from './index';
-import {PStack} from '../PStack';
+import {PStack, PStackItem} from '../PStack';
 import {PThumbnail} from '../PThumbnail';
 import {PCaption} from '../PCaption';
 import PFileUpload from './components/PFileUpload';
@@ -13,7 +13,7 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PDropZone, PStack, PThumbnail, PCaption, PFileUpload,
+        PDropZone, PStack, PThumbnail, PCaption, PFileUpload,PStackItem
     },
     data() {
         return {
@@ -24,6 +24,7 @@ const Template = (args, {argTypes}) => ({
         <PDropZone
             v-bind="$props"
             :handleOnDrop="handleDropZoneDrop"
+            :files="files"
         >
             <PStack
                 v-for="(file, key) in this.files"
@@ -31,28 +32,37 @@ const Template = (args, {argTypes}) => ({
                 alignment="center"
                 v-slot="uploadedFiles"
             >
-                <PThumbnail 
-                    size="small" 
-                    :alt="file.name" 
-                    :source="['image/gif', 'image/jpeg', 'image/png'].includes(file.type) ? 
-                        URL.createObjectURL(file) : 'NoteMinor'"
-                />
-                <div>
-                    {{ file.name }} <PCaption>{{ file.size }} bytes</PCaption> 
-                </div> 
+                <PStackItem>
+                  <PThumbnail
+                      size="small"
+                      :alt="file.name"
+                      :source="['image/gif', 'image/jpeg', 'image/png'].indexOf(file.type) > -1 ? 
+                        createUrl(file) : NoteMinor"
+                  />
+                </PStackItem>
+                <PStackItem>
+                  <div>
+                    {{ file.name }} <PCaption>{{ file.size }} bytes</PCaption>
+                  </div>
+                </PStackItem>
             </PStack>
             <PFileUpload v-if="!files.length" />
         </PDropZone>`,
     methods: {
         handleDropZoneDrop(files, acceptedFiles, rejectedFiles) {
-            console.log(files, acceptedFiles, rejectedFiles);
-            this.files.push(files, acceptedFiles);
+            acceptedFiles.map((file) => {
+                this.files.push(file);
+            })
         },
+        createUrl(file) {
+            return window.URL.createObjectURL(file);
+        }
     },
 })
 
 export const DropZone = Template.bind({});
 
 DropZone.args = {
-    allowMultiple: false,
+    allowMultiple: true,
+    disabled: true,
 }

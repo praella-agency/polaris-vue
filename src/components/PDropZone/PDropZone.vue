@@ -198,7 +198,8 @@
 
     /**
      *  Callback triggered on any file drop
-     *  @param (files: File[], acceptedFiles: File[], rejectedFiles: File[])
+     *
+     *  **Params**: files, acceptedFiles, rejectedFiles
      */
     @Prop({type: Function}) public handleOnDrop!: any;
 
@@ -233,7 +234,8 @@
     @Prop({type: Function}) public handleOnFileDialogClose!: any;
 
     @Ref() node!: HTMLDivElement;
-    @Ref() dragTargets!: EventTarget[];
+
+    public dragTargets: EventTarget[] = [];
 
     // public get dragTargets() {
     //   return this.$refs.dragTargets as EventTarget[];
@@ -260,8 +262,7 @@
       const rejectedFiles: File[] = [];
 
       Array.from(files as File[]).forEach((file: File) => {
-        !fileAccepted(file, this.accept) || (this.customValidator && !this.customValidator)
-          ? rejectedFiles.push(file) : acceptedFiles.push(file);
+        !fileAccepted(file, this.accept) ? rejectedFiles.push(file) : acceptedFiles.push(file);
       });
 
       if (!this.allowMultiple) {
@@ -277,7 +278,6 @@
       if (this.disabled) {
         return;
       }
-      console.log('event', event);
       const fileList = getDataTransferFiles(event) as ArrayLike<File>;
 
       const {files, acceptedFiles, rejectedFiles} = this.getValidatedFiles(fileList);
@@ -308,6 +308,8 @@
       }
 
       const fileList = getDataTransferFiles(event) as ArrayLike<File>;
+
+      console.log(this.dragTargets);
 
       if (event.target && !this.dragTargets.includes(event.target)) {
         this.dragTargets.push(event.target);
