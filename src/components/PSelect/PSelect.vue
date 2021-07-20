@@ -127,7 +127,7 @@
          * Show the label to the left of the value, inside the control
          * @values true | false
          */
-        @Prop({type: Boolean, default: false}) public inlineLabel!: boolean;
+        @Prop({type: [Boolean, String], default: false}) public inlineLabel!: boolean | string;
 
         public selected = this.value;
 

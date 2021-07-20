@@ -1,12 +1,13 @@
-import { PCard, PCardSection } from '../PCard';
+import { PCard, PCardHeader, PCardSection } from '../PCard';
 import PResourceListItem from './components/PResourceListItem';
 import PResourceList from './PResourceList';
 import { PPopover } from '../PPopover';
 import PButton from '../PButton/PButton.vue';
-import { POptionList } from '../POptionList';
+import { PAvatar } from '../PAvatar';
 import { PBadge } from '../PBadge';
 import { PPagination } from '../PPagination';
-import { PStack } from '../PStack';
+import { PStack, PStackItem } from '../PStack';
+import { PTextField } from '../PTextField';
 
 export default {
     title: 'Lists & Tables / Resource List',
@@ -38,8 +39,8 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PResourceList, PCard, PPopover, PButton, POptionList, PResourceListItem, PBadge, PPagination,
-        PCardSection, PStack
+        PResourceList, PCard, PPopover, PButton, PResourceListItem, PBadge, PPagination,
+        PCardSection, PCardHeader, PStack, PStackItem, PTextField, PAvatar
     },
     data() {
         return {
@@ -115,7 +116,8 @@ const Template = (args, {argTypes}) => ({
                     name: 'Angular',
                     status: true,
                 },
-            ]
+            ],
+            taggedValue: 'Vue',
         };
     },
     template: `
@@ -127,6 +129,10 @@ const Template = (args, {argTypes}) => ({
               :selected="selectedItems"
               :resourceName="resourceName"
               :loading="loading"
+              :promotedBulkActions="{
+                  content: 'Edit customers',
+                  onAction: handleBulkActionClick,
+                }"
               :bulkActions="[
                     {content: 'Publish', onAction: toggleStatusToPublished},
                     {content: 'Unpublish', onAction: toggleStatusToUnpublished},
@@ -134,6 +140,10 @@ const Template = (args, {argTypes}) => ({
                     {content: 'Delete', onAction: deleteSelected},
               ]"
               v-bind="$props"
+              :appliedFilters="[
+                { value: 'Tagged with ' + this.taggedValue, key: 'tag_' + this.taggedValue},
+              ]"
+              @filter-removed="removeTag"
               @change="toggleSelected"
           >
             <template slot="filter">
@@ -151,16 +161,29 @@ const Template = (args, {argTypes}) => ({
                 >
                   Status
                 </PButton>
-                <POptionList
-                    slot="content"
-                    :options="[
-                          {label: 'Active', value: 1},
-                          {label: 'In-Active', value: 0},
-                        ]"
-                    :selected="status"
-                    @change="updateStatusFilter"
-                ></POptionList>
+                <PCard slot="content" @change="updateStatusFilter">
+                  <PCardSection>
+                    <PStack vertical spacing="tight">
+                      <PStackItem>
+                        <PTextField
+                            label="Tagged with"
+                            :value="132"
+                            v-model="taggedValue"
+                            labelHidden
+                        />
+                      </PStackItem>
+                      <PStackItem>
+                        <PButton plain @click="removeTag">
+                          Clear
+                        </PButton>
+                      </PStackItem>
+                    </PStack>
+                  </PCardSection>
+                </PCard>
               </PPopover>
+              <PButton @click="handleButtonClick">
+                Save
+              </PButton>
             </template>
             <template v-slot:default="{selectable}">
               <PResourceListItem
@@ -171,6 +194,7 @@ const Template = (args, {argTypes}) => ({
                   @change="updateSelected"
                   :selectable="selectable"
               >
+                <PAvatar slot="media" customer size="medium" :name="item.name" />
                 <div class="resource-list-item">
                   <div class="resource-list-item__book--name">
                     <p>{{ item.name }}</p>
@@ -181,6 +205,9 @@ const Template = (args, {argTypes}) => ({
                     <PBadge v-if="item.status === false" status="critical">Archived</PBadge>
                   </div>
                 </div>
+                <PButton slot="actions" plain>
+                  View latest order
+                </PButton>
               </PResourceListItem>
             </template>
           </PResourceList>
@@ -227,6 +254,15 @@ const Template = (args, {argTypes}) => ({
         onNext() {
             this.queryParams.page++;
         },
+        removeTag() {
+            alert('Removed');
+        },
+        handleButtonClick() {
+            console.log('Saved');
+        },
+        handleBulkActionClick() {
+            console.log('Edit Customer');
+        },
     },
 });
 
@@ -239,4 +275,8 @@ ResourceList.args = {
     loading: false,
     showHeader: true,
     hideFilters: true,
+    sortOptions: [
+        {label: 'Newest update', value: 'DATE_MODIFIED_DESC'},
+        {label: 'Oldest update', value: 'DATE_MODIFIED_ASC'},
+    ]
 }

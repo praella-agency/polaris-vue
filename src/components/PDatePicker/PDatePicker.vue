@@ -369,7 +369,7 @@ export default class PDatePicker extends Vue {
 
 .daterangepicker .calendars {
   display: block;
-  border-bottom: 1px solid #ddd;
+  border-bottom: .1rem solid #e1e3e5;
 }
 .daterangepicker .Polaris-Stack {
   padding: 10px;
