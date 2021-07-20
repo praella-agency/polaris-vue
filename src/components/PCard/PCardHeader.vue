@@ -1,6 +1,6 @@
 <template>
   <div class="Polaris-Card__Header">
-    <PStack distribution="baseline">
+    <PStack alignment="baseline">
       <PStackItem fill>
         <slot name="title">
           <PHeading>{{ title }}</PHeading>
@@ -20,7 +20,7 @@
           </component>
         </PButtonGroup>
       </PStackItem>
-      <PStackItem>
+      <PStackItem v-if="$slots.hasOwnProperty('children')">
         <slot name="children"/>
       </PStackItem>
     </PStack>

@@ -11,6 +11,7 @@
             @change="$emit('change', $event)"
             @focus="$emit('focus', $event)"
             @blur="$emit('blur', $event)"
+            :openFileDialog="openFileDialog"
             :onFileDialogClose="onFileDialogClose"
         >
     </div>
