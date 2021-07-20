@@ -1,5 +1,5 @@
 <template>
-    <div :value="context">
+    <div :style="styleBasedOnSize">
         <PLabelled
                 :id="id"
                 :label="label"
@@ -20,7 +20,7 @@
                             :class="overlayClassName"
                     >
                         <PStack vertical spacing="tight">
-                            <PIcon v-if="size === 'small'" source="UploadMajor" color="interactive"/>
+<!--                            <PIcon v-if="size === 'small'" source="UploadMajor" color="interactive"/>-->
                             <PDisplayText v-if="size === 'extraLarge'" size="small" element="p">
                                 {{ overlayTextWithDefault }}
                             </PDisplayText>
@@ -34,7 +34,7 @@
                             :class="overlayClassName"
                     >
                         <PStack vertical spacing="tight">
-                            <PIcon v-if="size === 'small'" source="CircleAlertMajor" color="critical"/>
+<!--                            <PIcon v-if="size === 'small'" source="CircleAlertMajor" color="critical"/>-->
                             <PDisplayText v-if="size === 'extraLarge'" size="small" element="p">
                                 {{ errorOverlayTextWithDefault }}
                             </PDisplayText>
@@ -58,8 +58,13 @@
                 <div
                         class="Polaris-DropZone__Container"
                 >
-                    <PFileUpload v-if="!files.length" />
-                    <slot name="uploadedFiles" v-if="uploadedFiles">
+                    <PFileUpload v-if="!files.length"
+                                 :disabled="disabled"
+                                 :variableHeight="variableHeight"
+                                 :size="size"
+                    />
+                    <!-- @slot Preview uploaded files -->
+                    <slot name="uploadFiles" v-if="uploadedFiles && files.length > 0">
                         <PStack
                                 v-for="(file, key) in files"
                                 :key="key"
@@ -69,14 +74,22 @@
                                 <PThumbnail
                                         size="small"
                                         :alt="file.name"
-                                        :source="['image/gif', 'image/jpeg', 'image/png'].indexOf(file.type) > -1 ?
-                                                createFileURL(file) : 'NoteMinor'"
+                                        :source="['image/gif', 'image/jpeg', 'image/png'].indexOf(file.type) > -1
+                                                 ? createFileURL(file)
+                                                 : 'NoteMinor'"
                                 />
                             </PStackItem>
                             <PStackItem>
                                 <div>
                                     {{ file.name }} <PCaption>{{ file.size }} bytes</PCaption>
                                 </div>
+                            </PStackItem>
+                            <PStackItem>
+                                <PIcon
+                                    source="CircleCancelMinor"
+                                    color="critical"
+                                    @click.native.stop="removeFiles(key)"
+                                />
                             </PStackItem>
                         </PStack>
                     </slot>
@@ -99,11 +112,8 @@
   import {PThumbnail} from '@/components/PThumbnail';
   import {Action} from '@/types';
   import {
-    Context,
     fileAccepted,
     defaultAllowMultiple,
-    createAllowMultipleKey,
-    capitalize,
     isServer,
     getDataTransferFiles,
     useToggle
@@ -257,12 +267,19 @@
     /**
      * Accepted Files
      */
-    @Prop({type: Array, default: []}) public files!: [];
+    @Prop({type: Array, default: [], required: true}) public files!: [];
 
     /**
      * Display Uploaded Files in DropZone
      */
     @Prop({type: Boolean, default: true}) public uploadedFiles!: boolean;
+
+    /**
+     * Change size of the DropZone
+     * @originalValues extraLarge | large | medium | small
+     * @values extraLarge | large
+     */
+    @Prop({type: String, default: 'extraLarge'}) public size!: string;
 
     @Ref() node!: HTMLDivElement;
 
@@ -270,11 +287,7 @@
 
     public dragging = false;
     public intervalError = false;
-    public size = 'extraLarge';
     public measuring = true;
-
-    public allowMultipleKey = createAllowMultipleKey(this.allowMultiple);
-    public typeSuffix = capitalize(this.type);
 
     public stopEvent(event: DragEvent) {
       event.preventDefault();
@@ -332,8 +345,6 @@
       }
 
       const fileList = getDataTransferFiles(event) as ArrayLike<File>;
-
-      console.log(this.dragTargets);
 
       if (event.target && !this.dragTargets.includes(event.target)) {
         this.dragTargets.push(event.target);
@@ -445,6 +456,11 @@
       return window.URL.createObjectURL(file);
     }
 
+    public removeFiles(key) {
+      console.log(this.files, key);
+      this.files.splice(key, 1);
+    }
+
     public get className() {
       return classNames(
         'Polaris-DropZone',
@@ -465,24 +481,35 @@
     }
 
     public get overlayTextWithDefault() {
-      if (this.overlayText) {
-        return this.overlayText;
+      if (!this.overlayText && this.allowMultiple) {
+        return 'Drop files to upload';
+      } else if (!this.overlayText && !this.allowMultiple) {
+        return 'Drop file to upload';
       } else {
-        return 'Polaris.DropZone.' + this.allowMultipleKey + '.overlayText' + this.typeSuffix;
+        return this.overlayText;
       }
     }
 
     public get errorOverlayTextWithDefault() {
-      if (this.errorOverlayText) {
-        return this.errorOverlayText;
+      if (!this.errorOverlayText) {
+        return 'File type is not valid';
       } else {
-        return 'Polaris.DropZone.errorOverlayText' + this.typeSuffix;
+        return this.errorOverlayText;
       }
     }
 
     public get context() {
       let type = this.type || 'file';
       return [this.disabled, focused, this.size, type, this.measuring, this.allowMultiple];
+    }
+
+    public get styleBasedOnSize() {
+      // if (this.size === 'small') {
+      //   return 'width: 50px; height: 50px;';
+      // } else if(this.size === 'medium') {
+      //   return 'width: 114px; height: 114px;';
+      // }
+      return '';
     }
   }
 </script>

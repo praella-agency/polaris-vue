@@ -1,13 +1,31 @@
 <template>
     <div :class="className">
-        <template v-if="size === 'extraLarge'">
+        <template v-if="(size === 'extraLarge' || size === 'large') && variableHeight">
+            <PStack vertical spacing="tight">
+                <PStackItem>
+                    <template v-if="(size === 'extraLarge' || size === 'large') && buttonStyleClassName">
+                        <div :class="buttonStyleClassName">
+                            {{ actionTitle }}
+                        </div>
+                    </template>
+                </PStackItem>
+                <PStackItem>
+                    <PCaption>
+                        <PTextStyle variation="subdued">
+                            {{ actionHint }}
+                        </PTextStyle>
+                    </PCaption>
+                </PStackItem>
+            </PStack>
+        </template>
+        <template v-else-if="size === 'extraLarge'">
             <PStack vertical>
                 <PStackItem>
                     <img src="../images/upload-arrow.svg" width="40" alt=""/>
                 </PStackItem>
                 <PStackItem>
                     <template v-if="(size === 'extraLarge' || size === 'large') && buttonStyleClassName">
-                        <div :class="buttonStyleClassName">
+                        <div :class="buttonStyleClassName" :disabled="disabled">
                             {{ actionTitle }}
                         </div>
                     </template>
@@ -40,25 +58,25 @@
                 </PStackItem>
             </PStack>
         </template>
-        <template v-else-if="size === 'medium'">
-            <PStack vertical spacing="tight">
-                <PStackItem>
-                    <div :class="actionTitleClassName">
-                        {{ actionTitle }}
-                    </div>
-                </PStackItem>
-                <PStackItem>
-                    <PCaption>
-                        <PTextStyle variation="subdued">
-                            {{ actionHint }}
-                        </PTextStyle>
-                    </PCaption>
-                </PStackItem>
-            </PStack>
-        </template>
-        <template v-else-if="size === 'small'">
-            <img src="../images/upload-arrow.svg" width="20" alt=""/>
-        </template>
+<!--        <template v-else-if="size === 'medium'">-->
+<!--            <PStack vertical spacing="tight">-->
+<!--                <PStackItem>-->
+<!--                    <div :class="actionTitleClassName">-->
+<!--                        {{ actionTitle }}-->
+<!--                    </div>-->
+<!--                </PStackItem>-->
+<!--                <PStackItem>-->
+<!--                    <PCaption>-->
+<!--                        <PTextStyle variation="subdued">-->
+<!--                            {{ actionHint }}-->
+<!--                        </PTextStyle>-->
+<!--                    </PCaption>-->
+<!--                </PStackItem>-->
+<!--            </PStack>-->
+<!--        </template>-->
+<!--        <template v-else-if="size === 'small'">-->
+<!--            <img src="../images/upload-arrow.svg" width="20" alt=""/>-->
+<!--        </template>-->
     </div>
 </template>
 
@@ -86,32 +104,42 @@
       default: `or drop files to upload`
     }) public actionHint!: string;
 
-    public size = Context.size;
+    @Prop({
+      type: Boolean,
+      default: false,
+    }) public disabled!: boolean;
+
+    @Prop({
+      type: String,
+      default: false,
+    }) public size!: string;
+
+    @Prop({
+      type: Boolean,
+      default: false,
+    }) public variableHeight!: boolean;
+
     public measuring = Context.measuring;
     public type = Context.type;
     public focused = Context.focused;
-    public disabled = Context.disabled;
     public allowMultiple = Context.allowMultiple;
-
-    public typeSuffix = capitalize(this.type);
-    public allowMultipleKey = createAllowMultipleKey(this.allowMultiple);
 
     public get className() {
       return classNames(
         'Polaris-DropZone-FileUpload',
         this.measuring && 'Polaris-DropZone--measuring',
-        this.size === 'small' && 'Polaris-DropZone-FileUpload__FileUploadSmallView',
+        // this.size === 'small' && 'Polaris-DropZone-FileUpload__FileUploadSmallView',
       );
     }
 
     public get buttonStyleClassName() {
-      return classNames(
-        (this.size === 'extraLarge' || this.size === 'large')
-          ? 'Polaris-DropZone-FileUpload__Button ' + ((this.size && this.size !== 'extraLarge')
-          && 'Polaris-DropZone-FileUpload--sizeSlim') + (this.focused && 'Polaris-DropZone-FileUpload--focused')
-          + (this.disabled && 'Polaris-DropZone-FileUpload--disabled')
-          : null,
-      );
+      return (this.size === 'extraLarge' || this.size === 'large') ?
+        classNames(
+          'Polaris-DropZone-FileUpload__Button',
+          (this.size && this.size !== 'extraLarge') && 'Polaris-DropZone-FileUpload--sizeSlim',
+          this.focused && 'Polaris-DropZone-FileUpload--focused',
+          this.disabled && 'Polaris-DropZone-FileUpload--disabled'
+        ) : null;
     }
 
     public get actionTitleClassName() {

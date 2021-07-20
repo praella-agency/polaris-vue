@@ -272,6 +272,9 @@
 .Polaris-DropZone__Container {
   position: relative;
   flex: 1 1;
+  max-height: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .Polaris-DropZone__Container::after {
