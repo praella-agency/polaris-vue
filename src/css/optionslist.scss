@@ -169,11 +169,12 @@
 	margin-right: .8rem;
 }
 .Polaris-OptionList-Option--focused {
-	box-shadow: $optionlist-option-focused-box-shadow;
-	background-image: $optionlist-option-focused-bgimage;
+	//box-shadow: $optionlist-option-focused-box-shadow;
+	//background-image: $optionlist-option-focused-bgimage;
+    background: #f1f8f5;
 	&:hover {
-		box-shadow: $optionlist-option-focused-hover-box-shadow;
-		background-image: $optionlist-option-focused-hover-bgimage;
+		//box-shadow: $optionlist-option-focused-hover-box-shadow;
+		//background-image: $optionlist-option-focused-hover-bgimage;
 	}
 }
 .Polaris-OptionList-Option--disabled {
@@ -186,11 +187,11 @@
 	}
 }
 .Polaris-OptionList-Option--select {
-	background-image: $optionlist-option-select-bgimage;
+	background: #f1f8f5;
 }
 .Polaris-OptionList-Option--select.Polaris-OptionList-Option--focused {
 	box-shadow: $optionlist-option-select-focused-box-shadow;
-	background-image: $optionlist-option-select-focused-bgimage;
+    background: #f1f8f5;
 	&:hover {
 		box-shadow: $optionlist-option-select-focused-hover-bgimage;
 		background-image: $optionlist-option-select-focused-hover-box-shadow;

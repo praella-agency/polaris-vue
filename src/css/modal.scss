@@ -58,7 +58,9 @@
 		max-width: 98rem;
 	}
 }
-
+.Polaris-Modal-Dialog:focus-visible {
+  outline: unset;
+}
 
 .Polaris-Modal-Dialog--animateFadeUp {
 	-webkit-backface-visibility: hidden;

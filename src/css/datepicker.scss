@@ -138,3 +138,8 @@
 	padding-bottom: .4rem;
 	text-align: center;
 }
+.daterangepicker {
+  box-shadow: $popover-box-shadow;
+  border-radius: $popover-border-radius !important;
+  border: none !important;
+}

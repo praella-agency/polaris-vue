@@ -1,5 +1,3 @@
-
-
 .Polaris-ActionList {
     list-style: none;
     margin: 0;
@@ -27,8 +25,8 @@
 .Polaris-ActionList__Actions {
     list-style: none;
     margin: 0;
-    padding: 0;
     border-top: $actionlist-section-border;
+    padding: 0 .8rem;
 }
 
 .Polaris-ActionList__Section {
@@ -71,6 +69,7 @@
     cursor: pointer;
     border-radius: $actionlist-item-border-radius;
     border-top: $actionlist-item-border-top;
+    position: relative;
     &:after {
       content: "";
       position: absolute;

@@ -16,6 +16,9 @@
                 <div class="Polaris-ResourceItem__Content">
                     <slot/>
                 </div>
+                <div class="Polaris-ResourceItem__Actions">
+                  <slot name="actions" />
+                </div>
             </div>
         </div>
     </li>

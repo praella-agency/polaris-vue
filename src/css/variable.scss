@@ -502,9 +502,9 @@ $optionlist-option-visited-color: inherit;
 $optionlist-option-hover-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
 
 $optionlist-option-focused-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
-$optionlist-option-focused-box-shadow: inset .2rem 0 0 $theme-secondary-color;
+$optionlist-option-focused-box-shadow: inset .2rem 0 0 #44cc92;
 
-$optionlist-option-focused-hover-box-shadow: inset .2rem 0 0 $theme-secondary-color;
+$optionlist-option-focused-hover-box-shadow: inset .2rem 0 0 #44cc92;
 $optionlist-option-focused-hover-bgimage: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
 
 $optionlist-option-disabled-bgimage: linear-gradient(#f9fafb,#f9fafb);
@@ -514,10 +514,10 @@ $optionlist-option-disabled-media-svg-color: $theme-common-color;
 $optionlist-option-select-bgimage: linear-gradient(rgba(179,188,245,.15),rgba(179,188,245,.15));
 
 $optionlist-option-select-focused-bgimage: linear-gradient(rgba(179,188,245,.15),rgba(179,188,245,.15)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
-$optionlist-option-select-focused-box-shadow: inset .2rem 0 0 $theme-secondary-color;
+$optionlist-option-select-focused-box-shadow: inset .2rem 0 0 $theme-primary-color;
 
 $optionlist-option-select-focused-hover-bgimage: linear-gradient(rgba(179,188,245,.15),rgba(179,188,245,.15)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
-$optionlist-option-select-focused-hover-box-shadow: inset .2rem 0 0 $theme-secondary-color;
+$optionlist-option-select-focused-hover-box-shadow: inset .2rem 0 0 #44cc92;
 
 $optionlist-option-active-bgimage: linear-gradient(rgba(179,188,245,.1),rgba(179,188,245,.1));
 $optionlist-option-media-svg-fill: #454f5b; 

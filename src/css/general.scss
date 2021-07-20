@@ -997,7 +997,7 @@
     max-width: 100%;
     align-items: center;
     min-height: 2.8rem;
-    padding: 0 .8rem;
+    padding: 0 0 0 .8rem;
     background-color: $tag-bgcolor;
     border-radius: $tag-border-radius;
     color: $tag-color;
@@ -1764,7 +1764,7 @@
     position: absolute;
     top: 0;
     display: flex;
-    pointer-events: auto;
+    pointer-events: initial;
     height: 100%;
     max-height: 5.6rem;
     clip: rect(1px, 1px, 1px, 1px);
