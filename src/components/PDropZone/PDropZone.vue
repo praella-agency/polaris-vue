@@ -20,7 +20,7 @@
                             :class="overlayClassName"
                     >
                         <PStack vertical spacing="tight">
-<!--                            <PIcon v-if="size === 'small'" source="UploadMajor" color="interactive"/>-->
+                            <!--                            <PIcon v-if="size === 'small'" source="UploadMajor" color="interactive"/>-->
                             <PDisplayText v-if="size === 'extraLarge'" size="small" element="p">
                                 {{ overlayTextWithDefault }}
                             </PDisplayText>
@@ -34,7 +34,7 @@
                             :class="overlayClassName"
                     >
                         <PStack vertical spacing="tight">
-<!--                            <PIcon v-if="size === 'small'" source="CircleAlertMajor" color="critical"/>-->
+                            <!--                            <PIcon v-if="size === 'small'" source="CircleAlertMajor" color="critical"/>-->
                             <PDisplayText v-if="size === 'extraLarge'" size="small" element="p">
                                 {{ errorOverlayTextWithDefault }}
                             </PDisplayText>
@@ -42,6 +42,14 @@
                     </div>
                 </template>
                 <span class="Polaris-VisuallyHidden">
+                    <!--
+                        Triggered on focus
+                        @event focus
+                    -->
+                    <!--
+                        Triggered on blur
+                        @event blur
+                    -->
                     <PDropZoneInput
                             :id="id"
                             :accept="accept"
@@ -74,21 +82,22 @@
                                 <PThumbnail
                                         size="small"
                                         :alt="file.name"
-                                        :source="['image/gif', 'image/jpeg', 'image/png'].indexOf(file.type) > -1
+                                        :source="validImageTypes.indexOf(file.type) > -1
                                                  ? createFileURL(file)
                                                  : 'NoteMinor'"
                                 />
                             </PStackItem>
                             <PStackItem>
                                 <div>
-                                    {{ file.name }} <PCaption>{{ file.size }} bytes</PCaption>
+                                    {{ file.name }}
+                                    <PCaption>{{ file.size }} bytes</PCaption>
                                 </div>
                             </PStackItem>
                             <PStackItem>
                                 <PIcon
-                                    source="CircleCancelMinor"
-                                    color="critical"
-                                    @click.native.stop="removeFiles(key)"
+                                        source="CircleCancelMinor"
+                                        color="critical"
+                                        @click.native.stop="removeFiles(key)"
                                 />
                             </PStackItem>
                         </PStack>
@@ -113,7 +122,6 @@
   import {Action} from '@/types';
   import {
     fileAccepted,
-    defaultAllowMultiple,
     isServer,
     getDataTransferFiles,
     useToggle
@@ -200,7 +208,7 @@
      * Allows multiple files to be uploaded at once
      * @default true
      */
-    @Prop({type: Boolean, default: defaultAllowMultiple}) public allowMultiple!: boolean;
+    @Prop({type: Boolean, default: true}) public allowMultiple!: boolean;
 
     /**
      * Sets a disabled state
@@ -229,43 +237,69 @@
 
     /**
      *  Callback triggered on any file drop
-     *
-     *  **Params**: files, acceptedFiles, rejectedFiles
      */
-    @Prop({type: Function}) public handleOnDrop!: any;
+    @Prop({
+      type: Function,
+      default: (files: File[], acceptedFiles: File[], rejectedFiles: File[]): void => {
+      }
+    }) public handleOnDrop!: any;
 
     /**
      * Callback triggered when at least one of the files dropped was accepted
      */
-    @Prop({type: Function}) public handleOnDropAccepted!: any;
+    @Prop({
+      type: Function,
+      default: (acceptedFiles: File[]): void => {
+      }
+    }) public handleOnDropAccepted!: any;
 
     /**
      * Callback triggered when at least one of the files dropped was rejected
      */
-    @Prop({type: Function}) public handleOnDropRejected!: any;
+    @Prop({
+      type: Function,
+      default: (rejectedFiles: File[]): void => {
+      }
+    }) public handleOnDropRejected!: any;
 
     /**
      * Callback triggered when one or more files are dragging over the drag area
      */
-    @Prop({type: Function}) public handleOnDragOver!: any;
+    @Prop({
+      type: Function,
+      default: (): void => {
+      }
+    }) public handleOnDragOver!: any;
 
     /**
      * Callback triggered when one or more files entered the drag area
      */
-    @Prop({type: Function}) public handleOnDragEnter!: any;
+    @Prop({
+      type: Function,
+      default: (): void => {
+      }
+    }) public handleOnDragEnter!: any;
 
     /**
      * Callback triggered when one or more files left the drag area
      */
-    @Prop({type: Function}) public handleOnDragLeave!: any;
+    @Prop({
+      type: Function,
+      default: (): void => {
+      }
+    }) public handleOnDragLeave!: any;
 
     /**
      * Callback triggered when the file dialog is canceled
      */
-    @Prop({type: Function}) public handleOnFileDialogClose!: any;
+    @Prop({
+      type: Function,
+      default: (): void => {
+      }
+    }) public handleOnFileDialogClose!: any;
 
     /**
-     * Accepted Files
+     * Files
      */
     @Prop({type: Array, default: [], required: true}) public files!: [];
 
@@ -280,6 +314,11 @@
      * @values extraLarge | large
      */
     @Prop({type: String, default: 'extraLarge'}) public size!: string;
+
+    /**
+     * Valid Image Types to preview images
+     */
+    @Prop({type: [Array, String], default: null}) public validImageTypes!: [];
 
     @Ref() node!: HTMLDivElement;
 
@@ -440,7 +479,7 @@
      * Callback triggered on click
      */
     public handleOnClick() {
-      if(this.disabled) {
+      if (this.disabled) {
         return;
       }
 
