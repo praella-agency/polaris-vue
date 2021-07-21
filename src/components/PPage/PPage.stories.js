@@ -121,7 +121,11 @@ Page.args = {
     breadcrumbs: [
         {
             content: 'Products',
-            to: '/new-page'
+            to: '/new-page',
+            onAction: () => {
+                event.preventDefault();
+                console.log('Action 1 handled');
+            }
         }
     ],
 }

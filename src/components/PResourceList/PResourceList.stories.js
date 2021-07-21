@@ -146,7 +146,7 @@ const Template = (args, {argTypes}) => ({
               ]"
               @filter-removed="removeTag"
               @change="toggleSelected"
-              @sort-change="() => handleSortChange(selected)"
+              @sortChange="() => handleSortChange(selected)"
           >
             <template slot="filter">
               <PPopover
@@ -187,7 +187,7 @@ const Template = (args, {argTypes}) => ({
                 Save
               </PButton>
             </template>
-            <template v-slot:default="{selectable}">
+            <template slot="default" v-bind="{selectable}">
               <PResourceListItem
                   v-for="(item, key) in items"
                   :key="key"
@@ -220,7 +220,6 @@ const Template = (args, {argTypes}) => ({
               </PResourceListItem>
             </template>
           </PResourceList>
-    
           <PCardSection>
             <PStack v-if="pagination.hasPrevious || pagination.hasNext" distribution="center">
               <PPagination v-bind="pagination"/>

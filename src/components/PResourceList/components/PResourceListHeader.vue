@@ -11,7 +11,7 @@
                     :inlineLabel="sortLabel"
                     labelHidden
                     :options="sortOptions"
-                    @change="$emit('sort-change', $event)"
+                    @change="$emit('sort-change', sortOptions)"
                 />
             </div>
         </div>

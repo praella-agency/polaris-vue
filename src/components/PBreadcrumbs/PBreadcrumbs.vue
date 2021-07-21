@@ -32,6 +32,7 @@ export default class PBreadcrumbs extends Vue {
         }
 
         const { content } = breadcrumb;
+        const { onAction } = breadcrumb;
 
         const contentMarkup = this.$createElement('span', {
             class: 'Polaris-Breadcrumbs__ContentWrapper',
@@ -63,13 +64,18 @@ export default class PBreadcrumbs extends Vue {
                     url: breadcrumb.url,
                     to: breadcrumb.to,
                   },
+                  nativeOn: {
+                    click: onAction,
+                  },
                 }, [contentMarkup])
             ) : (
                 this.$createElement('button', {
                   attrs: {
                     key: content,
-                    onClick: breadcrumb.onAction,
                     type: 'button',
+                  },
+                  on: {
+                    click: onAction,
                   },
                 }, [contentMarkup])
             );
