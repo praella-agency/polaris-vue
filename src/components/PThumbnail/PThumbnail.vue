@@ -1,8 +1,8 @@
 <template>
     <span :class="className">
-        <PImage v-bind="$attrs" :source="source" :alt="alt"
+        <PImage v-if="!isSvg(source)" v-bind="$attrs" :source="source" :alt="alt"
                 class="Polaris-Thumbnail__Image" />
-<!--        <PIcon v-else :alt="alt" :source="source"/>-->
+        <PIcon v-else :alt="alt" :source="source"/>
     </span>
 </template>
 
@@ -43,6 +43,12 @@
                 'Polaris-Thumbnail',
                 this.size && `Polaris-Thumbnail--${variationName('size', this.size)}`,
             );
+        }
+
+        public isSvg(source) {
+          const isSVG = new RegExp(/(<svg)([^<]*|[^>]*)/);
+
+          return isSVG.test(source);
         }
     }
 </script>
