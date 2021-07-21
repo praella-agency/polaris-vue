@@ -17,6 +17,100 @@ export default {
                 type: 'select',
             },
         },
+        validImageTypes: {
+            control: {
+                type: 'array',
+            },
+            table: {
+                type: {
+                    summary: 'array',
+                },
+            },
+        },
+        uploadFiles: {
+            table: {
+                type: {
+                    summary: 'slot',
+                },
+            },
+        },
+        files: {
+            table: {
+                type: {
+                    summary: 'array',
+                },
+            },
+        },
+        handleOnDrop: {
+            control: {
+                type: 'none',
+            },
+            table: {
+                type: {
+                    summary: 'void',
+                },
+            },
+        },
+        handleOnDropAccepted: {
+            control: {
+                type: 'none',
+            },
+            table: {
+                type: {
+                    summary: 'void',
+                },
+            },
+        },
+        handleOnDropRejected: {
+            control: {
+                type: 'none',
+            },
+            table: {
+                type: {
+                    summary: 'void',
+                },
+            },
+        },
+        handleOnFileDialogClose: {
+            control: {
+                type: 'none',
+            },
+            table: {
+                type: {
+                    summary: 'void',
+                },
+            },
+        },
+        handleOnDragOver: {
+            control: {
+                type: 'none',
+            },
+            table: {
+                type: {
+                    summary: 'void',
+                },
+            },
+        },
+        handleOnDragLeave: {
+            control: {
+                type: 'none',
+            },
+            table: {
+                type: {
+                    summary: 'void',
+                },
+            },
+        },
+        handleOnDragEnter: {
+            control: {
+                type: 'none',
+            },
+            table: {
+                type: {
+                    summary: 'void',
+                },
+            },
+        },
     },
 }
 
@@ -48,7 +142,7 @@ const Template = (args, {argTypes}) => ({
 export const DropZone = Template.bind({});
 
 DropZone.args = {
-    allowMultiple: true,
+    validImageTypes: ['image/gif', 'image/jpeg', 'image/png'],
 }
 
 const Template1 = (args, {argTypes}) => ({
@@ -99,5 +193,5 @@ const Template1 = (args, {argTypes}) => ({
 export const DropZoneWithCustomFileDialogTrigger = Template1.bind({});
 
 DropZoneWithCustomFileDialogTrigger.args = {
-    allowMultiple: true,
+    validImageTypes: ['image/gif', 'image/jpeg', 'image/png'],
 }
