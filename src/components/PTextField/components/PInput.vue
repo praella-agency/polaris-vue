@@ -63,7 +63,16 @@
       <slot v-if="$slots.suffix" name="suffix"></slot>
     </div>
     <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
-    <button type="button" class="Polaris-TextField__ClearButton" v-if="computedValue && clearable" @click="onClear">
+
+    <div v-if="showCharacterCount && typeof value === 'string'"
+         id="CharacterCounter"
+         :class="characterCountClassName"
+         :aria-label="characterCountLabel"
+    >
+      {{ characterCountText }}
+    </div>
+
+    <button type="button" :class="clearButtonClassName" v-if="computedValue && clearable" @click="onClear">
       <span class="Polaris-VisuallyHidden">Clear</span>
       <PIcon source="CircleCancelMinor" color="inkLightest"></PIcon>
     </button>
@@ -124,6 +133,7 @@
     @Prop(Boolean) public readOnly!: boolean;
     @Prop({type: Boolean, default: true}) public showInput!: boolean;
     @Prop(Boolean) public clearable!: boolean;
+    @Prop(Boolean) public showCharacterCount!: boolean;
     @Prop(String) public prefixClass!: string;
     @Prop(Boolean) public autoFocus!: boolean;
     @Prop(Boolean) public autoComplete!: boolean;
@@ -144,6 +154,13 @@
     public content = this.value !== null ? this.value : '';
     public height = this.minHeight;
     public editor = ClassicEditor;
+    public characterCountLabel = this.maxLength || 'characterCountLabel';
+    public normalizedValue = typeof this.value === 'string' ? this.value : '';
+    public characterCount = this.normalizedValue && this.normalizedValue.length;
+    public characterCountText = !this.maxLength
+        ? this.characterCount
+        : `${this.characterCount}/${this.maxLength}`;
+
 
     public get inputType() {
       return this.type === 'currency' ? 'text' : this.type;
@@ -164,6 +181,20 @@
               'Polaris-TextField__Input',
               this.inputClass,
               this.align && `Polaris-TextField__Input Polaris-TextField__Input--align${this.textAlign}`,
+      );
+    }
+
+    public get characterCountClassName() {
+      return classNames(
+          'Polaris-TextField__CharacterCount',
+          this.multiline && 'Polaris-TextField__AlignFieldBottom ',
+      );
+    }
+
+    public get clearButtonClassName() {
+      return classNames(
+          'Polaris-TextField__ClearButton',
+          this.multiline && 'Polaris-TextField__AlignFieldBottom ',
       );
     }
 
@@ -210,6 +241,11 @@
     @Watch('value')
     public onValueChanged(value: any) {
       this.content = value;
+      this.normalizedValue = value;
+      this.characterCount = this.normalizedValue && this.normalizedValue.length;
+      this.characterCountText = !this.maxLength
+          ? this.characterCount
+          : `${this.characterCount}/${this.maxLength}`;
     }
 
     public onInput(event: any) {

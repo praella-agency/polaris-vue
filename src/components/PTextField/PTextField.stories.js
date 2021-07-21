@@ -79,11 +79,23 @@ export default {
             },
             description: 'Minimum height for the input (If `multiline` is true)',
         },
+        maxLength: {
+            type: {
+                name: 'number',
+            },
+            description: 'Maximum character length for an input!',
+        },
         multiline: {
             type: {
                 name: 'boolean',
             },
             description: 'Allow for multiple lines of input',
+        },
+        showCharacterCount: {
+            type: {
+                name: 'boolean',
+            },
+            description: 'Indicates whether or not the character count should be displayed',
         },
     },
 }
