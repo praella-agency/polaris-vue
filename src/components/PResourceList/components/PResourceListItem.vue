@@ -17,11 +17,7 @@
                     <slot/>
                 </div>
                 <div class="Polaris-ResourceItem__Actions">
-                  <PButtonGroup>
-                    <PButton>Button 1</PButton>
-                    <PButton>Button 2</PButton>
-                    <PButton>Button 3</PButton>
-                  </PButtonGroup>
+                  <slot name="actions" />
                 </div>
             </div>
         </div>
