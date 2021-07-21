@@ -9,6 +9,7 @@
         <div ref="PResourceListHeader" class="Polaris-ResourceList__HeaderOuterWrapper" v-if="showHeader">
             <PResourceListHeader
                     v-bind="$attrs"
+                    :sortOptions="sortOptions"
                     :selectable="selectable"
                     :selectedItems="computedValue.selected"
                     :selectedMore="computedValue.selectedMore"
@@ -49,6 +50,15 @@ import {PSpinner} from '@/components/PSpinner';
 interface ResourceNameInterface {
     singular: string;
     plural: string;
+}
+
+interface SortOptionsInterface {
+  /** Machine value of the option; this is the value passed to `onChange` */
+  value: string;
+  /** Human-readable text for the option */
+  label: string;
+  /** Option will be visible, but not selectable */
+  disabled?: boolean;
 }
 
 @Component({
@@ -104,6 +114,11 @@ export default class PResourceList extends Vue {
      * @value true | false
      */
     @Prop({type: Boolean, default: true}) public hideFilters!: boolean;
+
+    /**
+    * Collection of sort options to choose from
+    */
+    @Prop({type: [Array, String], default: null}) public sortOptions!: SortOptionsInterface[];
 
     public selectedItems = this.selectable && this.selected ? this.selected : [];
     public selectedMore: boolean = false;

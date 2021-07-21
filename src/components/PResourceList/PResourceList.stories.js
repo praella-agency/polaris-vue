@@ -5,6 +5,7 @@ import { PPopover } from '../PPopover';
 import PButton from '../PButton/PButton.vue';
 import { PAvatar } from '../PAvatar';
 import { PBadge } from '../PBadge';
+import { PTextStyle } from '../PTextStyle';
 import { PPagination } from '../PPagination';
 import { PStack, PStackItem } from '../PStack';
 import { PTextField } from '../PTextField';
@@ -40,7 +41,7 @@ const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
         PResourceList, PCard, PPopover, PButton, PResourceListItem, PBadge, PPagination,
-        PCardSection, PCardHeader, PStack, PStackItem, PTextField, PAvatar
+        PCardSection, PCardHeader, PStack, PStackItem, PTextField, PAvatar, PTextStyle
     },
     data() {
         return {
@@ -145,6 +146,7 @@ const Template = (args, {argTypes}) => ({
               ]"
               @filter-removed="removeTag"
               @change="toggleSelected"
+              @sort-change="() => handleSortChange(selected)"
           >
             <template slot="filter">
               <PPopover
@@ -191,8 +193,16 @@ const Template = (args, {argTypes}) => ({
                   :key="key"
                   :id="item.id"
                   :checked="selectedItems.indexOf(item.id) >= 0"
-                  @change="updateSelected"
                   :selectable="selectable"
+                  :loading="loading"
+                  persistActions
+                  :shortcutActions="[
+                      {
+                          content: 'View latest order',
+                          onAction: () => {},
+                      }
+                  ]"
+                  @change="updateSelected"
               >
                 <PAvatar slot="media" customer size="medium" :name="item.name" />
                 <div class="resource-list-item">
@@ -200,14 +210,13 @@ const Template = (args, {argTypes}) => ({
                     <p>{{ item.name }}</p>
                   </div>
                   <div class="resource-list-item__resource--status">
-                    <PBadge v-if="item.status === true" status="success">Published</PBadge>
-                    <PBadge v-if="item.status === null" status="warning">Pending</PBadge>
-                    <PBadge v-if="item.status === false" status="critical">Archived</PBadge>
+                      <h3>
+                          <PTextStyle v-if="item.status === true" variation="positive">Published</PTextStyle>
+                          <PTextStyle v-if="item.status === null" variation="subdued">Pending</PTextStyle>
+                          <PTextStyle v-if="item.status === false" variation="negative">Archived</PTextStyle>
+                      </h3>
                   </div>
                 </div>
-                <PButton slot="actions" plain>
-                  View latest order
-                </PButton>
               </PResourceListItem>
             </template>
           </PResourceList>
@@ -263,6 +272,9 @@ const Template = (args, {argTypes}) => ({
         handleBulkActionClick() {
             console.log('Edit Customer');
         },
+        handleSortChange(selected) {
+            console.log(selected)
+        }
     },
 });
 
@@ -276,7 +288,7 @@ ResourceList.args = {
     showHeader: true,
     hideFilters: true,
     sortOptions: [
-        {label: 'Newest update', value: 'DATE_MODIFIED_DESC'},
-        {label: 'Oldest update', value: 'DATE_MODIFIED_ASC'},
-    ]
+        {label: 'Newest update', value: 'DATE_MODIFIED_DESC', disabled: false, hidden: true},
+        {label: 'Oldest update', value: 'DATE_MODIFIED_ASC', disabled: false},
+    ],
 }

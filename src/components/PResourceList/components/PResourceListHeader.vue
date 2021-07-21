@@ -6,9 +6,13 @@
             <div class="Polaris-ResourceList__CheckableButtonWrapper" v-if="selectable && !checked">
                 <PCheckableButton plain v-bind="$attrs" v-on="$listeners">{{resourceHeaderTitle}}</PCheckableButton>
             </div>
-            <div class="Polaris-ResourceList__SortWrapper" v-if="sortOptions">
-                <PSelect :inlineLabel="sortLabel" labelHidden :options="sortOptions" @change="$emit('sort-change', $event)">
-                </PSelect>
+            <div class="Polaris-ResourceList__SortWrapper" v-if="sortOptions && sortOptions.length > 0">
+                <PSelect
+                    :inlineLabel="sortLabel"
+                    labelHidden
+                    :options="sortOptions"
+                    @change="$emit('sort-change', $event)"
+                />
             </div>
         </div>
 
