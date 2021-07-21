@@ -219,14 +219,14 @@
 }
 .Polaris-TextField__AlignFieldBottom {
 	align-self: flex-end;
-	width: 100%;
+	//width: 100%;
 	padding-bottom: .8rem;
 }
 .Polaris-TextField__ClearButton {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
-	padding: 0;
+	//padding: 0;
 	background: $textfield-clear-button;
 	border: $textfield-clear-border;
 	font-size: $textfield-clear-border-font-size;
