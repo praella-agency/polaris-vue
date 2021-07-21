@@ -166,8 +166,6 @@ export default {
         this.queueTimer = setTimeout(this.showNotice, 250);
         return;
       }
-      console.log('this.$el');
-      console.log(this.$el);
       this.correctParent.insertAdjacentElement('afterbegin', this.$el);
       this.isActive = true;
       if (this.duration) {

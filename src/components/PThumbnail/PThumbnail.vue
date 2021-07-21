@@ -1,6 +1,8 @@
 <template>
     <span :class="className">
-      <PImage v-bind="$attrs" :source="source" :alt="alt" class="Polaris-Thumbnail__Image" />
+        <PImage v-if="!isSvg(source)" v-bind="$attrs" :source="source" :alt="alt"
+                class="Polaris-Thumbnail__Image" />
+        <PIcon v-else :alt="alt" :source="source"/>
     </span>
 </template>
 
@@ -8,11 +10,12 @@
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import {classNames, variationName} from '@/utilities/css';
     import {PImage} from '@/components/PImage';
+    import {PIcon} from '@/components/PIcon';
     type Size = 'small' | 'medium' | 'large';
 
     @Component({
         components: {
-            PImage,
+            PImage, PIcon,
         },
     })
     export default class PThumbnail extends Vue {
@@ -40,6 +43,12 @@
                 'Polaris-Thumbnail',
                 this.size && `Polaris-Thumbnail--${variationName('size', this.size)}`,
             );
+        }
+
+        public isSvg(source) {
+          const isSVG = new RegExp(/(<svg)([^<]*|[^>]*)/);
+
+          return isSVG.test(source);
         }
     }
 </script>

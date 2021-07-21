@@ -1,3 +1,4 @@
-import FileUpload from './FileUpload.vue';
+import PFileUpload from './PFileUpload.vue';
+import PDropZoneInput from './PDropZoneInput.vue';
 
-export { FileUpload };
+export { PFileUpload, PDropZoneInput };
