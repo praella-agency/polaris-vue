@@ -41,6 +41,19 @@ const Template = (args, {argTypes}) => ({
     template: `
       <div>
           <PModal v-bind="$props"
+                  :secondaryActions= "[
+                      {
+                        content: 'Delete Customer',
+                        'destructive': true,
+                        onAction: handleDeleteAction,
+                      },
+                      {
+                        content:'Cancel',
+                        onAction: () => {
+                          this.is_active = false;
+                        },
+                      },
+                  ]"
                   @close="closeModal"
                   :open="this.is_active"
           >
@@ -79,19 +92,4 @@ Modal.args = {
     },
     title: "Enter Customer Details",
     sectioned: true,
-    secondaryActions: [
-        {
-            content: 'Delete Customer',
-            'destructive': true,
-            onAction: () => {
-                alert('Customer deleted');
-            },
-        },
-        {
-            content:'Cancel',
-            onAction: () => {
-                this.is_active = false;
-            },
-        },
-    ]
 }
