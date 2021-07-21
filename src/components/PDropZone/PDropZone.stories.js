@@ -11,12 +11,12 @@ export default {
                 type: 'select',
             },
         },
-        size: {
-            options: ['extraLarge', 'large'],
-            control: {
-                type: 'select',
-            },
-        },
+        // size: {
+        //     options: ['extraLarge', 'large'],
+        //     control: {
+        //         type: 'select',
+        //     },
+        // },
         validImageTypes: {
             control: {
                 type: 'array',
@@ -47,7 +47,7 @@ export default {
             },
             table: {
                 type: {
-                    summary: 'void',
+                    summary: 'function',
                 },
             },
         },
@@ -57,7 +57,7 @@ export default {
             },
             table: {
                 type: {
-                    summary: 'void',
+                    summary: 'function',
                 },
             },
         },
@@ -67,7 +67,7 @@ export default {
             },
             table: {
                 type: {
-                    summary: 'void',
+                    summary: 'function',
                 },
             },
         },
@@ -77,7 +77,7 @@ export default {
             },
             table: {
                 type: {
-                    summary: 'void',
+                    summary: 'function',
                 },
             },
         },
@@ -87,7 +87,7 @@ export default {
             },
             table: {
                 type: {
-                    summary: 'void',
+                    summary: 'function',
                 },
             },
         },
@@ -97,7 +97,7 @@ export default {
             },
             table: {
                 type: {
-                    summary: 'void',
+                    summary: 'function',
                 },
             },
         },
@@ -107,7 +107,7 @@ export default {
             },
             table: {
                 type: {
-                    summary: 'void',
+                    summary: 'function',
                 },
             },
         },
@@ -157,7 +157,7 @@ const Template1 = (args, {argTypes}) => ({
         };
     },
     template: `
-        <PCard sectioned>
+        <PCard>
             <PCardHeader
                 title="Product Images"
                 :actions='[{

@@ -84,7 +84,7 @@
                                         :alt="file.name"
                                         :source="validImageTypes.indexOf(file.type) > -1
                                                  ? createFileURL(file)
-                                                 : 'NoteMinor'"
+                                                 : NoteMinor"
                                 />
                             </PStackItem>
                             <PStackItem>
@@ -120,6 +120,8 @@
   import {PLabelled} from '@/components/PLabelled';
   import {PThumbnail} from '@/components/PThumbnail';
   import {Action} from '@/types';
+  import {NoteMinor} from "@/assets/shopify-polaris-icons";
+
   import {
     fileAccepted,
     isServer,
@@ -230,10 +232,10 @@
      */
     @Prop({type: Boolean, default: false}) public variableHeight!: boolean;
 
-    /**
-     * Adds custom validations
-     */
-    @Prop({type: Boolean, default: false}) public customValidator!: boolean;
+    // /**
+    //  * Adds custom validations
+    //  */
+    // @Prop({type: Boolean, default: false}) public customValidator!: boolean;
 
     /**
      *  Callback triggered on any file drop
@@ -308,12 +310,12 @@
      */
     @Prop({type: Boolean, default: true}) public uploadedFiles!: boolean;
 
-    /**
-     * Change size of the DropZone
-     * @originalValues extraLarge | large | medium | small
-     * @values extraLarge | large
-     */
-    @Prop({type: String, default: 'extraLarge'}) public size!: string;
+    // /**
+    //  * Change size of the DropZone
+    //  * @originalValues extraLarge | large | medium | small
+    //  * @values extraLarge | large
+    //  */
+    // @Prop({type: String, default: 'extraLarge'}) public size!: string;
 
     /**
      * Valid Image Types to preview images
@@ -324,9 +326,13 @@
 
     public dragTargets: EventTarget[] = [];
 
+    public size = 'extraLarge';
+
     public dragging = false;
     public intervalError = false;
     public measuring = true;
+
+    public NoteMinor = NoteMinor
 
     public stopEvent(event: DragEvent) {
       event.preventDefault();

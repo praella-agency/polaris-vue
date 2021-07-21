@@ -106,6 +106,12 @@
      * @values true | false
      */
     @Prop({type: Boolean, default: false}) public richEditor!: boolean;
+
+    /**
+     * Show a clear text button in the input
+     * @values true | false
+     */
+    @Prop({type: Boolean, default: false}) public clearable!: boolean;
   }
 </script>
 
