@@ -1683,6 +1683,12 @@
     outline: none;
     cursor: pointer;
 
+  &:not(.Polaris-ResourceItem--persistActions) {
+    .Polaris-ResourceItem__Actions{
+      right:1.6rem;
+    }
+  }
+
     &:hover {
         background-color: $resourceitem-hover-bgcolor;
 
@@ -1691,7 +1697,6 @@
                 clip: auto;
                 overflow: visible;
                 height: 100%;
-                right: 1.6rem;
             }
         }
     }

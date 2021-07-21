@@ -1,5 +1,5 @@
 <template>
-    <li class="Polaris-ResourceList__ItemWrapper">
+    <li class="Polaris-ResourceList__ItemWrapper Polaris-ResourceItem--persistActions">
         <div :class="className" :data-href="url">
             <a v-if="url" :aria-describedby="id" aria-label="View details" class="Polaris-ResourceItem__Link" tabindex="0" id="PolarisResourceListItemOverlay3" :href="url" data-polaris-unstyled="true"></a>
             <div class="Polaris-ResourceItem__Container" :id="id">
@@ -17,7 +17,11 @@
                     <slot/>
                 </div>
                 <div class="Polaris-ResourceItem__Actions">
-                  <slot name="actions" />
+                  <PButtonGroup>
+                    <PButton>Button 1</PButton>
+                    <PButton>Button 2</PButton>
+                    <PButton>Button 3</PButton>
+                  </PButtonGroup>
                 </div>
             </div>
         </div>
