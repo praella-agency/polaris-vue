@@ -9,6 +9,7 @@ interface PBreadcrumbsProps {
   url?: any;
   to?: any;
   onAction?(): void;
+  accessibilityLabel?: string;
 }
 
 @Component({
@@ -63,19 +64,22 @@ export default class PBreadcrumbs extends Vue {
                     key: content,
                     url: breadcrumb.url,
                     to: breadcrumb.to,
+                    ariaLabel: breadcrumb.accessibilityLabel,
                   },
                   nativeOn: {
-                    click: onAction,
+                    click: onAction ? onAction : () => {},
                   },
                 }, [contentMarkup])
             ) : (
                 this.$createElement('button', {
+                  class: breadcrumbClassNames,
                   attrs: {
                     key: content,
                     type: 'button',
+                    ariaLabel: breadcrumb.accessibilityLabel,
                   },
                   on: {
-                    click: onAction,
+                    click: onAction ? onAction : () => {},
                   },
                 }, [contentMarkup])
             );

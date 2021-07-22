@@ -122,10 +122,10 @@ Page.args = {
         {
             content: 'Products',
             to: '/new-page',
+            ariaLabel: 'Hello',
             onAction: () => {
-                event.preventDefault();
                 console.log('Action 1 handled');
-            }
+            },
         }
     ],
 }

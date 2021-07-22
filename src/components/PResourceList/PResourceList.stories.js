@@ -169,7 +169,6 @@ const Template = (args, {argTypes}) => ({
                       <PStackItem>
                         <PTextField
                             label="Tagged with"
-                            :value="132"
                             v-model="taggedValue"
                             labelHidden
                         />
@@ -254,7 +253,6 @@ const Template = (args, {argTypes}) => ({
         updateStatusFilter(selected) {
             this.queryParams.statuses = selected;
             this.toggleStatusFilter();
-
         },
         onPrevious() {
             this.queryParams.page--;
