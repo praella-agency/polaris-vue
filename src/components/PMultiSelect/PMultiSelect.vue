@@ -84,7 +84,7 @@ export default class PMultiSelect extends Vue {
     /**
      * Value for PMultiSelect.
      */
-    @Prop() public value!: any;
+    @Prop({default: () => ([])}) public value!: any;
 
     /**
      * Disable the searchable options feature.

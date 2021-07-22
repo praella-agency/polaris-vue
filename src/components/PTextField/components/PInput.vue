@@ -62,9 +62,8 @@
       {{suffix}}
       <slot v-if="$slots.suffix" name="suffix"></slot>
     </div>
-    <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
 
-    <div v-if="showCharacterCount && typeof value === 'string'"
+    <div v-if="showCharacterCount"
          id="CharacterCounter"
          :class="characterCountClassName"
          :aria-label="characterCountLabel"
@@ -77,6 +76,8 @@
       <PIcon source="CircleCancelMinor" color="inkLightest"></PIcon>
     </button>
     <div class="Polaris-TextField__Backdrop" v-if="!richEditor"></div>
+
+    <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
 
     <PFieldResizer
             v-if="multiline"
@@ -155,12 +156,13 @@
     public height = this.minHeight;
     public editor = ClassicEditor;
     public characterCountLabel = this.maxLength || 'characterCountLabel';
-    public normalizedValue = typeof this.value === 'string' ? this.value : '';
-    public characterCount = this.normalizedValue && this.normalizedValue.length;
-    public characterCountText = !this.maxLength
-        ? this.characterCount
-        : `${this.characterCount}/${this.maxLength}`;
+    public characterCount = this.value && this.value.length;
 
+    public get characterCountText() {
+     return  !this.maxLength
+             ? this.characterCount
+             : `${this.characterCount}/${this.maxLength}`;
+    }
 
     public get inputType() {
       return this.type === 'currency' ? 'text' : this.type;
@@ -241,11 +243,8 @@
     @Watch('value')
     public onValueChanged(value: any) {
       this.content = value;
-      this.normalizedValue = value;
-      this.characterCount = this.normalizedValue && this.normalizedValue.length;
-      this.characterCountText = !this.maxLength
-          ? this.characterCount
-          : `${this.characterCount}/${this.maxLength}`;
+      // this.normalizedValue = value;
+      this.characterCount = value ? value.length : 0;
     }
 
     public onInput(event: any) {
