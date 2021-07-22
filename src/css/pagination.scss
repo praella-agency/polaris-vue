@@ -115,12 +115,12 @@
 		background: $pagination-btn-hover-bgcolor;
 		border-color: $pagination-btn-hover-border-color;
 	}
-	&:focus {
-		z-index: 20;
-		border-color: $pagination-btn-focus-border-color;
-		outline: 0;
-		box-shadow: $pagination-btn-focus-box-shadow;
-	}
+	//&:focus {
+	//	z-index: 20;
+	//	border-color: $pagination-btn-focus-border-color;
+	//	outline: 0;
+	//	box-shadow: $pagination-btn-focus-box-shadow;
+	//}
 	&:active {
 		background: $pagination-btn-active-bgcolor;
 		border-color: $pagination-btn-active-border-color;

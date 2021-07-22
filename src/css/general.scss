@@ -997,7 +997,7 @@
     max-width: 100%;
     align-items: center;
     min-height: 2.8rem;
-    padding: 0 0 0 .8rem;
+    padding: 0 .8rem;
     background-color: $tag-bgcolor;
     border-radius: $tag-border-radius;
     color: $tag-color;
@@ -1006,6 +1006,9 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+    }
+    &.Polaris-Tag--removable {
+        padding-right: 0;
     }
 }
 
