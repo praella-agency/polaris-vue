@@ -2,90 +2,27 @@
 	display: inline-flex;
 }
 @media (max-width:30.625em),(min-width:48.0625em) and (max-width:47.125em) {
-	[data-has-navigation] .Polaris-Pagination:not(.Polaris-Pagination--plain) {
+	[data-has-navigation] .Polaris-Pagination {
 		display: flex;
 		width: 100%;
 	}
 
-	[data-has-navigation] .Polaris-Pagination:not(.Polaris-Pagination--plain) .Polaris-Pagination__Button {
+	[data-has-navigation] .Polaris-Pagination .Polaris-Pagination__Button {
 		flex: 1 0 auto;
 	}
 }
 
 @media (max-width:30.625em) {
-	.Polaris-Pagination:not(.Polaris-Pagination--plain) {
+	.Polaris-Pagination {
 		display: flex;
 		width: 100%;
 	}
 
-	.Polaris-Pagination:not(.Polaris-Pagination--plain) .Polaris-Pagination__Button {
+	.Polaris-Pagination .Polaris-Pagination__Button {
 		flex: 1 0 auto;
 	}
 }
 
-.Polaris-Pagination--plain {
-	.Polaris-Pagination__Button {
-	
-		background: $pagination-plain-btn-bgcolor;
-		border: $pagination-plain-btn-border;
-		
-		box-shadow: $pagination-plain-btn-box-shadow;
-		&:active {
-			background: $pagination-plain-btn-active-bgcolor;
-			border: $pagination-plain-btn-active-border;
-			box-shadow: $pagination-plain-btn-active-box-shadow;
-			svg {
-				fill: $pagination-plain-btn-active-svg-fill;
-			}
-		}
-		&:hover {
-			background: $pagination-plain-btn-hover-bgcolor;
-			border: $pagination-plain-btn-hover-border;
-			box-shadow: $pagination-plain-btn-hover-box-shadow;
-			svg {
-				fill: $pagination-plain-btn-hover-svg-fill;
-			}
-		}
-		&:focus {
-			border: $pagination-plain-btn-focus-border;
-			box-shadow: $pagination-plain-btn-focus-box-shadow;
-			&:after {
-				background: $pagination-plain-btn-focus-after-bgcolor;
-			}
-		}
-		&:disabled {
-			background: $pagination-plain-btn-disabled-bgcolor;
-			border: $pagination-plain-btn-disabled-border;
-			box-shadow: $pagination-plain-btn-disabled-box-shadow;
-			svg {
-				fill: $pagination-plain-btn-disabled-svg-fill;
-			}
-		}
-		&:after {
-			content: "";
-			position: absolute;
-			top: .4rem;
-			right: 0;
-			left: 0;
-			display: block;
-			height: 2.8rem;
-			border-radius: $pagination-plain-btn-after-border-radius;
-			-webkit-backface-visibility: hidden;
-			backface-visibility: hidden;
-			will-change: background;
-			transition-property: background;
-			transition-duration: .2s;
-			transition-timing-function: cubic-bezier(.64,0,.35,1);
-		}
-	}
-	.Polaris-Pagination__PreviousButton {
-		margin-left: -.8rem;
-	}
-	.Polaris-Pagination__NextButton {
-		margin-right: -.8rem;
-		margin-left: .2rem;
-	}
-}
 .Polaris-Pagination__Button {
 	position: relative;
 	z-index: 10;

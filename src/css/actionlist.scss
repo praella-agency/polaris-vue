@@ -88,8 +88,8 @@
         outline: none;
         &:not(:active) {
             &::after {
-                box-shadow: $actionlist-item-focus-after-box-shadow;
-                outline: 0.1rem solid transparent;
+                //box-shadow: $actionlist-item-focus-after-box-shadow;
+                outline: none;
             }
         }
     }
