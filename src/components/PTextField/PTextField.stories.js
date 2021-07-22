@@ -101,15 +101,8 @@ const Template = (args, {argTypes}) => ({
     template: `
       <PTextField 
           v-bind="$props" 
-          :value="this.formData" 
-          @input="getData"
+          v-model="formData"
       />`,
-    methods: {
-        getData(value) {
-            this.formData = value;
-            console.log(this.formData);
-        },
-    },
 });
 
 export const TextField = Template.bind({});

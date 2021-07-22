@@ -11,12 +11,14 @@
             @change="$emit('change', $event)"
             @focus="$emit('focus', $event)"
             @blur="$emit('blur', $event)"
+            :openFileDialog="openFileDialog"
+            :onFileDialogClose="onFileDialogClose"
         >
     </div>
 </template>
 
 <script lang="ts">
-  import {Vue, Component, Prop, Emit} from 'vue-property-decorator';
+  import {Vue, Component, Prop} from 'vue-property-decorator';
 
   @Component({})
   export default class PDropZoneInput extends Vue {
@@ -26,6 +28,7 @@
     @Prop({type: String, default: 'file'}) public type!: string;
     @Prop({type: Boolean, default: false}) public multiple!: boolean;
     @Prop({type: Boolean, default: false}) public openFileDialog!: boolean;
+    @Prop({type: Function}) public onFileDialogClose!: any;
 
     public mounted() {
       this.openFileDialog && this.triggerFileDialog();
@@ -44,12 +47,7 @@
       if (!this.$refs.fileInputNode) {
         return;
       }
-      this.$refs.fileInputNode.$el.click();
-    }
-
-    @Emit()
-    public onFileDialogClose() {
-      this.$emit('')
+      (this.$refs.fileInputNode as HTMLInputElement).click();
     }
   }
 </script>

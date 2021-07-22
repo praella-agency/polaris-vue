@@ -16,11 +16,28 @@
               :aria-labelledby="labelledBy"
               :aria-invalid="hasError"
     ></ckeditor>
+    <textarea v-else-if="multiline"
+              :name="name"
+              :class="inputClassName"
+              :id="id"
+              :disabled="disabled"
+              :readonly="readOnly"
+              :autofocus="autoFocus"
+              :value="computedValue"
+              :minlength="minLength"
+              :maxlength="maxLength"
+              v-text="multiline?computedValue:''"
+              :placeholder="placeholder"
+              :autocomplete="normalizeAutoComplete(autoComplete)"
+              :style="{ height: (multiline && computedHeight) ? computedHeight+'px' : null,overflow: (multiline && computedHeight) ? 'hidden' : null }"
+              :aria-describedby="describedBy"
+              :aria-labelledby="labelledBy"
+              :aria-invalid="hasError"
+              @input="onInput"
+    ></textarea>
     <input
       v-else
-      :tag="multiline?'textarea':'input'"
       ref="input"
-      :is="multiline ? 'textarea' : 'input'"
       :name="name"
       :class="inputClassName"
       :id="id"
@@ -28,14 +45,12 @@
       :readonly="readOnly"
       :autofocus="autoFocus"
       :value="computedValue"
-      v-text="multiline?computedValue:''"
       :placeholder="placeholder"
       :autocomplete="normalizeAutoComplete(autoComplete)"
       :min="min"
       :max="max"
       :step="step"
       :minlength="minLength"
-      :style="{ height: (multiline && computedHeight) ? computedHeight+'px' : null,overflow: (multiline && computedHeight) ? 'hidden' : null }"
       :maxlength="maxLength"
       :type="inputType"
       :aria-describedby="describedBy"
@@ -48,10 +63,10 @@
       <slot v-if="$slots.suffix" name="suffix"></slot>
     </div>
     <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
-    <!--<button type="button" class="Polaris-TextField__ClearButton" v-if="computedValue && showClearButton" @click="onClear">
+    <button type="button" class="Polaris-TextField__ClearButton" v-if="computedValue && clearable" @click="onClear">
       <span class="Polaris-VisuallyHidden">Clear</span>
       <PIcon source="CircleCancelMinor" color="inkLightest"></PIcon>
-    </button>-->
+    </button>
     <div class="Polaris-TextField__Backdrop" v-if="!richEditor"></div>
 
     <PFieldResizer
@@ -108,7 +123,7 @@
     @Prop(Boolean) public disabled!: boolean;
     @Prop(Boolean) public readOnly!: boolean;
     @Prop({type: Boolean, default: true}) public showInput!: boolean;
-    @Prop(Boolean) public showClearButton!: boolean;
+    @Prop(Boolean) public clearable!: boolean;
     @Prop(String) public prefixClass!: string;
     @Prop(Boolean) public autoFocus!: boolean;
     @Prop(Boolean) public autoComplete!: boolean;
@@ -198,17 +213,13 @@
     }
 
     public onInput(event: any) {
-      this.$nextTick(() => {
-        if (event.target) {
-          this.computedValue = event.target.value;
-        }
-      });
+      if (event.target) {
+        this.computedValue = event.target.value;
+      }
     }
 
     public onClear(event: any) {
-      this.$nextTick(() => {
-        this.computedValue = undefined;
-      });
+      this.computedValue = undefined;
     }
 
     public handleNumberChange(steps: number) {
@@ -220,11 +231,9 @@
       const step = this.step || 1;
 
       const newValue = Math.min(max, Math.max(min, numericValue + (steps * step)));
-      this.$nextTick(() => {
-        if (!isNaN(newValue)) {
-          this.computedValue = newValue;
-        }
-      });
+      if (!isNaN(newValue)) {
+        this.computedValue = newValue;
+      }
     }
 
     public handleExpandingResize(e) {

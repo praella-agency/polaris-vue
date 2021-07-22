@@ -1,5 +1,5 @@
 <template>
-    <div :value="context">
+    <div :style="styleBasedOnSize">
         <PLabelled
                 :id="id"
                 :label="label"
@@ -20,7 +20,7 @@
                             :class="overlayClassName"
                     >
                         <PStack vertical spacing="tight">
-                            <PIcon v-if="size === 'small'" source="UploadMajor" color="interactive"/>
+                            <!--                            <PIcon v-if="size === 'small'" source="UploadMajor" color="interactive"/>-->
                             <PDisplayText v-if="size === 'extraLarge'" size="small" element="p">
                                 {{ overlayTextWithDefault }}
                             </PDisplayText>
@@ -34,7 +34,7 @@
                             :class="overlayClassName"
                     >
                         <PStack vertical spacing="tight">
-                            <PIcon v-if="size === 'small'" source="CircleAlertMajor" color="critical"/>
+                            <!--                            <PIcon v-if="size === 'small'" source="CircleAlertMajor" color="critical"/>-->
                             <PDisplayText v-if="size === 'extraLarge'" size="small" element="p">
                                 {{ errorOverlayTextWithDefault }}
                             </PDisplayText>
@@ -42,23 +42,66 @@
                     </div>
                 </template>
                 <span class="Polaris-VisuallyHidden">
+                    <!--
+                        Triggered on focus
+                        @event focus
+                    -->
+                    <!--
+                        Triggered on blur
+                        @event blur
+                    -->
                     <PDropZoneInput
-                        :id="id"
-                        :accept="accept"
-                        :disabled="disabled"
-                        :type="type"
-                        :multiple="allowMultiple"
-                        @change="handleDrop"
-                        @focus="handleFocus"
-                        @blue="handleBlur"
-                        :openFileDialog="openFileDialog"
-                        :onFileDialogClose="handleOnFileDialogClose"
+                            :id="id"
+                            :accept="accept"
+                            :disabled="disabled"
+                            :type="type"
+                            :multiple="allowMultiple"
+                            @change="handleDrop"
+                            @focus="$emit('focus', $event)"
+                            @blur="$emit('blur', $event)"
+                            :openFileDialog="openFileDialog"
+                            :onFileDialogClose="handleOnFileDialogClose"
                     />
                 </span>
                 <div
-                    class="Polaris-DropZone__Container"
+                        class="Polaris-DropZone__Container"
                 >
-                    <slot />
+                    <PFileUpload v-if="!files.length"
+                                 :disabled="disabled"
+                                 :variableHeight="variableHeight"
+                                 :size="size"
+                    />
+                    <!-- @slot Preview uploaded files -->
+                    <slot name="uploadFiles" v-if="uploadedFiles && files.length > 0">
+                        <PStack
+                                v-for="(file, key) in files"
+                                :key="key"
+                                alignment="center"
+                        >
+                            <PStackItem>
+                                <PThumbnail
+                                        size="small"
+                                        :alt="file.name"
+                                        :source="validImageTypes.indexOf(file.type) > -1
+                                                 ? createFileURL(file)
+                                                 : NoteMinor"
+                                />
+                            </PStackItem>
+                            <PStackItem>
+                                <div>
+                                    {{ file.name }}
+                                    <PCaption>{{ file.size }} bytes</PCaption>
+                                </div>
+                            </PStackItem>
+                            <PStackItem>
+                                <PIcon
+                                        source="CircleCancelMinor"
+                                        color="critical"
+                                        @click.native.stop="removeFiles(key)"
+                                />
+                            </PStackItem>
+                        </PStack>
+                    </slot>
                 </div>
             </div>
         </PLabelled>
@@ -66,21 +109,21 @@
 </template>
 
 <script lang="ts">
-  import {Component, Vue, Prop, Emit} from 'vue-property-decorator';
+  import {Component, Vue, Prop, Emit, Ref} from 'vue-property-decorator';
   import {classNames, variationName} from '@/utilities/css';
   import {PIcon} from '@/components/PIcon';
-  import {PStack} from '@/components/PStack';
+  import {PStack, PStackItem} from '@/components/PStack';
   import {PCaption} from '@/components/PCaption';
   import {PDisplayText} from '@/components/PDisplayText';
-  import {PFileUpload, PDropZoneInput} from './components/index';
+  import PFileUpload from './components/PFileUpload.vue';
+  import PDropZoneInput from './components/PDropZoneInput.vue';
   import {PLabelled} from '@/components/PLabelled';
+  import {PThumbnail} from '@/components/PThumbnail';
   import {Action} from '@/types';
+  import {NoteMinor} from "@/assets/shopify-polaris-icons";
+
   import {
-    Context,
     fileAccepted,
-    defaultAllowMultiple,
-    createAllowMultipleKey,
-    capitalize,
     isServer,
     getDataTransferFiles,
     useToggle
@@ -96,17 +139,14 @@
 
   @Component({
     components: {
-      PIcon, PStack, PCaption, PDisplayText, PFileUpload, PLabelled, PDropZoneInput
+      PIcon, PStack, PCaption, PDisplayText, PFileUpload, PLabelled, PDropZoneInput, PThumbnail, PStackItem
     },
   })
   export default class PDropZone extends Vue {
     /**
      * Label for the file input
      */
-    @Prop({
-      type: String,
-      default: 'Polaris.DropZone.' + this.allowMultipleKey + '.label' + this.typeSuffix
-    }) public label!: string;
+    @Prop({type: String, default: null}) public label!: string;
 
     /**
      * Adds an action to the label
@@ -170,7 +210,7 @@
      * Allows multiple files to be uploaded at once
      * @default true
      */
-    @Prop({type: Boolean, default: defaultAllowMultiple}) public allowMultiple!: boolean;
+    @Prop({type: Boolean, default: true}) public allowMultiple!: boolean;
 
     /**
      * Sets a disabled state
@@ -192,103 +232,119 @@
      */
     @Prop({type: Boolean, default: false}) public variableHeight!: boolean;
 
+    // /**
+    //  * Adds custom validations
+    //  */
+    // @Prop({type: Boolean, default: false}) public customValidator!: boolean;
+
     /**
-     * Adds custom validations
+     *  Callback triggered on any file drop
      */
-    @Prop({type: Boolean, default: false}) public customValidator(file: File): boolean;
+    @Prop({
+      type: Function,
+      default: (files: File[], acceptedFiles: File[], rejectedFiles: File[]): void => {
+      }
+    }) public handleOnDrop!: any;
+
+    /**
+     * Callback triggered when at least one of the files dropped was accepted
+     */
+    @Prop({
+      type: Function,
+      default: (acceptedFiles: File[]): void => {
+      }
+    }) public handleOnDropAccepted!: any;
+
+    /**
+     * Callback triggered when at least one of the files dropped was rejected
+     */
+    @Prop({
+      type: Function,
+      default: (rejectedFiles: File[]): void => {
+      }
+    }) public handleOnDropRejected!: any;
+
+    /**
+     * Callback triggered when one or more files are dragging over the drag area
+     */
+    @Prop({
+      type: Function,
+      default: (): void => {
+      }
+    }) public handleOnDragOver!: any;
+
+    /**
+     * Callback triggered when one or more files entered the drag area
+     */
+    @Prop({
+      type: Function,
+      default: (): void => {
+      }
+    }) public handleOnDragEnter!: any;
+
+    /**
+     * Callback triggered when one or more files left the drag area
+     */
+    @Prop({
+      type: Function,
+      default: (): void => {
+      }
+    }) public handleOnDragLeave!: any;
+
+    /**
+     * Callback triggered when the file dialog is canceled
+     */
+    @Prop({
+      type: Function,
+      default: (): void => {
+      }
+    }) public handleOnFileDialogClose!: any;
+
+    /**
+     * Files
+     */
+    @Prop({type: Array, default: [], required: true}) public files!: [];
+
+    /**
+     * Display Uploaded Files in DropZone
+     */
+    @Prop({type: Boolean, default: true}) public uploadedFiles!: boolean;
+
+    // /**
+    //  * Change size of the DropZone
+    //  * @originalValues extraLarge | large | medium | small
+    //  * @values extraLarge | large
+    //  */
+    // @Prop({type: String, default: 'extraLarge'}) public size!: string;
+
+    /**
+     * Valid Image Types to preview images
+     */
+    @Prop({type: [Array, String], default: null}) public validImageTypes!: [];
+
+    @Ref() node!: HTMLDivElement;
+
+    public dragTargets: EventTarget[] = [];
+
+    public size = 'extraLarge';
 
     public dragging = false;
     public intervalError = false;
-    public size = 'extraLarge';
     public measuring = true;
 
-    public allowMultipleKey = createAllowMultipleKey(this.allowMultiple);
-    public typeSuffix = capitalize(this.type);
-
-    /** Callback triggered on click */
-    @Emit()
-    public handleOnClick(event) {
-      return event;
-    }
-
-    /** Callback triggered on any file drop */
-    @Emit()
-    public handleOnDrop(file: File[], acceptedFiles: File[], rejectedFiles: File[]) {
-
-    }
-
-    /** Callback triggered when at least one of the files dropped was accepted */
-    @Emit()
-    public handleOnDropAccepted(acceptedFiles: File[]) {
-
-    }
-
-    /** Callback triggered when at least one of the files dropped was rejected */
-    @Emit()
-    public handleOnDropRejected(rejectedFiles: File[]) {
-
-    }
-
-    /** Callback triggered when one or more files are dragging over the drag area */
-    @Emit()
-    public handleOnDragOver() {
-
-    }
-
-    /** Callback triggered when one or more files entered the drag area */
-    @Emit()
-    public handleOnDragEnter() {
-
-    }
-
-    /** Callback triggered when one or more files left the drag area */
-    @Emit()
-    public handleOnDragLeave() {
-
-    }
-
-    /** Callback triggered when the file dialog is canceled */
-    @Emit()
-    public handleOnFileDialogClose() {
-
-    }
-
-    // /** Callback triggered on click */
-    // onClick?(event: React.MouseEvent<HTMLElement>): void;
-    //
-    // /** Callback triggered on any file drop */
-    // onDrop?(files: File[], acceptedFiles: File[], rejectedFiles: File[]): void;
-    //
-    // /** Callback triggered when at least one of the files dropped was accepted */
-    // onDropAccepted?(acceptedFiles: File[]): void;
-    //
-    // /** Callback triggered when at least one of the files dropped was rejected */
-    // onDropRejected?(rejectedFiles: File[]): void;
-    //
-    // /** Callback triggered when one or more files are dragging over the drag area */
-    // onDragOver?(): void;
-    //
-    // /** Callback triggered when one or more files entered the drag area */
-    // onDragEnter?(): void;
-    //
-    // /** Callback triggered when one or more files left the drag area */
-    // onDragLeave?(): void;
-    //
-    // /** Callback triggered when the file dialog is canceled */
-    // onFileDialogClose?(): void;
+    public NoteMinor = NoteMinor
 
     public stopEvent(event: DragEvent) {
       event.preventDefault();
       event.stopPropagation();
     }
 
-    public getValidatedFiles(files: File[] | DataTransferItem[]) {
+    public getValidatedFiles(files: File[] | DataTransferItem[] | ArrayLike<File>) {
       const acceptedFiles: File[] = [];
       const rejectedFiles: File[] = [];
 
       Array.from(files as File[]).forEach((file: File) => {
-        !fileAccepted(file, this.accept) || (this.customValidator && !this.customValidator(file))
-          ? rejectedFiles.push(file) : acceptedFiles.push(file);
+        !fileAccepted(file, this.accept) ? rejectedFiles.push(file) : acceptedFiles.push(file);
       });
 
       if (!this.allowMultiple) {
@@ -304,13 +360,14 @@
       if (this.disabled) {
         return;
       }
+      const fileList = getDataTransferFiles(event) as ArrayLike<File>;
 
-      const fileList = getDataTransferFiles(event);
       const {files, acceptedFiles, rejectedFiles} = this.getValidatedFiles(fileList);
 
-      // dragTargets.current = [];
+      this.dragTargets = [];
       this.dragging = false;
       this.intervalError = rejectedFiles.length > 0;
+
       this.handleOnDrop && this.handleOnDrop(files as File[], acceptedFiles, rejectedFiles);
       this.handleOnDropAccepted && acceptedFiles.length && this.handleOnDropAccepted(acceptedFiles);
       this.handleOnDropRejected && rejectedFiles.length && this.handleOnDropRejected(rejectedFiles);
@@ -332,12 +389,10 @@
         return;
       }
 
-      const fileList = getDataTransferFiles(event);
+      const fileList = getDataTransferFiles(event) as ArrayLike<File>;
 
-      if (event.target) {
-        // if (!dragTargets.current.includes(event.target)) {
-        // dragTargets.current.push(event.target);
-        // }
+      if (event.target && !this.dragTargets.includes(event.target)) {
+        this.dragTargets.push(event.target);
       }
 
       if (this.dragging) {
@@ -358,15 +413,15 @@
         return;
       }
 
-      // dragTargets.current = dragTargets.current.filter((el: Node) => {
-      //   const compareNode = dropOnPage && !isServer ? document : node.current;
-      //
-      //   return el !== event.target && compareNode && compareNode.contains(el);
-      // });
+      this.dragTargets = this.dragTargets.filter((el) => {
+        const compareNode = this.dropOnPage && !isServer ? document : this.node;
 
-      // if (dragTargets.current.length > 0) {
-      //   return;
-      // }
+        return el !== event.target && compareNode && compareNode.contains(el as Node);
+      });
+
+      if (this.dragTargets.length > 0) {
+        return;
+      }
 
       this.dragging = false;
       this.intervalError = false;
@@ -375,7 +430,7 @@
     }
 
     public adjustSize() {
-      if (!node.current) {
+      if (!this.node) {
         return;
       }
 
@@ -385,7 +440,7 @@
       }
 
       let size = 'extraLarge';
-      const width = node.current.getBoundingClientRect().width;
+      const width = this.node.getBoundingClientRect().width;
 
       if (width < 100) {
         size = 'small';
@@ -397,38 +452,58 @@
 
       this.size = size;
       this.measuring && (this.measuring = false);
-
-      // 50,
-      //   {trailing: true},
     }
 
     public mounted() {
       this.adjustSize();
-      const dropNode = this.dropOnPage ? document : this.$refs.node;
+      const dropNode = this.dropOnPage ? document : this.node;
       if (!dropNode) {
         return;
       }
 
-      // dropNode.addEventListener('drop', this.handleDrop);
-      document.addEventListener('drop', this.handleDrop);
-      document.addEventListener('dragover', this.handleDragOver);
-      document.addEventListener('dragenter', this.handleDragEnter);
-      document.addEventListener('dragleave', this.handleDragLeave);
+      dropNode.addEventListener('drop', this.handleDrop as EventListener);
+      dropNode.addEventListener('dragover', this.handleDragOver as EventListener);
+      dropNode.addEventListener('dragenter', this.handleDragEnter as EventListener);
+      dropNode.addEventListener('dragleave', this.handleDragLeave as EventListener);
       window.addEventListener('resize', this.adjustSize);
     }
 
     public destroyed() {
-      const dropNode = this.dropOnPage ? document : this.$refs.node;
+      const dropNode = this.dropOnPage ? document : this.node;
       if (!dropNode) {
         return;
       }
 
-      // dropNode.addEventListener('drop', this.handleDrop);
-      document.removeEventListener('drop', this.handleDrop);
-      document.removeEventListener('dragover', this.handleDragOver);
-      document.removeEventListener('dragenter', this.handleDragEnter);
-      document.removeEventListener('dragleave', this.handleDragLeave);
+      dropNode.removeEventListener('drop', this.handleDrop as EventListener);
+      dropNode.removeEventListener('dragover', this.handleDragOver as EventListener);
+      dropNode.removeEventListener('dragenter', this.handleDragEnter as EventListener);
+      dropNode.removeEventListener('dragleave', this.handleDragLeave as EventListener);
       window.removeEventListener('resize', this.adjustSize);
+    }
+
+    /**
+     * Callback triggered on click
+     */
+    public handleOnClick() {
+      if (this.disabled) {
+        return;
+      }
+
+      return onclick ? onclick : this.open();
+    }
+
+    public open() {
+      let fileInputNode = this.node && this.node.querySelector(`#${this.id}`);
+      fileInputNode && fileInputNode instanceof HTMLElement && fileInputNode.click();
+    }
+
+    public createFileURL(file) {
+      return window.URL.createObjectURL(file);
+    }
+
+    public removeFiles(key) {
+      console.log(this.files, key);
+      this.files.splice(key, 1);
     }
 
     public get className() {
@@ -451,24 +526,35 @@
     }
 
     public get overlayTextWithDefault() {
-      if (this.overlayText) {
-        return this.overlayText;
+      if (!this.overlayText && this.allowMultiple) {
+        return 'Drop files to upload';
+      } else if (!this.overlayText && !this.allowMultiple) {
+        return 'Drop file to upload';
       } else {
-        return 'Polaris.DropZone.' + this.allowMultipleKey + '.overlayText' + this.typeSuffix;
+        return this.overlayText;
       }
     }
 
     public get errorOverlayTextWithDefault() {
-      if (this.errorOverlayText) {
-        return this.errorOverlayText;
+      if (!this.errorOverlayText) {
+        return 'File type is not valid';
       } else {
-        return 'Polaris.DropZone.errorOverlayText' + this.typeSuffix;
+        return this.errorOverlayText;
       }
     }
 
     public get context() {
       let type = this.type || 'file';
       return [this.disabled, focused, this.size, type, this.measuring, this.allowMultiple];
+    }
+
+    public get styleBasedOnSize() {
+      // if (this.size === 'small') {
+      //   return 'width: 50px; height: 50px;';
+      // } else if(this.size === 'medium') {
+      //   return 'width: 114px; height: 114px;';
+      // }
+      return '';
     }
   }
 </script>

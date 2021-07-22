@@ -270,8 +270,11 @@
 }
 
 .Polaris-DropZone__Container {
-  position: relative;
+  //position: relative;
   flex: 1 1;
+  max-height: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .Polaris-DropZone__Container::after {
@@ -316,10 +319,4 @@
 
 .Polaris-DropZone--sizeSmall .Polaris-DropZone__Overlay {
   padding: 0;
-}
-
-.Polaris-DropZone--focused:not(.Polaris-DropZone--isDisabled),
-.Polaris-DropZone__Container::after {
-  box-shadow: 0 0 0 0.2rem rgba(69, 143, 255, 1);
-  outline: 0.1rem solid transparent;
 }
