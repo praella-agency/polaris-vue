@@ -13,6 +13,9 @@
                         <slot />
                     </PFilterItemWrapper>
                 </div>
+                <div class="Polaris-Filters-ConnectedFilterControl__AuxiliaryContainer">
+                    <slot name="auxiliaryContainer" />
+                </div>
             </div>
             <div class="Polaris-Filters__TagsContainer">
                 <PTag v-for="(filter, key) in appliedFilters" :key="key" v-on="$listeners" removable :tag="filter"></PTag>
@@ -56,6 +59,8 @@ export default class PFilter extends Vue {
      * The remove callback is called with respective key
      */
     @Prop({type: Array, default: Array}) public appliedFilters!: AppliedFiltersInterface[];
+
+    public appliedFiltersCount = this.appliedFilters ? this.appliedFilters.length : 0;
 
     public get prefix() {
 

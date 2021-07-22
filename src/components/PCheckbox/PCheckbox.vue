@@ -124,7 +124,7 @@ export default class PCheckbox extends Vue {
          *
          * @property {Object} {check:true|false, value: `target value`}
          */
-        this.$emit('change', {checked: target.checked, value: target.value});
+        this.$emit('change', {checked: target.checked, value: target.value, label: this.label});
     }
 
     public onFocus() {
