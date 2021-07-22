@@ -117,7 +117,7 @@ export default class PPopover extends Vue {
 
   @Watch('active')
   public onValueChanged(value) {
-    if(value) {
+    if (value) {
       const popoverOverlay = document.getElementById(this.realId + 'Overlay') as HTMLElement;
       if (popoverOverlay) {
         const rootElement = document.body as HTMLElement;
@@ -126,7 +126,7 @@ export default class PPopover extends Vue {
     } else {
       const popoverOverlay = document.getElementById(this.realId + 'Overlay') as HTMLElement;
       if (popoverOverlay) {
-        const rootElement = this.$refs['container'] as HTMLElement;
+        const rootElement = this.$refs.container as HTMLElement;
         rootElement.append(popoverOverlay);
       }
     }

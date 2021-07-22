@@ -8,8 +8,8 @@ interface PBreadcrumbsProps {
   content?: any;
   url?: any;
   to?: any;
-  onAction?(): void;
   accessibilityLabel?: string;
+  onAction?(): void;
 }
 
 @Component({

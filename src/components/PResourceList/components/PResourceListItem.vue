@@ -82,60 +82,60 @@
 
 
 <script lang="ts">
-  import {Component, Vue, Prop} from 'vue-property-decorator';
-  import {classNames, variationName} from '@/utilities/css';
-  import {PCheckbox} from '@/components/PCheckbox';
-  import {PAvatar} from '@/components/PAvatar';
-  import {PPopover} from '@/components/PPopover';
-  import {PButton} from '@/components/PButton';
-  import {PButtonGroup} from '@/components/PButtonGroup';
-  import {PActionList} from '@/components/PActionList';
+import {Component, Vue, Prop} from 'vue-property-decorator';
+import {classNames, variationName} from '@/utilities/css';
+import {PCheckbox} from '@/components/PCheckbox';
+import {PAvatar} from '@/components/PAvatar';
+import {PPopover} from '@/components/PPopover';
+import {PButton} from '@/components/PButton';
+import {PButtonGroup} from '@/components/PButtonGroup';
+import {PActionList} from '@/components/PActionList';
 
-  import {Action} from '@/types';
+import {Action} from '@/types';
 
-  @Component({
-    components: {
-      PCheckbox, PAvatar, PButtonGroup, PButton, PPopover, PActionList
-    },
-  })
-  export default class PResourceListItem extends Vue {
+@Component({
+  components: {
+    PCheckbox, PAvatar, PButtonGroup, PButton, PPopover, PActionList,
+  },
+})
+export default class PResourceListItem extends Vue {
 
-    @Prop({type: Number, required: true}) public id!: number;
-    @Prop(String) public url!: string;
-    @Prop(String) public image!: string;
-    @Prop(String) public initials!: string;
-    @Prop({type: Boolean, default: false}) public checked!: boolean;
-    @Prop({type: Boolean, default: false}) public selectable!: boolean;
-    @Prop({type: Boolean, default: false}) public loading!: boolean;
-    @Prop({type: Boolean, default: true}) public persistActions!: boolean;
-    @Prop({type: [Array, String], default: null}) public shortcutActions!: Action;
+  @Prop({type: Number, required: true}) public id!: number;
+  @Prop(String) public url!: string;
+  @Prop(String) public image!: string;
+  @Prop(String) public initials!: string;
+  @Prop({type: Boolean, default: false}) public checked!: boolean;
+  @Prop({type: Boolean, default: false}) public selectable!: boolean;
+  @Prop({type: Boolean, default: false}) public loading!: boolean;
+  @Prop({type: Boolean, default: true}) public persistActions!: boolean;
+  @Prop({type: [Array, String], default: null}) public shortcutActions!: Action;
 
-    public actionMenuVisible = false;
+  public actionMenuVisible = false;
 
-    public get className() {
-      return classNames(
-        'Polaris-ResourceItem',
-        this.selectable && 'Polaris-ResourceItem--selectable',
-        this.persistActions && 'Polaris-ResourceItem--persistActions',
-      );
-    }
-
-    public get checkboxId() {
-
-      return 'ResourceListCheckBox--' + this.id;
-    }
-
-    public handleChange(event) {
-
-      this.$emit('change', this.id, event.checked);
-    }
-
-    public stopPropagation(event: MouseEvent) {
-      event.stopPropagation();
-    }
-
-    public handlePopoverClick() {
-      this.actionMenuVisible = !this.actionMenuVisible;
-    }
+  public get className() {
+    return classNames(
+      'Polaris-ResourceItem',
+      this.selectable && 'Polaris-ResourceItem--selectable',
+      this.persistActions && 'Polaris-ResourceItem--persistActions',
+    );
   }
+
+  public get checkboxId() {
+
+    return 'ResourceListCheckBox--' + this.id;
+  }
+
+  public handleChange(event) {
+
+    this.$emit('change', this.id, event.checked);
+  }
+
+  public stopPropagation(event: MouseEvent) {
+    event.stopPropagation();
+  }
+
+  public handlePopoverClick() {
+    this.actionMenuVisible = !this.actionMenuVisible;
+  }
+}
 </script>
