@@ -1,7 +1,7 @@
 import PPopover from './PPopover';
 import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';
-import PopoverMDX from "./PopoverMDX.mdx";
+import PopoverMDX from './PopoverMDX.mdx';
 
 export default {
     title: 'Overlays / Popover',
