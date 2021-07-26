@@ -28,21 +28,22 @@ MultiSelect.args = {
     options: [
         {
             label: 'Vue.js',
-            value: 'vue.js',
+            language: 'vue.js',
         },
         {
             label: 'Rails',
-            value: 'rails',
+            language: 'rails',
         },
         {
             label: 'Laravel',
-            value: 'laravel',
+            language: 'laravel',
         },
         {
             label: 'Phoenix',
-            value: 'phoenix',
+            language: 'phoenix',
             disabled: true
         },
     ],
+    textField: 'label',
 }
 

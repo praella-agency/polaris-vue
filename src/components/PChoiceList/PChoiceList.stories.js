@@ -28,15 +28,15 @@ const Template = (args, {argTypes}) => ({
 export const ChoiceList = Template.bind({});
 
 ChoiceList.args = {
-    choices: [
+    options: [
         {label: 'Hidden', value: 'hidden', disable: false, error: true},
         {label: 'Optional', value: 'optional', renderChildren: true, helpText: 'Reduces the number of fields required to check out. The billing address can still be edited.'},
         {label: 'Required', value: 'required', renderChildren: true},
     ],
-    choiceLabel: 'label',
-    choiceValue: 'value',
-    choiceDisabled: 'disable',
-    choiceHelpText: 'helpText',
-    choiceDescribedByError: 'error',
-    choiceRenderChildren: 'renderChildren'
+    textField: 'label',
+    valueField: 'value',
+    disabledField: 'disable',
+    helpTextField: 'helpText',
+    describedByErrorField: 'error',
+    renderChildrenField: 'renderChildren'
 }

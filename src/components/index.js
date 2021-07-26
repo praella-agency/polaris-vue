@@ -55,6 +55,7 @@ import { PEmptyState } from './PEmptyState';
 import { PFooterHelp } from './PFooterHelp';
 import { PDropZone } from './PDropZone';
 import PToast from './PToast/index';
+import { PChoiceList } from './PChoiceList';
 
 import '@/scss/main.scss';
 
@@ -115,6 +116,7 @@ const Components = {
   PEmptyState,
   PFooterHelp,
   PDropZone,
+  PChoiceList,
 };
 
 const PolarisVue = {

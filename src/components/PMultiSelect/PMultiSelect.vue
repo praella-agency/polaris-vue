@@ -22,7 +22,7 @@
                     :close-on-select="computedMultiple"
                     :clear-on-select="false"
                     :preserve-search="true"
-                    label="label"
+                    :label="textField"
                     @tag="addTag"
             >
                 <template slot="caret">
@@ -72,6 +72,26 @@ export default class PMultiSelect extends Vue {
     @Prop({required: true, default: []}) public options!: StrictOption[];
 
     /**
+     * Field name in the `options` array that should be used for the text label
+     */
+    @Prop({type: String, default: null}) public textField!: string;
+
+    /**
+     * Field name in the `options` array that should be used for the value
+     */
+    @Prop({type: String, default: null}) public valueField!: string;
+
+    /**
+     * Field name in the `options` array that should be used for the disabled state
+     */
+    @Prop({type: String, default: null}) public disabledField!: string;
+
+    /**
+     * Field name in the `options` array that should be used for the hidden state
+     */
+    @Prop({type: String, default: null}) public hiddenField!: string;
+
+    /**
      * Value for PMultiSelect.
      */
     @Prop({default: () => ([])}) public value!: any;
@@ -104,29 +124,38 @@ export default class PMultiSelect extends Vue {
 
     public get computedOptions() {
         const options: StrictOption[] = [];
-        if (this.placeholder) {
-            options.push({
-                label: this.placeholder,
-                value: '',
-                disabled: true,
-            });
-        }
+        // if (this.placeholder) {
+        //     options.push({
+        //         label: this.placeholder,
+        //         value: '',
+        //         disabled: true,
+        //         $isDisabled: true,
+        //     });
+        // }
         this.options.map((value) => {
+            console.log(value);
             if (typeof value === 'object') {
-                if (value.disabled) { value.$isDisabled = value.disabled; }
+                if (value.disabled) {
+                    value.$isDisabled = value.disabled;
+                }
                 options.push(value);
             } else {
-                options.push({label: value, value});
+                options.push({
+                    label: value,
+                    value
+                });
             }
         });
         return options;
     }
 
     public get computedValue() {
+        console.log('1');
         return this.selected;
     }
 
     public set computedValue(value) {
+        console.log('2 '+JSON.stringify(value));
         this.selected = value;
         /**
          * Callback when selection is changed
@@ -156,7 +185,7 @@ export default class PMultiSelect extends Vue {
         } else {
           this.selected = tag;
         }
-        this.options.push(tag);
+        // this.options.push(tag);
         this.$emit('change', this.selected);
     }
 

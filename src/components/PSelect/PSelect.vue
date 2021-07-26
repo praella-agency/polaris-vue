@@ -13,9 +13,18 @@
                     class="Polaris-Select__Input"
                     :disabled="disabled"
                     aria-invalid="false">
-                <option v-for="({value, label, disabled}) in computedOptions" :key="value" :value="value"
-                        :disabled="disabled">{{ label }}
+                <option
+                    v-for="(option, key) in options"
+                    :key="key"
+                    :value="option[valueField]"
+                    :disabled="option[disabledField]"
+                    :hidden="option[hiddenField]"
+                >
+                    {{ option[textField] }}
                 </option>
+<!--                <option v-for="({value, label, disabled}) in computedOptions" :key="value" :value="value"-->
+<!--                        :disabled="disabled">{{ label }}-->
+<!--                </option>-->
             </select>
             <div class="Polaris-Select__Content" aria-hidden="true" :aria-disabled="disabled">
                 <span v-if="inlineLabel" class="Polaris-Select__InlineLabel">{{inlineLabel}}</span>
@@ -99,6 +108,26 @@
          * List of Options or option to choose from.
          */
         @Prop({type: Array, default: []}) public options!: [];
+
+        /**
+         * Field name in the `options` array that should be used for the text label
+         */
+        @Prop({type: String, default: null}) public textField!: string;
+
+        /**
+         * Field name in the `options` array that should be used for the value
+         */
+        @Prop({type: String, default: null}) public valueField!: string;
+
+        /**
+         * Field name in the `options` array that should be used for the disabled state
+         */
+        @Prop({type: String, default: null}) public disabledField!: string;
+
+        /**
+         * Field name in the `options` array that should be used for the hidden state
+         */
+        @Prop({type: String, default: null}) public hiddenField!: string;
 
         /**
          * Value for form input.

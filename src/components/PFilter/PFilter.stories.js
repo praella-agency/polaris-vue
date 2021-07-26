@@ -6,6 +6,7 @@ import { PCard, PCardSection } from '../PCard';
 import { PStack, PStackItem } from '../PStack';
 import { PTextField } from '../PTextField';
 import { PCheckbox } from '../PCheckbox';
+import { PChoiceList } from '../PChoiceList';
 
 export default {
     title: 'Lists & Tables / Filter',
@@ -23,6 +24,7 @@ const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
         PFilter, PButton, PPopover, POptionList, PCard, PCardSection, PStack, PStackItem, PTextField, PCheckbox,
+        PChoiceList,
     },
     data() {
         return {
@@ -31,6 +33,7 @@ const Template = (args, {argTypes}) => ({
             status: [],
             taggedValue: '',
             appliedFilter: [],
+            accountStatus: [],
         };
     },
     template: `
@@ -49,29 +52,27 @@ const Template = (args, {argTypes}) => ({
                       slot="activator"
                       :disclosure="accountStatusPopover ? 'up' : 'down'"
                       @click.stop="toggleAccountStatus"
+                      :disabled="disabled"
               >
                   Account Status
               </PButton>
               <PCard slot="content" @change="updateStatusFilter" sectioned>
-                  <PStack vertical spacing="tight">
-                      <PStackItem>
-                          <PCheckbox id="enabled" label="Enabled" @change="handleTag" />
-                      </PStackItem>
-                      <PStackItem>
-                          <PCheckbox id="notInvited" label="Not Invited" @change="handleTag" />
-                      </PStackItem>
-                      <PStackItem>
-                          <PCheckbox id="invited" label="Invited" @change="handleTag" />
-                      </PStackItem>
-                      <PStackItem>
-                          <PCheckbox id="declined" label="Declined" @change="handleTag" />
-                      </PStackItem>
-                      <PStackItem>
-                          <PButton plain @click="removeTag">
-                              Clear
-                          </PButton>
-                      </PStackItem>
-                  </PStack>
+                  <PChoiceList
+                      title="Account Status"
+                      titleHidden
+                      :options="[
+                          {label: 'Enabled', value: 'enabled'},
+                          {label: 'Not invited', value: 'not invited'},
+                          {label: 'Invited', value: 'invited'},
+                          {label: 'Declined', value: 'declined'},
+                      ]"
+                      textField="label"
+                      valueField="value"
+                      allowMultiple
+                      :selected="accountStatus || []"
+                      @change="handleTag"
+                  >
+                  </PChoiceList>
               </PCard>
           </PPopover>
           <PPopover
@@ -83,6 +84,7 @@ const Template = (args, {argTypes}) => ({
                       slot="activator"
                       :disclosure="popoverActive ? 'up' : 'down'"
                       @click.stop="togglePopoverActive"
+                      :disabled="disabled"
               >
                   Status
               </PButton>
@@ -105,7 +107,7 @@ const Template = (args, {argTypes}) => ({
                   </PCardSection>
               </PCard>
           </PPopover>
-          <PButton>Submit</PButton>
+          <PButton :disabled="disabled">Submit</PButton>
           <template slot="auxiliaryContainer">
               <div style="padding-left: 8px;">
                   <PButton disabled>Save</PButton>
@@ -123,17 +125,21 @@ const Template = (args, {argTypes}) => ({
             alert("Updated");
         },
         handleTag(value) {
-            if (value.checked === true) {
-                this.taggedValue += value.label + ',';
+            // console.log(value)
+            if (value[0].length > 0) {
                 if(this.accountStatusPopover) {
-                    this.appliedFilter.push(
-                        { value: 'Tagged with ' + this.taggedValue, key: 'tag_' + this.taggedValue},
+                    let key = 'accountStatus';
+                    this.taggedValue += value[0].map((val) => `Customer ${val}`).join(', ');
+                    this.appliedFilters.splice(0, this.appliedFilters.length);
+                    return this.appliedFilter.push(
+                        { value: this.disambiguateLabel(key, value[0]),
+                            key: 'tag_' + this.taggedValue, remove: () => {}},
                     )
                 }
-            } else {
-                this.taggedValue = '';
             }
-            console.log(value);
+        },
+        disambiguateLabel(key, value) {
+            return value.map((val) => `Customer ${val}`).join(', ');
         },
         removeTag() {
             this.taggedValue = '';
@@ -152,8 +158,9 @@ const Template = (args, {argTypes}) => ({
 export const Filter = Template.bind({});
 
 Filter.args = {
-    resourceTitle: "Search",
+    resourceName: {singular: 'Customer', plural: 'Customers'},
     appliedFilters: [
         { value: 'Test', key: 'test'},
     ],
+    disabled: false
 }

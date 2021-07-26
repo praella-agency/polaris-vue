@@ -1,37 +1,37 @@
 <template>
-    <fieldset :class="className" :id="finalName" :aria-invalid="this.error !== null">
-        <legend class="Polaris-ChoiceList__Title" v-if="title">
-            {{ title }}
-        </legend>
-        <ul class="Polaris-ChoiceList__Choices">
-            <li v-for="(choice, key) in choices" :key="key">
-                <component
-                    :is="allowMultiple ? 'PCheckbox' : 'PRadioButton'"
-                    :name="allowMultiple ? (finalName + key) : finalName"
-                    :id="finalName + key"
-                    :label="choice[choiceLabel]"
-                    :value="choice[choiceValue]"
-                    :disabled="choice[choiceDisabled] || disabled"
-                    :checked="choiceIsSelected(choice, selected)"
-                    :helpText="choice[choiceHelpText]"
-                    :aria-describedby="error && choice[choiceDescribedByError] ? (finalName + key) : null"
-                    @change="handleChange"
-                />
-                <div :id="finalName + key"
-                     v-if="renderChildren[choice[choiceValue]]"
-                     class="Polaris-ChoiceList__ChoiceChildren">
-                    <slot />
-                </div>
-            </li>
-        </ul>
-        <div v-if="error" class="Polaris-ChoiceList__ChoiceError">
-            <PInlineError :message="error" :fieldID="finalName" />
+  <fieldset :class="className" :id="finalName" :aria-invalid="this.error !== null">
+    <legend class="Polaris-ChoiceList__Title" v-if="title">
+      {{ title }}
+    </legend>
+    <ul class="Polaris-ChoiceList__Choices">
+      <li v-for="(choice, key) in options" :key="key">
+        <component
+            :is="allowMultiple ? 'PCheckbox' : 'PRadioButton'"
+            :name="allowMultiple ? (finalName + key) : finalName"
+            :id="finalName + key"
+            :label="choice[textField]"
+            :value="choice[valueField]"
+            :disabled="choice[disabledField] || disabled"
+            :checked="choiceIsSelected(choice, selected)"
+            :helpText="choice[helpTextField]"
+            :aria-describedby="error && choice[describedByErrorField] ? (finalName + key) : null"
+            @change="handleChange"
+        />
+        <div :id="finalName + key"
+             v-if="renderChildren[choice[valueField]] && choice[renderChildrenField]"
+             class="Polaris-ChoiceList__ChoiceChildren">
+          <slot/>
         </div>
-    </fieldset>
+      </li>
+    </ul>
+    <div v-if="error" class="Polaris-ChoiceList__ChoiceError">
+      <PInlineError :message="error" :fieldID="finalName"/>
+    </div>
+  </fieldset>
 </template>
 
 <script lang="ts">
-  import {Vue, Component, Prop, Emit, Watch} from 'vue-property-decorator';
+  import {Vue, Component, Prop} from 'vue-property-decorator';
   import {classNames} from '@/utilities/css';
   import {PCheckbox} from '../PCheckbox';
   import {PRadioButton} from '../PRadioButton';
@@ -51,37 +51,37 @@
     /**
      * Collection of choices
      */
-    @Prop({type: Array, default: () => ([])}) public choices!: [];
+    @Prop({type: Array, default: () => ([])}) public options!: [];
 
     /**
-     * Label for the choice
+     * Field name in the `options` array that should be used for the text label
      */
-    @Prop({type: String, default: null}) public choiceLabel!: string;
+    @Prop({type: String, default: null}) public textField!: string;
 
     /**
-     * Value for the choice
+     * Field name in the `options` array that should be used for the value
      */
-    @Prop({type: String, default: null}) public choiceValue!: string;
+    @Prop({type: String, default: null}) public valueField!: string;
 
     /**
-     * Disable choice
+     * Field name in the `options` array that should be used for the disabled state
      */
-    @Prop({type: String, default: null}) public choiceDisabled!: string;
+    @Prop({type: String, default: null}) public disabledField!: string;
 
     /**
-     * Additional text to aid in use
+     * Field name in the `options` array that should be used for the help text
      */
-    @Prop({type: String, default: null}) public choiceHelpText!: string;
+    @Prop({type: String, default: null}) public helpTextField!: string;
 
     /**
-     * Indicates that the choice is aria-describedBy the error message
+     * Field name in the `options` array that should be used for the error message
      */
-    @Prop({type: String, default: null}) public choiceDescribedByError!: string;
+    @Prop({type: String, default: null}) public describedByErrorField!: string;
 
     /**
-     * Indicates that the choice is aria-describedBy the error message
+     * Field name in the `options` array that should be used for the enable child rendering
      */
-    @Prop({type: String, default: null}) public choiceRenderChildren!: string;
+    @Prop({type: String, default: null}) public renderChildrenField!: string;
 
     /**
      * Collection of selected choice
@@ -127,47 +127,58 @@
     }
 
     public choiceIsSelected(choice, selected: string[]) {
-      return selected.includes(choice[this.choiceValue]);
+      return selected.includes(choice[this.valueField]);
     }
 
     public handleChange(checked: boolean) {
-      for (let [key, choice] of Object.entries(this.choices)) {
-        if (checked && (choice[this.choiceValue] === checked['value'])) {
+      for (let [key, choice] of Object.entries(this.options)) {
+        if (checked && (choice[this.valueField] === checked['value'])) {
           this.$emit(
             'change',
-            [this.updateSelectedChoices(choice, checked, this.allowMultiple), this.name]
+            [this.updateSelectedChoices(choice, checked['checked'], this.selected, this.allowMultiple), this.name]
           );
         }
       }
-  }
+    }
 
     public updateSelectedChoices(
       choice,
       checked: boolean,
+      selected: string[],
       allowMultiple = false,
     ) {
-      if (checked['checked'] === true) {
-        this.$set(this.renderChildren, choice[this.choiceValue], true);
-        if (allowMultiple) {
-          if(this.selected.indexOf(choice[this.choiceValue]) === -1) {
-            return this.selected.push(choice[this.choiceValue]);
+      // if (checked) {
+      //   console.log(checked, selected, choice);
+      //   return allowMultiple ?
+      //     ((selected.indexOf(choice[this.valueField]) === -1) ?
+      //       selected.push(choice[this.valueField]) :
+      //       selected.splice(selected.indexOf(choice[this.valueField]), 1))
+      //     : [choice];
+      // }
+      if (checked) {
+          this.$set(this.renderChildren, choice[this.valueField], true);
+          if (allowMultiple) {
+              if(selected.indexOf(choice[this.valueField]) === -1) {
+                  selected.push(choice[this.valueField]);
+              }
+          } else {
+              selected.splice(0, this.selected.length);
+              selected.push(choice[this.valueField]);
           }
-        } else {
-          this.selected.splice(0, this.selected.length);
-          return this.selected.push(choice[this.choiceValue]);
-        }
-      } else {
-        this.$set(this.renderChildren, choice[this.choiceValue], false);
-        if (allowMultiple) {
-          if(this.selected.indexOf(choice[this.choiceValue]) > -1) {
-            return this.selected.splice(this.selected.indexOf(choice[this.choiceValue]), 1);
+      }
+      else {
+          this.$set(this.renderChildren, choice[this.valueField], false);
+          if (allowMultiple) {
+              if(selected.indexOf(choice[this.valueField]) > -1) {
+                  selected.splice(this.selected.indexOf(choice[this.valueField]), 1);
+              }
+          } else {
+              selected.splice(0, this.selected.length);
           }
-        } else {
-          return this.selected.splice(0, this.selected.length);
-        }
       }
 
-      return this.selected.filter((selectedChoice) => selectedChoice !== choice);
+      return selected;
+      // return selected.filter((selectedChoice) => selectedChoice !== choice);
     }
   }
 </script>
