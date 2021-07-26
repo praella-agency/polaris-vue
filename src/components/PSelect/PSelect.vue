@@ -9,7 +9,8 @@
             <select
                     :id="id"
                     :name="name"
-                    v-model="computedValue"
+                    :value="computedValue"
+                    @input="$emit('input', $event.target.value)"
                     class="Polaris-Select__Input"
                     :disabled="disabled"
                     aria-invalid="false">

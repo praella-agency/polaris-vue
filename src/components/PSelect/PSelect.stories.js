@@ -17,13 +17,13 @@ const Template = (args, { argTypes }) => ({
     },
     template: `
         <PSelect 
-            :value="selectedOption"
+            v-model="selectedOption"
             v-bind="$props"
-            @change="getSelectedOptionValue"
+            @input="getSelectedOptionValue"
         ></PSelect>`,
     methods: {
-        getSelectedOptionValue(value) {
-            this.selectedOption = value;
+        getSelectedOptionValue() {
+            alert('You have selected '+this.selectedOption);
         },
     },
 });

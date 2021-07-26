@@ -997,7 +997,7 @@
     max-width: 100%;
     align-items: center;
     min-height: 2.8rem;
-    padding: 0 0 0 .8rem;
+    padding: 0 .8rem;
     background-color: $tag-bgcolor;
     border-radius: $tag-border-radius;
     color: $tag-color;
@@ -2655,7 +2655,7 @@
     position: relative;
     display: flex;
     height: 5.6rem;
-    background-color: #F1F2F3;
+    background-color: rgb(255, 255, 255);
     &:after {
         content: "";
         position: absolute;
@@ -2663,6 +2663,19 @@
         width: 100%;
         border-bottom: 1px solid transparent;
     }
+}
+.Polaris-TopBar__LogoDisplayContainer{
+  display:flex;
+}
+
+.Polaris-TopBar__LogoDisplayControl{
+  display:none;
+}
+
+@media (min-width: 48.0625em){
+  .Polaris-TopBar__LogoDisplayControl {
+    display:flex;
+  }
 }
 
 .Polaris-TopBar__LogoContainer {

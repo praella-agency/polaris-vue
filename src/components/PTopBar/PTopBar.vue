@@ -11,9 +11,8 @@
     </PButton>
     <div :class="className">
       <PUnstyledLink
-          url="http://www.google.com"
+          url="javascript.void();"
           class="Polaris-TopBar__LogoLink"
-          style="width: 140px"
       >
         <PImage source="https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999"
                 alt="logo"
@@ -22,35 +21,39 @@
         />
       </PUnstyledLink>
     </div>
-    <PTextField id="Polaris-Input-Filter"  connected labelHidden showPrefix showClearButton placeholder="resourceTitle" >
-      <PIcon source="SearchMinor" slot="prefix"></PIcon>
-    </PTextField>
-    <PPopover
-        :active="popoverActive"
-        @close="popoverActive = !popoverActive"
-        full-width
-        preferredAlignment="right"
-    >
-      <PAvatar
-          slot="activator"
-          @click="popoverActive = !popoverActive"
-      />
-      <POptionList
-          slot="content"
-          :options="[
-                      {label: 'Active Little Long Content', value: 1},
-                      {label: 'In-Active', value: 0},
-                  ]"
-          :selected="status"
-          @change="updateStatusFilter"
-      ></POptionList>
-    </PPopover>
+    <div class="Polaris-TopBar__Contents">
+      <div class="Polaris-TopBar-SearchField" v-if="$slots.hasOwnProperty('searchField')">
+        <slot name="searchField"></slot>
+      </div>
+      <div class="Polaris-TopBar__SecondaryMenu" v-if="$slots.hasOwnProperty('secondaryMenu')">
+        <slot name="secondaryMenu"></slot>
+      </div>
+      <PPopover
+          :active="popoverActive"
+          @close="popoverActive = !popoverActive"
+          full-width
+          preferredAlignment="right"
+      >
+        <PAvatar
+            slot="activator"
+            @click.native="popoverActive = !popoverActive"
+        />
+        <POptionList
+            slot="content"
+            :options="[
+                        {label: 'Active Little Long Content', value: 1},
+                        {label: 'In-Active', value: 0},
+                    ]"
+            :selected="status"
+        ></POptionList>
+      </PPopover>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
+import { classNames } from '@/utilities/css';
 
 
 import { PIcon } from '@/components/PIcon';
@@ -76,6 +79,11 @@ export default class PTopBar extends Vue {
   public get className() {
     return classNames(
         'Polaris-TopBar__LogoContainer',
+        ( this.showNavigationToggle ||
+        !!this.$slots['searchField'] ||
+        !!this.$scopedSlots['searchField'] ) ?
+            'Polaris-TopBar__LogoDisplayControl':
+            'Polaris-TopBar__LogoDisplayContainer',
     );
   }
 
