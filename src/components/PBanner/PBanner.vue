@@ -16,15 +16,15 @@
         :source="colorAndIcon.icon"
         :color="colorAndIcon.color" />
     </div>
-    <div>
+    <div class="Polaris-Banner__ContentWrapper">
       <div v-if="title" class="Polaris-Banner__Heading">
         <PHeading element="p">{{ title }}</PHeading>
       </div>
       <div class="Polaris-Banner__Content">
         <!-- @slot Banner content -->
         <slot/>
-        <div v-if="action" class="Polaris-Banner__Actions">
-          <PButtonGroup v-if="Object.keys(this.action).length > 0">
+        <div v-if="Object.keys(action).length > 0" class="Polaris-Banner__Actions">
+          <PButtonGroup>
             <div class="Polaris-Banner__PrimaryAction">
               <PButtonsFrom :actions="action" :overrides="{ outline: true }"/>
             </div>

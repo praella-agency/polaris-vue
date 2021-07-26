@@ -1007,6 +1007,9 @@
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+    &.Polaris-Tag--removable {
+        padding-right: 0;
+    }
 }
 
 .Polaris-Tag.Polaris-Tag--disabled {

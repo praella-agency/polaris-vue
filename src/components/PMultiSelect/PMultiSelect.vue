@@ -27,9 +27,7 @@
             >
                 <template slot="caret">
                     <div class="multiselect__select">
-                        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13 8l-3-3-3 3h6zm-.1 4L10 14.9 7.1 12h5.8z" fill-rule="evenodd"/>
-                        </svg>
+                       <PIcon source="SelectMinor" />
                     </div>
                 </template>
             </multiselect>
@@ -39,7 +37,6 @@
 
 <script lang="ts">
 import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
-import {SelectMinor} from '@/assets/shopify-polaris-icons/index';
 import Multiselect from 'vue-multiselect';
 import {classNames} from '@/utilities/css';
 
@@ -55,13 +52,6 @@ interface StrictOption {
 
 @Component({
     components: {PIcon, Multiselect},
-    mixins: [
-        {
-            data() {
-                return {SelectMinor};
-            },
-        },
-    ],
 })
 
 export default class PMultiSelect extends Vue {

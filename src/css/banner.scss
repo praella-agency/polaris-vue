@@ -2,7 +2,6 @@
   position: relative;
   display: flex;
 }
-
 .Polaris-Banner--withinContentContainer {
   border-radius: $banner-within-container-border-radius;
   padding: .8rem 1.2rem;
@@ -206,6 +205,10 @@
     top: 2rem;
     position: absolute;
   }
+
+  .Polaris-Banner__ContentWrapper {
+    margin-top: -.2rem;
+  }
 }
 
 .Polaris-Banner--withinPage.Polaris-Banner--statusSuccess {
@@ -301,11 +304,10 @@
 }
 
 .Polaris-Banner--hasDismiss {
-  padding-right: 5.6rem;
+  padding-right: 4.2rem;
 }
 
 .Polaris-Banner__Heading {
-  padding-top: .2rem;
   word-break: break-word;
 }
 

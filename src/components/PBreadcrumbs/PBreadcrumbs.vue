@@ -8,6 +8,7 @@ interface PBreadcrumbsProps {
   content?: any;
   url?: any;
   to?: any;
+  accessibilityLabel?: string;
   onAction?(): void;
 }
 
@@ -32,6 +33,7 @@ export default class PBreadcrumbs extends Vue {
         }
 
         const { content } = breadcrumb;
+        const { onAction } = breadcrumb;
 
         const contentMarkup = this.$createElement('span', {
             class: 'Polaris-Breadcrumbs__ContentWrapper',
@@ -62,14 +64,22 @@ export default class PBreadcrumbs extends Vue {
                     key: content,
                     url: breadcrumb.url,
                     to: breadcrumb.to,
+                    ariaLabel: breadcrumb.accessibilityLabel,
+                  },
+                  nativeOn: {
+                    click: onAction ? onAction : () => {},
                   },
                 }, [contentMarkup])
             ) : (
                 this.$createElement('button', {
+                  class: breadcrumbClassNames,
                   attrs: {
                     key: content,
-                    onClick: breadcrumb.onAction,
                     type: 'button',
+                    ariaLabel: breadcrumb.accessibilityLabel,
+                  },
+                  on: {
+                    click: onAction ? onAction : () => {},
                   },
                 }, [contentMarkup])
             );

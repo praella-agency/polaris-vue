@@ -39,88 +39,88 @@
 </template>
 
 <script lang="ts">
-  import {Vue, Component, Prop} from 'vue-property-decorator';
-  import {PLabel} from '@/components/PLabel';
-  import {PButton} from '@/components/PButton';
-  import {PInlineError} from '@/components/PInlineError';
-  import {Action} from '@/types';
-  import {classNames} from '@/utilities/css';
+import {Vue, Component, Prop} from 'vue-property-decorator';
+import {PLabel} from '@/components/PLabel';
+import {PButton} from '@/components/PButton';
+import {PInlineError} from '@/components/PInlineError';
+import {Action} from '@/types';
+import {classNames} from '@/utilities/css';
 
-  @Component({
-    components: {
-      PLabel, PButton, PInlineError,
-    }
-  })
-  export default class PLabelled extends Vue {
-    /**
-     * A unique identifier for the label
-     */
-    @Prop({type: String, default: null}) public id!: string;
+@Component({
+  components: {
+    PLabel, PButton, PInlineError,
+  },
+})
+export default class PLabelled extends Vue {
+  /**
+   * A unique identifier for the label
+   */
+  @Prop({type: String, default: null}) public id!: string;
 
-    /**
-     * Text for the label
-     */
-    @Prop({type: String, default: null}) public label!: string;
+  /**
+   * Text for the label
+   */
+  @Prop({type: String, default: null}) public label!: string;
 
-    /**
-     * Error to display beneath the label
-     */
-    @Prop({type: Boolean, default: false}) public error?: boolean;
+  /**
+   * Error to display beneath the label
+   */
+  @Prop({type: Boolean, default: false}) public error?: boolean;
 
-    /**
-     * An action
-     */
-    @Prop({type: Function}) public action!: Action;
+  /**
+   * An action
+   */
+  @Prop({type: Function}) public action!: Action;
 
-    /**
-     * Additional hint text to display
-     */
-    @Prop({type: String, default: null}) public helpText!: string;
+  /**
+   * Additional hint text to display
+   */
+  @Prop({type: String, default: null}) public helpText!: string;
 
-    /**
-     * Visually hide the label
-     */
-    @Prop({type: Boolean, default: false}) public labelHidden!: boolean;
+  /**
+   * Visually hide the label
+   */
+  @Prop({type: Boolean, default: false}) public labelHidden!: boolean;
 
-    /**
-     * Visual required indicator for the label
-     */
-    @Prop({type: Boolean, default: false}) public requiredIndicator!: boolean;
+  /**
+   * Visual required indicator for the label
+   */
+  @Prop({type: Boolean, default: false}) public requiredIndicator!: boolean;
 
-    public get className() {
-      return classNames(
-        this.labelHidden && 'Polaris-Labelled--hidden',
-      );
-    }
-
-    public get labelClassName() {
-      return classNames(
-        'Polaris-Labelled__LabelWrapper'
-      );
-    }
-
-    public get actionClassName() {
-      return classNames(
-        'Polaris-Labelled__Action'
-      );
-    }
-
-    public get errorClass() {
-      return classNames(
-        'Polaris-Labelled__Error'
-      );
-    }
-
-    public get helpTextClassName() {
-      return classNames(
-        'Polaris-Labelled__HelpText'
-      );
-    }
-
-    public get helpTextID() {
-      return this.id + 'HelpText';
-    }
+  public get className() {
+    return classNames(
+      this.labelHidden && 'Polaris-Labelled--hidden',
+    );
   }
+
+  public get labelClassName() {
+    return classNames(
+      'Polaris-Labelled__LabelWrapper',
+    );
+  }
+
+  public get actionClassName() {
+    return classNames(
+      'Polaris-Labelled__Action',
+    );
+  }
+
+  public get errorClass() {
+    return classNames(
+      'Polaris-Labelled__Error',
+    );
+  }
+
+  public get helpTextClassName() {
+    return classNames(
+      'Polaris-Labelled__HelpText',
+    );
+  }
+
+  public get helpTextID() {
+    return this.id + 'HelpText';
+  }
+}
 </script>
 
 <style scoped>

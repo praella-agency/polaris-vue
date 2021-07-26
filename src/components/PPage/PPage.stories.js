@@ -121,7 +121,11 @@ Page.args = {
     breadcrumbs: [
         {
             content: 'Products',
-            to: '/new-page'
+            to: '/new-page',
+            ariaLabel: 'Hello',
+            onAction: () => {
+                console.log('Action 1 handled');
+            },
         }
     ],
 }

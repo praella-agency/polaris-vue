@@ -43,7 +43,7 @@
 
 
 <script lang="ts">
-import {Component, Vue, Prop, Ref} from 'vue-property-decorator';
+import {Component, Vue, Prop, Ref, Watch} from 'vue-property-decorator';
 import {classNames} from '@/utilities/css';
 import PPopoverOverlay from '@/components/PPopover/components/PPopoverOverlay.vue';
 
@@ -56,7 +56,7 @@ export default class PPopover extends Vue {
   /**
    * Id for the PPopover.
    */
-  @Prop({type: String, default: `PolarisPopover${new Date().getUTCMilliseconds()}`}) public id!: string;
+  @Prop({type: String, default: `PolarisPopover${new Date().getUTCMilliseconds()}${Math.floor(Math.random() * 1000)}`}) public id!: string;
 
   /**
    * Show or hide the PPopover.
@@ -115,6 +115,23 @@ export default class PPopover extends Vue {
 
   public isAppended: boolean = false;
 
+  @Watch('active')
+  public onValueChanged(value) {
+    if (value) {
+      const popoverOverlay = document.getElementById(this.realId + 'Overlay') as HTMLElement;
+      if (popoverOverlay) {
+        const rootElement = document.body as HTMLElement;
+        rootElement.append(popoverOverlay);
+      }
+    } else {
+      const popoverOverlay = document.getElementById(this.realId + 'Overlay') as HTMLElement;
+      if (popoverOverlay) {
+        const rootElement = this.$refs.container as HTMLElement;
+        rootElement.append(popoverOverlay);
+      }
+    }
+  }
+
   public get className() {
     return classNames(
         'Polaris-Popover',
@@ -135,13 +152,7 @@ export default class PPopover extends Vue {
     if (this.container.firstElementChild !== null) {
       this.container.firstElementChild.id = this.activatorId;
     }
-    const popoverOverlay = document.getElementById(this.realId + 'Overlay') as HTMLElement;
-    const rootElemId = this.$root.$el.id;
-    if (rootElemId && popoverOverlay) {
-      const rootElement = document.getElementById(rootElemId) as HTMLElement;
-      rootElement.append(popoverOverlay);
-      this.isAppended = true;
-    }
+
     window.addEventListener('click', this.handlePageClick);
     window.addEventListener('touchstart', this.handlePageClick);
     document.addEventListener('keyup', this.handleKeyPress);

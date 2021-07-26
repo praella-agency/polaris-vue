@@ -52,14 +52,12 @@
         @Prop(String) public label!: string;
         @Prop(Boolean) public hasNext!: boolean;
         @Prop(Boolean) public hasPrevious!: boolean;
-        @Prop(Boolean) public plain!: boolean;
         @Prop({type: Function, default: null}) public onPrevious!: void;
         @Prop({type: Function, default: null}) public onNext!: void;
 
         public get className() {
             return classNames(
                 'Polaris-Pagination',
-                this.plain && 'Polaris-Pagination--plain',
             );
         }
 
