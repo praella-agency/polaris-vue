@@ -242,8 +242,7 @@ export default class PDropZone extends Vue {
    */
   @Prop({
     type: Function,
-    default: (files: File[], acceptedFiles: File[], rejectedFiles: File[]): void => {
-    },
+    default: (files: File[], acceptedFiles: File[], rejectedFiles: File[]): void => {},
   }) public handleOnDrop!: any;
 
   /**
@@ -251,8 +250,7 @@ export default class PDropZone extends Vue {
    */
   @Prop({
     type: Function,
-    default: (acceptedFiles: File[]): void => {
-    },
+    default: (acceptedFiles: File[]): void => {},
   }) public handleOnDropAccepted!: any;
 
   /**
@@ -260,8 +258,7 @@ export default class PDropZone extends Vue {
    */
   @Prop({
     type: Function,
-    default: (rejectedFiles: File[]): void => {
-    },
+    default: (rejectedFiles: File[]): void => {},
   }) public handleOnDropRejected!: any;
 
   /**
@@ -269,8 +266,7 @@ export default class PDropZone extends Vue {
    */
   @Prop({
     type: Function,
-    default: (): void => {
-    },
+    default: (): void => {},
   }) public handleOnDragOver!: any;
 
   /**
@@ -278,8 +274,7 @@ export default class PDropZone extends Vue {
    */
   @Prop({
     type: Function,
-    default: (): void => {
-    },
+    default: (): void => {},
   }) public handleOnDragEnter!: any;
 
   /**
@@ -287,8 +282,7 @@ export default class PDropZone extends Vue {
    */
   @Prop({
     type: Function,
-    default: (): void => {
-    },
+    default: (): void => {},
   }) public handleOnDragLeave!: any;
 
   /**
@@ -296,8 +290,7 @@ export default class PDropZone extends Vue {
    */
   @Prop({
     type: Function,
-    default: (): void => {
-    },
+    default: (): void => {},
   }) public handleOnFileDialogClose!: any;
 
   /**
