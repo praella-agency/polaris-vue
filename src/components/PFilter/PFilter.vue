@@ -191,7 +191,7 @@
 
     public mounted() {
       if (this.resourceTitle != null) {
-        console.error('Error:- Resource Title will be deprecated in version 3.0.0, use resourceName instead.');
+        console.error('Deprecation Notice: `resourceTitle` will be removed in version 3.0.0, use `resourceName` instead.');
       }
     }
   }

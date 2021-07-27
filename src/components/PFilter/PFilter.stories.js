@@ -32,7 +32,9 @@ const Template = (args, {argTypes}) => ({
             accountStatusPopover: false,
             status: [],
             taggedValue: '',
-            appliedFilter: [],
+            appliedFilter: [
+                { value: 'Test', key: 'test'},
+            ],
             accountStatus: [],
         };
     },
@@ -125,14 +127,14 @@ const Template = (args, {argTypes}) => ({
             alert("Updated");
         },
         handleTag(value) {
-            // console.log(value)
-            if (value[0].length > 0) {
+            this.accountStatus = value;
+            if (value.length > 0) {
                 if(this.accountStatusPopover) {
                     let key = 'accountStatus';
-                    this.taggedValue += value[0].map((val) => `Customer ${val}`).join(', ');
-                    this.appliedFilters.splice(0, this.appliedFilters.length);
+                    this.taggedValue += value.map((val) => `Customer ${val}`).join(', ');
+                    this.appliedFilter.splice(0, this.appliedFilter.length);
                     return this.appliedFilter.push(
-                        { value: this.disambiguateLabel(key, value[0]),
+                        { value: this.disambiguateLabel(key, value),
                             key: 'tag_' + this.taggedValue, remove: () => {}},
                     )
                 }
@@ -159,8 +161,5 @@ export const Filter = Template.bind({});
 
 Filter.args = {
     resourceName: {singular: 'Customer', plural: 'Customers'},
-    appliedFilters: [
-        { value: 'Test', key: 'test'},
-    ],
     disabled: false
 }

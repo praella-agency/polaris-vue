@@ -10,21 +10,22 @@ const Template = (args, {argTypes}) => ({
     components: {
         PMultiSelect,
     },
-    template:`
+    data() {
+        return {
+            selectedValue: null
+        }
+    },
+    template: `
       <PMultiSelect
           v-bind="$props"
-          @change="getSelectedOptionsValue"
+          v-model="selectedValue"
       />`,
-    methods: {
-        getSelectedOptionsValue(value) {
-            console.log(value);
-        },
-    },
 });
 
 export const MultiSelect = Template.bind({});
 
 MultiSelect.args = {
+    placeholder: 'Select',
     options: [
         {
             label: 'Vue.js',
@@ -37,6 +38,7 @@ MultiSelect.args = {
         {
             label: 'Laravel',
             language: 'laravel',
+            hidden: true,
         },
         {
             label: 'Phoenix',
@@ -44,6 +46,8 @@ MultiSelect.args = {
             disabled: true
         },
     ],
+    label: 'Sort by',
     textField: 'label',
+    valueField: 'language'
 }
 

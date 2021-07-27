@@ -1,4 +1,5 @@
 import PSelect from './PSelect';
+import {PBadge} from "../PBadge";
 
 export default {
     title: 'Forms / Select',
@@ -8,24 +9,22 @@ export default {
 const Template = (args, { argTypes }) => ({
     props: Object.keys(argTypes),
     components: {
-        PSelect,
+        PSelect, PBadge
     },
     data() {
         return {
-            selectedOption: '',
+            selectedOption: null,
         };
     },
     template: `
-        <PSelect 
-            :value="selectedOption"
-            v-bind="$props"
-            @change="getSelectedOptionValue"
-        ></PSelect>`,
-    methods: {
-        getSelectedOptionValue(value) {
-            this.selectedOption = value;
-        },
-    },
+        <div>
+          <PSelect
+              v-model="selectedOption"
+              v-bind="$props"
+          ></PSelect>
+          <br />
+          <p v-if="selectedOption">Selected Value: <PBadge>{{selectedOption}}</PBadge></p>
+        </div>`,
 });
 
 export const Select = Template.bind({});
@@ -40,6 +39,7 @@ Select.args = {
         {label: 'Last name A–Z', value: 'lastNameAlpha', hidden: true},
         {label: 'Last name Z–A', value: 'lastNameReverseAlpha'},
     ],
+    placeholder: "Select",
     textField: 'label',
     valueField: 'value',
     disabledField: 'disabled',
