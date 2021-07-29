@@ -1,6 +1,8 @@
-<template @change="handleChange">
-  <slot name="root" />
-  <slot />
+<template>
+  <div @change="handleChange">
+    <slot name="root" />
+    <slot />
+  </div>
 </template>
 
 <script lang="ts">

@@ -15,7 +15,16 @@
     passive?: boolean;
   }
 
+  @Component
   export default class PEventListener extends Vue {
+    @Prop({type: String, required: true}) public event!: string;
+
+    @Prop({type: Boolean, default: false}) public capture!: boolean;
+
+    @Prop({type: Function, default: (event: Event):void => {}}) public handler!: any;
+
+    @Prop({type: Boolean, default: false}) public passive!: boolean;
+
     public mounted() {
       this.attachListener();
     }

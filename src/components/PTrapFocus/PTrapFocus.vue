@@ -4,9 +4,8 @@
       <div ref="focusTrapWrapper"></div>
     </template>
     <div ref="focusTrapWrapper">
-      <PEventListener event="focusin" :handler="handleFocusIn">
-
-      </PEventListener>
+      <PEventListener event="focusin" :handler="handleFocusIn" />
+      <slot />
     </div>
   </PFocus>
 </template>
@@ -15,6 +14,7 @@
     import {Vue, Component, Prop} from 'vue-property-decorator';
     import {PFocus} from '../PFocus';
     import {PEventListener} from '../PEventListener';
+    import { useFocusManager, focusFirstFocusableNode } from '@/components/PTrapFocus/context';
 
     @Component({
       components: {
@@ -22,9 +22,10 @@
       }
     })
     export default class PTrapFocus extends Vue {
-      @Prop({type: Boolean, default: false}) public trapping!: boolean;
+      @Prop({type: Boolean, default: true}) public trapping!: boolean;
 
       public disableFocus = true;
+      public canSafelyFocus = useFocusManager(this.trapping);
 
       public handleFocusIn (event: FocusEvent) {
         const containerContentsHaveFocus =
@@ -40,12 +41,12 @@
         }
 
         if (
-          canSafelyFocus &&
+          this.canSafelyFocus &&
           event.target instanceof HTMLElement &&
           this.$refs.focusTrapWrapper !== event.target &&
           !(this.$refs.focusTrapWrapper as HTMLDivElement).contains(event.target)
         ) {
-          this.focusFirstFocusableNode(this.$refs.focusTrapWrapper);
+          focusFirstFocusableNode(this.$refs.focusTrapWrapper as HTMLDivElement);
         }
       }
     }

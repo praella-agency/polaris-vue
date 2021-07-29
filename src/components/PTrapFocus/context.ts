@@ -41,7 +41,7 @@ export interface FocusManagerContextType {
   remove: (id: string) => boolean;
 }
 
-export function useFocusManager({trapping}: Options) {
+export function useFocusManager(trapping) {
   const focusManager = undefined as unknown as FocusManagerContextType;
   const id = `TrapFocus${new Date().getUTCMilliseconds()}`;
 
@@ -55,8 +55,15 @@ export function useFocusManager({trapping}: Options) {
     remove: removeFocusItem,
   } = focusManager;
   const canSafelyFocus = trapFocusList[0] === id;
-  //
+
   const value = canSafelyFocus;
+  if (addFocusItem && id && removeFocusItem && trapping) {
+    if (!trapping) {
+      return;
+    }
+    addFocusItem(id);
+    return removeFocusItem(id);
+  }
   //
   // useEffect(() => {
   //   if (!trapping) return;

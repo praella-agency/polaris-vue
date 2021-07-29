@@ -1,94 +1,95 @@
 .Polaris-Icon {
-	display: block;
-	height: 2rem;
-	width: 2rem;
-	max-height: 100%;
-	max-width: 100%;
-	margin: auto;
+  display: block;
+  height: 2rem;
+  width: 2rem;
+  max-height: 100%;
+  max-width: 100%;
+  margin: auto;
 }
 
 .Polaris-Icon--hasBackdrop {
-	position: relative;
-	display: flex;
-	align-items: center;
-	margin: 0.4rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0.4rem;
 }
 
 .Polaris-Icon--hasBackdrop::before {
-	content: '';
-	position: absolute;
-	top: -0.4rem;
-	bottom: -0.4rem;
-	left: -0.4rem;
-	right: -0.4rem;
-	border-radius: 50%;
+  content: '';
+  position: absolute;
+  top: -0.4rem;
+  bottom: -0.4rem;
+  left: -0.4rem;
+  right: -0.4rem;
+  border-radius: 50%;
 }
 
 .Polaris-Icon--applyColor {
-	color: rgba(255, 255, 255, 1);
+  color: $icon-svg-color-apply-color;
 }
 
 .Polaris-Icon--colorBase svg {
-	fill: rgba(92, 95, 98, 1);
+  fill: $icon-svg-color-base;
 }
 
 .Polaris-Icon--colorBase::before {
-	background-color: rgba(228, 229, 231, 1);
+  background-color: $icon-color-base-before;
 }
 
 .Polaris-Icon--colorSubdued svg {
-	fill: rgba(140, 145, 150, 1);
+  fill: $icon-svg-color-subdued;
 }
 
 .Polaris-Icon--colorCritical svg {
-	fill: rgba(215, 44, 13, 1);
+  fill: $icon-svg-color-critical;
 }
 
 .Polaris-Icon--colorCritical::before {
-	background-color: rgba(254, 211, 209, 1);
+  background-color: $icon-color-critical-before;
 }
 
 .Polaris-Icon--colorInteractive svg {
-	fill:rgba(44, 110, 203, 1);
+  fill: $icon-svg-color-interactive;
 }
 
 .Polaris-Icon--colorWarning svg {
-	fill: rgba(185, 137, 0, 1);
+  fill: $icon-svg-color-warning;
 }
 
 .Polaris-Icon--colorWarning::before {
-	background-color: rgba(255, 215, 157, 1);
+  background-color: $icon-color-warning-before;
 }
 
 .Polaris-Icon--colorHighlight svg {
-	fill: rgba(0, 160, 172, 1);
+  fill: $icon-svg-color-highlight;
 }
 
 .Polaris-Icon--colorHighlight::before {
-	background-color: rgba(164, 232, 242, 1);
+  background-color: $icon-color-highlight-before;
 }
 
 .Polaris-Icon--colorSuccess svg {
-	fill: rgba(0, 127, 95, 1);
+  fill: $icon-svg-color-success;
 }
 
 .Polaris-Icon--colorSuccess::before {
-	background-color: rgba(174, 233, 209, 1);
+  background-color: $icon-color-success-before;
 }
 
 .Polaris-Icon--colorPrimary svg {
-	fill: rgba(0, 128, 96, 1);
+  fill: $icon-svg-color-primary;
 }
 
 .Polaris-Icon__Img,
 .Polaris-Icon__Svg {
-	position: relative;
-	display: block;
-	width: 100%;
-	max-width: 100%;
-	max-height: 100%;
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
+
 .Polaris-Icon__Placeholder {
-	padding-bottom: 100%;
-	background: currentColor;
+  padding-bottom: 100%;
+  background: currentColor;
 }
