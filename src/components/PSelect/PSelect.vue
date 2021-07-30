@@ -90,22 +90,22 @@ export default class PSelect extends Vue {
   /**
    * Field name in the `options` array that should be used for the text label
    */
-  @Prop({type: String, default: null}) public textField!: string;
+  @Prop({type: String, default: 'label'}) public textField!: string;
 
   /**
    * Field name in the `options` array that should be used for the value
    */
-  @Prop({type: String, default: null}) public valueField!: string;
+  @Prop({type: String, default: 'value'}) public valueField!: string;
 
   /**
    * Field name in the `options` array that should be used for the disabled state
    */
-  @Prop({type: String, default: null}) public disabledField!: string;
+  @Prop({type: String, default: 'disabled'}) public disabledField!: string;
 
   /**
    * Field name in the `options` array that should be used for the hidden state
    */
-  @Prop({type: String, default: null}) public hiddenField!: string;
+  @Prop({type: String, default: 'hidden'}) public hiddenField!: string;
 
   /**
    * Value for form input.

@@ -43,7 +43,7 @@ $body-media-fontsize: 1.4rem;
 
 /* button variable */
 
-$btn-border-radius: 0.4rem; 
+$btn-border-radius: 0.4rem;
 
 $btn-content-fontsize: 1.5rem;
 $btn-content-fontweight: 500;
@@ -1401,6 +1401,26 @@ $navigation-rolluptoggle-hover-color: $theme-primary-color;
 $navigation-rolluptoggle-hover-svg-fill: $theme-primary-color;
 
 $navigation-message-color: $theme-primary-hover-color;
+
+$navigation-keyfocused-background: rgba(241, 242, 243, 1);
+$navigation-keyfocused-color: rgba(32, 34, 35, 1);
+
+$navigation-p-focused: rgba(69, 143, 255, 1);
+$navigation-p-ease: cubic-bezier(0.4, 0.22, 0.28, 1);
+$navigation-p-divider: rgba(225, 227, 229, 1);
+$navigation-p-background-pressed: rgba(237, 238, 239, 1);
+$navigation-p-text: rgba(32, 34, 35, 1);
+$navigation-p-text-disabled: rgba(140, 145, 150, 1);
+$navigation-p-text-subdued: rgba(109, 113, 117, 1);
+$navigation-p-text-primary: rgba(0, 123, 92, 1);
+$navigation-p-text-primary-hovered: rgba(0, 108, 80, 1);
+$navigation-p-icon: rgba(92, 95, 98, 1);
+$navigation-p-icon-hovered: rgba(26, 28, 29, 1);
+$navigation-p-icon-pressed: rgba(68, 71, 74, 1);
+$navigation-p-action-primary: rgba(0, 128, 96, 1);
+$navigation-p-background: rgba(246, 246, 247, 1);
+$navigation-p-background-hovered: rgba(241, 242, 243, 1);
+
 
 /* Tooltip */
 
