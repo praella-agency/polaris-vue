@@ -21,10 +21,16 @@ const Template = (args, { argTypes }) => ({
           <PSelect
               v-model="selectedOption"
               v-bind="$props"
+              @change="changeEvent"
           ></PSelect>
           <br />
           <p v-if="selectedOption">Selected Value: <PBadge>{{selectedOption}}</PBadge></p>
         </div>`,
+    methods: {
+        changeEvent(value) {
+            console.log('Change Event: ', typeof value, value);
+        },
+    }
 });
 
 export const Select = Template.bind({});
@@ -40,8 +46,4 @@ Select.args = {
         {label: 'Last name Z–A', value: 'lastNameReverseAlpha'},
     ],
     placeholder: "Select",
-    textField: 'label',
-    valueField: 'value',
-    disabledField: 'disabled',
-    hiddenField: 'hidden',
 }
