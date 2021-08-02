@@ -9,12 +9,10 @@
       <select
           :id="id"
           :name="name"
-          :value="computedValue"
-          @input="$emit('input', $event.target.value)"
+          v-model="computedValue"
           class="Polaris-Select__Input"
           :disabled="disabled"
           aria-invalid="false"
-          @change="$emit('change', $event.target.value)"
       >
         <option
             v-for="(option, key) in computedOptions"
@@ -156,15 +154,16 @@
     public get computedValue() {
       return this.selected;
     }
-    //
-    // public set computedValue(value: string | number) {
-    //   this.selected = value;
-    //   /**
-    //    * Callback when selection is changed
-    //    * @property {event}
-    //    */
-    //   this.$emit('change', value);
-    // }
+
+    public set computedValue(value: string | number) {
+      this.selected = value;
+      /**
+       * Callback when selection is changed
+       * @property {event}
+       */
+      this.$emit('change', value);
+      this.$emit('input', value);
+    }
 
     public get selectedOption() {
       let selectedOption = this.computedOptions.find((option) => this.computedValue === option[this.valueField]);
