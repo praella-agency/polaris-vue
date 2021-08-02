@@ -1,4 +1,4 @@
-import PDatePicker from "./PDatePicker";
+import PDatePicker from './PDatePicker';
 
 export default {
     title: 'Forms / Date Picker',
@@ -17,9 +17,9 @@ export default {
             },
         },
         label: {
-           control: {
-               type: 'text',
-           },
+            control: {
+                type: 'text',
+            },
         },
     },
 }
@@ -29,8 +29,8 @@ const Template = (args, {argTypes}) => ({
     components: {
         PDatePicker
     },
-    template:`
-      <PDatePicker 
+    template: `
+      <PDatePicker
           v-bind="$props"
       ></PDatePicker>`,
 });
