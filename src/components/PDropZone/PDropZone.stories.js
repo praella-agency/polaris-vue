@@ -143,6 +143,7 @@ export const DropZone = Template.bind({});
 
 DropZone.args = {
     validImageTypes: ['image/gif', 'image/jpeg', 'image/png'],
+    type:"image"
 }
 
 const Template1 = (args, {argTypes}) => ({

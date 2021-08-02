@@ -5,7 +5,7 @@
             :id="id"
             :accept="accept"
             :disabled="disabled"
-            :type="type"
+            type="file"
             :multiple="multiple"
             autocomplete="off"
             @change="$emit('change', $event)"
@@ -13,7 +13,8 @@
             @blur="$emit('blur', $event)"
             :openFileDialog="openFileDialog"
             :onFileDialogClose="onFileDialogClose"
-        >
+        />
+        {{type}}
     </div>
 </template>
 

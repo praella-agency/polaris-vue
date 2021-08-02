@@ -66,10 +66,13 @@
                 <div
                         class="Polaris-DropZone__Container"
                 >
-                    <PFileUpload v-if="!files.length"
-                                 :disabled="disabled"
-                                 :variableHeight="variableHeight"
-                                 :size="size"
+                    <PFileUpload
+                        v-if="!files.length"
+                        :disabled="disabled"
+                        :variableHeight="variableHeight"
+                        :size="size"
+                        :actionTitle="actionTitle"
+                        :actionHint="actionHint"
                     />
                     <!-- @slot Preview uploaded files -->
                     <slot name="uploadFiles" v-if="uploadedFiles && files.length > 0">
@@ -314,6 +317,22 @@ export default class PDropZone extends Vue {
    * Valid Image Types to preview images
    */
   @Prop({type: [Array, String], default: null}) public validImageTypes!: [];
+
+  /**
+   * Set the actionTitle
+   */
+  @Prop({
+      type: String,
+      default: `Add files`,
+  }) public actionTitle!: string;
+
+  /**
+   * Set the actionHint
+   */
+  @Prop({
+      type: String,
+      default: `or drop files to upload`,
+  }) public actionHint!: string;
 
   @Ref() public node!: HTMLDivElement;
 
