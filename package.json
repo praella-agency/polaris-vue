@@ -18,7 +18,7 @@
     "component library"
   ],
   "license": "MIT",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
