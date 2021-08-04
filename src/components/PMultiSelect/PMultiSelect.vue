@@ -24,6 +24,7 @@
           :preserve-search="true"
           :label="textField"
           @tag="addTag"
+          @search-change="(query) => {$emit('searchChange', query)}"
       >
         <template slot="caret">
           <div class="multiselect__select">
