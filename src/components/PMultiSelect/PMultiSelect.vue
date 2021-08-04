@@ -34,7 +34,7 @@
         <template v-slot:selection="{values, search, remove, isOpen}">
           <div class="multiselect__tags-wrap" v-show="values && values.length > 0">
             <template v-for="(option, index) of values" @mousedown.prevent>
-                <PTag :tag='{"value":option[textField],"key":option[valueField]}' removable @remove-tag="remove(option)"/>
+                <PTag :tag='{"value":option[textField], "key":option[valueField]}' removable @remove-tag="remove(option)"/>
             </template>
           </div>
           <template slot="limit"></template>

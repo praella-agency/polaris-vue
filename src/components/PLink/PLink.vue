@@ -42,10 +42,10 @@
         @Prop({type: String, default: null}) public url!: string;
 
         /**
-         * The router link.
-         * @values true | false
+         * Set to for router link
+         * @values Internal route link
          */
-        @Prop({type: String, default: null}) public to!: string;
+        @Prop({type: [String, Object], default: null}) public to!: string | object;
 
         /**
          * Makes the link open in a new tab.

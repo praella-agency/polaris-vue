@@ -16,7 +16,7 @@ export default class PUnstyledLink extends Vue {
    * Set to for router link
    * @values Internal route link
    */
-  @Prop({type: String, default: null}) public to!: string;
+  @Prop({type: [String, Object], default: null}) public to!: string | object;
   /**
    * Set url for URL
    * @values Any external URL

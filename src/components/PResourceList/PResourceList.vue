@@ -1,7 +1,12 @@
 <template>
     <div :class="className">
         <div class="Polaris-ResourceList__FiltersWrapper" v-if="hideFilters">
-            <PFilter v-if="$slots.hasOwnProperty('filter')" v-bind="$attrs" :resourceTitle="resourceTitle" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
+            <PFilter
+                v-if="$slots.hasOwnProperty('filter')"
+                v-bind="$attrs"
+                :resourceName="resourceName"
+                @remove-tag="onRemoveFilter"
+                @input="onFilterInputChanged">
                 <!-- @slot Filter content -->
                 <slot name="filter"/>
             </PFilter>
@@ -9,6 +14,8 @@
         <div ref="PResourceListHeader" class="Polaris-ResourceList__HeaderOuterWrapper" v-if="showHeader">
             <PResourceListHeader
                     v-bind="$attrs"
+                    :promotedBulkActions="promotedBulkActions"
+                    :bulkActions="bulkActions"
                     :sortOptions="sortOptions"
                     :selectable="selectable"
                     :selectedItems="computedValue.selected"
@@ -59,6 +66,11 @@ interface SortOptionsInterface {
   label: string;
   /** Option will be visible, but not selectable */
   disabled?: boolean;
+}
+
+interface BulkActionsInterface {
+    content: string;
+    onAction: void;
 }
 
 @Component({
@@ -120,6 +132,16 @@ export default class PResourceList extends Vue {
     */
     @Prop({type: [Array, String], default: null}) public sortOptions!: SortOptionsInterface[];
 
+    /**
+     * Bulk actions that will be given more prominence
+     */
+    @Prop([Object, Array]) public promotedBulkActions!: [] | {};
+
+    /**
+     * Actions available on the currently selected items
+     */
+    @Prop(Array) public bulkActions!: BulkActionsInterface[];
+
     public selectedItems = this.selectable && this.selected ? this.selected : [];
     public selectedMore: boolean = false;
     public selectedAll: boolean = false;
@@ -127,7 +149,6 @@ export default class PResourceList extends Vue {
     public itemsExist = this.$slots.default;
 
     public showEmptyState = this.$slots.emptyState && !this.itemsExist && !this.loading;
-    public showEmptySearchState = !this.showEmptyState && !this.itemsExist && this.loading;
 
     public topPadding = 8;
 
@@ -135,14 +156,14 @@ export default class PResourceList extends Vue {
       let loadingPosition = 0;
 
       if (typeof window !== 'undefined' && this.$refs.hasOwnProperty('PResourceListHeader')) {
-        const overlay = (this.$refs.PResourceListHeader as Element).getBoundingClientRect();
+        const overlay = (this.$refs.PResourceListHeader as HTMLDivElement).getBoundingClientRect();
         const viewportHeight = Math.max(document.documentElement ?
             document.documentElement.clientHeight : 0, window.innerHeight || 0);
         const overflow = viewportHeight - overlay.height;
         const spinnerHeight = 45;
         loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
             (viewportHeight - overlay.top - spinnerHeight) / 2;
-        loadingPosition = loadingPosition + (this.$refs.PResourceListHeader as Element).getBoundingClientRect().height;
+        loadingPosition = loadingPosition + (this.$refs.PResourceListHeader as HTMLDivElement).getBoundingClientRect().height;
         this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
       }
     }
@@ -200,6 +221,10 @@ export default class PResourceList extends Vue {
          * @property {Array} selectedItems
          */
         this.$emit('change', items);
+    }
+
+    public get showEmptySearchState() {
+        return !this.showEmptyState && this.itemsExist && this.loading;
     }
 
     public onToggledAll(checked) {

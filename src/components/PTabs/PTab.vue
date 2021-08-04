@@ -28,7 +28,7 @@ export default class PTab extends Vue {
   @Prop(String) public id!: string;
   @Prop(Boolean) public focused!: boolean;
   @Prop(Boolean) public selected!: boolean;
-  @Prop(String) public to!: string;
+  @Prop([String, Object]) public to!: string | object;
 
   public tabIndex: number = -1;
   public mounted() {

@@ -39,7 +39,7 @@ export default class PFooterHelp extends Vue {
   /**
    * Set to for router link
    */
-  @Prop({type: String, default: null}) public to!: string;
+  @Prop([String, Object]) public to!: string | object;
 
   /**
    * Makes the link open in a new tab.
