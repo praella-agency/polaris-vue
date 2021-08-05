@@ -21,10 +21,10 @@
                 <!-- @slot Actions Content -->
                 <slot name="actions">
                   <PStack spacing="tight" distribution="center" alignment="center">
-                    <PStackItem v-if="primaryAction">
+                    <PStackItem v-if="Object.keys(primaryAction).length > 0">
                       <PButton primary @click="primaryAction.onAction()">{{ primaryAction.content }}</PButton>
                     </PStackItem>
-                    <PStackItem v-if="secondaryAction">
+                    <PStackItem v-if="Object.keys(secondaryAction).length > 0">
                       <PButton @click="secondaryAction.onAction()">{{ secondaryAction.content }}</PButton>
                     </PStackItem>
                   </PStack>

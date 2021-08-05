@@ -9,107 +9,118 @@
       <div class="Polaris-DataTable__ScrollContainer">
         <table class="Polaris-DataTable__Table">
           <thead ref="thead">
-          <!-- @slot Header content -->
-          <slot name="head" v-if="$slots.hasOwnProperty('head')"></slot>
-          <template v-else>
-            <tr>
-              <PDataTableCell
-                  @sort-changed="handleSortChange"
-                  v-for="(heading, index) in headings"
-                  :key="`heading-cell-${index}`"
-                  header
-                  :content="heading.content"
-                  :value="heading.value"
-                  :width="heading.width"
-                  :sort="sort"
-                  :sortable="heading.sortable"
-                  :defaultSortDirection="defaultSortDirection"
-                  :contentType="heading.type ? heading.type : columnContentTypes[index]"
-                  :firstColumn="index === 0"
-                  :truncate="truncate"
-                  :verticalAlign="verticalAlign"/>
 
-              <PDataTableCell
-                  v-if="hasActions"
-                  header
-                  content="Actions"
-                  :sortable="false"
-                  contentType="text"
-                  :firstColumn="false"
-                  :truncate="false"
-                  :verticalAlign="verticalAlign"/>
-            </tr>
-            <tr v-if="!showTotalsInFooter">
+            <!-- @slot Header content -->
+            <slot name="head">
+              <template>
+                <tr>
+                  <PDataTableCell
+                      @sort-changed="handleSortChange"
+                      v-for="(heading, index) in headings"
+                      :key="`heading-cell-${index}`"
+                      header
+                      :content="heading.content"
+                      :value="heading.value"
+                      :width="heading.width"
+                      :sort="sort"
+                      :sortable="heading.sortable"
+                      :defaultSortDirection="defaultSortDirection"
+                      :contentType="heading.type ? heading.type : columnContentTypes[index]"
+                      :firstColumn="index === 0"
+                      :truncate="truncate"
+                      :verticalAlign="verticalAlign"
+                  />
+
+                  <PDataTableCell
+                      v-if="hasActions"
+                      header
+                      content="Actions"
+                      :sortable="false"
+                      contentType="text"
+                      :firstColumn="false"
+                      :truncate="false"
+                      :verticalAlign="verticalAlign"/>
+                </tr>
+                <tr v-if="!showTotalsInFooter">
+                  <PDataTableCell
+                      v-for="(total, index) in totals"
+                      :key="`total-cell-${index}`"
+                      total
+                      :content="index === 0 ? 'Totals' : total"
+                      :contentType="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
+                      :firstColumn="index === 0"
+                      :truncate="truncate"
+                      :verticalAlign="verticalAlign"/>
+
+                  <PDataTableCell
+                      total
+                      v-if="totals.length && hasActions"
+                      :totalInFooter="showTotalsInFooter"
+                      :verticalAlign="verticalAlign"/>
+                </tr>
+              </template>
+            </slot>
+
+          </thead>
+
+          <tbody ref="tbody">
+
+            <template v-if="loading">
+              <tr class="Polaris-ResourceList__SpinnerContainer" :style="{'padding-top': `${topPadding}px`}">
+                <PSpinner :size="!$slots.hasOwnProperty('body') && rows.length < 2 ? 'small' : 'large'" />
+              </tr>
+              <tr class="Polaris-ResourceList__LoadingOverlay"></tr>
+            </template>
+
+            <!-- @slot Body content -->
+            <slot name="body">
+              <tr
+                class="Polaris-DataTable__TableRow"
+                v-for="(row, rIndex) in rows"
+                :key="`row-${rIndex}`">
+                  <PDataTableCell
+                    v-for="(data, cIndex) in row"
+                    :key="`cell-${cIndex}-row-${rIndex}`"
+                    :content="typeof data !== 'object' ? data : data.content"
+                    :action="data.url || data.to || data.onAction ? data : null"
+                    :toggle="typeof data.status == 'boolean' && data.onAction ? data : null"
+                    :badge="typeof data === 'object' && !(data.url || data.to) && !data.onAction ? data : null"
+                    :contentType="headings[cIndex].type ? headings[cIndex].type : columnContentTypes[cIndex]"
+                    :firstColumn="cIndex === 0"
+                    :truncate="truncate"
+                    :verticalAlign="verticalAlign"
+                  />
+                  <PDataTableCell
+                    v-if="hasActions"
+                    :actions="actions"
+                    :value="ids[rIndex]"
+                    :verticalAlign="verticalAlign"
+                  />
+              </tr>
+            </slot>
+
+          </tbody>
+
+          <tfoot v-if="showTotalsInFooter">
+            <tr>
               <PDataTableCell
                   v-for="(total, index) in totals"
                   :key="`total-cell-${index}`"
                   total
+                  :totalInFooter="showTotalsInFooter"
                   :content="index === 0 ? 'Totals' : total"
                   :contentType="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
                   :firstColumn="index === 0"
                   :truncate="truncate"
                   :verticalAlign="verticalAlign"/>
-
               <PDataTableCell
                   total
                   v-if="totals.length && hasActions"
                   :totalInFooter="showTotalsInFooter"
                   :verticalAlign="verticalAlign"/>
             </tr>
-          </template>
-          </thead>
-          <tbody ref="tbody">
-          <template v-if="loading">
-            <tr class="Polaris-ResourceList__SpinnerContainer" :style="{'padding-top': `${topPadding}px`}">
-              <PSpinner :size="!$slots.hasOwnProperty('body') && rows.length < 2 ? 'small' : 'large'" />
-            </tr>
-            <tr class="Polaris-ResourceList__LoadingOverlay"></tr>
-          </template>
-          <!-- @slot Body content -->
-          <slot name="body" v-if="$slots.hasOwnProperty('body')"></slot>
-          <tr v-else
-              class="Polaris-DataTable__TableRow"
-              v-for="(row, rIndex) in rows"
-              :key="`row-${rIndex}`">
-            <PDataTableCell
-                v-for="(data, cIndex) in row"
-                :key="`cell-${cIndex}-row-${rIndex}`"
-                :content="typeof data !== 'object' ? data : data.content"
-                :action="data.url || data.to || data.onAction ? data : null"
-                :toggle="typeof data.status == 'boolean' && data.onAction ? data : null"
-                :badge="typeof data === 'object' && !(data.url || data.to) && !data.onAction ? data : null"
-                :contentType="headings[cIndex].type ? headings[cIndex].type : columnContentTypes[cIndex]"
-                :firstColumn="cIndex === 0"
-                :truncate="truncate"
-                :verticalAlign="verticalAlign"/>
-
-            <PDataTableCell
-                v-if="hasActions"
-                :actions="actions"
-                :value="ids[rIndex]"
-                :verticalAlign="verticalAlign"/>
-
-          </tr>
-          </tbody>
-          <tfoot v-if="showTotalsInFooter">
-          <tr>
-            <PDataTableCell
-                v-for="(total, index) in totals"
-                :key="`total-cell-${index}`"
-                total
-                :totalInFooter="showTotalsInFooter"
-                :content="index === 0 ? 'Totals' : total"
-                :contentType="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
-                :firstColumn="index === 0"
-                :truncate="truncate"
-                :verticalAlign="verticalAlign"/>
-            <PDataTableCell
-                total
-                v-if="totals.length && hasActions"
-                :totalInFooter="showTotalsInFooter"
-                :verticalAlign="verticalAlign"/>
-          </tr>
           </tfoot>
+
         </table>
       </div>
       <div class="Polaris-DataTable__Pagination" v-if="hasPagination">
@@ -264,6 +275,11 @@
          * Data ids
          */
         @Prop({ type: Array, default: () => [] }) public ids!: number[];
+
+        /**
+         * Display empty state if record not found!
+         */
+        @Prop({ type: String, default: 'No record found!' }) public emptyStateTitle!: string;
 
         public topPadding = 8;
 
