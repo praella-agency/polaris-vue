@@ -1,4 +1,5 @@
 import PMultiSelect from './PMultiSelect';
+import {PBadge} from "../PBadge";
 
 export default {
     title: 'Forms / Multi Select',
@@ -8,18 +9,31 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PMultiSelect,
+        PMultiSelect,PBadge
     },
     data() {
         return {
-            selectedValue: null
+            selectedValue: null,
+            searchValue: null
         }
     },
     template: `
+      <div>
       <PMultiSelect
           v-bind="$props"
           v-model="selectedValue"
-      />`,
+          @searchChange="search"
+      />
+      <br />
+      <p v-if="selectedValue">Selected Value: <PBadge>{{selectedValue}}</PBadge></p>
+      <br />
+      <p v-if="searchValue">Search Value: <PBadge>{{searchValue}}</PBadge></p>
+      </div>`,
+    methods: {
+        search(query) {
+            this.searchValue = query;
+        }
+    }
 });
 
 export const MultiSelect = Template.bind({});
