@@ -26,6 +26,7 @@ export const parameters = {
     sort: 'alpha',
   },
   options: {
+    showPanel: true,
     storySort: {
       method: "alphabetical",
       order: [

@@ -571,102 +571,6 @@
     padding: .8rem 1.6rem;
 }
 
-/*=================== Polaris-Label =======================*/
-
-
-.Polaris-Label {
-    -webkit-tap-highlight-color: transparent;
-}
-
-.Polaris-Label--hidden {
-    position: absolute !important;
-    top: 0;
-    clip: rect(1px, 1px, 1px, 1px) !important;
-    overflow: hidden !important;
-    height: 1px !important;
-    width: 1px !important;
-    padding: 0 !important;
-    border: 0 !important;
-}
-
-.Polaris-Label__Text {
-    font-size: $label-text-font-size;
-    font-weight: $label-text-font-weight;
-    line-height:  $label-text-line-height;
-    text-transform: none;
-    letter-spacing: normal;
-    display: block;
-    flex: 1 1 auto;
-    color: $label-text-color;
-    -webkit-tap-highlight-color: transparent;
-    @media (min-width:40em) {
-        font-size: $label-text-media-font-size;
-    }
-}
-
-.Polaris-InlineError {
-    display: flex;
-    color: $inline-error-color;
-    fill: $inline-error-fill;
-}
-
-.Polaris-InlineError__Icon {
-    fill: currentColor;
-    margin-left: -.2rem;
-    margin-right: .6rem;
-}
-
-.Polaris-Labelled--hidden {
-    >.Polaris-Labelled__LabelWrapper {
-        position: absolute !important;
-        top: 0;
-        clip: rect(1px, 1px, 1px, 1px) !important;
-        overflow: hidden !important;
-        height: 1px !important;
-        width: 1px !important;
-        padding: 0 !important;
-        border: 0 !important;
-    }
-}
-
-.Polaris-Labelled__LabelWrapper {
-    word-wrap: break-word;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: .4rem;
-}
-
-.Polaris-Labelled__HelpText {
-    font-size: $labelled-helptext-font-size;
-    font-weight: $labelled-helptext-font-weight;
-    line-height: $labelled-helptext-line-height;
-    text-transform: none;
-    letter-spacing: normal;
-    color: $labelled-helptext-color;
-    margin-top: .4rem;
-    @media (min-width:40em) {
-        font-size: $labelled-helptext-media-font-size;
-    }
-}
-
-.Polaris-Labelled__Error {
-    word-wrap: break-word;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    margin-top: .4rem;
-}
-
-.Polaris-Labelled__Action {
-    flex: 0 0 auto;
-}
-
-/*=================== Polaris-Label =======================*/
-
-
 /*=================== Polaris-Connected =======================*/
 
 .Polaris-Connected {
@@ -1102,6 +1006,9 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+    }
+    &.Polaris-Tag--removable {
+        padding-right: 0;
     }
 }
 
@@ -2920,14 +2827,6 @@
     padding: 0 10px!important;
 }*/
 
-.multiselect{
-    border-radius: calc(0.4rem + 0.1rem);
-    border: .1rem solid transparent;
-}
-.multiselect.multiselect--active{
-    box-shadow: 0 0 0 0.2rem $theme-shadow-color;
-    border: .1rem solid transparent;
-}
 /*.multiselect__tags:focus-within {
   border: 1px solid #000;
 }*/
@@ -2938,15 +2837,14 @@
     outline: none  !important;
     box-shadow: none !important;
 }*/
-.multiselect, .multiselect__input, .multiselect__single {
+div.multiselect, input.multiselect__input, div.multiselect__single {
     font-size: unset;
 }
-
 div.multiselect {
-    min-height: 36px;
+    min-height: 34px;
 
     .multiselect__input {
-        min-height: 36px;
+        min-height: 34px;
         background: unset;
         margin-bottom: 0;
         padding: 0;
@@ -2957,7 +2855,7 @@ div.multiselect {
     }
 
     .multiselect__select {
-        height: 36px;
+        height: 34px;
         width: 32px;
         padding: 4px 5px;
         right: 2px;
@@ -2977,29 +2875,30 @@ div.multiselect {
     }
 
     .multiselect__tags {
-        min-height: 36px;
-        padding: 0px 40px 0 8px;
-        border: 1px solid #c4cdd5;
-        box-shadow: 0 0 0 1px transparent, 0 1px 0 0 rgba(22, 29, 37, 0.05);
-        border-radius: 3px;
-        background: linear-gradient(180deg, #fff, #f9fafb);
+        min-height: 34px;
+        font-size: inherit;
+        padding: 0 .8rem 0 1.2rem;
+        background-color: $select-backdrop-bgcolor !important;
+        border: $select-backdrop-border;
+        box-shadow: $select-backdrop-box-shadow;
+        border-radius: $select-backdrop-border-radius;
     }
 
     .multiselect__placeholder {
-        color: #3b4b5b;
+        color: black;
         display: inline-block;
-        line-height: 36px;
+        line-height: 34px;
         vertical-align: top;
         margin-bottom: 0;
         padding-top: 0;
     }
 
     .multiselect__option--highlight {
-        background: #007B5C;
+        background: $theme-primary-color;
     }
 
     .multiselect__option--highlight:after {
-        background: #007B5C;
+        background: $theme-primary-color;
     }
 
     .multiselect__content-wrapper {
@@ -3011,13 +2910,16 @@ div.multiselect {
 
     .multiselect__tag {
         border-radius: 3px;
-        background: linear-gradient(180deg, #006e52, #007B5C);
+        background: linear-gradient(180deg, #006e52, $theme-primary-color);
         margin: 6px 5px 6px 0;
     }
 
     .multiselect__tags-wrap {
         display: block;
         height: 34px;
+        > .Polaris-Tag {
+            margin: 3px 10px 3px 0;
+        }
     }
 
     .multiselect__tag-icon:after {

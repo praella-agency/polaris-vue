@@ -157,6 +157,13 @@ export default class PChart extends Vue {
 }
 </script>
 
-<style scoped>
-
+<style>
+div.apexcharts-tooltip-title {
+  font-family: -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Helvetica Neue, sans-serif !important;
+}
+.apexcharts-tooltip.apexcharts-theme-light {
+  box-shadow: -1px 0px 20px rgba(23, 24, 24, 0.05), 0px 1px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 0.8rem;
+  border: none !important;
+}
 </style>

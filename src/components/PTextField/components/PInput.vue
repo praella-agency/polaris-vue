@@ -16,11 +16,28 @@
               :aria-labelledby="labelledBy"
               :aria-invalid="hasError"
     ></ckeditor>
+    <textarea v-else-if="multiline"
+              :name="name"
+              :class="inputClassName"
+              :id="id"
+              :disabled="disabled"
+              :readonly="readOnly"
+              :autofocus="autoFocus"
+              :value="computedValue"
+              :minlength="minLength"
+              :maxlength="maxLength"
+              v-text="multiline?computedValue:''"
+              :placeholder="placeholder"
+              :autocomplete="normalizeAutoComplete(autoComplete)"
+              :style="{ height: (multiline && computedHeight) ? computedHeight+'px' : null,overflow: (multiline && computedHeight) ? 'hidden' : null }"
+              :aria-describedby="describedBy"
+              :aria-labelledby="labelledBy"
+              :aria-invalid="hasError"
+              @input="onInput"
+    ></textarea>
     <input
       v-else
-      :tag="multiline?'textarea':'input'"
       ref="input"
-      :is="multiline ? 'textarea' : 'input'"
       :name="name"
       :class="inputClassName"
       :id="id"
@@ -28,14 +45,12 @@
       :readonly="readOnly"
       :autofocus="autoFocus"
       :value="computedValue"
-      v-text="multiline?computedValue:''"
       :placeholder="placeholder"
       :autocomplete="normalizeAutoComplete(autoComplete)"
       :min="min"
       :max="max"
       :step="step"
       :minlength="minLength"
-      :style="{ height: (multiline && computedHeight) ? computedHeight+'px' : null,overflow: (multiline && computedHeight) ? 'hidden' : null }"
       :maxlength="maxLength"
       :type="inputType"
       :aria-describedby="describedBy"
@@ -47,12 +62,22 @@
       {{suffix}}
       <slot v-if="$slots.suffix" name="suffix"></slot>
     </div>
-    <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
-    <!--<button type="button" class="Polaris-TextField__ClearButton" v-if="computedValue && showClearButton" @click="onClear">
+
+    <div v-if="showCharacterCount"
+         id="CharacterCounter"
+         :class="characterCountClassName"
+         :aria-label="characterCountLabel"
+    >
+      {{ characterCountText }}
+    </div>
+
+    <button type="button" :class="clearButtonClassName" v-if="computedValue && clearable" @click="onClear">
       <span class="Polaris-VisuallyHidden">Clear</span>
       <PIcon source="CircleCancelMinor" color="inkLightest"></PIcon>
-    </button>-->
+    </button>
     <div class="Polaris-TextField__Backdrop" v-if="!richEditor"></div>
+
+    <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
 
     <PFieldResizer
             v-if="multiline"
@@ -108,7 +133,8 @@
     @Prop(Boolean) public disabled!: boolean;
     @Prop(Boolean) public readOnly!: boolean;
     @Prop({type: Boolean, default: true}) public showInput!: boolean;
-    @Prop(Boolean) public showClearButton!: boolean;
+    @Prop(Boolean) public clearable!: boolean;
+    @Prop(Boolean) public showCharacterCount!: boolean;
     @Prop(String) public prefixClass!: string;
     @Prop(Boolean) public autoFocus!: boolean;
     @Prop(Boolean) public autoComplete!: boolean;
@@ -129,6 +155,14 @@
     public content = this.value !== null ? this.value : '';
     public height = this.minHeight;
     public editor = ClassicEditor;
+    public characterCountLabel = this.maxLength || 'characterCountLabel';
+    public characterCount = this.value && this.value.length;
+
+    public get characterCountText() {
+     return  !this.maxLength
+             ? this.characterCount
+             : `${this.characterCount}/${this.maxLength}`;
+    }
 
     public get inputType() {
       return this.type === 'currency' ? 'text' : this.type;
@@ -149,6 +183,20 @@
               'Polaris-TextField__Input',
               this.inputClass,
               this.align && `Polaris-TextField__Input Polaris-TextField__Input--align${this.textAlign}`,
+      );
+    }
+
+    public get characterCountClassName() {
+      return classNames(
+          'Polaris-TextField__CharacterCount',
+          this.multiline && 'Polaris-TextField__AlignFieldBottom ',
+      );
+    }
+
+    public get clearButtonClassName() {
+      return classNames(
+          'Polaris-TextField__ClearButton',
+          this.multiline && 'Polaris-TextField__AlignFieldBottom ',
       );
     }
 
@@ -195,20 +243,18 @@
     @Watch('value')
     public onValueChanged(value: any) {
       this.content = value;
+      // this.normalizedValue = value;
+      this.characterCount = value ? value.length : 0;
     }
 
     public onInput(event: any) {
-      this.$nextTick(() => {
-        if (event.target) {
-          this.computedValue = event.target.value;
-        }
-      });
+      if (event.target) {
+        this.computedValue = event.target.value;
+      }
     }
 
     public onClear(event: any) {
-      this.$nextTick(() => {
-        this.computedValue = undefined;
-      });
+      this.computedValue = undefined;
     }
 
     public handleNumberChange(steps: number) {
@@ -220,11 +266,9 @@
       const step = this.step || 1;
 
       const newValue = Math.min(max, Math.max(min, numericValue + (steps * step)));
-      this.$nextTick(() => {
-        if (!isNaN(newValue)) {
-          this.computedValue = newValue;
-        }
-      });
+      if (!isNaN(newValue)) {
+        this.computedValue = newValue;
+      }
     }
 
     public handleExpandingResize(e) {

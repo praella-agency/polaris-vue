@@ -56,6 +56,7 @@
                 'Polaris-OptionList-Option__Label',
                 this.disabled && 'Polaris-OptionList-Option--disabled',
                 this.active && 'Polaris-OptionList-Option--active',
+                this.select && 'Polaris-OptionList-Option--select',
             );
         }
     }

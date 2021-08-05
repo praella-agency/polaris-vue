@@ -1,12 +1,14 @@
-import { PCard, PCardSection } from '../PCard';
+import { PCard, PCardHeader, PCardSection } from '../PCard';
 import PResourceListItem from './components/PResourceListItem';
 import PResourceList from './PResourceList';
 import { PPopover } from '../PPopover';
 import PButton from '../PButton/PButton.vue';
-import { POptionList } from '../POptionList';
+import { PAvatar } from '../PAvatar';
 import { PBadge } from '../PBadge';
+import { PTextStyle } from '../PTextStyle';
 import { PPagination } from '../PPagination';
-import { PStack } from '../PStack';
+import { PStack, PStackItem } from '../PStack';
+import { PTextField } from '../PTextField';
 
 export default {
     title: 'Lists & Tables / Resource List',
@@ -38,8 +40,8 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PResourceList, PCard, PPopover, PButton, POptionList, PResourceListItem, PBadge, PPagination,
-        PCardSection, PStack
+        PResourceList, PCard, PPopover, PButton, PResourceListItem, PBadge, PPagination,
+        PCardSection, PCardHeader, PStack, PStackItem, PTextField, PAvatar, PTextStyle
     },
     data() {
         return {
@@ -115,7 +117,8 @@ const Template = (args, {argTypes}) => ({
                     name: 'Angular',
                     status: true,
                 },
-            ]
+            ],
+            taggedValue: 'Vue',
         };
     },
     template: `
@@ -127,6 +130,10 @@ const Template = (args, {argTypes}) => ({
               :selected="selectedItems"
               :resourceName="resourceName"
               :loading="loading"
+              :promotedBulkActions="{
+                  content: 'Edit customers',
+                  onAction: handleBulkActionClick,
+                }"
               :bulkActions="[
                     {content: 'Publish', onAction: toggleStatusToPublished},
                     {content: 'Unpublish', onAction: toggleStatusToUnpublished},
@@ -134,7 +141,12 @@ const Template = (args, {argTypes}) => ({
                     {content: 'Delete', onAction: deleteSelected},
               ]"
               v-bind="$props"
+              :appliedFilters="[
+                { value: 'Tagged with ' + this.taggedValue, key: 'tag_' + this.taggedValue},
+              ]"
+              @filter-removed="removeTag"
               @change="toggleSelected"
+              @sortChange="() => handleSortChange(selected)"
           >
             <template slot="filter">
               <PPopover
@@ -151,40 +163,62 @@ const Template = (args, {argTypes}) => ({
                 >
                   Status
                 </PButton>
-                <POptionList
-                    slot="content"
-                    :options="[
-                          {label: 'Active', value: 1},
-                          {label: 'In-Active', value: 0},
-                        ]"
-                    :selected="status"
-                    @change="updateStatusFilter"
-                ></POptionList>
+                <PCard slot="content" @change="updateStatusFilter">
+                  <PCardSection>
+                    <PStack vertical spacing="tight">
+                      <PStackItem>
+                        <PTextField
+                            label="Tagged with"
+                            v-model="taggedValue"
+                            labelHidden
+                        />
+                      </PStackItem>
+                      <PStackItem>
+                        <PButton plain @click="removeTag">
+                          Clear
+                        </PButton>
+                      </PStackItem>
+                    </PStack>
+                  </PCardSection>
+                </PCard>
               </PPopover>
+              <PButton @click="handleButtonClick">
+                Save
+              </PButton>
             </template>
-            <template v-slot:default="{selectable}">
+            <template slot="default" v-bind="{selectable}">
               <PResourceListItem
                   v-for="(item, key) in items"
                   :key="key"
                   :id="item.id"
                   :checked="selectedItems.indexOf(item.id) >= 0"
-                  @change="updateSelected"
                   :selectable="selectable"
+                  :loading="loading"
+                  persistActions
+                  :shortcutActions="[
+                      {
+                          content: 'View latest order',
+                          onAction: () => {},
+                      }
+                  ]"
+                  @change="updateSelected"
               >
+                <PAvatar slot="media" customer size="medium" :name="item.name" />
                 <div class="resource-list-item">
                   <div class="resource-list-item__book--name">
                     <p>{{ item.name }}</p>
                   </div>
                   <div class="resource-list-item__resource--status">
-                    <PBadge v-if="item.status === true" status="success">Published</PBadge>
-                    <PBadge v-if="item.status === null" status="warning">Pending</PBadge>
-                    <PBadge v-if="item.status === false" status="critical">Archived</PBadge>
+                      <h3>
+                          <PTextStyle v-if="item.status === true" variation="positive">Published</PTextStyle>
+                          <PTextStyle v-if="item.status === null" variation="subdued">Pending</PTextStyle>
+                          <PTextStyle v-if="item.status === false" variation="negative">Archived</PTextStyle>
+                      </h3>
                   </div>
                 </div>
               </PResourceListItem>
             </template>
           </PResourceList>
-    
           <PCardSection>
             <PStack v-if="pagination.hasPrevious || pagination.hasNext" distribution="center">
               <PPagination v-bind="pagination"/>
@@ -219,7 +253,6 @@ const Template = (args, {argTypes}) => ({
         updateStatusFilter(selected) {
             this.queryParams.statuses = selected;
             this.toggleStatusFilter();
-
         },
         onPrevious() {
             this.queryParams.page--;
@@ -227,6 +260,18 @@ const Template = (args, {argTypes}) => ({
         onNext() {
             this.queryParams.page++;
         },
+        removeTag() {
+            alert('Removed');
+        },
+        handleButtonClick() {
+            console.log('Saved');
+        },
+        handleBulkActionClick() {
+            console.log('Edit Customer');
+        },
+        handleSortChange(selected) {
+            console.log(selected)
+        }
     },
 });
 
@@ -239,4 +284,8 @@ ResourceList.args = {
     loading: false,
     showHeader: true,
     hideFilters: true,
+    sortOptions: [
+        {label: 'Newest update', value: 'DATE_MODIFIED_DESC', disabled: false, hidden: true},
+        {label: 'Oldest update', value: 'DATE_MODIFIED_ASC', disabled: false},
+    ],
 }

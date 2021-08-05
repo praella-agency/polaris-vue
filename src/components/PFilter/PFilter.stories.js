@@ -2,6 +2,11 @@ import PFilter from './PFilter';
 import { PButton } from '../PButton';
 import { PPopover } from '../PPopover';
 import { POptionList } from '../POptionList';
+import { PCard, PCardSection } from '../PCard';
+import { PStack, PStackItem } from '../PStack';
+import { PTextField } from '../PTextField';
+import { PCheckbox } from '../PCheckbox';
+import { PChoiceList } from '../PChoiceList';
 
 export default {
     title: 'Lists & Tables / Filter',
@@ -18,41 +23,98 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PFilter, PButton, PPopover, POptionList
+        PFilter, PButton, PPopover, POptionList, PCard, PCardSection, PStack, PStackItem, PTextField, PCheckbox,
+        PChoiceList,
     },
     data() {
         return {
             popoverActive: false,
+            accountStatusPopover: false,
             status: [],
+            taggedValue: '',
+            appliedFilter: [
+                { value: 'Test', key: 'test'},
+            ],
+            accountStatus: [],
         };
     },
     template: `
-      <PFilter v-bind="$props" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
-          <PButton>Change Order</PButton>
-          <PButton>Submit</PButton>
+      <PFilter 
+          v-bind="$props" 
+          @remove-tag="onRemoveFilter" 
+          @input="onFilterInputChanged"
+          :appliedFilters="appliedFilter"
+      >
           <PPopover
-              :active="popoverActive"
-              @close="popoverActive = !popoverActive"
-              full-width
-              preferredAlignment="right"
+                  :active="accountStatusPopover"
+                  @close="toggleAccountStatus"
+                  full-width
           >
-            <PButton
-                slot="activator"
-                :disclosure="popoverActive ? 'up' : 'down'"
-                @click="popoverActive = !popoverActive"
-            >
-              Status
-            </PButton>
-            <POptionList
-                slot="content"
-                :options="[
-                      {label: 'Active Little Long Content', value: 1},
-                      {label: 'In-Active', value: 0},
-                  ]"
-                :selected="status"
-                @change="updateStatusFilter"
-            ></POptionList>
+              <PButton
+                      slot="activator"
+                      :disclosure="accountStatusPopover ? 'up' : 'down'"
+                      @click.stop="toggleAccountStatus"
+                      :disabled="disabled"
+              >
+                  Account Status
+              </PButton>
+              <PCard slot="content" @change="updateStatusFilter" sectioned>
+                  <PChoiceList
+                      title="Account Status"
+                      titleHidden
+                      :options="[
+                          {label: 'Enabled', value: 'enabled'},
+                          {label: 'Not invited', value: 'not invited'},
+                          {label: 'Invited', value: 'invited'},
+                          {label: 'Declined', value: 'declined'},
+                      ]"
+                      textField="label"
+                      valueField="value"
+                      allowMultiple
+                      :selected="accountStatus || []"
+                      @change="handleTag"
+                  >
+                  </PChoiceList>
+              </PCard>
           </PPopover>
+          <PPopover
+                  @close="togglePopoverActive"
+                  :active="popoverActive"
+                  full-width
+          >
+              <PButton
+                      slot="activator"
+                      :disclosure="popoverActive ? 'up' : 'down'"
+                      @click.stop="togglePopoverActive"
+                      :disabled="disabled"
+              >
+                  Status
+              </PButton>
+              <PCard slot="content" @change="updateStatusFilter">
+                  <PCardSection>
+                      <PStack vertical spacing="tight">
+                          <PStackItem>
+                              <PTextField
+                                      label="Tagged with"
+                                      v-model="taggedValue"
+                                      labelHidden
+                              />
+                          </PStackItem>
+                          <PStackItem>
+                              <PButton plain @click="removeTag">
+                                  Clear
+                              </PButton>
+                          </PStackItem>
+                      </PStack>
+                  </PCardSection>
+              </PCard>
+          </PPopover>
+          <PButton :disabled="disabled">Submit</PButton>
+          <template slot="auxiliaryContainer">
+              <div style="padding-left: 8px;">
+                  <PButton disabled>Save</PButton>
+              </div>
+          </template>
       </PFilter>`,
     methods: {
         onRemoveFilter() {
@@ -64,14 +126,40 @@ const Template = (args, {argTypes}) => ({
         updateStatusFilter() {
             alert("Updated");
         },
+        handleTag(value) {
+            this.accountStatus = value;
+            if (value.length > 0) {
+                if(this.accountStatusPopover) {
+                    let key = 'accountStatus';
+                    this.taggedValue += value.map((val) => `Customer ${val}`).join(', ');
+                    this.appliedFilter.splice(0, this.appliedFilter.length);
+                    return this.appliedFilter.push(
+                        { value: this.disambiguateLabel(key, value),
+                            key: 'tag_' + this.taggedValue, remove: () => {}},
+                    )
+                }
+            }
+        },
+        disambiguateLabel(key, value) {
+            return value.map((val) => `Customer ${val}`).join(', ');
+        },
+        removeTag() {
+            this.taggedValue = '';
+        },
+        toggleAccountStatus() {
+            this.accountStatusPopover = !this.accountStatusPopover;
+            this.popoverActive = false;
+        },
+        togglePopoverActive() {
+            this.popoverActive = !this.popoverActive;
+            this.accountStatusPopover = false;
+        }
     },
 });
 
 export const Filter = Template.bind({});
 
 Filter.args = {
-    resourceTitle: "Search",
-    appliedFilters: [
-        { value: 'Test', key: 'test'},
-    ],
+    resourceName: {singular: 'Customer', plural: 'Customers'},
+    disabled: false
 }

@@ -15,6 +15,9 @@ export default {
         },
         viewMode: 'story',
         previewTabs: {
+            'canvas': {
+                title: 'Docs',
+            },
             'storybook/docs/panel': {
                 hidden: true,
             },

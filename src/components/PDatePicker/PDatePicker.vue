@@ -11,7 +11,7 @@
     </div>
     <DateRangePicker
         ref="picker"
-        :opens="computedOpens"
+        :opens="opens"
         :controlContainerClass="containerClass"
         :readonly="readOnly"
         :disabled="disabled"
@@ -31,6 +31,7 @@
         @update="updateValues"
         @toggle="checkOpen"
         :linkedCalendars="linkedCalendars"
+        :style="pDatePickerButtonStyle"
     >
       <template #ranges="ranges">
         <PStack>
@@ -264,19 +265,9 @@ export default class PDatePicker extends Vue {
     );
   }
 
-  public get computedOpens() {
-    return this.button ? 'right' : this.opens;
-  }
-
   public get computedRanges() {
     return !this.singleDatePicker ? this.ranges : false;
   }
-
-  public computedTextValue(picker) {
-     return !this.singleDatePicker ? `${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}` :
-        this.formatDate(picker.startDate);
-  }
-
   public get hasError() {
     return this.error && this.error.length > 0;
   }
@@ -289,6 +280,19 @@ export default class PDatePicker extends Vue {
         this.disabled && 'Polaris-TextField--disabled',
         this.readOnly && 'Polaris-TextField--readOnly',
     );
+  }
+
+  public get pDatePickerButtonStyle() {
+    if (this.button) {
+      return {
+        'min-width': '3.6rem'
+      }
+    }
+  }
+
+  public computedTextValue(picker) {
+    return !this.singleDatePicker ? `${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}` :
+      this.formatDate(picker.startDate);
   }
 
   /**
@@ -352,6 +356,9 @@ export default class PDatePicker extends Vue {
 .vue-daterange-picker {
   min-width: 100%;
 }
+.date-date {
+  background: orange;
+}
 </style>
 <style>
 @media screen and (min-width: 339px) {
@@ -369,7 +376,7 @@ export default class PDatePicker extends Vue {
 
 .daterangepicker .calendars {
   display: block;
-  border-bottom: 1px solid #ddd;
+  border-bottom: .1rem solid #e1e3e5;
 }
 .daterangepicker .Polaris-Stack {
   padding: 10px;

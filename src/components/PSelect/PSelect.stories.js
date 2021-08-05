@@ -1,4 +1,5 @@
 import PSelect from './PSelect';
+import {PBadge} from "../PBadge";
 
 export default {
     title: 'Forms / Select',
@@ -8,24 +9,28 @@ export default {
 const Template = (args, { argTypes }) => ({
     props: Object.keys(argTypes),
     components: {
-        PSelect,
+        PSelect, PBadge
     },
     data() {
         return {
-            selectedOption: '',
+            selectedOption: null,
         };
     },
     template: `
-        <PSelect 
-            :value="selectedOption"
-            v-bind="$props"
-            @change="getSelectedOptionValue"
-        ></PSelect>`,
+        <div>
+          <PSelect
+              v-model="selectedOption"
+              v-bind="$props"
+              @change="changeEvent"
+          ></PSelect>
+          <br />
+          <p v-if="selectedOption">Selected Value: <PBadge>{{selectedOption}}</PBadge></p>
+        </div>`,
     methods: {
-        getSelectedOptionValue(value) {
-            this.selectedOption = value;
+        changeEvent(value) {
+            console.log('Change Event: ', typeof value, value);
         },
-    },
+    }
 });
 
 export const Select = Template.bind({});
@@ -36,8 +41,9 @@ Select.args = {
         {label: 'Newest update', value: 'newestUpdate'},
         {label: 'Oldest update', value: 'oldestUpdate'},
         {label: 'Most spent', value: 'mostSpent'},
-        {label: 'Most orders', value: 'mostOrders'},
-        {label: 'Last name A–Z', value: 'lastNameAlpha'},
+        {label: 'Most orders', value: 'mostOrders', disabled: true},
+        {label: 'Last name A–Z', value: 'lastNameAlpha', hidden: true},
         {label: 'Last name Z–A', value: 'lastNameReverseAlpha'},
     ],
+    placeholder: "Select",
 }

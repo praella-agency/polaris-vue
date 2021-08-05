@@ -59,8 +59,8 @@
     }
 
     &:not(.Polaris-Button--plain):after {
-      box-shadow: 0 0 0 0.2rem $theme-shadow-color;
-      outline: .1rem solid transparent;
+      //box-shadow: 0 0 0 0.2rem $theme-shadow-color;
+      //outline: .1rem solid transparent;
     }
   }
 }
@@ -250,6 +250,17 @@
 
   svg {
     fill: $btn-primary-svg-icon-color;
+  }
+}
+.Polaris-Button--destructiveText {
+  color: $btn-destructive-bgcolor;
+
+  &:hover {
+    color: $btn-destructive-hover-bgcolor;
+  }
+
+  svg {
+    fill: $btn-destructive-bgcolor;
   }
 }
 
@@ -756,7 +767,7 @@
         pointer-events: none;
         transition: box-shadow .1s cubic-bezier(0.4, 0.22, 0.28, 1);
         border-radius: calc(0.4rem + .1rem);
-        box-shadow: 0 0 0 0.2rem $theme-shadow-color;
+        box-shadow: 0 0 0 0.2rem transparent;
         outline: .1rem solid transparent;
       }
     }

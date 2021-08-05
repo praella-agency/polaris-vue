@@ -119,6 +119,7 @@ export default class PButton extends Vue {
    * @values true | false
    */
   @Prop({type: Boolean, default: false}) public destructive!: boolean;
+  @Prop({type: Boolean, default: false}) public destructiveText!: boolean;
 
   /**
    * Disables the button, disallowing merchant interaction
@@ -189,6 +190,7 @@ export default class PButton extends Vue {
       this.primary && 'Polaris-Button--primary',
       this.outline && 'Polaris-Button--outline',
       this.destructive && 'Polaris-Button--destructive',
+      this.destructiveText && 'Polaris-Button--destructiveText',
       this.isDisabled && 'Polaris-Button--disabled',
       this.loading && 'Polaris-Button--loading',
       this.plain && 'Polaris-Button--plain',

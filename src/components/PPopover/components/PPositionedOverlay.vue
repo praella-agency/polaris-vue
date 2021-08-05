@@ -131,7 +131,7 @@ export default class PPopoverOverlay extends Vue {
             width: window.innerWidth,
         };
 
-        const zIndexForLayer = 10;
+        const zIndexForLayer = 400;
         const verticalPosition = this.calculateVerticalPosition(activatorRect,
             overlayRect,
             overlayMargins,

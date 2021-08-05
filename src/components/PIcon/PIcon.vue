@@ -72,7 +72,7 @@ export default class PIcon extends Vue {
 
   public get enhancedSource() {
     if (DeprecatedIcons.indexOf(this.source) > -1) {
-      console.error('Deprecation Notice: You are using a deprecated icon `' + this.source + '`, please use new instead of this. Refer this link' +
+      console.error('Deprecation Notice: You are using a deprecated icon `' + this.source + '`, please use new instead of this. Deprecated icons will be removed in version 3.0.0. Refer this link' +
               ' to get updated icons https://polaris-vue.hulkapps.com/?path=/story/images-icons-icon--icon');
     }
 

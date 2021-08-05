@@ -20,7 +20,7 @@
         <slot name="connectedRight">{{ connectedRight }}</slot>
       </template>
 
-      <PInput v-bind="[$attrs,$props]" v-on="$listeners" :hasError="!!error" :id="id">
+      <PInput v-bind="[$attrs, $props]" v-on="$listeners" :hasError="!!error" :id="id">
         <!-- @slot Field prefix -->
         <slot name="prefix" slot="prefix"></slot>
         <!-- @slot Field suffix -->
@@ -106,6 +106,12 @@
      * @values true | false
      */
     @Prop({type: Boolean, default: false}) public richEditor!: boolean;
+
+    /**
+     * Show a clear text button in the input
+     * @values true | false
+     */
+    @Prop({type: Boolean, default: false}) public clearable!: boolean;
   }
 </script>
 

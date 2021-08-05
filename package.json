@@ -18,13 +18,13 @@
     "component library"
   ],
   "license": "MIT",
-  "version": "2.2.6",
+  "version": "2.3.4",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "build-bundle": "vue-cli-service build --target lib --name polaris-vue ./src/components/index.js",
-    "storybook": "start-storybook -p 6006 -s public --no-manager-cache",
+    "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook"
   },
   "main": "./dist/polaris-vue.common.js",
@@ -71,6 +71,7 @@
     "babel-loader": "^8.2.2",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.0",
+    "showdown": "^1.9.1",
     "tsconfig-paths-webpack-plugin": "^3.5.1",
     "typescript": "~3.5.3",
     "vue-loader": "^15.9.7",

@@ -76,8 +76,8 @@
 		&:not(:active){
 			.Polaris-Tabs__Title{
 				&:after{
-					box-shadow: $tabs-hover-focus-title-after-box-shadow;
-					outline: 0.1rem solid transparent;
+					//box-shadow: $tabs-hover-focus-title-after-box-shadow;
+					//outline: 0.1rem solid transparent;
 				}
 			}
 		}

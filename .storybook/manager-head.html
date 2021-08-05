@@ -1,4 +1,5 @@
-<link rel="icon" href="https://cdn.shopify.com/s/files/1/1564/7647/files/favicon_5_32x32.png?v=1583161286" />
+<link rel="icon" href="https://cdn.shopify.com/s/files/1/1564/7647/files/favicon_5_32x32.png?v=1583161286"/>
+
 <style>
     .sidebar-item {
         padding-top: 0.8em !important;
@@ -13,5 +14,64 @@
         margin-top: 2px !important;
         width: 14px !important;
         height: 14px !important;
+        color: #00a9a2 !important;
     }
+
+    .sidebar-item[data-selected="true"] {
+        background: #00a9a2 !important;
+    }
+
+    .sidebar-item[data-selected="true"] > svg {
+        color: #FFFFFF !important;
+    }
+
+    .sidebar-header button:hover {
+        color: #00a9a2 !important;
+    }
+    .sidebar-header button:focus {
+        color: #00a9a2 !important;
+        border-color: #00a9a2 !important;
+    }
+
+    #storybook-explorer-searchfield:focus,
+    #storybook-explorer-searchfield:active {
+        border-color: #00a9a2 !important;
+    }
+
+    input[id^=control-]:focus,
+    select[id^=control-]:focus,
+    textarea[id^=control-]:focus,
+    td > button[class^=css-]:focus:not(tr[title] button) {
+        box-shadow: #00a9a2 0 0 0 1px inset !important;
+    }
+
+    .search-result-item svg,
+    #icon--component,
+    .os-content button:hover:not(.sidebar-item),
+    .os-content button:focus:not(.sidebar-item) {
+        color: #00a9a2 !important;
+    }
+
+    .os-content button:hover:not(.sidebar-item),
+    .os-content button:focus:not(.sidebar-item) {
+        color: #00a9a2 !important;
+        border-bottom-color: #00a9a2;
+    }
+
+    .search-result-item--label mark {
+        color: #00a9a2 !important;
+    }
+
+    .rejt-name {
+        color: #00a9a2 !important;
+    }
+
+    .docblock-argstable-head button {
+        color: #00a9a2;
+    }
+
+    .docblock-argstable-head button:focus {
+        box-shadow: #00a9a2 0 0 0 1px inset;
+    }
+
 </style>

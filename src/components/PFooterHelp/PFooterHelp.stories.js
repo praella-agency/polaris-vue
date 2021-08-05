@@ -29,8 +29,7 @@ const Template = (args, { argTypes }) => ({
       >
           Learn more about
           <PLink 
-              url="https://www.hulkapps.com/" 
-              external
+              url="javascript:void(0);"
           >
             fulfilling orders
           </PLink>

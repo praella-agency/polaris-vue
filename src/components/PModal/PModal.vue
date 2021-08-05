@@ -18,10 +18,13 @@
                     </div>
                 </div>
                 <!-- @slot Footer slot -->
-                <slot name="footer" v-if="$slots.footer && !primaryAction && !secondaryActions" />
-                <PModalFooter v-else-if="Object.keys(primaryAction).length > 0
-                                        || secondaryActions"
-                              :primaryAction="primaryAction" :secondaryActions="secondaryActions" />
+              <PModalFooter v-if="$slots.hasOwnProperty('footer') && !Object.keys(primaryAction).length > 0 && !secondaryActions" >
+                <slot name="footer" />
+              </PModalFooter>
+              <PModalFooter v-else-if="Object.keys(primaryAction).length > 0
+                                      || secondaryActions"
+                            :primaryAction="primaryAction" :secondaryActions="secondaryActions" >
+              </PModalFooter>
             </PModalDialog>
         </div>
         <div v-if="open" class="Polaris-Backdrop"></div>
