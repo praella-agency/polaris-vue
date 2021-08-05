@@ -6,8 +6,10 @@
           <!-- @slot Short Description content for the layout  -->
           <slot name="title" />
           <PHeading v-if="title">{{ title }}</PHeading>
-          <div v-if="description" class="Polaris-Layout__AnnotationDescription">
-            <p>{{ description }}</p>
+          <div v-if="description || $slots.hasOwnProperty('description')" class="Polaris-Layout__AnnotationDescription">
+            <slot name="description">
+              <p>{{ description }}</p>
+            </slot>
           </div>
         </PTextContainer>
       </div>
