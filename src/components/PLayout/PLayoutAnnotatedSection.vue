@@ -5,9 +5,8 @@
         <PTextContainer>
           <!-- @slot Title for the section  -->
           <slot name="title">
-            <PHeading>{{ title }}</PHeading>
+            <PHeading v-if="title">{{ title }}</PHeading>
           </slot>
-
           <div v-if="description || $slots.hasOwnProperty('description')" class="Polaris-Layout__AnnotationDescription">
             <!-- @slot Short Description content for the layout  -->
             <slot name="description">
