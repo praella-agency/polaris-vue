@@ -21,7 +21,28 @@ export default {
                     alert('Action Triggered!');
                 },
             },
-        }
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    /** Display the content */
+    contentStatus?: string;
+    /** Url for the element */
+    url?: string;
+    /** Disable the element */
+    disabled?: boolean;
+    /** Accessibility Label for the element */
+    accessibilityLabel?: string;
+    /** Destructive element */
+    destructive?: boolean;
+    /** Add Icon support */
+    icon?: string;
+    /** Callback when an action takes place */
+    onAction?(): void;
+}`
+                },
+            },
+        },
     },
 }
 
@@ -30,20 +51,25 @@ const Template = (args, { argTypes }) => ({
     components: {
         PSettingToggle, PTextStyle,
     },
+    data() {
+        return {
+            enable: false,
+        }
+    },
     template: `  
       <PSettingToggle
           :action="{
-            contentStatus: enabled ? 'Deactivate' : 'Activate',
+            contentStatus: enable ? 'Deactivate' : 'Activate',
             onAction: toggleStatus,
           }"
-          :enabled="enabled"
+          :enabled="enable"
           v-bind="$props"
       >
-        This setting is <PTextStyle variation="strong">{{ enabled ? 'activated' : 'deactivated' }}</PTextStyle>
+        This setting is <PTextStyle variation="strong">{{ enable ? 'activated' : 'deactivated' }}</PTextStyle>
       </PSettingToggle>`,
     methods: {
         toggleStatus() {
-            alert('Action Triggered!');
+            this.enable = !this.enable;
         },
     },
 });

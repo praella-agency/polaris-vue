@@ -15,6 +15,45 @@ export default {
                 disable: true,
             },
         },
+        primaryAction: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    /** Content the action displays */
+    content?: string;
+    /** Callback when an action takes place */
+    onAction?(): void;
+}`,
+                },
+            },
+        },
+        secondaryAction: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    /** Content the action displays */
+    content?: string;
+    /** Callback when an action takes place */
+    onAction?(): void;
+}`,
+                },
+            },
+        },
+        videoSrc: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    /** Media source */
+    src: string;
+    /** Media Type*/
+    type: string;
+}]`
+                }
+            }
+        }
     },
 }
 

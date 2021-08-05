@@ -12,7 +12,7 @@
                         :key="`secondaryAction-${secondaryActionIndex}`"
                         :destructive="secondaryAction.destructive"
                         :disabled="secondaryAction.disabled"
-                        v-on="primaryAction.onAction ? { click: primaryAction.onAction } : {}"
+                        v-on="secondaryAction.onAction ? { click: secondaryAction.onAction } : {}"
                     >
                       {{secondaryAction.content}}
                     </PButton>

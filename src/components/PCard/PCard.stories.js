@@ -51,6 +51,22 @@ export default {
                 type: {
                     summary: 'array',
                 },
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    /** Content the action displays */
+    content?: string;
+    /** Link support instead of button */
+    href?: boolean;
+    /** Router Link support */
+    to?: boolean;
+    /** Callback when an action takes place */
+    onAction?(): void;
+    Or
+    /** Parameterize Callback when an action takes place */
+    onAction?():void () => {methodName(parameter)};
+}]`,
+                },
             },
         },
         children: {

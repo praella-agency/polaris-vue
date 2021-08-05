@@ -14,23 +14,32 @@ export default {
                 defaultValue: {
                     summary: '{}',
                     detail:`{
-    /** A unique identifier for the action */
-    id?: string;
     /** Content the action displays */
     content?: string;
-    /** Visually hidden text for screen readers */
-    accessibilityLabel?: string;
-    /** A destination to link to, rendered in the action */
-    url?: string;
-    /** Forces url to open in a new tab */
-    external?: boolean;
+    /** Disable the element */
+    disabled?: boolean;
+    /** Destructive the element */
+    destructive?: boolean;
     /** Callback when an action takes place */
     onAction?(): void;
-    /** Callback when mouse enter */
-    onMouseEnter?(): void;
-    /** Callback when element is touched */
-    onTouchStart?(): void;
 }`,
+                },
+            },
+        },
+        secondaryActions: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail:`[{
+    /** Content the action displays */
+    content?: string;
+    /** Disable the element */
+    disabled?: boolean;
+    /** Destructive the element */
+    destructive?: boolean;
+    /** Callback when an action takes place */
+    onAction?(): void;
+}]`,
                 },
             },
         },

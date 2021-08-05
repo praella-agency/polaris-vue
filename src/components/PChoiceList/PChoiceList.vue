@@ -167,10 +167,8 @@ export default class PChoiceList extends Vue {
     //     }
     // }
     if (checked) {
-      console.log(allowMultiple);
       return allowMultiple ? [...selected, choice[this.valueField]] : [choice[this.valueField]];
     }
-    console.log(choice, JSON.stringify(selected));
     // return selected;
     return selected.filter((selectedChoice) => selectedChoice !== choice);
   }

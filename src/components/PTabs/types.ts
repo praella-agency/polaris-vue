@@ -11,4 +11,6 @@ export interface TabDescriptor {
   panelID?: string;
   /** Visually hidden text for screen readers */
   accessibilityLabel?: string;
+  /** External URL */
+  external?: boolean;
 }

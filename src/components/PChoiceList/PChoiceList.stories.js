@@ -4,6 +4,28 @@ import {PTextField} from '../PTextField';
 export default {
     title: 'Forms / Choice List',
     component: PChoiceList,
+    argTypes: {
+        options: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    key: 'value',
+}]`,
+                },
+            },
+        },
+        selected: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                },
+            },
+            control: {
+                type: null,
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({
@@ -30,8 +52,8 @@ export const ChoiceList = Template.bind({});
 ChoiceList.args = {
     options: [
         {label: 'Hidden', value: 'hidden', disable: false, error: true},
-        {label: 'Optional', value: 'optional', renderChildren: true, helpText: 'Reduces the number of fields required to check out. The billing address can still be edited.'},
-        {label: 'Required', value: 'required', renderChildren: true},
+        {label: 'Optional', value: 'optional', helpText: 'Reduces the number of fields required to check out. The billing address can still be edited.'},
+        {label: 'Required', value: 'required'},
     ],
     textField: 'label',
     valueField: 'value',

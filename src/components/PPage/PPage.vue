@@ -9,8 +9,10 @@
             :actionGroups="actionGroups"
             :thumbnail="thumbnail"
             :thumbnailAlt="thumbnailAlt"
+            :pagination="pagination"
             v-bind="$attrs"
-            v-on="$listeners">
+            v-on="$listeners"
+        >
             <!-- @slot Use slot if you want to use some other component for primary Action -->
             <slot slot="primaryAction" name="primaryAction" />
             <!-- @slot Use slot if you want to use some other component for title meta data -->
@@ -37,6 +39,7 @@ import {
     MenuActionDescriptor,
     MenuGroupDescriptor,
 } from '@/types';
+import { PPaginationDescriptor } from '@/components/PPagination';
 
 export interface PPageProps extends PPageHeaderProps {
     fullWidth?: boolean;
@@ -97,7 +100,6 @@ export default class PPage extends Vue {
 
     /**
      * Collection of page-level groups of secondary actions
-     * @ignore
      */
     @Prop({type: Array, default: () => []}) public actionGroups!: MenuGroupDescriptor[];
 
@@ -105,6 +107,11 @@ export default class PPage extends Vue {
      * Collection of breadcrumbs
      */
     @Prop({type: Array, default: Array}) public breadcrumbs!: [];
+
+    /**
+     * Page-level pagination
+     */
+    @Prop(Object) public pagination!: PPaginationDescriptor;
 
     public get hasHeaderContent() {
         return (this.title != null && this.title !== '') ||

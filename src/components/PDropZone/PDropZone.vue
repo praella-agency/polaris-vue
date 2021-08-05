@@ -514,7 +514,6 @@ export default class PDropZone extends Vue {
   }
 
   public removeFiles(key) {
-    console.log(this.files, key);
     this.files.splice(key, 1);
   }
 

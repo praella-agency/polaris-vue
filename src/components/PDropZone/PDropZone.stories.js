@@ -49,6 +49,10 @@ export default {
                 type: {
                     summary: 'function',
                 },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(files: File[], acceptedFiles: File[], rejectedFiles: File[]): void => {}`,
+                },
             },
         },
         handleOnDropAccepted: {
@@ -58,6 +62,10 @@ export default {
             table: {
                 type: {
                     summary: 'function',
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(acceptedFiles: File[]): void => {}`,
                 },
             },
         },
@@ -69,6 +77,10 @@ export default {
                 type: {
                     summary: 'function',
                 },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(rejectedFiles: File[]): void => {}`,
+                },
             },
         },
         handleOnFileDialogClose: {
@@ -78,6 +90,10 @@ export default {
             table: {
                 type: {
                     summary: 'function',
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(): void => {}`,
                 },
             },
         },
@@ -89,6 +105,10 @@ export default {
                 type: {
                     summary: 'function',
                 },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(): void => {}`,
+                },
             },
         },
         handleOnDragLeave: {
@@ -99,6 +119,10 @@ export default {
                 type: {
                     summary: 'function',
                 },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(): void => {}`,
+                },
             },
         },
         handleOnDragEnter: {
@@ -108,6 +132,10 @@ export default {
             table: {
                 type: {
                     summary: 'function',
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(): void => {}`,
                 },
             },
         },
