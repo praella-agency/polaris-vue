@@ -3,10 +3,11 @@
     <div class="Polaris-Layout__AnnotationWrapper">
       <div class="Polaris-Layout__Annotation">
         <PTextContainer>
-          <!-- @slot Short Description content for the layout  -->
+          <!-- @slot Title for the section  -->
           <slot name="title" />
           <PHeading v-if="title">{{ title }}</PHeading>
           <div v-if="description || $slots.hasOwnProperty('description')" class="Polaris-Layout__AnnotationDescription">
+            <!-- @slot Short Description content for the layout  -->
             <slot name="description">
               <p>{{ description }}</p>
             </slot>
