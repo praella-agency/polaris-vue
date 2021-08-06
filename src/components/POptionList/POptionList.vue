@@ -26,6 +26,7 @@ import { classNames } from '@/utilities/css';
 import POptionsListOption from './POptionsListOption.vue';
 
 export interface OptionDescriptor {
+    label?: string;
     value: string;
     disabled?: boolean;
     active?: boolean;

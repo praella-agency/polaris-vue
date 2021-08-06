@@ -1,5 +1,5 @@
 <template>
-  <span :class="className" :aria-label="accessibilityLabel">
+  <span :class="className" :aria-label="accessibilityLabel" @click="handleClick" :style="clickable">
     <div v-if="source === 'placeholder'" class="Polaris-Icon__Placeholder" />
     <img
       v-else-if="source === 'external'"
@@ -57,6 +57,8 @@ export default class PIcon extends Vue {
    */
   @Prop({type: String, default: null}) public accessibilityLabel!: string;
 
+  public clickable = {};
+
   public get className() {
     return classNames(
       'Polaris-Icon',
@@ -81,6 +83,18 @@ export default class PIcon extends Vue {
       return this.source.replace('<svg', '<svg class="Polaris-Icon__Svg"');
     }
     return sourceIcon.replace('<svg', '<svg class="Polaris-Icon__Svg" focusable="false" aria-hidden="true"');
+  }
+
+  public mounted() {
+    if(this.$listeners.click) {
+      this.clickable = {
+        cursor: 'pointer'
+      };
+    }
+  }
+
+  public handleClick() {
+    this.$emit('click');
   }
 }
 </script>

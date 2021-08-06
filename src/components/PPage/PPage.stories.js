@@ -7,11 +7,6 @@ export default {
     title: 'Structure / Page ',
     component: PPage,
     argTypes: {
-        additionalNavigation: {
-            table: {
-                disable: true,
-            },
-        },
         default: {
             table: {
                 disable: true,
@@ -22,20 +17,16 @@ export default {
                 name: 'json',
             },
             table: {
+                category: ['props', 'slots'],
                 defaultValue: {
                     summary: '{}',
                     detail: `{
     /** Content the action displays */
-    content?: string;
+    content?: string,
     /** Callback when an action takes place */
-    onAction?(): void;
+    onAction?(): void,
 }`,
                 },
-            },
-        },
-        titleMetadata: {
-            table: {
-                disable: true,
             },
         },
         actionGroups: {
@@ -47,19 +38,19 @@ export default {
                     summary: '[]',
                     detail: `[{
     /** Title for the action */  
-    title: string;
+    title: string,
     /** Actions for the action groups */
     actions: [{
-        id?: string;
-        content?: string;
-        accessibilityLabel?: string;
-        url?: string;
-        external?: boolean;
-        onAction?(): void;
-    }];
-    icon?: string;
-    details?: string;
-    index?: number;
+        id?: string,
+        content?: string,
+        accessibilityLabel?: string,
+        url?: string,
+        external?: boolean,
+        onAction?(): void,
+    }],
+    icon?: string,
+    details?: string,
+    index?: number,
 }]`,
                 }
             }
@@ -69,13 +60,13 @@ export default {
                 defaultValue: {
                     summary: '{}',
                     detail: `{
-    nextURL?: string;
-    previousURL?: string;
-    hasNext?: boolean;
-    hasPrevious?: boolean;
-    accessibilityLabel?: string;
-    onNext?(): void;
-    onPrevious?(): void;
+    nextURL?: string,
+    previousURL?: string,
+    hasNext?: boolean,
+    hasPrevious?: boolean,
+    accessibilityLabel?: string,
+    onNext?(): void,
+    onPrevious?(): void,
 }`
                 },
             },
@@ -97,11 +88,11 @@ export default {
                 defaultValue: {
                     summary: '[]',
                     detail: `[{
-    content?: any;
-    url?: any;
-    to?: any;
-    accessibilityLabel?: string;
-    onAction?(): void;
+    content?: any,
+    url?: any,
+    to?: any,
+    accessibilityLabel?: string,
+    onAction?(): void,
 }]`
                 },
             },
@@ -112,15 +103,15 @@ export default {
                     summary: '[]',
                     detail: `[{
     /** Content the action displays */
-    content?: string;
+    content?: string,
     /** Accessibility Label */
-    accessibilityLabel?: string;
+    accessibilityLabel?: string,
     /** Icon support */
-    icon?: string;
+    icon?: string,
     /** Disable element */
-    disabled?: boolean;
+    disabled?: boolean,
     /** Callback when an action takes place */
-    onAction?(): void;                    
+    onAction?(): void,                   
 }]`,
                 },
             },

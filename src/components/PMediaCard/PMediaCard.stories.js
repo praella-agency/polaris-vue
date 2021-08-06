@@ -21,9 +21,9 @@ export default {
                     summary: '{}',
                     detail: `{
     /** Content the action displays */
-    content?: string;
+    content?: string,
     /** Callback when an action takes place */
-    onAction?(): void;
+    onAction?(): void,
 }`,
                 },
             },
@@ -34,9 +34,9 @@ export default {
                     summary: '{}',
                     detail: `{
     /** Content the action displays */
-    content?: string;
+    content?: string,
     /** Callback when an action takes place */
-    onAction?(): void;
+    onAction?(): void,
 }`,
                 },
             },
@@ -47,13 +47,13 @@ export default {
                     summary: '[]',
                     detail: `[{
     /** Media source */
-    src: string;
+    src: string,
     /** Media Type*/
-    type: string;
-}]`
-                }
-            }
-        }
+    type: string,
+}]`,
+                },
+            },
+        },
     },
 }
 

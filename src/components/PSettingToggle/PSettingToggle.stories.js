@@ -26,19 +26,19 @@ export default {
                     summary: '{}',
                     detail: `{
     /** Display the content */
-    contentStatus?: string;
+    contentStatus?: string,
     /** Url for the element */
-    url?: string;
+    url?: string,
     /** Disable the element */
-    disabled?: boolean;
+    disabled?: boolean,
     /** Accessibility Label for the element */
-    accessibilityLabel?: string;
+    accessibilityLabel?: string,
     /** Destructive element */
-    destructive?: boolean;
+    destructive?: boolean,
     /** Add Icon support */
-    icon?: string;
+    icon?: string,
     /** Callback when an action takes place */
-    onAction?(): void;
+    onAction?(): void,
 }`
                 },
             },

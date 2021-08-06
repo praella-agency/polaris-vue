@@ -10,7 +10,7 @@ export default {
                 defaultValue: {
                     summary: '[]',
                     detail: `[{
-    key: 'value',
+    key: value,
 }]`,
                 },
             },

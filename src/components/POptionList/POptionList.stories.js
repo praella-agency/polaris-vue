@@ -9,6 +9,31 @@ export default {
                 type: null,
             },
         },
+        options: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    value: string,
+    label: string,
+    disabled?: boolean,
+    active?: boolean,
+    id?: string,
+}]`,
+                },
+            },
+        },
+        sections: {
+            table: {
+                defaultValue: {
+                    summary: '[{}]',
+                    detail: `[{
+    title?: string,
+    options: options[],
+}]`,
+                }
+            }
+        }
     },
 }
 

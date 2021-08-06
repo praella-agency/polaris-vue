@@ -23,11 +23,6 @@ export default {
                 disable: true,
             },
         },
-        footer: {
-            table: {
-                disable: true,
-            },
-        },
         title: {
             control: {
                 type: 'text',
@@ -36,11 +31,6 @@ export default {
                 type: {
                     summary: 'string',
                 },
-            },
-        },
-        short_description: {
-            table: {
-                disable: true,
             },
         },
         actions: {
@@ -55,23 +45,18 @@ export default {
                     summary: '[]',
                     detail: `[{
     /** Content the action displays */
-    content?: string;
+    content?: string,
     /** Link support instead of button */
-    href?: boolean;
+    href?: boolean,
     /** Router Link support */
-    to?: boolean;
+    to?: boolean,
     /** Callback when an action takes place */
-    onAction?(): void;
+    onAction?(): void,
     Or
     /** Parameterize Callback when an action takes place */
-    onAction?():void () => {methodName(parameter)};
+    onAction?():void () => {methodName(parameter)},
 }]`,
                 },
-            },
-        },
-        children: {
-            table: {
-                disable: true,
             },
         },
     },

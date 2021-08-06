@@ -1,7 +1,7 @@
 <template>
   <div>
     <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs" :resourceTitle="searchPlaceholder"
-             @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
+             :hideQueryField="hasFilter" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
       <!-- @slot Filter content -->
       <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
     </PFilter>
@@ -14,33 +14,41 @@
           <slot name="head">
             <template>
               <tr>
-
                 <PDataTableCellNew
-                    v-for="(header, hIndex) in headings"
-                    header
+                    v-for="(heading, hIndex) in headings"
                     :key="`heading-cell-${hIndex}`"
-                    :content="header.content"
-                    :value="header.value"
-                    :type="header.type"
-                    :sortable="header.sortable"
-                    :width="header.width"
+                    header
+                    :content="heading.content"
+                    :value="heading.value"
+                    :width="heading.width"
+                    :content-type="heading.type ? heading.type : columnContentTypes[hIndex]"
+                    :sortable="heading.sortable"
+                    :sort="sort"
+                    :default-sort-direction="defaultSortDirection"
                     :first-column="hIndex === 0"
                     :truncate="truncate"
                     :verticalAlign="verticalAlign"
+                    @sort-changed="handleSortChange"
                 />
-
               </tr>
               <tr v-if="!showTotalsInFooter">
-
-
+                <PDataTableCellNew
+                    v-for="(total, index) in totals"
+                    :key="`total-cell-${index}`"
+                    total
+                    :value="index === 0 ? 'Totals' : total"
+                    :content-type="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
+                    :first-column="index === 0"
+                    :truncate="truncate"
+                    :vertical-align="verticalAlign"
+                    :sortable="false"
+                />
               </tr>
             </template>
           </slot>
-
           </thead>
 
           <tbody ref="tbody">
-
           <template v-if="loading">
             <tr class="Polaris-ResourceList__SpinnerContainer" :style="{'padding-top': `${topPadding}px`}">
               <PSpinner :size="!$slots.hasOwnProperty('body') && rows.length < 2 ? 'small' : 'large'"/>
@@ -50,39 +58,62 @@
 
           <!-- @slot Body content -->
           <slot name="body">
-              <tr
-                  class="Polaris-DataTable__TableRow"
-                  v-for="(row, rIndex) in rows"
-                  :key="`row-${rIndex}`"
+            <tr
+                class="Polaris-DataTable__TableRow"
+                v-for="(row, rIndex) in rows"
+                :key="`row-${rIndex}`"
+            >
+              <template
+                  v-for="(heading, hIndex) in headings"
               >
-                <template
-                    v-for="(heading, hIndex) in headings"
-                >
-                  <PDataTableCellNew
-                      :value="row[heading.value]"
-                      :first-column="hIndex === 0"
-                  />
-                </template>
-              </tr>
-          </slot>
 
+                <PDataTableCellNew
+                    :value="row[heading.value]"
+                    :header-value="heading.value"
+                    :first-column="hIndex === 0"
+                    :content-type="headings[hIndex].type ? headings[hIndex].type : columnContentTypes[hIndex]"
+                    :truncate="truncate"
+                    :vertical-align="verticalAlign"
+                    :sortable="false"
+                >
+                  <template v-slot:[`item.${heading.value}`]="slotProps">
+                    <!-- @slot Slot to customize a specific column -->
+                    <slot :name="`item.${heading.value}`" :item="row"/>
+                  </template>
+                </PDataTableCellNew>
+              </template>
+            </tr>
+          </slot>
           </tbody>
 
           <tfoot v-if="showTotalsInFooter">
           <tr>
-
-
+            <PDataTableCellNew
+                v-for="(total, index) in totals"
+                :key="`total-cell-${index}`"
+                total
+                :total-in-footer="showTotalsInFooter"
+                :value="index === 0 ? 'Totals' : total"
+                :content-type="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
+                :first-column="index === 0"
+                :truncate="truncate"
+                :vertical-align="verticalAlign"
+                :sortable="false"
+            />
           </tr>
           </tfoot>
-
         </table>
       </div>
+
       <div class="Polaris-DataTable__Pagination" v-if="hasPagination">
         <PPagination v-bind="pagination"/>
       </div>
-      <div v-if="footerContent" class="Polaris-DataTable__Footer">{{ footerContent }}</div>
+      <div v-if="footerContent" class="Polaris-DataTable__Footer">
+        {{ footerContent }}
+      </div>
     </div>
     <div v-else>
+      <!-- @slot Slot to display when no record available -->
       <slot name="emptyState">
         <PEmptyState
             :heading="emptyStateTitle"

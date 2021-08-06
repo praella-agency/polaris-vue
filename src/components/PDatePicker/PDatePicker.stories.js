@@ -21,6 +21,19 @@ export default {
                 type: 'text',
             },
         },
+        ranges: {
+            table: {
+                type: {
+                    summary: 'boolean, object',
+                },
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    key: value,
+}`,
+                }
+            }
+        }
     },
 }
 
@@ -39,5 +52,5 @@ export const DatePicker = Template.bind({});
 
 DatePicker.args = {
     id: "pDatePicker",
-    singleDatePicker: true
+    singleDatePicker: true,
 }

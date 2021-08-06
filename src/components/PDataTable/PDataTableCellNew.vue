@@ -14,12 +14,12 @@
     </template>
   </th>
   <th v-else-if="firstColumn" scope="row" :class="className">
-    <slot :name="`item.${value}`" v-if="!hasActions">
+    <slot :name="`item.${headerValue}`" :item="headerValue">
       {{ value }}
     </slot>
   </th>
   <td v-else :class="className">
-    <slot :name="`item.${value}`">
+    <slot :name="`item.${headerValue}`" :item="headerValue">
       {{ value }}
     </slot>
   </td>
@@ -66,7 +66,7 @@
   export default class PDataTableCellNew extends Vue {
     @Prop() public content!: string | number;
     @Prop(String) public contentType!: string;
-    @Prop([String, Number]) public value!: string | number;
+    @Prop() public value!: any;
     @Prop(Boolean) public firstColumn!: boolean;
     @Prop(Boolean) public truncate!: boolean;
     @Prop(Boolean) public header!: boolean;
@@ -81,6 +81,7 @@
     @Prop(Object) public action!: LinkAction | ComplexAction;
     @Prop(Object) public badge!: Badge;
     @Prop(Object) public toggle!: Toggle;
+    @Prop(String) public headerValue!: string;
 
     public get className() {
       return classNames(
@@ -102,10 +103,6 @@
         'Polaris-DataTable__Heading',
         this.contentType === 'text' && 'Polaris-DataTable__Heading--left',
       );
-    }
-
-    public get slotName() {
-
     }
 
     public get direction() {

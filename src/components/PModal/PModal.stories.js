@@ -15,13 +15,13 @@ export default {
                     summary: '{}',
                     detail:`{
     /** Content the action displays */
-    content?: string;
+    content?: string,
     /** Disable the element */
-    disabled?: boolean;
+    disabled?: boolean,
     /** Destructive the element */
-    destructive?: boolean;
+    destructive?: boolean,
     /** Callback when an action takes place */
-    onAction?(): void;
+    onAction?(): void,
 }`,
                 },
             },
@@ -32,13 +32,13 @@ export default {
                     summary: '[]',
                     detail:`[{
     /** Content the action displays */
-    content?: string;
+    content?: string,
     /** Disable the element */
-    disabled?: boolean;
+    disabled?: boolean,
     /** Destructive the element */
-    destructive?: boolean;
+    destructive?: boolean,
     /** Callback when an action takes place */
-    onAction?(): void;
+    onAction?(): void,
 }]`,
                 },
             },

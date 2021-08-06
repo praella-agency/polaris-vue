@@ -17,6 +17,25 @@ export default {
                 disable: true,
             },
         },
+        resourceName: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    singular: string,
+    plural: string,
+}`,
+                },
+            },
+        },
+        onQueryChange: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: `(queryValue) => {}`,
+                },
+            },
+        },
     },
 }
 

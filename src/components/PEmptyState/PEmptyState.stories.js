@@ -11,11 +11,6 @@ export default {
                 disable: true,
             },
         },
-        actions: {
-            table: {
-                disable: true,
-            },
-        },
         image: {
             control: {
                 type: 'text',
@@ -24,11 +19,6 @@ export default {
                 type: {
                     summary: 'string',
                 },
-            },
-        },
-        footer: {
-            table: {
-                disable: true,
             },
         },
         heading: {
@@ -47,9 +37,9 @@ export default {
                     summary: '{}',
                     detail: `{
     /** Content the action displays */
-    content?: string;
+    content?: string,
     /** Callback when an action takes place */
-    onAction?(): void;
+    onAction?(): void,
 }`,
                 },
             },
@@ -60,9 +50,9 @@ export default {
                     summary: '{}',
                     detail: `{
     /** Content the action displays */
-    content?: string;
+    content?: string,
     /** Callback when an action takes place */
-    onAction?(): void;
+    onAction?(): void,
 }`,
                 },
             },

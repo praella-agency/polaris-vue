@@ -3,6 +3,19 @@ import PTag from './PTag';
 export default {
     title: 'Forms / Tag',
     component: PTag,
+    argTypes: {
+        tag: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    value: string,
+    key: string,
+}`,
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, { argTypes }) => ({

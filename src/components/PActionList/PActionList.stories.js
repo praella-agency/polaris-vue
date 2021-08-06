@@ -10,13 +10,13 @@ export default {
                     summary: '[]',
                     detail: `[{
     /** Content the action displays */
-    content?: string;
+    content?: string,
     /** Icon to display */
-    icon?: boolean;
+    icon?: boolean,
     /** HelpText for the element */
-    helpText?: boolean;
+    helpText?: boolean,
     /** Callback when an action takes place */
-    onAction?(): void;
+    onAction?(): void,
 }]`,
                 },
             },
@@ -27,9 +27,9 @@ export default {
                     summary: '[]',
                     detail: `[{
     /** Title for the section */
-    title?: string;
+    title?: string,
     /** Collection of action items for the list */
-    items: [];
+    items: [],
 }]`,
                 },
             },

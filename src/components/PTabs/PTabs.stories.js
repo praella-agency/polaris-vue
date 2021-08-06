@@ -20,19 +20,19 @@ export default {
                     summary: '[]',
                     detail: `[{
     /** A unique identifier for the tab */
-    id: string;
+    id: string,
     /** A destination to link to */
-    url?: string;
+    url?: string,
     /** Set to for router link */
-    to?: string | object;
+    to?: string | object,
     /** Content for the tab */
-    content: string;
+    content: string,
     /** A unique identifier for the panel */
-    panelID?: string;
+    panelID?: string,
     /** Visually hidden text for screen readers */
-    accessibilityLabel?: string;
+    accessibilityLabel?: string,
     /** External URL */
-    external?: boolean;
+    external?: boolean,
 }]`
                 }
             }

@@ -13,23 +13,23 @@ export default {
                     summary: '{}',
                     detail: `{
     /** Visually hidden text for screen readers */
-    accessibilityLabel?: string;
+    accessibilityLabel?: string,
     /** Content the action displays */
-    content?: string;
+    content?: string,
     /** Whether or not the action is disabled */
-    disabled?: boolean;
+    disabled?: boolean,
     /** Forces url to open in a new tab */
-    external?: boolean;
+    external?: boolean,
     /** A unique identifier for the action */
-    id?: string;
+    id?: string,
     /** A destination to link to, rendered in the action */
-    url?: string;
+    url?: string,
     /** Icon support */
-    icon?: string;
+    icon?: string,
     /** Spinner for the element */
-    loading?: boolean;
+    loading?: boolean,
     /** Callback when an action takes place */
-    onAction()?: void;
+    onAction()?: void,
 }`,
                 },
             },
@@ -40,25 +40,25 @@ export default {
                     summary: '{}',
                     detail: `{
     /** Visually hidden text for screen readers */
-    accessibilityLabel?: string;
+    accessibilityLabel?: string,
     /** Content the action displays */
-    content?: string;
+    content?: string,
     /** Whether or not the action is disabled */
-    disabled?: boolean;
+    disabled?: boolean,
     /** Forces url to open in a new tab */
-    external?: boolean;
+    external?: boolean,
     /** A unique identifier for the action */
-    id?: string;
+    id?: string,
     /** A destination to link to, rendered in the action */
-    url?: string;
+    url?: string,
     /** Destructive action */
-    destructive?: boolean;
+    destructive?: boolean,
     /** Icon support */
-    icon?: string;
+    icon?: string,
     /** Spinner for the element */
-    loading?: boolean;
+    loading?: boolean,
     /** Callback when an action takes place */
-    onAction()?: void;
+    onAction()?: void,
 }`,
                 },
             },
@@ -69,25 +69,25 @@ export default {
                     summary: '[]',
                     detail: `[{
     /** stringVisually hidden text for screen readers */
-    accessibilityLabel?: string;
+    accessibilityLabel?: string,
     /** stringContent the action displays */
-    content?: string;
+    content?: string,
     /** booleanWhether or not the action is disabled */
-    disabled?: boolean;
+    disabled?: boolean,
     /** booleanForces url to open in a new tab */
-    external?: boolean;
+    external?: boolean,
     /** stringA unique identifier for the action */
-    id?: string;
+    id?: string,
     /** stringA destination to link to, rendered in the action */
-    url?: string;
+    url?: string,
     /** Destructive action */
-    destructive?: boolean;
+    destructive?: boolean,
     /** Icon support */
-    icon?: string;
+    icon?: string,
     /** Spinner for the element */
-    loading?: boolean;
+    loading?: boolean,
     /** voidCallback when an action takes place */
-    onAction()?: void;
+    onAction()?: void,
 }]`,
                 },
             },

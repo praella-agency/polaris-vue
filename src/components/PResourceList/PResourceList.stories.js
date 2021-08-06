@@ -24,14 +24,50 @@ export default {
                 disable: true,
             },
         },
-        emptySearchState: {
+        bulkActions: {
             table: {
-                disable: true,
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    content: string,
+    onAction: void,
+}]`,
+                },
             },
         },
-        filter: {
+        promotedBulkActions: {
             table: {
-                disable: true,
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    content: string,
+    onAction: void,
+}]`,
+                },
+            },
+        },
+        resourceName: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    singular: string,
+    plural: string,
+}`,
+                },
+            },
+        },
+        sortOptions: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    label: string,
+    value: string,
+    disabled?: boolean,
+    hidden?: boolean,
+}]`,
+                },
             },
         },
     },
