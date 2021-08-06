@@ -200,7 +200,8 @@ DataTableNew.args = {
     ],
     rows: [
         {
-            product: {label: 'Emerald Silk Gown', url: "javascript:void(0);"},
+            product: 'Emerald Silk Gown',
+            product_link: 'https://google.com',
             price: '$875.00',
             sku: {content: 124689, status: 'critical', progress: 'incomplete'},
             qty: 140,
