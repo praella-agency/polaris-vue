@@ -24,7 +24,7 @@ export default {
         ranges: {
             table: {
                 type: {
-                    summary: 'boolean, object',
+                    summary: 'boolean | object',
                 },
                 defaultValue: {
                     summary: '{}',
