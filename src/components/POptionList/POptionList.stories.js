@@ -26,7 +26,7 @@ export default {
         sections: {
             table: {
                 defaultValue: {
-                    summary: '[{}]',
+                    summary: '[]',
                     detail: `[{
     title?: string,
     options: options[],
