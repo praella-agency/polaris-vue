@@ -58,58 +58,69 @@
 
           <!-- @slot Body content -->
           <slot name="body">
-            <tr
-                class="Polaris-DataTable__TableRow"
-                v-for="(row, rIndex) in rows"
-                :key="`row-${rIndex}`"
+            <template
+                v-for="row in rows"
             >
-              <template
-                  v-for="(heading, hIndex) in headings"
-              >
+              <!-- @slot Slot to replace the default rendering of a row -->
+              <slot name="item" :item="row">
 
-                <PDataTableCellNew
-                    :value="row[heading.value]"
-                    :header-value="heading.value"
-                    :first-column="hIndex === 0"
-                    :content-type="headings[hIndex].type ? headings[hIndex].type : columnContentTypes[hIndex]"
-                    :truncate="truncate"
-                    :vertical-align="verticalAlign"
-                    :sortable="false"
+                <tr
+                    class="Polaris-DataTable__TableRow"
                 >
-                  <template v-slot:[`item.${heading.value}`]="slotProps">
-                    <!-- @slot Slot to customize a specific column -->
-                    <slot :name="`item.${heading.value}`" :item="row"/>
+
+                  <template
+                      v-for="(heading, hIndex) in headings"
+                  >
+
+                    <PDataTableCellNew
+                        :value="row[heading.value]"
+                        :header-value="heading.value"
+                        :first-column="hIndex === 0"
+                        :content-type="headings[hIndex].type ? headings[hIndex].type : columnContentTypes[hIndex]"
+                        :truncate="truncate"
+                        :vertical-align="verticalAlign"
+                        :sortable="false"
+                    >
+                      <template v-slot:[`item.${heading.value}`]="slotProps">
+                        <!-- @slot Slot to customize a specific column -->
+                        <slot :name="`item.${heading.value}`" :item="row"/>
+                      </template>
+                    </PDataTableCellNew>
                   </template>
-                </PDataTableCellNew>
-              </template>
-            </tr>
+
+                </tr>
+
+              </slot>
+            </template>
           </slot>
           </tbody>
 
-          <tfoot v-if="showTotalsInFooter">
-          <tr>
-            <PDataTableCellNew
-                v-for="(total, index) in totals"
-                :key="`total-cell-${index}`"
-                total
-                :total-in-footer="showTotalsInFooter"
-                :value="index === 0 ? 'Totals' : total"
-                :content-type="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
-                :first-column="index === 0"
-                :truncate="truncate"
-                :vertical-align="verticalAlign"
-                :sortable="false"
-            />
-          </tr>
-          </tfoot>
+            <tfoot v-if="showTotalsInFooter">
+            <tr>
+              <PDataTableCellNew
+                  v-for="(total, index) in totals"
+                  :key="`total-cell-${index}`"
+                  total
+                  :total-in-footer="showTotalsInFooter"
+                  :value="index === 0 ? 'Totals' : total"
+                  :content-type="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
+                  :first-column="index === 0"
+                  :truncate="truncate"
+                  :vertical-align="verticalAlign"
+                  :sortable="false"
+              />
+            </tr>
+            </tfoot>
         </table>
       </div>
 
+      <div v-if="footerContent" class="Polaris-DataTable__Footer">
+        <slot name="footer">
+          {{ footerContent }}
+        </slot>
+      </div>
       <div class="Polaris-DataTable__Pagination" v-if="hasPagination">
         <PPagination v-bind="pagination"/>
-      </div>
-      <div v-if="footerContent" class="Polaris-DataTable__Footer">
-        {{ footerContent }}
       </div>
     </div>
     <div v-else>
@@ -278,6 +289,11 @@
      */
     @Prop({type: String, default: 'No record found!'}) public emptyStateTitle!: string;
 
+    /**
+     * Custom totals row heading
+     */
+    @Prop({type: Object, default: () => ({})}) public totalsName!: object;
+
     public topPadding = 8;
 
     public get hasActions() {
@@ -331,5 +347,8 @@
   .Polaris-DataTable__Pagination {
     text-align: center;
     padding: 1.6rem;
+    border-top: 0.1rem solid #e1e3e5;
+    border-bottom-left-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem;
   }
 </style>

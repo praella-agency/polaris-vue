@@ -1,4 +1,6 @@
 import PDataTableNew from './PDataTableNew.vue';
+import { PDataTableRow } from '../PDataTable/components/';
+import { PDataTableCol } from '../PDataTable/components/components';
 import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
 import { PLink } from '../PLink';
@@ -37,7 +39,7 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PDataTableNew, PPopover, PButton, POptionList, PCard, PLink, PBadge, PToggle, PIcon, PStack, PStackItem,
+        PDataTableNew, PPopover, PButton, POptionList, PCard
     },
     data() {
         return {
@@ -51,33 +53,11 @@ const Template = (args, {argTypes}) => ({
       <PCard sectioned>
         <PDataTableNew
             v-bind="$props"
+            footer-content="Showing 3 of 3"
             @sort-changed="handleSortChange"
             @input-filter-changed="handleSearch"
         >
-          <template v-slot:item.product="{item}">
-            <PLink :url="item.product.url">
-              {{item.product.label}}
-            </PLink>
-          </template>
-          <template v-slot:item.sku="{item}">
-            <PBadge :status="item.sku.status" :progress="item.sku.progress">
-              {{item.sku.content}}
-            </PBadge>
-          </template>
-          <template v-slot:item.status="{item}">
-            <PToggle :checked="item.status"/>
-          </template>
-          <template v-slot:item.actions="{item}">
-            <PStack>
-              <PStackItem>
-                <PIcon source="EditMinor" @click="editItem(item.product)"/>
-              </PStackItem>
-              <PStackItem>
-                <PIcon source="DeleteMinor" @click="deleteItem(item.product)"/>
-              </PStackItem>
-            </PStack>
-          </template>
-
+          
           <template slot="filter">
             <PPopover
                 id="popover_1"
@@ -95,11 +75,11 @@ const Template = (args, {argTypes}) => ({
                   allowMultiple
                   :selected="selected"
                   :options="[
-                          {label: 'Rating 1 with a long text', value: '1'},
-                          {label: 'Rating 2', value: '2'},
-                          {label: 'Rating 3', value: '3'},
-                          {label: 'Rating 4', value: '4'},
-                      ]"
+                      {label: 'Rating 1 with a long text', value: '1'},
+                      {label: 'Rating 2', value: '2'},
+                      {label: 'Rating 3', value: '3'},
+                      {label: 'Rating 4', value: '4'},
+                  ]"
                   @change="updateRatingFilter"
               ></POptionList>
             </PPopover>
@@ -150,10 +130,10 @@ const Template = (args, {argTypes}) => ({
             console.log('selected status', selected);
         },
         editItem(item) {
-            alert('Edit: ' + item.label);
+            alert('Edit: ' + item);
         },
         deleteItem(item) {
-            alert('Delete: ' + item.label);
+            alert('Delete: ' + item);
         },
     }
 });
@@ -191,39 +171,41 @@ DataTableNew.args = {
             type: 'text',
             sortable: false,
         },
-        {
-            content: 'Actions',
-            value: 'actions',
-            type: 'text',
-            sortable: false,
-        },
     ],
     rows: [
         {
             product: 'Emerald Silk Gown',
-            product_link: 'https://google.com',
+            product_link: 'javascript:void(0);',
             price: '$875.00',
-            sku: {content: 124689, status: 'critical', progress: 'incomplete'},
+            sku: 124689,
+            sku_status: 'critical',
+            sku_progress: 'incomplete',
             qty: 140,
             status: true,
         },
         {
-            product: {label: 'Mauve Cashmere Scarf', url: "javascript:void(0);"},
+            product: 'Mauve Cashmere Scarf',
+            product_link: "javascript:void(0);",
             price: '$230.00',
-            sku: {content: 124533, status: 'warning', progress: 'partiallyComplete'},
+            sku: 124533,
+            sku_status: 'warning',
+            sku_progress: 'partiallyComplete',
             qty: 83,
             status: false,
         },
         {
-            product: {label: 'Navy Merino Wool Blazer with khaki chinos and yellow belt', url: "javascript:void(0);"},
+            product: 'Navy Merino Wool Blazer with khaki chinos and yellow belt',
+            product_link: "javascript:void(0);",
             price: '$445.00',
-            sku: {content: 124518, status: 'success', progress: 'complete'},
+            sku: 124518,
+            sku_status: 'success',
+            sku_progress: 'complete',
             qty: 32,
             status: true,
         },
     ],
     totals: [
-        '', '', '', 441, '', '',
+        '', '', '', 441, '',
     ],
     hasPagination: true,
     pagination: {

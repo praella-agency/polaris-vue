@@ -882,7 +882,7 @@ $datatable-cell-first-color: $theme-action-menu-svg;
 
 $datatable-cell-header-font-weight: 400;
 $datatable-cell-header-font-color: $theme-action-menu-svg;
-$datatable-cell-header-border: .1rem solid var(--p-border-on-surface,$theme-disable-backdrop-color);
+$datatable-cell-header-border: .1rem solid rgba(140, 145, 150, 1);
 
 $datatable-border-none: none;
 
@@ -900,8 +900,8 @@ $datatable-cell-total-font-weight: 600;
 $datatable-cell-total-bgcolor: var(--p-surface-foreground-subdued,#f9fafb);
 $datatable-cell-total-border: .1rem solid var(--p-border-subdued-on-surface,$theme-resource-list-border);
 
-$datatable-cell-footer-bgcolor: var(--p-surface-foreground-subdued,$body-bg-color);
-$datatable-cell-footer-color: $theme-label-color;
+$datatable-cell-footer-bgcolor: rgba(250, 251, 251, 1);
+$datatable-cell-footer-color: rgba(109, 113, 117, 1);
 
 /* DatePicker */
 
