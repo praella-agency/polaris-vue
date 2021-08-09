@@ -29,7 +29,7 @@ export default {
                 defaultValue: {
                     summary: '{}',
                     detail: `{
-    key: value,
+    text: 'value',
 }`,
                 }
             }
