@@ -263,7 +263,7 @@ export default class PDatePicker extends Vue {
   @Prop(Object) public localeData!: object;
 
   /**
-   * Object containing locale data used by the picker
+   * Help text for the date picker
    */
   @Prop({type: String, default: null}) public helpText!: string;
 
