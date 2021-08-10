@@ -31,7 +31,12 @@ export default {
                     detail: `{
     text: 'value',
 }`,
-                }
+                },
+            },
+        },
+        helpText: {
+            table: {
+                category: ['props', 'slots']
             }
         }
     },

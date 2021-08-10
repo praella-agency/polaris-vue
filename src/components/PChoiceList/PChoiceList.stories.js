@@ -37,12 +37,14 @@ const Template = (args, {argTypes}) => ({
     data() {
         return {
             selectedData: ["hidden"],
+            data: null,
         };
     },
     template: `
         <PChoiceList
             v-bind="$props"
             :selected="selectedData"
+            v-model="data"
         >
             <PTextField />
         </PChoiceList>`,

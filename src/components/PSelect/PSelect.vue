@@ -162,6 +162,10 @@
        * @property {event}
        */
       this.$emit('change', value);
+      /**
+       * Callback when input is triggered
+       * @property {event}
+       */
       this.$emit('input', value);
     }
 
