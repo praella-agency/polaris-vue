@@ -66,6 +66,12 @@
         </PStack>
       </template>
     </DateRangePicker>
+    <div class="Polaris-Labelled__HelpText" v-if="$slots.hasOwnProperty('helpText') || helpText">
+      <!-- @slot Slot to custom helpText -->
+      <slot name="helpText">
+          {{helpText}}
+      </slot>
+    </div>
     <PFieldError v-if="error" :error="error"/>
 
   </div>
@@ -256,6 +262,11 @@ export default class PDatePicker extends Vue {
    */
   @Prop(Object) public localeData!: object;
 
+  /**
+   * Object containing locale data used by the picker
+   */
+  @Prop({type: String, default: null}) public helpText!: string;
+
   public content: DateRange = (this.dateRange !== null && this.dateRange !== undefined) ?
       this.dateRange : {startDate: new Date(), endDate: new Date()};
 
@@ -325,6 +336,11 @@ export default class PDatePicker extends Vue {
      * @property {Object} { startDate: DateType, endDate: DateType }
      */
     this.$emit('change', dateRange);
+    /**
+     * Emits when the input is triggered
+     * @property {Object} { startDate: DateType, endDate: DateType }
+     */
+    this.$emit('input', dateRange);
   }
 
   public formatDate(date) {

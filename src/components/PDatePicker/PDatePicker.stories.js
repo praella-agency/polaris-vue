@@ -42,9 +42,15 @@ const Template = (args, {argTypes}) => ({
     components: {
         PDatePicker
     },
+    data() {
+        return {
+            data: null,
+        };
+    },
     template: `
       <PDatePicker
           v-bind="$props"
+          v-model="data"
       ></PDatePicker>`,
 });
 
