@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Prop } from 'vue-property-decorator';
+  import { Vue, Component, Prop } from 'vue-property-decorator';
 
   import { PStack, PStackItem } from '@/components/PStack';
   import { PButton } from '@/components/PButton';
@@ -47,14 +47,7 @@
 
   @Component({
     components: {
-      PStack,
-      PStackItem,
-      PButton,
-      PBadge,
-      PTextContainer,
-      PHeading,
-      PDisplayText,
-      PLink,
+      PStack, PStackItem, PButton, PBadge, PTextContainer, PHeading, PDisplayText, PLink,
     },
   })
   export default class PMessage extends Vue {

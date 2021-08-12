@@ -1,3 +1,3 @@
-import PMessage from './PMessage.vue';
+import PMenu from './PMenu.vue';
 
-export { PMessage };
+export { PMenu };

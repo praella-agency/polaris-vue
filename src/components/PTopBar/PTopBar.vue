@@ -16,13 +16,13 @@
     </div>
     <div v-else-if="Object.keys(logo).length > 0" :class="className">
       <PUnstyledLink
-          :url="logo.url || ''"
+          :url="logo.url"
           class="Polaris-TopBar__LogoLink"
           :style="width"
       >
         <PImage
-            :source="logo.topBarSource || ''"
-            :alt="logo.accessibilityLabel || ''"
+            :source="logo.topBarSource"
+            :alt="logo.accessibilityLabel"
             class="Polaris-TopBar__Logo"
             :style="width"
         />
@@ -97,7 +97,9 @@
     }
 
     public get width() {
-      return getWidth(this.logo, 104);
+      return {
+        width: getWidth(this.logo, 104)
+      };
     }
   }
 </script>

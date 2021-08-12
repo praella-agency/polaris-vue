@@ -1,16 +1,17 @@
 <template>
   <div>
     <PPopover
-        :active="open"
-        @close="onClose"
+        :active="toggleOpen"
+        :close="onClose"
         fixed
-        preferredAlignment="right"
+        fullWidth
+        preferredAlignment="left"
     >
       <div class="Polaris-TopBar-Menu__ActivatorWrapper" slot="activator">
         <button
             type="button"
             class="Polaris-TopBar-Menu__Activator"
-            @click="onOpen"
+            @click="handleToggle"
             :aria-label="accessibilityLabel"
         >
           <slot name="activatorContent"/>
@@ -20,11 +21,11 @@
       <PMessage
           :title="message.title"
           :description="message.description"
-          :action="{
+          :action="Object.keys(message).length > 0 && {
             onClick: message.action.onClick,
             content: message.action.content
           }"
-          :link="{
+          :link="Object.keys(message).length > 0 && {
             to: message.link.to,
             content: message.link.content
           }"
@@ -47,15 +48,10 @@
 
   @Component({
     components: {
-      PActionList,
-      PPopover,
-      PMessage,
+      PActionList, PPopover, PMessage,
     },
   })
   export default class PMenu extends Vue {
-    focused = true;
-    popoverActive = false;
-
     /**
      * An array of action objects that are rendered inside of a popover triggered by this menu
      */
@@ -84,6 +80,9 @@
     /** A string that provides the accessibility labeling */
     @Prop({type: String, default: null}) public accessibilityLabel!: string;
 
+    public focused = true;
+    public toggleOpen = this.open;
+
     public get className() {
       return classNames(
         'Polaris-Popover__Section',
@@ -91,8 +90,8 @@
       );
     }
 
-    public toggleActive() {
-      this.popoverActive = !this.popoverActive;
+    public handleToggle() {
+      this.toggleOpen = !this.toggleOpen;
     }
   }
 </script>

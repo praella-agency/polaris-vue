@@ -1,13 +1,13 @@
 <template>
   <PMenu
     :open="open"
-    :on-open="$emit('toggle')"
-    :on-close="$emit('toggle')"
+    :on-open="onOpen"
+    :on-close="onClose"
     :actions="actions"
     :message="message"
     :accessibility-label="accessibilityLabel"
   >
-    <template v-slot="activatorContent">
+    <template slot="activatorContent">
       <PMessageIndicator :active="showIndicator">
         <PAvatar
             size="small"
@@ -25,9 +25,8 @@
 
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
-  import { classNames } from '@/utilities/css';
   import { PIcon } from '@/components/PIcon';
-  import PMenu from '@/components/PTopBar/components/PMenu/PMenu.vue';
+  import { PMenu } from '@/components/PTopBar/components/PMenu/';
   import { PMessageIndicator } from '@/components/PMessageIndicator';
   import { PAvatar } from '@/components/PAvatar';
   import { MessageProps } from '@/types';
@@ -60,17 +59,14 @@
 
   @Component({
     components: {
-      PIcon,
-      PMenu,
-      PMessageIndicator,
-      PAvatar,
+      PIcon, PMenu, PMessageIndicator, PAvatar,
     },
   })
   export default class PUserMenu extends Vue {
     /**
      * An array of action objects that are rendered inside of a popover triggered by this menu
      */
-    @Prop({type: Array, default: null}) public actions!: { items: Action[] }[];
+    @Prop({type: Array, default: () => ([])}) public actions!: { items: Action[] }[];
 
     /**
      * Accepts a message that facilitates direct, urgent communication with the merchant through the user menu
@@ -105,8 +101,18 @@
     /**
      * A boolean property indicating whether the user menu is currently open
      */
-    @Prop({type: Boolean, required: true}) public open!: boolean;
+    @Prop({type: Boolean, required: true, default: false}) public open!: boolean;
 
-    public showIndicator = Boolean(this.message);
+    /**
+     * A callback function to handle opening the menu popover
+     */
+    @Prop({type: Function}) public onOpen!: void;
+
+    /**
+     * A callback function to handle closing the menu popover
+     */
+    @Prop({type: Function}) public onClose!: void;
+
+    public showIndicator = Boolean(Object.keys(this.message).length > 0);
   }
 </script>
