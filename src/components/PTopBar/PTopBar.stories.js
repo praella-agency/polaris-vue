@@ -1,17 +1,19 @@
 import PTopBar from './PTopBar.vue';
-import {PSearchField} from "./components/PSearchField";
+import { PSearchField } from "./components/PSearchField";
 
 export default {
-    title: 'Structure / PTopBar',
+    title: 'Structure / Top Bar',
     component: PTopBar,
 }
 
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
-    components: { PTopBar, PSearchField },
+    components: {
+        PTopBar, PSearchField
+    },
     template: `
       <PTopBar v-bind="$props">
-      <PSearchField slot="searchField"></PSearchField>
+        <PSearchField slot="searchField"></PSearchField>
       </PTopBar>`,
 });
 

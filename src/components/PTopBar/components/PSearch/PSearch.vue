@@ -1,8 +1,16 @@
 <template>
-  <div :class="className">
-    <div style="background: rgb(255, 255, 255)">
-      <div class="Polaris-TopBar-Search__Results">
-        <slot>This is default search</slot>
+  <div>
+    <div
+        ref="node"
+        v-if="visible"
+        :class="searchDismissOverlayClass"
+        @click="handleDismiss"
+    />
+    <div :class="className">
+      <div class="Polaris-TopBar-Search__SearchContent">
+        <div class="Polaris-TopBar-Search__Results">
+          <slot/>
+        </div>
       </div>
     </div>
   </div>
@@ -17,7 +25,9 @@ import { classNames, variationName } from '@/utilities/css';
 })
 export default class PSearch extends Vue {
 
-  @Prop({type: Boolean, default: true}) public visible!: boolean;
+  @Prop({type: Boolean, default: false}) public visible!: boolean;
+  @Prop({type: Boolean, default: false}) public overlayVisible!: boolean;
+  @Prop({type: Function}) public onDismiss!: void;
 
   public get className() {
     return classNames(
@@ -26,5 +36,17 @@ export default class PSearch extends Vue {
     );
   }
 
+  public get searchDismissOverlayClass() {
+    return classNames(
+      'Polaris-TopBar-SearchDismissOverlay',
+      this.overlayVisible && 'Polaris-TopBar-SearchDismissOverlay--visible',
+    );
+  }
+
+  public handleDismiss(event) {
+    if(event === (this.$refs.node as HTMLDivElement) && this.onDismiss) {
+      return this.onDismiss;
+    }
+  }
 }
 </script>

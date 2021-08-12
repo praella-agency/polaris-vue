@@ -6,7 +6,7 @@
     min-width: 3.2rem;
     max-width: 100%;
     background: $avatar-bgcolor;
-    color: $avatar-color;   
+    color: $avatar-color;
     border-radius: $avatar-color-radius;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -841,7 +841,7 @@
 }
 
 @media (max-width:48.0625em) and (min-width:36.875em),(min-width:51.875em) {
-    .Polaris-DescriptionList__Description+[data-has-navigation] 
+    .Polaris-DescriptionList__Description+[data-has-navigation]
     .Polaris-DescriptionList__Term+.Polaris-DescriptionList__Description {
         border-top: $descriptionlist-term-description-border;
     }
@@ -1053,7 +1053,7 @@
     &:hover {
         background: $tag-btn-hover-bgcolor;
         outline: 0.1rem solid transparent;
-        
+
     }
 
     &:disabled {
@@ -1184,7 +1184,7 @@
     border-bottom: $footerhelp-content-border;
     width: 100%;
     justify-content: center;
-    @media (min-width:30.625em) {     
+    @media (min-width:30.625em) {
         width: auto;
         border: $footerhelp-content-border;
         border-radius: 999px;
@@ -1348,7 +1348,7 @@
     &:hover {
         color: $link-border-hover-color;
         text-decoration: none;
-    } 
+    }
 
     &:focus {
         outline: none;
@@ -1918,7 +1918,7 @@
         background-color: $skeletonbodytext-after-bgcolor;
         border-radius: $skeletonbodytext-after-border-radius;
         @media screen and (-ms-high-contrast:active) {
-            background-color: grayText;    
+            background-color: grayText;
         }
     }
 }
@@ -2356,7 +2356,7 @@
         &:after{
             box-shadow: 0 0 0 0.2rem $theme-shadow-color;
             outline: 0.1rem solid transparent;
-        }   
+        }
     }
 
     &:focus~.Polaris-TopBar-SearchField__Icon {
@@ -2461,7 +2461,7 @@
             border: none;
         }
         svg {
-           fill: $topbar-searchfield-clear-active-svg-fill; 
+           fill: $topbar-searchfield-clear-active-svg-fill;
         }
     }
 
@@ -2502,6 +2502,10 @@
         transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
         border-radius: calc(0.4rem + 0.1rem);
     }
+}
+
+.Polaris-TopBar-SearchField__Input:focus ~ .Polaris-TopBar-SearchField__BackdropShowFocusBorder {
+    border: 1px solid var(--top-bar-border);
 }
 
 /*=================== Polaris-TopBar-SearchField  =======================*/
@@ -2557,8 +2561,8 @@
     margin: 0 .8rem 0 0;
     border-radius: $topbar-menu-activator-border-radius;
     @media (max-width:48.0525em) {
-        margin: 0 .4rem;    
-    }   
+        margin: 0 .4rem;
+    }
     &:focus {
         background-color: $topbar-menu-activator-focus-bgcolor;
         outline: none;
@@ -2958,4 +2962,104 @@ div.multiselect {
     .multiselect__select:before {
         display: none;
     }
+}
+
+/* Topbar SearchDismissOverlay */
+
+.Polaris-TopBar-SearchDismissOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 515;
+  height: 100%;
+}
+
+.Polaris-TopBar-SearchDismissOverlay--visible {
+  background-color: transparent;
+  animation: none;
+}
+
+@keyframes Polaris-TopBar-SearchDismissOverlay__fade--in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Topbar Search */
+
+.Polaris-TopBar-Search {
+  position: fixed;
+  visibility: hidden;
+  z-index: 516;
+  pointer-events: none;
+  top: 5.6rem;
+  left: 0;
+  right: 0;
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em) {
+  [data-has-navigation] .Polaris-TopBar-Search {
+    position: absolute;
+    top: 100%;
+    max-width: 58rem;
+    margin: 0.4rem 2rem 0;
+    border-radius: 0.8rem;
+  }
+}
+
+@media (min-width: 30.625em) {
+  .Polaris-TopBar-Search {
+    position: absolute;
+    top: 100%;
+    max-width: 58rem;
+    margin: 0.4rem 2rem 0;
+    border-radius: 0.8rem;
+  }
+}
+
+@media (max-width: 48.0625em) and (min-width: 46.5em), (min-width: 61.5em) {
+  [data-has-navigation] .Polaris-TopBar-Search {
+    margin: 0.4rem 3.2rem 0;
+  }
+}
+
+@media (min-width: 46.5em) {
+  .Polaris-TopBar-Search {
+    margin: 0.4rem 3.2rem 0;
+  }
+}
+
+.Polaris-TopBar-Search__SearchContent {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.Polaris-TopBar-Search--visible {
+  visibility: initial;
+  pointer-events: all;
+}
+
+.Polaris-TopBar-Search__Results {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 5.6rem);
+  margin: 0;
+}
+
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em) {
+  [data-has-navigation] .Polaris-TopBar-Search__Results {
+    max-height: 60vh;
+  }
+}
+
+@media (min-width: 30.625em) {
+  .Polaris-TopBar-Search__Results {
+    max-height: 60vh;
+  }
 }

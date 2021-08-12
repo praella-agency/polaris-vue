@@ -1,7 +1,7 @@
 import PSearchField from './PSearchField.vue';
 
 export default {
-    title: 'Structure / SearchField',
+    title: 'Structure / Search Field',
     component: PSearchField,
 }
 

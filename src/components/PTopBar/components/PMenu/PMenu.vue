@@ -1,71 +1,98 @@
 <template>
   <div>
-  <PPopover
-      :active="popoverActive"
-      @close="onClose"
-      fixed
-      preferredAlignment="right"
-  >
-    <div class="Polaris-TopBar-Menu__ActivatorWrapper" slot="activator">
-      <PButton
-          class="Polaris-TopBar-Menu__Activator"
-          @click="toggleActive"
-      >
-        <slot name="activatorContent">
-        More Actions
-        </slot>
-      </PButton>
-    </div>
-    <PActionList slot="content" :items="items" />
-  </PPopover>
-    <PMessage
-        v-if="Object.keys(message).length > 0"
-        :title="message.title"
-        :description="message.description"
-        :action="{onAction: message.action.onAction,
-                 content: message.action.content}"
-        :link="{to: message.link.to,
-                content: message.link.content}"
-        :badge="message.badge"
-    />
+    <PPopover
+        :active="open"
+        @close="onClose"
+        fixed
+        preferredAlignment="right"
+    >
+      <div class="Polaris-TopBar-Menu__ActivatorWrapper" slot="activator">
+        <button
+            type="button"
+            class="Polaris-TopBar-Menu__Activator"
+            @click="onOpen"
+            :aria-label="accessibilityLabel"
+        >
+          <slot name="activatorContent"/>
+        </button>
+      </div>
+      <PActionList slot="content" :sections="actions"/>
+      <PMessage
+          :title="message.title"
+          :description="message.description"
+          :action="{
+            onClick: message.action.onClick,
+            content: message.action.content
+          }"
+          :link="{
+            to: message.link.to,
+            content: message.link.content
+          }"
+          :badge="message && message.badge ? {
+              content: message.badge.content,
+              status: message.badge.status
+          } : {}"
+      />
+    </PPopover>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { PActionList } from '@/components/PActionList';
-import { PPopover } from '@/components/PPopover';
-import { PMessage } from './components/PMessage';
-import {PButton} from '@/components/PButton';
-import {classNames} from '@/utilities/css';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
+  import { PActionList } from '@/components/PActionList';
+  import { PPopover } from '@/components/PPopover';
+  import { PMessage } from './components/PMessage';
+  import { classNames } from '@/utilities/css';
+  import { ActionListProps, MessageProps } from '@/types';
 
-@Component({
-  components: {
-    PActionList,
-    PPopover,
-    PMessage,
-    PButton
-  },
-})
-export default class PMenu extends Vue {
-  focused = true;
-  popoverActive = false;
+  @Component({
+    components: {
+      PActionList,
+      PPopover,
+      PMessage,
+    },
+  })
+  export default class PMenu extends Vue {
+    focused = true;
+    popoverActive = false;
 
-  @Prop({type: Array, default: () => ([])}) public items!: any[];
-  @Prop({type: Object, default: () => ({})}) public message!: object;
-  @Prop({type: Function, default: null}) public onOpen!: void;
-  @Prop({type: Function, default: null}) public onClose!: void;
+    /**
+     * An array of action objects that are rendered inside of a popover triggered by this menu
+     */
+    @Prop({type: Array, default: () => ([])}) public actions!: ActionListProps['sections'];
 
+    /**
+     * Accepts a message that facilitates direct, urgent communication with the merchant through the menu
+     */
+    @Prop({type: Object, default: () => ({})}) public message!: MessageProps;
 
-  public get className() {
-    return classNames(
+    /**
+     * A boolean property indicating whether the menu is currently open
+     */
+    @Prop({type: Boolean, default: false}) public open!: boolean;
+
+    /**
+     * A callback function to handle opening the menu popover
+     */
+    @Prop({type: Function}) public onOpen!: void;
+
+    /**
+     * A callback function to handle closing the menu popover
+     */
+    @Prop({type: Function}) public onClose!: void;
+
+    /** A string that provides the accessibility labeling */
+    @Prop({type: String, default: null}) public accessibilityLabel!: string;
+
+    public get className() {
+      return classNames(
         'Polaris-Popover__Section',
         'Polaris-Popover__Section+ Polaris-Popover__Section'
-    );
-  }
+      );
+    }
 
-  public toggleActive() {
-    this.popoverActive = !this.popoverActive;
+    public toggleActive() {
+      this.popoverActive = !this.popoverActive;
+    }
   }
-}
 </script>

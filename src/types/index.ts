@@ -93,6 +93,17 @@ export interface ActionListSection {
   items: ActionListItemDescriptor[];
 }
 
+export interface ActionListProps {
+  /** Collection of actions for list */
+  items?: ActionListItemDescriptor[];
+  /** Collection of sectioned action items */
+  sections?: ActionListSection[];
+  /** Defines a specific role attribute for each action in the list */
+  actionRole?: string;
+  /** Callback when any item is clicked or keypressed */
+  onActionAnyItem?: ActionListItemDescriptor['onAction'];
+}
+
 export interface ComplexAction
     extends Action,
         DisableableAction,
@@ -125,4 +136,43 @@ export interface Video {
 
 export interface CheckboxHandles {
   focus(): void;
+}
+
+/*Message Component*/
+
+type Status = 'success' | 'info' | 'attention' | 'critical' | 'warning' | 'new';
+type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
+type Size = 'small' | 'medium';
+
+export interface MessageProps {
+  title: string;
+  description: string;
+  action: {
+    content: string;
+    onClick(): void;
+  };
+  link: {
+    to: string;
+    content: string;
+  };
+  badge?: {
+    content: string;
+    status: BadgeProps['status'];
+  };
+}
+
+export interface BadgeProps {
+  /** The content to display inside the badge. */
+  children?: string;
+  /** Set the color of the badge for the given status. */
+  status?: Status;
+  /** Render a pip showing the progress of a given task. */
+  progress?: Progress;
+  /**
+   * Medium or small size. Use `small` only in the main navigation of an app frame.
+   * @default 'medium'
+   */
+  size?: Size;
+  /** Pass a custom accessibilityLabel */
+  statusAndProgressLabelOverride?: string;
 }
