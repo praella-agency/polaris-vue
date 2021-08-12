@@ -11,7 +11,7 @@
     </PButton>
     <div :class="className">
       <PUnstyledLink
-          url="javascript.void();"
+          url="javascript.void(0);"
           class="Polaris-TopBar__LogoLink"
       >
         <PImage source="https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999"
@@ -44,7 +44,7 @@
                         {label: 'Active Little Long Content', value: 1},
                         {label: 'In-Active', value: 0},
                     ]"
-            :selected="status"
+            selected="status"
         ></POptionList>
       </PPopover>
     </div>
@@ -70,8 +70,8 @@ import { PAvatar } from '@/components/PAvatar';
   components: { PIcon, PButton, PUnstyledLink, PImage, PTextField, PPopover, POptionList, PAvatar },
 })
 export default class PTopBar extends Vue {
-  focused = true;
-  popoverActive = false;
+  public focused = false;
+  public popoverActive = false;
 
   @Prop({type: Boolean, default: true}) public showNavigationToggle!: boolean;
   @Prop({type: Function, default: null}) public onNavigationToggle!: void;
