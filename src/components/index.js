@@ -56,6 +56,7 @@ import { PFooterHelp } from './PFooterHelp';
 import { PDropZone } from './PDropZone';
 import PToast from './PToast/index';
 import { PChoiceList } from './PChoiceList';
+import { PLoading } from './PLoading';
 
 import '@/scss/main.scss';
 
@@ -117,6 +118,7 @@ const Components = {
   PFooterHelp,
   PDropZone,
   PChoiceList,
+  PLoading,
 };
 
 const PolarisVue = {

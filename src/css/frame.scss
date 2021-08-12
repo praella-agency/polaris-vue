@@ -1,337 +1,374 @@
 .Polaris-Frame-Loading {
-	overflow: hidden;
-	height: .3rem;
-	background-color: $frame-loading-bgcolor;
-	opacity: 1;
-}
-.Polaris-Frame-Loading__Level {
-	width: 100%;
-	height: 100%;
-	transform-origin: 0;
-	background-color: $frame-loading-level-bgcolor;
-	transition: transform .5s cubic-bezier(0,0,.42,1);
+  overflow: hidden;
+  height: .3rem;
+  background-color: $frame-loading-bgcolor;
+  opacity: 1;
 }
 
+.Polaris-Frame-Loading__Level {
+  width: 100%;
+  height: 100%;
+  transform-origin: 0;
+  background-color: $icon-svg-color-success;
+  transition: transform .5s cubic-bezier(0, 0, .42, 1);
+}
 
 .Polaris-Frame-ContextualSaveBar {
-	display: flex;
-	height: 5.6rem;
-	background-color: $frame-contextualsavebar-bgcolor;
-	box-shadow: $frame-contextualsavebar-box-shadow;
-	&:after {
-		content: "";
-		position: absolute;
-		bottom: 0;
-		width: 100%;
-		border-bottom: 1px solid transparent;
-	}
+  display: flex;
+  height: 5.6rem;
+  background-color: $frame-contextualsavebar-bgcolor;
+  box-shadow: $frame-contextualsavebar-box-shadow;
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-bottom: 1px solid transparent;
+  }
 }
+
+.Polaris-Frame-ContextualSaveBar .Polaris-Frame-ContextualSaveBar__ContextControl {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
 .Polaris-Frame-ContextualSaveBar__LogoContainer {
-	display: none;
-	@media (min-width:48.0625em) {
-		display: flex;
-		flex: 0 0 24rem;
-		align-items: center;
-		height: 100%;
-		padding: 0 1.6rem;
-		border-right: $frame-contextualsavebar-logocontainer-border;
-		background-color: $frame-contextualsavebar-logocontainer-bgcolor;
-	}
+  display: none;
+  @media (min-width: 48.0625em) {
+    display: flex;
+    flex: 0 0 24rem;
+    align-items: center;
+    height: 100%;
+    padding: 0 1.6rem;
+    border-right: $frame-contextualsavebar-logocontainer-border;
+    background-color: $frame-contextualsavebar-logocontainer-bgcolor;
+  }
 }
+
 .Polaris-Frame-ContextualSaveBar__Contents {
-	display: flex;
-	flex: 1 1 auto;
-	align-items: center;
-	justify-content: space-between;
-	min-width: 1px;
-	max-width: 99.8rem;
-	height: 100%;
-	margin: 0 auto;
-	padding: 0 1.6rem;
-	@media (min-width:30.625em) {
-		padding: 0 2rem;
-	}
-	@media (min-width:46.5em) {
-		padding: 0 3.2rem;
-	}
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 1px;
+  max-width: 99.8rem;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 1.6rem;
+  @media (min-width: 30.625em) {
+    padding: 0 2rem;
+  }
+  @media (min-width: 46.5em) {
+    padding: 0 3.2rem;
+  }
 }
 
-@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
-	[data-has-navigation] .Polaris-Frame-ContextualSaveBar__Contents {
-		padding: 0 2rem;
-	}
+.Polaris-Frame-ContextualSaveBar--fullWidth {
+  max-width: none;
+  padding: 0 1.6rem;
 }
 
-@media (max-width:48.0625em) and (min-width:46.5em),(min-width:61.5em) {
-	[data-has-navigation] .Polaris-Frame-ContextualSaveBar__Contents {
-		padding: 0 3.2rem;
-	}
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em) {
+  [data-has-navigation] .Polaris-Frame-ContextualSaveBar__Contents {
+    padding: 0 2rem;
+  }
+}
+
+@media (max-width: 48.0625em) and (min-width: 46.5em), (min-width: 61.5em) {
+  [data-has-navigation] .Polaris-Frame-ContextualSaveBar__Contents {
+    padding: 0 3.2rem;
+  }
 }
 
 .Polaris-Frame-ContextualSaveBar__Message {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	font-size: $frame-contextualsavebar-message-font-size;
-	font-weight: $frame-contextualsavebar-message-font-weight;
-	line-height: $frame-contextualsavebar-message-line-height;
-	color: $frame-contextualsavebar-message-color;
-	@media (min-width:40em) {
-		font-size: $frame-contextualsavebar-message-media-font-size;
-	}
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: $frame-contextualsavebar-message-font-size;
+  font-weight: $frame-contextualsavebar-message-font-weight;
+  line-height: $frame-contextualsavebar-message-line-height;
+  color: $frame-contextualsavebar-message-color;
+  @media (min-width: 40em) {
+    font-size: $frame-contextualsavebar-message-media-font-size;
+  }
 }
+
 .Polaris-Frame-ContextualSaveBar__ActionContainer {
-	flex-shrink: 0;
+  flex-shrink: 0;
 }
+
 .Polaris-Frame-ContextualSaveBar__Action {
-	margin-left: .8rem;
+  margin-left: .8rem;
 }
+
 .Polaris-Frame-CSSAnimation--startFade {
-	opacity: 0;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	will-change: opacity;
-	transition: opacity .3s cubic-bezier(0,0,.42,1);
-	pointer-events: none;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: opacity;
+  transition: opacity .3s cubic-bezier(0, 0, .42, 1);
+  pointer-events: none;
 }
+
 .Polaris-Frame-CSSAnimation--endFade {
-	opacity: 1;
-	pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
+
 .Polaris-Frame {
-	width: 100%;
-	min-height: 100vh;
-	display: flex;
-	background-color: $frame-bgcolor;
-	@media print {
-		background-color: none;
-	}
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  background-color: $frame-bgcolor;
+  @media print {
+    background-color: none;
+  }
 }
+
 .Polaris-Frame__Navigation {
-	position: fixed;
-	z-index: 516;
-	top: 0;
-	left: 0;
-	display: none;
-	flex: 0 0 auto;
-	align-items: stretch;
-	height: 100%;
-	outline: none;
-	transform: translateX(0);
-	@media print {
-		display: none!important;
-	}
-	@media (min-width:48.0625em) {	
-		z-index: 1;
-		top: 5.6rem;
-		display: flex;
-		height: calc(100% - 5.6rem);
-	}
-	&:focus {
-		outline: none;
-	}
+  position: fixed;
+  z-index: 516;
+  top: 0;
+  left: 0;
+  display: none;
+  flex: 0 0 auto;
+  align-items: stretch;
+  height: 100%;
+  outline: none;
+  transform: translateX(0);
+  @media print {
+    display: none !important;
+  }
+  @media (min-width: 48.0625em) {
+    z-index: 1;
+    top: 5.6rem;
+    display: flex;
+    height: calc(100% - 5.6rem);
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
+
 .Polaris-Frame__Navigation--enter {
-	display: flex;
-	transform: translateX(-100%);
+  display: flex;
+  transform: translateX(-100%);
 }
+
 .Polaris-Frame__Navigation--enterActive {
-	display: flex;
-	transform: translateX(0);
-	transition: transform .3s cubic-bezier(0,0,.42,1);
+  display: flex;
+  transform: translateX(0);
+  transition: transform .3s cubic-bezier(0, 0, .42, 1);
 }
+
 .Polaris-Frame__Navigation--exit {
-	display: flex;
-	transform: translateX(0);
+  display: flex;
+  transform: translateX(0);
 }
+
 .Polaris-Frame__Navigation--exitActive {
-	display: flex;
-	transform: translateX(-100%);
-	transition: transform .3s cubic-bezier(0,0,.42,1);
+  display: flex;
+  transform: translateX(-100%);
+  transition: transform .3s cubic-bezier(0, 0, .42, 1);
 }
+
 .Polaris-Frame__NavigationDismiss {
-	position: absolute;
-	top: 0;
-	left: 100%;
-	width: 3.2rem;
-	height: 3.2rem;
-	margin: 1.6rem;
-	padding: 0;
-	border: $frame-navigationdismiss-border;
-	background: $frame-navigationdismiss-bgcolor;
-	opacity: 0;
-	pointer-events: none;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	will-change: opacity;
-	cursor: pointer;
-	transition: opacity .1s cubic-bezier(.64,0,.35,1);
-	@media print {
-		display: none!important;
-	}
-	@media (min-width:48.0625em) {
-		display: none;
-	}
-	&:focus {
-		border-radius: $frame-navigationdismiss-focus-border-radius;
-		background-color: $frame-navigationdismiss-focus-bgcolor;
-		outline: none;
-	}
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 3.2rem;
+  height: 3.2rem;
+  margin: 1.6rem;
+  padding: 0;
+  border: $frame-navigationdismiss-border;
+  background: $frame-navigationdismiss-bgcolor;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: opacity;
+  cursor: pointer;
+  transition: opacity .1s cubic-bezier(.64, 0, .35, 1);
+  @media print {
+    display: none !important;
+  }
+  @media (min-width: 48.0625em) {
+    display: none;
+  }
+
+  &:focus {
+    border-radius: $frame-navigationdismiss-focus-border-radius;
+    background-color: $frame-navigationdismiss-focus-bgcolor;
+    outline: none;
+  }
 }
+
 .Polaris-Frame__Navigation--visible {
-	.Polaris-Frame__NavigationDismiss {
-		pointer-events: all;
-		opacity: 1;
-	}
+  .Polaris-Frame__NavigationDismiss {
+    pointer-events: all;
+    opacity: 1;
+  }
 }
+
 .Polaris-Frame__TopBar {
-	position: fixed;
-	z-index: 512;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 5.6rem;
-	@media print {
-		display: none!important;	
-	}
+  position: fixed;
+  z-index: 512;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5.6rem;
+  @media print {
+    display: none !important;
+  }
 }
+
 .Polaris-Frame__ContextualSaveBar {
-	position: fixed;
-	z-index: 513;
-	top: 0;
-	left: 0;
-	width: 100%;
+  position: fixed;
+  z-index: 513;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
+
 .Polaris-Frame__Main {
-	flex: 1 1;
-	display: flex;
-	align-items: stretch;
-	min-width: 0;
-	max-width: 100%;
-	padding-right: calc(0px + env(safe-area-inset-right));
-	padding-left: calc(0px + env(safe-area-inset-left));
-	padding-bottom: calc(0px + env(safe-area-inset-bottom));
+  flex: 1 1;
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  max-width: 100%;
+  padding-right: calc(0px + env(safe-area-inset-right));
+  padding-left: calc(0px + env(safe-area-inset-left));
+  padding-bottom: calc(0px + env(safe-area-inset-bottom));
 }
 
-@media (min-width:48.0625em) {
-	.Polaris-Frame--hasNav .Polaris-Frame__Main {
-		padding-left: calc(24rem + env(safe-area-inset-left));
-	}
+@media (min-width: 48.0625em) {
+  .Polaris-Frame--hasNav .Polaris-Frame__Main {
+    padding-left: calc(24rem + env(safe-area-inset-left));
+  }
 }
 
-@media print and (min-width:48.0625em) {
-	.Polaris-Frame--hasNav .Polaris-Frame__Main {
-		padding-left: 0;
-	}
+@media print and (min-width: 48.0625em) {
+  .Polaris-Frame--hasNav .Polaris-Frame__Main {
+    padding-left: 0;
+  }
 }
 
 .Polaris-Frame--hasTopBar {
-	.Polaris-Frame__Main {
-		padding-top: 5.6rem;
-		@media print {
-			padding-top: 0;
-		}
-	}
+  .Polaris-Frame__Main {
+    padding-top: 5.6rem;
+    @media print {
+      padding-top: 0;
+    }
+  }
 }
-
 
 
 .Polaris-Frame__Content {
-	padding-bottom: var(--global-ribbon-height,0);
-	flex: 1 1;
-	min-width: 0;
-	max-width: 100%;
-}
-.Polaris-Frame__GlobalRibbonContainer {
-	position: fixed;
-	z-index: 510;
-	bottom: 0;
-	width: 100%;
+  padding-bottom: var(--global-ribbon-height, 0);
+  flex: 1 1;
+  min-width: 0;
+  max-width: 100%;
 }
 
-@media (min-width:48.0625em) {
-	.Polaris-Frame--hasNav .Polaris-Frame__GlobalRibbonContainer {
-		left: 24rem;
-		left: calc(24rem + constant(safe-area-inset-left));
-		left: calc(24rem + env(safe-area-inset-left));
-		width: calc(100% - 24rem);
-	}
+.Polaris-Frame__GlobalRibbonContainer {
+  position: fixed;
+  z-index: 510;
+  bottom: 0;
+  width: 100%;
+}
+
+@media (min-width: 48.0625em) {
+  .Polaris-Frame--hasNav .Polaris-Frame__GlobalRibbonContainer {
+    left: 24rem;
+    left: calc(24rem + constant(safe-area-inset-left));
+    left: calc(24rem + env(safe-area-inset-left));
+    width: calc(100% - 24rem);
+  }
 }
 
 .Polaris-Frame__LoadingBar {
-	position: fixed;
-	z-index: 514;
-	top: 0;
-	right: 0;
-	left: 0;
-	@media print {
-		display: none!important;
-	}
+  position: fixed;
+  z-index: 514;
+  top: 0;
+  right: 0;
+  left: 0;
+  @media print {
+    display: none !important;
+  }
 }
 
-@media (min-width:48.0625em) {
-	.Polaris-Frame--hasTopBar .Polaris-Frame__LoadingBar {
-		top: var(--p-override-zero,5.6rem);
-		z-index: var(--p-override-loading-z-index,511);
-	}
+@media (min-width: 48.0625em) {
+  .Polaris-Frame--hasTopBar .Polaris-Frame__LoadingBar {
+    top: var(--p-override-zero, 5.6rem);
+    z-index: var(--p-override-loading-z-index, 511);
+  }
 }
 
 .Polaris-Frame__Skip {
-	position: fixed;
-	z-index: 517;
-	top: 1rem;
-	left: .8rem;
-	opacity: 0;
-	pointer-events: none;
+  position: fixed;
+  z-index: 517;
+  top: 1rem;
+  left: .8rem;
+  opacity: 0;
+  pointer-events: none;
 }
+
 .Polaris-Frame__Skip.Polaris-Frame--focused {
-	pointer-events: all;
-	opacity: 1;
+  pointer-events: all;
+  opacity: 1;
 }
+
 .Polaris-Frame__SkipAnchor {
-	position: relative;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 3.6rem;
-	min-width: 3.6rem;
-	margin: 0;
-	padding: .7rem 1.6rem;
-	background: $frame-skipanchor-bgcolor;
-	border: $frame-skipanchor-border;
-	box-shadow: $frame-skipanchor-box-shadow;
-	border-radius: $frame-skipanchor-border-radius;
-	line-height: $frame-skipanchor-line-height;
-	color: $frame-skipanchor-color;
-	text-align: center;
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	text-decoration: none;
-	transition-property: background,border,box-shadow;
-	transition-duration: .2s;
-	transition-timing-function: cubic-bezier(.64,0,.35,1);
-	-webkit-tap-highlight-color: transparent;
-	svg {
-		fill: $frame-skipanchor-svg-fill;
-	}
-	&:hover {
-		background: $frame-skipanchor-hover-bgcolor;
-		border-color: $frame-skipanchor-hover-border-color;
-	}
-	&:focus {
-		border-color: $frame-skipanchor-focus-border-color;
-		outline: 0;
-		box-shadow: $frame-skipanchor-focus-box-shadow;
-	}
-	&:active {
-		background: $frame-skipanchor-active-bgcolor;
-		border-color: $frame-skipanchor-active-border-color;
-		box-shadow: $frame-skipanchor-active-box-shadow;
-	}
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.6rem;
+  min-width: 3.6rem;
+  margin: 0;
+  padding: .7rem 1.6rem;
+  background: $frame-skipanchor-bgcolor;
+  border: $frame-skipanchor-border;
+  box-shadow: $frame-skipanchor-box-shadow;
+  border-radius: $frame-skipanchor-border-radius;
+  line-height: $frame-skipanchor-line-height;
+  color: $frame-skipanchor-color;
+  text-align: center;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-decoration: none;
+  transition-property: background, border, box-shadow;
+  transition-duration: .2s;
+  transition-timing-function: cubic-bezier(.64, 0, .35, 1);
+  -webkit-tap-highlight-color: transparent;
+
+  svg {
+    fill: $frame-skipanchor-svg-fill;
+  }
+
+  &:hover {
+    background: $frame-skipanchor-hover-bgcolor;
+    border-color: $frame-skipanchor-hover-border-color;
+  }
+
+  &:focus {
+    border-color: $frame-skipanchor-focus-border-color;
+    outline: 0;
+    box-shadow: $frame-skipanchor-focus-box-shadow;
+  }
+
+  &:active {
+    background: $frame-skipanchor-active-bgcolor;
+    border-color: $frame-skipanchor-active-border-color;
+    box-shadow: $frame-skipanchor-active-box-shadow;
+  }
 }
+
 /*
 .Polaris-Frame__SkipAnchor.Polaris-Frame--globalTheming {
 	background: var(--p-neutral-action);
