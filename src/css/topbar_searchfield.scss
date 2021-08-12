@@ -1,0 +1,209 @@
+
+.Polaris-TopBar-SearchField {
+  z-index: 519;
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  border: 1px solid transparent;
+  width: 100%;
+  max-width: 58rem;
+}
+
+.Polaris-TopBar-SearchField--focused .Polaris-TopBar-SearchField__Input, .Polaris-TopBar-SearchField__Input:focus {
+  border: none;
+  color: rgba(32, 34, 35, 1);
+}
+
+.Polaris-TopBar-SearchField--focused .Polaris-TopBar-SearchField__Input::-webkit-input-placeholder, .Polaris-TopBar-SearchField__Input:focus::-webkit-input-placeholder {
+  color: rgba(109, 113, 117, 1);
+}
+
+.Polaris-TopBar-SearchField--focused .Polaris-TopBar-SearchField__Input::placeholder, .Polaris-TopBar-SearchField__Input:focus::placeholder {
+  color: rgba(109, 113, 117, 1);
+}
+
+.Polaris-TopBar-SearchField__Input:focus ~ .Polaris-TopBar-SearchField__Backdrop {
+  background-color: rgba(241, 242, 243, 1);
+}
+
+.Polaris-TopBar-SearchField__Input:focus ~ .Polaris-TopBar-SearchField__Backdrop::after {
+  box-shadow: 0 0 0 0.2rem $topbar-searchfield-p-focused;
+  outline: 0.1rem solid transparent;
+}
+
+.Polaris-TopBar-SearchField__Input:focus ~ .Polaris-TopBar-SearchField__BackdropShowFocusBorder {
+  border: 1px solid var(--top-bar-border);
+}
+
+.Polaris-TopBar-SearchField__Input:focus ~ .Polaris-TopBar-SearchField__Icon svg {
+  fill: rgba(92, 95, 98, 1);
+}
+
+.Polaris-TopBar-SearchField--focused .Polaris-TopBar-SearchField__Backdrop {
+  background-color: rgba(241, 242, 243, 1);;
+}
+
+.Polaris-TopBar-SearchField--focused .Polaris-TopBar-SearchField__BackdropShowFocusBorder {
+  border: 1px solid var(--top-bar-border);
+}
+
+.Polaris-TopBar-SearchField--focused .Polaris-TopBar-SearchField__Icon svg {
+  fill: rgba(92, 95, 98, 1);
+}
+
+.Polaris-TopBar-SearchField__Input {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.4rem;
+  border: none;
+  text-transform: initial;
+  letter-spacing: initial;
+  z-index: 2;
+  height: 3.6rem;
+  width: 100%;
+  padding: 0 0 0 3.6rem;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  color: rgba(32, 34, 35, 1);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: fill, color;
+  transition: fill 200ms cubic-bezier(0.64, 0, 0.35, 1), color 200ms cubic-bezier(0.64, 0, 0.35, 1);
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+@media (min-width: 40em) {
+  .Polaris-TopBar-SearchField__Input {
+    font-size: 1.4rem;
+  }
+}
+
+.Polaris-TopBar-SearchField__Input::-webkit-input-placeholder {
+  color: rgba(32, 34, 35, 1);
+  -webkit-transition: 167ms color cubic-bezier(0.64, 0, 0.35, 1) 33ms;
+  transition: 167ms color cubic-bezier(0.64, 0, 0.35, 1) 33ms;
+}
+
+.Polaris-TopBar-SearchField__Input::placeholder {
+  color: rgba(32, 34, 35, 1);
+  transition: 167ms color cubic-bezier(0.64, 0, 0.35, 1) 33ms;
+}
+
+.Polaris-TopBar-SearchField__Input::-webkit-search-decoration, .Polaris-TopBar-SearchField__Input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.Polaris-TopBar-SearchField__Icon {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 0.8rem;
+  display: flex;
+  height: 2rem;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.Polaris-TopBar-SearchField__Icon svg {
+  fill: rgba(92, 95, 98, 1);
+}
+
+.Polaris-TopBar-SearchField__Icon svg {
+  transition: 167ms fill cubic-bezier(0.64, 0, 0.35, 1) 33ms;
+}
+
+.Polaris-TopBar-SearchField__Clear {
+  position: relative;
+  position: relative;
+  z-index: 3;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  padding: 0.8rem;
+}
+
+.Polaris-TopBar-SearchField__Clear svg {
+  fill: rgba(92, 95, 98, 1);
+}
+
+.Polaris-TopBar-SearchField__Clear::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: -0.1rem;
+  right: -0.1rem;
+  bottom: -0.1rem;
+  left: -0.1rem;
+  display: block;
+  pointer-events: none;
+  box-shadow: 0 0 0 -0.1rem $topbar-searchfield-p-focused;
+  transition: box-shadow 100ms $topbar-searchfield-p-ease;
+  border-radius: calc(0.4rem + 0.1rem);
+}
+
+.Polaris-TopBar-SearchField__Clear:focus, .Polaris-TopBar-SearchField__Clear:hover {
+  outline: none;
+}
+
+.Polaris-TopBar-SearchField__Clear:focus svg, .Polaris-TopBar-SearchField__Clear:hover svg {
+  fill: rgba(26, 28, 29, 1);
+}
+
+.Polaris-TopBar-SearchField__Clear:focus::after {
+  box-shadow: 0 0 0 0.2rem $topbar-searchfield-p-focused;
+  outline: 0.1rem solid transparent;
+}
+
+.Polaris-TopBar-SearchField__Clear:active svg {
+  fill: rgba(68, 71, 74, 1);
+}
+
+.Polaris-TopBar-SearchField__Clear:active::after {
+  border: none;
+}
+
+.Polaris-TopBar-SearchField__Backdrop {
+  position: relative;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(rgba(241, 242, 243, 1), var(--top-bar-background-lighter));
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: background-color;
+  transition: background-color 200ms cubic-bezier(0.64, 0, 0.35, 1);
+  border-radius: 0.4rem;
+  animation: Polaris-TopBar-SearchField--toLightBackground 0.01ms;
+}
+
+.Polaris-TopBar-SearchField__Backdrop::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: -0.1rem;
+  right: -0.1rem;
+  bottom: -0.1rem;
+  left: -0.1rem;
+  display: block;
+  pointer-events: none;
+  box-shadow: 0 0 0 -0.1rem $topbar-searchfield-p-focused;
+  transition: box-shadow 100ms $topbar-searchfield-p-ease;
+  border-radius: calc(0.4rem + 0.1rem);
+}
+
+@keyframes Polaris-TopBar-SearchField--toLightBackground {
+  to {
+    background-color: var(--p-surface-neutral, var(--top-bar-background-lighter));
+  }
+}
+

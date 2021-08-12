@@ -1774,6 +1774,10 @@ $topbar-searchfield-clear-focus-svg-fill: $theme-searchfield-focus-svg;
 $topbar-searchfield-clear-hover-svg-fill: $theme-searchfield-focus-svg;
 $topbar-searchfield-clear-active-svg-fill: #44474A;
 
+$topbar-searchfield-p-focused: rgba(69, 143, 255, 1);
+$topbar-searchfield-p-ease: cubic-bezier(0.4, 0.22, 0.28, 1);
+
+
 /* MessageIndicator__MessageIndicatorWrapper */
 
 $messageindicator-border-radius: 100%;

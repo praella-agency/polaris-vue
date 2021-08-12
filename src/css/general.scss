@@ -2293,220 +2293,220 @@
         min-width: 100%;
     }
 }
-
-.Polaris-TopBar-SearchField {
-    position: relative;
-    display: flex;
-    flex: 1 1 auto;
-    align-items: center;
-    border: $topbar-searchfield-border;
-    width: 100%;
-    max-width: 69.4rem;
-}
-
-.Polaris-TopBar-SearchField--focused {
-    .Polaris-TopBar-SearchField__Input {
-        border: $topbar-searchfield-focused-input-border;
-        color: $topbar-searchfield-focused-input-color;
-
-        &::-webkit-input-placeholder {
-            color: $topbar-searchfield-focused-input-placeholder-color;
-        }
-
-        &::-ms-input-placeholder {
-            color: $topbar-searchfield-focused-input-placeholder-color;
-        }
-
-        &::placeholder {
-            color: $topbar-searchfield-focused-input-placeholder-color;
-        }
-    }
-
-    .Polaris-TopBar-SearchField__Backdrop {
-        background-color: $topbar-searchfield-focused-backdrop-bgcolor;
-    }
-
-    .Polaris-TopBar-SearchField__Icon {
-        svg {
-            fill: $topbar-searchfield-focused-icon-svg-fill;
-        }
-    }
-}
-
-.Polaris-TopBar-SearchField__Input {
-    &:focus {
-        border: $topbar-searchfield-input-focus-border;
-        color: $topbar-searchfield-input-focus-color;
-
-        &::-webkit-input-placeholder {
-            color: $topbar-searchfield-focused-input-placeholder-color;
-        }
-
-        &::-ms-input-placeholder {
-            color: $topbar-searchfield-focused-input-placeholder-color;
-        }
-
-        &::placeholder {
-            color: $topbar-searchfield-focused-input-placeholder-color;
-        }
-    }
-
-    &:focus~.Polaris-TopBar-SearchField__Backdrop {
-        background-color: $topbar-searchfield-input-focus-backdrop-bgcolor;
-        &:after{
-            box-shadow: 0 0 0 0.2rem $theme-shadow-color;
-            outline: 0.1rem solid transparent;
-        }
-    }
-
-    &:focus~.Polaris-TopBar-SearchField__Icon {
-        svg {
-            fill: $topbar-searchfield-input-focus-icon-svg-fill;
-        }
-    }
-
-    font-size: $topbar-searchfield-input-font-size;
-    font-weight: $topbar-searchfield-input-font-weight;
-    line-height: $topbar-searchfield-input-line-height;
-    text-transform: none;
-    letter-spacing: normal;
-    z-index: 2;
-    width: calc(100% - 3.6rem);
-    height: 3.4rem;
-    padding: 0 0 0 3.6rem;
-    border: $topbar-searchfield-input-border;
-    background-color: $topbar-searchfield-input-bgcolor;
-    outline: none;
-    color: $topbar-searchfield-input-color;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    will-change: fill,
-    color;
-    transition: fill .2s cubic-bezier(.64, 0, .35, 1),
-    color .2s cubic-bezier(.64, 0, .35, 1);
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
-
-    @media (min-width:40em) {
-        font-size: $topbar-searchfield-input-media-font-size;
-    }
-
-    &::-webkit-search-cancel-button {
-        -webkit-appearance: none;
-        appearance: none;
-    }
-
-    &::-webkit-search-decoration {
-        -webkit-appearance: none;
-        appearance: none;
-    }
-}
-
-.Polaris-TopBar-SearchField__Icon {
-    position: absolute;
-    z-index: 3;
-    top: 50%;
-    left: .8rem;
-    display: flex;
-    height: 2rem;
-    pointer-events: none;
-    transform: translateY(-50%);
-
-    svg {
-        fill: $topbar-searchfield-svg-fill;
-    }
-}
-
-.Polaris-TopBar-SearchField__Clear {
-    position: relative;
-    z-index: 3;
-    align-self: stretch;
-    border: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: transparent;
-    width: 3.6rem;
-
-    svg {
-        fill: $topbar-searchfield-clear-svg-fill;
-    }
-    &:after{
-        content: var(--p-non-null-content, none);
-        position: absolute;
-        z-index: 1;
-        top: -0.1rem;
-        right: -0.1rem;
-        bottom: -0.1rem;
-        left: -0.1rem;
-        display: block;
-        pointer-events: none;
-        box-shadow: 0 0 0 -0.1rem $theme-shadow-color;
-        transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
-        border-radius: calc(0.8rem + 0.1rem);
-    }
-    &:focus {
-        outline: none;
-        &:after{
-            box-shadow: 0 0 0 0.2rem $theme-shadow-color;
-            outline: 0.1rem solid transparent;
-        }
-        svg {
-            fill: $topbar-searchfield-clear-focus-svg-fill;
-        }
-    }
-    &:active{
-        &:after{
-            border: none;
-        }
-        svg {
-           fill: $topbar-searchfield-clear-active-svg-fill;
-        }
-    }
-
-    &:hover {
-        outline: none;
-
-        svg {
-            fill: $topbar-searchfield-clear-hover-svg-fill;
-        }
-    }
-}
-
-.Polaris-TopBar-SearchField__Backdrop {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: var(--p-on-surface-background, var(--top-bar-background-lighter));
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    will-change: background-color;
-    transition: background-color 200ms cubic-bezier(0.64, 0, 0.35, 1);
-    border-radius: var(--p-border-radius-base, 3px);
-    animation: Polaris-TopBar-SearchField--toLightBackground 0.01ms;
-    &:after{
-        content: var(--p-non-null-content, none);
-        position: absolute;
-        z-index: 1;
-        top: -0.1rem;
-        right: -0.1rem;
-        bottom: -0.1rem;
-        left: -0.1rem;
-        display: block;
-        pointer-events: none;
-        box-shadow: 0 0 0 -0.1rem $theme-shadow-color;
-        transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
-        border-radius: calc(0.4rem + 0.1rem);
-    }
-}
-
-.Polaris-TopBar-SearchField__Input:focus ~ .Polaris-TopBar-SearchField__BackdropShowFocusBorder {
-    border: 1px solid var(--top-bar-border);
-}
+//
+//.Polaris-TopBar-SearchField {
+//    position: relative;
+//    display: flex;
+//    flex: 1 1 auto;
+//    align-items: center;
+//    border: $topbar-searchfield-border;
+//    width: 100%;
+//    max-width: 69.4rem;
+//}
+//
+//.Polaris-TopBar-SearchField--focused {
+//    .Polaris-TopBar-SearchField__Input {
+//        border: $topbar-searchfield-focused-input-border;
+//        color: $topbar-searchfield-focused-input-color;
+//
+//        &::-webkit-input-placeholder {
+//            color: $topbar-searchfield-focused-input-placeholder-color;
+//        }
+//
+//        &::-ms-input-placeholder {
+//            color: $topbar-searchfield-focused-input-placeholder-color;
+//        }
+//
+//        &::placeholder {
+//            color: $topbar-searchfield-focused-input-placeholder-color;
+//        }
+//    }
+//
+//    .Polaris-TopBar-SearchField__Backdrop {
+//        background-color: $topbar-searchfield-focused-backdrop-bgcolor;
+//    }
+//
+//    .Polaris-TopBar-SearchField__Icon {
+//        svg {
+//            fill: $topbar-searchfield-focused-icon-svg-fill;
+//        }
+//    }
+//}
+//
+//.Polaris-TopBar-SearchField__Input {
+//    &:focus {
+//        border: $topbar-searchfield-input-focus-border;
+//        color: $topbar-searchfield-input-focus-color;
+//
+//        &::-webkit-input-placeholder {
+//            color: $topbar-searchfield-focused-input-placeholder-color;
+//        }
+//
+//        &::-ms-input-placeholder {
+//            color: $topbar-searchfield-focused-input-placeholder-color;
+//        }
+//
+//        &::placeholder {
+//            color: $topbar-searchfield-focused-input-placeholder-color;
+//        }
+//    }
+//
+//    &:focus~.Polaris-TopBar-SearchField__Backdrop {
+//        background-color: $topbar-searchfield-input-focus-backdrop-bgcolor;
+//        &:after{
+//            box-shadow: 0 0 0 0.2rem $theme-shadow-color;
+//            outline: 0.1rem solid transparent;
+//        }
+//    }
+//
+//    &:focus~.Polaris-TopBar-SearchField__Icon {
+//        svg {
+//            fill: $topbar-searchfield-input-focus-icon-svg-fill;
+//        }
+//    }
+//
+//    font-size: $topbar-searchfield-input-font-size;
+//    font-weight: $topbar-searchfield-input-font-weight;
+//    line-height: $topbar-searchfield-input-line-height;
+//    text-transform: none;
+//    letter-spacing: normal;
+//    z-index: 2;
+//    width: calc(100% - 3.6rem);
+//    height: 3.4rem;
+//    padding: 0 0 0 3.6rem;
+//    border: $topbar-searchfield-input-border;
+//    background-color: $topbar-searchfield-input-bgcolor;
+//    outline: none;
+//    color: $topbar-searchfield-input-color;
+//    -webkit-backface-visibility: hidden;
+//    backface-visibility: hidden;
+//    will-change: fill,
+//    color;
+//    transition: fill .2s cubic-bezier(.64, 0, .35, 1),
+//    color .2s cubic-bezier(.64, 0, .35, 1);
+//    -webkit-appearance: textfield;
+//    -moz-appearance: textfield;
+//    appearance: textfield;
+//
+//    @media (min-width:40em) {
+//        font-size: $topbar-searchfield-input-media-font-size;
+//    }
+//
+//    &::-webkit-search-cancel-button {
+//        -webkit-appearance: none;
+//        appearance: none;
+//    }
+//
+//    &::-webkit-search-decoration {
+//        -webkit-appearance: none;
+//        appearance: none;
+//    }
+//}
+//
+//.Polaris-TopBar-SearchField__Icon {
+//    position: absolute;
+//    z-index: 3;
+//    top: 50%;
+//    left: .8rem;
+//    display: flex;
+//    height: 2rem;
+//    pointer-events: none;
+//    transform: translateY(-50%);
+//
+//    svg {
+//        fill: $topbar-searchfield-svg-fill;
+//    }
+//}
+//
+//.Polaris-TopBar-SearchField__Clear {
+//    position: relative;
+//    z-index: 3;
+//    align-self: stretch;
+//    border: none;
+//    -webkit-appearance: none;
+//    -moz-appearance: none;
+//    appearance: none;
+//    background: transparent;
+//    width: 3.6rem;
+//
+//    svg {
+//        fill: $topbar-searchfield-clear-svg-fill;
+//    }
+//    &:after{
+//        content: var(--p-non-null-content, none);
+//        position: absolute;
+//        z-index: 1;
+//        top: -0.1rem;
+//        right: -0.1rem;
+//        bottom: -0.1rem;
+//        left: -0.1rem;
+//        display: block;
+//        pointer-events: none;
+//        box-shadow: 0 0 0 -0.1rem $theme-shadow-color;
+//        transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+//        border-radius: calc(0.8rem + 0.1rem);
+//    }
+//    &:focus {
+//        outline: none;
+//        &:after{
+//            box-shadow: 0 0 0 0.2rem $theme-shadow-color;
+//            outline: 0.1rem solid transparent;
+//        }
+//        svg {
+//            fill: $topbar-searchfield-clear-focus-svg-fill;
+//        }
+//    }
+//    &:active{
+//        &:after{
+//            border: none;
+//        }
+//        svg {
+//           fill: $topbar-searchfield-clear-active-svg-fill;
+//        }
+//    }
+//
+//    &:hover {
+//        outline: none;
+//
+//        svg {
+//            fill: $topbar-searchfield-clear-hover-svg-fill;
+//        }
+//    }
+//}
+//
+//.Polaris-TopBar-SearchField__Backdrop {
+//    position: absolute;
+//    z-index: 1;
+//    top: 0;
+//    right: 0;
+//    bottom: 0;
+//    left: 0;
+//    background-color: var(--p-on-surface-background, var(--top-bar-background-lighter));
+//    -webkit-backface-visibility: hidden;
+//    backface-visibility: hidden;
+//    will-change: background-color;
+//    transition: background-color 200ms cubic-bezier(0.64, 0, 0.35, 1);
+//    border-radius: var(--p-border-radius-base, 3px);
+//    animation: Polaris-TopBar-SearchField--toLightBackground 0.01ms;
+//    &:after{
+//        content: var(--p-non-null-content, none);
+//        position: absolute;
+//        z-index: 1;
+//        top: -0.1rem;
+//        right: -0.1rem;
+//        bottom: -0.1rem;
+//        left: -0.1rem;
+//        display: block;
+//        pointer-events: none;
+//        box-shadow: 0 0 0 -0.1rem $theme-shadow-color;
+//        transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+//        border-radius: calc(0.4rem + 0.1rem);
+//    }
+//}
+//
+//.Polaris-TopBar-SearchField__Input:focus ~ .Polaris-TopBar-SearchField__BackdropShowFocusBorder {
+//    border: 1px solid var(--top-bar-border);
+//}
 
 /*=================== Polaris-TopBar-SearchField  =======================*/
 

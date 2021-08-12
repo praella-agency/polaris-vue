@@ -1,10 +1,11 @@
 import PTopBar from './PTopBar.vue';
-import { PSearchField } from "./components/PSearchField";
-import { PUserMenu } from "./components/PUserMenu";
-import { PMenu } from "./components/PMenu";
-import { PIcon } from "../PIcon";
-import { PActionList } from "../PActionList";
-import { PVisuallyHidden } from "../PVisuallyHidden";
+import { PSearchField } from './components/PSearchField';
+import { PUserMenu } from './components/PUserMenu';
+import { PMenu } from './components/PMenu';
+import { PIcon } from '../PIcon';
+import { PActionList } from '../PActionList';
+import { PVisuallyHidden } from '../PVisuallyHidden';
+import { PFrame } from '../PFrame';
 
 export default {
     title: 'Structure / Top Bar',
@@ -14,7 +15,7 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PTopBar, PSearchField, PUserMenu, PIcon, PActionList, PMenu, PVisuallyHidden,
+        PTopBar, PSearchField, PUserMenu, PIcon, PActionList, PMenu, PVisuallyHidden, PFrame,
     },
     data() {
         return {
@@ -25,16 +26,18 @@ const Template = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PTopBar
-          v-bind="$props"
-          :searchResultsVisible="isSearchActive"
-          :onSearchResultsDismiss="handleSearchResultsDismiss"
-          :onNavigationToggle="handleNavigationToggle"
-      >
-        <PUserMenu
-            slot="userMenu"
-            id="Polaris-UserMenu"
-            :actions="[
+      <PFrame>
+        <PTopBar
+            slot="topBar"
+            v-bind="$props"
+            :searchResultsVisible="isSearchActive"
+            :onSearchResultsDismiss="handleSearchResultsDismiss"
+            :onNavigationToggle="handleNavigationToggle"
+        >
+          <PUserMenu
+              slot="userMenu"
+              id="Polaris-UserMenu"
+              :actions="[
                 {
                   items: [{content: 'Back to Shopify', icon: 'ArrowLeftMinor'}],
                 }, 
@@ -42,39 +45,39 @@ const Template = (args, {argTypes}) => ({
                    items: [{content: 'Community forums'}],
                 }
             ]"
-            name="Dharma"
-            detail="Jaded Pixel"
-            initials="D"
-            :open="isUserMenuOpen"
-            :onToggle="toggleIsUserMenuOpen"
-        />
-        <PMenu
-            id="Polaris-Menu"
-            slot="secondaryMenu"
-            :open="isSecondaryMenuOpen"
-            :onOpen="toggleIsSecondaryMenuOpen"
-            :onClose="toggleIsSecondaryMenuOpen"
-            :actions="[
+              name="Dharma"
+              detail="Jaded Pixel"
+              initials="D"
+              :open="isUserMenuOpen"
+              :onToggle="toggleIsUserMenuOpen"
+          />
+          <PMenu
+              id="Polaris-Menu"
+              slot="secondaryMenu"
+              :open="isSecondaryMenuOpen"
+              :onOpen="toggleIsSecondaryMenuOpen"
+              :onClose="toggleIsSecondaryMenuOpen"
+              :actions="[
                 {
                   items: [{content: 'Community forums'}],
                 },
             ]"
-        >
+          >
           <span slot="activatorContent">
             <PIcon source="QuestionMarkMajor"/>
             <PVisuallyHidden>Secondary menu</PVisuallyHidden>
           </span>
-        </PMenu>
-        <PSearchField
-            slot="searchField"
-            @change="handleSearchChange"
-            :value="searchValue"
-            placeholder="Search"
-            showFocusBorder
-        />
-        <PActionList
-            slot="searchResult"
-            :items="[
+          </PMenu>
+          <PSearchField
+              slot="searchField"
+              @change="handleSearchChange"
+              :value="searchValue"
+              placeholder="Search"
+              showFocusBorder
+          />
+          <PActionList
+              slot="searchResult"
+              :items="[
                 {
                     content: 'Shopify help center',
                 },
@@ -82,8 +85,9 @@ const Template = (args, {argTypes}) => ({
                     content: 'Community forums',
                 },
             ]"
-        />
-      </PTopBar>`,
+          />
+        </PTopBar>
+      </PFrame>`,
     methods: {
         handleSearchChange(value) {
             console.log('SearchChange', value);
