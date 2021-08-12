@@ -2849,14 +2849,6 @@
     padding: 0 10px!important;
 }*/
 
-.multiselect{
-    border-radius: calc(0.4rem + 0.1rem);
-    border: .1rem solid transparent;
-}
-.multiselect.multiselect--active{
-    box-shadow: 0 0 0 0.2rem $theme-shadow-color;
-    border: .1rem solid transparent;
-}
 /*.multiselect__tags:focus-within {
   border: 1px solid #000;
 }*/
@@ -2867,15 +2859,14 @@
     outline: none  !important;
     box-shadow: none !important;
 }*/
-.multiselect, .multiselect__input, .multiselect__single {
+div.multiselect, input.multiselect__input, div.multiselect__single {
     font-size: unset;
 }
-
 div.multiselect {
-    min-height: 36px;
+    min-height: 34px;
 
     .multiselect__input {
-        min-height: 36px;
+        min-height: 34px;
         background: unset;
         margin-bottom: 0;
         padding: 0;
@@ -2886,7 +2877,7 @@ div.multiselect {
     }
 
     .multiselect__select {
-        height: 36px;
+        height: 34px;
         width: 32px;
         padding: 4px 5px;
         right: 2px;
@@ -2906,29 +2897,30 @@ div.multiselect {
     }
 
     .multiselect__tags {
-        min-height: 36px;
-        padding: 0px 40px 0 8px;
-        border: 1px solid #c4cdd5;
-        box-shadow: 0 0 0 1px transparent, 0 1px 0 0 rgba(22, 29, 37, 0.05);
-        border-radius: 3px;
-        background: linear-gradient(180deg, #fff, #f9fafb);
+        min-height: 34px;
+        font-size: inherit;
+        padding: 0 .8rem 0 1.2rem;
+        background-color: $select-backdrop-bgcolor !important;
+        border: $select-backdrop-border;
+        box-shadow: $select-backdrop-box-shadow;
+        border-radius: $select-backdrop-border-radius;
     }
 
     .multiselect__placeholder {
-        color: #3b4b5b;
+        color: black;
         display: inline-block;
-        line-height: 36px;
+        line-height: 34px;
         vertical-align: top;
         margin-bottom: 0;
         padding-top: 0;
     }
 
     .multiselect__option--highlight {
-        background: #007B5C;
+        background: $theme-primary-color;
     }
 
     .multiselect__option--highlight:after {
-        background: #007B5C;
+        background: $theme-primary-color;
     }
 
     .multiselect__content-wrapper {
@@ -2940,13 +2932,16 @@ div.multiselect {
 
     .multiselect__tag {
         border-radius: 3px;
-        background: linear-gradient(180deg, #006e52, #007B5C);
+        background: linear-gradient(180deg, #006e52, $theme-primary-color);
         margin: 6px 5px 6px 0;
     }
 
     .multiselect__tags-wrap {
         display: block;
         height: 34px;
+        > .Polaris-Tag {
+            margin: 3px 10px 3px 0;
+        }
     }
 
     .multiselect__tag-icon:after {

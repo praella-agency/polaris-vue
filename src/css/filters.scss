@@ -38,10 +38,13 @@
         }
     }
 }
-
+.Polaris-Filters-ConnectedFilterControl {
+    .Polaris-Filters-ConnectedFilterControl__CenterContainer + .Polaris-Filters-ConnectedFilterControl__RightContainer {
+        margin-left: .8rem;
+    }
+}
 .Polaris-Filters-ConnectedFilterControl__RightContainer {
     display: flex;
-    margin-left: .8rem;
 
     .Polaris-Filters-ConnectedFilterControl__Item {
         >* {

@@ -1,4 +1,5 @@
 import PMultiSelect from './PMultiSelect';
+import {PBadge} from "../PBadge";
 
 export default {
     title: 'Forms / Multi Select',
@@ -8,41 +9,59 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PMultiSelect,
+        PMultiSelect,PBadge
     },
-    template:`
+    data() {
+        return {
+            selectedValue: null,
+            searchValue: null
+        }
+    },
+    template: `
+      <div>
       <PMultiSelect
           v-bind="$props"
-          @change="getSelectedOptionsValue"
-      />`,
+          v-model="selectedValue"
+          @searchChange="search"
+      />
+      <br />
+      <p v-if="selectedValue">Selected Value: <PBadge>{{selectedValue}}</PBadge></p>
+      <br />
+      <p v-if="searchValue">Search Value: <PBadge>{{searchValue}}</PBadge></p>
+      </div>`,
     methods: {
-        getSelectedOptionsValue(value) {
-            console.log(value);
-        },
-    },
+        search(query) {
+            this.searchValue = query;
+        }
+    }
 });
 
 export const MultiSelect = Template.bind({});
 
 MultiSelect.args = {
+    placeholder: 'Select',
     options: [
         {
             label: 'Vue.js',
-            value: 'vue.js',
+            language: 'vue.js',
         },
         {
             label: 'Rails',
-            value: 'rails',
+            language: 'rails',
         },
         {
             label: 'Laravel',
-            value: 'laravel',
+            language: 'laravel',
+            hidden: true,
         },
         {
             label: 'Phoenix',
-            value: 'phoenix',
+            language: 'phoenix',
             disabled: true
         },
     ],
+    label: 'Sort by',
+    textField: 'label',
+    valueField: 'language'
 }
 
