@@ -36,7 +36,8 @@
       <template #ranges="ranges">
         <PStack>
           <PStackItem fill>
-            <PSelect label="Date range" returnKey="returnValue" :options="rangeOptions(ranges.ranges)"  @change="(range) => changeRange(range, ranges)" />
+            <PSelect label="Date range" v-model="selectedRanges" returnKey="returnValue" :options="rangeOptions(ranges.ranges)"
+                     @change="(range) => changeRange(range, ranges)"/>
           </PStackItem>
         </PStack>
       </template>
@@ -269,6 +270,8 @@ export default class PDatePicker extends Vue {
 
   public content: DateRange = (this.dateRange !== null && this.dateRange !== undefined) ?
       this.dateRange : {startDate: new Date(), endDate: new Date()};
+
+  public selectedRanges = null;
 
   public get className() {
     return classNames(
