@@ -1,8 +1,9 @@
 <template>
   <PMenu
+    :id="id"
     :open="open"
-    :on-open="onOpen"
-    :on-close="onClose"
+    :on-open="onToggle"
+    :on-close="onToggle"
     :actions="actions"
     :message="message"
     :accessibility-label="accessibilityLabel"
@@ -64,6 +65,11 @@
   })
   export default class PUserMenu extends Vue {
     /**
+     * Id for the UserMenu
+     */
+    @Prop({type: String, required: true}) public id!: string;
+
+    /**
      * An array of action objects that are rendered inside of a popover triggered by this menu
      */
     @Prop({type: Array, default: () => ([])}) public actions!: { items: Action[] }[];
@@ -104,14 +110,9 @@
     @Prop({type: Boolean, required: true, default: false}) public open!: boolean;
 
     /**
-     * A callback function to handle opening the menu popover
+     * A callback function to handle opening and closing the user menu
      */
-    @Prop({type: Function}) public onOpen!: void;
-
-    /**
-     * A callback function to handle closing the menu popover
-     */
-    @Prop({type: Function}) public onClose!: void;
+    @Prop({type: Function}) public onToggle!: void;
 
     public showIndicator = Boolean(Object.keys(this.message).length > 0);
   }

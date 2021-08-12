@@ -1,11 +1,12 @@
 <template>
   <div>
     <PPopover
+        :id="id"
         :active="toggleOpen"
         :close="onClose"
         fixed
         fullWidth
-        preferredAlignment="left"
+        preferredAlignment="right"
     >
       <div class="Polaris-TopBar-Menu__ActivatorWrapper" slot="activator">
         <button
@@ -52,6 +53,11 @@
     },
   })
   export default class PMenu extends Vue {
+    /**
+     * Id for the Menu
+     */
+    @Prop({type: String, required: true}) public id!: string;
+
     /**
      * An array of action objects that are rendered inside of a popover triggered by this menu
      */

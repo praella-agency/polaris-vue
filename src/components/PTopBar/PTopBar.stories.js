@@ -4,6 +4,7 @@ import { PUserMenu } from "./components/PUserMenu";
 import { PMenu } from "./components/PMenu";
 import { PIcon } from "../PIcon";
 import { PActionList } from "../PActionList";
+import { PVisuallyHidden } from "../PVisuallyHidden";
 
 export default {
     title: 'Structure / Top Bar',
@@ -13,7 +14,7 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PTopBar, PSearchField, PUserMenu, PIcon, PActionList, PMenu,
+        PTopBar, PSearchField, PUserMenu, PIcon, PActionList, PMenu, PVisuallyHidden,
     },
     data() {
         return {
@@ -32,6 +33,7 @@ const Template = (args, {argTypes}) => ({
       >
         <PUserMenu
             slot="userMenu"
+            id="Polaris-UserMenu"
             :actions="[
                 {
                   items: [{content: 'Back to Shopify', icon: 'ArrowLeftMinor'}],
@@ -44,10 +46,10 @@ const Template = (args, {argTypes}) => ({
             detail="Jaded Pixel"
             initials="D"
             :open="isUserMenuOpen"
-            :onOpen="toggleIsUserMenuOpen"
-            :onClose="toggleIsUserMenuClose"
+            :onToggle="toggleIsUserMenuOpen"
         />
         <PMenu
+            id="Polaris-Menu"
             slot="secondaryMenu"
             :open="isSecondaryMenuOpen"
             :onOpen="toggleIsSecondaryMenuOpen"
@@ -60,6 +62,7 @@ const Template = (args, {argTypes}) => ({
         >
           <span slot="activatorContent">
             <PIcon source="QuestionMarkMajor"/>
+            <PVisuallyHidden>Secondary menu</PVisuallyHidden>
           </span>
         </PMenu>
         <PSearchField
@@ -98,10 +101,7 @@ const Template = (args, {argTypes}) => ({
             this.isSecondaryMenuOpen = !this.isSecondaryMenuOpen;
         },
         toggleIsUserMenuOpen() {
-            this.isUserMenuOpen = true;
-        },
-        toggleIsUserMenuClose() {
-            this.isUserMenuOpen = false;
+            this.isUserMenuOpen = !this.isUserMenuOpen;
         },
     },
 });
