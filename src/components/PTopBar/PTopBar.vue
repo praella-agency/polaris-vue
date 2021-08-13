@@ -29,7 +29,7 @@
       </PUnstyledLink>
     </div>
     <div class="Polaris-TopBar__Contents">
-      <div class="Polaris-TopBar-SearchField" v-if="$slots.hasOwnProperty('searchField')">
+      <div class="Polaris-TopBar__SearchField" v-if="$slots.hasOwnProperty('searchField')">
         <slot name="searchField"/>
         <PSearch
             :visible="searchResultsVisible"

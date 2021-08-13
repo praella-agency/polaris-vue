@@ -61,7 +61,7 @@ const Template = (args, {argTypes}) => ({
                 {
                   items: [{content: 'Community forums'}],
                 },
-            ]"
+              ]"
           >
           <span slot="activatorContent">
             <PIcon source="QuestionMarkMajor"/>

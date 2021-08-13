@@ -1,5 +1,5 @@
 <template>
-    <POptionalTag tag="li" :active="hasMultipleSections">
+    <POptionalTag tag="li" :active="hasMultipleSections" class="Polaris-ActionList__Section">
         <div :class="className">
             <p v-if="section.title" class="Polaris-ActionList__Title">
                 {{ section.title }}
@@ -42,7 +42,6 @@ export default class PActionListSection extends Vue {
     public get className() {
 
         return classNames(
-            'Polaris-ActionList__Section',
             !this.section.title && 'Polaris-ActionList__Section--withoutTitle',
         );
     }
