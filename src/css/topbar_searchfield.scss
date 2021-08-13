@@ -177,7 +177,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: var(rgba(241, 242, 243, 1), var(--top-bar-background-lighter));
+  background-color: rgba(241, 242, 243, 1);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   will-change: background-color;
@@ -203,7 +203,7 @@
 
 @keyframes Polaris-TopBar-SearchField--toLightBackground {
   to {
-    background-color: var(--p-surface-neutral, var(--top-bar-background-lighter));
+    background-color: rgba(228, 229, 231, 1);
   }
 }
 
