@@ -14,7 +14,7 @@
         autoComplete="off"
         autoCorrect="off"
         ref="input"
-        :value="value"
+        v-model="computedValue"
         @change="handleChange"
         @keydown="preventDefault"
     />
@@ -26,13 +26,14 @@
         type="button"
         aria-label="Clear"
         class="Polaris-TopBar-SearchField__Clear"
+        @click="handleClear"
         @blur="handleBlur"
         @focus="handleFocus"
     >
       <PIcon source="CircleCancelMinor"/>
     </button>
     <div
-      :class="divClassName"
+        :class="divClassName"
     />
   </div>
 </template>
@@ -87,6 +88,7 @@
     }
 
     public forceActive = false;
+    public inputValue = this.value;
 
     public get className() {
       return classNames(
@@ -102,6 +104,18 @@
       );
     }
 
+    public get computedValue() {
+      return this.inputValue;
+    }
+
+    public set computedValue(value) {
+      this.inputValue = value;
+      /**
+       * Handle input of search field
+       */
+      this.$emit('input', value);
+    }
+
     public preventDefault(event: KeyboardEvent) {
       if (event.key === 'Enter') {
         event.preventDefault();
@@ -113,7 +127,7 @@
     }
 
     public handleBlur() {
-      this.forceActive = false;
+      this.forceActive = true;
       this.$emit('cancel');
 
       if (!(this.$refs.input as HTMLInputElement)) {
@@ -128,6 +142,18 @@
     public handleFocus() {
       this.$emit('focus');
       this.forceActive = true;
+    }
+
+    public handleClear() {
+      this.$emit('cancel');
+
+      if (!this.inputValue) {
+        return;
+      }
+
+      this.inputValue = '';
+      this.$emit('change', '');
+      (this.$refs.input as HTMLInputElement).focus();
     }
   }
 </script>

@@ -2,7 +2,7 @@
   <div>
     <PPopover
         :id="id"
-        :active="toggleOpen"
+        :active="open"
         :close="onClose"
         fixed
         fullWidth
@@ -12,7 +12,7 @@
         <button
             type="button"
             class="Polaris-TopBar-Menu__Activator"
-            @click="handleToggle"
+            @click="onOpen"
             :aria-label="accessibilityLabel"
         >
           <slot name="activatorContent"/>
@@ -20,19 +20,21 @@
       </div>
       <PActionList slot="content" :sections="actions"/>
       <PMessage
+          slot="content"
+          v-if="Object.keys(message).length > 0"
           :title="message.title"
           :description="message.description"
-          :action="Object.keys(message).length > 0 && {
-            onClick: message.action.onClick,
-            content: message.action.content
-          }"
-          :link="Object.keys(message).length > 0 && {
-            to: message.link.to,
-            content: message.link.content
-          }"
+          :action="Object.keys(message).length > 0 ? {
+            onClick: message.action !== undefined ? message.action.onClick : {},
+            content: message.action !== undefined ? message.action.content : ''
+          }: {}"
+          :link="Object.keys(message).length > 0 ? {
+            to: message.link !== undefined ? message.link.to : '',
+            content: message.link !== undefined ? message.link.content : ''
+          } : {}"
           :badge="message && message.badge ? {
-              content: message.badge.content,
-              status: message.badge.status
+              content: message.badge !== undefined ? message.badge.content : '',
+              status: message.badge !== undefined ? message.badge.status : ''
           } : {}"
       />
     </PPopover>
@@ -71,33 +73,33 @@
     /**
      * A boolean property indicating whether the menu is currently open
      */
-    @Prop({type: Boolean, default: false}) public open!: boolean;
+    @Prop({type: Boolean}) public open!: boolean;
 
     /**
      * A callback function to handle opening the menu popover
      */
-    @Prop({type: Function}) public onOpen!: void;
+    @Prop({
+      type: Function, default: () => {
+      }
+    }) public onOpen!: void;
 
     /**
      * A callback function to handle closing the menu popover
      */
     @Prop({type: Function}) public onClose!: void;
 
-    /** A string that provides the accessibility labeling */
+    /**
+     * A string that provides the accessibility labeling
+     */
     @Prop({type: String, default: null}) public accessibilityLabel!: string;
 
     public focused = true;
-    public toggleOpen = this.open;
 
     public get className() {
       return classNames(
         'Polaris-Popover__Section',
         'Polaris-Popover__Section+ Polaris-Popover__Section'
       );
-    }
-
-    public handleToggle() {
-      this.toggleOpen = !this.toggleOpen;
     }
   }
 </script>

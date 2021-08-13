@@ -152,7 +152,7 @@ export interface MessageProps {
     onClick(): void;
   };
   link: {
-    to: string;
+    to: string | object;
     content: string;
   };
   badge?: {

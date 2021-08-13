@@ -24,7 +24,7 @@
           </PLink>
         </PStackItem>
         <PStackItem>
-          <PButton plain @click="action.onClick">
+          <PButton plain @click="action.onClick !== undefined ? action.onClick() : {}">
             {{ action.content }}
           </PButton>
         </PStackItem>
