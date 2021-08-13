@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs" :resourceTitle="searchPlaceholder"
+    <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs" :resourceName="resource"
              :hideQueryField="hasFilter" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
       <!-- @slot Filter content -->
       <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
@@ -128,7 +128,8 @@
       <slot name="emptyState">
         <PEmptyState
             :heading="emptyStateTitle"
-            image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png">
+            :image="emptyStateImage"
+        >
         </PEmptyState>
       </slot>
     </div>
@@ -157,7 +158,7 @@
     size?: Size;
   }
 
-  interface Headers {
+  interface Headings {
     /** Header title */
     content: string,
     /** Header value */
@@ -192,19 +193,26 @@
     @Prop({type: Array, default: () => [], required: true}) public columnContentTypes!: ColumnContentType[];
 
     /**
-     * Heading list
+     * The direction to sort the table rows on first click or keypress
+     * of a sortable column heading
+     * @values ascending | descending | none
      */
-    @Prop({type: Array, default: () => []}) public headings!: Headers[];
-
-    // /**
-    //  * Heading list 2
-    //  */
-    // @Prop({ type: Array, default: () => [] }) public headings2!: string[];
+    @Prop({type: String, default: 'ascending'}) public defaultSortDirection!: SortDirection;
 
     /**
-     * Total fields
+     * Table data
      */
-    @Prop({type: Array, default: () => []}) public totals!: TableData[];
+    @Prop({type: [String, Number]}) public footerContent!: TableData;
+
+    /**
+     * Heading list
+     */
+    @Prop({type: Array, default: () => []}) public headings!: Headings[];
+
+    /**
+     * Table rows
+     */
+    @Prop({type: Array, default: () => [[]]}) public rows!: TableData[][];
 
     /**
      * Display totals on footer
@@ -213,15 +221,14 @@
     @Prop({type: Boolean, default: false}) public showTotalsInFooter!: boolean;
 
     /**
-     * Display only search filter
-     * @values true | false
+     * Total fields
      */
-    @Prop({type: Boolean, default: false}) public hasFilter!: boolean;
+    @Prop({type: Array, default: () => []}) public totals!: TableData[];
 
     /**
-     * Table rows
+     * Custom totals row heading
      */
-    @Prop({type: Array, default: () => [[]]}) public rows!: TableData[][];
+    @Prop({type: Object, default: () => ({})}) public totalsName!: object;
 
     /**
      * truncate cell data
@@ -241,19 +248,14 @@
     @Prop({type: Object, default: () => ({})}) public sort!: Sort;
 
     /**
-     * The direction to sort the table rows on first click or keypress
-     * of a sortable column heading
-     * @values ascending | descending | none
+     * Display only search filter
+     * @values true | false
      */
-    @Prop({type: String, default: 'ascending'}) public defaultSortDirection!: SortDirection;
-
-    /**
-     * Table data
-     */
-    @Prop({type: [String, Number]}) public footerContent!: TableData;
+    @Prop({type: Boolean, default: false}) public hasFilter!: boolean;
 
     /**
      * Search Placeholder
+     * @deprecation
      */
     @Prop({type: String, default: null}) public searchPlaceholder!: string;
 
@@ -275,31 +277,19 @@
     @Prop({type: Object, default: () => ({})}) public pagination!: PPaginationDescriptor;
 
     /**
-     * Handle action events for the button.
-     */
-    @Prop({type: Array, default: () => []}) public actions!: ComplexAction[];
-
-    /**
-     * Data ids
-     */
-    @Prop({type: Array, default: () => []}) public ids!: number[];
-
-    /**
      * Display empty state if record not found!
      */
     @Prop({type: String, default: 'No record found!'}) public emptyStateTitle!: string;
 
     /**
-     * Custom totals row heading
+     * Display empty state image if record not found!
      */
-    @Prop({type: Object, default: () => ({})}) public totalsName!: object;
+    @Prop({
+      type: String,
+      default: 'https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png'
+    }) public emptyStateImage!: string;
 
     public topPadding = 8;
-
-    public get hasActions() {
-
-      return this.actions && this.actions.length > 0;
-    }
 
     public mounted() {
       let loadingPosition = 0;
@@ -314,6 +304,11 @@
           (viewportHeight - overlay.top - spinnerHeight) / 2;
         loadingPosition = loadingPosition + (this.$refs.thead as Element).getBoundingClientRect().height;
         this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
+      }
+
+      if (this.searchPlaceholder != null) {
+        console.error('Deprecation Notice: `searchPlaceholder` will be removed in version 3.0.0, use `resourceName` instead. ' +
+          'You can check resourceName syntax here: http://localhost:6006/?path=/docs/lists-tables-filter--filter');
       }
     }
 
@@ -339,6 +334,17 @@
        * @property {Object} {value: 'columnName', direction:'sortDirection'}
        */
       this.$emit('sort-changed', value, direction);
+    }
+
+    public get resource() {
+      if (this.searchPlaceholder != null) {
+        return {
+          singular: this.searchPlaceholder,
+          plural: this.searchPlaceholder,
+        }
+      } else {
+        return this.$attrs.resourceName;
+      }
     }
   }
 </script>

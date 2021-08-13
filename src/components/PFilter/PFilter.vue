@@ -14,7 +14,7 @@
                             @change="onQueryChange"
                             @blur="onQueryBlur"
                             @focus="onQueryFocus"
-                            :value="queryValue"
+                            :value="queryValue || inputFilter"
                             :autoFocus="focused"
                             :label="queryPlaceholder || resourceTitle || resource"
                             clearable
@@ -192,6 +192,10 @@
     public mounted() {
       if (this.resourceTitle != null) {
         console.error('Deprecation Notice: `resourceTitle` will be removed in version 3.0.0, use `resourceName` instead.');
+      }
+
+      if (this.inputFilter != null) {
+          console.error('Deprecation Notice: `inputFilter` will be removed in version 3.0.0, use `queryValue` instead.');
       }
     }
   }
