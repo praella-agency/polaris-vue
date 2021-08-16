@@ -59,13 +59,13 @@
           :expanded="showExpanded"
           :id="secondaryNavigationId"
       >
-        <PSubNavigationItem
+        <PItem
             v-for="(subNavigationItem, key) in subNavigationItems"
             :key="key"
             v-bind="subNavigationItem"
             :label="label"
             :matches="subNavigationItem === longestMatch"
-            v-on="click ?? this.onNavigationDismiss"
+            @click="onNavigationDismiss ? onNavigationDismiss : {}"
         />
       </PSecondary>
     </div>
@@ -78,8 +78,6 @@
   import { PUnstyledLink } from '@/components/PUnstyledLink';
   import { PIcon } from '@/components/PIcon';
   import { PBadge } from '@/components/PBadge';
-  import { location, onNavigationDismiss } from '../../context';
-  import { Key } from '@/types';
   import { PSecondary } from './PSecondary';
   import { PSubNavigationItem } from './PSubNavigationItem';
 
@@ -117,7 +115,7 @@
 
   @Component({
     components: {
-      PUnstyledLink, PIcon, PBadge, PSecondary, PSubNavigationItem,
+      PUnstyledLink, PIcon, PBadge, PSecondary, PSubNavigationItem, PItem,
     }
   })
   export default class PItem extends Vue {
@@ -128,13 +126,12 @@
     @Prop({type: Boolean, default: false}) public selected!: boolean;
     @Prop({type: Boolean, default: false}) public exactMatch!: boolean;
     @Prop({type: Boolean, default: false}) public new!: boolean;
-    @Prop({type: Array, default: null}) public subNavigationItems!: SubNavigationItem[];
+    @Prop({type: Array, default: () => ([])}) public subNavigationItems!: SubNavigationItem[];
     @Prop({type: Object, default: () => ({})}) public secondaryAction!: SecondaryAction;
 
     /**
-     * @ignore
      */
-    @Prop({type: Function}) public onNavigationDismiss!: onNavigationDismiss;
+    @Prop({type: Function}) public onNavigationDismiss!: void;
 
     //ItemURLDetails Props
     @Prop({type: String, default: null}) public url!: string;
@@ -148,7 +145,6 @@
     public tabIndex = this.disabled ? -1 : 0;
     public isNavigationCollapsed = false;
     public secondaryNavigationId = `SecondaryNavigation${new Date().getUTCMilliseconds()}`;
-    public hasNewChild = this.subNavigationItems.filter((subNavigationItem) => subNavigationItem.new).length > 0;
     @Ref() public badgeMarkup!: Node;
 
     public matchState = this.matchStateForItem({
@@ -157,7 +153,7 @@
       exactMatch: this.exactMatch,
       matchPaths: this.matchPaths,
       excludePaths: this.excludePaths
-    }, location);
+    }, '');
 
     public selectedOverride = !this.selected
       ? this.matchState === MatchState.MatchForced ||
@@ -166,7 +162,7 @@
       : this.selected;
 
     public matchingSubNavigationItems = this.subNavigationItems.filter((item) => {
-      const subMatchState = this.matchStateForItem(item, location);
+      const subMatchState = this.matchStateForItem(item, '');
       return (
         subMatchState === MatchState.MatchForced ||
         subMatchState === MatchState.MatchUrl ||
@@ -198,7 +194,7 @@
     public get className() {
       return classNames(
         'Polaris-Navigation__ListItem',
-        this.secondaryAction && 'Polaris-Navigation__ListItem--hasAction',
+        Object.keys(this.secondaryAction).length > 0 && 'Polaris-Navigation__ListItem--hasAction',
       );
     }
 
@@ -223,7 +219,7 @@
     public getClickHandler(event: MouseEvent) {
       const {currentTarget} = event;
 
-      if ((currentTarget as HTMLElement).getAttribute('href') === location) {
+      if ((currentTarget as HTMLElement).getAttribute('href') === '') {
         event.preventDefault();
       }
 
@@ -234,13 +230,14 @@
       ) {
         event.preventDefault();
         this.expanded = !this.expanded;
-      } else if (onNavigationDismiss) {
-        onNavigationDismiss();
-        if (this.$emit('click') && this.$emit('click') !== onNavigationDismiss) {
-          this.$emit('click');
-        }
-        return;
       }
+      // else if (this.onNavigationDismiss) {
+      //   this.onNavigationDismiss();
+      //   if (this.$emit('click') && this.$emit('click') !== onNavigationDismiss) {
+      //     this.$emit('click');
+      //   }
+      //   return;
+      // }
 
       if (this.$emit('click')) {
         this.$emit('click');
@@ -255,8 +252,14 @@
       }
     }
 
+    public get hasNewChild() {
+      if (this.subNavigationItems.length > 0) {
+        return this.subNavigationItems.filter((subNavigationItem) => subNavigationItem.new).length > 0;
+      }
+    }
+
     public handleKeyUp(event: KeyboardEvent) {
-      if (event.keyCode === Key.Tab) {
+      if (event.keyCode === 9) {
         if (!this.keyFocused) {
           this.keyFocused = true;
         }

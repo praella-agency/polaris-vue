@@ -44,7 +44,7 @@
     /**
      * Assign transition properties to the collapsible
      */
-    @Prop({type: Object}) public transition!: Transition;
+    @Prop({type: Object, default: () => ({})}) public transition!: Transition;
 
     public animationState: AnimationState = 'idle';
 

@@ -4,7 +4,7 @@
     :label="label"
     :disabled="disabled"
     :new="this.new"
-    @click="onClick"
+    @click="onClick ? onClick : {}"
   />
 </template>
 

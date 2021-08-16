@@ -11,13 +11,26 @@
       :onScrollToBottom="onScrolledToBottom"
       :tabIndex="focusable ? 0 : undefined"
   >
-    <slot />
+    <slot/>
   </div>
 </template>
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
+
+  const MAX_SCROLL_DISTANCE = 100;
+  const DELTA_THRESHOLD = 0.2;
+  const DELTA_PERCENTAGE = 0.2;
+  const EVENTS_TO_LOCK = ['scroll', 'touchmove', 'wheel'];
+  const PREFERS_REDUCED_MOTION = () => {
+    try {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (err) {
+      return false;
+    }
+  };
+  const LOW_RES_BUFFER = 2;
 
   interface State {
     topShadow: boolean;
@@ -65,7 +78,7 @@
     };
 
     public mounted() {
-      if((this.$refs.scrollArea as HTMLElement) == null) {
+      if ((this.$refs.scrollArea as HTMLElement) == null) {
         return;
       }
     }

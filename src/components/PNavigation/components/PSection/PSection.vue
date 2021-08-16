@@ -25,7 +25,7 @@
         class="Polaris-Navigation__RollupSection"
     >
       <PCollapsible
-          :id="`AdditionalItems#${this['uid']}`"
+          :id="`AdditionalItems#${this['_uid']}`"
           :open="expanded"
       >
         <ul
@@ -57,7 +57,7 @@
 
 <script lang="ts">
   import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator';
-  import { PItem } from '@/components/PNavigation/components/PItem';
+  import PItem from '@/components/PNavigation/components/PItem/PItem.vue';
   import { PIcon } from '@/components/PIcon';
   import { PCollapsible } from '@/components/PCollapsible';
   import { classNames } from '@/utilities/css';
