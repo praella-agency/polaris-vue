@@ -21,12 +21,12 @@ export default class PActionList extends Vue {
     /**
      * Collection of actions for list
      */
-    @Prop({type: Array, default: []}) public items!: any[];
+    @Prop({type: Array, default: () => ([])}) public items!: any[];
 
     /**
      * Collection of sectioned action items
      */
-    @Prop({type: Array, default: () => []}) public sections!: any[];
+    @Prop({type: Array, default: () => ([])}) public sections!: any[];
 
     public get className() {
         return classNames(
@@ -36,7 +36,7 @@ export default class PActionList extends Vue {
 
     public get finalSections() {
 
-        if (this.items) {
+        if (this.items.length > 0) {
             return [{items: this.items}, ...this.sections];
         }
         return this.sections;

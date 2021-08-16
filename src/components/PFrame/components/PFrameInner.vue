@@ -29,7 +29,7 @@
           ref="navigationNode"
           :appear="useMediaQuery"
           :exit="!useMediaQuery"
-          :in="showMobileNavigation"
+          :in="toggleMobileNavigation"
           timeout="300"
           enter-class="Polaris-Frame__Navigation--enter"
           enter-active-class="Polaris-Frame__Navigation--enterActive"
@@ -52,7 +52,7 @@
               type="button"
               class="Polaris-Frame__NavigationDismiss"
               @click="handleNavigationDismiss"
-              :aria-hidden="mobileNavHidden || (!useMediaQuery && !showMobileNavigation)"
+              :aria-hidden="mobileNavHidden || (!useMediaQuery && !toggleMobileNavigation)"
               aria-label="Close navigation"
               :tabindex="mobileNavShowing ? 0 : -1" `
           >
@@ -191,8 +191,9 @@
     public APP_FRAME_TOP_BAR = 'AppFrameTopBar';
     public APP_FRAME_LOADING_BAR = 'AppFrameLoadingBar';
 
-    public mobileNavHidden = this.useMediaQuery() && !this.showMobileNavigation;
-    public mobileNavShowing = this.useMediaQuery() && this.showMobileNavigation;
+    public toggleMobileNavigation = this.showMobileNavigation;
+    public mobileNavHidden = this.useMediaQuery() && !this.toggleMobileNavigation;
+    public mobileNavShowing = this.useMediaQuery() && this.toggleMobileNavigation;
 
     public state: State = {
       skipFocused: false,
@@ -237,18 +238,18 @@
     public get navClassName() {
       return classNames(
         'Polaris-Frame__Navigation',
-        this.showMobileNavigation && 'Polaris-Frame__Navigation--visible',
+        this.toggleMobileNavigation && 'Polaris-Frame__Navigation--visible',
       );
     }
 
     public get ariaModal() {
-      if (this.showMobileNavigation) {
+      if (this.toggleMobileNavigation) {
         return true;
       }
     }
 
     public get role() {
-      if (this.showMobileNavigation) {
+      if (this.toggleMobileNavigation) {
         return 'dialog';
       }
     }
@@ -310,17 +311,17 @@
 
     public useMediaQuery() {
       if (window.innerWidth <= 768) {
-        this.$set(this, 'showMobileNavigation', true);
+        this.$set(this, 'toggleMobileNavigation', true);
         return true;
       } else {
-        this.$set(this, 'showMobileNavigation', false);
+        this.$set(this, 'toggleMobileNavigation', false);
         return false;
       }
     }
 
     public handleNavKeydown(event: KeyboardEvent) {
       const {key} = event;
-      const mobileNavShowing = this.useMediaQuery() && this.showMobileNavigation;
+      const mobileNavShowing = this.useMediaQuery() && this.toggleMobileNavigation;
       if (mobileNavShowing && key === 'Escape') {
         this.handleNavigationDismiss();
       }

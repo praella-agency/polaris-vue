@@ -538,7 +538,7 @@ $label-text-color: $theme-topbar-color;
 $label-text-media-font-size: 1.4rem; 
 
 $inline-error-color: #bf0711;
-$inline-error-fill: #bf0711;
+$inline-error-fill: #fbeae5;
 
 $labelled-helptext-color: $theme-common-gray-color;
 $labelled-helptext-font-size: 1.5rem;
@@ -1785,7 +1785,7 @@ $topbar-searchfield-input-font-size: 1.6rem;
 $topbar-searchfield-input-font-weight: 400;
 $topbar-searchfield-input-line-height: 2.4rem;
 $topbar-searchfield-input-border: none;
-$topbar-searchfield-input-bgcolor: initial;
+$topbar-searchfield-input-bgcolor: transparent;
 $topbar-searchfield-input-color: $theme-topbar-color;
 $topbar-searchfield-input-media-font-size: 1.4rem;
 
@@ -1793,6 +1793,10 @@ $topbar-searchfield-clear-svg-fill: $theme-svg-fill-color;
 $topbar-searchfield-clear-focus-svg-fill: $theme-searchfield-focus-svg;
 $topbar-searchfield-clear-hover-svg-fill: $theme-searchfield-focus-svg;
 $topbar-searchfield-clear-active-svg-fill: #44474A;
+
+$topbar-searchfield-p-focused: rgba(69, 143, 255, 1);
+$topbar-searchfield-p-ease: cubic-bezier(0.4, 0.22, 0.28, 1);
+
 
 /* MessageIndicator__MessageIndicatorWrapper */
 
