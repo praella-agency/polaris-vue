@@ -241,7 +241,7 @@ RowSlot.args = {
         },
     ],
     totals: [
-        '', '', '', 441, '', '',
+        '', '', '', 255, '', '',
     ],
     hasPagination: true,
     pagination: {
@@ -254,6 +254,183 @@ RowSlot.args = {
             alert('Previous');
         }
     },
+}
+
+RowSlot.parameters = {
+    docs: {
+        source: {
+            code: `
+<PCard sectioned>
+    <PDataTableNew
+        resourceName="{singular: 'Product', plural: 'Products'}"
+        columnContentTypes="[]"
+        headings="[
+            {
+                content: 'Product',
+                value: 'product',
+                type: 'text',
+                width: '30%'
+            },
+            {
+                content: 'Price',
+                value: 'price',
+                type: 'numeric',
+            },
+            {
+                content: 'SKU Number',
+                value: 'sku',
+                type: 'numeric',
+            },
+            {
+                content: 'Net quantity',
+                value: 'qty',
+                type: 'numeric',
+            },
+            {
+                content: 'Status',
+                value: 'status',
+                type: 'text',
+                sortable: false,
+            },
+            {
+                content: 'Actions',
+                value: 'actions',
+                type: 'text',
+                sortable: false,
+            },
+        ]"
+        rows="[
+            {
+                product: 'Emerald Silk Gown',
+                product_link: 'javascript:void(0);',
+                price: '$875.00',
+                sku: 124689,
+                sku_status: 'critical',
+                sku_progress: 'incomplete',
+                qty: 140,
+                status: true,
+            },
+            {
+                product: 'Mauve Cashmere Scarf',
+                product_link: 'javascript:void(0);',
+                price: '$230.00',
+                sku: 124533,
+                sku_status: 'warning',
+                sku_progress: 'partiallyComplete',
+                qty: 83,
+                status: false,
+            },
+            {
+                product: 'Navy Merino Wool Blazer with khaki chinos and yellow belt',
+                product_link: 'javascript:void(0);',
+                price: '$445.00',
+                sku: 124518,
+                sku_status: 'success',
+                sku_progress: 'complete',
+                qty: 32,
+                status: true,
+            },
+        ]"
+        totals="[
+            '', '', '', 255, '', '',
+        ]"
+        hasPagination="true"
+        pagination="{
+            hasPrevious: true,
+            hasNext: true,
+            onNext: () => {
+                alert('Next');
+            },
+            onPrevious: () => {
+                alert('Previous');
+            }
+        }"
+        @sort-changed="handleSortChange"
+        @input-filter-changed="handleSearch">    
+        <template v-slot:item="{item}">
+            <PDataTableRow>
+                <PDataTableCol firstColumn>
+                    <PLink :url="item.product_link">
+                    {{item.product}}
+                    </PLink>
+                </PDataTableCol>
+                <PDataTableCol numeric>{{item.price}}</PDataTableCol>
+                <PDataTableCol numeric>
+                    <PBadge :status="item.sku_status" :progress="item.sku_progress">
+                    {{item.sku}}
+                    </PBadge>
+                </PDataTableCol>
+                <PDataTableCol numeric>{{item.qty}}</PDataTableCol>
+                <PDataTableCol>
+                    <PToggle :checked="item.status"/>
+                </PDataTableCol>
+                <PDataTableCol>
+                    <PStack>
+                        <PStackItem>
+                            <PIcon source="EditMinor" @click="editItem(item.product)"/>
+                        </PStackItem>
+                        <PStackItem>
+                            <PIcon source="DeleteMinor" color="critical" @click="deleteItem(item.product)"/>
+                        </PStackItem>
+                    </PStack>
+                </PDataTableCol>
+            </PDataTableRow>
+        </template>
+        
+        <template slot="filter">
+            <PPopover
+                id="popover_1"
+                :active="active"
+                preferred-alignment="right"
+                @close="toggleRatingFilter"
+                full-width
+            >
+                <PButton 
+                    slot="activator" 
+                    @click="() => {this.active = !this.active}"
+                    :disclosure="active ? 'up' : 'down'">
+                    Filter Options
+                </PButton>
+                <POptionList
+                    slot="content"
+                    allowMultiple
+                    :selected="selected"
+                    :options="[
+                        {label: 'Rating 1 with a long text', value: '1'},
+                        {label: 'Rating 2', value: '2'},
+                        {label: 'Rating 3', value: '3'},
+                        {label: 'Rating 4', value: '4'},
+                    ]"
+                    @change="updateRatingFilter"
+                />
+            </PPopover>
+            <PPopover
+                id="popover_2"
+                :active="active2"
+                @close="toggleRatingFilter2"
+                preferred-alignment="right"
+            >
+                <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">
+                    Status
+                </PButton>
+            <POptionList
+                slot="content"
+                allowMultiple
+                :selected="status"
+                :options="[
+                    {label: 'Active', value: 'Active'},
+                    {label: 'Pending', value: 'Pending'},
+                    {label: 'Deleted', value: 'Deleted'},
+                ]"
+                @change="updateStatusFilter"
+            />
+            </PPopover>
+        </template>
+    </PDataTableNew>
+</PCard>
+`
+        }
+    }
 }
 
 const Template1 = (args, {argTypes}) => ({
@@ -454,7 +631,7 @@ ColumnSlot.args = {
         },
     ],
     totals: [
-        '', '', '', 441, '', '',
+        '', '', '', 255, '', '',
     ],
     hasPagination: true,
     pagination: {

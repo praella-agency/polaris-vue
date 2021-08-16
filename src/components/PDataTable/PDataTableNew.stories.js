@@ -24,7 +24,7 @@ export default {
             },
         },
         default: {
-            name: 'item.<header-value>',
+            name: 'item.<heading-value>',
         },
     },
 }
@@ -110,10 +110,9 @@ DataTableNew.args = {
             type: 'numeric',
         },
         {
-            content: 'Status',
-            value: 'status',
-            type: 'text',
-            sortable: false,
+            content: 'Net sales',
+            value: 'netSales',
+            type: 'numeric',
         },
     ],
     rows: [
@@ -125,7 +124,7 @@ DataTableNew.args = {
             sku_status: 'critical',
             sku_progress: 'incomplete',
             qty: 140,
-            status: true,
+            netSales: '$121,500.00',
         },
         {
             product: 'Mauve Cashmere Scarf',
@@ -135,7 +134,7 @@ DataTableNew.args = {
             sku_status: 'warning',
             sku_progress: 'partiallyComplete',
             qty: 83,
-            status: false,
+            netSales: '$19,090.00',
         },
         {
             product: 'Navy Merino Wool Blazer with khaki chinos and yellow belt',
@@ -145,10 +144,10 @@ DataTableNew.args = {
             sku_status: 'success',
             sku_progress: 'complete',
             qty: 32,
-            status: true,
+            netSales: '$14,240.00',
         },
     ],
     totals: [
-        '', '', '', 441, '',
+        '', '', '', 255, '$155,830.00',
     ],
 }
