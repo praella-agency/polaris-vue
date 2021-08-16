@@ -11,6 +11,35 @@ export default {
     title: 'Structure / Top Bar',
     component: PTopBar,
     argTypes: {
+        message: {
+            description: 'Message object to use in UserMenu and SecondaryMenu',
+            defaultValue: 'Hello',
+            table: {
+                type: {
+                    summary: 'object',
+                },
+                category: 'Object',
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{    
+    title: string,
+    description: string,
+    action: {
+        content: string,
+        onClick(): void,
+    },
+    link: {
+        to: string | object,
+        content: string,
+    },
+    badge?: {
+        content: string,
+        status: BadgeProps['status'],
+    },
+}`,
+                },
+            },
+        },
         logo: {
             table: {
                 defaultValue: {
@@ -30,7 +59,7 @@ export default {
                 },
             },
         },
-        menu: {
+        secondaryMenu: {
             table: {
                 defaultValue: {
                     summary: '{}',
@@ -53,22 +82,7 @@ export default {
         }
     ],
     /** Object of message for Menu */
-    message?: {    
-        title: string,
-        description: string,
-        action: {
-            content: string,
-            onClick(): void,
-        },
-        link: {
-            to: string | object,
-            content: string,
-        },
-        badge?: {
-            content: string,
-            status: BadgeProps['status'],
-        },
-    },
+    message?: For message object check message object,
     /** Toggle to open/close popover */
     open: boolean,
     /** Icon to display */
@@ -152,7 +166,7 @@ export default {
         }
     ],
     /** Object of message for Menu */
-    message?: Check Message from the 'menu'
+    message?: For message object check message object,
     /** Name for the User Menu */
     name?: string;
     /** Information for User Menu */
@@ -235,7 +249,7 @@ const Template = (args, {argTypes}) => ({
                     },
                 },
             }"
-            :menu="{
+            :secondaryMenu="{
                 id: 'Polaris-Menu',
                 open: isSecondaryMenuOpen,
                 onOpen: toggleIsSecondaryMenuOpen,

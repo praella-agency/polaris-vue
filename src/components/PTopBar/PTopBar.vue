@@ -12,6 +12,7 @@
       <PIcon source="MobileHamburgerMajor"/>
     </button>
     <div v-if="$slots.hasOwnProperty('contextControl')" testID="ContextControl" class="Polaris-TopBar__ContextControl">
+      <!-- @slot Slot to Accepts a component that is used to help users switch between different contexts -->
       <slot name="contextControl"/>
     </div>
     <div v-else-if="Object.keys(logo).length > 0" :class="className">
@@ -33,6 +34,7 @@
           v-if="$slots.hasOwnProperty('pSearchField') || Object.keys(searchField).length > 0"
           class="Polaris-TopBar__SearchField"
       >
+        <!-- @slot Slot to customize SearchField -->
         <slot name="pSearchField">
           <PSearchField
               v-model="searchFieldValue"
@@ -48,6 +50,7 @@
             :onDismiss="onSearchResultsDismiss"
             :overlayVisible="searchResultsOverlayVisible"
         >
+          <!-- @slot Slot to display custom list of result -->
           <slot name="pSearchResult">
             <PActionList
                 :items="searchResult.items"
@@ -57,26 +60,28 @@
         </PSearch>
       </div>
       <div
-          v-if="$slots.hasOwnProperty('pSecondaryMenu') || Object.keys(menu).length > 0"
+          v-if="$slots.hasOwnProperty('pSecondaryMenu') || Object.keys(secondaryMenu).length > 0"
           class="Polaris-TopBar__SecondaryMenu"
       >
+        <!-- @slot Slot to customize SecondaryMenu -->
         <slot name="pSecondaryMenu">
           <PMenu
-              :id="menu.id"
-              :actions="menu.actions"
-              :message="menu.message"
-              :open="menu.open"
-              :onOpen="menu.onOpen"
-              :onClose="menu.onClose"
-              :accessibilityLabel="menu.accessibilityLabel"
+              :id="secondaryMenu.id"
+              :actions="secondaryMenu.actions"
+              :message="secondaryMenu.message"
+              :open="secondaryMenu.open"
+              :onOpen="secondaryMenu.onOpen"
+              :onClose="secondaryMenu.onClose"
+              :accessibilityLabel="secondaryMenu.accessibilityLabel"
           >
             <span slot="activatorContent">
-              <PIcon :source="menu.icon"/>
+              <PIcon :source="secondaryMenu.icon"/>
               <PVisuallyHidden>Secondary menu</PVisuallyHidden>
             </span>
           </PMenu>
         </slot>
       </div>
+      <!-- @slot Slot to customize UserMenu -->
       <slot name="pUserMenu">
         <PUserMenu
             :id="userMenu.id"
@@ -129,7 +134,7 @@
     onToggle(): void;
   }
 
-  interface Menu {
+  interface SecondaryMenu {
     id: string;
     actions?: [];
     message?: object;
@@ -167,15 +172,54 @@
     public focused = false;
     public popoverActive = false;
 
+    /**
+     * Toggles whether or not a navigation component has been provided. Controls the presence of the mobile nav toggle button
+     */
     @Prop({type: Boolean}) public showNavigationToggle!: boolean;
+
+    /**
+     * A boolean property indicating whether search results are currently visible
+     */
     @Prop({type: Boolean, default: false}) public searchResultsVisible!: boolean;
+
+    /**
+     * A callback function that handles hiding and showing mobile navigation
+     */
     @Prop({type: Function, default: null}) public onNavigationToggle!: void;
+
+    /**
+     * A callback function that handles the dismissal of search results
+     */
     @Prop({type: Function, default: null}) public onSearchResultsDismiss!: void;
+
+    /**
+     * Whether or not the search results overlay has a visible backdrop
+     */
     @Prop({type: Boolean, default: false}) public searchResultsOverlayVisible!: void;
+
+    /**
+     * Customize logo
+     */
     @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
+
+    /**
+     * Accepts a user component that is made available as a static member of the top bar component and renders as the primary menu
+     */
     @Prop({type: Object, default: () => ({})}) public userMenu!: UserMenu;
-    @Prop({type: Object, default: () => ({})}) public menu!: Menu;
+
+    /**
+     * Accepts a menu component that is made available as a static member of the top bar component
+     */
+    @Prop({type: Object, default: () => ({})}) public secondaryMenu!: SecondaryMenu;
+
+    /**
+     * Accepts a search field component that is made available as a `TextField` static member of the top bar component
+     */
     @Prop({type: Object, default: () => ({})}) public searchField!: SearchField;
+
+    /**
+     * Accepts a search results component that is ideally composed of a card component containing a list of actionable search results
+     */
     @Prop({type: Object, default: () => ({})}) public searchResult!: SearchResult;
 
     public searchFieldValue = Object.keys(this.searchField).length > 0 ? this.searchField.value : '';
