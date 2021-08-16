@@ -1,7 +1,7 @@
 <template>
   <div>
-    <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs" :resourceTitle="searchPlaceholder"
-             @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
+    <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs"
+             :resourceTitle="searchPlaceholder" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
       <!-- @slot Filter content -->
       <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
     </PFilter>

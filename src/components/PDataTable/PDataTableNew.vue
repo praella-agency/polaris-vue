@@ -9,43 +9,66 @@
       <div class="Polaris-DataTable__ScrollContainer">
         <table class="Polaris-DataTable__Table">
           <thead ref="thead">
+            <!-- @slot Header content -->
+            <slot name="head">
+              <template>
+                <tr>
+                  <PDataTableCellNew
+                      v-for="(heading, hIndex) in headings"
+                      :key="`heading-cell-${hIndex}`"
+                      header
+                      :content="heading.content"
+                      :value="heading.value"
+                      :width="heading.width"
+                      :sort="sort"
+                      :sortable="heading.sortable"
+                      :default-sort-direction="defaultSortDirection"
+                      :content-type="heading.type ? heading.type : columnContentTypes[hIndex]"
+                      :first-column="hIndex === 0"
+                      :truncate="truncate"
+                      :verticalAlign="verticalAlign"
+                      @sort-changed="handleSortChange"
+                  />
 
-          <!-- @slot Header content -->
-          <slot name="head">
-            <template>
-              <tr>
-                <PDataTableCellNew
-                    v-for="(heading, hIndex) in headings"
-                    :key="`heading-cell-${hIndex}`"
-                    header
-                    :content="heading.content"
-                    :value="heading.value"
-                    :width="heading.width"
-                    :content-type="heading.type ? heading.type : columnContentTypes[hIndex]"
-                    :sortable="heading.sortable"
-                    :sort="sort"
-                    :default-sort-direction="defaultSortDirection"
-                    :first-column="hIndex === 0"
-                    :truncate="truncate"
-                    :verticalAlign="verticalAlign"
-                    @sort-changed="handleSortChange"
-                />
-              </tr>
-              <tr v-if="!showTotalsInFooter">
-                <PDataTableCellNew
-                    v-for="(total, index) in totals"
-                    :key="`total-cell-${index}`"
-                    total
-                    :value="index === 0 ? 'Totals' : total"
-                    :content-type="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
-                    :first-column="index === 0"
-                    :truncate="truncate"
-                    :vertical-align="verticalAlign"
-                    :sortable="false"
-                />
-              </tr>
-            </template>
-          </slot>
+                  <!-- @deprecated Remove in version 3.0.0 - START -->
+                  <PDataTableCell
+                      v-if="hasActions"
+                      header
+                      content="Actions"
+                      :sortable="false"
+                      contentType="text"
+                      :firstColumn="false"
+                      :truncate="false"
+                      :verticalAlign="verticalAlign"/>
+                  <!-- @deprecated Remove in version 3.0.0 - END -->
+
+                </tr>
+
+
+                <tr v-if="!showTotalsInFooter">
+                  <PDataTableCellNew
+                      v-for="(total, index) in totals"
+                      :key="`total-cell-${index}`"
+                      total
+                      :value="index === 0 ? 'Totals' : total"
+                      :content-type="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
+                      :first-column="index === 0"
+                      :truncate="truncate"
+                      :vertical-align="verticalAlign"
+                      :sortable="false"
+                  />
+
+                  <!-- @deprecated Remove in version 3.0.0 - START -->
+                  <PDataTableCell
+                      total
+                      v-if="totals.length && hasActions"
+                      :totalInFooter="showTotalsInFooter"
+                      :verticalAlign="verticalAlign"/>
+                  <!-- @deprecated Remove in version 3.0.0 - END -->
+
+                </tr>
+              </template>
+            </slot>
           </thead>
 
           <tbody ref="tbody">
@@ -56,46 +79,64 @@
             <tr class="Polaris-ResourceList__LoadingOverlay"></tr>
           </template>
 
-          <!-- @slot Body content -->
-          <slot name="body">
-            <template
-                v-for="row in rows"
-            >
-              <!-- @slot Slot to replace the default rendering of a row -->
-              <slot name="item" :item="row">
-
-                <tr
-                    class="Polaris-DataTable__TableRow"
-                >
-
-                  <template
-                      v-for="(heading, hIndex) in headings"
-                  >
-
-                    <PDataTableCellNew
-                        :value="row[heading.value]"
-                        :header-value="heading.value"
-                        :first-column="hIndex === 0"
-                        :content-type="headings[hIndex].type ? headings[hIndex].type : columnContentTypes[hIndex]"
-                        :truncate="truncate"
-                        :vertical-align="verticalAlign"
-                        :sortable="false"
-                    >
-                      <template v-slot:[`item.${heading.value}`]="slotProps">
-                        <!-- @slot Slot to customize a specific column -->
-                        <slot :name="`item.${heading.value}`" :item="row"/>
+            <!-- @slot Body content -->
+            <slot name="body">
+              <template v-if="!hasOldRows">
+                <template v-for="row in rows">
+                  <!-- @slot Slot to replace the default rendering of a row -->
+                  <slot name="item" :item="row">
+                    <tr class="Polaris-DataTable__TableRow">
+                      <template v-for="(heading, hIndex) in headings">
+                        <PDataTableCellNew
+                            :value="row[heading.value]"
+                            :header-value="heading.value"
+                            :first-column="hIndex === 0"
+                            :content-type="headings[hIndex].type ? headings[hIndex].type : columnContentTypes[hIndex]"
+                            :truncate="truncate"
+                            :vertical-align="verticalAlign"
+                            :sortable="false">
+                          <template v-slot:[`item.${heading.value}`]="slotProps">
+                            <!-- @slot Slot to customize a specific column -->
+                            <slot :name="`item.${heading.value}`" :item="row"/>
+                          </template>
+                        </PDataTableCellNew>
                       </template>
-                    </PDataTableCellNew>
-                  </template>
+                    </tr>
+                  </slot>
+                </template>
+              </template>
+              <!-- @deprecated Remove in version 3.0.0 - START -->
+              <template v-else>
+              <tr
+                  class="Polaris-DataTable__TableRow"
+                  v-for="(row, rIndex) in rows"
+                  :key="`row-${rIndex}`">
+                <PDataTableCell
+                    v-for="(data, cIndex) in row"
+                    :key="`cell-${cIndex}-row-${rIndex}`"
+                    :content="typeof data !== 'object' ? data : data.content"
+                    :action="data.url || data.to || data.onAction ? data : null"
+                    :toggle="typeof data.status == 'boolean' && data.onAction ? data : null"
+                    :badge="typeof data === 'object' && !(data.url || data.to) && !data.onAction ? data : null"
+                    :contentType="headings[cIndex].type ? headings[cIndex].type : columnContentTypes[cIndex]"
+                    :firstColumn="cIndex === 0"
+                    :truncate="truncate"
+                    :verticalAlign="verticalAlign"
+                />
+                <PDataTableCell
+                    v-if="hasActions"
+                    :actions="actions"
+                    :value="ids[rIndex]"
+                    :verticalAlign="verticalAlign"
+                />
+              </tr>
+              </template>
+              <!-- @deprecated Remove in version 3.0.0 - END -->
 
-                </tr>
-
-              </slot>
-            </template>
-          </slot>
+            </slot>
           </tbody>
 
-            <tfoot v-if="showTotalsInFooter">
+          <tfoot v-if="showTotalsInFooter">
             <tr>
               <PDataTableCellNew
                   v-for="(total, index) in totals"
@@ -109,8 +150,16 @@
                   :vertical-align="verticalAlign"
                   :sortable="false"
               />
+
+              <!-- @deprecated Remove in version 3.0.0 - START -->
+              <PDataTableCell
+                  total
+                  v-if="totals.length && hasActions"
+                  :totalInFooter="showTotalsInFooter"
+                  :verticalAlign="verticalAlign"/>
+              <!-- @deprecated Remove in version 3.0.0 - END -->
             </tr>
-            </tfoot>
+          </tfoot>
         </table>
       </div>
 
@@ -141,6 +190,7 @@
   import { Component, Vue, Prop } from 'vue-property-decorator';
 
   import PDataTableCellNew from './PDataTableCellNew.vue';
+  import PDataTableCell from './PDataTableCell.vue';
   import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
   import { PFilter } from '@/components/PFilter';
   import { PSpinner } from '@/components/PSpinner';
@@ -182,7 +232,7 @@
   }
 
   @Component({
-    components: {PDataTableCellNew, PPagination, PFilter, PSpinner, PEmptyState},
+    components: {PDataTableCellNew, PPagination, PFilter, PSpinner, PEmptyState, PDataTableCell},
   })
   export default class PDataTableNew extends Vue {
 
@@ -289,7 +339,45 @@
       default: 'https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png'
     }) public emptyStateImage!: string;
 
+    //============Deprecated Props============
+    /**
+     * Handle action events for the button.
+     * @deprecated
+     */
+    @Prop({ type: Array, default: () => [] }) public actions!: ComplexAction[];
+
+    /**
+     * Data ids
+     * @deprecated
+     */
+    @Prop({ type: Array, default: () => [] }) public ids!: number[];
+
+    private handleDeprecations() {
+      if (this.searchPlaceholder != null) {
+        console.error('Deprecation Notice: `searchPlaceholder` will be removed in version 3.0.0, use `resourceName` instead. ' +
+            'Please check resourceName syntax here: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-filter--filter');
+      }
+      if(this.actions.length > 0) {
+        console.error('Deprecation Notice: `actions` will be removed in version 3.0.0, use `headings` with extra object. ' +
+            'Please check new example of DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--row-slot');
+      }
+      if(this.ids.length > 0) {
+        console.error('Deprecation Notice: `ids` will be removed in version 3.0.0. ' +
+            'Please check new example of DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--row-slot');
+      }
+    }
+
+    public get hasOldRows() {
+      return this.rows.length > 0 && this.rows[0].constructor === Array;
+    }
+
+    //============Deprecated Props END============
+
     public topPadding = 8;
+
+    public get hasActions() {
+      return this.actions && this.actions.length > 0;
+    }
 
     public mounted() {
       let loadingPosition = 0;
@@ -306,10 +394,7 @@
         this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
       }
 
-      if (this.searchPlaceholder != null) {
-        console.error('Deprecation Notice: `searchPlaceholder` will be removed in version 3.0.0, use `resourceName` instead. ' +
-          'You can check resourceName syntax here: http://localhost:6006/?path=/docs/lists-tables-filter--filter');
-      }
+      this.handleDeprecations();
     }
 
     public onRemoveFilter(tag) {

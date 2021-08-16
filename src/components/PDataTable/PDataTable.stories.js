@@ -1,4 +1,4 @@
-import { PDataTable } from '../PDataTable';
+import { PDataTable,PDataTableNew } from '../PDataTable';
 import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';
@@ -49,7 +49,7 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PDataTable, PPopover, PButton, POptionList, PCard
+        PDataTable, PPopover, PButton, POptionList, PCard,PDataTableNew
     },
     data() {
         return {
@@ -61,7 +61,7 @@ const Template = (args, {argTypes}) => ({
     },
     template: `
       <PCard sectioned>
-          <PDataTable
+          <PDataTableNew
               v-bind="$props"
               @sort-changed="handleSortChange"
               @input-filter-changed="handleSearch"
@@ -110,7 +110,7 @@ const Template = (args, {argTypes}) => ({
               ></POptionList>
             </PPopover>
           </template>
-          </PDataTable>
+          </PDataTableNew>
       </PCard>`,
     methods: {
         handleSortChange(sort, direction) {
