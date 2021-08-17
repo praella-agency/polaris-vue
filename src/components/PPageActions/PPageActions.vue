@@ -49,8 +49,19 @@ export interface PageActionsProps {
 })
 export default class PPageActions extends Vue {
 
+  /**
+   * The primary action for the page
+   */
   @Prop(Object) public primaryAction!: DisableableAction & LoadableAction;
+
+  /**
+   * The secondary action for the page
+   */
   @Prop(Object) public secondaryAction!: ComplexAction;
+
+  /**
+   * The secondary actions for the page
+   */
   @Prop({type: Array, default: () => []}) public secondaryActions!: ComplexAction[];
 
   public get distribution() {

@@ -1,15 +1,14 @@
 <template>
   <tr class="Polaris-DataTable__TableRow">
-    <slot />
+    <slot/>
   </tr>
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { Vue, Component } from 'vue-property-decorator';
 
   @Component
   export default class PDataTableRow extends Vue {
-
   }
 </script>
 

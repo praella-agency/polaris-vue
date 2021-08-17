@@ -29,58 +29,34 @@
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import { classNames, variationName } from '@/utilities/css';
   import { PIcon } from '@/components/PIcon';
-  import { Action, ComplexAction, LinkAction } from '@/types';
-  import { PButton } from '@/components/PButton';
-  import { PButtonGroup } from '@/components/PButtonGroup';
-  import { PLink } from '@/components/PLink';
-  import { PToggle } from '@/components/PToggle';
-  import { PBadge } from '@/components/PBadge';
 
   type SortDirection = 'ascending' | 'descending' | 'none';
   type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
-  type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
-  type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
-  type Size = 'medium' | 'small';
 
   interface Sort {
     value: string;
     direction: SortDirection;
   }
 
-  interface Badge {
-    content?: string;
-    status?: Status;
-    progress?: Progress;
-    size?: Size;
-  }
-
-  interface Toggle {
-    id?: number;
-    status?: Status;
-    onAction?: Action;
-  }
-
   @Component({
-    components: {PIcon, PButton, PButtonGroup, PLink, PToggle, PBadge},
+    components: {
+      PIcon,
+    },
   })
   export default class PDataTableCellNew extends Vue {
-    @Prop() public content!: string | number;
-    @Prop(String) public contentType!: string;
-    @Prop() public value!: any;
-    @Prop(Boolean) public firstColumn!: boolean;
-    @Prop(Boolean) public truncate!: boolean;
     @Prop(Boolean) public header!: boolean;
-    @Prop(Boolean) public total!: boolean;
-    @Prop({type: Boolean, default: true}) public sortable!: boolean;
+    @Prop() public content!: string | number;
+    @Prop() public value!: any;
     @Prop([String, Number]) public width!: string | number;
     @Prop(Object) public sort!: Sort;
+    @Prop({type: Boolean, default: true}) public sortable!: boolean;
     @Prop({type: String, default: 'ascending'}) public defaultSortDirection!: SortDirection;
-    @Prop(Boolean) public totalInFooter!: boolean;
+    @Prop(String) public contentType!: string;
+    @Prop(Boolean) public firstColumn!: boolean;
+    @Prop(Boolean) public truncate!: boolean;
     @Prop({type: String, default: 'top'}) public verticalAlign!: VerticalAlign;
-    @Prop(Array) public actions!: ComplexAction[];
-    @Prop(Object) public action!: LinkAction | ComplexAction;
-    @Prop(Object) public badge!: Badge;
-    @Prop(Object) public toggle!: Toggle;
+    @Prop(Boolean) public total!: boolean;
+    @Prop(Boolean) public totalInFooter!: boolean;
     @Prop(String) public headerValue!: string;
 
     public get className() {
@@ -115,16 +91,6 @@
 
     public get numeric() {
       return this.contentType === 'numeric';
-    }
-
-    public get hasActions() {
-
-      return this.actions && this.actions.length > 0;
-    }
-
-    public get hasAction() {
-
-      return this.action || this.badge || this.toggle;
     }
 
     public get sorted() {
