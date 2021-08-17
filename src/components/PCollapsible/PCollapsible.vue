@@ -1,18 +1,18 @@
 <template>
-  <div
-    :id="id"
-    :class="wrapperClassName"
-    :style="collapsibleStyles"
-    ref="collapsibleContainer"
-    :onTransitionEnd="handleCompleteAnimation"
-    :aria-expanded="this.open"
-  >
-    <slot v-if="this.expandOnPrint || !this.isFullyClosed"/>
-  </div>
+    <div
+      :id="id"
+      :class="wrapperClassName"
+      :style="collapsibleStyles"
+      ref="collapsibleContainer"
+      :onTransitionEnd="handleCompleteAnimation"
+      :aria-expanded="open"
+    >
+      <slot v-if="expandOnPrint || !isFullyClosed"/>
+    </div>
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
 
   interface Transition {
@@ -48,10 +48,23 @@
 
     public animationState: AnimationState = 'idle';
 
-    public isOpen = this.open;
+    public get isOpen() {
+      return this.open;
+    };
+
+    public set isOpen(value) {
+      this.open = value;
+    };
+
     public height = 0;
-    public isFullyOpen = this.animationState === 'idle' && open && this.isOpen;
-    public isFullyClosed = this.animationState === 'idle' && !open && !this.isOpen;
+
+    public get isFullyOpen() {
+      return this.animationState === 'idle' && this.open && this.isOpen;
+    }
+
+    public get isFullyClosed() {
+      return this.animationState === 'idle' && !this.open && !this.isOpen;
+    }
 
     public get wrapperClassName() {
       return classNames(
@@ -74,7 +87,8 @@
           transitionTimingFunction: `${this.transition.timingFunction}`,
         }
       }
-      return {transitionStyle, collapsible};
+
+      return [transitionStyle, collapsible];
     }
 
     public handleCompleteAnimation({target}: TransitionEvent) {

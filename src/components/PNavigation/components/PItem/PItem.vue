@@ -119,7 +119,7 @@
     }
   })
   export default class PItem extends Vue {
-    @Prop({type: String, default: 'placeholder'}) public icon!: string | 'placeholder';
+    @Prop({type: String, default: null}) public icon!: string | 'placeholder';
     @Prop({type: String, default: null}) public label!: string;
     @Prop({type: Boolean, default: false}) public disabled!: boolean;
     @Prop({type: String, default: null}) public accessibilityLabel!: string;
@@ -311,13 +311,13 @@
       return matchesUrl ? MatchState.MatchUrl : MatchState.NoMatch;
     }
 
-    public normalizeAriaAttributesForExpanded() {
+    public get normalizeAriaAttributesForExpanded() {
       if (this.subNavigationItems.length > 0) {
         return this.showExpanded;
       }
     }
 
-    public normalizeAriaAttributesForControls() {
+    public get normalizeAriaAttributesForControls() {
       if (this.subNavigationItems.length > 0) {
         return this.secondaryNavigationId;
       }

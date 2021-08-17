@@ -767,28 +767,28 @@
 /*=================== Polaris-Collapsible =======================*/
 
 .Polaris-Collapsible {
-    overflow: hidden;
-    max-height: 0;
     padding-top: 0;
     padding-bottom: 0;
-    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    will-change: opacity, max-height;
+    will-change: max-height;
+    transition-property: max-height;
+    transition-duration: 100ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.42, 1);
 }
 
-.Polaris-Collapsible--animating {
-    transition-property: opacity, max-height;
-    transition-duration: .3s;
-    transition-timing-function: cubic-bezier(0, 0, .42, 1);
+.Polaris-Collapsible--isFullyClosed {
+    display: none;
 }
 
-.Polaris-Collapsible--open {
-    opacity: 1;
-}
-
-.Polaris-Collapsible--fullyOpen {
-    overflow: visible;
+@media print {
+    .Polaris-Collapsible--expandOnPrint {
+        max-height: none !important;
+        overflow: visible;
+        display: block;
+    }
 }
 
 /*=================== Polaris-Collapsible =======================*/

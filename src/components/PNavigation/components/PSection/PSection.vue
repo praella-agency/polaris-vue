@@ -31,7 +31,14 @@
         <ul
             class="Polaris-Navigation__List"
         >
-          {{ additionalItems }}
+          <PItem
+            v-for="(additionalItem, key) in additionalItems"
+            :key="key"
+            :label="additionalItem.label"
+            :subNavigationItems="additionalItem.subNavigationItems"
+            @click="handleClick(additionalItem.onClick, additionalItem.subNavigationItems.length > 0)"
+            v-bind="additionalItem"
+          />
         </ul>
       </PCollapsible>
       <div
@@ -43,7 +50,8 @@
             type="button"
             class="Polaris-Navigation__Item Polaris-Navigation__RollupToggle"
             @click="toggleExpanded"
-            :aria-label="Object.keys(rollup).length > 0 && (expanded ? rollup.hide : rollup.view)"
+            :aria-label="Object.keys(rollup).length > 0 && (expanded ? rollup.view : rollup.hide)"
+            :aria-controls="`AdditionalItems#${this['_uid']}`"
             :testID="`ToggleViewAll`"
         >
           <span class="Polaris-Navigation__Icon">
@@ -61,53 +69,21 @@
   import { PIcon } from '@/components/PIcon';
   import { PCollapsible } from '@/components/PCollapsible';
   import { classNames } from '@/utilities/css';
-
-  interface ItemURLDetails {
-    url?: string;
-    matches?: boolean;
-    exactMatch?: boolean;
-    matchPaths?: string[];
-    excludePaths?: string[];
-    external?: boolean;
-  }
-
-  export interface SubNavigationItem extends ItemURLDetails {
-    url: string;
-    label: string;
-    disabled?: boolean;
-    new?: boolean;
-
-    onClick?(): void;
-  }
-
-  interface SecondaryAction {
-    url: string;
-    accessibilityLabel: string;
-    icon: string;
-  }
-
-  export interface ItemProps extends ItemURLDetails {
-    icon?: string;
-    label: string;
-    disabled?: boolean;
-    accessibilityLabel?: string;
-    selected?: boolean;
-    exactMatch?: boolean;
-    new?: boolean;
-    subNavigationItems?: SubNavigationItem[];
-    secondaryAction?: SecondaryAction;
-
-    onClick?(): void;
-  }
+  import { ItemProps } from '@/components/PNavigation/utilities';
 
   const noWindowMatches: MediaQueryList = {
     media: '',
-    addListener: () => {},
-    removeListener: () => {},
+    addListener: () => {
+    },
+    removeListener: () => {
+    },
     matches: false,
-    onchange: () => {},
-    addEventListener: () => {},
-    removeEventListener: () => {},
+    onchange: () => {
+    },
+    addEventListener: () => {
+    },
+    removeEventListener: () => {
+    },
     dispatchEvent: (_: Event) => true,
   };
 

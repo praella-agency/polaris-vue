@@ -16,9 +16,9 @@
   max-width: 36rem;
   height: 100%;
   min-height: 100%;
-  background-color: var(--p-background);
+  background-color: rgba(246, 246, 247, 1);
   -webkit-overflow-scrolling: touch;
-  border-right: 0.1rem solid var(--p-divider);
+  border-right: 0.1rem solid rgba(225, 227, 229, 1);
   padding-bottom: 0px;
   padding-bottom: calc(0px + constant(safe-area-inset-bottom));
   padding-bottom: calc(0px + env(safe-area-inset-bottom));

@@ -47,7 +47,7 @@ const Template = (args, {argTypes}) => ({
     },
     template: `
       <div>
-      <PButton @click="showToast($props)">Toast</PButton>
+        <PButton @click="showToast($props)">Toast</PButton>
       </div>`,
     methods: {
         showToast(props) {
