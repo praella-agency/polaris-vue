@@ -39,12 +39,14 @@
     }
   })
   export default class PFrame extends Vue {
-    /** A boolean property indicating whether the mobile navigation is currently visible
-     * @default false
+    /**
+     * A boolean property indicating whether the mobile navigation is currently visible
      */
     @Prop({type: Boolean, default: false}) public showMobileNavigation!: boolean;
 
-    /** A callback function to handle clicking the mobile navigation dismiss button */
+    /**
+     * A callback function to handle clicking the mobile navigation dismiss button
+     */
     @Prop({type: Function}) public onNavigationDismiss!: any;
   }
 </script>

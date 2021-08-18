@@ -6,7 +6,7 @@ import { PTextContainer } from '../PTextContainer';
 import { PLink } from '../PLink';
 
 export default {
-    title: 'Collapsible',
+    title: 'Behaviour / Collapsible',
     component: PCollapsible,
 }
 

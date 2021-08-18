@@ -1,37 +1,166 @@
 import PNavigation from './PNavigation';
-import PSection from './components/PSection/PSection';
 
 export default {
     title: 'Navigation / Navigation',
     component: PNavigation,
+    argTypes: {
+        ItemProps: {
+            description: 'ItemProps to utilize in items',
+            table: {
+                type: {
+                    summary: null,
+                },
+                category: 'Array | Object',
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    url?: string;
+    to?: string | object;
+    matches?: boolean;
+    exactMatch?: boolean;
+    matchPaths?: string[];
+    excludePaths?: string[];
+    external?: boolean;
+    icon?: string;
+    label: string;
+    disabled?: boolean;
+    accessibilityLabel?: string;
+    selected?: boolean;
+    exactMatch?: boolean;
+    new?: boolean;
+    subNavigationItems?: SubNavigationItem[]; // Check SubNavigationItem array
+    secondaryAction?: SecondaryAction; // Check SecondaryAction object
+    
+    onClick?(): void;
+}]`,
+                },
+            },
+        },
+        SubNavigationItem: {
+            description: 'SubNavigationItem to utilize in ItemProps',
+            table: {
+                type: {
+                    summary: null,
+                },
+                category: 'Array | Object',
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    url: string;
+    label: string;
+    disabled?: boolean;
+    new?: boolean;
+    
+    onClick?(): void;
+}]`,
+                },
+            },
+        },
+        SecondaryAction: {
+            description: 'SecondaryAction to utilize in ItemProps',
+            table: {
+                type: {
+                    summary: null,
+                },
+                category: 'Array | Object',
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    url: string;
+    accessibilityLabel: string;
+    icon: string;
+}`,
+                },
+            },
+        },
+        items: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    /** Section Title */
+    title?: string;
+    /** Items for sections */
+    items: ItemProps[]; // Check ItemProps array
+    /** Rollup */
+    rollup?: {
+        after: number;
+        view: string;
+        hide: string;
+        activePath: string;
+    }
+    /** Action */
+    action?: {
+        icon: string;
+        accessibilityLabel: string;
+        onClick(): void;
+    }
+    /** Separator */
+    separator?: boolean;
+    /** Icon */
+    icon?: string;
+    /** Fill */
+    fill?: boolean;
+}]`,
+                },
+            },
+        },
+        logo: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    /** Provides a path for a logo used on a dark background */
+    topBarSource?: string;
+    /** Provides a path for a logo used on a light background */
+    contextualSaveBarSource?: string;
+    /** Destination the merchant will navigate to when clicking the logo */
+    url?: string;
+    /** Accessible label the logo image */
+    accessibilityLabel?: string;
+    /** Number of pixels wide the logo image is */
+    width?: number;
+}`,
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PNavigation, PSection,
+        PNavigation,
     },
     template: `
       <PNavigation
           v-bind="$props"
+          location="/"
+          :on-dismiss="handleDismiss"
       />
     `,
+    methods: {
+        handleDismiss() {
+            console.log('On Navigation Dismiss')
+        }
+    }
 });
 
 export const Navigation = Template.bind({});
 
 Navigation.args = {
-    rollup: {
-        after: 7,
-        view: 'view',
-        hide: 'hide',
-        activePath: '/',
+    logo: {
+        width: 124,
+        topBarSource:
+            'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999',
+        url: 'javascript:void(0)',
+        accessibilityLabel: 'Jaded Pixel',
     },
     items: [
         {
             items: [
                 {
-                    url: '/path/to/place',
+                    url: '/?path=/docs/navigation-navigation--navigation',
                     label: 'Inactive item',
                     icon: 'HomeMajor',
                 },

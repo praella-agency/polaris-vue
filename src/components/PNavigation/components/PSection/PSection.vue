@@ -17,8 +17,11 @@
         :key="key"
         :label="sectionItem.label"
         :subNavigationItems="sectionItem.subNavigationItems"
-        @click="handleClick(sectionItem.onClick, sectionItem.subNavigationItems.length > 0)"
+        @click="handleClick(sectionItem.onClick, sectionItem.hasOwnProperty('subNavigationItems') ?
+                            sectionItem.subNavigationItems.length > 0 : false)"
         v-bind="sectionItem"
+        :location="location"
+        :onNavigationDismiss="onNavigationDismiss"
     />
     <li
         v-if="Object.keys(rollup).length > 0 && additionalItems.length > 0"
@@ -38,6 +41,8 @@
             :subNavigationItems="additionalItem.subNavigationItems"
             @click="handleClick(additionalItem.onClick, additionalItem.subNavigationItems.length > 0)"
             v-bind="additionalItem"
+            :location="location"
+            :onNavigationDismiss="onNavigationDismiss"
           />
         </ul>
       </PCollapsible>
@@ -121,7 +126,11 @@
     };
     @Prop({type: Boolean, default: false}) public separator!: boolean;
 
-    @Ref() public animationFrame: number | null = null;
+    /*Navigation Props*/
+    @Prop({type: String, default: null}) public location!: string;
+    @Prop(Function) public onNavigationDismiss!: void;
+
+    public animationFrame: number | null = null;
 
     @Watch('animationFrame')
     public onAnimationFrameChanged(value) {

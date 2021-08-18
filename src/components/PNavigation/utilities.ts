@@ -1,5 +1,6 @@
 interface ItemURLDetails {
   url?: string;
+  to?: string | object;
   matches?: boolean;
   exactMatch?: boolean;
   matchPaths?: string[];

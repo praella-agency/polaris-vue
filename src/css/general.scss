@@ -1950,22 +1950,28 @@
     margin: 0 auto;
     padding: 0;
     max-width: 99.8rem;
-    @media (min-width:30.625em) {
+}
+
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em) {
+    [data-has-navigation] .Polaris-SkeletonPage__Page {
         padding: 0 2rem;
     }
-    @media (min-width:46.5em) {
+}
+
+@media (min-width: 30.625em) {
+    .Polaris-SkeletonPage__Page {
+        padding: 0 2rem;
+    }
+}
+
+@media (max-width: 48.0625em) and (min-width: 46.5em), (min-width: 61.5em) {
+    [data-has-navigation] .Polaris-SkeletonPage__Page {
         padding: 0 3.2rem;
     }
 }
 
-@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
-    [data-has-navigation] .Polaris-SkeletonPage__Page {
-        padding: 0 2rem;
-    }
-}
-
-@media (max-width:48.0625em) and (min-width:46.5em),(min-width:61.5em) {
-    [data-has-navigation] .Polaris-SkeletonPage__Page {
+@media (min-width: 46.5em) {
+    .Polaris-SkeletonPage__Page {
         padding: 0 3.2rem;
     }
 }
@@ -1979,122 +1985,182 @@
 }
 
 .Polaris-SkeletonPage__Content {
-    margin: 2rem 0;
-    @media (min-width:46.5em) {
-        margin-top: 2rem;
+    margin: 1.6rem 0;
+}
+
+@media (max-width: 48.0625em) and (min-width: 46.5em), (min-width: 61.5em) {
+    [data-has-navigation] .Polaris-SkeletonPage__Content {
+        margin-top: 1.6rem;
     }
 }
 
-@media (max-width:48.0625em) and (min-width:46.5em),(min-width:61.5em) {
-    [data-has-navigation] .Polaris-SkeletonPage__Content {
-        margin-top: 2rem;
+@media (min-width: 46.5em) {
+    .Polaris-SkeletonPage__Content {
+        margin-top: 1.6rem;
     }
 }
 
 .Polaris-SkeletonPage__Header {
-    padding: 2rem 2rem .8rem;
-    @media (min-width:30.625em) {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    @media (min-width:46.5em) {
-        padding-top: 3.2rem;
-    }
+    padding: 1.6rem 1.6rem 0;
+    padding-bottom: 0.8rem;
 }
 
-@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em) {
     [data-has-navigation] .Polaris-SkeletonPage__Header {
         padding-left: 0;
         padding-right: 0;
     }
 }
 
-@media (max-width:48.0625em) and (min-width:46.5em),(min-width:61.5em) {
-    [data-has-navigation] .Polaris-SkeletonPage__Header {
-        padding-top: 3.2rem;
+@media (min-width: 30.625em) {
+    .Polaris-SkeletonPage__Header {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
+@media (max-width: 48.0625em) and (min-width: 46.5em), (min-width: 61.5em) {
+    [data-has-navigation] .Polaris-SkeletonPage__Header {
+        padding-top: 1.6rem;
+    }
+}
 
-.Polaris-SkeletonPage__Header--hasSecondaryActions {
-    padding-top: 2.4rem;
-    margin-top: 0;
+@media (min-width: 46.5em) {
+    .Polaris-SkeletonPage__Header {
+        padding-top: 1.6rem;
+    }
 }
 
 .Polaris-SkeletonPage__BreadcrumbAction {
     padding-top: 1.6rem;
     padding-bottom: 1.6rem;
-    margin-top: -.4rem;
-    margin-bottom: -.4rem;
+    margin-top: -0.4rem;
+    margin-bottom: -0.4rem;
 }
 
 .Polaris-SkeletonPage__TitleAndPrimaryAction {
     display: flex;
-    @media (max-width:46.5em) {
-        display: block;
-    }
 }
 
-@media (max-width:45em),(min-width:48.0625em) and (max-width:61.5em) {
+@media (max-width: 45em), (min-width: 48.0625em) and (max-width: 61.5em) {
     [data-has-navigation] .Polaris-SkeletonPage__TitleAndPrimaryAction {
         display: block;
     }
 }
 
-.Polaris-SkeletonPage__Title {
+@media (max-width: 46.5em) {
+    .Polaris-SkeletonPage__TitleAndPrimaryAction {
+        display: block;
+    }
+}
+
+.Polaris-SkeletonPage__TitleWrapper {
     flex: 1 1;
+}
+
+.Polaris-SkeletonPage__Title {
+    font-weight: 600;
+    font-size: 2.4rem;
+    line-height: 2.8rem;
+}
+
+@media (min-width: 40em) {
+    .Polaris-SkeletonPage__Title {
+        font-size: 2rem;
+    }
+}
+
+.Polaris-SkeletonPage__SkeletonTitle {
+    animation: polaris-SkeletonShimmerAnimation 800ms linear infinite alternate;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: opacity;
+    position: relative;
+    max-width: 12rem;
+    height: 2.8rem;
+}
+
+.Polaris-SkeletonPage__SkeletonTitle::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    background-color: rgba(228, 229, 231, 1);
+    border-radius: 3px;
+}
+
+@media screen and (-ms-high-contrast: active) {
+    .Polaris-SkeletonPage__SkeletonTitle::after {
+        background-color: grayText;
+    }
 }
 
 .Polaris-SkeletonPage__PrimaryAction {
     align-self: stretch;
-    @media (max-width:50em) {
-        margin-top: 1.6rem;
-        margin-bottom: -.8rem;
-    }
-    @media (min-width:30.625em) {
-        margin-top: .8rem;
-        margin-bottom: -.8rem;
-    }
-    @media (min-width:46.5em) {
-        margin-top: 0;
-    }
-    @media (min-width:50em) {
-        margin-top: 0;
-    }
-    >* {
-        height: 3.6rem;
-        min-width: 10rem;
-    }
 }
 
-@media (max-width:48.0625em),(min-width:48.0625em) and (max-width:65em) {
+.Polaris-SkeletonPage__PrimaryAction > * {
+    height: 3.6rem;
+    min-width: 10rem;
+}
+
+@media (max-width: 48.0625em), (min-width: 48.0625em) and (max-width: 65em) {
     [data-has-navigation] .Polaris-SkeletonPage__PrimaryAction {
         margin-top: 1.6rem;
-        margin-bottom: -.8rem;
+        margin-bottom: -0.8rem;
     }
 }
 
-@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
+@media (max-width: 50em) {
+    .Polaris-SkeletonPage__PrimaryAction {
+        margin-top: 1.6rem;
+        margin-bottom: -0.8rem;
+    }
+}
+
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em) {
     [data-has-navigation] .Polaris-SkeletonPage__PrimaryAction {
-        margin-top: .8rem;
-        margin-bottom: -.8rem;
+        margin-top: 0.8rem;
+        margin-bottom: -0.8rem;
     }
 }
 
-@media (max-width:48.0625em) and (min-width:46.5em),(min-width:61.5em) {
+@media (min-width: 30.625em) {
+    .Polaris-SkeletonPage__PrimaryAction {
+        margin-top: 0.8rem;
+        margin-bottom: -0.8rem;
+    }
+}
+
+@media (max-width: 48.0625em) and (min-width: 46.5em), (min-width: 61.5em) {
     [data-has-navigation] .Polaris-SkeletonPage__PrimaryAction {
         margin-top: 0;
     }
 }
 
-@media (max-width:48.0625em) and (min-width:50em),(min-width:65em) {
+@media (min-width: 46.5em) {
+    .Polaris-SkeletonPage__PrimaryAction {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 48.0625em) and (min-width: 50em), (min-width: 65em) {
     [data-has-navigation] .Polaris-SkeletonPage__PrimaryAction {
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 50em) {
+    .Polaris-SkeletonPage__PrimaryAction {
         margin-top: 0;
     }
 }
 
 .Polaris-SkeletonPage__Actions {
-    margin-top: .8rem;
+    margin-top: 0.8rem;
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
@@ -2107,25 +2173,207 @@
     justify-content: center;
     min-height: 2.8rem;
     padding-right: 2.4rem;
-    margin-top: -.4rem;
-    margin-bottom: -.4rem;
+    margin-top: -0.4rem;
+    margin-bottom: -0.4rem;
     padding-top: 1.6rem;
-    &:first-child {
-        padding-right: 0;
-    }
 }
 
-@media (max-width:45em),(min-width:48.0625em) and (max-width:61.5em) {
+.Polaris-SkeletonPage__Action:first-child {
+    padding-right: 0;
+}
+
+@media (max-width: 45em), (min-width: 48.0625em) and (max-width: 61.5em) {
     [data-has-navigation] .Polaris-SkeletonPage__Action:not(:last-child) {
         display: none;
     }
 }
 
-@media (max-width:46.5em) {
+@media (max-width: 46.5em) {
     .Polaris-SkeletonPage__Action:not(:last-child) {
         display: none;
     }
 }
+
+//.Polaris-SkeletonPage__Page {
+//    margin: 0 auto;
+//    padding: 0;
+//    max-width: 99.8rem;
+//    @media (min-width:30.625em) {
+//        padding: 0 2rem;
+//    }
+//    @media (min-width:46.5em) {
+//        padding: 0 3.2rem;
+//    }
+//}
+//
+//@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
+//    [data-has-navigation] .Polaris-SkeletonPage__Page {
+//        padding: 0 2rem;
+//    }
+//}
+//
+//@media (max-width:48.0625em) and (min-width:46.5em),(min-width:61.5em) {
+//    [data-has-navigation] .Polaris-SkeletonPage__Page {
+//        padding: 0 3.2rem;
+//    }
+//}
+//
+//.Polaris-SkeletonPage--fullWidth {
+//    max-width: none;
+//}
+//
+//.Polaris-SkeletonPage--narrowWidth {
+//    max-width: 66.2rem;
+//}
+//
+//.Polaris-SkeletonPage__Content {
+//    margin: 2rem 0;
+//    @media (min-width:46.5em) {
+//        margin-top: 2rem;
+//    }
+//}
+//
+//@media (max-width:48.0625em) and (min-width:46.5em),(min-width:61.5em) {
+//    [data-has-navigation] .Polaris-SkeletonPage__Content {
+//        margin-top: 2rem;
+//    }
+//}
+//
+//.Polaris-SkeletonPage__Header {
+//    padding: 2rem 2rem .8rem;
+//    @media (min-width:30.625em) {
+//        padding-left: 0;
+//        padding-right: 0;
+//    }
+//    @media (min-width:46.5em) {
+//        padding-top: 3.2rem;
+//    }
+//}
+//
+//@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
+//    [data-has-navigation] .Polaris-SkeletonPage__Header {
+//        padding-left: 0;
+//        padding-right: 0;
+//    }
+//}
+//
+//@media (max-width:48.0625em) and (min-width:46.5em),(min-width:61.5em) {
+//    [data-has-navigation] .Polaris-SkeletonPage__Header {
+//        padding-top: 3.2rem;
+//    }
+//}
+//
+//
+//.Polaris-SkeletonPage__Header--hasSecondaryActions {
+//    padding-top: 2.4rem;
+//    margin-top: 0;
+//}
+//
+//.Polaris-SkeletonPage__BreadcrumbAction {
+//    padding-top: 1.6rem;
+//    padding-bottom: 1.6rem;
+//    margin-top: -.4rem;
+//    margin-bottom: -.4rem;
+//}
+//
+//.Polaris-SkeletonPage__TitleAndPrimaryAction {
+//    display: flex;
+//    @media (max-width:46.5em) {
+//        display: block;
+//    }
+//}
+//
+//@media (max-width:45em),(min-width:48.0625em) and (max-width:61.5em) {
+//    [data-has-navigation] .Polaris-SkeletonPage__TitleAndPrimaryAction {
+//        display: block;
+//    }
+//}
+//
+//.Polaris-SkeletonPage__Title {
+//    flex: 1 1;
+//}
+//
+//.Polaris-SkeletonPage__PrimaryAction {
+//    align-self: stretch;
+//    @media (max-width:50em) {
+//        margin-top: 1.6rem;
+//        margin-bottom: -.8rem;
+//    }
+//    @media (min-width:30.625em) {
+//        margin-top: .8rem;
+//        margin-bottom: -.8rem;
+//    }
+//    @media (min-width:46.5em) {
+//        margin-top: 0;
+//    }
+//    @media (min-width:50em) {
+//        margin-top: 0;
+//    }
+//    >* {
+//        height: 3.6rem;
+//        min-width: 10rem;
+//    }
+//}
+//
+//@media (max-width:48.0625em),(min-width:48.0625em) and (max-width:65em) {
+//    [data-has-navigation] .Polaris-SkeletonPage__PrimaryAction {
+//        margin-top: 1.6rem;
+//        margin-bottom: -.8rem;
+//    }
+//}
+//
+//@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
+//    [data-has-navigation] .Polaris-SkeletonPage__PrimaryAction {
+//        margin-top: .8rem;
+//        margin-bottom: -.8rem;
+//    }
+//}
+//
+//@media (max-width:48.0625em) and (min-width:46.5em),(min-width:61.5em) {
+//    [data-has-navigation] .Polaris-SkeletonPage__PrimaryAction {
+//        margin-top: 0;
+//    }
+//}
+//
+//@media (max-width:48.0625em) and (min-width:50em),(min-width:65em) {
+//    [data-has-navigation] .Polaris-SkeletonPage__PrimaryAction {
+//        margin-top: 0;
+//    }
+//}
+//
+//.Polaris-SkeletonPage__Actions {
+//    margin-top: .8rem;
+//    display: flex;
+//    flex-direction: row-reverse;
+//    justify-content: flex-end;
+//    align-items: center;
+//}
+//
+//.Polaris-SkeletonPage__Action {
+//    display: flex;
+//    flex-direction: column;
+//    justify-content: center;
+//    min-height: 2.8rem;
+//    padding-right: 2.4rem;
+//    margin-top: -.4rem;
+//    margin-bottom: -.4rem;
+//    padding-top: 1.6rem;
+//    &:first-child {
+//        padding-right: 0;
+//    }
+//}
+//
+//@media (max-width:45em),(min-width:48.0625em) and (max-width:61.5em) {
+//    [data-has-navigation] .Polaris-SkeletonPage__Action:not(:last-child) {
+//        display: none;
+//    }
+//}
+//
+//@media (max-width:46.5em) {
+//    .Polaris-SkeletonPage__Action:not(:last-child) {
+//        display: none;
+//    }
+//}
 
 .Polaris-SkeletonThumbnail {
     -webkit-backface-visibility: hidden;

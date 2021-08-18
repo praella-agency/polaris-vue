@@ -4,6 +4,7 @@
       <PUnstyledLink
           :class="itemClassName"
           :url="url"
+          :to="to"
           :external="external"
           :tabindex="tabIndex"
           :aria-disabled="disabled"
@@ -24,14 +25,14 @@
               <span class="Polaris-Indicator Polaris-Indicator--pulseIndicator"/>
             </span>
           </span>
-          <div v-if="badgeMarkup" class="Polaris-Navigation__Badge">
+          <div v-if="this.new || this.badge || $slots.hasOwnProperty('badge')" class="Polaris-Navigation__Badge">
             <PBadge v-if="this.new" status="new" size="small">
               New
             </PBadge>
-            <PBadge v-else-if="$slots.hasOwnProperty('badge')" status="new" size="small">
-              <slot name="badge"/>
+            <PBadge v-else-if="badge" status="new" size="small">
+              {{badge}}
             </PBadge>
-            <slot v-else/>
+            <slot v-else name="badge"/>
           </div>
         </template>
         <div v-if="external" class="Polaris-Navigation__ExternalIcon">
@@ -47,6 +48,7 @@
           class="Polaris-Navigation__SecondaryAction"
           external
           :url="secondaryAction.url"
+          :to="secondaryAction.to"
           :tabindex="tabIndex"
           :aria-disabled="disabled"
           :aria-label="secondaryAction.accessibilityLabel"
@@ -63,7 +65,7 @@
             v-for="(subNavigationItem, key) in subNavigationItems"
             :key="key"
             v-bind="subNavigationItem"
-            :label="label"
+            :label="subNavigationItem.label"
             :matches="subNavigationItem === longestMatch"
             @click="onNavigationDismiss ? onNavigationDismiss : {}"
         />
@@ -79,10 +81,10 @@
   import { PIcon } from '@/components/PIcon';
   import { PBadge } from '@/components/PBadge';
   import { PSecondary } from './PSecondary';
-  import { PSubNavigationItem } from './PSubNavigationItem';
 
   interface ItemURLDetails {
     url?: string;
+    to?: object | string;
     matches?: boolean;
     exactMatch?: boolean;
     matchPaths?: string[];
@@ -92,6 +94,7 @@
 
   export interface SubNavigationItem extends ItemURLDetails {
     url: string;
+    to?: object | string;
     label: string;
     disabled?: boolean;
     new?: boolean;
@@ -101,6 +104,7 @@
 
   interface SecondaryAction {
     url: string;
+    to?: object | string;
     accessibilityLabel: string;
     icon: string | 'placeholder';
   }
@@ -115,7 +119,7 @@
 
   @Component({
     components: {
-      PUnstyledLink, PIcon, PBadge, PSecondary, PSubNavigationItem, PItem,
+      PUnstyledLink, PIcon, PBadge, PSecondary, PItem,
     }
   })
   export default class PItem extends Vue {
@@ -126,15 +130,17 @@
     @Prop({type: Boolean, default: false}) public selected!: boolean;
     @Prop({type: Boolean, default: false}) public exactMatch!: boolean;
     @Prop({type: Boolean, default: false}) public new!: boolean;
+    @Prop({type: String, default: null}) public badge!: string;
     @Prop({type: Array, default: () => ([])}) public subNavigationItems!: SubNavigationItem[];
     @Prop({type: Object, default: () => ({})}) public secondaryAction!: SecondaryAction;
 
-    /**
-     */
-    @Prop({type: Function}) public onNavigationDismiss!: void;
+    /*Navigation Props*/
+    @Prop({type: String, default: null}) public location!: string;
+    @Prop(Function) public onNavigationDismiss!: any;
 
     //ItemURLDetails Props
     @Prop({type: String, default: null}) public url!: string;
+    @Prop({type: [String, Object], default: null}) public to!: object | string;
     @Prop({type: Boolean, default: false}) public matches!: boolean;
     @Prop({type: Array, default: null}) public matchPaths!: string[];
     @Prop({type: Array, default: null}) public excludePaths!: string[];
@@ -145,15 +151,15 @@
     public tabIndex = this.disabled ? -1 : 0;
     public isNavigationCollapsed = false;
     public secondaryNavigationId = `SecondaryNavigation${new Date().getUTCMilliseconds()}`;
-    @Ref() public badgeMarkup!: Node;
 
     public matchState = this.matchStateForItem({
       url: this.url,
+      to: this.to,
       matches: this.matches,
       exactMatch: this.exactMatch,
       matchPaths: this.matchPaths,
       excludePaths: this.excludePaths
-    }, '');
+    }, this.location);
 
     public selectedOverride = !this.selected
       ? this.matchState === MatchState.MatchForced ||
@@ -162,17 +168,13 @@
       : this.selected;
 
     public matchingSubNavigationItems = this.subNavigationItems.filter((item) => {
-      const subMatchState = this.matchStateForItem(item, '');
+      const subMatchState = this.matchStateForItem(item, this.location);
       return (
         subMatchState === MatchState.MatchForced ||
         subMatchState === MatchState.MatchUrl ||
         subMatchState === MatchState.MatchPaths
       );
     });
-
-    public childIsActive = this.matchingSubNavigationItems.length > 0;
-
-    public showExpanded = this.selectedOverride || this.expanded || this.childIsActive;
 
     public created() {
       window.addEventListener('resize', this.useMediaQuery);
@@ -198,6 +200,14 @@
       );
     }
 
+    public get childIsActive() {
+      return this.matchingSubNavigationItems.length > 0;
+    }
+
+    public get showExpanded() {
+      return this.selectedOverride || this.expanded || this.childIsActive;
+    }
+
     public get itemClassName() {
       return classNames(
         'Polaris-Navigation__Item',
@@ -219,7 +229,7 @@
     public getClickHandler(event: MouseEvent) {
       const {currentTarget} = event;
 
-      if ((currentTarget as HTMLElement).getAttribute('href') === '') {
+      if ((currentTarget as HTMLElement).getAttribute('href') === this.location) {
         event.preventDefault();
       }
 
@@ -230,14 +240,13 @@
       ) {
         event.preventDefault();
         this.expanded = !this.expanded;
+      } else if (this.onNavigationDismiss !== undefined) {
+        this.$nextTick(this.onNavigationDismiss());
+        if (this.$emit('click')) {
+          this.$emit('click');
+        }
+        return;
       }
-      // else if (this.onNavigationDismiss) {
-      //   this.onNavigationDismiss();
-      //   if (this.$emit('click') && this.$emit('click') !== onNavigationDismiss) {
-      //     this.$emit('click');
-      //   }
-      //   return;
-      // }
 
       if (this.$emit('click')) {
         this.$emit('click');
@@ -286,10 +295,14 @@
     }
 
     public matchStateForItem(
-      {url, matches, exactMatch, matchPaths, excludePaths}: ItemURLDetails,
+      {url, to, matches, exactMatch, matchPaths, excludePaths}: ItemURLDetails,
       location: string,
     ) {
       if (url === '') {
+        return MatchState.NoMatch;
+      }
+
+      if (to === '') {
         return MatchState.NoMatch;
       }
 
