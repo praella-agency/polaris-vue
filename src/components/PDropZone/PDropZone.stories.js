@@ -25,6 +25,11 @@ export default {
                 type: {
                     summary: 'array',
                 },
+                defaultValue: {
+                    summary: '[]',
+                    detail: `
+['image/gif', 'image/jpeg', 'image/png']`,
+                },
             },
         },
         uploadFiles: {
@@ -170,7 +175,6 @@ const Template = (args, {argTypes}) => ({
 export const DropZone = Template.bind({});
 
 DropZone.args = {
-    validImageTypes: ['image/gif', 'image/jpeg', 'image/png'],
     type:"image"
 }
 

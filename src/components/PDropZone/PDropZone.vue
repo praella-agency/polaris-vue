@@ -246,6 +246,7 @@ export default class PDropZone extends Vue {
   @Prop({
     type: Function,
     default: (files: File[], acceptedFiles: File[], rejectedFiles: File[]): void => {},
+    required: true,
   }) public handleOnDrop!: any;
 
   /**
@@ -316,7 +317,7 @@ export default class PDropZone extends Vue {
   /**
    * Valid Image Types to preview images
    */
-  @Prop({type: [Array, String], default: null}) public validImageTypes!: [];
+  @Prop({type: Array, default:() => ['image/gif', 'image/jpeg', 'image/png']}) public validImageTypes!: [];
 
   /**
    * Set the actionTitle
