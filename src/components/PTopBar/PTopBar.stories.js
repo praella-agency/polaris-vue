@@ -16,7 +16,7 @@ export default {
             defaultValue: 'Hello',
             table: {
                 type: {
-                    summary: 'object',
+                    summary: null,
                 },
                 category: 'Object',
                 defaultValue: {
