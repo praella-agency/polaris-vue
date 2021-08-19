@@ -29,7 +29,9 @@
               </PButton>
             </slot>
           </div>
-          <div class="Polaris-Page-Header__PaginationWrapper" v-if="pagination && !isNavigationCollapsed.rollup">
+          <div
+              class="Polaris-Page-Header__PaginationWrapper"
+              v-if="Object.keys(pagination).length > 0 && !isNavigationCollapsed.rollup">
             <nav aria-label="Pagination">
               <PPagination v-bind="pagination" />
             </nav>
@@ -66,13 +68,14 @@ import {
 import {PTextStyle} from '@/components/PTextStyle';
 import {PBreadcrumbs} from '@/components/PBreadcrumbs';
 import {PPagination, PPaginationDescriptor} from '@/components/PPagination';
-import {PActionMenu, hasGroupsWithActions} from '@/components/PActionMenu';
+import {PActionMenu } from '@/components/PActionMenu';
 import {PButton} from '@/components/PButton';
 import {PPageHeaderTitle, PPageHeaderTitleProps} from './components';
 import {PPopover} from '@/components/PPopover';
 import {PActionList} from '@/components/PActionList';
 import {PButtonGroup} from '@/components/PButtonGroup';
 import {PAvatar} from '@/components/PAvatar';
+import { hasGroupsWithActions } from '@/components/PActionMenu/utilities';
 
 interface PrimaryAction
     extends DestructableAction,
@@ -107,7 +110,6 @@ export interface PPageHeaderProps extends PPageHeaderTitleProps {
     PAvatar,
   },
 })
-
 export default class PPageHeader extends Vue {
 
   @Prop(String) public title!: string;
@@ -121,7 +123,7 @@ export default class PPageHeader extends Vue {
   @Prop({type: Boolean, default: false}) public titleHidden!: boolean;
   @Prop(Boolean) public separator!: boolean;
   @Prop({type: Object, default: {}}) public primaryAction!: PrimaryAction;
-  @Prop(Object) public pagination!: PPaginationDescriptor;
+  @Prop({type: Object, default: () => ({})}) public pagination!: PPaginationDescriptor;
   @Prop({type: Array, default: Array}) public breadcrumbs!: [];
   @Prop({type: Array, default: () => []}) public secondaryActions!: MenuActionDescriptor[];
   @Prop({type: Array, default: () => []}) public actionGroups!: MenuGroupDescriptor[];
@@ -143,13 +145,13 @@ export default class PPageHeader extends Vue {
 
   public get hasActions() {
     return this.hasActionMenu ||
-        this.primaryAction ||
-        this.pagination ||
+        Object.keys(this.primaryAction).length > 0 ||
+        Object.keys(this.pagination).length > 0 ||
         this.$props.hasOwnProperty('primaryAction');
   }
 
   public get hasActionMenu() {
-    return this.secondaryActions.length > 0 || new hasGroupsWithActions(this.actionGroups);
+    return this.secondaryActions.length > 0 || hasGroupsWithActions(this.actionGroups);
   }
 
   public get hasTitle() {

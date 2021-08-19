@@ -1,6 +1,6 @@
 <template>
   <div
-      class="Polaris-Frame"
+      :class="className"
       :data-polaris-layer="true"
       :data-has-navigation="this.$slots.hasOwnProperty('navigation') ? true : {}"
   >
@@ -24,16 +24,16 @@
     >
       <slot name="topBar"/>
     </div>
-    <PTrapFocus v-if="$slots.hasOwnProperty('navigation')" :trapping="mobileNavShowing">
+    <div v-if="$slots.hasOwnProperty('navigation')">
       <transition
           ref="navigationNode"
-          :appear="useMediaQuery"
-          :exit="!useMediaQuery"
+          :appear="useMediaQuery()"
+          :exit="!useMediaQuery()"
           :in="toggleMobileNavigation"
           timeout="300"
-          enter-class="Polaris-Frame__Navigation--enter"
-          enter-active-class="Polaris-Frame__Navigation--enterActive"
-          leave-class="Polaris-Frame__Navigation--exit"
+          appear-class="Polaris-Frame__Navigation--enter"
+          appear-active-class="Polaris-Frame__Navigation--enterActive"
+          appear-to-class="Polaris-Frame__Navigation--enterActive"
           leave-active-class="Polaris-Frame__Navigation--exitActive"
       >
         <div
@@ -54,39 +54,42 @@
               @click="handleNavigationDismiss"
               :aria-hidden="mobileNavHidden || (!useMediaQuery && !toggleMobileNavigation)"
               aria-label="Close navigation"
-              :tabindex="mobileNavShowing ? 0 : -1" `
+              :tabindex="mobileNavShowing ? 0 : -1"
           >
             <PIcon source="MobileCancelMajor"/>
           </button>
         </div>
       </transition>
-    </PTrapFocus>
-    <transition
-        :in="state.showContextualSaveBar"
-        class="Polaris-Frame-ContextualSaveBar"
-        type="fade"
+    </div>
+    <div
+        :class="contextualSaveBarClassName"
     >
       <PContextualSaveBar
-          v-if="$slots.hasOwnProperty('contextControl')"
-          :alignContentFlush="alignContentFlush"
-          :message="message"
-          :saveAction="saveAction"
-          :discardAction="discardAction"
-          :fullWidth="fullWidth"
+          v-if="contextualSaveBar.active"
+          :alignContentFlush="contextualSaveBar.alignContentFlush"
+          :message="contextualSaveBar.message"
+          :saveAction="contextualSaveBar.saveAction"
+          :discardAction="contextualSaveBar.discardAction"
+          :fullWidth="contextualSaveBar.fullWidth"
       >
         <template slot="contextControl">
           <slot name="contextControl"/>
         </template>
       </PContextualSaveBar>
-    </transition>
+    </div>
     <div
         v-if="state.loadingStack > 0"
         class="Polaris-Frame__LoadingBar"
         :id="APP_FRAME_LOADING_BAR"
     >
-      <PLoading />
+      <PLoading/>
     </div>
-<!--    {navigationOverlayMarkup}-->
+    <PBackdrop
+        v-if="showMobileNavigation && useMediaQuery()"
+        belowNavigation
+        @click="this.handleNavigationDismiss"
+        @touchStart="this.handleNavigationDismiss"
+    />
     <main
         class="Polaris-Frame__Main"
         :id="APP_FRAME_MAIN"
@@ -98,7 +101,6 @@
         <slot/>
       </div>
     </main>
-    <div @click="toastManager"></div>
     <div
         v-if="$slots.hasOwnProperty('globalRibbon')"
         class="Polaris-Frame__GlobalRibbonContainer"
@@ -118,7 +120,8 @@
   import PContextualSaveBar from '@/components/PFrame/components/PContextualSaveBar.vue';
   import { PLoading } from '@/components/PLoading';
   import { PEventListener } from '@/components/PEventListener';
-
+  import { PIcon } from '@/components/PIcon';
+  import { PBackdrop } from '@/components/PBackdrop';
 
   interface ContextualSaveBarAction {
     /** A destination to link to */
@@ -152,7 +155,7 @@
 
   @Component({
     components: {
-      PTrapFocus, PContextualSaveBar, PLoading, PEventListener,
+      PTrapFocus, PContextualSaveBar, PLoading, PEventListener, PIcon, PBackdrop,
     }
   })
   export default class PFrameInner extends Vue {
@@ -160,31 +163,9 @@
 
     @Prop({type: Function}) public onNavigationDismiss!: any;
 
-    // @Prop() public contextualSaveBarProps!: ContextualSaveBarProps | null;
-    /**
-     * Extend the contents section to be flush with the left edge
-     */
-    @Prop({type: Boolean, default: false}) public alignContentFlush!: boolean;
+    @Prop({type: Object, default: () => ({})}) public contextualSaveBar!: ContextualSaveBarProps;
 
-    /**
-     * Accepts a string of content that will be rendered to the left of the actions
-     */
-    @Prop({type: String, default: null}) public message!: string;
-
-    /**
-     * Save or commit contextual save bar action with text defaulting to 'Save'
-     */
-    @Prop({type: Object, default: () => ({})}) public saveAction!: ContextualSaveBarAction;
-
-    /**
-     *  Discard or cancel contextual save bar action with text defaulting to 'Discard'
-     */
-    @Prop({type: Object, default: () => ({})}) public discardAction?: ContextualSaveBarCombinedActionProps;
-
-    /**
-     * Remove the normal max-width on the contextual save bar
-     */
-    @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
+    @Prop({type: Boolean, default: false}) public toggleContextualSaveBar!: boolean;
 
     public APP_FRAME_MAIN = 'AppFrameMain';
     public APP_FRAME_NAV = 'AppFrameNav';
@@ -203,7 +184,6 @@
       showContextualSaveBar: false,
     };
 
-    // private contextualSaveBar: ContextualSaveBarProps | null = null;
     private globalRibbonContainer: HTMLDivElement | null = null;
     @Ref() private navigationNode!: HTMLDivElement;
 
@@ -226,6 +206,21 @@
 
     public destroyed() {
       window.removeEventListener('resize', this.useMediaQuery);
+    }
+
+    public get className() {
+      return classNames(
+        'Polaris-Frame',
+        this.$slots.hasOwnProperty('navigation') && 'Polaris-Frame--hasNav',
+        this.$slots.hasOwnProperty('topBar') && 'Polaris-Frame--hasTopBar',
+      );
+    }
+
+    public get contextualSaveBarClassName() {
+      return classNames(
+        'Polaris-Frame__ContextualSaveBar Polaris-Frame-CSSAnimation--startFade',
+        this.contextualSaveBar.active && ' Polaris-Frame-CSSAnimation--endFade',
+      )
     }
 
     public get skipClassName() {
@@ -256,7 +251,7 @@
 
     public setGlobalRibbonContainer = (node: HTMLDivElement) => {
       this.globalRibbonContainer = node;
-    }
+    };
 
     public handleResize() {
       if (this.$slots.hasOwnProperty('globalRibbon')) {
@@ -311,12 +306,11 @@
 
     public useMediaQuery() {
       if (window.innerWidth <= 768) {
-        this.$set(this, 'toggleMobileNavigation', true);
+        this.toggleMobileNavigation = true;
         return true;
-      } else {
-        this.$set(this, 'toggleMobileNavigation', false);
-        return false;
       }
+      this.toggleMobileNavigation = false;
+      return false;
     }
 
     public handleNavKeydown(event: KeyboardEvent) {
@@ -331,11 +325,6 @@
       if (!this.onNavigationDismiss) {
         this.onNavigationDismiss();
       }
-    }
-
-    public toastManager() {
-      console.log(this);
-      // this.$pToast.open(this.state.toastMessages);
     }
   }
 </script>

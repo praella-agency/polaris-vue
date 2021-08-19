@@ -2,6 +2,7 @@
   <PFrameInner
       :showMobileNavigation="showMobileNavigation"
       :onNavigationDismiss="onNavigationDismiss"
+      :contextualSaveBar="contextualSaveBar"
   >
     <template slot="topBar">
       <!-- @slot Accepts a top bar component that will be rendered at the top-most portion of an application frame -->
@@ -19,11 +20,6 @@
       <!-- @slot The content to display inside the frame -->
       <slot/>
     </template>
-    <!--    <template v-for="(_, slot) in $slots">-->
-    <!--      <template :slot="slot">-->
-    <!--        <slot :name="slot"/>-->
-    <!--      </template>-->
-    <!--    </template>-->
   </PFrameInner>
 </template>
 
@@ -32,6 +28,7 @@
   import { PTrapFocus } from '@/components/PTrapFocus';
   import { PIcon } from '@/components/PIcon';
   import { PFrameInner } from '@/components/PFrame/components';
+  import { ContextualSaveBarProps } from '@/components/PFrame/context';
 
   @Component({
     components: {
@@ -48,6 +45,11 @@
      * A callback function to handle clicking the mobile navigation dismiss button
      */
     @Prop({type: Function}) public onNavigationDismiss!: any;
+
+    /**
+     * ContextualSaveBar Props
+     */
+    @Prop({type: Object, default: () => ({})}) public contextualSaveBar!: ContextualSaveBarProps;
   }
 </script>
 

@@ -46,7 +46,10 @@ export function useFocusManager(trapping) {
   const id = `TrapFocus${new Date().getUTCMilliseconds()}`;
 
   if (!focusManager) {
+    // tslint:disable-next-line:no-console
     console.error('No FocusManager was provided.');
+  } else {
+    console.log(focusManager);
   }
 
   const {
@@ -54,24 +57,15 @@ export function useFocusManager(trapping) {
     add: addFocusItem,
     remove: removeFocusItem,
   } = focusManager;
-  const canSafelyFocus = trapFocusList[0] === id;
-
-  const value = canSafelyFocus;
+  const value = trapFocusList[0] === id;
   if (addFocusItem && id && removeFocusItem && trapping) {
     if (!trapping) {
       return;
     }
+    // @ts-ignore
     addFocusItem(id);
+    // @ts-ignore
     return removeFocusItem(id);
   }
-  //
-  // useEffect(() => {
-  //   if (!trapping) return;
-  //   addFocusItem(id);
-  //   return () => {
-  //     removeFocusItem(id);
-  //   };
-  // }, [addFocusItem, id, removeFocusItem, trapping]);
-
   return value;
 }

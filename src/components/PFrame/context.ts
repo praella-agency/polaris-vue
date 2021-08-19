@@ -21,6 +21,8 @@ type ContextualSaveBarCombinedActionProps = ContextualSaveBarDiscardActionProps 
   ContextualSaveBarAction;
 
 export interface ContextualSaveBarProps {
+  /** Active contextualSaveBar */
+  active?: boolean;
   /** Extend the contents section to be flush with the left edge  */
   alignContentFlush?: boolean;
   /** Accepts a string of content that will be rendered to the left of the actions */

@@ -60,6 +60,16 @@ const Template = (args, {argTypes}) => ({
       <PFrame
           :showMobileNavigation="mobileNavigationActive"
           :onNavigationDismiss="handleMobileNavigationToggle"
+          :contextualSaveBar="{
+              active: contextualSaveBarMarkup.isDirty,
+              message: 'Unsaved changes',
+              saveAction: {
+                onAction: handleSave,
+              },
+              discardAction: {
+                onAction: handleDiscard,
+              }
+          }"
       >
         <PTopBar
             slot="topBar"
@@ -135,16 +145,6 @@ const Template = (args, {argTypes}) => ({
                     ]
                 }
             ]"
-        />
-        <PContextualSaveBar
-            v-if="contextualSaveBarMarkup.isDirty"
-            message="Unsaved changes"
-            :saveAction="{
-               onAction: handleSave,
-            }"
-            :discardAction="{
-                onAction: handleDiscard,
-            }"
         />
         <PLoading v-if="navigationMarkup.isLoading"/>
         <PSkeletonPage v-if="navigationMarkup.isLoading">
@@ -237,7 +237,7 @@ const Template = (args, {argTypes}) => ({
             this.emailFieldValue = this.defaultMarkup.emailFieldValue;
             this.contextualSaveBarMarkup.isDirty = false;
             this.$pToast.open({
-                'message': 'Changes discard',
+                message: 'Changes discard',
             });
         },
         handleNameFieldChange(value) {

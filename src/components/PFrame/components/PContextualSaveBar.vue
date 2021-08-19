@@ -32,7 +32,7 @@
           <PStackItem>
             <PButton
                 :url="saveAction.url"
-                @click="saveAction ? saveAction.onAction : {}"
+                @click="saveAction ? saveAction.onAction() : {}"
                 :loading="saveAction.loading"
                 :disabled="saveAction.disabled"
                 :accessibilityLabel="saveAction.content"
@@ -51,11 +51,11 @@
         :primaryAction="[{
             content: 'Discard changes',
             destructive: true,
-            onAction: discardAction.onAction,
+            onAction: discardAction.onAction(),
         }]"
         :secondaryAction="[{
             content: 'Continue editing',
-            onAction: saveAction.onAction,
+            onAction: saveAction.onAction(),
         }]"
         sectioned
     >
@@ -156,7 +156,7 @@
       if (this.discardAction && this.discardAction.discardConfirmationModal) {
         return (this.openModal = !this.openModal);
       } else if (this.discardAction) {
-        return this.discardAction.onAction;
+        return this.discardAction.onAction ? this.discardAction.onAction() : {};
       }
     }
   }

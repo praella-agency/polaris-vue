@@ -35,3 +35,15 @@ export function sortAndOverrideActionOrder(
 
     return overriddenActions;
 }
+
+export interface ActionMenuProps {
+    actions?: MenuActionDescriptor[];
+    groups?: MenuGroupDescriptor[];
+    rollup?: boolean;
+}
+
+export function hasGroupsWithActions(groups: ActionMenuProps['groups'] = []) {
+    return groups.length === 0
+      ? false
+      : groups.some((group) => group.actions.length > 0);
+}

@@ -1,7 +1,7 @@
 <template>
   <div @change="handleChange">
-    <slot name="root" />
-    <slot />
+    <slot name="root"/>
+    <slot/>
   </div>
 </template>
 
@@ -18,13 +18,13 @@
     @Ref() public root!: HTMLElement | null;
 
     public handleChange() {
-      if(this.disabled || !this.root) {
+      if (this.disabled || !this.root) {
         return;
       }
 
       const node = this.root;
 
-      if(!node || node.querySelector('[autofocus]')) {
+      if (!node || node.querySelector('[autofocus]')) {
         return;
       }
 
