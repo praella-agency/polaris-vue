@@ -9,7 +9,7 @@ const theme = create({
 
     brandTitle: 'Polaris Vue by HulkApps',
     brandUrl: 'https://www.github.com/hulkapps/polaris-vue',
-    brandImage: '/logo.png',
+    brandImage: 'https://hulkapps.nyc3.digitaloceanspaces.com/polaris-vue/logo.png',
     appBg: 'white',
     appContentBg: 'white',
 });
