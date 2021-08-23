@@ -10,4 +10,4 @@ const Plugin = (Vue, options = {}) => {
 PToast.install = Plugin;
 
 export default PToast;
-export {PToast};
+export { PToast };

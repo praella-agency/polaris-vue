@@ -2901,14 +2901,17 @@
     position: relative;
     display: flex;
     height: 5.6rem;
-    background-color: rgb(255, 255, 255);
-    &:after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        border-bottom: 1px solid transparent;
-    }
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.15);
+    background-color: rgba(255, 255, 255, 1);
+    transition: 200ms background-color ease-in-out;
+}
+
+.Polaris-TopBar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-bottom: 1px solid transparent;
 }
 
 .Polaris-TopBar__LogoContainer {
@@ -3000,26 +3003,69 @@
     }
 }
 
+//.Polaris-TopBar__SearchField {
+//    padding: 0;
+//    max-width: 99.8rem;
+//    width: 100%;
+//    max-width: none;
+//    margin-left: calc((100% - 99.8rem)/2);
+//    margin: 0 0 0;
+//    @media (min-width:30.625em) {
+//        padding: 0 2rem;
+//    }
+//    @media (min-width:46.5em) {
+//        padding: 0 3.2rem;
+//    }
+//    @media (min-width:87.5em) {
+//        margin-left: calc((100% - 103.8rem)/2);
+//    }
+//    @media (max-width:1268px) {
+//        margin-left: 0;
+//    }
+//    @media (min-width:42.5em) {
+//        position: relative;
+//    }
+//}
+
 .Polaris-TopBar__SearchField {
+    margin: 0 auto;
     padding: 0;
     max-width: 99.8rem;
+    position: relative;
     width: 100%;
+    margin: 0;
     max-width: none;
-    margin: 0 0 0 calc((100% - 99.8rem)/2);
-    @media (min-width:30.625em) {
+    margin-left: calc((100% - 99.8rem) / 2);
+}
+
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em) {
+    [data-has-navigation] .Polaris-TopBar__SearchField {
         padding: 0 2rem;
     }
-    @media (min-width:46.5em) {
+}
+
+@media (min-width: 30.625em) {
+    .Polaris-TopBar__SearchField {
+        padding: 0 2rem;
+    }
+}
+
+@media (max-width: 48.0625em) and (min-width: 46.5em), (min-width: 61.5em) {
+    [data-has-navigation] .Polaris-TopBar__SearchField {
         padding: 0 3.2rem;
     }
-    @media (min-width:87.5em) {
-        margin-left: calc((100% - 103.8rem)/2);
+}
+
+@media (min-width: 46.5em) {
+    .Polaris-TopBar__SearchField {
+        padding: 0 3.2rem;
     }
-    @media (max-width:1268px) {
+}
+
+@media (max-width: 1238px) {
+    .Polaris-TopBar__SearchField {
         margin-left: 0;
-    }
-    @media (min-width:42.5em) {
-        position: relative;
+        margin-right: 0.4rem;
     }
 }
 

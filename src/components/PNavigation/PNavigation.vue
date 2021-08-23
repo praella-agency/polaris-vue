@@ -93,6 +93,11 @@
      */
     @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
 
+    /**
+     * Show mobile navigation
+     */
+    @Prop({type: Boolean, default: false}) public showMobileNavigation!: boolean;
+
     //PSection's props
     /**
      * A collection of navigation items
@@ -105,7 +110,7 @@
       };
     }
 
-    public showLogo = false;
+    public showLogo = this.showMobileNavigation;
     public get toggleLogo() {
       return this.showLogo;
     }
@@ -123,7 +128,7 @@
     }
 
     public useMediaQuery() {
-      if (window.innerWidth <= 769) {
+      if (window.innerWidth <= 768) {
         this.showLogo = true;
         return;
       }

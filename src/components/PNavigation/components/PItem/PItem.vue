@@ -248,9 +248,7 @@
         return;
       }
 
-      if (this.$emit('click')) {
-        this.$emit('click');
-      }
+      this.$emit('click')
     }
 
     public get longestMatch() {

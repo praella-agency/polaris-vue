@@ -10,6 +10,9 @@ import { PFrame } from '../PFrame';
 export default {
     title: 'Structure / Top Bar',
     component: PTopBar,
+    parameters: {
+        layout: 'fullscreen',
+    },
     argTypes: {
         message: {
             description: 'Message object to use in UserMenu and SecondaryMenu',

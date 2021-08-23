@@ -57,6 +57,11 @@ import { PDropZone } from './PDropZone';
 import PToast from './PToast/index';
 import { PChoiceList } from './PChoiceList';
 import { PLoading } from './PLoading';
+import { PFrame } from './PFrame';
+import { PTopBar } from './PTopBar';
+import { PContextualSaveBar } from './PFrame/components/PContextualSaveBar';
+import { PSkeletonPage } from './PSkeletonPage';
+import { PNavigation } from 'PNavigation';
 
 import '@/scss/main.scss';
 
@@ -119,6 +124,11 @@ const Components = {
   PDropZone,
   PChoiceList,
   PLoading,
+  PFrame,
+  PTopBar,
+  PContextualSaveBar,
+  PSkeletonPage,
+  PNavigation,
 };
 
 const PolarisVue = {

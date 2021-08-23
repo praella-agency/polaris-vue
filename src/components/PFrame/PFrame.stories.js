@@ -1,7 +1,6 @@
 import { PFrame } from './index';
 import { PTopBar } from '../PTopBar';
 import { PNavigation } from '../PNavigation';
-import { PContextualSaveBar } from './components';
 import { PLoading } from '../PLoading';
 import { PSkeletonPage } from '../PSkeletonPage';
 import { PLayout, PLayoutSection, PLayoutAnnotatedSection } from '../PLayout';
@@ -17,12 +16,15 @@ import { PModal } from '../PModal';
 export default {
     title: 'Structure / Frame',
     component: PFrame,
+    parameters: {
+        layout: 'fullscreen',
+    },
 }
 
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PFrame, PTopBar, PNavigation, PContextualSaveBar, PLoading, PSkeletonPage, PLayout, PLayoutSection,
+        PFrame, PTopBar, PNavigation, PLoading, PSkeletonPage, PLayout, PLayoutSection,
         PLayoutAnnotatedSection, PCard, PTextContainer, PSkeletonDisplayText, PSkeletonBodyText, PPage, PFormLayout,
         PTextField, PModal,
     },
@@ -54,6 +56,13 @@ const Template = (args, {argTypes}) => ({
             nameFieldValue: 'Jaded Pixel',
             emailFieldValue: 'dharma@jadedpixel.com',
             storeName: 'Jaded Pixel',
+            logoMarkup: {
+                width: 124,
+                topBarSource:
+                    'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999',
+                url: 'javascript:void(0)',
+                accessibilityLabel: 'Jaded Pixel',
+            },
         };
     },
     template: `
@@ -70,17 +79,13 @@ const Template = (args, {argTypes}) => ({
                 onAction: handleDiscard,
               }
           }"
+          :loading="navigationMarkup.isLoading"
+          v-bind="$props"
       >
         <PTopBar
             slot="topBar"
             :showNavigationToggle="true"
-            :logo=" {
-                width: 124,
-                topBarSource:
-                  'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999',
-                url: 'javascript:void(0)',
-                accessibilityLabel: 'Jaded Pixel',
-            }"
+            :logo="logoMarkup"
             :onSearchResultsDismiss="handleTopBarSearchResultsDismiss"
             :onNavigationToggle="handleMobileNavigationToggle"
             :userMenu="{
@@ -119,6 +124,8 @@ const Template = (args, {argTypes}) => ({
         <PNavigation
             slot="navigation"
             location="/"
+            :showMobileNavigation="true"
+            :logo="logoMarkup"
             :items="[
                 {
                     items: [
@@ -142,7 +149,12 @@ const Template = (args, {argTypes}) => ({
                             icon: 'OrdersMajor',
                             onClick: toggleIsLoading,
                         },
-                    ]
+                    ],
+                    action: {
+                        icon: 'ConversationMinor',
+                        accessibilityLabel: 'Contact support',
+                        onClick: toggleModalActive,
+                    }
                 }
             ]"
         />
@@ -192,6 +204,7 @@ const Template = (args, {argTypes}) => ({
                 onAction: toggleModalActive,
             }"
             @close="toggleModalActive"
+            sectioned
         >
           <PFormLayout>
             <PTextField
@@ -265,3 +278,13 @@ const Template = (args, {argTypes}) => ({
 });
 
 export const Frame = Template.bind({});
+
+Frame.args = {
+    logo: {
+        width: 124,
+        contextualSaveBarSource:
+            'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-gray.svg?6215648040070010999',
+        url: 'javascript:void(0)',
+        accessibilityLabel: 'Jaded Pixel',
+    },
+}

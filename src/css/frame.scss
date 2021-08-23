@@ -22,7 +22,7 @@
 .Polaris-Frame-ContextualSaveBar {
   display: flex;
   height: 5.6rem;
-  background: rgba(255, 255, 255, 1);
+  background: rgba(32, 33, 35, 1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -36,7 +36,7 @@
 }
 
 .Polaris-Frame-ContextualSaveBar .Polaris-Frame-ContextualSaveBar__Message {
-  color: rgba(32, 34, 35, 1);
+  color: rgba(227, 229, 231, 1);
 }
 
 @media (forced-colors: active) {
@@ -108,7 +108,7 @@
   font-size: 1.7rem;
   font-weight: 600;
   line-height: 2.4rem;
-  color: rgba(109, 113, 117, 1);
+  color: rgba(153, 159, 164, 1);
 }
 
 @media (min-width: 40em) {
@@ -387,7 +387,7 @@
 
 .Polaris-Frame__Content {
   position: relative;
-  padding-bottom: var($global-ribbon-height, 0);
+  padding-bottom: 0;
   flex: 1 1;
   min-width: 0;
   max-width: 100%;

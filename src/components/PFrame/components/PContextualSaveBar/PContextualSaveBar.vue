@@ -6,11 +6,11 @@
     <div
         v-if="!alignContentFlush || !$slots.hasOwnProperty('contextControl')"
         class="Polaris-Frame-ContextualSaveBar__LogoContainer"
-        style="width: 104px"
+        :style="width"
     >
       <PImage
-          style="width: 104px;"
-          :source="contextualSaveBarSource || ''"
+          :style="width"
+          :source="logo.contextualSaveBarSource || ''"
           alt=""
       />
     </div>
@@ -25,12 +25,15 @@
                 :loading="discardAction.loading"
                 :disabled="discardAction.disabled"
                 :accessibilityLabel="discardAction.content"
+                style="background: rgba(32, 33, 35, 1) !important; color: rgba(227, 229, 231, 1) !important;
+                      border-color: rgba(130, 135, 139, 1) !important;"
             >
               {{discardActionContent}}
             </PButton>
           </PStackItem>
           <PStackItem>
             <PButton
+                primary
                 :url="saveAction.url"
                 @click="saveAction ? saveAction.onAction() : {}"
                 :loading="saveAction.loading"
@@ -70,8 +73,9 @@
   import { PImage } from '@/components/PImage';
   import { PStack, PStackItem } from '@/components/PStack';
   import { PModal } from '@/components/PModal';
-  import { getWidth } from './context';
+  import { getWidth } from '../context';
   import { classNames } from '@/utilities/css';
+  import { ThemeLogo } from '@/types/logo';
 
   interface ContextualSaveBarAction {
     /** A destination to link to */
@@ -127,11 +131,14 @@
     @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
 
     /**
-     *  Provides a path for a logo used on a light background
+     * To open a contextual modal
      */
-    @Prop({type: String, default: null}) public contextualSaveBarSource!: string;
-
     @Prop({type: Boolean, default: false}) public openModal!: boolean;
+
+    /**
+     * ContextualSaveBar Logo
+     */
+    @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
 
     public get contentsClassName() {
       return classNames(
@@ -150,6 +157,12 @@
       return this.saveAction && this.saveAction.content
         ? this.saveAction.content
         : 'Save';
+    }
+
+    public get width() {
+      return {
+        width: getWidth(this.logo, 104)
+      };
     }
 
     public discardActionHandler() {

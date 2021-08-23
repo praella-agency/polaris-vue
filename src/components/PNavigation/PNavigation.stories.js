@@ -141,7 +141,7 @@ const Template = (args, {argTypes}) => ({
     `,
     methods: {
         handleDismiss() {
-            console.log('On Navigation Dismiss')
+            alert('On Navigation Dismiss')
         }
     }
 });
@@ -163,6 +163,9 @@ Navigation.args = {
                     url: '/?path=/docs/navigation-navigation--navigation',
                     label: 'Inactive item',
                     icon: 'HomeMajor',
+                    onClick: () => {
+                        console.log(123)
+                    }
                 },
                 {
                     url: '/path/to/place',

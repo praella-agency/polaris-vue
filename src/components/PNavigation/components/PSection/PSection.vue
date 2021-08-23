@@ -70,7 +70,7 @@
 
 <script lang="ts">
   import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator';
-  import PItem from '@/components/PNavigation/components/PItem/PItem.vue';
+  import { PItem } from '@/components/PNavigation/components/PItem';
   import { PIcon } from '@/components/PIcon';
   import { PCollapsible } from '@/components/PCollapsible';
   import { classNames } from '@/utilities/css';
@@ -138,8 +138,10 @@
     }
 
     public itemsMarkup = this.items;
-    public additionalItems = Object.keys(this.rollup).length > 0 ? this.itemsMarkup.slice(this.rollup.after) : [];
     public expanded = false;
+    public get additionalItems() {
+      return Object.keys(this.rollup).length > 0 ? this.itemsMarkup.slice(this.rollup.after) : [];
+    }
 
     public get sectionItems() {
       return Object.keys(this.rollup).length > 0

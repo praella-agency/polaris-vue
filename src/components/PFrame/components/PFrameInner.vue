@@ -25,41 +25,30 @@
       <slot name="topBar"/>
     </div>
     <div v-if="$slots.hasOwnProperty('navigation')">
-      <transition
+      <div
           ref="navigationNode"
-          :appear="useMediaQuery()"
-          :exit="!useMediaQuery()"
-          :in="toggleMobileNavigation"
-          timeout="300"
-          appear-class="Polaris-Frame__Navigation--enter"
-          appear-active-class="Polaris-Frame__Navigation--enterActive"
-          appear-to-class="Polaris-Frame__Navigation--enterActive"
-          leave-active-class="Polaris-Frame__Navigation--exitActive"
+          :class="`Polaris-Frame__Navigation ${showMobileNavigation ? navClassName: ''}`"
+          :aria-modal="ariaModal"
+          :role="role"
+          aria-label="Navigation"
+          @keydown="handleNavKeydown"
+          :id="APP_FRAME_NAV"
+          key="NavContent"
+          :hidden="mobileNavHidden"
       >
-        <div
-            :aria-modal="ariaModal"
-            :role="role"
-            aria-label="Navigation"
-            ref="navigationMode"
-            :class="navClassName"
-            @keydown="handleNavKeydown"
-            :id="APP_FRAME_NAV"
-            key="NavContent"
-            :hidden="!mobileNavHidden"
+        <slot name="navigation"/>
+        <button
+            v-if="showMobileNavigation"
+            type="button"
+            class="Polaris-Frame__NavigationDismiss"
+            @click="handleNavigationDismiss"
+            :aria-hidden="mobileNavHidden || (!useMediaQuery && !toggleMobileNavigation)"
+            aria-label="Close navigation"
+            :tabindex="mobileNavShowing ? 0 : -1"
         >
-          <slot name="navigation"/>
-          <button
-              type="button"
-              class="Polaris-Frame__NavigationDismiss"
-              @click="handleNavigationDismiss"
-              :aria-hidden="mobileNavHidden || (!useMediaQuery && !toggleMobileNavigation)"
-              aria-label="Close navigation"
-              :tabindex="mobileNavShowing ? 0 : -1"
-          >
-            <PIcon source="MobileCancelMajor"/>
-          </button>
-        </div>
-      </transition>
+          <PIcon source="MobileCancelMajor"/>
+        </button>
+      </div>
     </div>
     <div
         :class="contextualSaveBarClassName"
@@ -71,6 +60,7 @@
           :saveAction="contextualSaveBar.saveAction"
           :discardAction="contextualSaveBar.discardAction"
           :fullWidth="contextualSaveBar.fullWidth"
+          :logo="logo"
       >
         <template slot="contextControl">
           <slot name="contextControl"/>
@@ -82,7 +72,7 @@
         class="Polaris-Frame__LoadingBar"
         :id="APP_FRAME_LOADING_BAR"
     >
-      <PLoading/>
+      <PLoading />
     </div>
     <PBackdrop
         v-if="showMobileNavigation && useMediaQuery()"
@@ -113,37 +103,16 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop, Ref } from 'vue-property-decorator';
+  import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator';
   import { ContextualSaveBarProps, ToastProps } from '../context';
   import { classNames } from '@/utilities/css';
   import { PTrapFocus } from '@/components/PTrapFocus';
-  import PContextualSaveBar from '@/components/PFrame/components/PContextualSaveBar.vue';
+  import { PContextualSaveBar } from '@/components/PFrame/components/PContextualSaveBar';
   import { PLoading } from '@/components/PLoading';
   import { PEventListener } from '@/components/PEventListener';
   import { PIcon } from '@/components/PIcon';
   import { PBackdrop } from '@/components/PBackdrop';
-
-  interface ContextualSaveBarAction {
-    /** A destination to link to */
-    url?: string;
-    /** Content the action displays */
-    content?: string;
-    /** Should a spinner be displayed */
-    loading?: boolean;
-    /** Should the action be disabled */
-    disabled?: boolean;
-
-    /** Callback when an action takes place */
-    onAction?(): void;
-  }
-
-  interface ContextualSaveBarDiscardActionProps {
-    /** Whether to show a modal confirming the discard action */
-    discardConfirmationModal?: boolean;
-  }
-
-  type ContextualSaveBarCombinedActionProps = ContextualSaveBarDiscardActionProps &
-    ContextualSaveBarAction;
+  import { ThemeLogo } from '@/types/logo';
 
   interface State {
     skipFocused?: boolean;
@@ -167,6 +136,13 @@
 
     @Prop({type: Boolean, default: false}) public toggleContextualSaveBar!: boolean;
 
+    @Prop({type: Boolean, default: false}) public loading!: boolean;
+
+    /**
+     * ContextualSaveBar Logo
+     */
+    @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
+
     public APP_FRAME_MAIN = 'AppFrameMain';
     public APP_FRAME_NAV = 'AppFrameNav';
     public APP_FRAME_TOP_BAR = 'AppFrameTopBar';
@@ -175,6 +151,12 @@
     public toggleMobileNavigation = this.showMobileNavigation;
     public mobileNavHidden = this.useMediaQuery() && !this.toggleMobileNavigation;
     public mobileNavShowing = this.useMediaQuery() && this.toggleMobileNavigation;
+
+    public loadingState = this.loading;
+    @Watch('loadingState')
+    public onLoadingStateChanged(oldValue, newValue) {
+      console.log('loadingState:-', oldValue, newValue);
+    }
 
     public state: State = {
       skipFocused: false,
@@ -232,8 +214,9 @@
 
     public get navClassName() {
       return classNames(
-        'Polaris-Frame__Navigation',
         this.toggleMobileNavigation && 'Polaris-Frame__Navigation--visible',
+        this.toggleMobileNavigation && 'Polaris-Frame__Navigation--enter Polaris-Frame__Navigation--enterActive',
+        !this.toggleMobileNavigation && 'Navigation-exit Polaris-Frame__Navigation--exitActive'
       );
     }
 
@@ -322,8 +305,8 @@
     }
 
     public handleNavigationDismiss() {
-      if (!this.onNavigationDismiss) {
-        this.onNavigationDismiss();
+      if (this.onNavigationDismiss) {
+        return this.onNavigationDismiss();
       }
     }
   }

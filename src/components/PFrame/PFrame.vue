@@ -3,6 +3,7 @@
       :showMobileNavigation="showMobileNavigation"
       :onNavigationDismiss="onNavigationDismiss"
       :contextualSaveBar="contextualSaveBar"
+      :logo="Object.keys(logo).length > 0 ? logo : {}"
   >
     <template slot="topBar">
       <!-- @slot Accepts a top bar component that will be rendered at the top-most portion of an application frame -->
@@ -29,6 +30,7 @@
   import { PIcon } from '@/components/PIcon';
   import { PFrameInner } from '@/components/PFrame/components';
   import { ContextualSaveBarProps } from '@/components/PFrame/context';
+  import { ThemeLogo } from '@/types/logo';
 
   @Component({
     components: {
@@ -50,6 +52,16 @@
      * ContextualSaveBar Props
      */
     @Prop({type: Object, default: () => ({})}) public contextualSaveBar!: ContextualSaveBarProps;
+
+    /**
+     * ContextualSaveBar Logo
+     */
+    @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
+
+    /**
+     * Set loading value
+     */
+    @Prop({type: Boolean, default: false}) public loading!: boolean;
   }
 </script>
 
