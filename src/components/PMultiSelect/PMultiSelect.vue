@@ -42,6 +42,8 @@
         </template>
       </multiselect>
     </div>
+    <div class="Polaris-Labelled__HelpText" v-if="helpText">{{helpText}}</div>
+    <PFieldError v-if="error" :error="error"/>
   </div>
 </template>
 
@@ -53,6 +55,7 @@ import {classNames} from '@/utilities/css';
 
 import {PIcon} from '@/components/PIcon';
 import {PTag} from '@/components/PTag';
+import {PFieldError} from '@/components/PFieldError';
 
 interface StrictOption {
   value: string;
@@ -63,7 +66,7 @@ interface StrictOption {
 }
 
 @Component({
-  components: {PIcon, Multiselect, PTag},
+  components: {PIcon, Multiselect, PTag, PFieldError},
 })
 
 export default class PMultiSelect extends Vue {
@@ -121,6 +124,16 @@ export default class PMultiSelect extends Vue {
   @Prop({type: String, default: null}) public placeholder!: string;
 
   /**
+   * Help text
+   */
+  @Prop({type: String, default: null}) public helpText!: string;
+
+  /**
+   * Validation error
+   */
+  @Prop({type: String, default: null}) public error!: string;
+
+  /**
    * To allow multiple selections
    * @values true | false
    */
@@ -170,6 +183,7 @@ export default class PMultiSelect extends Vue {
     return classNames(
         'Polaris-Select',
         this.disabled && 'Polaris-Select--disabled',
+        this.error && 'invalid',
     );
   }
 
