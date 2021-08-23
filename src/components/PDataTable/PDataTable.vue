@@ -9,75 +9,78 @@
       <div class="Polaris-DataTable__ScrollContainer">
         <table class="Polaris-DataTable__Table">
           <thead ref="thead">
-            <!-- @slot Slot to add a custom Header content -->
-            <slot name="head">
-              <template>
-                <tr>
-                  <PDataTableCellNew
-                      v-for="(heading, hIndex) in headings"
-                      :key="`heading-cell-${hIndex}`"
-                      header
-                      :content="heading.content"
-                      :value="heading.value"
-                      :width="heading.width"
-                      :sort="sort"
-                      :sortable="heading.sortable"
-                      :default-sort-direction="defaultSortDirection"
-                      :content-type="heading.type ? heading.type : columnContentTypes[hIndex]"
-                      :first-column="hIndex === 0"
-                      :truncate="truncate"
-                      :verticalAlign="verticalAlign"
-                      @sort-changed="handleSortChange"
-                  />
+          <!-- @slot Slot to add a custom Header content -->
+          <slot name="head">
+            <template>
+              <tr>
+                <PDataTableCellNew
+                    v-for="(heading, hIndex) in headings"
+                    :key="`heading-cell-${hIndex}`"
+                    header
+                    :content="heading.content"
+                    :value="heading.value"
+                    :width="heading.width"
+                    :sort="sort"
+                    :sortable="heading.sortable"
+                    :default-sort-direction="defaultSortDirection"
+                    :content-type="heading.type ? heading.type : columnContentTypes[hIndex]"
+                    :first-column="hIndex === 0"
+                    :truncate="truncate"
+                    :verticalAlign="verticalAlign"
+                    @sort-changed="handleSortChange"
+                />
 
-                  <!-- @deprecated Remove in version 3.0.0 - START -->
-                  <PDataTableCell
-                      v-if="hasActions"
-                      header
-                      content="Actions"
-                      :sortable="false"
-                      contentType="text"
-                      :firstColumn="false"
-                      :truncate="false"
-                      :verticalAlign="verticalAlign"/>
-                  <!-- @deprecated Remove in version 3.0.0 - END -->
+                <!-- @deprecated Remove in version 3.0.0 - START -->
+                <PDataTableCell
+                    v-if="hasActions"
+                    header
+                    content="Actions"
+                    :sortable="false"
+                    contentType="text"
+                    :firstColumn="false"
+                    :truncate="false"
+                    :verticalAlign="verticalAlign"/>
+                <!-- @deprecated Remove in version 3.0.0 - END -->
 
-                </tr>
+              </tr>
 
 
-                <tr v-if="!showTotalsInFooter">
-                  <PDataTableCellNew
-                      v-for="(total, index) in totals"
-                      :key="`total-cell-${index}`"
-                      total
-                      :value="index === 0 ? totalsRowHeading : total"
-                      :content-type="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
-                      :first-column="index === 0"
-                      :truncate="truncate"
-                      :vertical-align="verticalAlign"
-                      :sortable="false"
-                  />
+              <tr v-if="!showTotalsInFooter">
+                <PDataTableCellNew
+                    v-for="(total, index) in totals"
+                    :key="`total-cell-${index}`"
+                    total
+                    :value="index === 0 ? totalsRowHeading : total"
+                    :content-type="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
+                    :first-column="index === 0"
+                    :truncate="truncate"
+                    :vertical-align="verticalAlign"
+                    :sortable="false"
+                />
 
-                  <!-- @deprecated Remove in version 3.0.0 - START -->
-                  <PDataTableCell
-                      total
-                      v-if="totals.length && hasActions"
-                      :totalInFooter="showTotalsInFooter"
-                      :verticalAlign="verticalAlign"/>
-                  <!-- @deprecated Remove in version 3.0.0 - END -->
+                <!-- @deprecated Remove in version 3.0.0 - START -->
+                <PDataTableCell
+                    total
+                    v-if="totals.length && hasActions"
+                    :totalInFooter="showTotalsInFooter"
+                    :verticalAlign="verticalAlign"/>
+                <!-- @deprecated Remove in version 3.0.0 - END -->
 
-                </tr>
-              </template>
-            </slot>
+              </tr>
+            </template>
+          </slot>
           </thead>
 
-          <tbody ref="tbody">
-          <template v-if="loading">
-            <tr class="Polaris-ResourceList__SpinnerContainer" :style="{'padding-top': `${topPadding}px`}">
-              <PSpinner :size="!$slots.hasOwnProperty('body') && rows.length < 2 ? 'small' : 'large'"/>
-            </tr>
-            <tr class="Polaris-ResourceList__LoadingOverlay"/>
-          </template>
+          <!-- @slot Slot to overwrite tbody element.<br />**Warning:** Using this slot will not allow rows populated from package, you must have to utilize **body** slot as well.
+           -->
+          <slot name="tbody">
+            <tbody ref="tbody">
+            <template v-if="loading">
+              <tr class="Polaris-ResourceList__SpinnerContainer" :style="{'padding-top': `${topPadding}px`}">
+                <PSpinner :size="!$slots.hasOwnProperty('body') && rows.length < 2 ? 'small' : 'large'"/>
+              </tr>
+              <tr class="Polaris-ResourceList__LoadingOverlay"/>
+            </template>
 
             <!-- @slot Slot to add a custom Body content -->
             <slot name="body">
@@ -138,31 +141,31 @@
               <!-- @deprecated Remove in version 3.0.0 - END -->
 
             </slot>
-          </tbody>
-
+            </tbody>
+          </slot>
           <tfoot v-if="showTotalsInFooter">
-            <tr>
-              <PDataTableCellNew
-                  v-for="(total, index) in totals"
-                  :key="`total-cell-${index}`"
-                  total
-                  :total-in-footer="showTotalsInFooter"
-                  :value="index === 0 ? totalsRowHeading : total"
-                  :content-type="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
-                  :first-column="index === 0"
-                  :truncate="truncate"
-                  :vertical-align="verticalAlign"
-                  :sortable="false"
-              />
+          <tr>
+            <PDataTableCellNew
+                v-for="(total, index) in totals"
+                :key="`total-cell-${index}`"
+                total
+                :total-in-footer="showTotalsInFooter"
+                :value="index === 0 ? totalsRowHeading : total"
+                :content-type="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
+                :first-column="index === 0"
+                :truncate="truncate"
+                :vertical-align="verticalAlign"
+                :sortable="false"
+            />
 
-              <!-- @deprecated Remove in version 3.0.0 - START -->
-              <PDataTableCell
-                  total
-                  v-if="totals.length && hasActions"
-                  :totalInFooter="showTotalsInFooter"
-                  :verticalAlign="verticalAlign"/>
-              <!-- @deprecated Remove in version 3.0.0 - END -->
-            </tr>
+            <!-- @deprecated Remove in version 3.0.0 - START -->
+            <PDataTableCell
+                total
+                v-if="totals.length && hasActions"
+                :totalInFooter="showTotalsInFooter"
+                :verticalAlign="verticalAlign"/>
+            <!-- @deprecated Remove in version 3.0.0 - END -->
+          </tr>
           </tfoot>
         </table>
       </div>
@@ -192,15 +195,15 @@
 
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import {Component, Vue, Prop} from 'vue-property-decorator';
 
 import PDataTableCellNew from './PDataTableCellNew.vue';
 import PDataTableCell from './PDataTableCell.vue';
-import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
-import { PFilter } from '@/components/PFilter';
-import { PSpinner } from '@/components/PSpinner';
-import { ComplexAction, LinkAction } from '@/types';
-import { PEmptyState } from '@/components/PEmptyState';
+import {PPagination, PPaginationDescriptor} from '@/components/PPagination';
+import {PFilter} from '@/components/PFilter';
+import {PSpinner} from '@/components/PSpinner';
+import {ComplexAction, LinkAction} from '@/types';
+import {PEmptyState} from '@/components/PEmptyState';
 
 type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
 type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
@@ -274,9 +277,9 @@ export default class PDataTableNew extends Vue {
     };
 
     return this.totals.length > 0 &&
-      this.totals.filter((total) => total !== '' || typeof(total !== 'number')).length > 1 ?
-      totalsLabel.plural :
-      totalsLabel.singular;
+    this.totals.filter((total) => total !== '' || typeof (total !== 'number')).length > 1 ?
+        totalsLabel.plural :
+        totalsLabel.singular;
   }
 
   /**
@@ -372,6 +375,15 @@ export default class PDataTableNew extends Vue {
     default: 'https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png',
   }) public emptyStateImage!: string;
 
+  /**
+   * Remove tbody element from datatable.
+   * Note: This property works with body slot only.
+   */
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) public removeTbody!: boolean;
+
   // ============Deprecated Props============
   /**
    * Handle action events for the button.
@@ -380,7 +392,7 @@ export default class PDataTableNew extends Vue {
    * use `headings` with extra object.
    * @deprecated
    */
-  @Prop({ type: Array, default: () => [] }) public actions!: ComplexAction[];
+  @Prop({type: Array, default: () => []}) public actions!: ComplexAction[];
 
   /**
    * Data ids
@@ -388,7 +400,7 @@ export default class PDataTableNew extends Vue {
    * **Deprecation:-** `ids` will be removed in version 3.0.0,
    * @deprecated
    */
-  @Prop({ type: Array, default: () => [] }) public ids!: number[];
+  @Prop({type: Array, default: () => []}) public ids!: number[];
 
   /**
    * Search Placeholder
@@ -408,11 +420,11 @@ export default class PDataTableNew extends Vue {
     if (typeof window !== 'undefined' && this.$refs.hasOwnProperty('tbody')) {
       const overlay = (this.$refs.tbody as Element).getBoundingClientRect();
       const viewportHeight = Math.max(document.documentElement ?
-        document.documentElement.clientHeight : 0, window.innerHeight || 0);
+          document.documentElement.clientHeight : 0, window.innerHeight || 0);
       const overflow = viewportHeight - overlay.height;
       const spinnerHeight = this.rows.length === 1 ? 28 : 45;
       loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
-        (viewportHeight - overlay.top - spinnerHeight) / 2;
+          (viewportHeight - overlay.top - spinnerHeight) / 2;
       loadingPosition = loadingPosition + (this.$refs.thead as Element).getBoundingClientRect().height;
       this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
     }
@@ -453,7 +465,7 @@ export default class PDataTableNew extends Vue {
     if (this.actions.length > 0) {
       // tslint:disable-next-line:no-console
       console.error('Deprecation Notice: `actions` will be removed in version 3.0.0, use `headings` with extra object. '
-        + 'Please check new example of' +
+          + 'Please check new example of' +
           ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--row-slot');
     }
     if (this.ids.length > 0) {
@@ -467,11 +479,11 @@ export default class PDataTableNew extends Vue {
 </script>
 
 <style scoped>
-  .Polaris-DataTable__Pagination {
-    text-align: center;
-    padding: 1.6rem;
-    border-top: 0.1rem solid #e1e3e5;
-    border-bottom-left-radius: 0.4rem;
-    border-bottom-right-radius: 0.4rem;
-  }
+.Polaris-DataTable__Pagination {
+  text-align: center;
+  padding: 1.6rem;
+  border-top: 0.1rem solid #e1e3e5;
+  border-bottom-left-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
+}
 </style>
