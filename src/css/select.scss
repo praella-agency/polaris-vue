@@ -5,6 +5,13 @@
 			display: none;
 		}
 	}
+
+	&.invalid {
+		.multiselect__tags {
+			border-color: $inline-error-color;
+			background-color: $inline-error-fill !important;
+		}
+	}
 }
 .Polaris-Select--disabled {
 	.Polaris-Select__Content {

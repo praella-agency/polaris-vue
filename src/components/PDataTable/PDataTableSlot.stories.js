@@ -10,30 +10,12 @@ import { PToggle } from '../PToggle';
 import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';
 import { PStack, PStackItem } from '../PStack';
+import argTypes from './args';
 
 export default {
     title: 'Lists & Tables / Data Table / Slot ',
     component: PDataTable,
-    argTypes: {
-        verticalAlign: {
-            options: ['top', 'bottom', 'middle', 'baseline'],
-            control: {
-                type: 'select',
-            }
-        },
-        defaultSortDirection: {
-            options: ['ascending', 'descending', 'none'],
-            control: {
-                type: 'select',
-                labels: {
-                    'none': 'Default',
-                },
-            }
-        },
-        default: {
-            name: 'item.<header-value>',
-        },
-    },
+    argTypes
 }
 
 const Template = (args, {argTypes}) => ({
@@ -168,9 +150,9 @@ const Template = (args, {argTypes}) => ({
     }
 });
 
-export const Row = Template.bind({});
+export const CustomisableRow = Template.bind({});
 
-Row.args = {
+CustomisableRow.args = {
     resourceName: {singular: 'Product', plural: 'Products'},
     columnContentTypes: [],
     headings: [
@@ -256,7 +238,7 @@ Row.args = {
     },
 }
 
-Row.parameters = {
+CustomisableRow.parameters = {
     docs: {
         source: {
             code: `
@@ -557,9 +539,9 @@ const Template1 = (args, {argTypes}) => ({
     }
 });
 
-export const Column = Template1.bind({});
+export const CustomisableColumn = Template1.bind({});
 
-Column.args = {
+CustomisableColumn.args = {
     resourceName: {singular: 'Product', plural: 'Products'},
     columnContentTypes: [],
     headings: [
@@ -645,7 +627,7 @@ Column.args = {
     },
 }
 
-Column.parameters = {
+CustomisableColumn.parameters = {
     docs: {
         source: {
             code: `
