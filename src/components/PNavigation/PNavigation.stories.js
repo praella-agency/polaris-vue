@@ -171,7 +171,7 @@ Navigation.args = {
                     }
                 },
                 {
-                    url: '/path/to/place',
+                    to: '/path/to/place',
                     label: 'Item with indicator',
                     icon: 'HomeMajor',
                     subNavigationItems: [
@@ -184,36 +184,30 @@ Navigation.args = {
                     ],
                 },
                 {
-                    url: '/path/to/place',
                     label: 'New item',
                     new: true,
                     icon: 'HomeMajor',
                 },
                 {
-                    url: '/path/to/place',
                     label: 'Badged item',
                     badge: 'Old',
                     icon: 'HomeMajor',
                 },
                 {
-                    url: '/path/to/place',
                     label: 'Active with secondary action',
                     icon: 'OrdersMajor',
                     selected: true,
                     secondaryAction: {
-                        url: '/admin/orders/add',
                         accessibilityLabel: 'Add an order',
                         icon: 'CirclePlusOutlineMinor',
                     },
                 },
                 {
-                    url: '/admin/products',
                     label: 'Active item with sub navigation',
                     icon: 'ProductsMajor',
                     selected: true,
                     subNavigationItems: [
                         {
-                            url: '/admin/products',
                             disabled: false,
                             selected: true,
                             label: 'Selected sub item',
