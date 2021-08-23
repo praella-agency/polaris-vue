@@ -3,6 +3,9 @@ import PNavigation from './PNavigation';
 export default {
     title: 'Navigation / Navigation',
     component: PNavigation,
+    parameters: {
+        layout: 'fullscreen',
+    },
     argTypes: {
         ItemProps: {
             description: 'ItemProps to utilize in items',
@@ -141,9 +144,9 @@ const Template = (args, {argTypes}) => ({
     `,
     methods: {
         handleDismiss() {
-            alert('On Navigation Dismiss')
-        }
-    }
+            alert('On Navigation Dismiss');
+        },
+    },
 });
 
 export const Navigation = Template.bind({});

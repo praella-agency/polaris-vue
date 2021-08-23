@@ -80,84 +80,82 @@ const Template = (args, {argTypes}) => ({
               }
           }"
           :loading="navigationMarkup.isLoading"
+          :topBar="{
+              showNavigationToggle: true,
+              logo: this.logoMarkup,
+              onSearchResultsDismiss: this.handleTopBarSearchResultsDismiss,
+              onNavigationToggle: this.handleMobileNavigationToggle,
+              userMenu: {
+                  id: 'Polaris-UserMenu',
+                      actions: [
+                      {
+                          items: [
+                              {
+                                  content: 'Community forums'
+                              }
+                          ],
+                      },
+                  ],
+                  name: 'Dharma',
+                  detail: this.storeName,
+                  initials: 'D',
+                  open: this.topBarMarkup.isUserMenuOpen,
+                  onToggle: this.toggleTopBarIsUserMenuOpen,
+              },
+              searchField: {
+                  value: this.topBarMarkup.searchValue,
+                  placeholder: 'Search',
+                  showFocusBorder: true,
+              },
+              searchResult: {
+                  items: [
+                      {
+                          content: 'Shopify help center',
+                      },
+                      {
+                          content: 'Community forums',
+                      },
+                  ],
+              },
+          }"
+          :navigation="{
+              location: '/',
+              showMobileNavigation: true,
+              logo: logoMarkup,
+              items: [
+                  {
+                      items: [
+                          {
+                              label: 'Back to Shopify',
+                              icon: 'ArrowLeftMinor',
+                          },
+                      ],
+                  },
+                  {
+                      separator: true,
+                      title: 'Jaded Pixel App',
+                      items: [
+                          {
+                              label: 'Dashboard',
+                              icon: 'HomeMajor',
+                              onClick: toggleIsLoading,
+                          },
+                          {
+                              label: 'Jaded Pixel Orders',
+                              icon: 'OrdersMajor',
+                              onClick: toggleIsLoading,
+                          },
+                      ],
+                      action: {
+                          icon: 'ConversationMinor',
+                          accessibilityLabel: 'Contact support',
+                          onClick: toggleModalActive,
+                      }
+                  }
+              ]
+          }"
           v-bind="$props"
       >
-        <PTopBar
-            slot="topBar"
-            :showNavigationToggle="true"
-            :logo="logoMarkup"
-            :onSearchResultsDismiss="handleTopBarSearchResultsDismiss"
-            :onNavigationToggle="handleMobileNavigationToggle"
-            :userMenu="{
-                id: 'Polaris-UserMenu',
-                actions: [
-                    {
-                        items: [
-                            {
-                                content: 'Community forums'
-                            }
-                        ],
-                    },
-                ],
-                name: 'Dharma',
-                detail: storeName,
-                initials: 'D',
-                open: topBarMarkup.isUserMenuOpen,
-                onToggle: toggleTopBarIsUserMenuOpen,
-            }"
-            :searchField="{
-                value: topBarMarkup.searchValue,
-                placeholder: 'Search',
-                showFocusBorder: true,
-            }"
-            :searchResult="{
-                items: [
-                    {
-                      content: 'Shopify help center',
-                    },
-                    {
-                      content: 'Community forums',
-                    },
-                ],
-            }"
-        />
-        <PNavigation
-            slot="navigation"
-            location="/"
-            :showMobileNavigation="true"
-            :logo="logoMarkup"
-            :items="[
-                {
-                    items: [
-                        {
-                            label: 'Back to Shopify',
-                            icon: 'ArrowLeftMinor',
-                        },
-                    ],
-                },
-                {
-                    separator: true,
-                    title: 'Jaded Pixel App',
-                    items: [
-                        {
-                            label: 'Dashboard',
-                            icon: 'HomeMajor',
-                            onClick: toggleIsLoading,
-                        },
-                        {
-                            label: 'Jaded Pixel Orders',
-                            icon: 'OrdersMajor',
-                            onClick: toggleIsLoading,
-                        },
-                    ],
-                    action: {
-                        icon: 'ConversationMinor',
-                        accessibilityLabel: 'Contact support',
-                        onClick: toggleModalActive,
-                    }
-                }
-            ]"
-        />
         <PLoading v-if="navigationMarkup.isLoading"/>
         <PSkeletonPage v-if="navigationMarkup.isLoading">
           <PLayout>
@@ -255,13 +253,13 @@ const Template = (args, {argTypes}) => ({
         },
         handleNameFieldChange(value) {
             this.nameFieldValue = value;
-            if(value !== null) {
+            if (value !== null) {
                 this.contextualSaveBarMarkup.isDirty = true;
             }
         },
         handleEmailFieldChange(value) {
             this.emailFieldValue = value;
-            if(value !== null) {
+            if (value !== null) {
                 this.contextualSaveBarMarkup.isDirty = true;
             }
         },

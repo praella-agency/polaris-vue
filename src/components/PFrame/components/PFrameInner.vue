@@ -2,7 +2,8 @@
   <div
       :class="className"
       :data-polaris-layer="true"
-      :data-has-navigation="this.$slots.hasOwnProperty('navigation') ? true : {}"
+      :data-has-navigation="(this.$slots.hasOwnProperty('pNavigation') || Object.keys(navigation).length > 0) ?
+          true : {}"
   >
     <div :class="skipClassName">
       <a
@@ -16,15 +17,19 @@
       </a>
     </div>
     <div
-        v-if="this.$slots.hasOwnProperty('topBar')"
+        v-if="this.$slots.hasOwnProperty('pTopBar') || Object.keys(topBar).length > 0"
         class="Polaris-Frame__TopBar"
         :data-polaris-layer="true"
         :data-polaris-top-bar="true"
         :id="APP_FRAME_TOP_BAR"
     >
-      <slot name="topBar"/>
+      <slot name="pTopBar">
+        <PTopBar
+            v-bind="topBar"
+        />
+      </slot>
     </div>
-    <div v-if="$slots.hasOwnProperty('navigation')">
+    <div v-if="$slots.hasOwnProperty('pNavigation') || Object.keys(navigation).length > 0">
       <div
           ref="navigationNode"
           :class="`Polaris-Frame__Navigation ${showMobileNavigation ? navClassName: ''}`"
@@ -36,7 +41,11 @@
           key="NavContent"
           :hidden="mobileNavHidden"
       >
-        <slot name="navigation"/>
+        <slot name="pNavigation">
+          <PNavigation
+              v-bind="navigation"
+          />
+        </slot>
         <button
             v-if="showMobileNavigation"
             type="button"
@@ -103,7 +112,7 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator';
+  import { Vue, Component, Prop, Ref } from 'vue-property-decorator';
   import { ContextualSaveBarProps, ToastProps } from '../context';
   import { classNames } from '@/utilities/css';
   import { PTrapFocus } from '@/components/PTrapFocus';
@@ -112,6 +121,8 @@
   import { PEventListener } from '@/components/PEventListener';
   import { PIcon } from '@/components/PIcon';
   import { PBackdrop } from '@/components/PBackdrop';
+  import { PTopBar } from '@/components/PTopBar';
+  import { PNavigation } from '@/components/PNavigation';
   import { ThemeLogo } from '@/types/logo';
 
   interface State {
@@ -124,7 +135,7 @@
 
   @Component({
     components: {
-      PTrapFocus, PContextualSaveBar, PLoading, PEventListener, PIcon, PBackdrop,
+      PTrapFocus, PContextualSaveBar, PLoading, PEventListener, PIcon, PBackdrop, PTopBar, PNavigation,
     }
   })
   export default class PFrameInner extends Vue {
@@ -143,6 +154,16 @@
      */
     @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
 
+    /**
+     * TopBar props
+     */
+    @Prop({type: Object, default: () => ({})}) public topBar!: object;
+
+    /**
+     * Navigation props
+     */
+    @Prop({type: Object, default: () => ({})}) public navigation!: object;
+
     public APP_FRAME_MAIN = 'AppFrameMain';
     public APP_FRAME_NAV = 'AppFrameNav';
     public APP_FRAME_TOP_BAR = 'AppFrameTopBar';
@@ -151,12 +172,6 @@
     public toggleMobileNavigation = this.showMobileNavigation;
     public mobileNavHidden = this.useMediaQuery() && !this.toggleMobileNavigation;
     public mobileNavShowing = this.useMediaQuery() && this.toggleMobileNavigation;
-
-    public loadingState = this.loading;
-    @Watch('loadingState')
-    public onLoadingStateChanged(oldValue, newValue) {
-      console.log('loadingState:-', oldValue, newValue);
-    }
 
     public state: State = {
       skipFocused: false,
@@ -193,8 +208,9 @@
     public get className() {
       return classNames(
         'Polaris-Frame',
-        this.$slots.hasOwnProperty('navigation') && 'Polaris-Frame--hasNav',
-        this.$slots.hasOwnProperty('topBar') && 'Polaris-Frame--hasTopBar',
+        (this.$slots.hasOwnProperty('pNavigation') || Object.keys(this.navigation).length > 0)
+          && 'Polaris-Frame--hasNav',
+        (this.$slots.hasOwnProperty('pTopBar') || Object.keys(this.topBar).length > 0) && 'Polaris-Frame--hasTopBar',
       );
     }
 

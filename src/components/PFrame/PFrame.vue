@@ -4,18 +4,20 @@
       :onNavigationDismiss="onNavigationDismiss"
       :contextualSaveBar="contextualSaveBar"
       :logo="Object.keys(logo).length > 0 ? logo : {}"
+      :topBar="topBar"
+      :navigation="navigation"
   >
-    <template slot="topBar">
+    <template slot="pTopBar">
       <!-- @slot Accepts a top bar component that will be rendered at the top-most portion of an application frame -->
-      <slot name="topBar"/>
+      <slot name="pTopBar"/>
     </template>
     <template slot="globalRibbon">
       <!-- @slot Accepts a global ribbon component that will be rendered fixed to the bottom of an application frame -->
       <slot name="globalRibbon"/>
     </template>
-    <template slot="navigation">
+    <template slot="pNavigation">
       <!-- @slot Accepts a navigation component that will be rendered in the left sidebar of an application frame -->
-      <slot name="navigation"/>
+      <slot name="pNavigation"/>
     </template>
     <template>
       <!-- @slot The content to display inside the frame -->
@@ -62,6 +64,16 @@
      * Set loading value
      */
     @Prop({type: Boolean, default: false}) public loading!: boolean;
+
+    /**
+     * TopBar props
+     */
+    @Prop({type: Object, default: () => ({})}) public topBar!: object;
+
+    /**
+     * Navigation props
+     */
+    @Prop({type: Object, default: () => ({})}) public navigation!: object;
   }
 </script>
 
