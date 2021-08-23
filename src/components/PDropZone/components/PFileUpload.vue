@@ -91,7 +91,7 @@ import {Context, createAllowMultipleKey, capitalize} from '../context';
 
 @Component({
   components: {
-    PStack, PCaption, PTextStyle, PStackItem, PIcon
+    PStack, PCaption, PTextStyle, PStackItem, PIcon,
   },
 })
 export default class PFileUploads extends Vue {

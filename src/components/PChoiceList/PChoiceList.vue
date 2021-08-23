@@ -131,11 +131,14 @@ export default class PChoiceList extends Vue {
   }
 
   public handleChange(checked: boolean) {
+    /* tslint:disable-next-line */
     for (let [key, choice] of Object.entries(this.options)) {
+      /* tslint:disable-next-line */
       if (checked && (choice[this.valueField] === checked['value'])) {
         this.$emit(
-            'change',
-            this.updateSelectedChoices(choice, checked['checked'], this.selected, this.allowMultiple)
+          'change',
+          /* tslint:disable-next-line */
+          this.updateSelectedChoices(choice, checked['checked'], this.selected, this.allowMultiple)
         );
       }
     }

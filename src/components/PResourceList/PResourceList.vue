@@ -128,8 +128,8 @@ export default class PResourceList extends Vue {
     @Prop({type: Boolean, default: true}) public hideFilters!: boolean;
 
     /**
-    * Collection of sort options to choose from
-    */
+     * Collection of sort options to choose from
+     */
     @Prop({type: [Array, String], default: null}) public sortOptions!: SortOptionsInterface[];
 
     /**
@@ -163,7 +163,8 @@ export default class PResourceList extends Vue {
         const spinnerHeight = 45;
         loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
             (viewportHeight - overlay.top - spinnerHeight) / 2;
-        loadingPosition = loadingPosition + (this.$refs.PResourceListHeader as HTMLDivElement).getBoundingClientRect().height;
+        loadingPosition = loadingPosition +
+            (this.$refs.PResourceListHeader as HTMLDivElement).getBoundingClientRect().height;
         this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
       }
     }

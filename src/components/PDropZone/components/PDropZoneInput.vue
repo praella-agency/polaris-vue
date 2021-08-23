@@ -1,25 +1,25 @@
 <template>
-    <div>
-        <input
-            ref="fileInputNode"
-            :id="id"
-            :accept="accept"
-            :disabled="disabled"
-            type="file"
-            :multiple="multiple"
-            autocomplete="off"
-            @change="$emit('change', $event)"
-            @focus="$emit('focus', $event)"
-            @blur="$emit('blur', $event)"
-            :openFileDialog="openFileDialog"
-            :onFileDialogClose="onFileDialogClose"
-        />
-        {{type}}
-    </div>
+  <div>
+    <input
+        ref="fileInputNode"
+        :id="id"
+        :accept="accept"
+        :disabled="disabled"
+        type="file"
+        :multiple="multiple"
+        autocomplete="off"
+        @change="$emit('change', $event)"
+        @focus="$emit('focus', $event)"
+        @blur="$emit('blur', $event)"
+        :openFileDialog="openFileDialog"
+        :onFileDialogClose="onFileDialogClose"
+    />
+    {{type}}
+  </div>
 </template>
 
 <script lang="ts">
-  import {Vue, Component, Prop} from 'vue-property-decorator';
+  import { Vue, Component, Prop } from 'vue-property-decorator';
 
   @Component({})
   export default class PDropZoneInput extends Vue {
@@ -32,15 +32,18 @@
     @Prop({type: Function}) public onFileDialogClose!: any;
 
     public mounted() {
+      // tslint:disable-next-line:no-unused-expression
       this.openFileDialog && this.triggerFileDialog();
     }
 
     public updated() {
+      // tslint:disable-next-line:no-unused-expression
       this.openFileDialog && this.triggerFileDialog();
     }
 
     private triggerFileDialog() {
       this.open();
+      // tslint:disable-next-line:no-unused-expression
       this.onFileDialogClose && this.onFileDialogClose();
     }
 

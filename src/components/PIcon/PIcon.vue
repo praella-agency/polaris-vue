@@ -74,8 +74,10 @@ export default class PIcon extends Vue {
 
   public get enhancedSource() {
     if (DeprecatedIcons.indexOf(this.source) > -1) {
-      console.error('Deprecation Notice: You are using a deprecated icon `' + this.source + '`, please use new instead of this. Deprecated icons will be removed in version 3.0.0. Refer this link' +
-              ' to get updated icons https://polaris-vue.hulkapps.com/?path=/story/images-icons-icon--icon');
+      // tslint:disable-next-line:no-console
+      console.error('Deprecation Notice: You are using a deprecated icon `' + this.source + '`, please use new ' +
+        'instead of this. Deprecated icons will be removed in version 3.0.0. Refer this link' +
+        ' to get updated icons https://polaris-vue.hulkapps.com/?path=/story/images-icons-icon--icon');
     }
 
     const sourceIcon = Icon[this.source];
@@ -86,9 +88,9 @@ export default class PIcon extends Vue {
   }
 
   public mounted() {
-    if(this.$listeners.click) {
+    if (this.$listeners.click) {
       this.clickable = {
-        cursor: 'pointer'
+        cursor: 'pointer',
       };
     }
   }

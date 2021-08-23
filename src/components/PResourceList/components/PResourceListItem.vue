@@ -61,6 +61,7 @@
                     @click="stopPropagation"
                 >
                     <PPopover
+                        :id="`popover${id}`"
                         :active="actionMenuVisible"
                         preferredAlignment="right"
                         @close="handlePopoverClick"

@@ -160,6 +160,7 @@ const Template2 = (args, {argTypes}) => ({
           v-slot:children
       >
         <PPopover
+            id="CardHeaderPopover"
             :active="statusFilterActive"
             preferredAlignment="right"
             @close="statusFilterActive = false"

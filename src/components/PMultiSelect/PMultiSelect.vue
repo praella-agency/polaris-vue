@@ -52,7 +52,7 @@ import {classNames} from '@/utilities/css';
 
 
 import {PIcon} from '@/components/PIcon';
-import {PTag} from "@/components/PTag";
+import {PTag} from '@/components/PTag';
 
 interface StrictOption {
   value: string;

@@ -192,272 +192,278 @@
 
 
 <script lang="ts">
-  import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
-  import PDataTableCellNew from './PDataTableCellNew.vue';
-  import PDataTableCell from './PDataTableCell.vue';
-  import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
-  import { PFilter } from '@/components/PFilter';
-  import { PSpinner } from '@/components/PSpinner';
-  import { ComplexAction, LinkAction } from '@/types';
-  import { PEmptyState } from '@/components/PEmptyState';
+import PDataTableCellNew from './PDataTableCellNew.vue';
+import PDataTableCell from './PDataTableCell.vue';
+import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
+import { PFilter } from '@/components/PFilter';
+import { PSpinner } from '@/components/PSpinner';
+import { ComplexAction, LinkAction } from '@/types';
+import { PEmptyState } from '@/components/PEmptyState';
 
-  type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
-  type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
-  type Size = 'medium' | 'small';
+type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
+type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
+type Size = 'medium' | 'small';
 
-  interface Badge {
-    content?: string;
-    status?: Status;
-    progress?: Progress;
-    size?: Size;
+interface Badge {
+  content?: string;
+  status?: Status;
+  progress?: Progress;
+  size?: Size;
+}
+
+interface Headings {
+  /** Header title */
+  content: string;
+  /** Header value */
+  value: string;
+  /** Value type */
+  type: string;
+  /** Sortable values */
+  sortable?: boolean;
+  /** Header Column width */
+  width?: string;
+}
+
+interface TotalsName {
+  /** Singular label */
+  singular: string;
+  /** Plural label */
+  plural: string;
+}
+
+type TableData = string | number | LinkAction | ComplexAction | Badge;
+type ColumnContentType = 'text' | 'numeric';
+type SortDirection = 'ascending' | 'descending' | 'none';
+type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
+
+interface Sort {
+  value: string;
+  direction: SortDirection;
+}
+
+@Component({
+  components: {PDataTableCellNew, PPagination, PFilter, PSpinner, PEmptyState, PDataTableCell},
+})
+export default class PDataTableNew extends Vue {
+
+  public get hasOldRows() {
+    return this.rows.length > 0 && this.rows[0].constructor === Array;
   }
 
-  interface Headings {
-    /** Header title */
-    content: string,
-    /** Header value */
-    value: string,
-    /** Value type */
-    type: string,
-    /** Sortable values */
-    sortable?: boolean,
-    /** Header Column width */
-    width?: string,
+  public get hasActions() {
+    return this.actions && this.actions.length > 0;
   }
 
-  interface TotalsName {
-    /** Singular label */
-    singular: string;
-    /** Plural label */
-    plural: string;
-  }
-
-  type TableData = string | number | LinkAction | ComplexAction | Badge;
-  type ColumnContentType = 'text' | 'numeric';
-  type SortDirection = 'ascending' | 'descending' | 'none';
-  type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';
-
-  interface Sort {
-    value: string;
-    direction: SortDirection;
-  }
-
-  @Component({
-    components: {PDataTableCellNew, PPagination, PFilter, PSpinner, PEmptyState, PDataTableCell},
-  })
-  export default class PDataTableNew extends Vue {
-
-    /**
-     * List of data types, which determines content alignment for each column. Data types are "text," which aligns left,
-     * or "numeric," which aligns right.
-     * @values text | numeric
-     */
-    @Prop({type: Array, default: () => [], required: true}) public columnContentTypes!: ColumnContentType[];
-
-    /**
-     * The direction to sort the table rows on first click or keypress
-     * of a sortable column heading
-     * @values ascending | descending | none
-     */
-    @Prop({type: String, default: 'ascending'}) public defaultSortDirection!: SortDirection;
-
-    /**
-     * Content centered in the full width cell of the table footer row
-     */
-    @Prop([String, Number]) public footerContent!: TableData;
-
-    /**
-     * List of column headings
-     */
-    @Prop({type: Array, default: () => []}) public headings!: Headings[];
-
-    /**
-     * Lists of data points which map to table body rows
-     */
-    @Prop({type: Array, default: () => [[]]}) public rows!: TableData[][];
-
-    /**
-     * Placement of totals row within table
-     */
-    @Prop({type: Boolean, default: false}) public showTotalsInFooter!: boolean;
-
-    /**
-     * List of numeric column totals, highlighted in the table’s header below column headings. Use empty strings as
-     * placeholders for columns with no total.
-     */
-    @Prop({type: Array, default: () => []}) public totals!: TableData[];
-
-    /**
-     * Custom totals row heading
-     */
-    @Prop({type: Object, default: () => ({})}) public totalsName!: TotalsName;
-
-    /**
-     * Truncate content in first column instead of wrapping
-     */
-    @Prop({type: Boolean, default: false}) public truncate!: boolean;
-
-    /**
-     * Vertical alignment of content in the cells
-     */
-    @Prop({type: String, default: 'top'}) public verticalAlign!: VerticalAlign;
-
-    /**
-     * Callback fired on click or keypress of a sortable column heading
-     */
-    @Prop({type: Object, default: () => ({})}) public sort!: Sort;
-
-    /**
-     * Display only search filter
-     */
-    @Prop({type: Boolean, default: false}) public hasFilter!: boolean;
-
-    /**
-     * Data table has pagination
-     */
-    @Prop({type: Boolean, default: false}) public hasPagination!: boolean;
-
-    /**
-     * Data table is loading
-     */
-    @Prop({type: Boolean, default: false}) public loading!: boolean;
-
-    /**
-     * Pagination object
-     */
-    @Prop({type: Object, default: () => ({})}) public pagination!: PPaginationDescriptor;
-
-    /**
-     * Display empty state if record not found!
-     */
-    @Prop({type: String, default: 'No record found!'}) public emptyStateTitle!: string;
-
-    /**
-     * Display empty state image if record not found!
-     */
-    @Prop({
-      type: String,
-      default: 'https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png'
-    }) public emptyStateImage!: string;
-
-    //============Deprecated Props============
-    /**
-     * Handle action events for the button.
-     *
-     * **Deprecation:-** `actions` will be removed in version 3.0.0,
-     * use `headings` with extra object.
-     * @deprecated
-     */
-    @Prop({ type: Array, default: () => [] }) public actions!: ComplexAction[];
-
-    /**
-     * Data ids
-     *
-     * **Deprecation:-** `ids` will be removed in version 3.0.0,
-     * @deprecated
-     */
-    @Prop({ type: Array, default: () => [] }) public ids!: number[];
-
-    /**
-     * Search Placeholder
-     *
-     * **Deprecation:-** `searchPlaceholder` will be removed in version 3.0.0, use `resourceName` instead.
-     * @deprecated
-     */
-    @Prop({type: String, default: null}) public searchPlaceholder!: string;
-
-    private handleDeprecations() {
-      if (this.searchPlaceholder != null) {
-        console.error('Deprecation Notice: `searchPlaceholder` will be removed in version 3.0.0, use `resourceName` instead. ' +
-            'Please check resourceName syntax here: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-filter--filter');
-      }
-      if(this.actions.length > 0) {
-        console.error('Deprecation Notice: `actions` will be removed in version 3.0.0, use `headings` with extra object. ' +
-            'Please check new example of DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--row-slot');
-      }
-      if(this.ids.length > 0) {
-        console.error('Deprecation Notice: `ids` will be removed in version 3.0.0. ' +
-            'Please check new example of DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--row-slot');
-      }
-    }
-
-    public get hasOldRows() {
-      return this.rows.length > 0 && this.rows[0].constructor === Array;
-    }
-
-    //============Deprecated Props END============
-
-    public topPadding = 8;
-
-    public get hasActions() {
-      return this.actions && this.actions.length > 0;
-    }
-
-    public mounted() {
-      let loadingPosition = 0;
-
-      if (typeof window !== 'undefined' && this.$refs.hasOwnProperty('tbody')) {
-        const overlay = (this.$refs.tbody as Element).getBoundingClientRect();
-        const viewportHeight = Math.max(document.documentElement ?
-          document.documentElement.clientHeight : 0, window.innerHeight || 0);
-        const overflow = viewportHeight - overlay.height;
-        const spinnerHeight = this.rows.length === 1 ? 28 : 45;
-        loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
-          (viewportHeight - overlay.top - spinnerHeight) / 2;
-        loadingPosition = loadingPosition + (this.$refs.thead as Element).getBoundingClientRect().height;
-        this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
-      }
-
-      this.handleDeprecations();
-    }
-
-    public onRemoveFilter(tag) {
-      /**
-       * Removes filter tag
-       * @property {String} tag
-       */
-      this.$emit('filter-removed', tag);
-    }
-
-    public onFilterInputChanged(value) {
-      /**
-       * Works on keypress
-       * @property {String} input-value
-       */
-      this.$emit('input-filter-changed', value);
-    }
-
-    public handleSortChange(value, direction) {
-      /**
-       * Handle sorting on columns
-       * @property {Object} {value: 'columnName', direction:'sortDirection'}
-       */
-      this.$emit('sort-changed', value, direction);
-    }
-
-    public get resource() {
-      if (this.searchPlaceholder != null) {
-        return {
-          singular: this.searchPlaceholder,
-          plural: this.searchPlaceholder,
-        }
-      } else {
-        return this.$attrs.resourceName;
-      }
-    }
-
-    private get totalsRowHeading() {
-      let totalsLabel = Object.keys(this.totalsName).length > 0 ? this.totalsName : {
-        singular: 'Total',
-        plural: 'Totals'
-      }
-
-      return this.totals.length > 0 && this.totals.filter((total) => total !== '' || typeof(total !== 'number')).length > 1 ?
-        totalsLabel.plural :
-        totalsLabel.singular;
+  public get resource() {
+    if (this.searchPlaceholder != null) {
+      return {
+        singular: this.searchPlaceholder,
+        plural: this.searchPlaceholder,
+      };
+    } else {
+      return this.$attrs.resourceName;
     }
   }
+
+  private get totalsRowHeading() {
+    const totalsLabel = Object.keys(this.totalsName).length > 0 ? this.totalsName : {
+      singular: 'Total',
+      plural: 'Totals',
+    };
+
+    return this.totals.length > 0 &&
+      this.totals.filter((total) => total !== '' || typeof(total !== 'number')).length > 1 ?
+      totalsLabel.plural :
+      totalsLabel.singular;
+  }
+
+  /**
+   * List of data types, which determines content alignment for each column. Data types are "text," which aligns left,
+   * or "numeric," which aligns right.
+   * @values text | numeric
+   */
+  @Prop({type: Array, default: () => [], required: true}) public columnContentTypes!: ColumnContentType[];
+
+  /**
+   * The direction to sort the table rows on first click or keypress
+   * of a sortable column heading
+   * @values ascending | descending | none
+   */
+  @Prop({type: String, default: 'ascending'}) public defaultSortDirection!: SortDirection;
+
+  /**
+   * Content centered in the full width cell of the table footer row
+   */
+  @Prop([String, Number]) public footerContent!: TableData;
+
+  /**
+   * List of column headings
+   */
+  @Prop({type: Array, default: () => []}) public headings!: Headings[];
+
+  /**
+   * Lists of data points which map to table body rows
+   */
+  @Prop({type: Array, default: () => [[]]}) public rows!: TableData[][];
+
+  /**
+   * Placement of totals row within table
+   */
+  @Prop({type: Boolean, default: false}) public showTotalsInFooter!: boolean;
+
+  /**
+   * List of numeric column totals, highlighted in the table’s header below column headings. Use empty strings as
+   * placeholders for columns with no total.
+   */
+  @Prop({type: Array, default: () => []}) public totals!: TableData[];
+
+  /**
+   * Custom totals row heading
+   */
+  @Prop({type: Object, default: () => ({})}) public totalsName!: TotalsName;
+
+  /**
+   * Truncate content in first column instead of wrapping
+   */
+  @Prop({type: Boolean, default: false}) public truncate!: boolean;
+
+  /**
+   * Vertical alignment of content in the cells
+   */
+  @Prop({type: String, default: 'top'}) public verticalAlign!: VerticalAlign;
+
+  /**
+   * Callback fired on click or keypress of a sortable column heading
+   */
+  @Prop({type: Object, default: () => ({})}) public sort!: Sort;
+
+  /**
+   * Display only search filter
+   */
+  @Prop({type: Boolean, default: false}) public hasFilter!: boolean;
+
+  /**
+   * Data table has pagination
+   */
+  @Prop({type: Boolean, default: false}) public hasPagination!: boolean;
+
+  /**
+   * Data table is loading
+   */
+  @Prop({type: Boolean, default: false}) public loading!: boolean;
+
+  /**
+   * Pagination object
+   */
+  @Prop({type: Object, default: () => ({})}) public pagination!: PPaginationDescriptor;
+
+  /**
+   * Display empty state if record not found!
+   */
+  @Prop({type: String, default: 'No record found!'}) public emptyStateTitle!: string;
+
+  /**
+   * Display empty state image if record not found!
+   */
+  @Prop({
+    type: String,
+    default: 'https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png',
+  }) public emptyStateImage!: string;
+
+  // ============Deprecated Props============
+  /**
+   * Handle action events for the button.
+   *
+   * **Deprecation:-** `actions` will be removed in version 3.0.0,
+   * use `headings` with extra object.
+   * @deprecated
+   */
+  @Prop({ type: Array, default: () => [] }) public actions!: ComplexAction[];
+
+  /**
+   * Data ids
+   *
+   * **Deprecation:-** `ids` will be removed in version 3.0.0,
+   * @deprecated
+   */
+  @Prop({ type: Array, default: () => [] }) public ids!: number[];
+
+  /**
+   * Search Placeholder
+   *
+   * **Deprecation:-** `searchPlaceholder` will be removed in version 3.0.0, use `resourceName` instead.
+   * @deprecated
+   */
+  @Prop({type: String, default: null}) public searchPlaceholder!: string;
+
+  // ============Deprecated Props END============
+
+  public topPadding = 8;
+
+  public mounted() {
+    let loadingPosition = 0;
+
+    if (typeof window !== 'undefined' && this.$refs.hasOwnProperty('tbody')) {
+      const overlay = (this.$refs.tbody as Element).getBoundingClientRect();
+      const viewportHeight = Math.max(document.documentElement ?
+        document.documentElement.clientHeight : 0, window.innerHeight || 0);
+      const overflow = viewportHeight - overlay.height;
+      const spinnerHeight = this.rows.length === 1 ? 28 : 45;
+      loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
+        (viewportHeight - overlay.top - spinnerHeight) / 2;
+      loadingPosition = loadingPosition + (this.$refs.thead as Element).getBoundingClientRect().height;
+      this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
+    }
+
+    this.handleDeprecations();
+  }
+
+  public onRemoveFilter(tag) {
+    /**
+     * Removes filter tag
+     * @property {String} tag
+     */
+    this.$emit('filter-removed', tag);
+  }
+
+  public onFilterInputChanged(value) {
+    /**
+     * Works on keypress
+     * @property {String} input-value
+     */
+    this.$emit('input-filter-changed', value);
+  }
+
+  public handleSortChange(value, direction) {
+    /**
+     * Handle sorting on columns
+     * @property {Object} {value: 'columnName', direction:'sortDirection'}
+     */
+    this.$emit('sort-changed', value, direction);
+  }
+
+  private handleDeprecations() {
+    if (this.searchPlaceholder != null) {
+      // tslint:disable-next-line:no-console
+      console.error('Deprecation Notice: `searchPlaceholder` will be removed in version 3.0.0, use `resourceName` instead. ' +
+          'Please check resourceName syntax here: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-filter--filter');
+    }
+    if (this.actions.length > 0) {
+      // tslint:disable-next-line:no-console
+      console.error('Deprecation Notice: `actions` will be removed in version 3.0.0, use `headings` with extra object. '
+        + 'Please check new example of' +
+          ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--row-slot');
+    }
+    if (this.ids.length > 0) {
+      // tslint:disable-next-line:no-console
+      console.error('Deprecation Notice: `ids` will be removed in version 3.0.0. ' +
+          'Please check new example of' +
+          ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--row-slot');
+    }
+  }
+}
 </script>
 
 <style scoped>

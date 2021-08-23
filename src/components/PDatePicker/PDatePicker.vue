@@ -299,8 +299,8 @@ export default class PDatePicker extends Vue {
   public get pDatePickerButtonStyle() {
     if (this.button) {
       return {
-        'min-width': '3.6rem'
-      }
+        'min-width': '3.6rem',
+      };
     }
   }
 
