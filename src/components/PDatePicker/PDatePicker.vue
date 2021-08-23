@@ -36,7 +36,8 @@
       <template #ranges="ranges">
         <PStack>
           <PStackItem fill>
-            <PSelect label="Date range" returnKey="returnValue" :options="rangeOptions(ranges.ranges)"  @change="(range) => changeRange(range, ranges)" />
+            <PSelect label="Date range" v-model="selectedRanges" returnKey="returnValue" :options="rangeOptions(ranges.ranges)"
+                     @change="(range) => changeRange(range, ranges)"/>
           </PStackItem>
         </PStack>
       </template>
@@ -66,6 +67,12 @@
         </PStack>
       </template>
     </DateRangePicker>
+    <div class="Polaris-Labelled__HelpText" v-if="$slots.hasOwnProperty('helpText') || helpText">
+      <!-- @slot Slot to custom helpText -->
+      <slot name="helpText">
+          {{helpText}}
+      </slot>
+    </div>
     <PFieldError v-if="error" :error="error"/>
 
   </div>
@@ -256,8 +263,15 @@ export default class PDatePicker extends Vue {
    */
   @Prop(Object) public localeData!: object;
 
+  /**
+   * Help text for the date picker
+   */
+  @Prop({type: String, default: null}) public helpText!: string;
+
   public content: DateRange = (this.dateRange !== null && this.dateRange !== undefined) ?
       this.dateRange : {startDate: new Date(), endDate: new Date()};
+
+  public selectedRanges = null;
 
   public get className() {
     return classNames(
@@ -285,8 +299,8 @@ export default class PDatePicker extends Vue {
   public get pDatePickerButtonStyle() {
     if (this.button) {
       return {
-        'min-width': '3.6rem'
-      }
+        'min-width': '3.6rem',
+      };
     }
   }
 
@@ -325,6 +339,11 @@ export default class PDatePicker extends Vue {
      * @property {Object} { startDate: DateType, endDate: DateType }
      */
     this.$emit('change', dateRange);
+    /**
+     * Emits when the input is triggered
+     * @property {Object} { startDate: DateType, endDate: DateType }
+     */
+    this.$emit('input', dateRange);
   }
 
   public formatDate(date) {

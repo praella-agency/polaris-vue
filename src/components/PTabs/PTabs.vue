@@ -6,7 +6,9 @@
               :key="tabIndex + '-' + tab.id"
               :id="tab.id"
               :to="tab.to"
+              :url="tab.url"
               :selected="selected === tabIndex"
+              :external="tab.external"
               @click="handleTabClick"
         >
           {{tab.content}}
@@ -45,7 +47,7 @@ export default class PTabs extends Vue {
   /**
    * Selected tab ID
    */
-  @Prop({type: Number, default: 0}) public selected!: number;
+  @Prop({type: Number, default: null}) public selected!: number;
   /**
    * Set true to enable navigation
    * @values true | false
@@ -66,7 +68,6 @@ export default class PTabs extends Vue {
   }
 
   protected handleTabClick(id: string, event: object) {
-
     const tab = this.tabs.find((aTab) => aTab.id === id);
     if (tab === null) {
       return;

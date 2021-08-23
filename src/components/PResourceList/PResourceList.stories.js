@@ -24,14 +24,50 @@ export default {
                 disable: true,
             },
         },
-        emptySearchState: {
+        bulkActions: {
             table: {
-                disable: true,
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    content: string,
+    onAction: void,
+}]`,
+                },
             },
         },
-        filter: {
+        promotedBulkActions: {
             table: {
-                disable: true,
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    content: string,
+    onAction: void,
+}]`,
+                },
+            },
+        },
+        resourceName: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    singular: string,
+    plural: string,
+}`,
+                },
+            },
+        },
+        sortOptions: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    label: string,
+    value: string,
+    disabled?: boolean,
+    hidden?: boolean,
+}]`,
+                },
             },
         },
     },
@@ -130,16 +166,6 @@ const Template = (args, {argTypes}) => ({
               :selected="selectedItems"
               :resourceName="resourceName"
               :loading="loading"
-              :promotedBulkActions="{
-                  content: 'Edit customers',
-                  onAction: handleBulkActionClick,
-                }"
-              :bulkActions="[
-                    {content: 'Publish', onAction: toggleStatusToPublished},
-                    {content: 'Unpublish', onAction: toggleStatusToUnpublished},
-                    {content: 'Archive', onAction: toggleStatusToArchived},
-                    {content: 'Delete', onAction: deleteSelected},
-              ]"
               v-bind="$props"
               :appliedFilters="[
                 { value: 'Tagged with ' + this.taggedValue, key: 'tag_' + this.taggedValue},
@@ -150,6 +176,7 @@ const Template = (args, {argTypes}) => ({
           >
             <template slot="filter">
               <PPopover
+                  id="resource_list_popover"
                   @close="statusFilterActive = false"
                   :active="statusFilterActive"
                   full-width
@@ -226,18 +253,6 @@ const Template = (args, {argTypes}) => ({
           </PCardSection>
       </PCard>`,
     methods: {
-        toggleStatusToPublished() {
-            alert('Publish');
-        },
-        toggleStatusToUnpublished() {
-            alert('Unpublish');
-        },
-        toggleStatusToArchived() {
-            alert('Archived');
-        },
-        deleteSelected() {
-            alert('Deleted');
-        },
         toggleSelected(item) {
             this.selectedItems = item.selected ? this.items.map(book => book.id) : [];
             this.selectedAllItems = item.selectedMore;
@@ -266,9 +281,6 @@ const Template = (args, {argTypes}) => ({
         handleButtonClick() {
             console.log('Saved');
         },
-        handleBulkActionClick() {
-            console.log('Edit Customer');
-        },
         handleSortChange(selected) {
             console.log(selected)
         }
@@ -287,5 +299,39 @@ ResourceList.args = {
     sortOptions: [
         {label: 'Newest update', value: 'DATE_MODIFIED_DESC', disabled: false, hidden: true},
         {label: 'Oldest update', value: 'DATE_MODIFIED_ASC', disabled: false},
+    ],
+    promotedBulkActions: [
+        {
+            content: 'Edit customers',
+            onAction: () => {
+                console.log('Edit Customer');
+            },
+        }
+    ],
+    bulkActions: [
+        {
+            content: 'Publish',
+            onAction: () => {
+                alert('Publish');
+            }
+        },
+        {
+            content: 'Unpublish',
+            onAction: () => {
+                alert('Unpublish');
+            }
+        },
+        {
+            content: 'Archive',
+            onAction: () => {
+                alert('Archived');
+            }
+        },
+        {
+            content: 'Delete',
+            onAction: () => {
+                alert('Deleted');
+            }
+        },
     ],
 }

@@ -17,12 +17,14 @@
     @Component
     export default class PModalDialog extends Vue {
         @Prop(Boolean) public large!: boolean;
+        @Prop(Boolean) public small!: boolean;
         @Prop(Boolean) public limitHeight!: boolean;
 
         public get className() {
             return classNames(
                 'Polaris-Modal-Dialog__Modal',
                 this.large && ' Polaris-Modal-Dialog--sizeLarge',
+                this.small && 'Polaris-Modal-Dialog--sizeSmall',
                 this.limitHeight && 'Polaris-Modal-Dialog--limitHeight',
             );
         }

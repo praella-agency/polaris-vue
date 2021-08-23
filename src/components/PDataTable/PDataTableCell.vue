@@ -2,9 +2,9 @@
   <th v-if="header" data-polaris-header-cell='true' :class="className" :width="width" scope='col' :aria-sort="sortLabel">
     <template v-if="sortable">
       <button :class="headerClassName" @click="handleSortChange">
-                <span class="Polaris-DataTable__Icon">
-                    <PIcon :source="source"></PIcon>
-                </span>
+        <span class="Polaris-DataTable__Icon">
+            <PIcon :source="source"></PIcon>
+        </span>
         {{content}}
       </button>
     </template>
@@ -16,7 +16,7 @@
     <template v-if="hasAction">
       <PButton plain v-if="action && action.to" :to="action.to">{{action.content}}</PButton>
       <PLink v-if="action && (action.url || action.external)" :url="action.url" :external="action.external" :monochrome="action.monochrome">{{action.content ? action.content : action.url}}</PLink>
-      <PBadge v-if="badge" :status="badge.status" :progress="badge.progress">{{badge.content}}</PBadge>
+      <PBadge v-if="badge" :status="badge.status" :progress="badge.progress">Badge{{badge.content}}</PBadge>
       <PToggle v-if="toggle" :checked="toggle.status" :value="toggle.id" @change="toggle.onAction" />
     </template>
     <template v-else>
@@ -80,7 +80,6 @@
     @Component({
         components: { PIcon, PButton, PButtonGroup, PLink, PToggle, PBadge },
     })
-
     export default class PDataTableCell extends Vue {
         @Prop() public content!: string | number;
         @Prop(String) public contentType!: string;

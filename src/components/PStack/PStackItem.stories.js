@@ -10,6 +10,9 @@ export default {
                 disable: true,
             },
         },
+        width: {
+            control: 'text',
+        },
     },
 }
 

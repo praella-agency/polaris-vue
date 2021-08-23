@@ -17,6 +17,25 @@ export default {
                 disable: true,
             },
         },
+        resourceName: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    singular: string,
+    plural: string,
+}`,
+                },
+            },
+        },
+        onQueryChange: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: `(queryValue) => {}`,
+                },
+            },
+        },
     },
 }
 
@@ -46,9 +65,10 @@ const Template = (args, {argTypes}) => ({
           :appliedFilters="appliedFilter"
       >
           <PPopover
-                  :active="accountStatusPopover"
-                  @close="toggleAccountStatus"
-                  full-width
+              id="popover_1"  
+              :active="accountStatusPopover"
+              @close="toggleAccountStatus"
+              full-width
           >
               <PButton
                       slot="activator"
@@ -78,9 +98,10 @@ const Template = (args, {argTypes}) => ({
               </PCard>
           </PPopover>
           <PPopover
-                  @close="togglePopoverActive"
-                  :active="popoverActive"
-                  full-width
+              id="popover_2"
+              @close="togglePopoverActive"
+              :active="popoverActive"
+              full-width
           >
               <PButton
                       slot="activator"

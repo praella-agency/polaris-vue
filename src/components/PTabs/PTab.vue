@@ -1,7 +1,7 @@
 <template>
   <li :class="tabContainerClassNames">
     <button
-        v-if="!to"
+        v-if="!to && !url"
         :id="id"
         type="button"
         :tabIndex="tabIndex"
@@ -11,7 +11,19 @@
       <span :class="tabTitleClassNames"><slot/></span>
     </button>
 
-    <router-link v-else :tabIndex="tabIndex" active-class="Polaris-Tabs__Tab--selected" :class="className" :to="to" >
+    <a
+      v-else-if="url"
+      :id="id"
+      :href="url"
+      :target="external ? '_blank' : ''"
+      :tabIndex="tabIndex"
+      :class="className"
+      @click="$emit('click', id, $event)"
+    >
+      <span :class="tabTitleClassNames"><slot/></span>
+    </a>
+
+    <router-link v-else :tabIndex="tabIndex" :class="className" :to="to" @click.native="$emit('click', id, $event)">
       <span :class="tabTitleClassNames"><slot/></span>
     </router-link>
   </li>
@@ -28,7 +40,9 @@ export default class PTab extends Vue {
   @Prop(String) public id!: string;
   @Prop(Boolean) public focused!: boolean;
   @Prop(Boolean) public selected!: boolean;
-  @Prop(String) public to!: string;
+  @Prop([String, Object]) public to!: string | object;
+  @Prop(String) public url!: string;
+  @Prop(Boolean) public external!: boolean;
 
   public tabIndex: number = -1;
   public mounted() {

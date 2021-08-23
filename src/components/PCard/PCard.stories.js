@@ -23,11 +23,6 @@ export default {
                 disable: true,
             },
         },
-        footer: {
-            table: {
-                disable: true,
-            },
-        },
         title: {
             control: {
                 type: 'text',
@@ -38,11 +33,6 @@ export default {
                 },
             },
         },
-        short_description: {
-            table: {
-                disable: true,
-            },
-        },
         actions: {
             control: {
                 type: 'array',
@@ -51,11 +41,22 @@ export default {
                 type: {
                     summary: 'array',
                 },
-            },
-        },
-        children: {
-            table: {
-                disable: true,
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    /** Content the action displays */
+    content?: string,
+    /** Link support instead of button */
+    href?: boolean,
+    /** Router Link support */
+    to?: boolean,
+    /** Callback when an action takes place */
+    onAction?(): void,
+    Or
+    /** Parameterize Callback when an action takes place */
+    onAction?():void () => {methodName(parameter)},
+}]`,
+                },
             },
         },
     },
@@ -159,6 +160,7 @@ const Template2 = (args, {argTypes}) => ({
           v-slot:children
       >
         <PPopover
+            id="CardHeaderPopover"
             :active="statusFilterActive"
             preferredAlignment="right"
             @close="statusFilterActive = false"

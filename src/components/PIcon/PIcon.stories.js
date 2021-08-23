@@ -24,11 +24,6 @@ export default {
                 },
             },
         },
-        accessibilityLabel: {
-            table: {
-                disable: true,
-            },
-        },
     },
     parameters: {
         docs: {

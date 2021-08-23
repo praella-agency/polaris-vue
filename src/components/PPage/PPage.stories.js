@@ -7,11 +7,6 @@ export default {
     title: 'Structure / Page ',
     component: PPage,
     argTypes: {
-        additionalNavigation: {
-            table: {
-                disable: true,
-            },
-        },
         default: {
             table: {
                 disable: true,
@@ -21,23 +16,60 @@ export default {
             type: {
                 name: 'json',
             },
-        },
-        titleMetadata: {
             table: {
-                disable: true,
+                category: ['props', 'slots'],
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    /** Content the action displays */
+    content?: string,
+    /** Callback when an action takes place */
+    onAction?(): void,
+}`,
+                },
             },
         },
         actionGroups: {
             type: {
                 name: 'json',
             },
-            description: 'Collection of page-level groups of secondary actions',
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    /** Title for the action */  
+    title: string,
+    /** Actions for the action groups */
+    actions: [{
+        id?: string,
+        content?: string,
+        accessibilityLabel?: string,
+        url?: string,
+        external?: boolean,
+        onAction?(): void,
+    }],
+    icon?: string,
+    details?: string,
+    index?: number,
+}]`,
+                }
+            }
         },
         pagination: {
-            type: {
-                name: 'json',
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    nextURL?: string,
+    previousURL?: string,
+    hasNext?: boolean,
+    hasPrevious?: boolean,
+    accessibilityLabel?: string,
+    onNext?(): void,
+    onPrevious?(): void,
+}`
+                },
             },
-            description: 'Page-level pagination',
         },
         separator: {
             type: {
@@ -50,6 +82,39 @@ export default {
                 name: 'string',
             },
             description: 'Page subtitle, in regular type',
+        },
+        breadcrumbs: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    content?: any,
+    url?: any,
+    to?: any,
+    accessibilityLabel?: string,
+    onAction?(): void,
+}]`
+                },
+            },
+        },
+        secondaryActions: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    /** Content the action displays */
+    content?: string,
+    /** Accessibility Label */
+    accessibilityLabel?: string,
+    /** Icon support */
+    icon?: string,
+    /** Disable element */
+    disabled?: boolean,
+    /** Callback when an action takes place */
+    onAction?(): void,                   
+}]`,
+                },
+            },
         },
     },
 }
@@ -80,14 +145,12 @@ Page.args = {
             onAction: () => {
                 alert('Duplicate Action');
             },
-            icon: ''
         },
         {
             content: 'View on your store',
             onAction: () => {
                 alert('View on your store');
-            },
-            icon: ''
+        },
         },
     ],
     actionGroups: [

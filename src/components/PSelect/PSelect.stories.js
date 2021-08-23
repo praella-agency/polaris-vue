@@ -4,6 +4,19 @@ import {PBadge} from "../PBadge";
 export default {
     title: 'Forms / Select',
     component: PSelect,
+    argTypes: {
+        options: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    key: 'text',
+    value: 'text'
+}]`,
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, { argTypes }) => ({

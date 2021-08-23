@@ -11,6 +11,7 @@
             <PCaption>{{shortDescription}}</PCaption>
           </slot>
           <template slot="children" v-if="$slots.hasOwnProperty('children')">
+            <!-- @slot Slot to load children -->
             <slot name="children" />
           </template>
         </PCardHeader>

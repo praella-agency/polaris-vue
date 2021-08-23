@@ -20,7 +20,7 @@ export default class PStackItem extends Vue {
    * Width of Item
    * @values Ex:- 100 | 100px
    */
-  @Prop([String, Number]) public width!: string | number;
+  @Prop([ String, Number]) public width!: string;
 
   public get className() {
     return classNames(
@@ -31,7 +31,7 @@ export default class PStackItem extends Vue {
 
   public get style() {
     if (this.width) {
-      return {width: this.width + 'px'};
+      return {width: /^\d+$/.test(this.width) ? this.width + 'px' : this.width};
     } else { return null; }
   }
 }

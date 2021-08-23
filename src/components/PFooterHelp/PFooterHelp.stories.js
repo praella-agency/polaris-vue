@@ -5,11 +5,6 @@ export default {
     title: 'Navigation / Footer Help',
     component: PFooterHelp,
     argTypes: {
-        icon: {
-            table: {
-                disable: true,
-            },
-        },
         default: {
             table: {
                 disable: true,

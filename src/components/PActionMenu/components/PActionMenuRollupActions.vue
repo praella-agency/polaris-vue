@@ -1,5 +1,5 @@
 <template>
-   <PPopover :active="rollupOpen" preferredAlignment="right" @close="toggleRollupOpen" hideOnPrint>
+   <PPopover :id="`Popover${this['_uid']}`" :active="rollupOpen" preferredAlignment="right" @close="toggleRollupOpen" hideOnPrint>
        <div slot="activator" class="Polaris-ActionMenu-RollupActions__RollupActivator">
            <PButton :plain="true" :outline="false" icon="HorizontalDotsMinor" type="button" @click="toggleRollupOpen" />
        </div>

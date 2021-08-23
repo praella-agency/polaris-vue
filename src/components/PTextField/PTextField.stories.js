@@ -48,16 +48,6 @@ export default {
                 },
             },
         },
-        connectedLeft: {
-            table: {
-                disable: true,
-            },
-        },
-        connectedRight: {
-            table: {
-                disable: true,
-            },
-        },
         input: {
             description: 'Get inserted data',
             table: {

@@ -118,7 +118,7 @@
 		outline: none;
 		color: $datatable-heading-focus-color;
 		svg {
-			fill: $datatable-heading-focus-svg-fill;
+			fill: currentColor;
 		}
 		.Polaris-DataTable__Icon {
 			opacity: 1;
@@ -127,7 +127,7 @@
 	&:hover {
 		color: $datatable-heading-hover-color;
 		svg {
-			fill: $datatable-heading-hover-svg-fill;
+			fill: currentColor;
 		}
 		.Polaris-DataTable__Icon {
 			opacity: 1;
@@ -148,9 +148,10 @@
 	background: $datatable-cell-total-bgcolor;
 	border-bottom: $datatable-cell-total-border;
 }
-.Polaris-DataTable--cellTotalFooter {
-	border-top: .1rem solid var(--p-border-subdued-on-surface,#dfe3e8);
-	border-bottom: $datatable-border-none;
+.Polaris-DataTable--cellTotalFooter, .Polaris-DataTable__Footer {
+	border-top: .1rem solid rgba(225, 227, 229, 1);
+	border-bottom-left-radius: 0.4rem;
+	border-bottom-right-radius: 0.4rem;
 }
 .Polaris-DataTable__Footer {
 	padding: 1.6rem;

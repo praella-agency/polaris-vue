@@ -18,6 +18,33 @@ export default {
                 },
             },
         },
+        action: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `[{
+    /** Visually hidden text for screen readers */
+    accessibilityLabel?: string,
+    /** Content the action displays */
+    content?: string,
+    /** Whether or not the action is disabled */
+    disabled?: boolean,
+    /** Forces url to open in a new tab */
+    external?: boolean,
+    /** A unique identifier for the action */
+    id?: string,
+    /** A destination to link to, rendered in the action */
+    url?: string,
+    /** Icon support */
+    icon?: string,
+    /** Spinner for the element */
+    loading?: boolean,
+    /** Callback when an action takes place */
+    onAction()?: void,
+}]`,
+                },
+            },
+        },
     },
 }
 

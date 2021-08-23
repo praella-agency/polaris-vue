@@ -24,16 +24,6 @@ export default {
                 type: 'select',
             },
         },
-        activator: {
-            table: {
-                disable: true,
-            },
-        },
-        content: {
-            table: {
-                disable: true,
-            },
-        },
     },
 }
 

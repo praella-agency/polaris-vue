@@ -21,6 +21,24 @@ export default {
                 type: 'text',
             },
         },
+        ranges: {
+            table: {
+                type: {
+                    summary: 'boolean | object',
+                },
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    text: 'value',
+}`,
+                },
+            },
+        },
+        helpText: {
+            table: {
+                category: ['props', 'slots']
+            }
+        }
     },
 }
 
@@ -29,9 +47,15 @@ const Template = (args, {argTypes}) => ({
     components: {
         PDatePicker
     },
+    data() {
+        return {
+            data: null,
+        };
+    },
     template: `
       <PDatePicker
           v-bind="$props"
+          v-model="data"
       ></PDatePicker>`,
 });
 
@@ -39,5 +63,5 @@ export const DatePicker = Template.bind({});
 
 DatePicker.args = {
     id: "pDatePicker",
-    singleDatePicker: true
+    singleDatePicker: true,
 }

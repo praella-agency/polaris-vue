@@ -35,7 +35,7 @@
         <template v-slot:selection="{values, search, remove, isOpen}">
           <div class="multiselect__tags-wrap" v-show="values && values.length > 0">
             <template v-for="(option, index) of values" @mousedown.prevent>
-                <PTag :tag='{"value":option[textField],"key":option[valueField]}' removable @remove-tag="remove(option)"/>
+                <PTag :tag='{"value":option[textField], "key":option[valueField]}' removable @remove-tag="remove(option)"/>
             </template>
           </div>
           <template slot="limit"></template>
@@ -168,8 +168,11 @@ export default class PMultiSelect extends Vue {
      * @property {event}
      */
     this.$emit('change', value);
+    /**
+     * Callback when input is triggered
+     * @property {event}
+     */
     this.$emit('input', value);
-
   }
 
   public get computedMultiple() {

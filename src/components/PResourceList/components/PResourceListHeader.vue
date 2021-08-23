@@ -24,7 +24,7 @@
                         <PCheckableButton v-bind="$attrs" :checked="checked" v-on="$listeners">
                           {{resourceHeaderTitle}}
                         </PCheckableButton>
-                        <PBulkActionButtonWrapper :action="promotedBulkActions"></PBulkActionButtonWrapper>
+                        <PBulkActionButtonWrapper :actions="promotedBulkActions"></PBulkActionButtonWrapper>
                         <PBulkActionButtonWrapper>
                             <PPopover
                                     :id="popoverId"
@@ -90,7 +90,7 @@ export default class PResourceListHeader extends Vue {
 
     @Prop({type: String, default: `PolarisPopover${ComponentHelpers.uuid()}`}) public popoverId!: string;
     @Prop(String) public resourceTitle!: string;
-    @Prop(Object) public promotedBulkActions!: object;
+    @Prop([Object, Array]) public promotedBulkActions!: [] | {};
     @Prop(Array) public bulkActions!: BulkActionsInterface[];
     @Prop(Array) public sortOptions!: SortOptionsInterface[];
     @Prop({type: String, default: 'Sort By'}) public sortLabel!: string;

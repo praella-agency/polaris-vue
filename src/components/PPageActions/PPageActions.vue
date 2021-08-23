@@ -1,16 +1,15 @@
 <template>
   <div class="Polaris-PageActions">
     <PStack :distribution="distribution" spacing="tight">
-<!--      <PStackItem class="Polaris-Stack__Item">-->
-        <PStackItem>
-          <PButtonGroup>
-            <PButton v-for="(secondaryAction, secondaryActionIndex) in secondaryActions"
-                     :key="`secondaryAction-${secondaryActionIndex}`" @click="secondaryAction.onAction()"
-                     v-bind="secondaryAction">
-              {{ secondaryAction.content }}
-            </PButton>
-          </PButtonGroup>
-        </PStackItem>
+      <PStackItem>
+        <PButtonGroup>
+          <PButton v-for="(secondaryAction, secondaryActionIndex) in secondaryActions"
+                   :key="`secondaryAction-${secondaryActionIndex}`" @click="secondaryAction.onAction()"
+                   v-bind="secondaryAction">
+            {{ secondaryAction.content }}
+          </PButton>
+        </PButtonGroup>
+      </PStackItem>
       <PStackItem>
         <PButtonGroup v-if="secondaryAction">
           <PButton @click="secondaryAction.onAction()" v-bind="secondaryAction">
@@ -22,7 +21,7 @@
         </PButtonGroup>
         <PButton v-else @click="primaryAction.onAction()" v-bind="primaryAction" primary>
           {{ primaryAction.content }}
-      </PButton>
+        </PButton>
       </PStackItem>
     </PStack>
   </div>
@@ -50,8 +49,19 @@ export interface PageActionsProps {
 })
 export default class PPageActions extends Vue {
 
+  /**
+   * The primary action for the page
+   */
   @Prop(Object) public primaryAction!: DisableableAction & LoadableAction;
+
+  /**
+   * The secondary action for the page
+   */
   @Prop(Object) public secondaryAction!: ComplexAction;
+
+  /**
+   * The secondary actions for the page
+   */
   @Prop({type: Array, default: () => []}) public secondaryActions!: ComplexAction[];
 
   public get distribution() {
