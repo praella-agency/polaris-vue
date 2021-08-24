@@ -5,6 +5,8 @@
       :contextualSaveBar="contextualSaveBar"
       :logo="Object.keys(logo).length > 0 ? logo : {}"
       :topBar="topBar"
+      :loading="loading"
+      :frameOffset="frameOffset"
       :navigation="navigation"
   >
     <template slot="pTopBar">
@@ -60,7 +62,7 @@
     @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
 
     /**
-     * Set loading value
+     * Set loading to activate
      */
     @Prop({type: Boolean, default: false}) public loading!: boolean;
 
@@ -73,6 +75,15 @@
      * Navigation props
      */
     @Prop({type: Object, default: () => ({})}) public navigation!: object;
+
+    /**
+     * Frame offset value
+     */
+    @Prop({type: String, default: '0px'}) public frameOffset!: string;
+
+    mounted() {
+      console.log(this.frameOffset);
+    }
   }
 </script>
 

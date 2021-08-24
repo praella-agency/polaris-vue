@@ -11,8 +11,7 @@
         class="Polaris-Frame-Loading__Level"
         :style="customStyles"
         :ontransitionend="animating = false"
-    >
-    </div>
+    />
   </div>
 </template>
 

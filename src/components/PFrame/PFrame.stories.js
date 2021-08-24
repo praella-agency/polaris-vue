@@ -66,159 +66,165 @@ const Template = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PFrame
-          :showMobileNavigation="mobileNavigationActive"
-          :onNavigationDismiss="handleMobileNavigationToggle"
-          :contextualSaveBar="{
-              active: contextualSaveBarMarkup.isDirty,
-              message: 'Unsaved changes',
-              saveAction: {
-                onAction: handleSave,
-              },
-              discardAction: {
-                onAction: handleDiscard,
-              }
-          }"
-          :loading="navigationMarkup.isLoading"
-          :topBar="{
-              showNavigationToggle: true,
-              logo: this.logoMarkup,
-              onSearchResultsDismiss: this.handleTopBarSearchResultsDismiss,
-              onNavigationToggle: this.handleMobileNavigationToggle,
-              userMenu: {
-                  id: 'Polaris-UserMenu',
-                      actions: [
-                      {
-                          items: [
-                              {
-                                  content: 'Community forums'
-                              }
-                          ],
-                      },
-                  ],
-                  name: 'Dharma',
-                  detail: this.storeName,
-                  initials: 'D',
-                  open: this.topBarMarkup.isUserMenuOpen,
-                  onToggle: this.toggleTopBarIsUserMenuOpen,
-              },
-              searchField: {
-                  value: this.topBarMarkup.searchValue,
-                  placeholder: 'Search',
-                  showFocusBorder: true,
-              },
-              searchResult: {
-                  items: [
-                      {
-                          content: 'Shopify help center',
-                      },
-                      {
-                          content: 'Community forums',
-                      },
-                  ],
-              },
-          }"
-          :navigation="{
-              location: '/',
-              showMobileNavigation: true,
-              logo: logoMarkup,
-              items: [
-                  {
+      <div style="height: 500px; background: #DE1373; margin: -8px;">
+          <PFrame
+              :showMobileNavigation="mobileNavigationActive"
+              :onNavigationDismiss="handleMobileNavigationToggle"
+              :contextualSaveBar="{
+                  active: contextualSaveBarMarkup.isDirty,
+                  message: 'Unsaved changes',
+                  saveAction: {
+                    onAction: handleSave,
+                  },
+                  discardAction: {
+                    onAction: handleDiscard,
+                  }
+              }"
+              :loading="navigationMarkup.isLoading"
+              :topBar="{
+                  showNavigationToggle: true,
+                  logo: this.logoMarkup,
+                  onSearchResultsDismiss: this.handleTopBarSearchResultsDismiss,
+                  onNavigationToggle: this.handleMobileNavigationToggle,
+                  userMenu: {
+                      id: 'Polaris-UserMenu',
+                          actions: [
+                          {
+                              items: [
+                                  {
+                                      content: 'Community forums'
+                                  }
+                              ],
+                          },
+                      ],
+                      name: 'Dharma',
+                      detail: this.storeName,
+                      initials: 'D',
+                      open: this.topBarMarkup.isUserMenuOpen,
+                      onToggle: this.toggleTopBarIsUserMenuOpen,
+                  },
+                  searchField: {
+                      value: this.topBarMarkup.searchValue,
+                      placeholder: 'Search',
+                      showFocusBorder: true,
+                  },
+                  searchResult: {
                       items: [
                           {
-                              label: 'Back to Shopify',
-                              icon: 'ArrowLeftMinor',
+                              content: 'Shopify help center',
+                          },
+                          {
+                              content: 'Community forums',
                           },
                       ],
                   },
-                  {
-                      separator: true,
-                      title: 'Jaded Pixel App',
-                      items: [
-                          {
-                              label: 'Dashboard',
-                              icon: 'HomeMajor',
-                              onClick: toggleIsLoading,
-                          },
-                          {
-                              label: 'Jaded Pixel Orders',
-                              icon: 'OrdersMajor',
-                              onClick: toggleIsLoading,
-                          },
-                      ],
-                      action: {
-                          icon: 'ConversationMinor',
-                          accessibilityLabel: 'Contact support',
-                          onClick: toggleModalActive,
+              }"
+              :navigation="{
+                  location: '/',
+                  showMobileNavigation: true,
+                  logo: logoMarkup,
+                  items: [
+                      {
+                          items: [
+                              {
+                                  label: 'Back to Shopify',
+                                  icon: 'ArrowLeftMinor',
+                              },
+                          ],
+                      },
+                      {
+                          separator: true,
+                          title: 'Jaded Pixel App',
+                          items: [
+                              {
+                                  label: 'Dashboard',
+                                  icon: 'HomeMajor',
+                                  onClick: toggleIsLoading,
+                              },
+                              {
+                                  label: 'Jaded Pixel Orders',
+                                  icon: 'OrdersMajor',
+                                  onClick: toggleIsLoading,
+                              },
+                          ],
+                          action: {
+                              icon: 'ConversationMinor',
+                              accessibilityLabel: 'Contact support',
+                              onClick: toggleModalActive,
+                          }
                       }
-                  }
-              ]
-          }"
-          v-bind="$props"
-      >
-        <PLoading v-if="navigationMarkup.isLoading"/>
-        <PSkeletonPage v-if="navigationMarkup.isLoading">
-          <PLayout>
-            <PLayoutSection>
-              <PCard sectioned>
-                <PTextContainer>
-                  <PSkeletonDisplayText size="small"/>
-                  <PSkeletonBodyText :lines="9"/>
-                </PTextContainer>
-              </PCard>
-            </PLayoutSection>
-          </PLayout>
-        </PSkeletonPage>
-        <PPage v-else title="Account">
-          <PLayout>
-            <a id="SkipToContentTarget" ref="skipToContentTarget" tabindex="-1"/>
-            <PLayoutAnnotatedSection
-                title="Account details"
-                description="Jaded Pixel will use this as your account information."
+                  ]
+              }"
+              v-bind="$props"
+          >
+            <PSkeletonPage v-if="navigationMarkup.isLoading">
+              <PLayout>
+                <PLayoutSection>
+                  <PCard sectioned>
+                    <PTextContainer>
+                      <PSkeletonDisplayText size="small"/>
+                      <PSkeletonBodyText :lines="9"/>
+                    </PTextContainer>
+                  </PCard>
+                </PLayoutSection>
+              </PLayout>
+            </PSkeletonPage>
+            <PPage v-else title="Account">
+              <PLayout>
+                <a id="SkipToContentTarget" ref="skipToContentTarget" tabindex="-1"/>
+                <PLayoutAnnotatedSection
+                    title="Account details"
+                    description="Jaded Pixel will use this as your account information."
+                >
+                  <PCard sectioned>
+                    <PFormLayout>
+                      <PTextField
+                          label="Full name"
+                          :value="nameFieldValue"
+                          @input="handleNameFieldChange"
+                      />
+                      <PTextField
+                          type="email"
+                          label="Email"
+                          :value="emailFieldValue"
+                          @input="handleEmailFieldChange"
+                      />
+                    </PFormLayout>
+                  </PCard>
+                </PLayoutAnnotatedSection>
+              </PLayout>
+            </PPage>
+            <PModal
+                :open="modalMarkup.modalActive"
+                title="Contact Support"
+                :primaryAction="{
+                    content: 'Send',
+                    onAction: toggleModalActive,
+                }"
+                @close="toggleModalActive"
+                sectioned
             >
-              <PCard sectioned>
-                <PFormLayout>
-                  <PTextField
-                      label="Full name"
-                      :value="nameFieldValue"
-                      @input="handleNameFieldChange"
-                  />
-                  <PTextField
-                      type="email"
-                      label="Email"
-                      :value="emailFieldValue"
-                      @input="handleEmailFieldChange"
-                  />
-                </PFormLayout>
-              </PCard>
-            </PLayoutAnnotatedSection>
-          </PLayout>
-        </PPage>
-        <PModal
-            :open="modalMarkup.modalActive"
-            title="Contact Support"
-            :primaryAction="{
-                content: 'Send',
-                onAction: toggleModalActive,
-            }"
-            @close="toggleModalActive"
-            sectioned
-        >
-          <PFormLayout>
-            <PTextField
-                label="Subject"
-                :value="modalMarkup.supportSubject"
-                @input="handleSubjectChange"
-            />
-            <PTextField
-                label="Message"
-                :value="modalMarkup.supportMessage"
-                multiline
-                @input="handleMessageChange"
-            />
-          </PFormLayout>
-        </PModal>
-      </PFrame>`,
+              <PFormLayout>
+                <PTextField
+                    label="Subject"
+                    :value="modalMarkup.supportSubject"
+                    @input="handleSubjectChange"
+                />
+                <PTextField
+                    label="Message"
+                    :value="modalMarkup.supportMessage"
+                    multiline
+                    @input="handleMessageChange"
+                />
+              </PFormLayout>
+            </PModal>
+            <template slot="globalRibbon">
+              <div style="background: #C0FFEE; padding: 30px">
+                Global ribbon
+              </div>
+            </template>
+          </PFrame>
+      </div>`,
     methods: {
         handleTopBarSearchResultsDismiss() {
             this.topBarMarkup.isSearchActive = false;
@@ -285,4 +291,5 @@ Frame.args = {
         url: 'javascript:void(0)',
         accessibilityLabel: 'Jaded Pixel',
     },
+    frameOffset: '60px'
 }

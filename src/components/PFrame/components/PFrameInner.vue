@@ -1,5 +1,6 @@
 <template>
   <div
+      id="PFrame"
       :class="className"
       :data-polaris-layer="true"
       :data-has-navigation="(this.$slots.hasOwnProperty('pNavigation') || Object.keys(navigation).length > 0) ?
@@ -77,7 +78,7 @@
       </PContextualSaveBar>
     </div>
     <div
-        v-if="state.loadingStack > 0"
+        v-if="loading"
         class="Polaris-Frame__LoadingBar"
         :id="APP_FRAME_LOADING_BAR"
     >
@@ -163,6 +164,11 @@
      */
     @Prop({type: Object, default: () => ({})}) public navigation!: object;
 
+    /**
+     * Frame offset value
+     */
+    @Prop({type: String, default: '0px'}) public frameOffset!: string;
+
     public APP_FRAME_MAIN = 'AppFrameMain';
     public APP_FRAME_NAV = 'AppFrameNav';
     public APP_FRAME_TOP_BAR = 'AppFrameTopBar';
@@ -184,6 +190,9 @@
     @Ref() private navigationNode!: HTMLDivElement;
 
     public mounted() {
+      console.log(this.frameOffset);
+      document.getElementById('PFrame')!.style.setProperty('--p-frame-offset',
+        this.frameOffset);
       this.handleResize();
       if (this.$slots.hasOwnProperty('globalRibbon')) {
         return;

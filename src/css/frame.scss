@@ -151,6 +151,9 @@
   pointer-events: auto;
 }
 
+:root {
+  --p-frame-offset: 0px;
+}
 
 .Polaris-Frame {
   width: 100%;
@@ -167,8 +170,8 @@
 
 @media (min-width: 48.0625em) {
   .Polaris-Frame {
-    width: 100%;
-    margin-left: 0;
+    width: calc(100% - var(--p-frame-offset));
+    margin-left: var(--p-frame-offset);
   }
 }
 
@@ -194,7 +197,7 @@
 @media (min-width: 48.0625em) {
   .Polaris-Frame__Navigation {
     z-index: 1;
-    left: 0;
+    left: var(--p-frame-offset);
     display: flex;
   }
   .Polaris-Frame--hasTopBar .Polaris-Frame__Navigation {
@@ -323,8 +326,8 @@
 
 @media (min-width: 48.0625em) {
   .Polaris-Frame__TopBar {
-    left: 0;
-    width: 100%;
+    left: var(--p-frame-offset);
+    width: calc(100% - var(--p-frame-offset));
   }
 }
 
@@ -338,8 +341,8 @@
 
 @media (min-width: 48.0625em) {
   .Polaris-Frame__ContextualSaveBar {
-    left: 0;
-    width: 100%;
+    left: var(--p-frame-offset);
+    width: calc(100% - var(--p-frame-offset));
   }
 }
 
@@ -408,8 +411,8 @@
     left: 24rem;
     left: 24rem;
     left: calc(24rem + 0 + constant(safe-area-inset-left));
-    left: calc(24rem + 0 + env(safe-area-inset-left));
-    width: calc(100% - 24rem);
+    left: calc(24rem + var(--p-frame-offset) + env(safe-area-inset-left));
+    width: calc(100% - 24rem - var(--p-frame-offset));
   }
 }
 
@@ -441,7 +444,7 @@
   position: fixed;
   z-index: 517;
   top: 1rem;
-  left: 0.8rem;
+  left: calc(0.8rem + var(--p-frame-offset));
   opacity: 0;
   pointer-events: none;
 }
