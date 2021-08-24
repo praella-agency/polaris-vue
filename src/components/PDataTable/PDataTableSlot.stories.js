@@ -154,7 +154,6 @@ export const CustomisableRow = Template.bind({});
 
 CustomisableRow.args = {
     resourceName: {singular: 'Product', plural: 'Products'},
-    columnContentTypes: [],
     headings: [
         {
             content: 'Product',
@@ -245,7 +244,6 @@ CustomisableRow.parameters = {
 <PCard sectioned>
     <PDataTable
         :resourceName="{singular: 'Product', plural: 'Products'}"
-        :columnContentTypes="[]"
         :headings="[
             {
                 content: 'Product',
@@ -327,8 +325,6 @@ CustomisableRow.parameters = {
                 alert('Previous');
             }
         }"
-        @sort-changed="handleSortChange"
-        @input-filter-changed="handleSearch"
     >    
         <template v-slot:item="{item}">
             <PDataTableRow>
@@ -350,10 +346,10 @@ CustomisableRow.parameters = {
                 <PDataTableCol>
                     <PStack>
                         <PStackItem>
-                            <PIcon source="EditMinor" @click="editItem(item.product)"/>
+                            <PIcon source="EditMinor"/>
                         </PStackItem>
                         <PStackItem>
-                            <PIcon source="DeleteMinor" color="critical" @click="deleteItem(item.product)"/>
+                            <PIcon source="DeleteMinor" color="critical"/>
                         </PStackItem>
                     </PStack>
                 </PDataTableCol>
@@ -364,12 +360,10 @@ CustomisableRow.parameters = {
                 id="popover_1"
                 :active="active"
                 preferred-alignment="right"
-                @close="toggleRatingFilter"
                 full-width
             >
                 <PButton 
                     slot="activator" 
-                    @click="() => {this.active = !this.active}"
                     :disclosure="active ? 'up' : 'down'">
                     Filter Options
                 </PButton>
@@ -383,16 +377,14 @@ CustomisableRow.parameters = {
                         {label: 'Rating 3', value: '3'},
                         {label: 'Rating 4', value: '4'},
                     ]"
-                    @change="updateRatingFilter"
                 />
             </PPopover>
             <PPopover
                 id="popover_2"
                 :active="active2"
-                @close="toggleRatingFilter2"
                 preferred-alignment="right"
             >
-                <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">
+                <PButton slot="activator" :disclosure="active2 ? 'up' : 'down'">
                     Status
                 </PButton>
                 <POptionList
@@ -404,7 +396,6 @@ CustomisableRow.parameters = {
                         {label: 'Pending', value: 'Pending'},
                         {label: 'Deleted', value: 'Deleted'},
                     ]"
-                    @change="updateStatusFilter"
                 />
             </PPopover>
         </template>
@@ -543,7 +534,6 @@ export const CustomisableColumn = Template1.bind({});
 
 CustomisableColumn.args = {
     resourceName: {singular: 'Product', plural: 'Products'},
-    columnContentTypes: [],
     headings: [
         {
             content: 'Product',
@@ -634,7 +624,6 @@ CustomisableColumn.parameters = {
 <PCard sectioned>
     <PDataTable
         :resourceName="{singular: 'Product', plural: 'Products'}"
-        :columnContentTypes="[]"
         :headings="[
             {
                 content: 'Product',
@@ -716,8 +705,6 @@ CustomisableColumn.parameters = {
                 alert('Previous');
             }
         }"
-        @sort-changed="handleSortChange"
-        @input-filter-changed="handleSearch"
     >    
         <template v-slot:item.product="{item}">
             <PLink :url="item.product_link">
@@ -735,10 +722,10 @@ CustomisableColumn.parameters = {
         <template v-slot:item.actions="{item}">
             <PStack>
                 <PStackItem>
-                    <PIcon source="EditMinor" @click="editItem(item.product)"/>
+                    <PIcon source="EditMinor"/>
                 </PStackItem>
                 <PStackItem>
-                    <PIcon source="DeleteMinor" color="critical" @click="deleteItem(item.product)"/>
+                    <PIcon source="DeleteMinor" color="critical"/>
                 </PStackItem>
             </PStack>
         </template>
@@ -748,12 +735,10 @@ CustomisableColumn.parameters = {
                 id="popover_1"
                 :active="active"
                 preferred-alignment="right"
-                @close="toggleRatingFilter"
                 full-width
             >
             <PButton
-                slot="activator" 
-                @click="() => {this.active = !this.active}"
+                slot="activator"
                 :disclosure="active ? 'up' : 'down'">
                 Filter Options
             </PButton>
@@ -767,16 +752,14 @@ CustomisableColumn.parameters = {
                     {label: 'Rating 3', value: '3'},
                     {label: 'Rating 4', value: '4'},
                 ]"
-                @change="updateRatingFilter"
             />
             </PPopover>
             <PPopover
                 id="popover_2"
                 :active="active2"
-                @close="toggleRatingFilter2"
                 preferred-alignment="right"
             >
-                <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">
+                <PButton slot="activator" :disclosure="active2 ? 'up' : 'down'">
                     Status
                 </PButton>
                 <POptionList
@@ -788,7 +771,6 @@ CustomisableColumn.parameters = {
                         {label: 'Pending', value: 'Pending'},
                         {label: 'Deleted', value: 'Deleted'},
                     ]"
-                    @change="updateStatusFilter"
                 />
             </PPopover>
         </template>
