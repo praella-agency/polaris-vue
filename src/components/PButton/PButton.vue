@@ -76,7 +76,7 @@ export default class PButton extends Vue {
   /**
    * A destination to link to, rendered in the href attribute of a link
    */
-  @Prop({type: String, default: null}) public href!: string;
+  @Prop({type: String, default: undefined}) public href!: string;
 
   /**
    * VueRouter link | link object

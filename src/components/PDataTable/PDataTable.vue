@@ -306,12 +306,12 @@ export default class PDataTable extends Vue {
   /**
    * List of column headings
    */
-  @Prop({type: Array, default: () => [], required: true}) public headings!: Headings[];
+  @Prop({type: Array, default: () => []}) public headings!: Headings[];
 
   /**
    * Lists of data points which map to table body rows
    */
-  @Prop({type: Array, default: () => [[]], required: true}) public rows!: TableData[][];
+  @Prop({type: Array, default: () => [[]]}) public rows!: TableData[][];
 
   /**
    * Placement of totals row within table
