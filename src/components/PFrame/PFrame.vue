@@ -28,7 +28,6 @@
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { PTrapFocus } from '@/components/PTrapFocus';
   import { PIcon } from '@/components/PIcon';
   import { PFrameInner } from '@/components/PFrame/components';
   import { ContextualSaveBarProps } from '@/components/PFrame/context';
@@ -36,7 +35,7 @@
 
   @Component({
     components: {
-      PTrapFocus, PIcon, PFrameInner,
+      PIcon, PFrameInner,
     }
   })
   export default class PFrame extends Vue {

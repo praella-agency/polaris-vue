@@ -115,7 +115,6 @@
   import { Vue, Component, Prop, Ref } from 'vue-property-decorator';
   import { ContextualSaveBarProps, ToastProps } from '../context';
   import { classNames } from '@/utilities/css';
-  import { PTrapFocus } from '@/components/PTrapFocus';
   import { PContextualSaveBar } from '@/components/PFrame/components/PContextualSaveBar';
   import { PLoading } from '@/components/PLoading';
   import { PEventListener } from '@/components/PEventListener';
@@ -135,7 +134,7 @@
 
   @Component({
     components: {
-      PTrapFocus, PContextualSaveBar, PLoading, PEventListener, PIcon, PBackdrop, PTopBar, PNavigation,
+      PContextualSaveBar, PLoading, PEventListener, PIcon, PBackdrop, PTopBar, PNavigation,
     }
   })
   export default class PFrameInner extends Vue {
