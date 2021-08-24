@@ -117,7 +117,7 @@ type: "numeric"`,
             defaultValue: {
                 summary: '[]',
                     detail: `[{
-    headingValue: 'value',
+    <heading.value>: 'value',
 }]`,
             },
         },
