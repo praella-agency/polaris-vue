@@ -1,6 +1,6 @@
 <template>
     <div :class="className">
-        <div class="Polaris-ResourceList__FiltersWrapper" v-if="hideFilters">
+        <div class="Polaris-ResourceList__FiltersWrapper" v-if="!hideFilters">
             <PFilter
                 v-if="$slots.hasOwnProperty('filter')"
                 v-bind="$attrs"
@@ -11,7 +11,11 @@
                 <slot name="filter"/>
             </PFilter>
         </div>
-        <div ref="PResourceListHeader" class="Polaris-ResourceList__HeaderOuterWrapper" v-if="showHeader">
+        <div
+            ref="PResourceListHeader"
+            class="Polaris-ResourceList__HeaderOuterWrapper"
+            v-if="showHeader && itemsExist"
+        >
             <PResourceListHeader
                     v-bind="$attrs"
                     :promotedBulkActions="promotedBulkActions"
@@ -26,33 +30,83 @@
                     :checkedAll="checkedAll"
                     :count="count()"
                     :hasMore="hasMore"
+                    :loading="loading"
                     v-on="$listeners"
                     @toggle-all="onToggledAll($event)"
                     @toggle-select-more="onSelectMore"
             />
         </div>
-        <ul class="Polaris-ResourceList" aria-live="polite">
+        <ul
+            v-if="$slots.hasOwnProperty('default')"
+            :class="resourceListClassName"
+            ref="listRef"
+            aria-live="polite"
+            :aria-busy="loading"
+        >
+            <template v-if="loading">
+                <li class="Polaris-ResourceList__SpinnerContainer" :style="{'padding-top': `${topPadding}px`}">
+                    <PSpinner size="large"/>
+                </li>
+                <li class="Polaris-ResourceList__LoadingOverlay" />
+            </template>
             <!-- @slot Displays when Selectable is true -->
             <slot :selectable="selectable"/>
         </ul>
 
-        <!-- @slot Content for empty search state -->
-        <slot v-if="showEmptySearchState" name="emptySearchState">
-          <div class="Polaris-ResourceList__SpinnerContainer" :style="{'padding-top': `${topPadding}px`}">
-            <PSpinner size="large" />
-          </div>
-          <div class="Polaris-ResourceList__LoadingOverlay"></div>
-        </slot>
+        <template
+            v-if="showEmptySearchState"
+        >
+            <!-- @slot Content for empty search state -->
+            <slot name="emptySearchState">
+                <div class="Polaris-ResourceList__EmptySearchResultWrapper">
+                    <PStack alignment="center" vertical>
+                        <PStackItem>
+                            <PIcon source="SearchMajor" />
+                        </PStackItem>
+                        <PStackItem>
+                            <PDisplayText size="small">
+                                No {{resourceName.plural}} found
+                            </PDisplayText>
+                        </PStackItem>
+                        <PStackItem>
+                            <PTextStyle variation="subdued">
+                                Try changing the filters or search term
+                            </PTextStyle>
+                        </PStackItem>
+                    </PStack>
+                </div>
+            </slot>
+        </template>
+
+        <div
+            v-if="loading && !itemsExist"
+            :class="loadingClassName"
+        >
+            <ul
+                :class="resourceListClassName"
+                ref="listRef"
+                aria-live="polite"
+                :aria-busy="loading"
+            >
+                <li class="Polaris-ResourceList__SpinnerContainer">
+                    <PSpinner size="small"/>
+                </li>
+                <li class="Polaris-ResourceList__LoadingOverlay" />
+            </ul>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
-import {PImage} from '@/components/PImage';
+import {PIcon} from '@/components/PIcon';
 import PResourceListHeader from '@/components/PResourceList/components/PResourceListHeader.vue';
 import PFilter from '@/components/PFilter/PFilter.vue';
 import {PSpinner} from '@/components/PSpinner';
+import {PStack, PStackItem} from '@/components/PStack';
+import {PDisplayText} from '@/components/PDisplayText';
+import {PTextStyle} from '@/components/PTextStyle';
 
 interface ResourceNameInterface {
     singular: string;
@@ -77,8 +131,11 @@ interface BulkActionsInterface {
     components: {
         PFilter,
         PResourceListHeader,
-        PImage,
+        PIcon,
         PSpinner,
+        PStack, PStackItem,
+        PDisplayText,
+        PTextStyle,
     },
 })
 export default class PResourceList extends Vue {
@@ -119,13 +176,13 @@ export default class PResourceList extends Vue {
      * Boolean to show or hide the header
      * @value true | false
      */
-    @Prop({type: Boolean, default: false}) public showHeader!: boolean;
+    @Prop({type: Boolean, default: true}) public showHeader!: boolean;
 
     /**
      * Boolean to show or hide the filters
      * @value true | false
      */
-    @Prop({type: Boolean, default: true}) public hideFilters!: boolean;
+    @Prop({type: Boolean, default: false}) public hideFilters!: boolean;
 
     /**
      * Collection of sort options to choose from
@@ -145,10 +202,6 @@ export default class PResourceList extends Vue {
     public selectedItems = this.selectable && this.selected ? this.selected : [];
     public selectedMore: boolean = false;
     public selectedAll: boolean = false;
-
-    public itemsExist = this.$slots.default;
-
-    public showEmptyState = this.$slots.emptyState && !this.itemsExist && !this.loading;
 
     public topPadding = 8;
 
@@ -191,6 +244,21 @@ export default class PResourceList extends Vue {
         );
     }
 
+    public get resourceListClassName() {
+        return classNames(
+            'Polaris-ResourceList',
+            this.loading && 'Polaris-ResourceList__DisabledPointerEvents',
+            this.selectedItems.length > 0 && 'Polaris-ResourceList--disableTextSelection',
+        );
+    }
+
+    public get loadingClassName() {
+        return classNames(
+            'Polaris-ResourceList__ItemWrapper',
+            this.loading && 'Polaris-ResourceList__ItemWrapper--isLoading',
+        );
+    }
+
     public get checkedAll() {
         return this.checked && this.count() === this.checkedCount;
     }
@@ -224,8 +292,16 @@ export default class PResourceList extends Vue {
         this.$emit('change', items);
     }
 
+    public get itemsExist() {
+        return this.$slots.default;
+    }
+
+    public get showEmptyState() {
+        return this.$slots.emptyState && !this.itemsExist && !this.loading;
+    }
+
     public get showEmptySearchState() {
-        return !this.showEmptyState && this.itemsExist && this.loading;
+        return !this.showEmptyState && !this.hideFilters && !this.itemsExist && !this.loading;
     }
 
     public onToggledAll(checked) {

@@ -213,7 +213,7 @@ const Template = (args, {argTypes}) => ({
                 Save
               </PButton>
             </template>
-            <template slot="default" v-bind="{selectable}">
+            <template v-bind="{selectable}">
               <PResourceListItem
                   v-for="(item, key) in items"
                   :key="key"
@@ -294,8 +294,6 @@ ResourceList.args = {
     resourceName: {singular: 'Book', plural: 'Books'},
     hasMore: true,
     loading: false,
-    showHeader: true,
-    hideFilters: true,
     sortOptions: [
         {label: 'Newest update', value: 'DATE_MODIFIED_DESC', disabled: false, hidden: true},
         {label: 'Oldest update', value: 'DATE_MODIFIED_ASC', disabled: false},

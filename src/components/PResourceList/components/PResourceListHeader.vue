@@ -1,6 +1,7 @@
 <template>
 
     <div :class="className">
+        <div v-if="loading" class="Polaris-ResourceList__HeaderWrapper--overlay"></div>
         <div class="Polaris-ResourceList__HeaderContentWrapper">
             <div class="Polaris-ResourceList__HeaderTitleWrapper">{{resourceHeaderTitle}}</div>
             <div class="Polaris-ResourceList__CheckableButtonWrapper" v-if="selectable && !checked">
@@ -101,6 +102,7 @@ export default class PResourceListHeader extends Vue {
     @Prop(Boolean) public hasMore!: boolean;
     @Prop(Boolean) public selectedMore!: boolean;
     @Prop({required: true, type: Number}) public count!: number;
+    @Prop(Boolean) public loading!: boolean;
 
     public bulkActionsShown: boolean = false;
 
@@ -111,13 +113,16 @@ export default class PResourceListHeader extends Vue {
             this.selectable && 'Polaris-ResourceList__HeaderWrapper--hasSelect',
             this.checked && 'Polaris-ResourceList__HeaderWrapper--inSelectMode',
             this.promotedBulkActions && 'Polaris-ResourceList__HeaderWrapper--hasSort',
+            this.loading && 'Polaris-ResourceList__HeaderWrapper--disabled'
         );
     }
 
     public get resourceHeaderTitle() {
+        if(this.loading) {
+            return `Loading ${this.resourceTitle}`
+        }
 
         if (!this.checked) {
-
             const resource = this.resourceTitle;
             return `Showing ${this.count} ${this.totalCount ? ' of ' + this.totalCount : ''} ${resource}`;
         } else if (this.checkedCount) {
