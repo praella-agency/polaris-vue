@@ -21,7 +21,7 @@ export default class PUnstyledLink extends Vue {
    * Set url for URL
    * @values Any external URL
    */
-  @Prop({type: String, default: null}) public url!: string;
+  @Prop({type: String, default: undefined}) public url!: string;
   /**
    * Set true for open URL in new tab
    * @values true | false

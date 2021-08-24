@@ -1,19 +1,20 @@
-import PDataTableNew from './PDataTable.vue';
+import PDataTable from './PDataTable.vue';
 import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';
 import argTypes from './args';
+
 export default {
     title: 'Lists & Tables / Data Table',
-    component: PDataTableNew,
+    component: PDataTable,
     argTypes
 }
 
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PDataTableNew, PPopover, PButton, POptionList, PCard
+        PDataTable, PPopover, PButton, POptionList, PCard
     },
     data() {
         return {
@@ -25,7 +26,7 @@ const Template = (args, {argTypes}) => ({
     },
     template: `
       <PCard sectioned>
-        <PDataTableNew
+        <PDataTable
             v-bind="$props"
             footer-content="Showing 3 of 3"
         />
@@ -35,7 +36,6 @@ const Template = (args, {argTypes}) => ({
 export const Default = Template.bind({});
 
 Default.args = {
-    columnContentTypes: [],
     headings: [
         {
             content: 'Product',

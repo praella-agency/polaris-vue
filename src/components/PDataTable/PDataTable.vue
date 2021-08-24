@@ -1,7 +1,7 @@
 <template>
   <div>
     <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs" :resourceName="resource"
-             :hideQueryField="hasFilter" @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
+             @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
       <!-- @slot Slot to add a custom Filter content -->
       <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
     </PFilter>
@@ -247,9 +247,11 @@ interface Sort {
 }
 
 @Component({
-  components: {PDataTableCellNew, PPagination, PFilter, PSpinner, PEmptyState, PDataTableCell},
+  components: {
+    PDataTableCellNew, PPagination, PFilter, PSpinner, PEmptyState, PDataTableCell
+  },
 })
-export default class PDataTableNew extends Vue {
+export default class PDataTable extends Vue {
 
   public get hasOldRows() {
     return this.rows.length > 0 && this.rows[0].constructor === Array;
@@ -287,7 +289,7 @@ export default class PDataTableNew extends Vue {
    * or "numeric," which aligns right.
    * @values text | numeric
    */
-  @Prop({type: Array, default: () => [], required: true}) public columnContentTypes!: ColumnContentType[];
+  @Prop({type: Array, default: () => []}) public columnContentTypes!: ColumnContentType[];
 
   /**
    * The direction to sort the table rows on first click or keypress
@@ -374,15 +376,6 @@ export default class PDataTableNew extends Vue {
     type: String,
     default: 'https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png',
   }) public emptyStateImage!: string;
-
-  /**
-   * Remove tbody element from datatable.
-   * Note: This property works with body slot only.
-   */
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) public removeTbody!: boolean;
 
   // ============Deprecated Props============
   /**

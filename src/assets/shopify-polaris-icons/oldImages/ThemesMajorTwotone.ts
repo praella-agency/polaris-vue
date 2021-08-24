@@ -1,2 +1,1 @@
 export default `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="currentColor" d="M10 14v-4h8v4h-8zM2 5V2h4v3H2z"/><path fill-rule="evenodd" d="M10 14h8v-4h-8v4zm4 4H4V7h3c.55 0 1-.45 1-1V5h6v3H9c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h5v2zM2 5h4V2H2v3zm17 3h-3V4c0-.55-.45-1-1-1H8V1c0-.55-.45-1-1-1H1C.45 0 0 .45 0 1v5c0 .55.45 1 1 1h1v12c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3h3c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1z"/></svg>`;
-
