@@ -71,7 +71,7 @@ export default class PIcon extends Vue {
   }
 
   public get sourceType() {
-    if (this.source === 'function' || Object.keys(Icon).filter(icon => icon === this.source).length > 0) {
+    if (this.source === 'function' || Object.keys(Icon).filter((icon) => icon === this.source).length > 0) {
       return 'function';
     } else if (this.source === 'placeholder') {
       return 'placeholder';

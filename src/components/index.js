@@ -61,7 +61,7 @@ import { PFrame } from './PFrame';
 import { PTopBar } from './PTopBar';
 import { PContextualSaveBar } from './PFrame/components/PContextualSaveBar';
 import { PSkeletonPage } from './PSkeletonPage';
-import { PNavigation } from 'PNavigation';
+import { PNavigation } from './PNavigation';
 
 import '@/scss/main.scss';
 
