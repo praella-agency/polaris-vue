@@ -30,7 +30,8 @@
           }: {}"
           :link="Object.keys(message).length > 0 ? {
             to: message.link !== undefined ? message.link.to : '',
-            content: message.link !== undefined ? message.link.content : ''
+            content: message.link !== undefined ? message.link.content : '',
+            external: message.link !== undefined ? message.link.external : false,
           } : {}"
           :badge="message && message.badge ? {
               content: message.badge !== undefined ? message.badge.content : '',

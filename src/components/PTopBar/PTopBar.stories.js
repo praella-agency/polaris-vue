@@ -16,7 +16,6 @@ export default {
     argTypes: {
         message: {
             description: 'Message object to use in UserMenu and SecondaryMenu',
-            defaultValue: 'Hello',
             table: {
                 type: {
                     summary: null,
@@ -207,7 +206,7 @@ const Template = (args, {argTypes}) => ({
     template: `
       <PFrame>
         <PTopBar
-            slot="topBar"
+            slot="pTopBar"
             v-bind="$props"
             :onSearchResultsDismiss="handleSearchResultsDismiss"
             :onNavigationToggle="handleNavigationToggle"
@@ -245,6 +244,7 @@ const Template = (args, {argTypes}) => ({
                     link: {
                         to: 'javascript:void(0);',
                         content: 'Link',
+                        external: true,
                     },
                     badge: {
                         content: 'Badge',

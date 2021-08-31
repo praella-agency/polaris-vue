@@ -16,10 +16,10 @@
           </PTextContainer>
         </PStackItem>
         <PStackItem>
-          <PLink v-if="typeof link.to === 'string'" :url="link.to" external>
+          <PLink v-if="typeof link.to === 'string'" :url="link.to" :external="link.external">
             {{ link.content }}
           </PLink>
-          <PLink v-else :to="link.to" external>
+          <PLink v-else :to="link.to" :external="link.external">
             {{ link.content }}
           </PLink>
         </PStackItem>
@@ -65,7 +65,8 @@
       default: () => ({})
     }) public link!: {
       to: string | object;
-      content: string
+      content: string;
+      external?: boolean;
     };
     @Prop({
       type: Object,

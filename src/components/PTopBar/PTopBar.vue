@@ -66,13 +66,7 @@
         <!-- @slot Slot to customize SecondaryMenu -->
         <slot name="pSecondaryMenu">
           <PMenu
-              :id="secondaryMenu.id"
-              :actions="secondaryMenu.actions"
-              :message="secondaryMenu.message"
-              :open="secondaryMenu.open"
-              :onOpen="secondaryMenu.onOpen"
-              :onClose="secondaryMenu.onClose"
-              :accessibilityLabel="secondaryMenu.accessibilityLabel"
+              v-bind="secondaryMenu"
           >
             <span slot="activatorContent">
               <PIcon :source="secondaryMenu.icon"/>
@@ -84,16 +78,7 @@
       <!-- @slot Slot to customize UserMenu -->
       <slot name="pUserMenu">
         <PUserMenu
-            :id="userMenu.id"
-            :actions="userMenu.actions"
-            :message="userMenu.message"
-            :name="userMenu.name"
-            :detail="userMenu.detail"
-            :accessibilityLabel="userMenu.accessibilityLabel"
-            :initials="userMenu.initials"
-            :avatar="userMenu.avatar"
-            :open="userMenu.open"
-            :onToggle="userMenu.onToggle"
+            v-bind="userMenu"
         />
       </slot>
     </div>
@@ -101,7 +86,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
   import { ThemeLogo, getWidth } from '@/types/logo';
 

@@ -190,7 +190,6 @@
     @Ref() private navigationNode!: HTMLDivElement;
 
     public mounted() {
-      console.log(this.frameOffset);
       document.getElementById('PFrame')!.style.setProperty('--p-frame-offset',
         this.frameOffset);
       this.handleResize();

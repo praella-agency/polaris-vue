@@ -54,11 +54,11 @@
         :primaryAction="[{
             content: 'Discard changes',
             destructive: true,
-            onAction: discardAction.onAction(),
+            onAction: discardAction.onAction()
         }]"
         :secondaryAction="[{
             content: 'Continue editing',
-            onAction: saveAction.onAction(),
+            onAction: saveAction.onAction()
         }]"
         sectioned
     >
@@ -121,7 +121,7 @@
     @Prop({type: Object, default: () => ({})}) public saveAction!: ContextualSaveBarAction;
 
     /**
-     *  Discard or cancel contextual save bar action with text defaulting to 'Discard'
+     * Discard or cancel contextual save bar action with text defaulting to 'Discard'
      */
     @Prop({type: Object, default: () => ({})}) public discardAction?: ContextualSaveBarCombinedActionProps;
 

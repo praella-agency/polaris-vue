@@ -19,9 +19,7 @@
           <div v-if="icon" class="Polaris-Navigation__Icon">
             <PIcon :source="icon"/>
           </div>
-          <span class="Polaris-Navigation__Text">
-            {{label}}
-            <span v-if="hasNewChild" class="Polaris-Navigation__Indicator">
+          <span class="Polaris-Navigation__Text">{{label}}<span v-if="hasNewChild" class="Polaris-Navigation__Indicator">
               <span class="Polaris-Indicator Polaris-Indicator--pulseIndicator"/>
             </span>
           </span>
@@ -56,7 +54,7 @@
         <PIcon :source="secondaryAction.icon"/>
       </PUnstyledLink>
     </div>
-    <div :class="secondaryNavigationClassName">
+    <div v-if="subNavigationItems.length > 0" :class="secondaryNavigationClassName">
       <PSecondary
           :expanded="showExpanded"
           :id="secondaryNavigationId"
@@ -187,9 +185,9 @@
 
     public useMediaQuery() {
       if (window.innerWidth <= 768) {
-        this.$set(this, 'isNavigationCollapsed', true);
+        this.isNavigationCollapsed = true;
       } else {
-        this.$set(this, 'isNavigationCollapsed', false);
+        this.isNavigationCollapsed = false;
       }
     }
 
@@ -254,7 +252,13 @@
     public get longestMatch() {
       if (this.subNavigationItems.length > 0) {
         return this.matchingSubNavigationItems.sort(
-          ({url: firstUrl}, {url: secondUrl}) => secondUrl.length - firstUrl.length,
+          function({url: firstUrl}, {url: secondUrl}) {
+            if(firstUrl !== undefined && secondUrl !== undefined) {
+              console.log(secondUrl, firstUrl);
+              return secondUrl.length - firstUrl.length;
+            }
+            return 0;
+          }
         )[0];
       }
     }
@@ -280,6 +284,9 @@
     }
 
     public normalizePathname(pathname: string) {
+      if (pathname === undefined) {
+        return '/';
+      }
       const barePathname = pathname.split('?')[0].split('#')[0];
       return barePathname.endsWith('/') ? barePathname : `${barePathname}/`;
     }

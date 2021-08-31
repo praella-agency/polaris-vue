@@ -80,10 +80,6 @@
      * Frame offset value
      */
     @Prop({type: String, default: '0px'}) public frameOffset!: string;
-
-    mounted() {
-      console.log(this.frameOffset);
-    }
   }
 </script>
 

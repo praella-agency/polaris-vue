@@ -68,12 +68,13 @@
                 'Polaris-Avatar',
                 this.size && `Polaris-Avatar--${variationName('size', this.size)}`,
                 !this.customer && `Polaris-Avatar--${variationName('style', this.styleClass(this.nameString))}`,
+                (this.hasImage || this.initials.length === 0) && status !== Status.Loaded && 'Polaris-Avatar--hidden',
                 this.hasImage && 'Polaris-Avatar--hasImage',
             );
         }
 
         public styleClass(name?: string) {
-            const finalStyleClasses = ['one', 'two', 'three', 'four', 'five', 'six'];
+            const finalStyleClasses = ['one', 'two', 'three', 'four', 'five'];
             return name ? finalStyleClasses[name.charCodeAt(0) % finalStyleClasses.length] : finalStyleClasses[0];
         }
     }

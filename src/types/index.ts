@@ -256,6 +256,7 @@ export interface MessageProps {
   link: {
     to: string | object;
     content: string;
+    external: boolean;
   };
   badge?: {
     content: string;

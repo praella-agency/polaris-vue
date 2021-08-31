@@ -5,19 +5,23 @@
     overflow: hidden;
     min-width: 3.2rem;
     max-width: 100%;
-    background: $avatar-bgcolor;
-    color: $avatar-color;   
-    border-radius: $avatar-color-radius;
+    background: rgba(228, 229, 231, 1);
+    color: rgba(140, 145, 150, 1);
+    border-radius: 3rem;
     -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
+}
 
-    &:after {
-        content: "";
-        display: block;
-        padding-bottom: 100%;
+@media (forced-colors: active) {
+    .Polaris-Avatar {
+        border: 0.1rem solid transparent;
     }
+}
+
+.Polaris-Avatar::after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
 }
 
 .Polaris-Avatar--hidden {
@@ -37,34 +41,33 @@
 }
 
 .Polaris-Avatar--styleOne {
-  color: #3D2800;
-  background: #FFC96B;
+    color: rgba(60, 40, 0, 1);
+    background: rgba(255, 201, 107, 1);
 }
 
 .Polaris-Avatar--styleTwo {
-  color: #490B1C;
-  background: #FFC4B0;
+    color: rgba(73, 11, 28, 1);
+    background: rgba(255, 196, 167, 1);
 }
 
 .Polaris-Avatar--styleThree {
-  color: #002F19;
-  background: #92E6B5;
+    color: rgba(0, 47, 25, 1);
+    background: rgba(146, 230, 181, 1);
 }
 
 .Polaris-Avatar--styleFour {
-  color: #002D2D;
-  background: #91E0D6;
+    color: rgba(0, 45, 45, 1);
+    background: rgba(145, 224, 214, 1);
 }
 
 .Polaris-Avatar--styleFive {
-  color: #4F0E1F;
-  background: #FDC9D0;
+    color: rgba(79, 14, 31, 1);
+    background: rgba(253, 201, 208, 1);
 }
 
 .Polaris-Avatar--hasImage {
-  background: transparent;
+    background: transparent;
 }
-
 
 .Polaris-Avatar__Image {
     position: absolute;
@@ -1270,7 +1273,7 @@
     &:after {
         content: "";
         position: absolute;
-        background-color: $indicator-bgcolor;
+        background-color: rgba(68, 157, 167, 1);
         right: -.4rem;
         top: -.4rem;
         width: 1rem;
@@ -1281,7 +1284,7 @@
     &:before {
         content: "";
         position: absolute;
-        background-color: $indicator-bgcolor;
+        background-color: rgba(68, 157, 167, 1);
         right: -.4rem;
         top: -.4rem;
         width: 1rem;
@@ -2758,12 +2761,12 @@
 .Polaris-MessageIndicator {
     position: absolute;
     z-index: 1;
-    top: -.3rem;
-    right: -.3rem;
+    top: -0.3rem;
+    right: -0.3rem;
     width: 1.2rem;
     height: 1.2rem;
     border-radius: $messageindicator-border-radius;
-    background-color: $messageindicator-bgcolor;
+    background-color: rgba(0, 160, 172, 1);
     border: $messageindicator-border;
 }
 
@@ -3086,6 +3089,10 @@
     }
 }
 
+.Polaris-TopBar__SecondaryMenu svg {
+    fill: rgba(92, 95, 98, 1);
+    color: transparent;
+}
 /*=================== Polaris-TopBar-Menu  ====================== */
 
 
