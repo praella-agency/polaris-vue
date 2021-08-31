@@ -20,9 +20,9 @@
 import {PIcon} from '@/components/PIcon';
 import Timer from './timer.js';
 import mitt from 'mitt';
+import {classNames} from '@/utilities/css';
 
 const eventBus = mitt();
-import {classNames} from '@/utilities/css';
 
 const Positions = Object.freeze({
   TOP_RIGHT: 'top-right',
@@ -50,7 +50,7 @@ export default {
      */
     id: {
       type: String,
-      default: null
+      default: null,
     },
     /**
      * The message that should appear in the toast message
@@ -72,54 +72,52 @@ export default {
     position: {
       type: String,
       default: 'bottom',
-      validator: function(value) {
-        return ['top-right', 'top', 'top-left', 'bottom-right', 'bottom', 'bottom-left'].indexOf(value) !== -1
-      }
+      validator(value) {
+        return ['top-right', 'top', 'top-left', 'bottom-right', 'bottom', 'bottom-left'].indexOf(value) !== -1;
+      },
     },
     /**
      * The length of time in milliseconds the toast message should persist
      */
     dismissible: {
       type: Boolean,
-      default: true
+      default: true,
     },
     /**
      * Allow user dismiss by clicking
      */
     duration: {
       type: Number,
-      default: 3000
+      default: 3000,
     },
     /**
      * Wait for existing to dismiss before showing new
      */
     queue: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * Pause the timer when mouse on over a toast
      */
     pauseOnHover: {
       type: Boolean,
-      default: true
+      default: true,
     },
     /**
      * Do something when user clicks
      */
     onClick: {
       type: Function,
-      default: () => {
-      }
+      default: () => ({}),
     },
     /**
      * Do something after toast gets dismissed
      */
     onDismiss: {
       type: Function,
-      default: () => {
-      }
-    }
+      default: () => ({}),
+    },
   },
   data() {
     return {
@@ -127,8 +125,8 @@ export default {
       parentTop: null,
       parentBottom: null,
       queueTimer: undefined,
-      timer: Timer
-    }
+      timer: Timer,
+    };
   },
   beforeMount() {
     this.setupContainer();
@@ -209,7 +207,7 @@ export default {
     },
     closeToast() {
       this.dismiss();
-    }
+    },
   },
   computed: {
     className() {
@@ -252,8 +250,8 @@ export default {
           return this.parentBottom;
       }
     },
-  }
-}
+  },
+};
 </script>
 <style scoped>
 </style>

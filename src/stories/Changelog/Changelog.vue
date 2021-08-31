@@ -14,19 +14,19 @@
 </template>
 
 <script>
-import {PDisplayText} from "../../components/PDisplayText";
-import {PLayout} from "../../components/PLayout";
-import {PStack, PStackItem} from "../../components/PStack";
-import {PList, PListItem} from "../../components/PList";
-import {PLink} from "../../components/PLink";
-import {PCard, PCardHeader, PCardSection} from "../../components/PCard";
-import {PHeading} from "../../components/PHeading";
-import {PTextContainer} from "../../components/PTextContainer";
-import dayjs from "dayjs";
+import {PDisplayText} from '../../components/PDisplayText';
+import {PLayout} from '../../components/PLayout';
+import {PStack, PStackItem} from '../../components/PStack';
+import {PList, PListItem} from '../../components/PList';
+import {PLink} from '../../components/PLink';
+import {PCard, PCardHeader, PCardSection} from '../../components/PCard';
+import {PHeading} from '../../components/PHeading';
+import {PTextContainer} from '../../components/PTextContainer';
+import dayjs from 'dayjs';
 import showdown from 'showdown';
 
 export default {
-  name: "Changelog",
+  name: 'Changelog',
   data() {
     return {
       published_month: '',
@@ -44,7 +44,7 @@ export default {
         content = content.replace('*', '');
       }
       return content;
-    }
+    },
   },
   methods: {
     formatDate(date) {
@@ -56,10 +56,10 @@ export default {
     },
   },
   async created() {
-    const response = await fetch("https://api.github.com/repos/hulkapps/polaris-vue/releases");
+    const response = await fetch('https://api.github.com/repos/hulkapps/polaris-vue/releases');
     this.releases = await response.json();
   },
-}
+};
 </script>
 
 <style>

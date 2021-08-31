@@ -248,7 +248,7 @@ interface Sort {
 
 @Component({
   components: {
-    PDataTableCellNew, PPagination, PFilter, PSpinner, PEmptyState, PDataTableCell
+    PDataTableCellNew, PPagination, PFilter, PSpinner, PEmptyState, PDataTableCell,
   },
 })
 export default class PDataTable extends Vue {

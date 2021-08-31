@@ -113,13 +113,13 @@ export default class PResourceListHeader extends Vue {
             this.selectable && 'Polaris-ResourceList__HeaderWrapper--hasSelect',
             this.checked && 'Polaris-ResourceList__HeaderWrapper--inSelectMode',
             this.promotedBulkActions && 'Polaris-ResourceList__HeaderWrapper--hasSort',
-            this.loading && 'Polaris-ResourceList__HeaderWrapper--disabled'
+            this.loading && 'Polaris-ResourceList__HeaderWrapper--disabled',
         );
     }
 
     public get resourceHeaderTitle() {
-        if(this.loading) {
-            return `Loading ${this.resourceTitle}`
+        if (this.loading) {
+            return `Loading ${this.resourceTitle}`;
         }
 
         if (!this.checked) {

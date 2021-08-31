@@ -51,8 +51,6 @@
 import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import Multiselect from 'vue-multiselect';
 import {classNames} from '@/utilities/css';
-
-
 import {PIcon} from '@/components/PIcon';
 import {PTag} from '@/components/PTag';
 import {PFieldError} from '@/components/PFieldError';
@@ -68,7 +66,6 @@ interface StrictOption {
 @Component({
   components: {PIcon, Multiselect, PTag, PFieldError},
 })
-
 export default class PMultiSelect extends Vue {
   /**
    * Disable the PMultiSelect.

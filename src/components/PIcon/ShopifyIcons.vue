@@ -40,7 +40,7 @@ export default {
       iconCode: '',
       copyText: '',
       difference: {},
-      search: null
+      search: null,
     };
   },
   props: {
@@ -58,13 +58,13 @@ export default {
   methods: {
     searchIcon(value) {
       if (value === null) {
-        this.difference.forEach(icon => {
+        this.difference.forEach((icon) => {
           this.icons.push(icon);
         });
         return this.icons;
       } else {
         this.icons = [];
-        this.difference.forEach(icon => {
+        this.difference.forEach((icon) => {
           if (icon.toLowerCase().includes(value.toLowerCase())) {
             this.icons.push(icon);
           }
@@ -80,11 +80,11 @@ export default {
       let copy = '';
       if (this.backdrop) {
         copy = navigator.clipboard.writeText(
-            '<PIcon source="' + icon + '" color="' + this.color + '" backdrop="' + this.backdrop + '" />'
+            '<PIcon source="' + icon + '" color="' + this.color + '" backdrop="' + this.backdrop + '" />',
         );
       } else {
         copy = navigator.clipboard.writeText(
-            '<PIcon source="' + icon + '" color="' + this.color + '"/>'
+            '<PIcon source="' + icon + '" color="' + this.color + '"/>',
         );
       }
       this.copyText = copy ? 'Copied!' : '';
@@ -96,14 +96,14 @@ export default {
   },
   created() {
     // let allIcon = Object.keys(AllIcon);
-    this.difference = Object.keys(AllIcon).filter(icon => !DeprecatedIcons.includes(icon));
+    this.difference = Object.keys(AllIcon).filter((icon) => !DeprecatedIcons.includes(icon));
 
-    this.difference.forEach(icon => {
+    this.difference.forEach((icon) => {
       this.icons.push(icon);
     });
     return this.icons;
   },
-}
+};
 </script>
 
 <style scoped>
