@@ -22,6 +22,9 @@ export default {
     argTypes: {
         ContextualSaveAction: {
             description: 'Object to utilize in ContextualSaveBar',
+            control: {
+                type: null,
+            },
             type: {
                 summary: null,
             },
@@ -47,6 +50,9 @@ export default {
         },
         ThemeLogo: {
             description: 'Object to utilize in Theme',
+            control: {
+                type: null,
+            },
             type: {
                 summary: null,
             },
