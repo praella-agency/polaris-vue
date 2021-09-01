@@ -72,7 +72,7 @@
    * <br/>
    * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
    *  sans-serif;">The navigation component is used to display the primary navigation in the sidebar of the
-   *  <a href="http://localhost:6006/?path=/docs/structure-frame--default">frame</a>
+   *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/structure-frame--default">frame</a>
    *  of an application. Navigation includes a list of links that merchants use to move between sections of the
    *  application.</h4>
    */

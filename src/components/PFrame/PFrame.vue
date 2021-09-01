@@ -40,10 +40,11 @@
    * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
    *  sans-serif;">The frame component, while not visible in the user interface itself, provides the structure for
    *  an application. It wraps the main elements and houses the primary
-   *  <a href="http://localhost:6006/?path=/docs/navigation-navigation--navigation">navigation</a>,
-   *  <a href="http://localhost:6006/?path=/docs/structure-top-bar--top-bar">top bar</a>,
-   *  <a href="http://localhost:6006/?path=/docs/feedback-indicators-toast--toast">toast</a>, and
-   *  <a href="http://localhost:6006/?path=/docs/forms-contextual-save-bar--contextual-save-bar">contextual save bar</a>
+   *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/navigation-navigation--navigation">navigation</a>,
+   *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/structure-top-bar--top-bar">top bar</a>,
+   *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/feedback-indicators-toast--toast">toast</a>, and
+   *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/forms-contextual-save-bar--contextual-save-bar">contextual
+   *  save bar</a>
    *  components.</h4>
    */
   @Component({
