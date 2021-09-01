@@ -62,6 +62,7 @@ import { PTopBar } from './PTopBar';
 import { PContextualSaveBar } from './PFrame/components/PContextualSaveBar';
 import { PSkeletonPage } from './PSkeletonPage';
 import { PNavigation } from './PNavigation';
+import { PVisuallyHidden } from './PVisuallyHidden';
 
 import '@/scss/main.scss';
 
@@ -129,6 +130,7 @@ const Components = {
   PContextualSaveBar,
   PSkeletonPage,
   PNavigation,
+  PVisuallyHidden,
 };
 
 const PolarisVue = {
