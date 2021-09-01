@@ -13,7 +13,7 @@ export default {
             },
             description: 'Determine type of input',
             options: ['text', 'password', 'number', 'date', 'time', 'datetime-local', 'week', 'month',
-                'email'],
+                'email', 'file'],
             control: {
                 type: 'select',
             },
@@ -110,10 +110,10 @@ const Template = (args, {argTypes}) => ({
 export const TextField = Template.bind({});
 
 TextField.args = {
-    id: "input_field",
-    label: "Input Field",
+    id: 'input_field',
+    label: 'Input Field',
     disabled: false,
-    type: "text",
+    type: 'text',
     multiline: false,
     minHeight: 0,
 }
@@ -132,9 +132,9 @@ const Template1 = (args, {argTypes}) => ({
 export const IconPrefix = Template1.bind({});
 
 IconPrefix.args = {
-    type: "email",
-    id: "input_field",
-    label: "User email",
+    type: 'email',
+    id: 'input_field',
+    label: 'User email',
 }
 
 const Template2 = (args, {argTypes}) => ({
@@ -152,8 +152,41 @@ const Template2 = (args, {argTypes}) => ({
 export const ConnectedTextField = Template2.bind({});
 
 ConnectedTextField.args = {
-    id: "input_field",
-    label: "First Name",
+    id: 'input_field',
+    label: 'First Name',
     connected: true,
-    type: "number",
+    type: 'number',
+}
+
+const Template3 = (args, {argTypes}) => ({
+    props: Object.keys(argTypes),
+    components: {
+        PTextField, PButton, PSelect,
+    },
+    data() {
+        return {
+            files: null,
+        };
+    },
+    template: `
+      <PTextField 
+          v-bind="$props" 
+          v-model="files" 
+          @input="getFiles" 
+      />`,
+    methods: {
+        getFiles() {
+            console.log(this.files)
+        }
+    },
+});
+
+export const FileInput = Template3.bind({});
+
+FileInput.args = {
+    id: 'input_field_file',
+    label: 'Upload file',
+    type: 'file',
+    multiple: false,
+    accept: 'image/png, image/jpeg',
 }

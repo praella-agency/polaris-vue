@@ -118,6 +118,20 @@
      * @values true | false
      */
     @Prop({type: Boolean, default: false}) public clearable!: boolean;
+
+    /**
+     * **For input type:- file**
+     *
+     * A Boolean which, if present, indicates that the user may choose more than one file
+     */
+    @Prop({type: Boolean, default: false}) public multiple!: boolean;
+
+    /**
+     * **For input type:- file**
+     *
+     * One or more unique file type specifiers describing file types to allow
+     */
+    @Prop({type: String, default: null}) public accept!: string;
   }
 </script>
 
