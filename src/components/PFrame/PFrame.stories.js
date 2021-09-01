@@ -34,16 +34,16 @@ export default {
                     summary: '{}',
                     detail: `{
         /** A destination to link to */
-        url?: string;
+        url?: string,
         /** Content the action displays */
-        content?: string;
+        content?: string,
         /** Should a spinner be displayed */
-        loading?: boolean;
+        loading?: boolean,
         /** Should the action be disabled */
-        disabled?: boolean;
+        disabled?: boolean,
     
         /** Callback when an action takes place */
-        onAction?(): void;
+        onAction?(): void,
     }`,
                 },
             },
@@ -62,15 +62,15 @@ export default {
                     summary: '{}',
                     detail: `{
         /** Provides a path for a logo used on a dark background */
-        topBarSource?: string;
+        topBarSource?: string,
         /** Provides a path for a logo used on a light background */
-        contextualSaveBarSource?: string;
+        contextualSaveBarSource?: string,
         /** Destination the merchant will navigate to when clicking the logo */
-        url?: string;
+        url?: string,
         /** Accessible label the logo image */
-        accessibilityLabel?: string;
+        accessibilityLabel?: string,
         /** Number of pixels wide the logo image is */
-        width?: number;
+        width?: number,
     }`,
                 },
             },
@@ -81,23 +81,23 @@ export default {
                     summary: '{}',
                     detail: `{
     /** Extend the contents section to be flush with the left edge */
-    alignContentFlush?: boolean;
+    alignContentFlush?: boolean,
     /** Accepts a string of content that will be rendered to the left of the actions */
-    message?: string;
+    message?: string,
     /** Save or commit contextual save bar action with text defaulting to 'Save' */
-    saveAction?: ContextualSaveAction;
+    saveAction?: ContextualSaveAction,
     /** Discard or cancel contextual save bar action with text defaulting to 'Discard' */
     discardAction?: {
-        saveAction;
+        saveAction,
         /** Whether to show a modal confirming the discard action */
-        discardConfirmationModal?: boolean;        
-    };
+        discardConfirmationModal?: boolean,     
+    },
     /** Remove the normal max-width on the contextual save bar */
-    fullWidth?: boolean;
+    fullWidth?: boolean,
     /** To open a contextual modal */
-    openModal?: boolean;
+    openModal?: boolean,
     /** ContextualSaveBar Logo */
-    logo?: ThemeLogo;
+    logo?: ThemeLogo,
 }`,
                 },
             },

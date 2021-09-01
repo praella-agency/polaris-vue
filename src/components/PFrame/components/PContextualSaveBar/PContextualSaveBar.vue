@@ -99,6 +99,14 @@
   type ContextualSaveBarCombinedActionProps = ContextualSaveBarDiscardActionProps &
     ContextualSaveBarAction;
 
+
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">The contextual save bar tells merchants their options once they have made changes to a form on the
+   *  page. This component is also shown while creating a new object like a product or customer. Merchants can use this
+   *  component to save or discard their work.</h4>
+   */
   @Component({
     components: {
       PButton, PImage, PStack, PStackItem, PModal,

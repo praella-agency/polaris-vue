@@ -147,6 +147,12 @@
     sections?: [];
   }
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">The collapsible component is used to put long sections of information under a block that merchants
+   *  can expand or collapse.</h4>
+   */
   @Component({
     components: {
       PSearch, PIcon, PButton, PUnstyledLink, PImage, PTextField, PPopover, POptionList, PAvatar, PUserMenu, PMenu,

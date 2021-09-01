@@ -8,6 +8,21 @@ import { PLink } from '../PLink';
 export default {
     title: 'Behaviour / Collapsible',
     component: PCollapsible,
+    argTypes: {
+        transition: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    /** Assign a transition duration to the collapsible animation. */
+    duration?: string,
+    /** Assign a transition timing function to the collapsible animation */
+    timingFunction?: string,
+}`,
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({

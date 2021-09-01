@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
+  import { Vue, Component, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
 
   interface Transition {
@@ -24,6 +24,12 @@
 
   type AnimationState = 'idle' | 'measuring' | 'animating';
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">The collapsible component is used to put long sections of information under a block that merchants
+   *  can expand or collapse.</h4>
+   */
   @Component
   export default class PCollapsible extends Vue {
     /**

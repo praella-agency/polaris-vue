@@ -20,6 +20,12 @@
 
   const STUCK_THRESHOLD = 99;
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">The loading component is used to indicate to merchants that a page is loading or an upload is
+   *  processing.</h4>
+   */
   @Component({
     components: {}
   })

@@ -53,6 +53,13 @@
   import { PSkeletonDisplayText } from '../PSkeletonDisplayText';
   import { classNames } from '@/utilities/css';
 
+
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">Skeleton page is used with other skeleton loading components to provide a low fidelity representation
+   *  of the user interface (UI) before content appears on the page. It improves load times perceived by merchants.</h4>
+   */
   @Component({
     components: {
       PSkeletonBodyText, PSkeletonDisplayText,
