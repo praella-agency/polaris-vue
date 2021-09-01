@@ -39,6 +39,13 @@ import {PIcon} from '@/components/PIcon';
 import {PChoice} from '@/components/PChoice';
 import {MinusMinor, TickSmallMinor} from '@/assets/shopify-polaris-icons/index';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Checkboxes are most commonly used to give merchants a way to make a range of selections
+ *  (zero, one, or multiple). They may also be used as a way to have merchants indicate they agree to specific terms and
+ *  services.</h4>
+ */
 @Component({
     components: {
         PIcon, PChoice,

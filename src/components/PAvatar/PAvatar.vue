@@ -22,6 +22,12 @@
         Errored = 'ERRORED',
     }
 
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">Avatars are used to show a thumbnail representation of an individual or business in the interface.
+     *  </h4>
+     */
     @Component({
         components: {
             PImage,

@@ -38,6 +38,13 @@
         onPrevious?(): void;
     }
 
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">Use pagination to let merchants move through an ordered collection of items that has been split
+     *  into pages. On the web, pagination uses buttons to move back and forth between pages. On iOS and Android,
+     *  pagination uses infinite scrolling.</h4>
+     */
     @Component({
         components: {
             PUnstyledLink,

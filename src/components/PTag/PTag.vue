@@ -17,6 +17,12 @@ interface TagInterface {
     key: string;
 }
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Tags represent a set of interactive, merchant-supplied keywords that help label, organize, and
+ *  categorize objects. Tags can be added or removed from an object by merchants.</h4>
+ */
 @Component({
     components: {
         PIcon,

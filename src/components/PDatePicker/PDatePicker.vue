@@ -100,6 +100,12 @@ interface DateRange {
   endDate?: DateType;
 }
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Date pickers let merchants choose dates from a visual calendar that’s consistently applied wherever
+ *  dates need to be selected across Shopify.</h4>
+ */
 @Component({
   components: {
     DateRangePicker, PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField,

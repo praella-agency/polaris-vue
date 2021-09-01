@@ -11,6 +11,12 @@
 
     type Type = 'bullet' | 'number';
 
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">Lists display a set of related text-only content. Each list item begins with a bullet or a number.
+     * </h4>
+     */
     @Component
     export default class PList extends Vue {
 

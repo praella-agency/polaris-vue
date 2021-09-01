@@ -43,6 +43,13 @@ import PModalSection from './components/PModalSection.vue';
 import PModalCloseButton from './components/PModalCloseButton.vue';
 import { Action } from '@/types';
 
+/**
+* <br/>
+* <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+*  sans-serif;">Modals are overlays that prevent merchants from interacting with the rest of the application until a
+*  specific action is taken. They can be disruptive because they require merchants to take an action before they can
+*  continue interacting with the rest of Shopify. It should be used thoughtfully and sparingly.</h4>
+*/
 @Component({
     components: {
         PSpinner,

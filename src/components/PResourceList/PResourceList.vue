@@ -127,6 +127,12 @@ interface BulkActionsInterface {
     onAction: void;
 }
 
+/**
+* <br/>
+* <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+*  sans-serif;">A resource list displays a collection of objects of the same type, like products or customers. The main
+*  job of a resource list is to help merchants find an object and navigate to a full-page representation of it.</h4>
+*/
 @Component({
     components: {
         PFilter,

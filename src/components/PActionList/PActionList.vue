@@ -11,6 +11,13 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames} from '@/utilities/css';
 import PActionListSection from '@/components/PActionList/components/PActionListSection.vue';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Action lists render a list of actions or selectable options. This component is usually placed inside a
+ *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/overlays-popover--popover">popover</a>
+ *  container to create a dropdown menu or to let merchants select from a list of options.</h4>
+ */
 @Component({
     components: {
         PActionListSection,

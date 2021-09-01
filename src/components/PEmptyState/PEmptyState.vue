@@ -59,6 +59,13 @@ import {PCard, PCardSection} from '@/components/PCard';
 import {PButton} from '@/components/PButton';
 import {ComplexAction, DisableableAction, LoadableAction} from '@/types';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Empty states are used when a list, table, or chart has no items or data to show. This is an opportunity
+ *  to provide explanation or guidance to help merchants progress. The empty state component is intended for use when a
+ *  full page in the admin is empty, and not for individual elements or areas in the interface.</h4>
+ */
 @Component({
   components: {
     PImage,

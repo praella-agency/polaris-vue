@@ -17,6 +17,14 @@ type Spacing = 'extraTight' | 'tight' | 'loose' | 'extraLoose' | 'none';
 type Alignment = 'leading' | 'trailing' | 'center' | 'fill' | 'baseline';
 type Distribution = 'equalSpacing' | 'leading' | 'trailing' | 'center' | 'fill' | 'fillEvenly';
 
+
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Use to lay out a horizontal row of components or to achieve no-fuss vertical centering. A stack is made
+ *  of flexible items that wrap each of the stack’s children. Options provide control of the wrapping, spacing, and
+ *  relative size of the items in the stack.</h4>
+ */
 @Component({
   components: {PStackItem},
 })

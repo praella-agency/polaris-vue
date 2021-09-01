@@ -25,10 +25,14 @@
   import {PButton} from '@/components/PButton';
   import PSettingAction from '@/components/PSettingToggle/PSettingAction.vue';
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">Use to give merchants control over a feature or option that can be turned on or off.</h4>
+   */
   @Component({
     components: {PSettingAction, PCard, PButton },
   })
-
   export default class PSettingToggle extends Vue {
     /**
      * Card header actions.

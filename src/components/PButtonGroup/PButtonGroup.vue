@@ -6,6 +6,12 @@ import {PButtonGroupItem} from '@/components/PButtonGroup';
 
 type Spacing = 'extraTight' | 'tight' | 'loose';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Button group displays multiple related actions stacked or in a horizontal row to help with arrangement
+ *  and spacing.</h4>
+ */
 @Component
 export default class PButtonGroup extends Vue {
 

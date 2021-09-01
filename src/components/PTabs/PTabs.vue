@@ -31,13 +31,17 @@ import {TabDescriptor} from './types';
 import PTab from './PTab.vue';
 import PPanel from './PPanel.vue';
 
+/**
+* <br/>
+* <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+*  sans-serif;">Use to alternate among related views within the same context.</h4>
+*/
 @Component({
   components: {
     PTab,
     PPanel,
   },
 })
-
 export default class PTabs extends Vue {
 
   /**

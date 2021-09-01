@@ -45,6 +45,12 @@
 
   const PLACEHOLDER_VALUE = '';
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">Select lets merchants choose one option from an options menu. Consider select when you have 4 or more
+   *  options, to avoid cluttering the interface.</h4>
+   */
   @Component({
     components: {PIcon, PFieldError},
   })

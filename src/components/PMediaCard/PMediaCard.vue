@@ -84,6 +84,12 @@ interface PrimaryAction
   primary?: boolean;
 }
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Media cards provide a consistent layout to present visual information to merchants. Visual media is
+ *  used to provide additional context to the written information it's paired with.</h4>
+ */
 @Component({
   components: {
     PCard,

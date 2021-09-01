@@ -9,6 +9,13 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">The stack component will treat multiple elements wrapped in a stack item component as one item. By
+ *  default, each individual element is treated as one stack item. Use the fill prop on a single stack item component to
+ *  make it fill the rest of the available horizontal space.</h4>
+ */
 @Component
 export default class PStackItem extends Vue {
   /**

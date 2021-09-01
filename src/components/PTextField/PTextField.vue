@@ -43,6 +43,12 @@
   import PConnected from '../PConnected/PConnected.vue';
   import {PFieldError} from '@/components/PFieldError';
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">A text field is an input field that merchants can type into. It has a range of options and supports
+   *  several text formats including numbers.</h4>
+   */
   @Component({
     components: { PInput, PConnected, PFieldError },
   })

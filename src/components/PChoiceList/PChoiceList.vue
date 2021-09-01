@@ -37,6 +37,12 @@ import {PCheckbox} from '../PCheckbox';
 import {PRadioButton} from '../PRadioButton';
 import {PInlineError} from '../PInlineError';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">A choice list lets you create a list of grouped radio buttons or checkboxes. Use this component if you
+ *  need to group together a related list of interactive choices.</h4>
+ */
 @Component({
   components: {
     PCheckbox, PRadioButton, PInlineError,

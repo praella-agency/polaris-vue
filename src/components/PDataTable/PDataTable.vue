@@ -246,6 +246,13 @@ interface Sort {
   direction: SortDirection;
 }
 
+/**
+* <br/>
+* <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+*  sans-serif;">Data tables are used to organize and display all information from a data set. While a data
+*  visualization represents part of data set, a data table lets merchants view details from the entire set. This helps
+*  merchants compare and analyze the data.</h4>
+*/
 @Component({
   components: {
     PDataTableCellNew, PPagination, PFilter, PSpinner, PEmptyState, PDataTableCell,

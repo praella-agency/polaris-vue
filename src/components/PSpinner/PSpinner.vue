@@ -13,6 +13,13 @@ type Size = 'small' | 'large';
 
 const COLORS_FOR_LARGE_SPINNER = ['teal', 'inkLightest'];
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Spinners are used to notify merchants that their action is being processed. For loading states,
+ *  spinners should only be used for content that can’t be represented with skeleton loading components, like for data
+ *  charts.</h4>
+ */
 @Component
 export default class PSpinner extends Vue {
   /**

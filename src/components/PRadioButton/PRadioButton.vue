@@ -31,10 +31,16 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
 import PChoice from '@/components/PChoice/PChoice.vue';
+
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Use radio buttons to present each item in a list of options where merchants must make a single
+ *  selection.</h4>
+ */
 @Component({
   components: {PChoice},
 })
-
 export default class PRadioButton extends Vue {
   /**
    * Id for the radio button.
