@@ -110,6 +110,7 @@ export default class PResourceListItem extends Vue {
   @Prop({type: Boolean, default: false}) public loading!: boolean;
   @Prop({type: Boolean, default: true}) public persistActions!: boolean;
   @Prop({type: [Array, String], default: null}) public shortcutActions!: Action;
+  @Prop({type: Boolean, default: false}) public selectMode!: boolean;
 
   public actionMenuVisible = false;
 
@@ -117,6 +118,7 @@ export default class PResourceListItem extends Vue {
     return classNames(
       'Polaris-ResourceItem',
       this.selectable && 'Polaris-ResourceItem--selectable',
+      this.selectMode && 'Polaris-ResourceItem--selectMode',
       this.persistActions && 'Polaris-ResourceItem--persistActions',
     );
   }

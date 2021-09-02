@@ -34,6 +34,7 @@
                     v-on="$listeners"
                     @toggle-all="onToggledAll($event)"
                     @toggle-select-more="onSelectMore"
+                    @handle-selection-mode="handleSelectMode"
             />
         </div>
         <ul
@@ -208,6 +209,7 @@ export default class PResourceList extends Vue {
     public selectedItems = this.selectable && this.selected ? this.selected : [];
     public selectedMore: boolean = false;
     public selectedAll: boolean = false;
+    public toggleSelectMode = false;
 
     public topPadding = 8;
 
@@ -338,6 +340,11 @@ export default class PResourceList extends Vue {
          * @property {String} input-value
          */
         this.$emit('input-filter-changed', value);
+    }
+
+    public handleSelectMode(selectMode) {
+        this.toggleSelectMode = selectMode;
+        this.$emit('select-mode', this.toggleSelectMode);
     }
 }
 </script>

@@ -47,11 +47,6 @@ export default class PTag extends Vue {
         );
     }
 
-    public styleClass(name?: string) {
-        const finalStyleClasses = ['one', 'two', 'three', 'four', 'five', 'six'];
-        return name ? finalStyleClasses[name.charCodeAt(0) % finalStyleClasses.length] : finalStyleClasses[0];
-    }
-
     public handleRemove() {
         /**
          * Method to remove tag

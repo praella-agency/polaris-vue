@@ -1,5 +1,4 @@
 <template>
-
     <div :class="className">
         <div v-if="loading" class="Polaris-ResourceList__HeaderWrapper--overlay"></div>
         <div class="Polaris-ResourceList__HeaderContentWrapper">
@@ -7,28 +6,64 @@
             <div class="Polaris-ResourceList__CheckableButtonWrapper" v-if="selectable && !checked">
                 <PCheckableButton plain v-bind="$attrs" v-on="$listeners">{{resourceHeaderTitle}}</PCheckableButton>
             </div>
-            <div class="Polaris-ResourceList__SortWrapper" v-if="sortOptions && sortOptions.length > 0">
+            <div class="Polaris-ResourceList__SortWrapper" v-if="(sortOptions && sortOptions.length > 0)">
                 <PSelect
-                    :inlineLabel="sortLabel"
-                    labelHidden
+                    :inlineLabel="!smallView ? sortLabel : null"
+                    :labelHidden="smallView"
                     :options="sortOptions"
-                    @change="$emit('sort-change', sortOptions)"
+                    v-model="selectedOption"
+                    @change="handleSortChange"
                 />
+            </div>
+            <div v-if="isSelectable" class="Polaris-ResourceList__SelectButtonWrapper">
+                <PButton
+                    icon="EnableSelectionMinor"
+                    @click="handleSelectMode(true)"
+                >
+                    Select
+                </PButton>
             </div>
         </div>
 
-        <div class="Polaris-ResourceList__BulkActionsWrapper" v-if="checked">
-             <div class="Polaris-ResourceList-BulkActions__Group Polaris-ResourceList-BulkActions__Group--largeScreen
-             Polaris-ResourceList-BulkActions__Group--entered">
+        <div class="Polaris-ResourceList__BulkActionsWrapper" v-if="checked || smallViewChecked">
+             <div :class="`Polaris-ResourceList-BulkActions__Group ${screenClassName}
+                Polaris-ResourceList-BulkActions__Group--entered`">
                 <div class="Polaris-ResourceList-BulkActions__ButtonGroupWrapper">
                     <PButtonGroup segmented>
                         <PCheckableButton v-bind="$attrs" :checked="checked" v-on="$listeners">
-                          {{resourceHeaderTitle}}
+                          {{ resourceHeaderTitle }}
                         </PCheckableButton>
-                        <PBulkActionButtonWrapper :actions="promotedBulkActions"></PBulkActionButtonWrapper>
-                        <PBulkActionButtonWrapper>
+                        <PBulkActionButtonWrapper v-if="!smallView" :actions="promotedBulkActions" />
+                        <template v-if="smallView">
+                            <PBulkActionButtonWrapper>
+                                <PPopover
+                                        :id="popOverID"
+                                        :active="bulkActionsShown"
+                                        :fullWidth="false"
+                                        @close="bulkActionsShown = false">
+                                    <template slot="activator">
+                                        <PButton
+                                                :disclosure="bulkActionsShown ? 'up' : 'down'"
+                                                @click="bulkActionsShown = !bulkActionsShown">
+                                            Actions
+                                        </PButton>
+                                    </template>
+                                    <template slot="content">
+                                        <PActionList :items="promotedBulkActions" :sections="bulkActionsForSmallScreen" />
+                                    </template>
+                                </PPopover>
+                            </PBulkActionButtonWrapper>
+                            <PBulkActionButtonWrapper>
+                                <PButton
+                                    @click="cancelSelectMode(false)"
+                                >
+                                    Cancel
+                                </PButton>
+                            </PBulkActionButtonWrapper>
+                        </template>
+                        <PBulkActionButtonWrapper v-else>
                             <PPopover
-                                    :id="popoverId"
+                                    :id="popOverID"
                                     :active="bulkActionsShown"
                                     preferredAlignment="right"
                                     :fullWidth="false"
@@ -41,13 +76,13 @@
                                     </PButton>
                                 </template>
                                 <template slot="content">
-                                    <PActionList :items="bulkActions"></PActionList>
+                                    <PActionList :items="bulkActions" />
                                 </template>
                             </PPopover>
                         </PBulkActionButtonWrapper>
                     </PButtonGroup>
                 </div>
-                <div class="Polaris-ResourceList-BulkActions__PaginatedSelectAll" v-if="hasMore && checked">
+                <div class="Polaris-ResourceList-BulkActions__PaginatedSelectAll" v-if="hasMore && checked && !smallView">
                     <PButton @click="handleToggleSelectMore"
                              plain v-if="!selectedMore">Select all {{count}}+ {{resourceTitle}} in your store</PButton>
                     <div v-else>
@@ -61,7 +96,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PButton } from '@/components/PButton';
@@ -105,15 +140,27 @@ export default class PResourceListHeader extends Vue {
     @Prop(Boolean) public loading!: boolean;
 
     public bulkActionsShown: boolean = false;
+    public selectedOption = null;
+    public smallView = false;
+    public selectMode = this.selectable;
+    public popOverID = this.popoverId;
+    public smallViewChecked = false;
 
     public get className() {
 
         return classNames(
             'Polaris-ResourceList__HeaderWrapper',
             this.selectable && 'Polaris-ResourceList__HeaderWrapper--hasSelect',
-            this.checked && 'Polaris-ResourceList__HeaderWrapper--inSelectMode',
+            (this.checked || this.smallViewChecked) && 'Polaris-ResourceList__HeaderWrapper--inSelectMode',
             this.promotedBulkActions && 'Polaris-ResourceList__HeaderWrapper--hasSort',
             this.loading && 'Polaris-ResourceList__HeaderWrapper--disabled',
+        );
+    }
+
+    public get screenClassName() {
+        return classNames(
+            this.smallView && 'Polaris-ResourceList-BulkActions__Group--smallScreen',
+            !this.smallView && 'Polaris-ResourceList-BulkActions__Group--largeScreen',
         );
     }
 
@@ -124,6 +171,9 @@ export default class PResourceListHeader extends Vue {
 
         if (!this.checked) {
             const resource = this.resourceTitle;
+            if (this.smallView) {
+                return `${this.checkedCount}${this.selectedMore ? '+' : ''} selected`;
+            }
             return `Showing ${this.count} ${this.totalCount ? ' of ' + this.totalCount : ''} ${resource}`;
         } else if (this.checkedCount) {
 
@@ -131,9 +181,54 @@ export default class PResourceListHeader extends Vue {
         }
     }
 
+    public get isSelectable() {
+        return Boolean((Object.keys(this.promotedBulkActions).length > 0) ||
+            (Object.keys(this.bulkActions).length > 0) || this.selectable)
+    }
+
+    public get bulkActionsForSmallScreen() {
+        return [
+            {
+                items: this.bulkActions,
+            }
+        ];
+    }
+
     public handleToggleSelectMore() {
 
         this.$emit('toggle-select-more');
+    }
+
+    public handleSortChange(value) {
+        this.$emit('sort-change', value);
+    }
+
+    public mounted() {
+        window.addEventListener('resize', this.isSmallScreen);
+        this.isSmallScreen();
+    }
+
+    public isSmallScreen() {
+        if (window.innerWidth < 458) {
+            this.smallView = true;
+            this.popOverID = 'smallScreenPopover';
+        } else {
+            this.smallView = false;
+            this.popOverID = 'largeScreenPopover';
+            this.smallViewChecked = false;
+        }
+    }
+
+    public handleSelectMode(selectMode) {
+        this.selectMode = selectMode;
+        this.smallViewChecked = true;
+        this.$emit('handle-selection-mode', selectMode);
+    }
+
+    public cancelSelectMode(selectMode) {
+        this.selectMode = selectMode;
+        this.smallViewChecked = false;
+        this.$emit('handle-selection-mode', selectMode);
     }
 }
 </script>

@@ -142,10 +142,15 @@ const Template2 = (args, {argTypes}) => ({
     components: {
         PTextField, PButton, PSelect,
     },
+    data() {
+        return {
+            selectedOption: null,
+        };
+    },
     template: `
       <PTextField v-bind="$props">
           <PButton slot="connectedRight">Submit</PButton>
-          <PSelect :options="['%','$']" slot="connectedLeft" />
+          <PSelect v-model="selectedOption" :options="['%','$']" slot="connectedLeft" />
       </PTextField>`,
 });
 

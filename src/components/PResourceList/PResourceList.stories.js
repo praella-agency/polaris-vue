@@ -155,6 +155,7 @@ const Template = (args, {argTypes}) => ({
                 },
             ],
             taggedValue: 'Vue',
+            selectModeStatus: false,
         };
     },
     template: `
@@ -172,7 +173,8 @@ const Template = (args, {argTypes}) => ({
               ]"
               @filter-removed="removeTag"
               @change="toggleSelected"
-              @sortChange="() => handleSortChange(selected)"
+              @sort-change="handleSortChange"
+              @select-mode="handleSelectMode"
           >
             <template slot="filter">
               <PPopover
@@ -220,6 +222,7 @@ const Template = (args, {argTypes}) => ({
                   :id="item.id"
                   :checked="selectedItems.indexOf(item.id) >= 0"
                   :selectable="selectable"
+                  :selectMode="selectModeStatus"
                   :loading="loading"
                   persistActions
                   :shortcutActions="[
@@ -233,7 +236,7 @@ const Template = (args, {argTypes}) => ({
                 <PAvatar slot="media" customer size="medium" :name="item.name" />
                 <div class="resource-list-item">
                   <div class="resource-list-item__book--name">
-                    <p>{{ item.name }}</p>
+                    <p>{{ item.name }} SelectMode:- {{ selectMode }}</p>
                   </div>
                   <div class="resource-list-item__resource--status">
                       <h3>
@@ -275,15 +278,18 @@ const Template = (args, {argTypes}) => ({
         onNext() {
             this.queryParams.page++;
         },
-        removeTag() {
-            alert('Removed');
+        removeTag(tag) {
+            alert('Removed:- ' + tag);
         },
         handleButtonClick() {
             console.log('Saved');
         },
-        handleSortChange(selected) {
-            console.log(selected)
-        }
+        handleSortChange(value) {
+            console.log('Sorting value:- ' + value);
+        },
+        handleSelectMode(selectMode) {
+            this.selectModeStatus = selectMode;
+        },
     },
 });
 
@@ -295,7 +301,7 @@ ResourceList.args = {
     hasMore: true,
     loading: false,
     sortOptions: [
-        {label: 'Newest update', value: 'DATE_MODIFIED_DESC', disabled: false, hidden: true},
+        {label: 'Newest update', value: 'DATE_MODIFIED_DESC', disabled: false,},
         {label: 'Oldest update', value: 'DATE_MODIFIED_ASC', disabled: false},
     ],
     promotedBulkActions: [
