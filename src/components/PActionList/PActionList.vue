@@ -36,7 +36,8 @@ export default class PActionList extends Vue {
 
     public get finalSections() {
 
-        if (this.items.length > 0) {
+        if (typeof this.items != "undefined" && this.items !== null && this.items.length != null
+            && this.items.length > 0) {
             return [{items: this.items}, ...this.sections];
         }
         return this.sections;
