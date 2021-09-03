@@ -115,17 +115,21 @@ interface ResourceNameInterface {
 }
 
 interface SortOptionsInterface {
-  /** Machine value of the option; this is the value passed to `onChange` */
-  value: string;
-  /** Human-readable text for the option */
-  label: string;
-  /** Option will be visible, but not selectable */
-  disabled?: boolean;
+    /** Machine value of the option; this is the value passed to `onChange` */
+    value: string;
+    /** Human-readable text for the option */
+    label: string;
+    /** Option will be visible, but not selectable */
+    disabled?: boolean;
 }
 
 interface BulkActionsInterface {
     content: string;
     onAction: void;
+}
+
+interface ItemType {
+
 }
 
 /**

@@ -236,7 +236,7 @@ const Template = (args, {argTypes}) => ({
                 <PAvatar slot="media" customer size="medium" :name="item.name" />
                 <div class="resource-list-item">
                   <div class="resource-list-item__book--name">
-                    <p>{{ item.name }} SelectMode:- {{ selectMode }}</p>
+                    <p>{{ item.name }}</p>
                   </div>
                   <div class="resource-list-item__resource--status">
                       <h3>
