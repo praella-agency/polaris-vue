@@ -3,11 +3,13 @@ import '!style-loader!css-loader!sass-loader!./styles/docs.scss';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import PToast from '../src/components/PToast/index';
+import { Tooltip } from "../src/components/PTooltip/p-tooltip";
 
 Vue.use(VueRouter);
 Vue.component('router-link', Vue.component('RouterLink'));
 
 Vue.use(PToast);
+Vue.use(Tooltip);
 
 export const decorators = [(story) => ({
   components: {story},
