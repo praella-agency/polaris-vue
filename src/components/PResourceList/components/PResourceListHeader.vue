@@ -126,8 +126,8 @@ export default class PResourceListHeader extends Vue {
 
     @Prop({type: String, default: `PolarisPopover${ComponentHelpers.uuid()}`}) public popoverId!: string;
     @Prop(String) public resourceTitle!: string;
-    @Prop([Object, Array]) public promotedBulkActions!: [] | {};
-    @Prop(Array) public bulkActions!: BulkActionsInterface[];
+    @Prop({type: [Object, Array], default: () => ([])}) public promotedBulkActions!: [] | {};
+    @Prop({type: Array, default: () => ([])}) public bulkActions!: BulkActionsInterface[];
     @Prop(Array) public sortOptions!: SortOptionsInterface[];
     @Prop({type: String, default: 'Sort By'}) public sortLabel!: string;
     @Prop(Number) public totalCount!: number;
