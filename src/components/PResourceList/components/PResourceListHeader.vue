@@ -29,13 +29,19 @@
              <div :class="`Polaris-ResourceList-BulkActions__Group ${screenClassName}
                 Polaris-ResourceList-BulkActions__Group--entered`">
                 <div class="Polaris-ResourceList-BulkActions__ButtonGroupWrapper">
-                    <PButtonGroup segmented>
+                    <PButtonGroup :segmented="segmentedGroup">
                         <PCheckableButton v-bind="$attrs" :checked="checked" v-on="$listeners">
                           {{ resourceHeaderTitle }}
                         </PCheckableButton>
-                        <PBulkActionButtonWrapper v-if="!smallView" :actions="promotedBulkActions" />
+                        <PBulkActionButtonWrapper
+                            v-if="!smallView && (promotedBulkActions.length > 0 || Object.keys(promotedBulkActions).length > 0)"
+                            :actions="promotedBulkActions"
+                        />
                         <template v-if="smallView">
-                            <PBulkActionButtonWrapper>
+                            <PBulkActionButtonWrapper
+                                v-if="promotedBulkActions.length > 0 || Object.keys(promotedBulkActions).length > 0 ||
+                                        bulkActions.length > 0"
+                            >
                                 <PPopover
                                         :id="popOverID"
                                         :active="bulkActionsShown"
@@ -49,7 +55,7 @@
                                         </PButton>
                                     </template>
                                     <template slot="content">
-                                        <PActionList :items="promotedBulkActions" :sections="bulkActionsForSmallScreen" />
+                                        <PActionList :items="promotedBulkActionsData" :sections="bulkActionsForSmallScreen" />
                                     </template>
                                 </PPopover>
                             </PBulkActionButtonWrapper>
@@ -61,25 +67,27 @@
                                 </PButton>
                             </PBulkActionButtonWrapper>
                         </template>
-                        <PBulkActionButtonWrapper v-else>
-                            <PPopover
+                        <template v-else>
+                            <PBulkActionButtonWrapper v-if="bulkActions.length > 0">
+                                <PPopover
                                     :id="popOverID"
                                     :active="bulkActionsShown"
                                     preferredAlignment="right"
                                     :fullWidth="false"
                                     @close="bulkActionsShown = false">
-                                <template slot="activator">
-                                    <PButton
+                                    <template slot="activator">
+                                        <PButton
                                             :disclosure="bulkActionsShown ? 'up' : 'down'"
                                             @click="bulkActionsShown = !bulkActionsShown">
-                                        More actions
-                                    </PButton>
-                                </template>
-                                <template slot="content">
-                                    <PActionList :items="bulkActions" />
-                                </template>
-                            </PPopover>
-                        </PBulkActionButtonWrapper>
+                                            More actions
+                                        </PButton>
+                                    </template>
+                                    <template slot="content">
+                                        <PActionList :items="bulkActions" />
+                                    </template>
+                                </PPopover>
+                            </PBulkActionButtonWrapper>
+                        </template>
                     </PButtonGroup>
                 </div>
                 <div class="Polaris-ResourceList-BulkActions__PaginatedSelectAll" v-if="hasMore && checked && !smallView">
@@ -187,11 +195,25 @@ export default class PResourceListHeader extends Vue {
     }
 
     public get bulkActionsForSmallScreen() {
-        return [
-            {
-                items: this.bulkActions,
-            }
-        ];
+        if (this.bulkActions.length > 0) {
+            return [
+                {
+                    items: this.bulkActions,
+                }
+            ];
+        }
+    }
+
+    public get segmentedGroup() {
+        return Object.keys(this.promotedBulkActions).length > 0 || this.bulkActions.length > 0;
+
+    }
+
+    public get promotedBulkActionsData() {
+        if (this.promotedBulkActions instanceof Array) {
+            return this.promotedBulkActions;
+        }
+        return [this.promotedBulkActions];
     }
 
     public handleToggleSelectMore() {
