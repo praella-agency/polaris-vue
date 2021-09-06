@@ -1,38 +1,52 @@
 import { Vue } from 'vue-property-decorator';
-import { PPopover } from '../PPopover';
+import { PTooltip } from './index';
 
-function tooltipBind(event, binding) {
-    console.log(event, binding)
+function tooltipBind(event, binding, togglePop) {
+    console.log(binding)
+
+    let position = 'mostSpace';
+    if (Object.keys(binding.modifiers).length > 0) {
+        Object.keys(binding.modifiers).forEach(function modifiersKey(key) {
+            if (key === 'above' || key === 'below' || key === 'mostSpace') {
+                position = key;
+            } else {
+                console.error(key + ' position is not available.');
+            }
+        });
+    }
+
     let targetEl = event.target;
     if (targetEl.offsetWidth <= targetEl.scrollWidth) {
-        return Vue.component('p-tooltip', {
-            components: {
-                PPopover,
-            },
-            template: `<span>Hello</span>`,
-            created() {
-                console.log('in tooltip')
-            }
-        })
-    } else {
-        targetEl.hasAttribute('title') && targetEl.removeAttribute('title');
+        let id = `_${targetEl.id}_`;
+        if (togglePop) {
+            let instance = new PTooltip({
+                propsData: {
+                    id: id,
+                    active: togglePop,
+                    preferredPosition: position,
+                }
+            });
+            instance.$slots.tooltipContent = binding.value;
+            instance.$mount();
+            document.getElementById(targetEl.id).appendChild(instance.$el);
+        } else {
+            document.getElementById('PolarisPopover' + id + 'Activator').remove();
+        }
     }
 }
 
 const Tooltip = Vue.directive('p-tooltip', {
     bind(el, binding, vnode) {
-        el.style.textOverflow = "ellipsis";
-        el.style.display = "inline-block";
-        el.style.whiteSpace = "nowrap";
-        el.style.overflow = "hidden";
-
-        el.addEventListener('mouseover', function (event) {
-            tooltipBind(event, binding);
+        el.addEventListener('mouseenter', function (event) {
+            tooltipBind(event, binding, true);
         });
-        console.log(el, binding, vnode);
+        el.addEventListener('mouseleave', function (event) {
+            tooltipBind(event, binding, false);
+        });
     },
     unbind(el) {
-        el.removeEventListener('mouseover', tooltipBind);
+        el.removeEventListener('mouseenter', tooltipBind);
+        el.removeEventListener('mouseleave', tooltipBind);
     }
 })
 

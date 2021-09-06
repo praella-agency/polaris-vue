@@ -16,12 +16,10 @@
 
 
 <script lang="ts">
-import {Component, Vue, Prop, Ref, Watch} from 'vue-property-decorator';
+import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
-@Component({
-    components: {},
-})
-export default class PPopoverOverlay extends Vue {
+@Component
+export default class PPositionedOverlay extends Vue {
 
     @Prop(String) public id!: string;
     @Prop(Boolean) public active!: boolean;
@@ -80,6 +78,7 @@ export default class PPopoverOverlay extends Vue {
     }
 
     public mounted() {
+        console.log('Positioned');
         window.addEventListener('resize', this.handleMeasurement);
         window.addEventListener('scroll', this.handleMeasurement);
         this.overlay = this.$refs.overlay;
@@ -98,6 +97,7 @@ export default class PPopoverOverlay extends Vue {
     public handleMeasurement() {
         const activator = document.getElementById(this.activatorId);
         if (!activator) {
+            console.log('return', this.activatorId, activator);
             return;
         }
         const activatorRect = activator.getBoundingClientRect();
@@ -145,6 +145,10 @@ export default class PPopoverOverlay extends Vue {
             overlayMargins,
             this.preferredAlignment,
         );
+        console.log('verticalPosition');
+        console.log(verticalPosition);
+        console.log('horizontalPosition');
+        console.log(horizontalPosition);
         this.measuring = false;
         // this.left = horizontalPosition;
         this.left = this.preferredAlignment !== 'right' ? horizontalPosition : undefined;
@@ -167,6 +171,7 @@ export default class PPopoverOverlay extends Vue {
     }
 
     public calculateHorizontalPosition(activatorRect, overlayRect, containerRect, overlayMargins, preferredAlignment) {
+        console.log('hor');
         const maximum = containerRect.width - overlayRect.width;
 
         if (preferredAlignment === 'left') {
@@ -200,6 +205,7 @@ export default class PPopoverOverlay extends Vue {
                                      scrollableContainerRect,
                                      containerRect,
                                      preferredPosition) {
+        console.log('ver');
         const activatorTop = activatorRect.top;
         const activatorBottom = activatorTop + activatorRect.height;
         const spaceAbove = activatorRect.top;
@@ -232,6 +238,7 @@ export default class PPopoverOverlay extends Vue {
         };
 
         if (preferredPosition === 'above') {
+            console.log('overlayIf', preferredPosition);
             return ((enoughSpaceFromTopScroll ||
                 (distanceToTopScroll >= distanceToBottomScroll && !enoughSpaceFromBottomScroll)) &&
                 (spaceAbove > desiredHeight || spaceAbove > spaceBelow))
@@ -240,6 +247,7 @@ export default class PPopoverOverlay extends Vue {
         }
 
         if (preferredPosition === 'below') {
+            console.log('overlayIf', preferredPosition);
             return ((enoughSpaceFromBottomScroll ||
                 (distanceToBottomScroll >= distanceToTopScroll && !enoughSpaceFromTopScroll)) &&
                 (spaceBelow > desiredHeight || spaceBelow > spaceAbove))
