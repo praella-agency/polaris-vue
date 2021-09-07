@@ -4,19 +4,24 @@ import { PTooltip } from './index';
 function tooltipBind(event, binding, togglePop) {
     console.log(binding)
 
-    let position = 'mostSpace';
+    let position = 'below';
     if (Object.keys(binding.modifiers).length > 0) {
         Object.keys(binding.modifiers).forEach(function modifiersKey(key) {
             if (key === 'above' || key === 'below' || key === 'mostSpace') {
                 position = key;
             } else {
-                console.error(key + ' position is not available.');
+                console.error('Error:- `' + key + '` position is not available.');
             }
         });
     }
 
     let targetEl = event.target;
     if (targetEl.offsetWidth <= targetEl.scrollWidth) {
+        if (targetEl.id === '' || targetEl.id === null) {
+            console.error('Error:- `id` attribute is required for element while using `v-p-tooltip` directive.');
+            return;
+        }
+
         let id = `_${targetEl.id}_`;
         if (togglePop) {
             let instance = new PTooltip({
@@ -30,7 +35,7 @@ function tooltipBind(event, binding, togglePop) {
             instance.$mount();
             document.getElementById(targetEl.id).appendChild(instance.$el);
         } else {
-            document.getElementById('PolarisPopover' + id + 'Activator').remove();
+            document.getElementById('PolarisPopover' + targetEl.id + 'Activator').parentElement.remove()
         }
     }
 }

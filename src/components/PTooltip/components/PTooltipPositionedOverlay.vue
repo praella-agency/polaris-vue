@@ -19,7 +19,7 @@
 import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 @Component
-export default class PPositionedOverlay extends Vue {
+export default class PTooltipPositionedOverlay extends Vue {
 
     @Prop(String) public id!: string;
     @Prop(Boolean) public active!: boolean;
@@ -105,9 +105,7 @@ export default class PPositionedOverlay extends Vue {
         let scrollableContainerRect = scrollableElement.getBoundingClientRect();
 
         const overlayRect = this.getBoundingClientRect(this.overlay);
-        if (this.fullWidth) {
-            overlayRect.width = activatorRect.width;
-        }
+        overlayRect.width = activatorRect.width;
 
         if (scrollableElement === document.body) {
             scrollableContainerRect = {

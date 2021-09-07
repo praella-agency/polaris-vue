@@ -1,18 +1,18 @@
 <template>
   <div ref="container">
     <!-- @slot Filter Activator content -->
-    <slot name="activator" :activate="onActivate"></slot>
+    <slot name="activator" :activate="onActivate"/>
 
-    <PPopoverOverlay
+    <PTooltipOverlay
         :id="realId+'Overlay'"
-        :active="active"
+        :active="toggleActive"
         :activatorId="activatorId"
         :preferredPosition="preferredPosition"
         :preferredAlignment="preferredAlignment"
         :fullWidth="fullWidth"
     >
       <template v-slot:overlay="props">
-        <div :class="className" :ref="`content-${id}`">
+        <div :class="className" :ref="`content-${activatorRectId}`">
           <div v-if="!props.data.measuring"
                :style="{ left: props.data.tipPosition+'px' }"
                class="Polaris-Popover__Tip">
@@ -30,18 +30,18 @@
           </div>
         </div>
       </template>
-    </PPopoverOverlay>
+    </PTooltipOverlay>
   </div>
 </template>
 
 <script lang="ts">
   import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator';
-  import PPopoverOverlay from '../PPopover/components/PPopoverOverlay.vue';
+  import PTooltipOverlay from './components/PTooltipOverlay.vue';
   import { classNames } from '@/utilities/css';
 
   @Component({
     components: {
-      PPopoverOverlay,
+      PTooltipOverlay,
     }
   })
   export default class PTooltip extends Vue {
@@ -108,7 +108,7 @@
     @Prop({type: Boolean, default: false}) public positioning!: boolean;
 
     public get realId() {
-      return 'PolarisPopover' + this.id;
+      return 'PolarisPopover' + this.activatorRectId;
     }
 
     public get activatorId() {
@@ -118,6 +118,8 @@
     @Ref('container') public readonly container!: HTMLElement;
 
     public isAppended: boolean = false;
+    public toggleActive = this.active;
+    public activatorRectId = this.id.replace(/_/g, '');
 
     @Watch('active')
     public onValueChanged(value) {
@@ -149,7 +151,6 @@
     }
 
     public mounted() {
-      console.log(document.getElementById(this.activatorId));
       if (this.container.firstElementChild !== null) {
         this.container.firstElementChild.id = this.activatorId;
       }
@@ -174,9 +175,9 @@
 
     public handlePageClick(e) {
       const target = e.target;
-      const contentNode = this.$refs['content-' + this.id];
+      const contentNode = this.$refs['content-' + this.activatorRectId];
       if ((contentNode != null && this.nodeContainsDescendant(contentNode, target)) ||
-        this.nodeContainsDescendant(this.findActivator, target) || !this.active) {
+        this.nodeContainsDescendant(this.findActivator, target) || !this.toggleActive) {
         return;
       }
       /**
