@@ -107,6 +107,10 @@
      */
     @Prop({type: Boolean, default: false}) public positioning!: boolean;
 
+    public get activatorRectId() {
+      return this.id.replace(/_/g, '');
+    }
+
     public get realId() {
       return 'PolarisPopover' + this.activatorRectId;
     }
@@ -119,7 +123,6 @@
 
     public isAppended: boolean = false;
     public toggleActive = this.active;
-    public activatorRectId = this.id.replace(/_/g, '');
 
     @Watch('active')
     public onValueChanged(value) {

@@ -7,6 +7,12 @@ export default {
         docs: {
             page: PTooltipMDX,
         },
+        options: {
+            showPanel: false,
+        },
+        controls: {
+            disable: true,
+        },
     },
 }
 

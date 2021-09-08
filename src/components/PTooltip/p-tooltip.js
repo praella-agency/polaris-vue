@@ -35,7 +35,7 @@ function tooltipBind(event, binding, togglePop) {
             instance.$mount();
             document.getElementById(targetEl.id).appendChild(instance.$el);
         } else {
-            document.getElementById('PolarisPopover' + targetEl.id + 'Activator').parentElement.remove()
+            document.getElementById('PolarisPopover' + targetEl.id + 'Activator').parentElement.remove();
         }
     }
 }
