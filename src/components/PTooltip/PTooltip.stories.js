@@ -22,10 +22,9 @@ const Template = (arg, {argTypes}) => ({
     },
     template: `
         <PTextStyle
-            id="tooltip"
-            style="position: fixed;top: 50%;"
+            style="position: fixed;top: 0;"
             variation="strong"
-            v-p-tooltip="'This order has shipping labels.'"
+            v-p-tooltip.mostSpace="'This order has shipping labels.'"
         >
           Order #1001 Order #1001 Order #1001 Order #1001 Order #1001 Order #1001 
         </PTextStyle>`,

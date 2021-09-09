@@ -6,7 +6,7 @@
     <PTooltipOverlay
         :id="realId+'Overlay'"
         :active="toggleActive"
-        :activatorId="activatorId"
+        :activatorId="activatorRectId"
         :preferredPosition="preferredPosition"
         :preferredAlignment="preferredAlignment"
         :fullWidth="fullWidth"
@@ -144,6 +144,7 @@
     public get className() {
       return classNames(
         'Polaris-Popover',
+        'Polaris-Tooltip-Popover',
         this.fullWidth && 'Polaris-Popover--fullWidth',
         this.measuring && 'Polaris-Popover--measuring',
       );

@@ -3,7 +3,6 @@
     <PTextField class="shopify-polaris-text" placeholder="Search Icon" v-model="search" @input="searchIcon"/>
     <div class="container-div">
       <div v-for="(icon, key) in icons" :key="key" class="icon-div"
-           :id="icon"
            v-p-tooltip.above='"<PIcon source=\"" + icon + "\" />"'
            @mouseover="changeCode(icon)"
            @click="copyCode(icon)">
