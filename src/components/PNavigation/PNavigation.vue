@@ -67,7 +67,6 @@
     fill?: boolean;
   }
 
-
   /**
    * <br/>
    * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,

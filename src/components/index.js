@@ -63,6 +63,10 @@ import { PContextualSaveBar } from './PFrame/components/PContextualSaveBar';
 import { PSkeletonPage } from './PSkeletonPage';
 import { PNavigation } from './PNavigation';
 import { PVisuallyHidden } from './PVisuallyHidden';
+import { PUserMenu } from './PTopBar/components/PUserMenu';
+import { PMenu } from './PTopBar/components/PMenu';
+import { PSearchField } from './PTopBar/components/PSearchField';
+import { PCollapsible } from './PCollapsible';
 
 import '@/scss/main.scss';
 
@@ -131,6 +135,10 @@ const Components = {
   PSkeletonPage,
   PNavigation,
   PVisuallyHidden,
+  PUserMenu,
+  PMenu,
+  PSearchField,
+  PCollapsible,
 };
 
 const PolarisVue = {

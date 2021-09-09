@@ -53,7 +53,6 @@
   import { PSkeletonDisplayText } from '../PSkeletonDisplayText';
   import { classNames } from '@/utilities/css';
 
-
   /**
    * <br/>
    * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
