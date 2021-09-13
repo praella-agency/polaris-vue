@@ -1,25 +1,27 @@
 import { Vue } from 'vue-property-decorator';
-import { PTooltip } from './index';
+import Tooltip from './PTooltip';
 
-function tooltipBind(event, binding, togglePop, elementId = null) {
+function tooltipBind(event, binding, togglePop, elementId) {
     let position = 'below';
     if (Object.keys(binding.modifiers).length > 0) {
         Object.keys(binding.modifiers).forEach(function modifiersKey(key) {
             if (key === 'above' || key === 'below' || key === 'mostSpace') {
                 position = key;
             } else {
-                console.error('Error:- `' + key + '` position is not available.');
+                console.error('Error: `' + key + '` position is not available.');
             }
         });
     }
 
     let targetEl = event.target;
     if (targetEl.offsetWidth <= targetEl.scrollWidth) {
+        if (!elementId) {
+            targetEl.id = 'tooltip' + (new Date()).getTime();
+        }
 
-        targetEl.id = 'tooltip' + (new Date()).getTime();
         let id = `_${targetEl.id}_`;
         if (togglePop) {
-            let instance = new PTooltip({
+            let instance = new Tooltip({
                 propsData: {
                     id: id,
                     active: togglePop,
@@ -32,16 +34,15 @@ function tooltipBind(event, binding, togglePop, elementId = null) {
             document.body.append(instance.$el);
             window.dispatchEvent(new Event('resize'));
         } else {
-            console.log('PolarisPopover' + elementId.replace(/_/g, '') + 'Activator');
             document.getElementById('PolarisPopover' + elementId.replace(/_/g, '') + 'Activator').parentElement.remove();
         }
     }
 }
 
-const Tooltip = Vue.directive('p-tooltip', {
+const PTooltip = Vue.directive('p-tooltip', {
     bind(el, binding, vnode) {
         el.addEventListener('mouseenter', function (event) {
-            tooltipBind(event, binding, true);
+            tooltipBind(event, binding, true, event.target.id);
         });
         el.addEventListener('mouseleave', function (event) {
             tooltipBind(event, binding, false, event.target.id);
@@ -53,4 +54,4 @@ const Tooltip = Vue.directive('p-tooltip', {
     }
 })
 
-export { Tooltip };
+export { PTooltip };

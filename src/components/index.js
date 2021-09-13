@@ -56,8 +56,9 @@ import { PFooterHelp } from './PFooterHelp';
 import { PDropZone } from './PDropZone';
 import PToast from './PToast/index';
 import { PChoiceList } from './PChoiceList';
-import { PDataTableRow } from './PDataTable/components'
-import { PDataTableCol } from './PDataTable/components/components'
+import { PDataTableRow } from './PDataTable/components';
+import { PDataTableCol } from './PDataTable/components/components';
+import { PTooltip } from './PTooltip';
 
 import '@/scss/main.scss';
 
@@ -120,6 +121,7 @@ const Components = {
   PDropZone,
   PChoiceList,
   PDataTableRow, PDataTableCol,
+  PTooltip,
 };
 
 const PolarisVue = {
@@ -129,6 +131,7 @@ const PolarisVue = {
     }
 
     Vue.use(PToast);
+    Vue.use(PTooltip);
   },
 };
 

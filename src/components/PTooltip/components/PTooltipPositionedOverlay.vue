@@ -199,15 +199,13 @@ export default class PTooltipPositionedOverlay extends Vue {
         const activatorTop = activatorRect.top;
         const activatorBottom = activatorTop + activatorRect.height;
         const spaceAbove = activatorRect.top;
-        const spaceBelow = containerRect.height - activatorRect.top - activatorRect.height;
+        const spaceBelow = containerRect.height - (activatorRect.top + activatorRect.height);
 
         const desiredHeight = overlayRect.height;
         const verticalMargins = overlayMargins.activator + overlayMargins.container;
         const minimumSpaceToScroll = overlayMargins.container;
         const distanceToTopScroll = activatorRect.top - Math.max(scrollableContainerRect.top, 0);
-        const distanceToBottomScroll = containerRect.top
-            + Math.min(containerRect.height, scrollableContainerRect.top + scrollableContainerRect.height)
-            - (activatorRect.top + activatorRect.height);
+        const distanceToBottomScroll = containerRect.height - (activatorRect.top + activatorRect.height);
 
         const enoughSpaceFromTopScroll = distanceToTopScroll >= minimumSpaceToScroll;
         const enoughSpaceFromBottomScroll = distanceToBottomScroll >= minimumSpaceToScroll;

@@ -1,3 +1,3 @@
-import PTooltip from './PTooltip';
+import { PTooltip } from './p-tooltip';
 
 export { PTooltip };
