@@ -36,6 +36,7 @@ export default {
             disable: false,
             argTypesRegex: "^on[A-Z].*",
         },
+        layout: 'centered',
     },
 
 }

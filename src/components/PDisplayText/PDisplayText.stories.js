@@ -3,6 +3,9 @@ import PDisplayText from './PDisplayText';
 export default {
     title: 'Titles & Text / Display Text',
     component: PDisplayText,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         size: {
             options: ['small', 'medium', 'large', 'extraLarge'],

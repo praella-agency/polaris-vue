@@ -3,6 +3,9 @@ import PToggle from './PToggle.vue';
 export default {
     title: 'Forms / Toggle',
     component: PToggle,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         label: {
             control: {

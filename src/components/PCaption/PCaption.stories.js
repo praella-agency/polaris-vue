@@ -4,6 +4,9 @@ import { PList, PListItem } from '../PList';
 export default {
     title: 'Titles & Text / Caption',
     component: PCaption,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         default: {
             table: {

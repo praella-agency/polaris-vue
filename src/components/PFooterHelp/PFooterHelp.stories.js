@@ -4,6 +4,9 @@ import { PLink } from '../PLink';
 export default {
     title: 'Navigation / Footer Help',
     component: PFooterHelp,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         default: {
             table: {

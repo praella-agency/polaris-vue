@@ -3,6 +3,9 @@ import PTextStyle from './PTextStyle';
 export default {
     title: 'Titles & Text / Text Style',
     component: PTextStyle,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         default: {
             table: {
@@ -30,7 +33,7 @@ const Template = (args, { argTypes }) => ({
         <PTextStyle
             v-bind="$props"
         >
-          Example Usage
+            No supplier listed
         </PTextStyle>`,
 });
 

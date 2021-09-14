@@ -3,6 +3,9 @@ import PTabs from '@/components/PTabs/PTabs.vue';
 export default {
     title: 'Navigation / Tabs',
     component: PTabs,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         selected: {
             control: {

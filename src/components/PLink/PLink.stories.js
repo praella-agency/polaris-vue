@@ -3,6 +3,9 @@ import PLink from './PLink';
 export default {
     title: 'Navigation / Link',
     component: PLink,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         default: {
             table: {

@@ -3,6 +3,9 @@ import PTag from './PTag';
 export default {
     title: 'Forms / Tag',
     component: PTag,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         tag: {
             table: {

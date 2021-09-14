@@ -3,6 +3,9 @@ import POptionList from './POptionList';
 export default {
     title: 'Lists & Tables / Option List',
     component: POptionList,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         selected: {
             control: {

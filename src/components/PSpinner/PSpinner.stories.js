@@ -3,6 +3,9 @@ import PSpinner from './PSpinner';
 export default {
     title: 'Feedback indicators / Spinner',
     component: PSpinner,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         size: {
             options: ['small', 'large'],

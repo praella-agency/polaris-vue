@@ -4,6 +4,9 @@ import { PHeading } from '../PHeading';
 export default {
     title: 'Titles & Text / Text Container',
     component: PTextContainer,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         spacing: {
             options: ['tight', 'loose', null],

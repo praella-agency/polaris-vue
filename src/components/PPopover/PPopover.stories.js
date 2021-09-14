@@ -8,8 +8,10 @@ export default {
     component: PPopover,
     parameters: {
         docs: {
-            page: PopoverMDX,
+            inlineStories: false,
+            iframeHeight: 500,
         },
+        layout: 'centered',
     },
     argTypes: {
         preferredAlignment: {
@@ -82,4 +84,22 @@ export const Popover = Template.bind({});
 
 Popover.args = {
     id: 'items-status-filter',
+}
+
+Popover.parameters = {
+    docs: {
+        source: {
+            code: `
+<template>
+  <PPopover id="items-status-filter" :active="false">
+    <PButton slot="activator" disclosure="down">More Actions</PButton>
+    <POptionList
+      slot="content"
+      :options='[{"label":"Pending","value":"0"},{"label":"Published","value":"1"},{"label":"Archived","value":"-1"}]'
+      :selected="[]"
+    />
+  </PPopover>
+</template>`,
+        },
+    },
 }

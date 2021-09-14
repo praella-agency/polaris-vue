@@ -3,6 +3,9 @@ import PButton from './PButton';
 export default {
     title: 'Actions / Button',
     component: PButton,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         disclosure: {
             options: ['up', 'down', false,],

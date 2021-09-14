@@ -3,6 +3,9 @@ import PHeading from './PHeading';
 export default {
     title: 'Titles & Text / Heading',
     component: PHeading,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         default: {
             table: {

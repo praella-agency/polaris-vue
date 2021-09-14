@@ -47,10 +47,15 @@ import {Component, Vue, Prop, Ref, Watch} from 'vue-property-decorator';
 import {classNames} from '@/utilities/css';
 import PPopoverOverlay from '@/components/PPopover/components/PPopoverOverlay.vue';
 
+/**
+ * <br/>
+ * <h4 style={{fontFamily: '-apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif'}}>
+ *  Popovers are small overlays that open on demand. They let merchants access additional content and actions without
+ *  cluttering the page.</h4>
+*/
 @Component({
   components: {PPopoverOverlay},
 })
-
 export default class PPopover extends Vue {
 
   /**

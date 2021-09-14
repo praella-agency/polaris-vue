@@ -4,6 +4,9 @@ import { PButton } from '../PButton';
 export default {
     title: 'Actions / Button Group',
     component: PButtonGroup,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         spacing: {
             options: ['loose', 'tight', 'extraTight', null],
