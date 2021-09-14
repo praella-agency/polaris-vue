@@ -12,9 +12,16 @@ export default {
     component: PTopBar,
     parameters: {
         layout: 'fullscreen',
+        docs: {
+            inlineStories: false,
+            iframeHeight: 500,
+            source: {
+                type: 'auto',
+            },
+        },
     },
     argTypes: {
-        message: {
+        Message: {
             description: 'Message object to use in UserMenu and SecondaryMenu',
             table: {
                 type: {
@@ -84,7 +91,7 @@ export default {
         }
     ],
     /** Object of message for Menu */
-    message?: For message object check message object,
+    message?: For message object check Message object,
     /** Toggle to open/close popover */
     open: boolean,
     /** Icon to display */
@@ -168,7 +175,7 @@ export default {
         }
     ],
     /** Object of message for Menu */
-    message?: For message object check message object,
+    message?: For message object check Message object,
     /** Name for the User Menu */
     name?: string;
     /** Information for User Menu */
