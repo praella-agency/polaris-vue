@@ -15,9 +15,6 @@ export default {
         docs: {
             inlineStories: false,
             iframeHeight: 500,
-            source: {
-                type: 'auto',
-            },
         },
     },
     argTypes: {
@@ -322,5 +319,26 @@ TopBar.args = {
             'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999',
         url: 'javascript:void(0)',
         accessibilityLabel: 'Jaded Pixel',
+    },
+}
+
+TopBar.parameters = {
+    docs: {
+        source: {
+            code: `
+<template>
+  <PFrame>
+    <PTopBar
+      slot="pTopBar"
+      showNavigationToggle
+      :logo='{"width":124,"topBarSource":"https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999","url":"javascript:void(0)","accessibilityLabel":"Jaded Pixel"}'
+      :userMenu='{"id":"Polaris-UserMenu","actions":[{"items":[{"content":"Back to Shopify","icon":"ArrowLeftMinor"}]},{"items":[{"content":"Community forums"}]}],"name":"Dharma","detail":"Jaded Pixel","initials":"D","open":false,"message":{"title":"Shopify Production","description":"New message","action":{"content":"Action"},"link":{"to":"javascript:void(0);","content":"Link","external":true},"badge":{"content":"Badge","status":"warning"}}}'
+      :secondaryMenu='{"id":"Polaris-Menu","open":false,"actions":[{"items":[{"content":"Community forums"}]}],"icon":"QuestionMarkMajor"}'
+      :searchField='{"value":"","placeholder":"Search","showFocusBorder":true}'
+      :searchResult='{"items":[{"content":"Shopify help center"},{"content":"Community forums"}]}'
+    />
+  </PFrame>
+</template>`,
+        },
     },
 }
