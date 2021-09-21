@@ -1,18 +1,17 @@
 <template>
     <div
-      :id="id"
-      :class="wrapperClassName"
-      :style="collapsibleStyles"
-      ref="collapsibleContainer"
-      :onTransitionEnd="handleCompleteAnimation"
-      :aria-expanded="open"
+        :id="id"
+        :class="wrapperClassName"
+        :style="collapsibleStyles"
+        ref="collapsibleContainer"
+        :aria-expanded="open"
     >
-      <slot v-if="expandOnPrint || !isFullyClosed"/>
+        <slot v-if="expandOnPrint || !isFullyClosed"/>
     </div>
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
 
   interface Transition {
@@ -54,15 +53,87 @@
 
     public animationState: AnimationState = 'idle';
 
-    public get isOpen() {
-      return this.open;
-    };
-
-    public set isOpen(value) {
-      this.open = value;
-    };
-
     public height = 0;
+
+    public isOpen = this.open;
+
+    @Watch('animationState')
+    public onAnimationStateChanged() {
+      if (!this.$refs.collapsibleContainer) {
+        return;
+      }
+
+      switch (this.animationState) {
+        case 'idle':
+          break;
+        case 'measuring':
+          this.height = (this.$refs.collapsibleContainer as HTMLDivElement).scrollHeight;
+          setTimeout(() => {
+            this.animationState = 'animating';
+          }, 1);
+          break;
+        case 'animating':
+          this.height = this.open ? (this.$refs.collapsibleContainer as HTMLDivElement).scrollHeight : 0;
+      }
+    }
+
+    @Watch('isOpen')
+    public onIsOpenChanged(value) {
+      if (this.open !== value) {
+        this.animationState = 'measuring';
+      } else {
+        if (!this.$refs.collapsibleContainer) {
+          return;
+        }
+
+        switch (this.animationState) {
+          case 'idle':
+            break;
+          case 'measuring':
+            this.height = (this.$refs.collapsibleContainer as HTMLDivElement).scrollHeight;
+            this.animationState = 'animating';
+            break;
+          case 'animating':
+            this.height = this.open ? (this.$refs.collapsibleContainer as HTMLDivElement).scrollHeight : 0;
+        }
+      }
+    }
+
+    @Watch('open')
+    public onOpenChanged(value) {
+      if (value !== this.isOpen) {
+        this.animationState = 'measuring';
+      } else {
+        if (!this.$refs.collapsibleContainer) {
+          return;
+        }
+
+        switch (this.animationState) {
+          case 'idle':
+            break;
+          case 'measuring':
+            this.height = (this.$refs.collapsibleContainer as HTMLDivElement).scrollHeight;
+            this.animationState = 'animating';
+            break;
+          case 'animating':
+            this.height = this.open ? (this.$refs.collapsibleContainer as HTMLDivElement).scrollHeight : 0;
+        }
+      }
+
+    }
+
+    public mounted() {
+      (this.$refs.collapsibleContainer as HTMLDivElement).addEventListener('transitionend', this.handleCompleteAnimation);
+
+      if (this.open && this.$refs.collapsibleContainer) {
+        // If collapsible defaults to open, set an initial height
+        this.height = (this.$refs.collapsibleContainer as HTMLDivElement).scrollHeight;
+      }
+    }
+
+    public beforeDestroy() {
+      (this.$refs.collapsibleContainer as HTMLDivElement).removeEventListener('transitionend', this.handleCompleteAnimation);
+    }
 
     public get isFullyOpen() {
       return this.animationState === 'idle' && this.open && this.isOpen;
@@ -77,7 +148,7 @@
         'Polaris-Collapsible',
         this.isFullyClosed && 'Polaris-Collapsible--isFullyClosed',
         this.expandOnPrint && 'Polaris-Collapsible--expandOnPrint',
-      )
+      );
     }
 
     public get collapsibleStyles() {
@@ -87,18 +158,18 @@
         overflow: this.isFullyOpen ? 'visible' : 'hidden',
       };
 
-      if(Object.keys(this.transition).length > 0) {
+      if (Object.keys(this.transition).length > 0) {
         transitionStyle = {
           transitionDuration: `${this.transition.duration}`,
           transitionTimingFunction: `${this.transition.timingFunction}`,
-        }
+        };
       }
 
       return [transitionStyle, collapsible];
     }
 
     public handleCompleteAnimation({target}: TransitionEvent) {
-      if(target === this.$refs.collapsibleContainer) {
+      if (target === this.$refs.collapsibleContainer) {
         this.animationState = 'idle';
         this.isOpen = this.open;
       }

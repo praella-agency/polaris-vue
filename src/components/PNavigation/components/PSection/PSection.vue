@@ -39,7 +39,8 @@
             :key="key"
             :label="additionalItem.label"
             :subNavigationItems="additionalItem.subNavigationItems"
-            @click="handleClick(additionalItem.onClick, additionalItem.subNavigationItems.length > 0)"
+            @click="handleClick(additionalItem.onClick,
+            additionalItem.subNavigationItems ? additionalItem.subNavigationItems.length > 0 : false)"
             v-bind="additionalItem"
             :location="location"
             :onNavigationDismiss="onNavigationDismiss"

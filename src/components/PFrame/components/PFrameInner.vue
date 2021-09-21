@@ -30,36 +30,51 @@
         />
       </slot>
     </div>
-    <div v-if="$slots.hasOwnProperty('pNavigation') || Object.keys(navigation).length > 0">
+<!--    @enter="enter"-->
+<!--    @after-enter="afterEnter"-->
+<!--    @leave="leave"-->
+<!--    @after-leave="leave"-->
+    <transition
+        name="navigation-custom-transition"
+        enter-class="Polaris-Frame__Navigation--enter"
+        enter-active-class="Polaris-Frame__Navigation--enterActive"
+        leave-class="Polaris-Frame__Navigation--exitActive"
+        leave-to-active="Polaris-Frame__Navigation--exit"
+    >
       <div
-          ref="navigationNode"
-          :class="`Polaris-Frame__Navigation ${showMobileNavigation ? navClassName: ''}`"
-          :aria-modal="ariaModal"
-          :role="role"
-          aria-label="Navigation"
-          @keydown="handleNavKeydown"
-          :id="APP_FRAME_NAV"
-          key="NavContent"
-          :hidden="mobileNavHidden"
+          v-show="showMobileNavigation"
       >
-        <slot name="pNavigation">
-          <PNavigation
-              v-bind="navigation"
-          />
-        </slot>
-        <button
-            v-if="showMobileNavigation"
-            type="button"
-            class="Polaris-Frame__NavigationDismiss"
-            @click="handleNavigationDismiss"
-            :aria-hidden="mobileNavHidden || (!useMediaQuery && !toggleMobileNavigation)"
-            aria-label="Close navigation"
-            :tabindex="mobileNavShowing ? 0 : -1"
+        <div
+            v-if="$slots.hasOwnProperty('pNavigation') || Object.keys(navigation).length > 0"
+            ref="navigationNode"
+            :class="`Polaris-Frame__Navigation ${showMobileNavigation ? navClassName: ''}`"
+            :aria-modal="ariaModal"
+            :role="role"
+            aria-label="Navigation"
+            @keydown="handleNavKeydown"
+            :id="APP_FRAME_NAV"
+            key="NavContent"
+            :hidden="mobileNavHidden"
         >
-          <PIcon source="MobileCancelMajor"/>
-        </button>
+          <slot name="pNavigation">
+            <PNavigation
+                v-bind="navigation"
+            />
+          </slot>
+          <button
+              v-if="showMobileNavigation"
+              type="button"
+              class="Polaris-Frame__NavigationDismiss"
+              @click="handleNavigationDismiss"
+              :aria-hidden="mobileNavHidden || (!useMediaQuery && !toggleMobileNavigation)"
+              aria-label="Close navigation"
+              :tabindex="mobileNavShowing ? 0 : -1"
+          >
+            <PIcon source="MobileCancelMajor"/>
+          </button>
+        </div>
       </div>
-    </div>
+    </transition>
     <div
         :class="contextualSaveBarClassName"
     >
@@ -190,8 +205,7 @@
     @Ref() private navigationNode!: HTMLDivElement;
 
     public mounted() {
-      document.getElementById('PFrame')!.style.setProperty('--p-frame-offset',
-        this.frameOffset);
+      document.getElementById('PFrame')!.style.setProperty('--p-frame-offset', this.frameOffset);
       this.handleResize();
       if (this.$slots.hasOwnProperty('globalRibbon')) {
         return;
@@ -238,8 +252,8 @@
     public get navClassName() {
       return classNames(
         this.toggleMobileNavigation && 'Polaris-Frame__Navigation--visible',
-        this.toggleMobileNavigation && 'Polaris-Frame__Navigation--enter Polaris-Frame__Navigation--enterActive',
-        !this.toggleMobileNavigation && 'Navigation-exit Polaris-Frame__Navigation--exitActive'
+        this.toggleMobileNavigation && 'Polaris-Frame__Navigation--display',
+        // !this.toggleMobileNavigation && 'Navigation-exit Polaris-Frame__Navigation--exitActive'
       );
     }
 
@@ -331,6 +345,22 @@
       if (this.onNavigationDismiss) {
         return this.onNavigationDismiss();
       }
+    }
+
+    public enter(el, done) {
+      console.log('enter');
+    }
+
+    public afterEnter(el) {
+      console.log('after enter');
+    }
+
+    public leave(el, done) {
+      console.log('leave');
+    }
+
+    public afterLeave(el) {
+      console.log('after leave');
     }
   }
 </script>
