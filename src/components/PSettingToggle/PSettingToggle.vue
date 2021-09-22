@@ -6,13 +6,17 @@
         <slot></slot>
       </template>
       <PButton slot="action"
-          :primary="!enabled"
-          @click="handleAction(action)"
-          :url="action.url"
-          :accessibility-label="action.accessibilityLabel"
-          :disabled="action.disabled"
-          :destructive="action.destructive"
-          :icon="action.icon"
+         :accessibility-label="action.accessibilityLabel"
+         :destructive="action.destructive"
+         :disabled="action.disabled"
+         :external="action.external"
+         :icon="action.icon"
+         :id="action.id ? action.id : `Polaris-Setting-Toggle${this['_uid']}`"
+         :loading="action.loading"
+         :outline="action.outline"
+         :url="action.url"
+         :primary="!enabled"
+         @click="action.onAction"
       > {{ action.contentStatus }}
       </PButton>
     </PSettingAction>
@@ -24,6 +28,21 @@
   import {PCard} from '@/components/PCard';
   import {PButton} from '@/components/PButton';
   import PSettingAction from '@/components/PSettingToggle/PSettingAction.vue';
+
+  interface Action {
+    accessibilityLabel?: string,
+    destructive?: boolean,
+    disabled?: boolean,
+    external?: boolean,
+    icon?: string,
+    id?: string | number,
+    loading?: boolean,
+    outline?: boolean,
+    url?: string,
+    contentStatus?: string,
+
+    onAction(): void
+  }
 
   /**
    * <br/>
@@ -37,7 +56,7 @@
     /**
      * Card header actions.
      */
-    @Prop({type: Object, default: Object}) public action!: object;
+    @Prop({type: Object, default: Object}) public action!: Action;
 
     /**
      * Sets toggle state.
@@ -49,11 +68,5 @@
      * @ignore
      */
     @Prop({type: String, default: null}) public propsClass!: string;
-
-    public handleAction(action: any) {
-      if (action.onAction) {
-        action.onAction();
-      }
-    }
   }
 </script>
