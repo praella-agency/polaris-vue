@@ -23,7 +23,7 @@ import {Component, Vue, Prop, Ref, Watch} from 'vue-property-decorator';
 })
 export default class PPopoverOverlay extends Vue {
 
-    @Prop(String) public id!: string;
+    @Prop([String, Number]) public id!: string | number;
     @Prop(Boolean) public active!: boolean;
     @Prop(String) public preferredPosition!: string;
     @Prop(String) public preferredAlignment!: string; // right, left, center

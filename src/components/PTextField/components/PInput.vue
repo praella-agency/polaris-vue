@@ -140,7 +140,7 @@
     components: { PFieldResizer, PSpinner, PIcon, ckeditor: CKEditor.component  },
   })
   export default class PInput extends Vue {
-    @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
+    @Prop({type: [String, Number], default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string | number;
     @Prop() public value!: any;
     @Prop(String) public type!: Type;
     @Prop(String) public align!: Align;

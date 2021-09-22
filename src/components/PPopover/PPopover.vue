@@ -62,10 +62,10 @@ export default class PPopover extends Vue {
    * Id for the PPopover.
    */
   @Prop({
-    type: String,
+    type: [String, Number],
     default: `PolarisPopover${new Date().getUTCMilliseconds()}${Math.floor(Math.random() * 1000)}`,
     required: true,
-  }) public id!: string;
+  }) public id!: string | number;
 
   /**
    * Show or hide the PPopover.

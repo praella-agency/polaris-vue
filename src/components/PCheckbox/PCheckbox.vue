@@ -56,7 +56,7 @@ export default class PCheckbox extends Vue {
     /**
      * ID for form input
      */
-    @Prop({type: String, required: true}) public id!: string;
+    @Prop({type: [String, Number], required: true}) public id!: string | number;
 
     /**
      * Name for form input

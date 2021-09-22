@@ -46,10 +46,10 @@ export default class PRadioButton extends Vue {
    * Id for the radio button.
    */
   @Prop({
-    type: String,
+    type: [String, Number],
     default: `PolarisRadioButton${new Date().getUTCMilliseconds()}`,
     required: true,
-  }) public id!: string;
+  }) public id!: string | number;
 
   /**
    * Label for the radio button.

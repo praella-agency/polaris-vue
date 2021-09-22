@@ -26,6 +26,13 @@ export default {
                 type: 'select',
             },
         },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
     },
 }
 

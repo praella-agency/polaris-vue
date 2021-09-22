@@ -19,7 +19,7 @@ export default class PLabel extends Vue {
   /**
    * A unique identifier for the label
    */
-  @Prop({type: String, required: true, default: 'polaris-label'}) public id!: string;
+  @Prop({type: [String, Number], required: true, default: 'polaris-label'}) public id!: string | number;
 
   /**
    * Visually hide the label

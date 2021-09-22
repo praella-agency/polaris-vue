@@ -10,9 +10,16 @@ export default {
         default: {
             table: {
                 disable: true,
-            }
-        }
-    }
+            },
+        },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, { argTypes }) => ({

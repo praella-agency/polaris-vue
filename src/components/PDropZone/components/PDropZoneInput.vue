@@ -23,7 +23,7 @@
 
   @Component({})
   export default class PDropZoneInput extends Vue {
-    @Prop({type: String, default: null}) public id!: string;
+    @Prop({type: [String, Number], default: null}) public id!: string | number;
     @Prop({type: String, default: null}) public accept!: string;
     @Prop({type: Boolean, default: false}) public disabled!: boolean;
     @Prop({type: String, default: 'file'}) public type!: string;

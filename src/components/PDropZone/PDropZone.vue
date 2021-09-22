@@ -170,7 +170,7 @@
     /**
      * ID for file input
      */
-    @Prop({type: String, default: `PDropZone${new Date().getUTCMilliseconds()}`}) public id!: string;
+    @Prop({type: [String, Number], default: `PDropZone${new Date().getUTCMilliseconds()}`}) public id!: string | number;
 
     /**
      * Allowed file types

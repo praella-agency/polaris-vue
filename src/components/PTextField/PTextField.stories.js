@@ -87,6 +87,13 @@ export default {
             },
             description: 'Indicates whether or not the character count should be displayed',
         },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
     },
 }
 

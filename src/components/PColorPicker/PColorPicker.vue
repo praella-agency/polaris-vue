@@ -38,7 +38,7 @@
     /**
      * ID for form input
      */
-    @Prop({type: String, required: true}) public id!: string;
+    @Prop({type: [String, Number], required: true}) public id!: string | number;
 
     /**
      * LabelClass for input

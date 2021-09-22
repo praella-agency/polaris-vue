@@ -160,7 +160,7 @@ export default class PResourceListItem extends Vue {
     /**
      * Unique identifier for the item
      */
-    @Prop({type: [String, Number], required: true}) public id!: string;
+    @Prop({type: [String, Number], required: true}) public id!: string | number;
 
     /**
      * Makes the shortcut actions always visible

@@ -64,7 +64,7 @@ export default class POptionList extends Vue {
     /**
      * A unique identifier for the option list.
      */
-    @Prop({type: String, default: null}) public id!: string;
+    @Prop({type: [String, Number], default: null}) public id!: string | number;
 
     /**
      * List title.

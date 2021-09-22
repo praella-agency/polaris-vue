@@ -30,7 +30,7 @@
     })
     export default class POptionsListOption extends Vue {
 
-        @Prop(String) public id!: string;
+        @Prop([String, Number]) public id!: string | number;
         @Prop(String) public value!: string;
         @Prop(Number) public section!: number;
         @Prop(Number) public index!: number;

@@ -37,7 +37,7 @@ import { classNames } from '@/utilities/css';
 
 export default class PTab extends Vue {
 
-  @Prop(String) public id!: string;
+  @Prop([String, Number]) public id!: string | number;
   @Prop(Boolean) public focused!: boolean;
   @Prop(Boolean) public selected!: boolean;
   @Prop([String, Object]) public to!: string | object;

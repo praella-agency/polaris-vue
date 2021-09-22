@@ -25,6 +25,13 @@ export default {
                 },
             },
         },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
     },
 }
 

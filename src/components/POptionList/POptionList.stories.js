@@ -34,9 +34,16 @@ export default {
     title?: string,
     options: options[],
 }]`,
-                }
-            }
-        }
+                },
+            },
+        },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
     },
 }
 

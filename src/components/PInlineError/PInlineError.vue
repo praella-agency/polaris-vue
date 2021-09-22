@@ -33,6 +33,6 @@
         /**
          * Content briefly explaining how to resolve the invalid form field input.
          */
-        @Prop({type: String, default: null}) public fieldID!: string;
+        @Prop({type: [String, Number], default: null}) public fieldID!: string | number;
     }
 </script>

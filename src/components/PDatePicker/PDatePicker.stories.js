@@ -37,8 +37,15 @@ export default {
         helpText: {
             table: {
                 category: ['props', 'slots']
-            }
-        }
+            },
+        },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
     },
 }
 

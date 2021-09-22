@@ -13,6 +13,13 @@ export default {
                 disable: true,
             },
         },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
     },
 }
 

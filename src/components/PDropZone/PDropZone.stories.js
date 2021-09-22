@@ -46,6 +46,13 @@ export default {
                 },
             },
         },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
         handleOnDrop: {
             control: {
                 type: 'none',

@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-  import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
+  import {Component, Prop, Vue} from 'vue-property-decorator';
   import {PCard} from '@/components/PCard';
   import {PButton} from '@/components/PButton';
   import PSettingAction from '@/components/PSettingToggle/PSettingAction.vue';

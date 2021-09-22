@@ -38,7 +38,7 @@ export default {
      * Form group Id
      */
     id: {
-      type: String,
+      type: [String, Number],
       default: `PolarisFormLayout${new Date().getUTCMilliseconds()}`,
     },
     /**

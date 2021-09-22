@@ -128,7 +128,7 @@ export default class PDatePicker extends Vue {
   /**
    * ID for the element
    */
-  @Prop({type: String, required: true}) public id!: string;
+  @Prop({type: [String, Number], required: true}) public id!: string | number;
 
   /**
    * Makes the picker readonly. No button in footer. No ranges. Cannot change.

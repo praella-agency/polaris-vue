@@ -21,7 +21,7 @@ export default class PFormLayout extends Vue {
   /**
    * Id for the element
    */
-  @Prop({type: String, default: 'PFormLayout'}) public id!: string;
+  @Prop({type: [String, Number], default: 'PFormLayout'}) public id!: string | number;
 
   public render(createElement: any) {
     return createElement('div', {

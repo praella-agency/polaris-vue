@@ -55,7 +55,7 @@ export default class PLabelled extends Vue {
   /**
    * A unique identifier for the label
    */
-  @Prop({type: String, default: null}) public id!: string;
+  @Prop({type: [String, Number], default: null}) public id!: string | number;
 
   /**
    * Text for the label

@@ -136,7 +136,8 @@ export default class PMultiSelect extends Vue {
    */
   @Prop({type: Boolean, default: true}) public multiple!: boolean;
 
-  public id = `PolarisMultiSelect${new Date().getUTCMilliseconds()}`;
+  @Prop({type: [String, Number], default: `PolarisMultiSelect${(new Date()).getTime()}`}) public id!: string | number;
+
   public selected = this.value;
 
   public get computedOptions() {

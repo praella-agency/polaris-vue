@@ -62,7 +62,7 @@
     /**
      * Text field id
      */
-    @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
+    @Prop({type: [String, Number], default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string | number;
 
     /**
      * Text field label class

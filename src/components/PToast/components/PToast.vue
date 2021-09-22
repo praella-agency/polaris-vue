@@ -49,7 +49,7 @@ export default {
      * Id for the element
      */
     id: {
-      type: String,
+      type: [String, Number],
       default: null,
     },
     /**
