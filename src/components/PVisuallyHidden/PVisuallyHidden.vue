@@ -19,7 +19,7 @@
     /**
      * Id for the element
      */
-    @Prop({type: String, default: null}) public id!: string;
+    @Prop({type: [String, Number], default: null}) public id!: string | number;
   }
 </script>
 

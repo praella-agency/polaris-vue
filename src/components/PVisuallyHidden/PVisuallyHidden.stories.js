@@ -3,6 +3,15 @@ import { PVisuallyHidden } from './index';
 export default {
     title: 'Titles & Text / Visually Hidden',
     component: PVisuallyHidden,
+    argTypes: {
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
+    }
 }
 
 const Template = (args, {argTypes}) => ({

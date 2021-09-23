@@ -30,51 +30,38 @@
         />
       </slot>
     </div>
-<!--    @enter="enter"-->
-<!--    @after-enter="afterEnter"-->
-<!--    @leave="leave"-->
-<!--    @after-leave="leave"-->
-    <transition
-        name="navigation-custom-transition"
-        enter-class="Polaris-Frame__Navigation--enter"
-        enter-active-class="Polaris-Frame__Navigation--enterActive"
-        leave-class="Polaris-Frame__Navigation--exitActive"
-        leave-to-active="Polaris-Frame__Navigation--exit"
+    <div
+        v-if="$slots.hasOwnProperty('pNavigation') || Object.keys(navigation).length > 0"
     >
       <div
-          v-show="showMobileNavigation"
+          ref="navigationNode"
+          :class="`Polaris-Frame__Navigation ${showMobileNavigation ? navClassName: ''}`"
+          :aria-modal="ariaModal"
+          :role="role"
+          aria-label="Navigation"
+          @keydown="handleNavKeydown"
+          :id="APP_FRAME_NAV"
+          key="NavContent"
+          :hidden="mobileNavHidden"
       >
-        <div
-            v-if="$slots.hasOwnProperty('pNavigation') || Object.keys(navigation).length > 0"
-            ref="navigationNode"
-            :class="`Polaris-Frame__Navigation ${showMobileNavigation ? navClassName: ''}`"
-            :aria-modal="ariaModal"
-            :role="role"
-            aria-label="Navigation"
-            @keydown="handleNavKeydown"
-            :id="APP_FRAME_NAV"
-            key="NavContent"
-            :hidden="mobileNavHidden"
+        <slot name="pNavigation">
+          <PNavigation
+              v-bind="navigation"
+          />
+        </slot>
+        <button
+            v-if="showMobileNavigation"
+            type="button"
+            class="Polaris-Frame__NavigationDismiss"
+            @click="handleNavigationDismiss"
+            :aria-hidden="mobileNavHidden || (!useMediaQuery && !toggleMobileNavigation)"
+            aria-label="Close navigation"
+            :tabindex="mobileNavShowing ? 0 : -1"
         >
-          <slot name="pNavigation">
-            <PNavigation
-                v-bind="navigation"
-            />
-          </slot>
-          <button
-              v-if="showMobileNavigation"
-              type="button"
-              class="Polaris-Frame__NavigationDismiss"
-              @click="handleNavigationDismiss"
-              :aria-hidden="mobileNavHidden || (!useMediaQuery && !toggleMobileNavigation)"
-              aria-label="Close navigation"
-              :tabindex="mobileNavShowing ? 0 : -1"
-          >
-            <PIcon source="MobileCancelMajor"/>
-          </button>
-        </div>
+          <PIcon source="MobileCancelMajor"/>
+        </button>
       </div>
-    </transition>
+    </div>
     <div
         :class="contextualSaveBarClassName"
     >

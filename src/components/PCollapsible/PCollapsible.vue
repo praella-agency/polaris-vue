@@ -34,7 +34,7 @@
     /**
      * Assign a unique ID to the collapsible. For accessibility, pass this ID as the value of the triggering component’s aria-controls prop.
      */
-    @Prop({type: String, default: null}) public id!: string;
+    @Prop({type: [String, Number], default: null}) public id!: string | number;
 
     /**
      * Option to show collapsible content when printing
