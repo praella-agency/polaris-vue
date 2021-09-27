@@ -1,0 +1,408 @@
+.Polaris-IndexTable {
+  position: relative;
+  overflow: hidden;
+}
+
+.Polaris-IndexTable__LoadingContainer--enter {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.Polaris-IndexTable--loadingContainerEnterActive {
+  opacity: 1;
+  transition: opacity 100ms ease-out, transform 100ms ease-out;
+  transform: translateY(0);
+}
+
+.Polaris-IndexTable__LoadingContainer--exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.Polaris-IndexTable--loadingContainerExitActive {
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 100ms ease-in, transform 100ms ease-in;
+}
+
+.Polaris-IndexTable__LoadingPanel {
+  position: absolute;
+  z-index: 37;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background: var(--p-surface);
+  padding: 0.8rem 1.6rem;
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+}
+
+.Polaris-IndexTable__LoadingPanel .Polaris-IndexTable__LoadingPanelRow {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  background: var(--p-surface-highlight-subdued);
+  padding: 0.8rem;
+  padding-bottom: 0.4rem;
+  border-radius: var(--p-border-radius-base, 3px);
+}
+
+.Polaris-IndexTable__LoadingPanelText {
+  margin-left: 1.2rem;
+  color: var(--p-text);
+}
+
+.Polaris-IndexTable__Table {
+  width: 100%;
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+.Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--first, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--second {
+  visibility: visible;
+  background-color: var(--p-surface);
+}
+
+.Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--first {
+  box-shadow: 0.1rem -0.1rem 0 0 var(--p-divider);
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--first {
+    box-shadow: 0 -0.1rem 0 0 var(--p-divider);
+  }
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--second {
+    box-shadow: 0.1rem -0.1rem 0 0 var(--p-divider);
+  }
+}
+
+.Polaris-IndexTable__TableRow {
+  background-color: var(--p-surface);
+  cursor: pointer;
+}
+
+.Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSuccess, .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSuccess .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSuccess .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
+  background-color: var(--p-surface-primary-selected);
+}
+
+.Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSubdued, .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSubdued .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSubdued .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
+  background-color: var(--p-surface-subdued);
+}
+
+.Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--hovered, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--hovered .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--hovered .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
+  background-color: var(--p-surface-selected-hovered);
+}
+
+.Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableHeading--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableHeading--second, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
+  background-color: var(--p-surface-selected);
+}
+
+.Polaris-IndexTable__TableRow--subdued {
+  color: var(--p-text-subdued);
+}
+
+.Polaris-IndexTable__TableHeading {
+  padding: 1.6rem;
+  text-align: left;
+  font-weight: 500;
+  white-space: nowrap;
+  border: 0;
+}
+
+.Polaris-IndexTable__TableHeading--first {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  padding-left: 1.4rem;
+  padding-right: 1.8rem;
+}
+
+.Polaris-IndexTable__ColumnHeaderCheckboxWrapper {
+  display: flex;
+}
+
+.Polaris-IndexTable__StickyColumnHeaderCheckbox {
+  margin-left: -0.2rem;
+  padding-right: 0.2rem;
+}
+
+.Polaris-IndexTable__TableHeading--second {
+  padding-left: 0;
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-IndexTable__TableHeading--second {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+.Polaris-IndexTable__TableHeading--last {
+  position: -webkit-sticky;
+  position: sticky;
+  right: 0;
+}
+
+.Polaris-IndexTable__TableCell {
+  z-index: 1;
+  text-align: left;
+  padding: 0.8rem 1.6rem;
+  white-space: nowrap;
+  box-shadow: 0 -0.1rem 0 0 var(--p-divider);
+}
+
+.Polaris-IndexTable__TableCell--flush {
+  padding: 0;
+}
+
+.Polaris-IndexTable__TableCell--first {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  z-index: 30;
+  padding: 0;
+}
+
+.Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
+  left: var(--p-checkbox-offset);
+  padding-left: 0;
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 30;
+    padding: 0;
+  }
+}
+
+.Polaris-IndexTable__StickyTable {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  visibility: hidden;
+  z-index: 37;
+}
+
+.Polaris-IndexTable__StickyTableHeader {
+  position: absolute;
+  display: flex;
+  width: 100%;
+}
+
+.Polaris-IndexTable__StickyTableHeader:not(.Polaris-IndexTable__StickyTableHeader--isSticky) {
+  top: -100rem;
+  left: -100rem;
+}
+
+.Polaris-IndexTable__StickyTableColumnHeader {
+  flex: 0 0 auto;
+}
+
+.Polaris-IndexTable__StickyTableColumnHeader--isScrolling {
+  box-shadow: 1px 1px 0 0 var(--p-divider), 1px 0 1px 1px rgba(63, 63, 68, 0.05), 1px 0 3px 0 rgba(63, 63, 68, 0.15);
+}
+
+.Polaris-IndexTable__StickyTableHeadings {
+  overflow: hidden;
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.Polaris-IndexTable__StickyTableHeading--second {
+  padding-left: 0;
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-IndexTable__StickyTableHeading--second {
+    display: none;
+  }
+}
+
+.Polaris-IndexTable--stickyTableHeadingSecondScrolling {
+  padding: 0 0.06rem 0 1.6rem;
+  display: none;
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-IndexTable--stickyTableHeadingSecondScrolling {
+    display: block;
+  }
+}
+
+.Polaris-IndexTable__StickyTableHeader--isSticky {
+  visibility: visible;
+  background-color: var(--p-surface);
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+}
+
+.Polaris-IndexTable:hover .Polaris-IndexTable__ScrollLeft {
+  display: block;
+}
+
+.Polaris-IndexTable:hover .Polaris-IndexTable__ScrollRight {
+  display: block;
+}
+
+.Polaris-IndexTable .Polaris-IndexTable__ScrollRight--onboarding {
+  display: block;
+}
+
+.Polaris-IndexTable__BulkActionsWrapper {
+  visibility: visible;
+  position: relative;
+  z-index: 36;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.8rem;
+  background: var(--p-surface);
+}
+
+.Polaris-IndexTable__ScrollBarContainer {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 35;
+  bottom: 0;
+  padding: 0.2rem;
+  border-top: 0.1rem solid var(--p-divider);
+  background-color: var(--p-surface);
+  border-bottom-right-radius: var(--p-border-radius-base, 3px);
+  border-bottom-left-radius: var(--p-border-radius-base, 3px);
+}
+
+.Polaris-IndexTable--scrollBarContainerCondensed {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.Polaris-IndexTable__ScrollBar {
+  overflow-x: scroll;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.Polaris-IndexTable__ScrollBar::-webkit-scrollbar-track {
+  border-radius: 0.4rem;
+  background-color: transparent;
+}
+
+.Polaris-IndexTable__ScrollBar::-webkit-scrollbar {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.8rem;
+  width: 0.8rem;
+  background-color: transparent;
+}
+
+.Polaris-IndexTable__ScrollBar::-webkit-scrollbar-thumb {
+  border-radius: 0.4rem;
+  background-color: var(--p-border-neutral-subdued);
+  -webkit-transition: background-color 100ms ease-out;
+  transition: background-color 100ms ease-out;
+}
+
+.Polaris-IndexTable__ScrollBar:hover::-webkit-scrollbar-thumb {
+  background-color: var(--p-border-depressed);
+}
+
+.Polaris-IndexTable--disableTextSelection {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.Polaris-IndexTable--selectMode {
+  transform: translateY(-5.2rem);
+  margin-bottom: -5.2rem;
+}
+
+.Polaris-IndexTable__EmptySearchResultWrapper {
+  padding: 1.6rem;
+}
+
+.Polaris-IndexTable--condensedRow {
+  width: calc(100% + 3.4rem);
+  transform: translateX(-3.4rem);
+  transition: transform cubic-bezier(0.64, 0, 0.35, 1) 200ms;
+  display: flex;
+  border-top: 0.1rem solid var(--p-divider);
+}
+
+[data-selectmode='true'] .Polaris-IndexTable--condensedRow {
+  transform: none;
+}
+
+.Polaris-IndexTable__CondensedList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.Polaris-IndexTable__HeaderWrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 5.6rem;
+  padding: 1rem 1.6rem;
+  background-color: var(--p-surface);
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+}
+
+.Polaris-IndexTable__StickyTable--condensed {
+  visibility: visible;
+}
+
+.Polaris-IndexTable__StickyTableHeader--condensed {
+  padding: 1.6rem 1.6rem 0.8rem;
+}
+
+.Polaris-IndexTable__ScrollBarContent {
+  height: 1px;
+  width: var(--p-scroll-bar-content-width);
+}
+
+
+.Polaris-IndexTable-Checkbox__TableCellContentContainer {
+  display: flex;
+  align-items: center;
+}
+
+.Polaris-IndexTable-Checkbox__Wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Polaris-IndexTable-Checkbox--expanded {
+  width: 3.2rem;
+  height: 3.2rem;
+  padding-left: 1.6rem;
+}
+
+.Polaris-IndexTable-Checkbox--condensed {
+  min-width: 5rem;
+  min-height: 4.4rem;
+  margin-right: -1.6rem;
+}
+
+
+.Polaris-IndexTable-ScrollContainer {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.Polaris-IndexTable-ScrollContainer::-webkit-scrollbar {
+  display: none;
+}
