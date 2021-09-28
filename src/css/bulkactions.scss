@@ -97,15 +97,15 @@
 .Polaris-BulkActions--disabled {
   transition: none;
   box-shadow: none;
-  border-color: var(--p-border-disabled);
-  background: var(--p-surface-disabled);
-  color: var(--p-text-disabled);
+  border-color: rgba(210, 213, 216, 1);
+  background: rgba(250, 251, 251, 1);
+  color: rgba(140, 145, 150, 1);
   cursor: default;
   pointer-events: none;
 }
 
 .Polaris-BulkActions--disabled svg {
-  fill: var(--p-icon-disabled);
+  fill: rgba(186, 190, 195, 1);
 }
 
 .Polaris-BulkActions__PaginatedSelectAll {

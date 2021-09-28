@@ -34,7 +34,7 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  background: var(--p-surface);
+  background: rgba(255, 255, 255, 1);
   padding: 0.8rem 1.6rem;
   box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
 }
@@ -43,15 +43,15 @@
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
-  background: var(--p-surface-highlight-subdued);
+  background: rgba(235, 249, 252, 1);
   padding: 0.8rem;
   padding-bottom: 0.4rem;
-  border-radius: var(--p-border-radius-base, 3px);
+  border-radius: 0.4rem;
 }
 
 .Polaris-IndexTable__LoadingPanelText {
   margin-left: 1.2rem;
-  color: var(--p-text);
+  color: rgba(32, 34, 35, 1);
 }
 
 .Polaris-IndexTable__Table {
@@ -62,48 +62,48 @@
 
 .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--first, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--second {
   visibility: visible;
-  background-color: var(--p-surface);
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--first {
-  box-shadow: 0.1rem -0.1rem 0 0 var(--p-divider);
+  box-shadow: 0.1rem -0.1rem 0 0 rgba(225, 227, 229, 1);
 }
 
 @media (min-width: 28.625em) {
   .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--first {
-    box-shadow: 0 -0.1rem 0 0 var(--p-divider);
+    box-shadow: 0 -0.1rem 0 0 rgba(225, 227, 229, 1);
   }
 }
 
 @media (min-width: 28.625em) {
   .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--second {
-    box-shadow: 0.1rem -0.1rem 0 0 var(--p-divider);
+    box-shadow: 0.1rem -0.1rem 0 0 rgba(225, 227, 229, 1);
   }
 }
 
 .Polaris-IndexTable__TableRow {
-  background-color: var(--p-surface);
+  background-color: rgba(255, 255, 255, 1);
   cursor: pointer;
 }
 
 .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSuccess, .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSuccess .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSuccess .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
-  background-color: var(--p-surface-primary-selected);
+  background-color: rgba(241, 248, 245, 1);
 }
 
 .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSubdued, .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSubdued .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSubdued .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
-  background-color: var(--p-surface-subdued);
+  background-color: rgba(250, 251, 251, 1);
 }
 
 .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--hovered, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--hovered .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--hovered .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
-  background-color: var(--p-surface-selected-hovered);
+  background-color: rgba(237, 244, 254, 1);
 }
 
 .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableHeading--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableHeading--second, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
-  background-color: var(--p-surface-selected);
+  background-color: rgba(242, 247, 254, 1);
 }
 
 .Polaris-IndexTable__TableRow--subdued {
-  color: var(--p-text-subdued);
+  color: rgba(109, 113, 117, 1);
 }
 
 .Polaris-IndexTable__TableHeading {
@@ -153,7 +153,7 @@
   text-align: left;
   padding: 0.8rem 1.6rem;
   white-space: nowrap;
-  box-shadow: 0 -0.1rem 0 0 var(--p-divider);
+  box-shadow: 0 -0.1rem 0 0 rgba(225, 227, 229, 1);
 }
 
 .Polaris-IndexTable__TableCell--flush {
@@ -207,7 +207,7 @@
 }
 
 .Polaris-IndexTable__StickyTableColumnHeader--isScrolling {
-  box-shadow: 1px 1px 0 0 var(--p-divider), 1px 0 1px 1px rgba(63, 63, 68, 0.05), 1px 0 3px 0 rgba(63, 63, 68, 0.15);
+  box-shadow: 1px 1px 0 0 rgba(225, 227, 229, 1), 1px 0 1px 1px rgba(63, 63, 68, 0.05), 1px 0 3px 0 rgba(63, 63, 68, 0.15);
 }
 
 .Polaris-IndexTable__StickyTableHeadings {
@@ -239,7 +239,7 @@
 
 .Polaris-IndexTable__StickyTableHeader--isSticky {
   visibility: visible;
-  background-color: var(--p-surface);
+  background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
 }
 
@@ -263,7 +263,7 @@
   left: 0;
   right: 0;
   padding: 0.8rem;
-  background: var(--p-surface);
+  background: rgba(255, 255, 255, 1);
 }
 
 .Polaris-IndexTable__ScrollBarContainer {
@@ -272,10 +272,10 @@
   z-index: 35;
   bottom: 0;
   padding: 0.2rem;
-  border-top: 0.1rem solid var(--p-divider);
-  background-color: var(--p-surface);
-  border-bottom-right-radius: var(--p-border-radius-base, 3px);
-  border-bottom-left-radius: var(--p-border-radius-base, 3px);
+  border-top: 0.1rem solid rgba(225, 227, 229, 1);
+  background-color: rgba(255, 255, 255, 1);
+  border-bottom-right-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
 }
 
 .Polaris-IndexTable--scrollBarContainerCondensed {
@@ -305,13 +305,13 @@
 
 .Polaris-IndexTable__ScrollBar::-webkit-scrollbar-thumb {
   border-radius: 0.4rem;
-  background-color: var(--p-border-neutral-subdued);
+  background-color: rgba(186, 191, 195, 1);
   -webkit-transition: background-color 100ms ease-out;
   transition: background-color 100ms ease-out;
 }
 
 .Polaris-IndexTable__ScrollBar:hover::-webkit-scrollbar-thumb {
-  background-color: var(--p-border-depressed);
+  background-color: rgba(87, 89, 89, 1);
 }
 
 .Polaris-IndexTable--disableTextSelection {
@@ -333,7 +333,7 @@
   transform: translateX(-3.4rem);
   transition: transform cubic-bezier(0.64, 0, 0.35, 1) 200ms;
   display: flex;
-  border-top: 0.1rem solid var(--p-divider);
+  border-top: 0.1rem solid rgba(225, 227, 229, 1);
 }
 
 [data-selectmode='true'] .Polaris-IndexTable--condensedRow {
@@ -354,7 +354,7 @@
   width: 100%;
   min-height: 5.6rem;
   padding: 1rem 1.6rem;
-  background-color: var(--p-surface);
+  background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
 }
 
@@ -406,3 +406,103 @@
 .Polaris-IndexTable-ScrollContainer::-webkit-scrollbar {
   display: none;
 }
+
+.Polaris-IndexTable-FirstStickyHeaderElement {
+  margin-left: #{-1 * rem(2px)};
+  padding-right: rem(2px);
+}
+
+.Polaris-IndexTable-StickyTableHeading-second-scrolling {
+  padding: 0 rem(0.6px) 0 spacing();
+  display: none;
+
+  @include breakpoint-after(458px) {
+    display: block;
+  }
+}
+.Polaris-IndexTable-StickyTableHeading-second {
+  padding-left: 0;
+
+  @include breakpoint-after(458px) {
+    display: none;
+  }
+
+  &.unselectable {
+    display: none;
+  }
+}
+
+
+$spacing-data: (
+        'none': 0,
+        'extra-tight': 4px,
+        'tight': 8px,
+        'base-tight': 12px,
+        'base': 16px,
+        'loose': 20px,
+        'extra-loose': 32px,
+);
+
+@function spacing($variant: base) {
+  $fetched-value: map-get($spacing-data, $variant);
+
+  @if type-of($fetched-value) == number {
+    @return rem($fetched-value);
+  } @else {
+    @error 'Spacing variant `#{$variant}` not found. Available variants: #{available-names($spacing-data)}';
+  }
+}
+
+@function rem($value) {
+  $unit: unit($value);
+
+  @if $value == 0 {
+    @return 0;
+  } @else if $unit == 'rem' {
+    @return $value;
+  } @else if $unit == 'px' {
+    @return $value / 10px * 1rem;
+  } @else if $unit == 'em' {
+    @return $unit / 1em * 1rem;
+  } @else {
+    @error 'Value must be in px, em, or rem.';
+  }
+}
+
+@function em($value) {
+  $unit: unit($value);
+
+  @if $value == 0 {
+    @return 0;
+  } @else if $unit == 'em' {
+    @return $value;
+  } @else if $unit == 'rem' {
+    @return $value / 1rem * 1em * (10pc / 16px);
+  } @else if $unit == 'px' {
+    @return $value / 16px * 1em;
+  } @else {
+    @error 'Value must be in px, rem, or em.';
+  }
+}
+
+@function breakpoint($value, $adjustment: 0) {
+  $adjusted-value: em($adjustment);
+
+  // Reduces chances to have a style void
+  // between two media queries
+  // See https://github.com/sass-mq/sass-mq/issues/6
+  @if $adjustment == -1px {
+    $adjusted-value: -0.01em;
+  } @else if $adjustment == 1px {
+    $adjusted-value: 0.01em;
+  }
+
+  @return em($value) + $adjusted-value;
+}
+
+@mixin breakpoint-after($breakpoint, $inclusive: true) {
+  @media (min-width: #{breakpoint($breakpoint, if($inclusive, 0, 1px))}) {
+    @content;
+  }
+}
+
