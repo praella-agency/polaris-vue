@@ -1,0 +1,28 @@
+<template>
+    <td
+        :class="cellClassName"
+    >
+        <slot/>
+    </td>
+</template>
+
+<script lang="ts">
+  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { classNames } from '@/utilities/css';
+
+  @Component
+  export default class PCell extends Vue {
+    @Prop({type: Boolean, default: false}) public flush!: boolean;
+
+    public get cellClassName() {
+      return classNames(
+        'Polaris-IndexTable__TableCell',
+        this.flush && 'Polaris-IndexTable__TableCell--flush',
+      )
+    }
+  };
+</script>
+
+<style scoped>
+
+</style>

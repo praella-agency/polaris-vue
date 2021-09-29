@@ -119,6 +119,7 @@
                                                 class="Polaris-IndexTable__ColumnHeaderCheckboxWrapper"
                                             >
                                                 <PCheckbox
+                                                    :id="headings[0].title"
                                                     :label="`Select all ${resourceName.plural}`"
                                                     labelHidden
                                                     @change="handleSelectPage"
@@ -341,6 +342,7 @@
                                                 class="Polaris-IndexTable__ColumnHeaderCheckboxWrapper"
                                             >
                                                 <PCheckbox
+                                                    :id="headings[0].title"
                                                     :label="`Select all ${resourceName.plural}`"
                                                     labelHidden
                                                     @change="handleSelectPage"
@@ -455,17 +457,71 @@
                     :class="tableClassName"
                 >
                     <thead>
-                        <tr
-                            v-for="(heading, key) in headings"
-                            :key="key"
-                        >
-                            {{ heading.title }}
+                        <tr>
+                            <template
+                                v-for="(heading, key) in headings"
+                            >
+
+                                <th
+                                    v-if="key === 0"
+                                    :class="checkboxClassName(key)"
+                                    :key="`${heading}-${key}`"
+                                    data-index-table-heading
+                                >
+                                    <div
+                                        class="Polaris-IndexTable__ColumnHeaderCheckboxWrapper"
+                                    >
+                                        <PCheckbox
+                                            :id="key"
+                                            :label="`Select all ${resourceName.plural}`"
+                                            labelHidden
+                                            @change="handleSelectPage"
+                                            :checked="bulkSelectState"
+                                        />
+                                    </div>
+                                </th>
+
+                                <th
+                                    v-if="key !== 0 || !selectable"
+                                    :class="headingContentClassName(heading, key)"
+                                    :key="heading.title"
+                                    data-index-table-heading
+                                    :style="stickyPositioningStyle(key)"
+                                >
+                                    <PStack
+                                        v-if="heading.new"
+                                        :wrap="false"
+                                        alignment="false"
+                                    >
+                                        <PStackItem>
+                                        <span>
+                                            {{ heading.title }}
+                                        </span>
+                                        </PStackItem>
+                                        <PStackItem>
+                                            <PBadge status="new">
+                                                new
+                                            </PBadge>
+                                        </PStackItem>
+                                    </PStack>
+                                    <span v-else-if="heading.hidden" class="Polaris-VisuallyHidden">
+                                    {{ heading.title }}
+                                </span>
+                                    <template v-else>
+                                        {{ heading.title }}
+                                    </template>
+                                </th>
+
+                            </template>
+
                         </tr>
                     </thead>
                     <tbody
                         ref="tableBodyRef"
                     >
-                        <slot/>
+                        <slot>
+
+                        </slot>
                     </tbody>
                 </table>
             </template>
@@ -488,15 +544,17 @@
 
 <script lang="ts">
   import { Vue, Component, Prop, Ref } from 'vue-property-decorator';
-  import { PSpinner } from '../PSpinner';
-  import { PButton } from '../PButton';
-  import { PEmptySearchResult } from '../PEmptySearchResult';
-  import { PStack, PStackItem } from '../PStack';
-  import { PCheckbox } from '../PCheckbox';
-  import { PBadge } from '../PBadge';
+  import { classNames } from '@/utilities/css';
+  import { PSpinner } from '@/components/PSpinner';
+  import { PButton } from '@/components/PButton';
+  import { PEmptySearchResult } from '@/components/PEmptySearchResult';
+  import { PStack, PStackItem } from '@/components/PStack';
+  import { PCheckbox } from '@/components/PCheckbox';
+  import { PBadge } from '@/components/PBadge';
   import { BulkActionsProps, IndexTableHeading } from '@/components/PIndexTable/utilities';
   import { PBulkActions } from '@/components/PBulkActions';
-  import { classNames } from '@/utilities/css';
+  import { PCell } from '@/components/PIndexTable/components/PCell';
+  import { PRow } from '@/components/PIndexTable/components/PRow';
 
   interface TableHeadingRect {
     offsetWidth: number;
@@ -505,7 +563,7 @@
 
   @Component({
     components: {
-      PBulkActions, PEmptySearchResult, PSpinner, PButton, PStack, PStackItem, PCheckbox, PBadge,
+      PBulkActions, PEmptySearchResult, PSpinner, PButton, PStack, PStackItem, PCheckbox, PBadge, PCell, PRow
     }
   })
   export default class PIndexTable extends Vue {
@@ -515,7 +573,7 @@
 
     @Prop({type: Array, default: () => ([])}) public bulkActions!: BulkActionsProps['actions'][];
 
-    @Prop({type: Array, default: () => ({})}) public resourceName!: {
+    @Prop({type: Object, default: () => ({})}) public resourceName!: {
       plural: string,
       singular: string,
     };
@@ -528,6 +586,8 @@
 
     @Prop({type: Boolean, default: false}) public loading!: boolean;
 
+    @Prop({type: Boolean, default: false}) public hasMoreItems!: boolean;
+
     @Prop({type: [String, Number], default: null}) public selectedItemsCount!: 'All' | number;
 
     @Prop({type: Number, default: 0}) public itemCount!: number;
@@ -539,6 +599,8 @@
     public selectMode = false;
     public hasMoreLeftColumns = false;
     public isSticky = false;
+
+    public bulkSelectState = false;
 
     public created() {
       window.addEventListener('resize', this.isSmallScreen);
@@ -610,6 +672,25 @@
       } : undefined;
     }
 
+    public get hasBulkActions() {
+      return Boolean(this.promotedBulkActions && this.promotedBulkActions.length > 0) ||
+        (this.bulkActions && this.bulkActions.length > 0);
+    }
+
+    public get paginatedSelectAllAction() {
+      if (!this.selectable || !this.hasBulkActions || !this.hasMoreItems) {
+        return;
+      }
+
+      let actionText = this.selectedItemsCount === 'All'
+        ? 'Undo' : `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
+
+      return {
+        content: actionText,
+        onAction: this.handleSelectAllItemsInStore,
+      }
+    }
+
     public calculateFirstHeaderOffset() {
       if (!this.selectable) {
         return this.tableHeadingRect[0].offsetWidth;
@@ -621,7 +702,7 @@
     }
 
     public handleTogglePage() {
-
+      console.log(1);
     }
 
     public handleSelectModeToggle(val: boolean) {
@@ -632,6 +713,7 @@
     }
 
     public handleSelectPage(checked: boolean) {
+      console.log(checked);
     }
 
     public headingStyle(position) {
@@ -647,6 +729,33 @@
         index === 0 && 'Polaris-IndexTable-StickyTableHeading-second',
         index === 0 && !this.selectable && 'unselectable'
       );
+    }
+
+    public headingContentClassName(heading, index) {
+      let isSecond = index === 0;
+      let isLast = index === this.headings.length - 1;
+
+      return classNames(
+        'Polaris-IndexTable__TableHeading',
+        isSecond && 'Polaris-IndexTable-TableHeading-second',
+        isLast && !heading.hidden && 'Polaris-IndexTable-TableHeading-last',
+      );
+    }
+
+    public stickyPositioningStyle(index) {
+      return this.selectable && index === 0 && this.tableHeadingRect && this.tableHeadingRect.length > 0
+        ? { left: this.tableHeadingRect[0].offsetWidth } : undefined;
+    }
+
+    public checkboxClassName(index) {
+      return classNames(
+        'Polaris-IndexTable__TableHeading',
+        index === 0 && 'Polaris-IndexTable__TableHeading--first',
+      );
+    }
+
+    public handleSelectAllItemsInStore() {
+
     }
   }
 </script>
