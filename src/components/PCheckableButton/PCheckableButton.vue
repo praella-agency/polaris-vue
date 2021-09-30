@@ -7,6 +7,7 @@
             class="Polaris-CheckableButton__Checkbox"
         >
             <PCheckbox
+                :id="this['_uid']"
                 :label="accessibilityLabel"
                 labelHidden
                 :checked="selected"

@@ -41,12 +41,11 @@
                         <PBulkActions
                             :smallScreen="condensed"
                             :label="`${selectedItemsCountLabel} selected`"
-                            :accessibilityLabel="bulkActionAccessiblityLable"
                             :selected="bulkSelectState"
                             :selectMode="selectMode || isSmallScreenSelectable"
                             @toggleAll="handleTogglePage"
-                            :promotedActions="(!condensed || selectedItemsCount) ? promotedBulkActions : []"
-                            :actions="(!condensed || selectedItemsCount) ? bulkActions : []"
+                            :promotedActions="(!condensed || selectedRowsCount) ? promotedBulkActions : []"
+                            :actions="(!condensed || selectedRowsCount) ? bulkActions : []"
                             :paginatedSelectAllText="paginatedSelectAllText"
                             :paginatedSelectAllAction="paginatedSelectAllAction"
                             @selectModeToggle="condensed ? handleSelectModeToggle : undefined"
@@ -264,12 +263,11 @@
                         <PBulkActions
                             :smallScreen="condensed"
                             :label="`${selectedItemsCountLabel} selected`"
-                            :accessibilityLabel="bulkActionAccessiblityLable"
                             :selected="bulkSelectState"
                             :selectMode="selectMode || isSmallScreenSelectable"
                             @toggleAll="handleTogglePage"
-                            :promotedActions="(!condensed || selectedItemsCount) ? promotedBulkActions : []"
-                            :actions="(!condensed || selectedItemsCount) ? bulkActions : []"
+                            :promotedActions="(!condensed || selectedRowsCount) ? promotedBulkActions : []"
+                            :actions="(!condensed || selectedRowsCount) ? bulkActions : []"
                             :paginatedSelectAllText="paginatedSelectAllText"
                             :paginatedSelectAllAction="paginatedSelectAllAction"
                             @selectModeToggle="condensed ? handleSelectModeToggle : undefined"
@@ -457,71 +455,93 @@
                     :class="tableClassName"
                 >
                     <thead>
-                        <tr>
-                            <template
-                                v-for="(heading, key) in headings"
+                    <tr>
+                        <template
+                            v-for="(heading, key) in headings"
+                        >
+
+                            <th
+                                v-if="key === 0"
+                                :class="checkboxClassName(key)"
+                                :key="`${heading}-${key}`"
+                                data-index-table-heading
                             >
-
-                                <th
-                                    v-if="key === 0"
-                                    :class="checkboxClassName(key)"
-                                    :key="`${heading}-${key}`"
-                                    data-index-table-heading
+                                <div
+                                    class="Polaris-IndexTable__ColumnHeaderCheckboxWrapper"
                                 >
-                                    <div
-                                        class="Polaris-IndexTable__ColumnHeaderCheckboxWrapper"
-                                    >
-                                        <PCheckbox
-                                            :id="key"
-                                            :label="`Select all ${resourceName.plural}`"
-                                            labelHidden
-                                            @change="handleSelectPage"
-                                            :checked="bulkSelectState"
-                                        />
-                                    </div>
-                                </th>
+                                    <PCheckbox
+                                        :id="key"
+                                        :label="`Select all ${resourceName.plural}`"
+                                        labelHidden
+                                        @change="handleSelectPage"
+                                        :checked="bulkSelectState"
+                                    />
+                                </div>
+                            </th>
 
-                                <th
-                                    v-if="key !== 0 || !selectable"
-                                    :class="headingContentClassName(heading, key)"
-                                    :key="heading.title"
-                                    data-index-table-heading
-                                    :style="stickyPositioningStyle(key)"
+                            <th
+                                v-if="key+1 !== 0 || !selectable"
+                                :class="headingContentClassName(heading, key)"
+                                :key="heading.title"
+                                data-index-table-heading
+                                :style="stickyPositioningStyle(key)"
+                            >
+                                <PStack
+                                    v-if="heading.new"
+                                    :wrap="false"
+                                    alignment="false"
                                 >
-                                    <PStack
-                                        v-if="heading.new"
-                                        :wrap="false"
-                                        alignment="false"
-                                    >
-                                        <PStackItem>
+                                    <PStackItem>
                                         <span>
                                             {{ heading.title }}
                                         </span>
-                                        </PStackItem>
-                                        <PStackItem>
-                                            <PBadge status="new">
-                                                new
-                                            </PBadge>
-                                        </PStackItem>
-                                    </PStack>
-                                    <span v-else-if="heading.hidden" class="Polaris-VisuallyHidden">
-                                    {{ heading.title }}
-                                </span>
-                                    <template v-else>
+                                    </PStackItem>
+                                    <PStackItem>
+                                        <PBadge status="new">
+                                            new
+                                        </PBadge>
+                                    </PStackItem>
+                                </PStack>
+                                <span v-else-if="heading.hidden" class="Polaris-VisuallyHidden">
                                         {{ heading.title }}
-                                    </template>
-                                </th>
+                                    </span>
+                                <template v-else>
+                                    {{ heading.title }}
+                                </template>
+                            </th>
 
-                            </template>
+                        </template>
 
-                        </tr>
+                    </tr>
                     </thead>
                     <tbody
                         ref="tableBodyRef"
                     >
-                        <slot>
-
-                        </slot>
+                    <slot>
+                        <PRow
+                            v-for="(row, key) in rows"
+                            :key="row.id"
+                            :id="row.id"
+                            :selected="selectedResources.includes(row.id)"
+                            :position="key"
+                            :selectable="selectable"
+                            :status="row.status"
+                            @selectionChange="handleSelectionChange"
+                        >
+                            <PCell>
+                                {{ row.name }}
+                            </PCell>
+                            <PCell>
+                                {{ row.location }}
+                            </PCell>
+                            <PCell>
+                                {{ row.orders }}
+                            </PCell>
+                            <PCell>
+                                {{ row.amountSpent }}
+                            </PCell>
+                        </PRow>
+                    </slot>
                     </tbody>
                 </table>
             </template>
@@ -563,11 +583,13 @@
 
   @Component({
     components: {
-      PBulkActions, PEmptySearchResult, PSpinner, PButton, PStack, PStackItem, PCheckbox, PBadge, PCell, PRow
+      PBulkActions, PEmptySearchResult, PSpinner, PButton, PStack, PStackItem, PCheckbox, PBadge, PCell, PRow,
     }
   })
   export default class PIndexTable extends Vue {
     @Prop({type: Array, default: () => ([])}) public headings!: IndexTableHeading[];
+
+    @Prop({type: Array, default: () => ([])}) public rows!: [];
 
     @Prop({type: Array, default: () => ([])}) public promotedBulkActions!: BulkActionsProps[];
 
@@ -580,7 +602,7 @@
 
     @Prop({type: Boolean, default: false}) public lastColumnSticky!: boolean;
 
-    @Prop({type: Boolean, default: false}) public selectable!: boolean;
+    @Prop({type: Boolean, default: true}) public selectable!: boolean;
 
     @Prop({type: Boolean, default: false}) public condensed!: boolean;
 
@@ -599,6 +621,10 @@
     public selectMode = false;
     public hasMoreLeftColumns = false;
     public isSticky = false;
+
+    public selectedResources: any[] = [];
+    public selectedRowsCount: any = this.selectedResources.length;
+    public paginatedSelectAllText = '';
 
     public bulkSelectState = false;
 
@@ -621,6 +647,9 @@
         this.hasMoreLeftColumns && 'Polaris-IndexTable__Table--scrolling',
         this.selectMode && 'Polaris-IndexTable--disableTextSelection',
         this.selectMode && this.shouldShowBulkActions && 'Polaris-IndexTable--selectMode',
+        !this.selectable && 'Table-unselectable',
+        this.lastColumnSticky && 'Polaris-IndexTable-Table-sticky-last',
+        // this.lastColumnSticky && this.canScrollRight && 'Polaris-IndexTable-Table-sticky-scrolling',
       );
     }
 
@@ -658,12 +687,13 @@
         this.hasMoreLeftColumns && 'Polaris-IndexTable__StickyTableColumnHeader--isScrolling',
       );
     }
+
     public get shouldShowBulkActions() {
-      return (this.bulkActionsSelectable && this.selectedItemsCount) || this.isSmallScreenSelectable;
+      return (this.bulkActionsSelectable && this.selectedRowsCount) || this.isSmallScreenSelectable;
     }
 
     public get selectedItemsCountLabel() {
-      return this.selectedItemsCount === 'All' ? `${this.itemCount}+` : this.selectedItemsCount;
+      return this.selectedRowsCount === 'All' ? `${this.itemCount}` : this.selectedRowsCount;
     }
 
     public get stickyColumnHeaderStyle() {
@@ -682,13 +712,15 @@
         return;
       }
 
-      let actionText = this.selectedItemsCount === 'All'
+      let actionText = this.selectedRowsCount === 'All'
         ? 'Undo' : `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
+
+      this.paginatedSelectAllText = actionText;
 
       return {
         content: actionText,
         onAction: this.handleSelectAllItemsInStore,
-      }
+      };
     }
 
     public calculateFirstHeaderOffset() {
@@ -702,7 +734,10 @@
     }
 
     public handleTogglePage() {
-      console.log(1);
+      this.selectMode = false;
+      this.selectedRowsCount = '';
+      this.bulkSelectState = false;
+      this.selectedResources = [];
     }
 
     public handleSelectModeToggle(val: boolean) {
@@ -713,7 +748,18 @@
     }
 
     public handleSelectPage(checked: boolean) {
-      console.log(checked);
+      if (checked['checked']) {
+        this.rows.map((row) => {
+          this.selectedResources = [...this.selectedResources, row['id']];
+        });
+        this.selectedRowsCount = 'All';
+        this.bulkSelectState = true;
+      } else {
+        this.bulkSelectState = false;
+        this.selectedResources = [];
+      }
+
+      this.selectMode = checked['checked'];
     }
 
     public headingStyle(position) {
@@ -744,7 +790,7 @@
 
     public stickyPositioningStyle(index) {
       return this.selectable && index === 0 && this.tableHeadingRect && this.tableHeadingRect.length > 0
-        ? { left: this.tableHeadingRect[0].offsetWidth } : undefined;
+        ? {left: this.tableHeadingRect[0].offsetWidth} : undefined;
     }
 
     public checkboxClassName(index) {
@@ -756,6 +802,14 @@
 
     public handleSelectAllItemsInStore() {
 
+    }
+
+    public handleSelectionChange(selectionType, selected, id, position) {
+      if (!selected) {
+        this.selectedResources.splice(position, 1);
+      } else {
+        this.selectedResources.splice(position, 0, id);
+      }
     }
   }
 </script>

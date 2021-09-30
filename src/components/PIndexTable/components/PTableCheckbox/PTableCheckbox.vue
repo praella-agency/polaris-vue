@@ -5,8 +5,7 @@
         >
             <div
                 :class="wrapperClassName"
-                @click="$emit('interaction')"
-                @keyup="$emit('interaction')"
+                @click="handleClick"
                 @change="stopPropagation"
             >
                 <PCheckbox
@@ -83,6 +82,12 @@
     public stopPropagation(event: MouseEvent | KeyboardEvent) {
       event.stopPropagation();
       event.preventDefault();
+    }
+
+    public handleClick(event) {
+      if (event.target.tagName === 'INPUT') {
+        this.$emit('interaction', event);
+      }
     }
   }
 </script>

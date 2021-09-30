@@ -22,6 +22,7 @@ const Template = (args, {argTypes}) => ({
                     location: 'Decatur, USA',
                     orders: 20,
                     amountSpent: '$2,400',
+                    status: 'success',
                 },
                 {
                     id: '2567',
@@ -30,42 +31,26 @@ const Template = (args, {argTypes}) => ({
                     location: 'Los Angeles, USA',
                     orders: 30,
                     amountSpent: '$140',
+                    status: 'subdued',
+                },
+                {
+                    id: '1925',
+                    url: 'customers/192',
+                    name: 'Berlin Andres',
+                    location: 'Las Vegas, USA',
+                    orders: 45,
+                    amountSpent: '$14,000',
+                    status: 'success',
                 },
             ],
-            selectedResources: [],
         }
     },
     template: `
         <PIndexTable
             v-bind="$props"
+            :rows="customers"
             :itemCount="customers.length"
-        >
-            <PRow
-                v-for="(customer, key) in customers"
-                :key="customer.id"
-                :id="customer.id"
-                :selected="selectedResources.includes(customer.id)"
-                :position="key"
-            >
-                <PCell>
-                    {{ customer.name }}
-                </PCell>
-                <PCell>
-                    {{ customer.location }}
-                </PCell>
-                <PCell>
-                    {{ customer.orders }}
-                </PCell>
-                <PCell>
-                    {{ customer.amountSpent }}
-                </PCell>
-            </PRow>
-        </PIndexTable>`,
-    methods: {
-        test() {
-            console.log(1)
-        }
-    }
+        />`,
 });
 
 export const IndexTable = Template.bind({});
@@ -110,4 +95,5 @@ IndexTable.args = {
             onAction: () => console.log('Todo: implement bulk edit'),
         },
     ],
+    lastColumnSticky: true,
 }

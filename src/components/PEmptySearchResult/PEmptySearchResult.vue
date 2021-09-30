@@ -1,5 +1,5 @@
 <template>
-    <PStack>
+    <PStack alignment="center" vertical>
         <PStackItem>
             <PImage
                 v-if="withIllustration"

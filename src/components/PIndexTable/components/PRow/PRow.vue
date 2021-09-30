@@ -11,7 +11,7 @@
         <PTableCheckbox
             :itemId="id"
             :selected="selected"
-            @interactionion="handleInteraction"
+            @interaction="handleInteraction"
         />
         <slot/>
     </component>
@@ -82,7 +82,7 @@
           return;
         }
 
-        event.stopPropagation();
+        event.preventDefault();
         event.stopPropagation();
 
         if (this.primaryLinkElement && !this.selectMode) {
@@ -102,19 +102,14 @@
 
           this.primaryLinkElement.dispatchEvent(new MouseEvent(event.type));
         } else {
-          console.log(this.selectable);
           this.isNavigating = false;
           this.handleInteraction(event);
         }
       }
     }
 
-    public handleInteraction(event: MouseEvent | KeyboardEvent) {
+    public handleInteraction(event: MouseEvent) {
       event.stopPropagation();
-
-      if (('key' in event && event.key !== '') || !this.$emit('selectionChange')) {
-        return;
-      }
 
       let selectionType = event.shiftKey ? SelectionType.Multi : SelectionType.Single;
 
@@ -128,6 +123,10 @@
       if (el) {
         this.primaryLinkElement = el;
       }
+    }
+
+    mounted() {
+      console.log(this.selected);
     }
   }
 </script>

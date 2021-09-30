@@ -38,7 +38,7 @@
                                 disclosure
                                 @action="toggleSmallScreenPopover()"
                                 content="Actions"
-                                :disable="disabled"
+                                :disabled="disabled"
                                 :indicator="isNewBadgeInBadgeActions()"
                             />
                             <PActionList
@@ -104,7 +104,7 @@
                             v-for="(action, key) in this.promotedActionsMarkup"
                         >
                             <PBulkActionMenu
-                                v-if="this.instanceOfMenuGroupDescriptor(action)"
+                                v-if="instanceOfMenuGroupDescriptor(action)"
                                 :key="key"
                                 :action="action"
                                 :indicator="isNewBadgeInBadgeActions()"
@@ -121,6 +121,7 @@
                             ref="moreActionsNode"
                         >
                             <PPopover
+                                :id="this['_uid']"
                                 :active="largeScreenPopoverVisible"
                                 @close="toggleLargeScreenPopover()"
                             >
@@ -162,10 +163,11 @@
   import { PButtonGroup } from '@/components/PButtonGroup';
   import { PCheckableButton } from '@/components/PCheckableButton';
   import { PPopover } from '@/components/PPopover';
-  import { PBulkActionButton, PBulkActionMenu } from '@/components/PBulkActions';
+  import { PBulkActionMenu } from '@/components/PBulkActions';
   import { PActionList } from '@/components/PActionList';
   import { PButton } from '@/components/PButton';
   import { Action, ActionListSection, MenuGroupDescriptor } from '@/types';
+  import PBulkActionButton from '@/components/PBulkActions/components/PBulkActionButton.vue';
   import { classNames } from '@/utilities/css';
 
   @Component({
@@ -224,7 +226,7 @@
      */
     @Prop({type: Boolean, default: false}) public disabled!: boolean;
 
-    public measuring = true;
+    public measuring = false;
     public smallScreenPopoverVisible = false;
     public largeScreenPopoverVisible = false;
     public containerWidth = 0;
@@ -237,6 +239,8 @@
         'Polaris-BulkActions__Group',
         'Polaris-BulkActions__Group--largeScreen',
         this.measuring && 'Polaris-BulkActions__Group--measuring',
+        this.selectMode && 'Polaris-BulkActions__Group--entered',
+        !this.selectMode && 'Polaris-BulkActions__Group--exited',
       );
     }
 
@@ -277,9 +281,7 @@
 
       for (let action of actions) {
         for (let item of action['items']) {
-          if (item.badge.status === 'new') {
-            return true;
-          }
+          return item.badge ? (item.badge.status === 'new') : false;
         }
       }
 
