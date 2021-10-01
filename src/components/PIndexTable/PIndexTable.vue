@@ -40,14 +40,15 @@
                         </template>
                         <PBulkActions
                             :smallScreen="condensed"
-                            :label="`${selectedItemsCountLabel} selected`"
+                            :label="`${selectedItemsCountLabel}${togglePlus} selected`"
                             :selected="bulkSelectState"
                             :selectMode="selectMode || isSmallScreenSelectable"
                             @toggleAll="handleTogglePage"
                             :promotedActions="(!condensed || selectedRowsCount) ? promotedBulkActions : []"
                             :actions="(!condensed || selectedRowsCount) ? bulkActions : []"
                             :paginatedSelectAllText="paginatedSelectAllText"
-                            :paginatedSelectAllAction="paginatedSelectAllAction"
+                            :paginatedSelectAllAction="paginatedSelectAction"
+                            :indeterminate="indeterminate"
                             @selectModeToggle="condensed ? handleSelectModeToggle : undefined"
                         />
                     </div>
@@ -262,14 +263,15 @@
                         </template>
                         <PBulkActions
                             :smallScreen="condensed"
-                            :label="`${selectedItemsCountLabel} selected`"
+                            :label="`${selectedItemsCountLabel}${togglePlus} selected`"
                             :selected="bulkSelectState"
                             :selectMode="selectMode || isSmallScreenSelectable"
                             @toggleAll="handleTogglePage"
                             :promotedActions="(!condensed || selectedRowsCount) ? promotedBulkActions : []"
                             :actions="(!condensed || selectedRowsCount) ? bulkActions : []"
                             :paginatedSelectAllText="paginatedSelectAllText"
-                            :paginatedSelectAllAction="paginatedSelectAllAction"
+                            :paginatedSelectAllAction="paginatedSelectAction"
+                            :indeterminate="indeterminate"
                             @selectModeToggle="condensed ? handleSelectModeToggle : undefined"
                         />
                     </div>
@@ -627,6 +629,12 @@
     public paginatedSelectAllText = '';
 
     public bulkSelectState = false;
+    public togglePlus = '';
+    public indeterminate = false;
+    public paginatedSelectAction = {
+      content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+      onAction: this.handleSelectAllItemsInStore,
+    };
 
     public created() {
       window.addEventListener('resize', this.isSmallScreen);
@@ -707,22 +715,6 @@
         (this.bulkActions && this.bulkActions.length > 0);
     }
 
-    public get paginatedSelectAllAction() {
-      if (!this.selectable || !this.hasBulkActions || !this.hasMoreItems) {
-        return;
-      }
-
-      let actionText = this.selectedRowsCount === 'All'
-        ? 'Undo' : `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
-
-      this.paginatedSelectAllText = actionText;
-
-      return {
-        content: actionText,
-        onAction: this.handleSelectAllItemsInStore,
-      };
-    }
-
     public calculateFirstHeaderOffset() {
       if (!this.selectable) {
         return this.tableHeadingRect[0].offsetWidth;
@@ -734,10 +726,52 @@
     }
 
     public handleTogglePage() {
-      this.selectMode = false;
-      this.selectedRowsCount = '';
-      this.bulkSelectState = false;
-      this.selectedResources = [];
+      console.log(4546);
+
+      if (this.selectedRowsCount === 0) {
+        console.log('if');
+        this.rows.map((row) => {
+          this.selectedResources = [...this.selectedResources, row['id']];
+        });
+        this.selectMode = true;
+        this.indeterminate = false;
+        this.bulkSelectState = true;
+        this.selectedRowsCount = this.selectedResources.length;
+        return;
+      } else if (this.selectedRowsCount !== this.itemCount) {
+        console.log('else if');
+        this.rows.map((row) => {
+          this.selectedResources = [...this.selectedResources, row['id']];
+        });
+        this.selectMode = true;
+        this.indeterminate = false;
+        this.bulkSelectState = true;
+        this.selectedRowsCount = this.selectedResources.length;
+      } else {
+        this.selectedResources = [];
+        this.selectedRowsCount = 0;
+        this.selectMode = false;
+        this.bulkSelectState = false;
+        this.indeterminate = false;
+      }
+
+      // else {
+      //
+      // }
+      //
+      // if (this.selectedRowsCount !== this.itemCount) {
+      //   this.rows.map((row) => {
+      //     this.selectedResources = [...this.selectedResources, row['id']];
+      //   });
+      //   this.indeterminate = false;
+      //   this.bulkSelectState = true;
+      //   this.selectedRowsCount = this.itemCount;
+      //   return;
+      // }
+      // this.selectMode = false;
+      // // this.selectedRowsCount = 0;
+      // this.bulkSelectState = false;
+      // this.selectedResources = [];
     }
 
     public handleSelectModeToggle(val: boolean) {
@@ -748,11 +782,18 @@
     }
 
     public handleSelectPage(checked: boolean) {
-      if (checked['checked']) {
+      this.$set(this, 'paginatedSelectAllAction', {
+        content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+        onAction: this.handleSelectAllItemsInStore,
+      });
+      this.paginatedSelectAllText = '';
+      this.togglePlus = '';
+
+      if (checked['checked'] ) {
         this.rows.map((row) => {
           this.selectedResources = [...this.selectedResources, row['id']];
         });
-        this.selectedRowsCount = 'All';
+        this.selectedRowsCount = this.itemCount;
         this.bulkSelectState = true;
       } else {
         this.bulkSelectState = false;
@@ -800,15 +841,97 @@
       );
     }
 
-    public handleSelectAllItemsInStore() {
+    public get paginatedSelectAllAction() {
+      if (!this.selectable || !this.hasBulkActions || !this.hasMoreItems) {
+        return;
+      }
 
+      let actionText = this.selectedRowsCount === 'All'
+        ? 'Undo' : `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
+
+      this.paginatedSelectAction = {
+        content: actionText,
+        onAction: this.handleSelectAllItemsInStore,
+      };
+
+      return this.paginatedSelectAction;
     }
 
-    public handleSelectionChange(selectionType, selected, id, position) {
-      if (!selected) {
-        this.selectedResources.splice(position, 1);
+    public set paginatedSelectAllAction(value) {
+      this.$set(this, 'paginatedSelectAction', value);
+    }
+
+    public handleSelectAllItemsInStore() {
+      this.indeterminate = false;
+
+      let actionText = '';
+      if (this.paginatedSelectAction.content === 'Undo') {
+        console.log('undo', this.selectedResources);
+        actionText = `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
+        this.paginatedSelectAllText = '';
+        this.togglePlus = '';
       } else {
-        this.selectedResources.splice(position, 0, id);
+        this.selectedResources = [];
+        this.selectedRowsCount = 0;
+        this.togglePlus = '+';
+        this.paginatedSelectAllText = `All ${this.itemCount}+ ${this.resourceName.plural} are selected.`;
+        actionText = 'Undo'
+        this.selectedRowsCount = 'All';
+        this.rows.map((row) => {
+          this.selectedResources = [...this.selectedResources, row['id']];
+        });
+      }
+
+      console.log('SelectAll', this.selectedResources);
+      this.$set(this, 'paginatedSelectAllAction', {
+        content: actionText,
+        onAction: this.handleSelectAllItemsInStore,
+      });
+    }
+
+    public handleSelectionChange(selectionType, selected, id) {
+      this.selectMode = true;
+      this.bulkSelectState = true;
+
+      let index = this.selectedResources.indexOf(id);
+      console.log('index', index);
+      if (!selected) {
+        this.$set(this, 'paginatedSelectAllAction', {
+          content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+          onAction: this.handleSelectAllItemsInStore,
+        });
+        this.paginatedSelectAllText = '';
+        this.togglePlus = '';
+        if (index > -1) {
+          this.selectedResources.splice(index, 1);
+        }
+      } else {
+        this.selectedResources.splice(index, 0, id);
+      }
+
+      if (this.selectedResources.length !== this.itemCount) {
+        this.indeterminate = true;
+      }
+
+      if (this.selectedResources.length === this.itemCount) {
+        this.indeterminate = false;
+        this.selectedRowsCount = this.itemCount;
+      } else if (this.selectedResources.length === 0) {
+        this.indeterminate = false;
+        this.selectedRowsCount = 0;
+        this.selectMode = false;
+        this.bulkSelectState = false;
+      } else {
+        if (this.selectedResources.length === 1) {
+          this.$set(this, 'paginatedSelectAllAction', {
+            content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+            onAction: this.handleSelectAllItemsInStore,
+          });
+          this.paginatedSelectAllText = '';
+          this.togglePlus = '';
+        }
+        console.log('Individual', this.selectedResources);
+        this.selectedRowsCount = this.selectedResources.length;
       }
     }
   }

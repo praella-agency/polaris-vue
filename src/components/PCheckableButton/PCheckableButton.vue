@@ -12,6 +12,7 @@
                 labelHidden
                 :checked="selected"
                 :disabled="disabled"
+                :indeterminate="indeterminate"
                 @change="$emit('toggleAll')"
                 ref="checkBoxRef"
             />
@@ -26,7 +27,6 @@
   import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
   import { PCheckbox } from '../PCheckbox';
-  import { CheckboxHandles } from '@/types';
 
   @Component({
     components: {
@@ -42,6 +42,7 @@
     @Prop({type: Boolean, default: false}) public plain!: boolean;
     @Prop({type: Boolean, default: false}) public measuring!: boolean;
     @Prop({type: Boolean, default: false}) public disabled?: boolean;
+    @Prop({type: Boolean, default: false}) public indeterminate?: boolean;
 
     public currentKey: 'plain' | 'bulkSm' | 'bulkLg' = 'bulkLg';
 

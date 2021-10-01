@@ -91,6 +91,15 @@ IndexTable.args = {
     hasMoreItems: true,
     promotedBulkActions: [
         {
+            title: 'Menu',
+            actions: [
+                {
+                    helpText: 'Promoted BulkActions Menu',
+                    onAction: () => console.log('Todo: implement promoted bulk actions menu'),
+                }
+            ],
+        },
+        {
             content: 'Edit customers',
             onAction: () => console.log('Todo: implement bulk edit'),
         },

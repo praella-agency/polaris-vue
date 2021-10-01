@@ -1,5 +1,6 @@
 <template>
     <PPopover
+        :id="this['_uid']"
         :active="isVisible"
         @close="toggleMenuVisibility"
         preferInputActivator
@@ -22,8 +23,8 @@
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { PPopover } from '@/components/PPopover';
-  import { PBulkActionButton } from '@/components/PBulkActions';
   import { PActionList } from '@/components/PActionList';
+  import PBulkActionButton from '@/components/PBulkActions/components/PBulkActionButton.vue';
 
   @Component({
     components: {

@@ -124,10 +124,6 @@
         this.primaryLinkElement = el;
       }
     }
-
-    mounted() {
-      console.log(this.selected);
-    }
   }
 </script>
 

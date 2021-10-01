@@ -23,6 +23,7 @@
                             @toggleAll="$emit('toggleAll')"
                             :measuring="measuring"
                             :disabled="disabled"
+                            :indeterminate="indeterminate"
                             smallScreen
                         />
                     </div>
@@ -30,6 +31,7 @@
                         v-if="hasActions"
                     >
                         <PPopover
+                            :id="this['_uid']"
                             :active="smallScreenPopoverVisible"
                             @close="toggleSmallScreenPopover()"
                         >
@@ -99,6 +101,7 @@
                             @toggleAll="$emit('toggleAll')"
                             :measuring="measuring"
                             :disabled="disabled"
+                            :indeterminate="indeterminate"
                         />
                         <template
                             v-for="(action, key) in this.promotedActionsMarkup"
@@ -106,12 +109,13 @@
                             <PBulkActionMenu
                                 v-if="instanceOfMenuGroupDescriptor(action)"
                                 :key="key"
-                                :action="action"
+                                v-bind="action"
                                 :indicator="isNewBadgeInBadgeActions()"
                             />
                             <PBulkActionButton
-                                :disabled="disabled"
-                                :action="action"
+                                v-if="!action['title']"
+                                @action="action.onAction()"
+                                v-bind="action"
                                 :key="key"
                                 @handleMeasurement="handleMeasurement"
                             />
@@ -150,7 +154,27 @@
                         @toggleAll="$emit('toggleAll')"
                         :measuring="measuring"
                         :disabled="disabled"
+                        :indeterminate="indeterminate"
                     />
+                </div>
+                <div
+                    v-if="paginatedSelectAllAction || (paginatedSelectAllText && paginatedSelectAllAction)"
+                    class="Polaris-BulkActions__PaginatedSelectAll"
+                >
+                    <span
+                        v-if="paginatedSelectAllText && paginatedSelectAllAction"
+                        aria-label="polite"
+                    >
+                        {{ paginatedSelectAllText }}
+                    </span>
+                    <PButton
+                        v-if="paginatedSelectAllAction"
+                        @click="paginatedSelectAllAction.onAction()"
+                        plain
+                        :disabled="disabled"
+                    >
+                        {{ paginatedSelectAllAction.content }}
+                    </PButton>
                 </div>
             </div>
         </div>
@@ -163,10 +187,10 @@
   import { PButtonGroup } from '@/components/PButtonGroup';
   import { PCheckableButton } from '@/components/PCheckableButton';
   import { PPopover } from '@/components/PPopover';
-  import { PBulkActionMenu } from '@/components/PBulkActions';
   import { PActionList } from '@/components/PActionList';
   import { PButton } from '@/components/PButton';
   import { Action, ActionListSection, MenuGroupDescriptor } from '@/types';
+  import PBulkActionMenu from '@/components/PBulkActions/components/PBulkActionMenu.vue';
   import PBulkActionButton from '@/components/PBulkActions/components/PBulkActionButton.vue';
   import { classNames } from '@/utilities/css';
 
@@ -225,6 +249,11 @@
      * Disables bulk actions
      */
     @Prop({type: Boolean, default: false}) public disabled!: boolean;
+
+    /**
+     * Indeterminate checkbox
+     */
+    @Prop({type: Boolean, default: false}) public indeterminate!: boolean;
 
     public measuring = false;
     public smallScreenPopoverVisible = false;
@@ -335,11 +364,11 @@
     }
 
     public toggleSmallScreenPopover() {
-      this.$emit('moreActionPopoverToggle', this.smallScreenPopoverVisible);
+      this.smallScreenPopoverVisible = !this.smallScreenPopoverVisible;
     }
 
     public toggleLargeScreenPopover() {
-      this.$emit('moreActionPopoverToggle', this.largeScreenPopoverVisible);
+      this.largeScreenPopoverVisible = !this.largeScreenPopoverVisible;
     }
 
     public instanceOfBulkActionListSectionArray(actions: (BulkAction | ActionListSection)[]) {
@@ -347,7 +376,7 @@
         return action.items;
       });
 
-      return this.actions.length === validList.length;
+      return actions.length === validList.length;
     }
 
     public instanceOfBulkActionArray(actions: (BulkAction | ActionListSection)[]) {
@@ -355,7 +384,7 @@
         return !action.items;
       });
 
-      return this.actions.length === validList.length;
+      return actions.length === validList.length;
     }
 
     public actionSections() {
