@@ -1,5 +1,8 @@
 <template>
-    <td :class="checkboxClassName" :ref="checkboxNode">
+    <component
+        :is="condensed ? 'transition' : 'td'"
+        :class="!condensed ? checkboxClassName : ''"
+        :ref="!condensed ? checkboxNode : ''">
         <div
             class="Polaris-IndexTable-Checkbox__TableCellContentContainer"
         >
@@ -16,7 +19,7 @@
                 />
             </div>
         </div>
-    </td>
+    </component>
 </template>
 
 <script lang="ts">

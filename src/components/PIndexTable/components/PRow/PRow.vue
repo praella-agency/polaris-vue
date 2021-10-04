@@ -9,6 +9,8 @@
         :ref="tableRowCallbackRef"
     >
         <PTableCheckbox
+            v-if="selectable"
+            :condensed="condensed"
             :itemId="id"
             :selected="selected"
             @interaction="handleInteraction"
@@ -45,13 +47,15 @@
 
     @Prop({type: String, default: null}) public status!: 'success' | 'subdued';
 
+    @Prop({type: Boolean, default: true}) public selectable!: boolean;
+
+    @Prop({type: Boolean, default: false}) public condensed!: boolean;
+
     @Ref() public primaryLinkElement!: HTMLAnchorElement;
 
     @Ref() public tableRowRef!: HTMLTableRowElement & HTMLLIElement;
 
-    public condensed = false;
     public selectMode = false;
-    public selectable = false;
     public isNavigating = false;
 
     public hovered = false;
@@ -64,7 +68,7 @@
         this.subdued && 'Polaris-IndexTable__TableRow--subdued',
         this.hovered && 'Polaris-IndexTable__TableRow--hovered',
         this.status && 'Polaris-IndexTable--' + variationName('status', this.status),
-        !this.selectable && this.primaryLinkElement && 'TableRow-unclickable',
+        (!this.selectable || this.primaryLinkElement) && 'TableRow-unclickable',
       );
     }
 

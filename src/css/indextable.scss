@@ -193,7 +193,7 @@
   text-align: left;
   padding: 0.8rem 1.6rem;
   white-space: nowrap;
-  box-shadow: 0 -0.1rem 0 0 rgba(225, 227, 229, 1);
+  //box-shadow: 0 -0.1rem 0 0 rgba(225, 227, 229, 1);
 }
 
 .Polaris-IndexTable__TableCell--flush {
@@ -378,6 +378,8 @@
   transition: transform cubic-bezier(0.64, 0, 0.35, 1) 200ms;
   display: flex;
   border-top: 0.1rem solid rgba(225, 227, 229, 1);
+  filter: none;
+  align-items: center;
 }
 
 [data-selectmode='true'] .Polaris-IndexTable--condensedRow {

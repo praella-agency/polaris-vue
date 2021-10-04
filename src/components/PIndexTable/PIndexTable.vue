@@ -4,11 +4,10 @@
             <transition>
                 <div class="Polaris-IndexTable__LoadingPanel">
                     <div class="Polaris-IndexTable__LoadingPanelRow">
-                        <PSpinner size="small">
-                            <span class="Polaris-IndexTable__LoadingPanelText">
-                                {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
-                            </span>
-                        </PSpinner>
+                        <PSpinner size="small"/>
+                        <span class="Polaris-IndexTable__LoadingPanelText">
+                            {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
+                        </span>
                     </div>
                 </div>
             </transition>
@@ -17,6 +16,7 @@
             <template v-if="condensed">
 
                 <div
+                    v-if="selectable"
                     :class="stickyTableClassName"
                     role="presentation"
                 >
@@ -29,11 +29,10 @@
                             <transition>
                                 <div class="Polaris-IndexTable__LoadingPanel">
                                     <div class="Polaris-IndexTable__LoadingPanelRow">
-                                        <PSpinner size="small">
+                                        <PSpinner size="small"/>
                                         <span class="Polaris-IndexTable__LoadingPanelText">
                                             {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
                                         </span>
-                                        </PSpinner>
                                     </div>
                                 </div>
                             </transition>
@@ -41,7 +40,7 @@
                         <PBulkActions
                             :smallScreen="condensed"
                             :label="`${selectedItemsCountLabel}${togglePlus} selected`"
-                            :selected="bulkSelectState"
+                            :selected="selectMode"
                             :selectMode="selectMode || isSmallScreenSelectable"
                             @toggleAll="handleTogglePage"
                             :promotedActions="(!condensed || selectedRowsCount) ? promotedBulkActions : []"
@@ -56,15 +55,14 @@
                         v-else-if="condensed"
                         :class="headerMarkupClassName"
                     >
-                        <template v-if="!shouldShowBulkActions && !condensed && loading">
+                        <template v-if="condensed && loading">
                             <transition>
                                 <div class="Polaris-IndexTable__LoadingPanel">
                                     <div class="Polaris-IndexTable__LoadingPanelRow">
-                                        <PSpinner size="small">
+                                        <PSpinner size="small"/>
                                         <span class="Polaris-IndexTable__LoadingPanelText">
                                             {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
                                         </span>
-                                        </PSpinner>
                                     </div>
                                 </div>
                             </transition>
@@ -83,15 +81,14 @@
                         :class="stickyHeaderClassName"
                         ref="stickyHeaderWrapperElement"
                     >
-                        <template v-if="!shouldShowBulkActions && !condensed && loading">
+                        <template v-if="condensed && loading">
                             <transition>
                                 <div class="Polaris-IndexTable__LoadingPanel">
                                     <div class="Polaris-IndexTable__LoadingPanelRow">
-                                        <PSpinner size="small">
+                                        <PSpinner size="small"/>
                                         <span class="Polaris-IndexTable__LoadingPanelText">
                                             {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
                                         </span>
-                                        </PSpinner>
                                     </div>
                                 </div>
                             </transition>
@@ -123,7 +120,7 @@
                                                     :label="`Select all ${resourceName.plural}`"
                                                     labelHidden
                                                     @change="handleSelectPage"
-                                                    :checked="bulkSelectState"
+                                                    :checked="selectMode"
                                                 />
                                             </div>
                                         </div>
@@ -239,27 +236,20 @@
                             v-for="(row, key) in rows"
                             :key="row.id"
                             :id="row.id"
-                            :selected="selectedResources.includes(row.id)"
+                            :selected="selectedResources.includes(row)"
                             :position="key"
                             :selectable="selectable"
                             :status="row.status"
                             :condensed="condensed"
                             @selectionChange="handleSelectionChange"
                         >
-                            <PCell>
-                                <PTextStyle variation="strong">
-                                    {{ row.name }}
-                                </PTextStyle>
-                            </PCell>
-                            <PCell>
-                                {{ row.location }}
-                            </PCell>
-                            <PCell>
-                                {{ row.orders }}
-                            </PCell>
-                            <PCell>
-                                {{ row.amountSpent }}
-                            </PCell>
+                            <template
+                                v-for="heading in headings"
+                            >
+                                <PCell>
+                                    {{ row[heading.value] }}
+                                </PCell>
+                            </template>
                         </PRow>
                     </slot>
                 </ul>
@@ -267,6 +257,7 @@
             <template v-else>
 
                 <div
+                    v-if="selectable"
                     :class="stickyTableClassName"
                     role="presentation"
                 >
@@ -279,11 +270,10 @@
                             <transition>
                                 <div class="Polaris-IndexTable__LoadingPanel">
                                     <div class="Polaris-IndexTable__LoadingPanelRow">
-                                        <PSpinner size="small">
+                                        <PSpinner size="small"/>
                                         <span class="Polaris-IndexTable__LoadingPanelText">
                                             {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
                                         </span>
-                                        </PSpinner>
                                     </div>
                                 </div>
                             </transition>
@@ -291,7 +281,7 @@
                         <PBulkActions
                             :smallScreen="condensed"
                             :label="`${selectedItemsCountLabel}${togglePlus} selected`"
-                            :selected="bulkSelectState"
+                            :selected="selectMode"
                             :selectMode="selectMode || isSmallScreenSelectable"
                             @toggleAll="handleTogglePage"
                             :promotedActions="(!condensed || selectedRowsCount) ? promotedBulkActions : []"
@@ -310,11 +300,10 @@
                             <transition>
                                 <div class="Polaris-IndexTable__LoadingPanel">
                                     <div class="Polaris-IndexTable__LoadingPanelRow">
-                                        <PSpinner size="small">
+                                        <PSpinner size="small"/>
                                         <span class="Polaris-IndexTable__LoadingPanelText">
                                             {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
                                         </span>
-                                        </PSpinner>
                                     </div>
                                 </div>
                             </transition>
@@ -337,11 +326,10 @@
                             <transition>
                                 <div class="Polaris-IndexTable__LoadingPanel">
                                     <div class="Polaris-IndexTable__LoadingPanelRow">
-                                        <PSpinner size="small">
+                                        <PSpinner size="small"/>
                                         <span class="Polaris-IndexTable__LoadingPanelText">
                                             {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
                                         </span>
-                                        </PSpinner>
                                     </div>
                                 </div>
                             </transition>
@@ -373,7 +361,7 @@
                                                     :label="`Select all ${resourceName.plural}`"
                                                     labelHidden
                                                     @change="handleSelectPage"
-                                                    :checked="bulkSelectState"
+                                                    :checked="selectMode"
                                                 />
                                             </div>
                                         </div>
@@ -503,7 +491,7 @@
                                         :label="`Select all ${resourceName.plural}`"
                                         labelHidden
                                         @change="handleSelectPage"
-                                        :checked="bulkSelectState"
+                                        :checked="selectMode"
                                     />
                                 </div>
                             </th>
@@ -546,31 +534,26 @@
                     <tbody
                         ref="tableBodyRef"
                     >
-                        <slot>
-                            <PRow
-                                v-for="(row, key) in rows"
-                                :key="row.id"
-                                :id="row.id"
-                                :selected="selectedResources.includes(row.id)"
-                                :position="key"
-                                :selectable="selectable"
-                                :status="row.status"
-                                @selectionChange="handleSelectionChange"
+                    <slot>
+                        <PRow
+                            v-for="(row, key) in rows"
+                            :key="row.id"
+                            :id="row.id"
+                            :selected="selectedResources.includes(row)"
+                            :position="key"
+                            :selectable="selectable"
+                            :status="row.status"
+                            @selectionChange="handleSelectionChange"
+                        >
+                            <template
+                                v-for="heading in headings"
                             >
                                 <PCell>
-                                    {{ row.name }}
+                                    {{ row[heading.value] }}
                                 </PCell>
-                                <PCell>
-                                    {{ row.location }}
-                                </PCell>
-                                <PCell>
-                                    {{ row.orders }}
-                                </PCell>
-                                <PCell>
-                                    {{ row.amountSpent }}
-                                </PCell>
-                            </PRow>
-                        </slot>
+                            </template>
+                        </PRow>
+                    </slot>
                     </tbody>
                 </table>
             </template>
@@ -657,9 +640,7 @@
     public selectedRowsCount: any = this.selectedResources.length;
     public paginatedSelectAllText = '';
 
-    public bulkSelectState = false;
     public togglePlus = '';
-    public indeterminate = false;
     public paginatedSelectAction = {
       content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
       onAction: this.handleSelectAllItemsInStore,
@@ -671,10 +652,34 @@
       this.selectedResources = [];
       this.selectedRowsCount = 0;
       this.selectMode = false;
-      this.indeterminate = false;
-      this.bulkSelectState = false;
       this.paginatedSelectAllText = '';
-}
+    }
+
+    @Watch('selectedItemsCount')
+    public onSelectedItemsCountChanged(value) {
+      this.selectedResources = [];
+      this.selectedRowsCount = 0;
+      this.selectMode = true;
+
+      if (value <= 0) {
+        this.selectMode = false;
+        return;
+      }
+
+      if (value > this.itemCount) {
+        this.rows.map((row) => {
+          this.selectedResources = [...this.selectedResources, row];
+        });
+        this.selectedRowsCount = 'All';
+        this.emitSelection('multiple', this.selectMode, this.selectedResources);
+      } else {
+        for (let i = 0; i < value; i++) {
+          this.selectedResources = [...this.selectedResources, this.rows[i]];
+        }
+        this.selectedRowsCount = value;
+        this.emitSelection('single', this.selectMode, this.selectedResources);
+      }
+    }
 
     public created() {
       window.addEventListener('resize', this.isSmallScreen);
@@ -767,11 +772,9 @@
     public handleTogglePage() {
       if (this.selectedRowsCount === 0) {
         this.rows.map((row) => {
-          this.selectedResources = [...this.selectedResources, row['id']];
+          this.selectedResources = [...this.selectedResources, row];
         });
         this.selectMode = true;
-        this.indeterminate = false;
-        this.bulkSelectState = true;
         this.selectedRowsCount = this.selectedResources.length;
         this.emitSelection('multiple', this.selectMode, this.selectedResources);
         return;
@@ -779,18 +782,14 @@
         this.selectedRowsCount = 0;
         this.selectedResources = [];
         this.rows.map((row) => {
-          this.selectedResources = [...this.selectedResources, row['id']];
+          this.selectedResources = [...this.selectedResources, row];
         });
         this.selectMode = true;
-        this.indeterminate = false;
-        this.bulkSelectState = true;
         this.selectedRowsCount = this.selectedResources.length;
       } else {
         this.selectedResources = [];
         this.selectedRowsCount = 0;
         this.selectMode = false;
-        this.bulkSelectState = false;
-        this.indeterminate = false;
       }
 
       this.emitSelection('multiple', this.selectMode, this.selectedResources);
@@ -813,12 +812,10 @@
 
       if (checked['checked']) {
         this.rows.map((row) => {
-          this.selectedResources = [...this.selectedResources, row['id']];
+          this.selectedResources = [...this.selectedResources, row];
         });
         this.selectedRowsCount = this.itemCount;
-        this.bulkSelectState = true;
       } else {
-        this.bulkSelectState = false;
         this.selectedResources = [];
       }
 
@@ -886,8 +883,6 @@
     }
 
     public handleSelectAllItemsInStore() {
-      this.indeterminate = false;
-
       let actionText = '';
       if (this.paginatedSelectAction.content === 'Undo') {
         actionText = `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
@@ -901,10 +896,11 @@
         actionText = 'Undo';
         this.selectedRowsCount = 'All';
         this.rows.map((row) => {
-          this.selectedResources = [...this.selectedResources, row['id']];
+          this.selectedResources = [...this.selectedResources, row];
         });
       }
 
+      this.emitSelection('multiple', true, this.selectedResources);
       this.$set(this, 'paginatedSelectAllAction', {
         content: actionText,
         onAction: this.handleSelectAllItemsInStore,
@@ -913,9 +909,11 @@
 
     public handleSelectionChange(selectionType, selected, id) {
       this.selectMode = true;
-      this.bulkSelectState = true;
 
-      let index = this.selectedResources.indexOf(id);
+      let index = this.selectedResources.findIndex(x => x.id === id);
+      let rowId = this.rows.findIndex(x => x['id'] === id);
+
+      console.log(index);
       if (!selected) {
         this.$set(this, 'paginatedSelectAllAction', {
           content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
@@ -927,21 +925,19 @@
           this.selectedResources.splice(index, 1);
         }
       } else {
-        this.selectedResources.splice(index, 0, id);
-      }
-
-      if (this.selectedResources.length !== this.itemCount) {
-        this.indeterminate = true;
+        console.log(this.selectedRowsCount);
+        if (this.selectedRowsCount === 0) {
+          this.selectedResources.splice(index, 0, this.rows[rowId]);
+        } else {
+          this.selectedResources.splice(index, 0, this.rows[rowId]);
+        }
       }
 
       if (this.selectedResources.length === this.itemCount) {
-        this.indeterminate = false;
         this.selectedRowsCount = this.itemCount;
       } else if (this.selectedResources.length === 0) {
-        this.indeterminate = false;
         this.selectedRowsCount = 0;
         this.selectMode = false;
-        this.bulkSelectState = false;
       } else {
         if (this.selectedResources.length === 1) {
           this.$set(this, 'paginatedSelectAllAction', {
@@ -954,7 +950,7 @@
         this.selectedRowsCount = this.selectedResources.length;
       }
 
-      this.emitSelection(selectionType, selected, this.selectedResources)
+      this.emitSelection(selectionType, selected, this.selectedResources);
     }
 
     public emitSelection(selectionType, toggleType, selectedResources) {

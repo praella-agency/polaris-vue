@@ -1,16 +1,24 @@
 import { PIndexTable } from './index';
 import { PCell } from './components/PCell';
 import { PRow } from './components/PRow';
+import { PCard } from '../PCard';
 
 export default {
     title: 'Index Table',
     component: PIndexTable,
+    argTypes: {
+        selectedItemsCount: {
+            control: {
+                type: 'number',
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PIndexTable, PCell, PRow,
+        PIndexTable, PCell, PRow, PCard,
     },
     data() {
         return {
@@ -46,11 +54,19 @@ const Template = (args, {argTypes}) => ({
         }
     },
     template: `
-        <PIndexTable
-            v-bind="$props"
-            :rows="customers"
-            :itemCount="customers.length"
-        />`,
+        <PCard>
+            <PIndexTable
+                v-bind="$props"
+                :rows="customers"
+                :itemCount="customers.length"
+                @selectionChange="handleSelectionChange"
+            />
+        </PCard>`,
+    methods: {
+        handleSelectionChange(selectionType, toggleType, selection) {
+            console.log(selectionType, toggleType, selection);
+        }
+    }
 });
 
 export const IndexTable = Template.bind({});
@@ -62,16 +78,20 @@ IndexTable.args = {
     },
     headings: [
         {
-            title: 'Name'
+            title: 'Name',
+            value: 'name',
         },
         {
-            title: 'Location'
+            title: 'Location',
+            value: 'location',
         },
         {
-            title: 'Order count'
+            title: 'Order count',
+            value: 'orders',
         },
         {
-            title: 'Amount spent'
+            title: 'Amount spent',
+            value: 'amountSpent',
         },
     ],
     bulkActions: [

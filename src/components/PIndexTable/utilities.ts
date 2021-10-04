@@ -2,6 +2,7 @@ import { Action, ActionListSection, BadgeAction, DisableableAction, MenuGroupDes
 
 export interface IndexTableHeading {
   title: string;
+  value: string;
   new?: boolean;
   hidden?: boolean;
 }
