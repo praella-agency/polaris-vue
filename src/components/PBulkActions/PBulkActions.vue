@@ -121,7 +121,7 @@
                             />
                         </template>
                         <div
-                            v-if="actionSections() || rolledInPromotedActions().length > 0 || measuring"
+                            v-if="actionSections || rolledInPromotedActions.length > 0 || measuring"
                             ref="moreActionsNode"
                         >
                             <PPopover
@@ -293,17 +293,17 @@
     }
 
     public get combinedActions() {
-      if (this.actionSections() && this.rolledInPromotedActions().length > 0) {
-        return [...this.rolledInPromotedActions(), ...this.actionSections()];
-      } else if (this.actionSections()) {
-        return this.actionSections();
-      } else if (this.rolledInPromotedActions().length > 0) {
-        return [...this.rolledInPromotedActions()];
+      if (this.actionSections && this.rolledInPromotedActions.length > 0) {
+        return [...this.rolledInPromotedActions, ...this.actionSections];
+      } else if (this.actionSections) {
+        return this.actionSections;
+      } else if (this.rolledInPromotedActions.length > 0) {
+        return [...this.rolledInPromotedActions];
       }
     }
 
     public isNewBadgeInBadgeActions() {
-      let actions = this.actionSections();
+      let actions = this.actionSections;
       if (!actions) {
         return false;
       }
@@ -387,7 +387,7 @@
       return actions.length === validList.length;
     }
 
-    public actionSections() {
+    public get actionSections() {
       if (!this.actions || this.actions ? this.actions.length === 0 : false) {
         return [];
       }
@@ -417,7 +417,7 @@
       }
     }
 
-    public rolledInPromotedActions() {
+    public get rolledInPromotedActions() {
       let numberOfPromotedActionsToRender = this.numberOfPromotedActionsToRender();
 
       if (!this.promotedActions || this.promotedActions.length === 0 ||
