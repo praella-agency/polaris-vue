@@ -48,7 +48,7 @@
                             :actions="(!condensed || selectedRowsCount) ? bulkActions : []"
                             :paginatedSelectAllText="paginatedSelectAllText"
                             :paginatedSelectAllAction="paginatedSelectAction"
-                            :indeterminate="indeterminate"
+                            :indeterminate="!(selectedRowsCount === itemCount || selectedRowsCount === 'All')"
                             @selectModeToggle="condensed ? handleSelectModeToggle : undefined"
                         />
                     </div>
@@ -234,7 +234,34 @@
                     class="Polaris-IndexTable__CondensedList"
                     ref="condensedListElement"
                 >
-                    <slot/>
+                    <slot>
+                        <PRow
+                            v-for="(row, key) in rows"
+                            :key="row.id"
+                            :id="row.id"
+                            :selected="selectedResources.includes(row.id)"
+                            :position="key"
+                            :selectable="selectable"
+                            :status="row.status"
+                            :condensed="condensed"
+                            @selectionChange="handleSelectionChange"
+                        >
+                            <PCell>
+                                <PTextStyle variation="strong">
+                                    {{ row.name }}
+                                </PTextStyle>
+                            </PCell>
+                            <PCell>
+                                {{ row.location }}
+                            </PCell>
+                            <PCell>
+                                {{ row.orders }}
+                            </PCell>
+                            <PCell>
+                                {{ row.amountSpent }}
+                            </PCell>
+                        </PRow>
+                    </slot>
                 </ul>
             </template>
             <template v-else>
@@ -271,7 +298,7 @@
                             :actions="(!condensed || selectedRowsCount) ? bulkActions : []"
                             :paginatedSelectAllText="paginatedSelectAllText"
                             :paginatedSelectAllAction="paginatedSelectAction"
-                            :indeterminate="indeterminate"
+                            :indeterminate="!(selectedRowsCount === itemCount || selectedRowsCount === 'All')"
                             @selectModeToggle="condensed ? handleSelectModeToggle : undefined"
                         />
                     </div>
@@ -463,7 +490,7 @@
                         >
 
                             <th
-                                v-if="key === 0"
+                                v-if="key === 0 && selectable"
                                 :class="checkboxClassName(key)"
                                 :key="`${heading}-${key}`"
                                 data-index-table-heading
@@ -519,31 +546,31 @@
                     <tbody
                         ref="tableBodyRef"
                     >
-                    <slot>
-                        <PRow
-                            v-for="(row, key) in rows"
-                            :key="row.id"
-                            :id="row.id"
-                            :selected="selectedResources.includes(row.id)"
-                            :position="key"
-                            :selectable="selectable"
-                            :status="row.status"
-                            @selectionChange="handleSelectionChange"
-                        >
-                            <PCell>
-                                {{ row.name }}
-                            </PCell>
-                            <PCell>
-                                {{ row.location }}
-                            </PCell>
-                            <PCell>
-                                {{ row.orders }}
-                            </PCell>
-                            <PCell>
-                                {{ row.amountSpent }}
-                            </PCell>
-                        </PRow>
-                    </slot>
+                        <slot>
+                            <PRow
+                                v-for="(row, key) in rows"
+                                :key="row.id"
+                                :id="row.id"
+                                :selected="selectedResources.includes(row.id)"
+                                :position="key"
+                                :selectable="selectable"
+                                :status="row.status"
+                                @selectionChange="handleSelectionChange"
+                            >
+                                <PCell>
+                                    {{ row.name }}
+                                </PCell>
+                                <PCell>
+                                    {{ row.location }}
+                                </PCell>
+                                <PCell>
+                                    {{ row.orders }}
+                                </PCell>
+                                <PCell>
+                                    {{ row.amountSpent }}
+                                </PCell>
+                            </PRow>
+                        </slot>
                     </tbody>
                 </table>
             </template>
@@ -565,7 +592,7 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop, Ref } from 'vue-property-decorator';
+  import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
   import { PSpinner } from '@/components/PSpinner';
   import { PButton } from '@/components/PButton';
@@ -577,6 +604,7 @@
   import { PBulkActions } from '@/components/PBulkActions';
   import { PCell } from '@/components/PIndexTable/components/PCell';
   import { PRow } from '@/components/PIndexTable/components/PRow';
+  import { PTextStyle } from '@/components/PTextStyle';
 
   interface TableHeadingRect {
     offsetWidth: number;
@@ -586,6 +614,7 @@
   @Component({
     components: {
       PBulkActions, PEmptySearchResult, PSpinner, PButton, PStack, PStackItem, PCheckbox, PBadge, PCell, PRow,
+      PTextStyle,
     }
   })
   export default class PIndexTable extends Vue {
@@ -636,6 +665,17 @@
       onAction: this.handleSelectAllItemsInStore,
     };
 
+    @Watch('condensed')
+    public onCondensedChanged(value) {
+      this.isSmallScreenSelectable = false;
+      this.selectedResources = [];
+      this.selectedRowsCount = 0;
+      this.selectMode = false;
+      this.indeterminate = false;
+      this.bulkSelectState = false;
+      this.paginatedSelectAllText = '';
+}
+
     public created() {
       window.addEventListener('resize', this.isSmallScreen);
       this.isSmallScreen();
@@ -657,7 +697,6 @@
         this.selectMode && this.shouldShowBulkActions && 'Polaris-IndexTable--selectMode',
         !this.selectable && 'Table-unselectable',
         this.lastColumnSticky && 'Polaris-IndexTable-Table-sticky-last',
-        // this.lastColumnSticky && this.canScrollRight && 'Polaris-IndexTable-Table-sticky-scrolling',
       );
     }
 
@@ -726,10 +765,7 @@
     }
 
     public handleTogglePage() {
-      console.log(4546);
-
       if (this.selectedRowsCount === 0) {
-        console.log('if');
         this.rows.map((row) => {
           this.selectedResources = [...this.selectedResources, row['id']];
         });
@@ -737,9 +773,11 @@
         this.indeterminate = false;
         this.bulkSelectState = true;
         this.selectedRowsCount = this.selectedResources.length;
+        this.emitSelection('multiple', this.selectMode, this.selectedResources);
         return;
       } else if (this.selectedRowsCount !== this.itemCount) {
-        console.log('else if');
+        this.selectedRowsCount = 0;
+        this.selectedResources = [];
         this.rows.map((row) => {
           this.selectedResources = [...this.selectedResources, row['id']];
         });
@@ -755,23 +793,7 @@
         this.indeterminate = false;
       }
 
-      // else {
-      //
-      // }
-      //
-      // if (this.selectedRowsCount !== this.itemCount) {
-      //   this.rows.map((row) => {
-      //     this.selectedResources = [...this.selectedResources, row['id']];
-      //   });
-      //   this.indeterminate = false;
-      //   this.bulkSelectState = true;
-      //   this.selectedRowsCount = this.itemCount;
-      //   return;
-      // }
-      // this.selectMode = false;
-      // // this.selectedRowsCount = 0;
-      // this.bulkSelectState = false;
-      // this.selectedResources = [];
+      this.emitSelection('multiple', this.selectMode, this.selectedResources);
     }
 
     public handleSelectModeToggle(val: boolean) {
@@ -789,7 +811,7 @@
       this.paginatedSelectAllText = '';
       this.togglePlus = '';
 
-      if (checked['checked'] ) {
+      if (checked['checked']) {
         this.rows.map((row) => {
           this.selectedResources = [...this.selectedResources, row['id']];
         });
@@ -801,6 +823,7 @@
       }
 
       this.selectMode = checked['checked'];
+      this.emitSelection('multiple', checked['checked'], this.selectedResources);
     }
 
     public headingStyle(position) {
@@ -826,6 +849,7 @@
         'Polaris-IndexTable__TableHeading',
         isSecond && 'Polaris-IndexTable-TableHeading-second',
         isLast && !heading.hidden && 'Polaris-IndexTable-TableHeading-last',
+        !this.selectable && 'TableHeading-unselectable',
       );
     }
 
@@ -866,7 +890,6 @@
 
       let actionText = '';
       if (this.paginatedSelectAction.content === 'Undo') {
-        console.log('undo', this.selectedResources);
         actionText = `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
         this.paginatedSelectAllText = '';
         this.togglePlus = '';
@@ -875,14 +898,13 @@
         this.selectedRowsCount = 0;
         this.togglePlus = '+';
         this.paginatedSelectAllText = `All ${this.itemCount}+ ${this.resourceName.plural} are selected.`;
-        actionText = 'Undo'
+        actionText = 'Undo';
         this.selectedRowsCount = 'All';
         this.rows.map((row) => {
           this.selectedResources = [...this.selectedResources, row['id']];
         });
       }
 
-      console.log('SelectAll', this.selectedResources);
       this.$set(this, 'paginatedSelectAllAction', {
         content: actionText,
         onAction: this.handleSelectAllItemsInStore,
@@ -894,7 +916,6 @@
       this.bulkSelectState = true;
 
       let index = this.selectedResources.indexOf(id);
-      console.log('index', index);
       if (!selected) {
         this.$set(this, 'paginatedSelectAllAction', {
           content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
@@ -930,9 +951,14 @@
           this.paginatedSelectAllText = '';
           this.togglePlus = '';
         }
-        console.log('Individual', this.selectedResources);
         this.selectedRowsCount = this.selectedResources.length;
       }
+
+      this.emitSelection(selectionType, selected, this.selectedResources)
+    }
+
+    public emitSelection(selectionType, toggleType, selectedResources) {
+      this.$emit('selectionChange', selectionType, toggleType, selectedResources);
     }
   }
 </script>
