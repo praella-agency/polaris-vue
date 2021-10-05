@@ -1,24 +1,17 @@
 import { PIndexTable } from './index';
-import { PCell } from './components/PCell';
-import { PRow } from './components/PRow';
 import { PCard } from '../PCard';
+import argTypes from './args';
 
 export default {
     title: 'Index Table',
     component: PIndexTable,
-    argTypes: {
-        selectedItemsCount: {
-            control: {
-                type: 'number',
-            },
-        },
-    },
+    argTypes: argTypes,
 }
 
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PIndexTable, PCell, PRow, PCard,
+        PIndexTable, PCard,
     },
     data() {
         return {
@@ -38,7 +31,7 @@ const Template = (args, {argTypes}) => ({
                     name: 'Ellen Ochoa',
                     location: 'Los Angeles, USA',
                     orders: 30,
-                    amountSpent: '$140',
+                    amountSpent: '$3,500',
                     status: 'subdued',
                 },
                 {
@@ -51,7 +44,7 @@ const Template = (args, {argTypes}) => ({
                     status: 'success',
                 },
             ],
-        }
+        };
     },
     template: `
         <PCard>
@@ -60,7 +53,8 @@ const Template = (args, {argTypes}) => ({
                 :rows="customers"
                 :itemCount="customers.length"
                 @selectionChange="handleSelectionChange"
-            />
+            >
+            </PIndexTable>
         </PCard>`,
     methods: {
         handleSelectionChange(selectionType, toggleType, selection) {
@@ -69,9 +63,9 @@ const Template = (args, {argTypes}) => ({
     }
 });
 
-export const IndexTable = Template.bind({});
+export const Default = Template.bind({});
 
-IndexTable.args = {
+Default.args = {
     resourceName: {
         singular: 'customer',
         plural: 'customers',
@@ -94,35 +88,119 @@ IndexTable.args = {
             value: 'amountSpent',
         },
     ],
-    bulkActions: [
-        {
-            content: 'Add tags',
-            onAction: () => console.log('Todo: implement bulk add tags'),
-        },
-        {
-            content: 'Remove tags',
-            onAction: () => console.log('Todo: implement bulk remove tags'),
-        },
-        {
-            content: 'Delete customers',
-            onAction: () => console.log('Todo: implement bulk delete'),
-        },
-    ],
+    // bulkActions: [
+    //     {
+    //         content: 'Add tags',
+    //         onAction: () => console.log('Todo: implement bulk add tags'),
+    //     },
+    //     {
+    //         content: 'Remove tags',
+    //         onAction: () => console.log('Todo: implement bulk remove tags'),
+    //     },
+    //     {
+    //         content: 'Delete customers',
+    //         onAction: () => console.log('Todo: implement bulk delete'),
+    //     },
+    // ],
     hasMoreItems: true,
-    promotedBulkActions: [
-        {
-            title: 'Menu',
-            actions: [
+    // promotedBulkActions: [
+    //     {
+    //         title: 'Menu',
+    //         actions: [
+    //             {
+    //                 helpText: 'Promoted BulkActions Menu',
+    //                 onAction: () => console.log('Todo: implement promoted bulk actions menu'),
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         content: 'Edit customers',
+    //         onAction: () => console.log('Todo: implement bulk edit'),
+    //     },
+    // ],
+    lastColumnSticky: true,
+}
+
+const Template1 = (args, {argTypes}) => ({
+    props: Object.keys(argTypes),
+    components: {
+        PIndexTable, PCard,
+    },
+    data() {
+        return {
+            customers: [
                 {
-                    helpText: 'Promoted BulkActions Menu',
-                    onAction: () => console.log('Todo: implement promoted bulk actions menu'),
-                }
+                    id: '3417',
+                    url: 'customers/341',
+                    name: 'Mae Jemison',
+                    location: 'Decatur, USA',
+                    orders: 20,
+                    amountSpent: '$2,400',
+                    status: 'success',
+                },
+                {
+                    id: '2567',
+                    url: 'customers/256',
+                    name: 'Ellen Ochoa',
+                    location: 'Los Angeles, USA',
+                    orders: 30,
+                    amountSpent: '$3,500',
+                    status: 'subdued',
+                },
+                {
+                    id: '1925',
+                    url: 'customers/192',
+                    name: 'Berlin Andres',
+                    location: 'Las Vegas, USA',
+                    orders: 45,
+                    amountSpent: '$14,000',
+                    status: 'success',
+                },
             ],
+        };
+    },
+    template: `
+        <div style="width: 430px;">
+            <PCard>
+                <PIndexTable
+                    v-bind="$props"
+                    :rows="customers"
+                    :itemCount="customers.length"
+                    @selectionChange="handleSelectionChange"
+                />
+            </PCard>
+        </div>`,
+    methods: {
+        handleSelectionChange(selectionType, toggleType, selection) {
+            console.log(selectionType, toggleType, selection);
+        }
+    }
+});
+
+export const SmallScreenIndexTable = Template1.bind({});
+
+SmallScreenIndexTable.args = {
+    resourceName: {
+        singular: 'customer',
+        plural: 'customers',
+    },
+    headings: [
+        {
+            title: 'Name',
+            value: 'name',
         },
         {
-            content: 'Edit customers',
-            onAction: () => console.log('Todo: implement bulk edit'),
+            title: 'Location',
+            value: 'location',
+        },
+        {
+            title: 'Order count',
+            value: 'orders',
+        },
+        {
+            title: 'Amount spent',
+            value: 'amountSpent',
         },
     ],
-    lastColumnSticky: true,
+    condensed: true,
 }

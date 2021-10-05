@@ -1,15 +1,15 @@
 export default {
     verticalAlign: {
         options: ['top', 'bottom', 'middle', 'baseline'],
-            control: {
+        control: {
             type: 'select',
         },
     },
     defaultSortDirection: {
         options: ['ascending', 'descending', 'none'],
-            control: {
+        control: {
             type: 'select',
-                labels: {
+            labels: {
                 'none': 'Default',
             },
         },
@@ -19,14 +19,14 @@ export default {
             type: 'text',
         },
     },
-default: {
+    default: {
         name: 'item.<heading-value>',
     },
     actions: {
         table: {
             defaultValue: {
                 summary: '[]',
-                    detail: `
+                detail: `
 [{
     /** stringVisually hidden text for screen readers */
     accessibilityLabel?: string,
@@ -56,7 +56,7 @@ default: {
         table: {
             defaultValue: {
                 summary: '[]',
-                    detail: `
+                detail: `
 Array of type: ("text" | "numeric")[]
 
 text
@@ -70,7 +70,7 @@ type: "numeric"`,
         table: {
             defaultValue: {
                 summary: '[]',
-                    detail: `
+                detail: `
 [{
     /** Header title */
     content: string,
@@ -90,7 +90,7 @@ type: "numeric"`,
         table: {
             defaultValue: {
                 summary: '[]',
-                    detail: `
+                detail: `
 /** Contains numeric value */
 [1, 2, 3, ...]`,
             },
@@ -100,7 +100,7 @@ type: "numeric"`,
         table: {
             defaultValue: {
                 summary: '{}',
-                    detail: `{
+                detail: `{
     nextURL?: string,
     previousURL?: string,
     hasNext?: boolean,
@@ -116,7 +116,7 @@ type: "numeric"`,
         table: {
             defaultValue: {
                 summary: '[]',
-                    detail: `[{
+                detail: `[{
     <heading.value>: 'value',
 }]`,
             },
@@ -126,7 +126,7 @@ type: "numeric"`,
         table: {
             defaultValue: {
                 summary: '{}',
-                    detail: `{
+                detail: `{
     value: string,
     direction: 'ascending' | 'descending' | 'none',
 }`,
@@ -137,7 +137,7 @@ type: "numeric"`,
         table: {
             defaultValue: {
                 summary: '[]',
-                    detail: `
+                detail: `
 Array of type: ("text" | "numeric")[]
 
 text
@@ -152,7 +152,7 @@ type: "numeric"
         table: {
             defaultValue: {
                 summary: '{}',
-                    detail: `{
+                detail: `{
     /** Singular label */
     singular: string;
     /** Plural label */

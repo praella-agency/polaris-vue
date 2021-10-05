@@ -11,7 +11,7 @@
   import { classNames } from '@/utilities/css';
 
   @Component
-  export default class PCell extends Vue {
+  export default class PIndexTableCell extends Vue {
     @Prop({type: Boolean, default: false}) public flush!: boolean;
 
     public get cellClassName() {

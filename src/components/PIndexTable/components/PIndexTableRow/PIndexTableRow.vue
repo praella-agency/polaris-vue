@@ -8,7 +8,7 @@
         @click="handleRowClick"
         :ref="tableRowCallbackRef"
     >
-        <PTableCheckbox
+        <PIndexTableCheckbox
             v-if="selectable"
             :condensed="condensed"
             :itemId="id"
@@ -22,7 +22,7 @@
 <script lang="ts">
   import { Vue, Component, Prop, Ref } from 'vue-property-decorator';
   import { classNames, variationName } from '@/utilities/css';
-  import PTableCheckbox from '@/components/PIndexTable/components/PTableCheckbox/PTableCheckbox.vue';
+  import PIndexTableCheckbox from '@/components/PIndexTable/components/PIndexTableCheckbox/PIndexTableCheckbox.vue';
 
   enum SelectionType {
     All = 'all',
@@ -33,10 +33,10 @@
 
   @Component({
     components: {
-      PTableCheckbox,
+      PIndexTableCheckbox,
     }
   })
-  export default class PRow extends Vue {
+  export default class PIndexTableRow extends Vue {
     @Prop({type: [String, Number], required: true}) public id!: string | number;
 
     @Prop({type: Boolean, default: false}) public selected!: boolean;
@@ -82,10 +82,6 @@
 
     public handleRowClick(event: MouseEvent) {
       if (this.selectable || this.primaryLinkElement) {
-        if (!this.tableRowRef || this.isNavigating) {
-          return;
-        }
-
         event.preventDefault();
         event.stopPropagation();
 

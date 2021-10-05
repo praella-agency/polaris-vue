@@ -121,7 +121,7 @@
                             />
                         </template>
                         <div
-                            v-if="actionSections || rolledInPromotedActions.length > 0 || measuring"
+                            v-if="actionSections.length > 0 || rolledInPromotedActions.length > 0 || measuring"
                             ref="moreActionsNode"
                         >
                             <PPopover
@@ -388,7 +388,7 @@
     }
 
     public get actionSections() {
-      if (!this.actions || this.actions ? this.actions.length === 0 : false) {
+      if (!this.actions || (this.actions ? this.actions.length === 0 : false)) {
         return [];
       }
 

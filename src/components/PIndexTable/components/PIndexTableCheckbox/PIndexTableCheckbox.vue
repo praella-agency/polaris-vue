@@ -32,7 +32,7 @@
       PCheckbox,
     }
   })
-  export default class PTableCheckbox extends Vue {
+  export default class PIndexTableCheckbox extends Vue {
     @Prop({type: Boolean, default: false}) public condensed!: boolean;
     @Prop({type: [String, Number], default: null}) public itemId!: string | number;
     @Prop({type: Object, default: () => ({})}) public resourceName!: {
