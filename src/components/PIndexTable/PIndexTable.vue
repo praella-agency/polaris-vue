@@ -630,7 +630,6 @@
     }
   })
   export default class PIndexTable extends Vue {
-
     /**
      * List of column headings
      */

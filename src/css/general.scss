@@ -150,13 +150,21 @@
     position: relative;
 }
 
+.Polaris-Scrollable:focus {
+    outline: 2px solid var(--p-focused);
+    outline-offset: 2px;
+}
+
 .Polaris-Scrollable--horizontal {
     overflow-x: auto;
 }
 
 .Polaris-Scrollable--vertical {
     overflow-y: auto;
-    overflow-x: hidden;
+}
+
+.Polaris-Scrollable--verticalHasScrolling {
+    overflow-y: scroll;
 }
 
 .Polaris-Scrollable--hasTopShadow {
