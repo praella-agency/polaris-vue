@@ -9,17 +9,12 @@ import { PBadge } from '../PBadge';
 import { PStack, PStackItem } from '../PStack';
 import { PRadioButton } from '../PRadioButton';
 import { PTextField } from '../PTextField';
+import argTypes from './args';
 
 export default {
     title: 'Index Table / Slot',
     component: PIndexTable,
-    argTypes: {
-        selectedItemsCount: {
-            control: {
-                type: 'number',
-            },
-        },
-    },
+    argTypes: argTypes,
 }
 
 const Template = (args, {argTypes}) => ({
@@ -258,4 +253,14 @@ CustomisableColumn.args = {
         },
     ],
     lastColumnSticky: true,
+    pagination: {
+        hasPrevious: true,
+        hasNext: true,
+        onNext: () => {
+            alert('Next');
+        },
+        onPrevious: () => {
+            alert('Previous');
+        },
+    },
 }

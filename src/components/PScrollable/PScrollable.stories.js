@@ -1,7 +1,7 @@
 import { PScrollable } from './index';
 
 export default {
-    title: 'Scrollable',
+    title: 'Behavior / Scrollable',
     component: PScrollable,
 }
 

@@ -598,6 +598,9 @@
                     </slot>
                 </div>
             </template>
+            <div class="Polaris-IndexTable__Pagination" v-if="Object.keys(pagination).length > 0">
+                <PPagination v-bind="pagination"/>
+            </div>
         </div>
     </div>
 </template>
@@ -617,16 +620,24 @@
   import { PIndexTableRow } from '@/components/PIndexTable/components/PIndexTableRow';
   import { PTextStyle } from '@/components/PTextStyle';
   import { PFilter } from '@/components/PFilter';
+  import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
 
   interface TableHeadingRect {
     offsetWidth: number;
     offsetLeft: number;
   }
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">An index table displays a collection of objects of the same type, like orders or products. The main
+   *  job of an index table is to help merchants get an at-a-glance of the objects to perform actions or navigate to a
+   *  full-page representation of it.</h4>
+   */
   @Component({
     components: {
       PBulkActions, PEmptySearchResult, PSpinner, PButton, PStack, PStackItem, PCheckbox, PBadge, PIndexTableRow,
-      PIndexTableCell, PTextStyle, PFilter,
+      PIndexTableCell, PTextStyle, PFilter, PPagination,
     }
   })
   export default class PIndexTable extends Vue {
@@ -702,6 +713,13 @@
     @Prop({type: Boolean, default: false}) public hasFilter!: boolean;
     // Filter <-- End -->
 
+    // Pagination <-- Start -->
+    /**
+     * Pagination object
+     */
+    @Prop({type: Object, default: () => ({})}) public pagination!: PPaginationDescriptor;
+    // Pagination <-- End -->
+
     @Ref() public tableHeadingRect!: TableHeadingRect[];
 
     public bulkActionsSelectable = Boolean(this.promotedBulkActions.length > 0 || this.bulkActions.length > 0);
@@ -711,6 +729,7 @@
     public isSticky = false;
 
     public selectedResources: any[] = [];
+    public selectedItemResources: any[] = [];
     public selectedRowsCount: any = this.selectedResources.length;
     public paginatedSelectAllText = '';
 
@@ -1003,11 +1022,7 @@
           this.selectedResources.splice(index, 1);
         }
       } else {
-        if (this.selectedRowsCount === 0) {
-          this.selectedResources.splice(index, 0, this.rows[rowId]);
-        } else {
-          this.selectedResources.splice(index, 0, this.rows[rowId]);
-        }
+        this.selectedResources = [...this.selectedResources, this.rows[rowId]];
       }
 
       if (this.selectedResources.length === this.itemCount) {
@@ -1053,11 +1068,16 @@
        */
       this.$emit('input-filter-changed', value);
     }
-
     // Filter <-- End -->
   }
 </script>
 
 <style scoped>
-
+    .Polaris-IndexTable__Pagination {
+        text-align: center;
+        padding: 1.6rem;
+        border-top: 0.1rem solid #e1e3e5;
+        border-bottom-left-radius: 0.4rem;
+        border-bottom-right-radius: 0.4rem;
+    }
 </style>

@@ -13,6 +13,12 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">The scrollable component is a container for long form content, such as terms of service, that allows
+   *  for scrolling so merchants can expose more text as they read.</h4>
+   */
   @Component
   export default class PScrollable extends Vue {
     /**
