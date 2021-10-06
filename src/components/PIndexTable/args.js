@@ -106,4 +106,29 @@ export default {
             },
         },
     },
+    // events
+    selectionChange: {
+        table: {
+            defaultValue: {
+                summary: '()',
+                detail: '(selectionType, toggleType, selectedResources)',
+            },
+        },
+    },
+    'filter-removed': {
+        table: {
+            defaultValue: {
+                summary: '()',
+                detail: '(tag)',
+            },
+        },
+    },
+    'input-filter-changed': {
+        table: {
+            defaultValue: {
+                summary: '()',
+                detail: '(value)',
+            },
+        },
+    },
 }

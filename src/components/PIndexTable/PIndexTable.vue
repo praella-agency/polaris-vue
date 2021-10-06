@@ -513,8 +513,8 @@
                                             :label="`Select all ${resourceName.plural}`"
                                             labelHidden
                                             @change="handleSelectPage"
-                                            :checked="selectMode"
-                                            v-bind="indeterminate"
+                                            :checked="selectedRowsCount === itemCount"
+                                            :indeterminate="!(selectedRowsCount === itemCount || selectedRowsCount === 0)"
                                         />
                                     </div>
                                 </th>
@@ -630,34 +630,76 @@
     }
   })
   export default class PIndexTable extends Vue {
+
+    /**
+     * List of column headings
+     */
     @Prop({type: Array, default: () => ([])}) public headings!: IndexTableHeading[];
 
+    /**
+     * Lists of data points which map to table body rows
+     */
     @Prop({type: Array, default: () => ([])}) public rows!: [];
 
+    /**
+     * Bulk actions that will be given more prominence
+     */
     @Prop({type: Array, default: () => ([])}) public promotedBulkActions!: BulkActionsProps[];
 
+    /**
+     * Actions available on the currently selected items
+     */
     @Prop({type: Array, default: () => ([])}) public bulkActions!: BulkActionsProps['actions'][];
 
+    /**
+     * Name of the resource, such as customers or books.
+     * @values {plural: string, singular: string}
+     */
     @Prop({type: Object, default: () => ({})}) public resourceName!: {
       plural: string,
       singular: string,
     };
 
+    /**
+     * An index table with a sticky last column that stays visible on scroll
+     */
     @Prop({type: Boolean, default: false}) public lastColumnSticky!: boolean;
 
+    /**
+     * Selectable index table
+     */
     @Prop({type: Boolean, default: true}) public selectable!: boolean;
 
+    /**
+     * Switch mode to small screen
+     */
     @Prop({type: Boolean, default: false}) public condensed!: boolean;
 
+    /**
+     * Item list with a spinner while a background action is being performed
+     */
     @Prop({type: Boolean, default: false}) public loading!: boolean;
 
+    /**
+     * Whether or not there are more items than currently set on the items prop. Determines whether or not to set the
+     * paginatedSelectAllAction and paginatedSelectAllText props on the BulkActions component.
+     */
     @Prop({type: Boolean, default: false}) public hasMoreItems!: boolean;
 
+    /**
+     * Counts for the currently selected items
+     */
     @Prop({type: [String, Number], default: null}) public selectedItemsCount!: 'All' | number;
 
+    /**
+     * Total number of items
+     */
     @Prop({type: Number, default: 0}) public itemCount!: number;
 
     // Filter <-- Start -->
+    /**
+     * Display search filter
+     */
     @Prop({type: Boolean, default: false}) public hasFilter!: boolean;
     // Filter <-- End -->
 
@@ -792,18 +834,6 @@
         (this.bulkActions && this.bulkActions.length > 0);
     }
 
-    public get indeterminate() {
-      if (this.selectedRowsCount === this.itemCount || this.selectedRowsCount === 'All') {
-        return {};
-      }
-
-      if (!this.shouldShowBulkActions) {
-        return {
-          indeterminate: this.selectedRowsCount > 0,
-        }
-      }
-    }
-
     public calculateFirstHeaderOffset() {
       if (!this.selectable) {
         return this.tableHeadingRect[0].offsetWidth;
@@ -824,7 +854,6 @@
         this.emitSelection('multiple', this.selectMode, this.selectedResources);
         return;
       } else if (this.selectedRowsCount !== this.itemCount) {
-        console.log('else if');
         this.selectedRowsCount = 0;
         this.selectedResources = [];
         this.rows.map((row) => {
@@ -833,9 +862,8 @@
         this.selectMode = true;
         this.selectedRowsCount = this.selectedResources.length;
       } else {
-        console.log('else');
-        this.selectedResources = [];
         this.selectedRowsCount = 0;
+        this.selectedResources = [];
         this.selectMode = false;
       }
 
@@ -850,13 +878,11 @@
     }
 
     public handleSelectPage(checked: boolean) {
-      console.log('this.selectedRowsCount', this.selectedRowsCount);
       if (!this.shouldShowBulkActions) {
         this.handleTogglePage();
-        console.log(this.selectedRowsCount, this.selectedResources);
         return;
       }
-      console.log(1);
+
       this.$set(this, 'paginatedSelectAllAction', {
         content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
         onAction: this.handleSelectAllItemsInStore,
@@ -1028,6 +1054,7 @@
        */
       this.$emit('input-filter-changed', value);
     }
+
     // Filter <-- End -->
   }
 </script>
