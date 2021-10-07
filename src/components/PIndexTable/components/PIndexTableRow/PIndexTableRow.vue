@@ -86,7 +86,6 @@
     public handleRowClick(event: MouseEvent) {
       if (!this.clickable) {
         this.$emit('navigation', this.id);
-        console.log('navigate');
         return;
       }
 
