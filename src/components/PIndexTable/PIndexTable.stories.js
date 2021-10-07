@@ -79,8 +79,6 @@ Default.args = {
             value: 'amountSpent',
         },
     ],
-    hasMoreItems: true,
-    lastColumnSticky: true,
 }
 
 const Template1 = (args, {argTypes}) => ({

@@ -13,11 +13,13 @@
   @Component
   export default class PIndexTableCell extends Vue {
     @Prop({type: Boolean, default: false}) public flush!: boolean;
+    @Prop({type: Boolean, default: false}) public lastChild!: boolean;
 
     public get cellClassName() {
       return classNames(
         'Polaris-IndexTable__TableCell',
         this.flush && 'Polaris-IndexTable__TableCell--flush',
+        this.lastChild && 'Polaris-IndexTable__TableCell--last-child',
       )
     }
   };

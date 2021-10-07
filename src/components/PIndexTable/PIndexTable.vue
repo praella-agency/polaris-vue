@@ -570,7 +570,7 @@
                             <template
                                 v-for="heading in headings"
                             >
-                                <PIndexTableCell>
+                                <PIndexTableCell :lastChild="lastColumnSticky && headings.length">
                                     <!-- @slot Slot to customize a specific column. This slot provides row values.
 
                                     Access values with `slot-props` attribute.-->
@@ -729,15 +729,14 @@
     public isSticky = false;
 
     public selectedResources: any[] = [];
-    public selectedItemResources: any[] = [];
     public selectedRowsCount: any = this.selectedResources.length;
     public paginatedSelectAllText = '';
 
     public togglePlus = '';
-    public paginatedSelectAction = {
+    public paginatedSelectAction = this.hasMoreItems ? {
       content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
       onAction: this.handleSelectAllItemsInStore,
-    };
+    } : {};
 
     @Watch('condensed')
     public onCondensedChanged(value) {
@@ -794,7 +793,7 @@
         this.selectMode && 'Polaris-IndexTable--disableTextSelection',
         this.selectMode && this.shouldShowBulkActions && 'Polaris-IndexTable--selectMode',
         !this.selectable && 'Table-unselectable',
-        this.lastColumnSticky && 'Polaris-IndexTable-Table-sticky-last',
+        this.lastColumnSticky && 'Polaris-IndexTable--tableStickyLast',
       );
     }
 
@@ -901,10 +900,12 @@
         return;
       }
 
-      this.$set(this, 'paginatedSelectAllAction', {
-        content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
-        onAction: this.handleSelectAllItemsInStore,
-      });
+      if (this.hasMoreItems) {
+        this.$set(this, 'paginatedSelectAllAction', {
+          content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+          onAction: this.handleSelectAllItemsInStore,
+        });
+      }
       this.paginatedSelectAllText = '';
       this.togglePlus = '';
 
@@ -943,7 +944,7 @@
       return classNames(
         'Polaris-IndexTable__TableHeading',
         isSecond && 'Polaris-IndexTable-TableHeading-second',
-        isLast && !heading.hidden && 'Polaris-IndexTable-TableHeading-last',
+        this.lastColumnSticky && isLast && !heading.hidden && 'Polaris-IndexTable__TableHeading--last',
         !this.selectable && 'TableHeading-unselectable',
       );
     }
@@ -999,10 +1000,12 @@
       }
 
       this.emitSelection('multiple', true, this.selectedResources);
-      this.$set(this, 'paginatedSelectAllAction', {
-        content: actionText,
-        onAction: this.handleSelectAllItemsInStore,
-      });
+      if (this.hasMoreItems) {
+        this.$set(this, 'paginatedSelectAllAction', {
+          content: actionText,
+          onAction: this.handleSelectAllItemsInStore,
+        });
+      }
     }
 
     public handleSelectionChange(selectionType, selected, id) {
@@ -1012,10 +1015,12 @@
       let rowId = this.rows.findIndex(x => x['id'] === id);
 
       if (!selected) {
-        this.$set(this, 'paginatedSelectAllAction', {
-          content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
-          onAction: this.handleSelectAllItemsInStore,
-        });
+        if (this.hasMoreItems) {
+          this.$set(this, 'paginatedSelectAllAction', {
+            content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+            onAction: this.handleSelectAllItemsInStore,
+          });
+        }
         this.paginatedSelectAllText = '';
         this.togglePlus = '';
         if (index > -1) {
@@ -1032,10 +1037,12 @@
         this.selectMode = false;
       } else {
         if (this.selectedResources.length === 1) {
-          this.$set(this, 'paginatedSelectAllAction', {
-            content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
-            onAction: this.handleSelectAllItemsInStore,
-          });
+          if (this.hasMoreItems) {
+            this.$set(this, 'paginatedSelectAllAction', {
+              content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+              onAction: this.handleSelectAllItemsInStore,
+            });
+          }
           this.paginatedSelectAllText = '';
           this.togglePlus = '';
         }

@@ -186,6 +186,8 @@
   position: -webkit-sticky;
   position: sticky;
   right: 0;
+  z-index: auto;
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .Polaris-IndexTable__TableCell {
@@ -556,46 +558,46 @@ $index-table-stacking-order: (
   }
 }
 
+.Polaris-IndexTable__TableCell--last-child {
+  @media screen and (max-width: 538px) {
+    position: sticky;
+    right: 0;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: z-index(sticky-cell, $index-table-stacking-order);
+  }
+}
+
+.Polaris-IndexTable__TableHeading-last{
+  @media screen and (max-width: 538px) {
+    position: sticky;
+    right: 0;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: auto;
+  }
+}
+
 .Polaris-IndexTable-Table-sticky-last {
-  .Polaris-IndexTable-TableCell:last-child {
-    @include breakpoint-after(458px) {
-      position: sticky;
-      right: 0;
-      background-color: rgba(255, 255, 255, 1);
-      z-index: z-index(sticky-cell, $index-table-stacking-order);
-    }
-  }
-
-  .Polaris-IndexTable-TableHeading-last {
-    @include breakpoint-after(458px) {
-      position: sticky;
-      right: 0;
-      background-color: rgba(255, 255, 255, 1);
-      z-index: auto;
-    }
-  }
-
   // stylelint-disable selector-max-class, selector-max-combinators, selector-max-specificity
   .Polaris-IndexTable-statusSuccess {
-    .Polaris-IndexTable-TableCell:last-child {
-      background-color:rgba(241, 248, 245, 1);
+    .Polaris-IndexTable__TableCell:last-child {
+      background-color: rgba(241, 248, 245, 1);
     }
   }
 
   .Polaris-IndexTable-statusSubdued {
-    .Polaris-IndexTable-TableCell:last-child {
+    .Polaris-IndexTable__TableCell:last-child {
       background-color: rgba(250, 251, 251, 1);
     }
   }
 
   .Polaris-IndexTable-TableRow-hovered {
-    .Polaris-IndexTable-TableCell:last-child {
+    .Polaris-IndexTable__TableCell:last-child {
       background-color: rgba(246, 246, 247, 1);
     }
   }
 
   .Polaris-IndexTable-TableRow-selected {
-    .Polaris-IndexTable-TableCell:last-child {
+    .Polaris-IndexTable__TableCell:last-child {
       background-color: rgba(242, 247, 254, 1);
     }
   }
