@@ -516,8 +516,8 @@
                                             :label="`Select all ${resourceName.plural}`"
                                             labelHidden
                                             @change="handleSelectPage"
-                                            :checked="selectedRowsCount === itemCount"
-                                            :indeterminate="!(selectedRowsCount === itemCount || selectedRowsCount === 0)"
+                                            :checked="selectedRowsCount === itemCount || selectedRowsCount === 'All'"
+                                            :indeterminate="!(selectedRowsCount === itemCount || selectedRowsCount === 0 || selectedRowsCount === 'All')"
                                         />
                                     </div>
                                 </th>
@@ -862,6 +862,26 @@
         (this.bulkActions && this.bulkActions.length > 0);
     }
 
+    public get paginatedSelectAllAction() {
+      if (!this.selectable || !this.hasBulkActions || !this.hasMoreItems) {
+        return;
+      }
+
+      let actionText = this.selectedRowsCount === 'All'
+          ? 'Undo' : `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
+
+      this.paginatedSelectAction = {
+        content: actionText,
+        onAction: this.handleSelectAllItemsInStore,
+      };
+
+      return this.paginatedSelectAction;
+    }
+
+    public set paginatedSelectAllAction(value) {
+      this.$set(this, 'paginatedSelectAction', value);
+    }
+
     public calculateFirstHeaderOffset() {
       if (!this.selectable) {
         return this.tableHeadingRect[0].offsetWidth;
@@ -972,26 +992,6 @@
       );
     }
 
-    public get paginatedSelectAllAction() {
-      if (!this.selectable || !this.hasBulkActions || !this.hasMoreItems) {
-        return;
-      }
-
-      let actionText = this.selectedRowsCount === 'All'
-        ? 'Undo' : `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
-
-      this.paginatedSelectAction = {
-        content: actionText,
-        onAction: this.handleSelectAllItemsInStore,
-      };
-
-      return this.paginatedSelectAction;
-    }
-
-    public set paginatedSelectAllAction(value) {
-      this.$set(this, 'paginatedSelectAction', value);
-    }
-
     public handleSelectAllItemsInStore() {
       let actionText = '';
       if (this.paginatedSelectAction.content === 'Undo') {
@@ -1095,10 +1095,6 @@
       this.$emit('input-filter-changed', value);
     }
     // Filter <-- End -->
-
-    mounted() {
-      console.log(this.$slots);
-    }
   }
 </script>
 
