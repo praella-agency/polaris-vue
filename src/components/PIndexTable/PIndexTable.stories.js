@@ -23,7 +23,6 @@ const Template = (args, {argTypes}) => ({
                     location: 'Decatur, USA',
                     orders: 20,
                     amountSpent: '$2,400',
-                    status: 'success',
                 },
                 {
                     id: '2567',
@@ -32,7 +31,6 @@ const Template = (args, {argTypes}) => ({
                     location: 'Los Angeles, USA',
                     orders: 30,
                     amountSpent: '$3,500',
-                    status: 'subdued',
                 },
             ],
         };
