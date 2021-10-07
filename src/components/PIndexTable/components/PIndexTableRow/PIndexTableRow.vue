@@ -51,11 +51,14 @@
 
     @Prop({type: Boolean, default: false}) public condensed!: boolean;
 
+    @Prop({type: Boolean, default: false}) public selectMode!: boolean;
+
+    @Prop({type: Boolean, default: true}) public clickable!: boolean;
+
     @Ref() public primaryLinkElement!: HTMLAnchorElement;
 
     @Ref() public tableRowRef!: HTMLTableRowElement & HTMLLIElement;
 
-    public selectMode = false;
     public isNavigating = false;
 
     public hovered = false;
@@ -81,6 +84,12 @@
     }
 
     public handleRowClick(event: MouseEvent) {
+      if (!this.clickable) {
+        this.$emit('navigation', this.id);
+        console.log('navigate');
+        return;
+      }
+
       if (this.selectable || this.primaryLinkElement) {
         event.preventDefault();
         event.stopPropagation();
@@ -90,9 +99,7 @@
           let ctrlKey = event.ctrlKey;
           let metaKey = event.metaKey;
 
-          if (this.$emit('navigation', this.id)) {
-
-          }
+          this.$emit('navigation', this.id);
 
           if ((ctrlKey || metaKey) && this.primaryLinkElement instanceof HTMLAnchorElement) {
             this.isNavigating = false;

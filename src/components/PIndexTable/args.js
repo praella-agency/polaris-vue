@@ -55,18 +55,37 @@ export default {
             },
             defaultValue: {
                 summary: '[]',
-                detail: `Heading value should be matched with row column`,
+                detail: 'Heading value should be matched with row column',
             },
         },
     },
     selectedItemsCount: {
         table: {
             type: {
-                summary: 'number | string'
+                summary: 'number | string',
             },
         },
         control: {
             type: 'number',
+        },
+    },
+    pagination: {
+        table: {
+            type: {
+                summary: 'object',
+            },
+            defaultValue: {
+                summary: '{}',
+                detail: `{
+    nextURL?: string,
+    previousURL?: string,
+    hasNext?: boolean,
+    hasPrevious?: boolean,
+    accessibilityLabel?: string,
+    onNext?(): void,
+    onPrevious?(): void,
+}`,
+            },
         },
     },
     // slot
@@ -128,6 +147,14 @@ export default {
             defaultValue: {
                 summary: '()',
                 detail: '(value)',
+            },
+        },
+    },
+    navigation: {
+        table: {
+            defaultValue: {
+                summary: '()',
+                detail: '(row)',
             },
         },
     },

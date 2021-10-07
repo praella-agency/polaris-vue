@@ -258,12 +258,15 @@
                             :selectable="selectable"
                             :status="row.status"
                             :condensed="condensed"
+                            :selectMode="selectMode"
+                            :clickable="clickableRow"
+                            @navigation="handleNavigation(row)"
                             @selectionChange="handleSelectionChange"
                         >
                             <template
                                 v-for="heading in headings"
                             >
-                                <PIndexTableCell>
+                                <PIndexTableCell :lastChild="!!(lastColumnSticky && headings.length)">
                                     <!-- @slot Slot to customize a specific column. This slot provides row values.
 
                                     Access values with `slot-props` attribute.-->
@@ -565,12 +568,15 @@
                             :position="key"
                             :selectable="selectable"
                             :status="row.status"
+                            :selectMode="selectMode"
+                            :clickable="clickableRow"
+                            @navigation="handleNavigation(row)"
                             @selectionChange="handleSelectionChange"
                         >
                             <template
                                 v-for="heading in headings"
                             >
-                                <PIndexTableCell :lastChild="lastColumnSticky && headings.length">
+                                <PIndexTableCell :lastChild="!!(lastColumnSticky && headings.length)">
                                     <!-- @slot Slot to customize a specific column. This slot provides row values.
 
                                     Access values with `slot-props` attribute.-->
@@ -705,6 +711,11 @@
      * Total number of items
      */
     @Prop({type: Number, default: 0}) public itemCount!: number;
+
+    /**
+     * Clickable row
+     */
+    @Prop({type: Boolean, default: true}) public clickableRow!: boolean;
 
     // Filter <-- Start -->
     /**
@@ -1059,6 +1070,13 @@
       this.$emit('selectionChange', selectionType, toggleType, selectedResources);
     }
 
+    public handleNavigation(row) {
+      /**
+       * Triggers when clickableRow is disabled
+       */
+      this.$emit('navigation', row);
+    }
+
     // Filter <-- Start -->
     public onRemoveFilter(tag) {
       /**
@@ -1076,6 +1094,10 @@
       this.$emit('input-filter-changed', value);
     }
     // Filter <-- End -->
+
+    mounted() {
+      console.log(this.$slots);
+    }
   }
 </script>
 

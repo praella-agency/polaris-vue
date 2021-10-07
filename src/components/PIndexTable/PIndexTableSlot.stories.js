@@ -75,6 +75,7 @@ const Template = (args, {argTypes}) => ({
                         "key": "test"
                     },
                 ]'
+                @navigation="handleNavigation"
                 @selectionChange="handleSelectionChange"
             >
                 <template v-slot:item.image="{item}">
@@ -86,7 +87,7 @@ const Template = (args, {argTypes}) => ({
                     </div>
                 </template>
                 <template v-slot:item.product="{item}">
-                    <PLink url="javascript:void(0)">
+                    <PLink url="https://google.com">
                         {{ item.name }}
                     </PLink>
                 </template>
@@ -179,6 +180,9 @@ const Template = (args, {argTypes}) => ({
     methods: {
         handleSelectionChange(selectionType, toggleType, selection) {
             console.log(selectionType, toggleType, selection);
+        },
+        handleNavigation(id) {
+            console.log(id)
         },
         toggleRatingFilter() {
             this.active = !this.active;
