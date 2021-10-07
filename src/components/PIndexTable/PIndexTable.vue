@@ -1072,7 +1072,8 @@
 
     public handleNavigation(row) {
       /**
-       * Triggers when clickableRow is disabled
+       * Perform action on row click.
+       * Triggers when clickableRow is disabled.
        */
       this.$emit('navigation', row);
     }
