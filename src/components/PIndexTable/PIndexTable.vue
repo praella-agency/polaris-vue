@@ -263,15 +263,27 @@
                             @navigation="handleNavigation(row)"
                             @selectionChange="handleSelectionChange"
                         >
+<!--                            <div-->
+<!--                                v-if="!$slots.hasOwnProperty('default')"-->
+<!--                                style="padding: 1.2rem 1.6rem;"-->
+<!--                            >-->
+<!--                              <template-->
+<!--                                  v-for="heading in headings"-->
+<!--                              >-->
+<!--                                <slot  :name="`item.${heading.value}`" :item="row">-->
+<!--                                <p>{{ row[heading.value] }}</p>-->
+<!--                                </slot>-->
+<!--                              </template>-->
+<!--                            </div>-->
                             <template
-                                v-for="heading in headings"
+                                v-for="(heading, key) in headings"
                             >
-                                <PIndexTableCell :lastChild="!!(lastColumnSticky && headings.length)">
+                                <PIndexTableCell :lastChild="!!(lastColumnSticky && headings.length === key + 1)">
                                     <!-- @slot Slot to customize a specific column. This slot provides row values.
 
-                                    Access values with `slot-props` attribute.-->
+                                    Access values with `slot-props` attribute. -->
                                     <slot :name="`item.${heading.value}`" :item="row">
-                                        {{ row[heading.value] }}
+                                      {{ row[heading.value] }}
                                     </slot>
                                 </PIndexTableCell>
                             </template>
@@ -574,9 +586,9 @@
                             @selectionChange="handleSelectionChange"
                         >
                             <template
-                                v-for="heading in headings"
+                                v-for="(heading, key) in headings"
                             >
-                                <PIndexTableCell :lastChild="!!(lastColumnSticky && headings.length)">
+                                <PIndexTableCell :lastChild="!!(lastColumnSticky && headings.length === key + 1)">
                                     <!-- @slot Slot to customize a specific column. This slot provides row values.
 
                                     Access values with `slot-props` attribute.-->
@@ -1038,6 +1050,9 @@
           this.selectedResources.splice(index, 1);
         }
       } else {
+        if (this.condensed) {
+          this.isSmallScreenSelectable = true;
+        }
         this.selectedResources = [...this.selectedResources, this.rows[rowId]];
       }
 

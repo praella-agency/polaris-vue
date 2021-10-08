@@ -69,7 +69,7 @@
     .TableHeading-second,
     .TableCell:first-child {
       visibility: visible;
-      filter: drop-shadow(rem(1px) 0 0 rgba(225, 227, 229, 1));
+      filter: drop-shadow(1rem 0 0 rgba(225, 227, 229, 1));
     }
   }
 }
@@ -82,7 +82,7 @@
     .TableHeading-second,
     .TableCell:first-child {
       visibility: visible;
-      filter: drop-shadow(rem(1px) 0 0 rgba(225, 227, 229, 1));
+      filter: drop-shadow(1rem 0 0 rgba(225, 227, 229, 1));
     }
   }
 }
@@ -96,7 +96,7 @@
       .TableHeading-second,
       .TableCell:first-child {
         visibility: visible;
-        filter: drop-shadow(rem(1px) 0 0 rgba(225, 227, 229, 1));
+        filter: drop-shadow(1rem 0 0 rgba(225, 227, 229, 1));
       }
     }
   }
@@ -111,7 +111,7 @@
       .TableHeading-second,
       .TableCell:first-child {
         visibility: visible;
-        filter: drop-shadow(rem(1px) 0 0 rgba(225, 227, 229, 1));
+        filter: drop-shadow(1rem 0 0 rgba(225, 227, 229, 1));
       }
     }
   }
@@ -120,6 +120,7 @@
 .Polaris-IndexTable__TableRow {
   background-color: rgba(255, 255, 255, 1);
   cursor: pointer;
+  filter: drop-shadow(0 -.1rem 0 rgba(225, 227, 229, 1));
 
   &.TableRow-unclickable {
     cursor: auto;
@@ -135,7 +136,7 @@
 }
 
 .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--hovered, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--hovered .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--hovered .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
-  background-color: rgba(237, 244, 254, 1);
+  background-color: rgba(246, 246, 247, 1);
 }
 
 .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableHeading--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableHeading--second, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
@@ -183,11 +184,14 @@
 }
 
 .Polaris-IndexTable__TableHeading--last {
-  position: -webkit-sticky;
-  position: sticky;
-  right: 0;
-  z-index: auto;
-  background-color: rgba(255, 255, 255, 1);
+  @media screen and (min-width: 457px) and (max-width: 688px) {
+    position: -webkit-sticky;
+    position: sticky;
+    right: 0;
+    z-index: auto;
+    background-color: rgba(255, 255, 255, 1);
+    filter: drop-shadow(-0.1rem 0 0 rgba(225, 227, 229, 1));
+  }
 }
 
 .Polaris-IndexTable__TableCell {
@@ -456,8 +460,8 @@
 }
 
 .Polaris-IndexTable-FirstStickyHeaderElement {
-  margin-left: rem(2px);
-  padding-right: rem(2px);
+  margin-left: 2rem;
+  padding-right: 2rem;
 }
 
 @mixin breakpoint-after($breakpoint, $inclusive: true) {
@@ -467,7 +471,7 @@
 }
 
 .Polaris-IndexTable-StickyTableHeading-second-scrolling {
-  padding: 0 rem(0.6px) 0 spacing();
+  padding: 0 0.6rem 0 spacing();
   display: none;
 
   @include breakpoint-after(458px) {
@@ -489,8 +493,8 @@
 .Polaris-IndexTable-TableHeading-first {
   position: sticky;
   left: 0;
-  padding-left: rem(14px);
-  padding-right: rem(18px);
+  padding-left: 14rem;
+  padding-right: 18rem;
 }
 
 .Polaris-IndexTable-TableHeading-second {
@@ -549,26 +553,18 @@ $index-table-stacking-order: (
   }
 }
 
-.Polaris-IndexTable-Table-sticky-scrolling {
-  .TableCell:last-child,
-  .TableHeading-last {
-    @include breakpoint-after(458px) {
-      filter: drop-shadow(rem(-1px) 0 0 rgba(225, 227, 229, 1));
-    }
-  }
-}
-
 .Polaris-IndexTable__TableCell--last-child {
-  @media screen and (max-width: 538px) {
+  @media screen and (min-width: 457px) and (max-width: 688px) {
     position: sticky;
     right: 0;
     background-color: rgba(255, 255, 255, 1);
     z-index: z-index(sticky-cell, $index-table-stacking-order);
+    filter: drop-shadow(-0.1rem 0 0 rgba(225, 227, 229, 1));
   }
 }
 
 .Polaris-IndexTable__TableHeading-last{
-  @media screen and (max-width: 538px) {
+  @media screen and (min-width: 457px) and (max-width: 688px) {
     position: sticky;
     right: 0;
     background-color: rgba(255, 255, 255, 1);
@@ -636,6 +632,35 @@ $global-elements: (
   } @else {
     @error 'Spacing variant `#{$variant}` not found. Available variants: #{available-names($spacing-data)}';
   }
+}
+
+@function available-names($map, $level: 1) {
+  @if type-of($map) != 'map' {
+    @return null;
+  }
+
+  $output: '';
+  $newline: '\A ';
+
+  @if $level == 1 {
+    @each $key, $value in $map {
+      $output: $output +
+        '#{$newline}- #{$key} #{available-names($value, $level + 1)}';
+    }
+  } @else {
+    $output: '(';
+    $i: 1;
+
+    @each $key, $value in $map {
+      $sep: if($i < length($map), ', ', '');
+      $output: $output + '#{$key}#{$sep}#{available-names($value, $level + 1)}';
+      $i: $i + 1;
+    }
+
+    $output: $output + ')';
+  }
+
+  @return $output;
 }
 
 @function rem($value) {

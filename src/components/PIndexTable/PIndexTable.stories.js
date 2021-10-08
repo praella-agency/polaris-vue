@@ -42,8 +42,7 @@ const Template = (args, {argTypes}) => ({
                 :rows="customers"
                 :itemCount="customers.length"
                 @selectionChange="handleSelectionChange"
-            >
-            </PIndexTable>
+            />
         </PCard>`,
     methods: {
         handleSelectionChange(selectionType, toggleType, selection) {
@@ -124,8 +123,7 @@ const Template1 = (args, {argTypes}) => ({
                 :rows="customers"
                 :itemCount="customers.length"
                 @selectionChange="handleSelectionChange"
-            >
-            </PIndexTable>
+            />
         </PCard>`,
     methods: {
         handleSelectionChange(selectionType, toggleType, selection) {
