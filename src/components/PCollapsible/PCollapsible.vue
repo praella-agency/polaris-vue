@@ -119,7 +119,6 @@
             this.height = this.open ? (this.$refs.collapsibleContainer as HTMLDivElement).scrollHeight : 0;
         }
       }
-
     }
 
     public mounted() {

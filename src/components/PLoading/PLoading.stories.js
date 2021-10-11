@@ -4,6 +4,14 @@ import { PFrame } from '../PFrame';
 export default {
     title: 'Feedback indicators / Loading',
     component: PLoading,
+    parameters: {
+        options: {
+            showPanel: false,
+        },
+        controls: {
+            disable: true,
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({
