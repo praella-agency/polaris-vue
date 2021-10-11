@@ -55,7 +55,9 @@ export default {
             },
             defaultValue: {
                 summary: '[]',
-                detail: 'Heading value should be matched with row column',
+                detail: `[{
+    <heading.value>: 'value',
+}]`,
             },
         },
     },

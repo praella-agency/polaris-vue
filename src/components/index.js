@@ -56,8 +56,10 @@ import { PFooterHelp } from './PFooterHelp';
 import { PDropZone } from './PDropZone';
 import PToast from './PToast/index';
 import { PChoiceList } from './PChoiceList';
-import { PDataTableRow } from './PDataTable/components'
-import { PDataTableCol } from './PDataTable/components/components'
+import { PDataTableRow } from './PDataTable/components';
+import { PDataTableCol } from './PDataTable/components/components';
+import { PIndexTable } from './PIndexTable';
+import { PScrollable } from './PScrollable';
 
 import '@/scss/main.scss';
 
@@ -120,6 +122,8 @@ const Components = {
   PDropZone,
   PChoiceList,
   PDataTableRow, PDataTableCol,
+  PIndexTable,
+  PScrollable,
 };
 
 const PolarisVue = {
