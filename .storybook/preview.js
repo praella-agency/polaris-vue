@@ -38,7 +38,7 @@ export const parameters = {
         "Images & Icons",
         "Feedback indicators",
         "Titles & Text",
-        "Behaviour",
+        "Behavior",
         "Lists & Tables",
         "Navigation",
         "Overlays",

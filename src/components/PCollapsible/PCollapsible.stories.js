@@ -6,7 +6,7 @@ import { PTextContainer } from '../PTextContainer';
 import { PLink } from '../PLink';
 
 export default {
-    title: 'Behaviour / Collapsible',
+    title: 'Behavior / Collapsible',
     component: PCollapsible,
     argTypes: {
         transition: {
