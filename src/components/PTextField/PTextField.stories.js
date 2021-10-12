@@ -49,12 +49,14 @@ export default {
             },
         },
         input: {
-            description: 'Get inserted data',
             table: {
                 type: {
                     summary: null,
                 },
-                category: 'events',
+                defaultValue: {
+                    summary: '()',
+                    detail: '(value)',
+                },
             },
         },
         disabled: {
@@ -91,6 +93,20 @@ export default {
             table: {
                 type: {
                     summary: 'string | number',
+                },
+            },
+        },
+        connectedLeft: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        connectedRight: {
+            table: {
+                type: {
+                    summary: null,
                 },
             },
         },

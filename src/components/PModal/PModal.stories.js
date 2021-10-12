@@ -50,6 +50,28 @@ export default {
                 },
             },
         },
+        close: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
+                },
+            },
+        },
+        default: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        footer: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
     },
 }
 

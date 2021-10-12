@@ -1,7 +1,6 @@
 import PPopover from './PPopover';
 import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';
-import PopoverMDX from "./PopoverMDX.mdx";
 
 export default {
     title: 'Overlays / Popover',
@@ -30,6 +29,36 @@ export default {
             table: {
                 type: {
                     summary: 'string | number',
+                },
+            },
+        },
+        activate: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '()',
+                },
+            },
+        },
+        close: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '()',
+                },
+            },
+        },
+        activator: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        content: {
+            table: {
+                type: {
+                    summary: null,
                 },
             },
         },

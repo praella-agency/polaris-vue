@@ -36,6 +36,13 @@ export default {
                 },
             },
         },
+        auxiliaryContainer: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
     },
 }
 

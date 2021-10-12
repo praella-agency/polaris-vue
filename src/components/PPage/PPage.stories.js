@@ -116,6 +116,20 @@ export default {
                 },
             },
         },
+        additionalNavigation: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        titleMetadata: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
     },
 }
 

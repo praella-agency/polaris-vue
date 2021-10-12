@@ -48,6 +48,39 @@ export default {
                 disable: true,
             },
         },
+        blur: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+            defaultValue: {
+                summary: '()',
+                detail: '(event)',
+            },
+        },
+        click: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+            defaultValue: {
+                summary: '()',
+                detail: '(event)',
+            },
+        },
+        focus: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+            defaultValue: {
+                summary: '()',
+                detail: '(event)',
+            },
+        },
     },
 }
 

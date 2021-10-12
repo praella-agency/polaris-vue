@@ -37,9 +37,17 @@ export default {
     /** External URL */
     external?: boolean,
 }]`
-                }
-            }
-        }
+                },
+            },
+        },
+        select: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(selectedIndex, event)',
+                },
+            },
+        },
     },
 };
 

@@ -74,7 +74,7 @@
         @Prop({type: String, default: null}) public title!: string;
 
         /**
-         * Card description. **Deprecated** Actions will be removed on future releases,
+         * Card description. **Deprecated** ShortDescription will be removed on future releases,
          * use PCardHeader instead props.
          */
         @Prop({type: String, default: null}) public shortDescription!: string;

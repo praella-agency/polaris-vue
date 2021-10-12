@@ -8,6 +8,10 @@
       </div>
     </div>
     <div :class="className">
+      <!--
+       Triggers on searchChange
+       @event searchChange
+       -->
       <multiselect
           :id="id"
           v-model="computedValue"

@@ -34,7 +34,15 @@ export default {
                 },
             },
         },
-    }
+        'item-action': {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(action)',
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, { argTypes }) => ({

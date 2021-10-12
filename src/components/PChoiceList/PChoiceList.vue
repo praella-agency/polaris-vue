@@ -20,6 +20,7 @@
         <div :id="finalName + key"
              v-if="renderChildren[choice[valueField]] && choice[renderChildrenField]"
              class="Polaris-ChoiceList__ChoiceChildren">
+          <!-- @slot Default slot -->
           <slot/>
         </div>
       </li>
@@ -141,6 +142,9 @@ export default class PChoiceList extends Vue {
     for (let [key, choice] of Object.entries(this.options)) {
       /* tslint:disable-next-line */
       if (checked && (choice[this.valueField] === checked['value'])) {
+        /**
+         * Triggers when selection is change
+         */
         this.$emit(
           'change',
           /* tslint:disable-next-line */

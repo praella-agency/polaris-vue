@@ -23,6 +23,22 @@ export default {
                 },
             },
         },
+        change: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(value)',
+                },
+            },
+        },
+        input: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(value)',
+                },
+            },
+        },
     },
 }
 

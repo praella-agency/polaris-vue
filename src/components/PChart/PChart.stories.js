@@ -10,6 +10,16 @@ export default {
                 type: 'select',
             },
         },
+        chartObject: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+
+                },
+            },
+        },
     },
 }
 

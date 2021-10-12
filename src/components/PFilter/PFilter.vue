@@ -30,6 +30,7 @@
           </PFilterItemWrapper>
         </div>
         <div class="Polaris-Filters-ConnectedFilterControl__AuxiliaryContainer">
+          <!-- @slot Slot to add extra elements -->
           <slot name="auxiliaryContainer"/>
         </div>
       </div>

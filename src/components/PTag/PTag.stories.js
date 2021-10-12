@@ -18,6 +18,14 @@ export default {
                 },
             },
         },
+        'remove-tag': {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(key)',
+                },
+            },
+        },
     },
 }
 

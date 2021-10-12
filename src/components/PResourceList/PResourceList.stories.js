@@ -70,6 +70,52 @@ export default {
                 },
             },
         },
+        change: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(items)',
+                },
+            },
+        },
+        'filter-removed': {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(tag)',
+                },
+            },
+        },
+        'input-filter-changed': {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(value)',
+                },
+            },
+        },
+        'select-mode': {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(selectionMode)',
+                },
+            },
+        },
+        emptySearchState: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        filter: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
     },
 }
 

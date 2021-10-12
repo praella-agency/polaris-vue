@@ -20,7 +20,7 @@
         <slot name="connectedRight">{{ connectedRight }}</slot>
       </template>
 
-      <PInput v-bind="[$attrs, $props]" v-on="$listeners" :hasError="!!error" :id="id">
+      <PInput v-bind="[$attrs, $props]" v-on="$listeners" :hasError="!!error" :id="id" @input="handleInput">
         <!-- @slot Field prefix -->
         <slot name="prefix" slot="prefix"></slot>
         <!-- @slot Field suffix -->
@@ -132,6 +132,13 @@
      * One or more unique file type specifiers describing file types to allow
      */
     @Prop({type: String, default: null}) public accept!: string;
+
+    public handleInput(value) {
+        /**
+         * Get inserted data
+         */
+        this.$emit('input', value);
+    }
   }
 </script>
 

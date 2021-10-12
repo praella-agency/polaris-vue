@@ -35,7 +35,7 @@ export default {
         uploadFiles: {
             table: {
                 type: {
-                    summary: 'slot',
+                    summary: null,
                 },
             },
         },
@@ -148,6 +148,28 @@ export default {
                 defaultValue: {
                     summary: '()',
                     detail:`(): void => {}`,
+                },
+            },
+        },
+        blur: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
+                },
+            },
+        },
+        focus: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
                 },
             },
         },

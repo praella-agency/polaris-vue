@@ -348,6 +348,9 @@ export default class PResourceList extends Vue {
 
     public handleSelectMode(selectMode) {
         this.toggleSelectMode = selectMode;
+        /**
+         * Calls when selection is changed and component is responsive
+         */
         this.$emit('select-mode', this.toggleSelectMode);
     }
 }

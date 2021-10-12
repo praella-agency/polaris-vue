@@ -44,6 +44,14 @@ export default {
                 },
             },
         },
+        change: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '([selectedValue])',
+                },
+            },
+        },
     },
 }
 

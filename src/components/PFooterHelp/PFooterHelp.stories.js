@@ -20,6 +20,13 @@ export default {
                 },
             },
         },
+        icon: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
     },
 }
 

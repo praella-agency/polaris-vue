@@ -25,6 +25,14 @@ export default {
                 },
             },
         },
+        change: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '({checked: target.checked, value: target.value})',
+                },
+            },
+        },
     },
 }
 
