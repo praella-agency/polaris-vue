@@ -6,6 +6,7 @@
         ref="collapsibleContainer"
         :aria-expanded="open"
     >
+        <!-- @slot Slot to add content -->
         <slot v-if="expandOnPrint || !isFullyClosed"/>
     </div>
 </template>

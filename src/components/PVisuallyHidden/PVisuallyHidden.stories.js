@@ -11,7 +11,14 @@ export default {
                 },
             },
         },
-    }
+        default: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({

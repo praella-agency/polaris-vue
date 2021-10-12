@@ -9,17 +9,17 @@
       :frameOffset="frameOffset"
       :navigation="navigation"
   >
-    <template slot="pTopBar">
+    <template slot="topBar">
       <!-- @slot Accepts a top bar component that will be rendered at the top-most portion of an application frame -->
-      <slot name="pTopBar"/>
+      <slot name="topBar"/>
     </template>
     <template slot="globalRibbon">
       <!-- @slot Accepts a global ribbon component that will be rendered fixed to the bottom of an application frame -->
       <slot name="globalRibbon"/>
     </template>
-    <template slot="pNavigation">
+    <template slot="navigation">
       <!-- @slot Accepts a navigation component that will be rendered in the left sidebar of an application frame -->
-      <slot name="pNavigation"/>
+      <slot name="navigation"/>
     </template>
     <template>
       <!-- @slot The content to display inside the frame -->

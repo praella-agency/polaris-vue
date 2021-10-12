@@ -3,7 +3,7 @@
       id="PFrame"
       :class="className"
       :data-polaris-layer="true"
-      :data-has-navigation="(this.$slots.hasOwnProperty('pNavigation') || Object.keys(navigation).length > 0) ?
+      :data-has-navigation="(this.$slots.hasOwnProperty('navigation') || Object.keys(navigation).length > 0) ?
           true : {}"
   >
     <div :class="skipClassName">
@@ -18,20 +18,20 @@
       </a>
     </div>
     <div
-        v-if="this.$slots.hasOwnProperty('pTopBar') || Object.keys(topBar).length > 0"
+        v-if="this.$slots.hasOwnProperty('topBar') || Object.keys(topBar).length > 0"
         class="Polaris-Frame__TopBar"
         :data-polaris-layer="true"
         :data-polaris-top-bar="true"
         :id="APP_FRAME_TOP_BAR"
     >
-      <slot name="pTopBar">
+      <slot name="topBar">
         <PTopBar
             v-bind="topBar"
         />
       </slot>
     </div>
     <div
-        v-if="$slots.hasOwnProperty('pNavigation') || Object.keys(navigation).length > 0"
+        v-if="$slots.hasOwnProperty('navigation') || Object.keys(navigation).length > 0"
     >
       <div
           ref="navigationNode"
@@ -44,7 +44,7 @@
           key="NavContent"
           :hidden="mobileNavHidden"
       >
-        <slot name="pNavigation">
+        <slot name="navigation">
           <PNavigation
               v-bind="navigation"
           />
@@ -216,9 +216,9 @@
     public get className() {
       return classNames(
         'Polaris-Frame',
-        (this.$slots.hasOwnProperty('pNavigation') || Object.keys(this.navigation).length > 0)
+        (this.$slots.hasOwnProperty('navigation') || Object.keys(this.navigation).length > 0)
           && 'Polaris-Frame--hasNav',
-        (this.$slots.hasOwnProperty('pTopBar') || Object.keys(this.topBar).length > 0) && 'Polaris-Frame--hasTopBar',
+        (this.$slots.hasOwnProperty('topBar') || Object.keys(this.topBar).length > 0) && 'Polaris-Frame--hasTopBar',
       );
     }
 

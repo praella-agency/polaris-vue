@@ -66,7 +66,11 @@ export default {
             },
         },
         secondaryMenu: {
+            description: `**Props**: Accepts a menu component that is made available as a static member of the top bar 
+                component.
+                \n**Slots**: Slot to customize SecondaryMenu.`,
             table: {
+                category: 'Props | Slots',
                 defaultValue: {
                     summary: '{}',
                     detail: `{
@@ -104,7 +108,11 @@ export default {
             },
         },
         searchField: {
+            description: `**Props**: Accepts a search field component that is made available as a <code>TextField</code> 
+                static member of the top bar component.
+                \n**Slots**: Slot to customize SearchField.`,
             table: {
+                category: 'Props | Slots',
                 defaultValue: {
                     summary: '{}',
                     detail: `{
@@ -125,7 +133,11 @@ export default {
             },
         },
         searchResult: {
+            description: `**Props**: Accepts a search results component that is ideally composed of a card component 
+                containing a list of actionable search results.
+                \n**Slots**: Slot to display custom list of result.`,
             table: {
+                category: 'Props | Slots',
                 defaultValue: {
                     summary: '{}',
                     detail: `{
@@ -150,7 +162,11 @@ export default {
             },
         },
         userMenu: {
+            description: `**Props**: Accepts a user component that is made available as a static member of the top bar 
+                component and renders as the primary menu.
+                \n**Slots**: Slot to customize UserMenu.`,
             table: {
+                category: 'Props | Slots',
                 defaultValue: {
                     summary: '{}',
                     detail: `{
@@ -191,6 +207,13 @@ export default {
                 },
             },
         },
+        contextControl: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
     },
 }
 
@@ -210,7 +233,7 @@ const Template = (args, {argTypes}) => ({
     template: `
       <PFrame>
         <PTopBar
-            slot="pTopBar"
+            slot="topBar"
             v-bind="$props"
             :onSearchResultsDismiss="handleSearchResultsDismiss"
             :onNavigationToggle="handleNavigationToggle"
@@ -329,7 +352,7 @@ TopBar.parameters = {
 <template>
   <PFrame>
     <PTopBar
-      slot="pTopBar"
+      slot="topBar"
       showNavigationToggle
       :logo='{"width":124,"topBarSource":"https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999","url":"javascript:void(0)","accessibilityLabel":"Jaded Pixel"}'
       :userMenu='{"id":"Polaris-UserMenu","actions":[{"items":[{"content":"Back to Shopify","icon":"ArrowLeftMinor"}]},{"items":[{"content":"Community forums"}]}],"name":"Dharma","detail":"Jaded Pixel","initials":"D","open":false,"message":{"title":"Shopify Production","description":"New message","action":{"content":"Action"},"link":{"to":"javascript:void(0);","content":"Link","external":true},"badge":{"content":"Badge","status":"warning"}}}'

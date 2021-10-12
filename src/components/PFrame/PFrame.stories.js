@@ -117,7 +117,11 @@ export default {
             },
         },
         navigation: {
+            description: `**Props**: Navigation props. 
+                \n**Slots**: Accepts a navigation component that will be rendered in the left sidebar of an application 
+                frame.`,
             table: {
+                category: 'Props | Slots',
                 defaultValue: {
                     summary: '{}',
                     detail: `Check Navigation Component props.`,
@@ -125,10 +129,28 @@ export default {
             },
         },
         topBar: {
+            description: `**Props**: TopBar props.
+                \n**Slots**: Accepts a top bar component that will be rendered at the top-most portion of an application
+                 frame.`,
             table: {
+                category: 'Props | Slots',
                 defaultValue: {
                     summary: '{}',
                     detail: `Check TopBar Component props.`,
+                },
+            },
+        },
+        default: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        globalRibbon: {
+            table: {
+                type: {
+                    summary: null,
                 },
             },
         },

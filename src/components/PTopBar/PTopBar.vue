@@ -35,7 +35,7 @@
           class="Polaris-TopBar__SearchField"
       >
         <!-- @slot Slot to customize SearchField -->
-        <slot name="pSearchField">
+        <slot name="searchField">
           <PSearchField
               v-model="searchFieldValue"
               :placeholder="searchField.placeholder"
@@ -51,7 +51,7 @@
             :overlayVisible="searchResultsOverlayVisible"
         >
           <!-- @slot Slot to display custom list of result -->
-          <slot name="pSearchResult">
+          <slot name="searchResult">
             <PActionList
                 :items="searchResult.items"
                 :sections="searchResult.sections"
@@ -64,7 +64,7 @@
           class="Polaris-TopBar__SecondaryMenu"
       >
         <!-- @slot Slot to customize SecondaryMenu -->
-        <slot name="pSecondaryMenu">
+        <slot name="secondaryMenu">
           <PMenu
               v-bind="secondaryMenu"
           >
@@ -76,7 +76,7 @@
         </slot>
       </div>
       <!-- @slot Slot to customize UserMenu -->
-      <slot name="pUserMenu">
+      <slot name="userMenu">
         <PUserMenu
             v-bind="userMenu"
         />

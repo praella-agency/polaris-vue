@@ -127,6 +127,13 @@ export default {
                 },
             },
         },
+        contextControl: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
     },
 }
 
