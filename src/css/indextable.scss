@@ -418,6 +418,10 @@
   padding: 1.6rem 1.6rem 0.8rem;
 }
 
+:root {
+  --p-scroll-bar-content-width: 0px;
+}
+
 .Polaris-IndexTable__ScrollBarContent {
   height: 1px;
   width: var(--p-scroll-bar-content-width);
@@ -569,6 +573,12 @@ $index-table-stacking-order: (
     right: 0;
     background-color: rgba(255, 255, 255, 1);
     z-index: auto;
+  }
+}
+
+.Polaris-IndexTable__Table-sticky-scrolling, .Polaris-IndexTable__TableCell--last-child, .Polaris-IndexTable__TableHeading--last {
+  @media screen and (min-width: 457px) {
+    filter: drop-shadow(-1rem 0 0 rgba(225, 227, 229, 1));
   }
 }
 
