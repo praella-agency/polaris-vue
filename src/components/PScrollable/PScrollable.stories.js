@@ -3,6 +3,24 @@ import { PScrollable } from './index';
 export default {
     title: 'Behavior / Scrollable',
     component: PScrollable,
+    argTypes: {
+        default: {
+            table: {
+                disable: true,
+            },
+        },
+        scrolledToBottom: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail: '()',
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({

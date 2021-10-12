@@ -106,6 +106,9 @@
       let hasScrolledToBottom = scrollHeight - scrollTop <= clientHeight + 2;
 
       if (canScroll && hasScrolledToBottom) {
+        /**
+         * Called when scrolled to the bottom of the scroll area
+         */
         this.$emit('scrolledToBottom');
       }
 
