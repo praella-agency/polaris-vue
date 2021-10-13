@@ -122,6 +122,9 @@ export default {
                 frame.`,
             table: {
                 category: 'Props | Slots',
+                type: {
+                    summary: null,
+                },
                 defaultValue: {
                     summary: '{}',
                     detail: `Check Navigation Component props.`,
@@ -134,6 +137,9 @@ export default {
                  frame.`,
             table: {
                 category: 'Props | Slots',
+                type: {
+                    summary: null,
+                },
                 defaultValue: {
                     summary: '{}',
                     detail: `Check TopBar Component props.`,

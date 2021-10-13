@@ -71,6 +71,9 @@ export default {
                 \n**Slots**: Slot to customize SecondaryMenu.`,
             table: {
                 category: 'Props | Slots',
+                type: {
+                    summary: null,
+                },
                 defaultValue: {
                     summary: '{}',
                     detail: `{
@@ -113,6 +116,9 @@ export default {
                 \n**Slots**: Slot to customize SearchField.`,
             table: {
                 category: 'Props | Slots',
+                type: {
+                    summary: null,
+                },
                 defaultValue: {
                     summary: '{}',
                     detail: `{
@@ -138,6 +144,9 @@ export default {
                 \n**Slots**: Slot to display custom list of result.`,
             table: {
                 category: 'Props | Slots',
+                type: {
+                    summary: null,
+                },
                 defaultValue: {
                     summary: '{}',
                     detail: `{
@@ -167,6 +176,9 @@ export default {
                 \n**Slots**: Slot to customize UserMenu.`,
             table: {
                 category: 'Props | Slots',
+                type: {
+                    summary: null,
+                },
                 defaultValue: {
                     summary: '{}',
                     detail: `{
