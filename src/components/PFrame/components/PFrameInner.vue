@@ -84,7 +84,7 @@
         class="Polaris-Frame__LoadingBar"
         :id="APP_FRAME_LOADING_BAR"
     >
-      <PLoading />
+      <slot name="loading"/>
     </div>
     <PBackdrop
         v-if="showMobileNavigation && useMediaQuery()"
@@ -119,7 +119,7 @@
   import { ContextualSaveBarProps, ToastProps } from '../context';
   import { classNames } from '@/utilities/css';
   import { PContextualSaveBar } from '@/components/PFrame/components/PContextualSaveBar';
-  import { PLoading } from '@/components/PLoading';
+  import { PLoading } from '@/components/PLoading-Old';
   import { PEventListener } from '@/components/PEventListener';
   import { PIcon } from '@/components/PIcon';
   import { PBackdrop } from '@/components/PBackdrop';

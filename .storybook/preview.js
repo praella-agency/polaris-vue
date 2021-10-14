@@ -3,11 +3,13 @@ import '!style-loader!css-loader!sass-loader!./styles/docs.scss';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import PToast from '../src/components/PToast/index';
+import pLoading from '../src/components/PLoading/index';
 
 Vue.use(VueRouter);
 Vue.component('router-link', Vue.component('RouterLink'));
 
 Vue.use(PToast);
+Vue.use(pLoading);
 
 export const decorators = [(story) => ({
   components: {story},

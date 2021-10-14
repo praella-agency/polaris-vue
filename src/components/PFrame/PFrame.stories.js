@@ -1,7 +1,7 @@
 import { PFrame } from './index';
 import { PTopBar } from '../PTopBar';
 import { PNavigation } from '../PNavigation';
-import { PLoading } from '../PLoading';
+import { PLoading } from '../PLoading-Old';
 import { PSkeletonPage } from '../PSkeletonPage';
 import { PLayout, PLayoutSection, PLayoutAnnotatedSection } from '../PLayout';
 import { PCard } from '../PCard';

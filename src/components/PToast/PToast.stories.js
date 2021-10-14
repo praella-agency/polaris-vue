@@ -1,10 +1,8 @@
-import PToast from './components/PToast';
 import PToastMDX from './PToast.mdx';
 import {PButton} from "../PButton";
 
 export default {
     title: 'Feedback indicators / Toast',
-    component: PToast,
     argTypes: {
         position: {
             options: ['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right'],
@@ -43,7 +41,7 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PToast, PButton,
+        PButton,
     },
     template: `
       <div>

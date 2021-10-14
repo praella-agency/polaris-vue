@@ -56,7 +56,7 @@ import { PFooterHelp } from './PFooterHelp';
 import { PDropZone } from './PDropZone';
 import PToast from './PToast/index';
 import { PChoiceList } from './PChoiceList';
-import { PLoading } from './PLoading';
+import { PLoading } from './PLoading-Old';
 import { PFrame } from './PFrame';
 import { PTopBar } from './PTopBar';
 import { PContextualSaveBar } from './PFrame/components/PContextualSaveBar';
