@@ -221,7 +221,6 @@ const Template = (args, {argTypes}) => ({
                 onAction: handleDiscard,
               }
           }"
-          :loading="navigationMarkup.isLoading"
           :topBar="{
               showNavigationToggle: true,
               logo: this.logoMarkup,
@@ -373,6 +372,7 @@ const Template = (args, {argTypes}) => ({
         },
         toggleIsLoading() {
             this.navigationMarkup.isLoading = !this.navigationMarkup.isLoading;
+            this.navigationMarkup.isLoading ? this.$pLoading.start() : this.$pLoading.hide();
         },
         handleSave() {
             this.defaultMarkup.nameFieldValue = this.nameFieldValue;
@@ -640,7 +640,6 @@ const Template1 = (args, {argTypes}) => ({
                     onAction: handleDiscard,
                   }
               }"
-              :loading="navigationMarkup.isLoading"
               :topBar="{
                   showNavigationToggle: true,
                   logo: this.logoMarkup,
@@ -798,6 +797,7 @@ const Template1 = (args, {argTypes}) => ({
         },
         toggleIsLoading() {
             this.navigationMarkup.isLoading = !this.navigationMarkup.isLoading;
+            this.navigationMarkup.isLoading ? this.$pLoading.start() : this.$pLoading.hide();
         },
         handleSave() {
             this.defaultMarkup.nameFieldValue = this.nameFieldValue;

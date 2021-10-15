@@ -5,7 +5,6 @@
       :contextualSaveBar="contextualSaveBar"
       :logo="Object.keys(logo).length > 0 ? logo : {}"
       :topBar="topBar"
-      :loading="loading"
       :frameOffset="frameOffset"
       :navigation="navigation"
   >
@@ -72,11 +71,6 @@
      * ContextualSaveBar Logo
      */
     @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
-
-    /**
-     * Set loading to activate
-     */
-    @Prop({type: Boolean, default: false}) public loading!: boolean;
 
     /**
      * TopBar props

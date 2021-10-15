@@ -79,13 +79,6 @@
         </template>
       </PContextualSaveBar>
     </div>
-    <div
-        v-if="loading"
-        class="Polaris-Frame__LoadingBar"
-        :id="APP_FRAME_LOADING_BAR"
-    >
-      <slot name="loading"/>
-    </div>
     <PBackdrop
         v-if="showMobileNavigation && useMediaQuery()"
         belowNavigation
@@ -148,8 +141,6 @@
     @Prop({type: Object, default: () => ({})}) public contextualSaveBar!: ContextualSaveBarProps;
 
     @Prop({type: Boolean, default: false}) public toggleContextualSaveBar!: boolean;
-
-    @Prop({type: Boolean, default: false}) public loading!: boolean;
 
     /**
      * ContextualSaveBar Logo

@@ -1,0 +1,71 @@
+<!-- PLoading.stories.mdx -->
+
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="MDX/Tooltip" />
+
+# Loading
+
+<br/>
+<h4 style={{fontFamily: '-apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif'
+}}>
+    The loading component is used to indicate to merchants that a page is loading or an upload is processing.
+</h4>
+<br/>
+
+### Code
+
+```js
+this.$pLoading.start();
+```
+
+### API
+
+<table style={{width: '100%', textAlign: 'center'}}>
+    <thead>
+        <tr>
+            <td><b>Function</b></td>
+            <td><b>Description</b></td>
+            <td><b>Parameters</b></td>
+            <td><b>Example</b></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>start</td>
+            <td>Start the progress bar loading</td>
+            <td><code>N/A</code></td>
+            <td><code>this.$pLoading.start()</code></td>
+        </tr>
+        <tr>
+            <td>finish</td>
+            <td>Finish the progress bar loading</td>
+            <td><code>N/A</code></td>
+            <td><code>this.$pLoading.finish()</code></td>
+        </tr>
+        <tr>
+            <td>hide</td>
+            <td>Hide the progress bar loading</td>
+            <td><code>N/A</code></td>
+            <td><code>this.$pLoading.hide()</code></td>
+        </tr>
+        <tr>
+            <td>fail</td>
+            <td>Cause the progress bar to end and fail</td>
+            <td><code>N/A</code></td>
+            <td><code>this.$pLoading.fail()</code></td>
+        </tr>
+        <tr>
+            <td>increase</td>
+            <td>Increase the progress bar by a certain %</td>
+            <td><code>number: integer</code></td>
+            <td><code>this.$pLoading.increase(number)</code></td>
+        </tr>
+        <tr>
+            <td>decrease</td>
+            <td>Decrease the progress bar by a certain %</td>
+            <td><code>number: integer</code></td>
+            <td><code>this.$pLoading.decrease(number)</code></td>
+        </tr>
+    </tbody>
+</table>

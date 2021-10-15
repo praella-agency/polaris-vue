@@ -1,6 +1,8 @@
 <template>
-    <div class="Polaris-Frame-Loading" role="progressbar" aria-label="Page loading bar">
-        <div class="Polaris-Frame-Loading__Level" :style="style"></div>
+    <div class="Polaris-Frame__LoadingBar">
+        <div class="Polaris-Frame-Loading" role="progressbar" aria-label="Page loading bar">
+            <div class="Polaris-Frame-Loading__Level" :style="style"></div>
+        </div>
     </div>
 </template>
 
@@ -55,8 +57,8 @@
                             canSuccess: true,
                             show: false,
                             color: 'rgba(0, 127, 95, 1)',
-                            failedColor: 'red',
-                            thickness: '2px',
+                            failedColor: 'rgba(191,7,17,0.88)',
+                            thickness: '3px',
                             transition: {
                                 speed: '0.5s',
                                 opacity: '0.6s',
