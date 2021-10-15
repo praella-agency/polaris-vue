@@ -1,28 +1,30 @@
-import PLoading from './PLoading';
 import { PFrame } from '../PFrame';
+import { PButton } from '../PButton';
 
 export default {
-    title: 'Feedback indicators / Loading',
-    component: PLoading,
+    title: 'Loading Bar',
     parameters: {
-        options: {
-            showPanel: false,
-        },
-        controls: {
-            disable: true,
+        layout: 'fullscreen',
+        docs: {
+            inlineStories: false,
+            iframeHeight: 600,
         },
     },
 }
 
 const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
     components: {
-        PLoading, PFrame
+        PFrame, PButton,
     },
     template: `
-      <PFrame>
-        <PLoading/>
-      </PFrame>`,
+        <PFrame>
+            <PButton @click="start">Start</PButton>
+        </PFrame>`,
+    methods: {
+        start() {
+            this.$pLoading.start();
+        },
+    },
 });
 
-export const Loading = Template.bind({});
+export const LoadingBar = Template.bind({});

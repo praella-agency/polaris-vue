@@ -1,73 +1,76 @@
 <template>
-  <div
-      class="Polaris-Frame-Loading"
-      :aria-valuenow="progress"
-      :aria-valuemin="0"
-      :aria-valuemax="100"
-      role="progressbar"
-      aria-label="Page loading bar"
-  >
-    <div
-        class="Polaris-Frame-Loading__Level"
-        :style="customStyles"
-        :ontransitionend="animating = false"
-    />
-  </div>
+    <div class="Polaris-Frame-Loading" role="progressbar" aria-label="Page loading bar">
+        <div class="Polaris-Frame-Loading__Level" :style="style"></div>
+    </div>
 </template>
 
-<script lang="ts">
-  import { Vue, Component, Watch } from 'vue-property-decorator';
+<script>
+    const inBrowser = typeof window !== 'undefined';
 
-  const STUCK_THRESHOLD = 99;
-
-  /**
-   * <br/>
-   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
-   *  sans-serif;">The loading component is used to indicate to merchants that a page is loading or an upload is
-   *  processing.</h4>
-   */
-  @Component({
-    components: {}
-  })
-  export default class PLoading extends Vue {
-    public progress: number = 0;
-    public animating: boolean = false;
-
-    public mounted() {
-      if (this.progress >= STUCK_THRESHOLD || this.animating) {
-        return;
-      }
-
-      this.updateProgress();
+    export default {
+        name: 'PLoading',
+        serverCacheKey: () => 'Loading',
+        computed: {
+            style() {
+                const progress = this.progress;
+                const options = progress.options;
+                const isShow = !!options.show;
+                const location = options.location;
+                const style = {
+                    'background-color': options.canSuccess ? options.color : options.failedColor,
+                    'opacity': options.show ? 1 : 0,
+                    'position': options.position,
+                }
+                if (location === 'top' || location === 'bottom') {
+                    location === 'top' ? style.top = '0px' : style.bottom = '0px';
+                    if (!options.inverse) {
+                        style.left = '0px';
+                    } else {
+                        style.right = '0px';
+                    }
+                    style.width = progress.percent + '%';
+                    style.height = '3px';
+                    style.transition = isShow ? "width " + options.transition.speed + " linear " : "";
+                    // style.transition = (isShow ? "width " + options.transition.speed + ", " : "") + "opacity " + options.transition.opacity;
+                } else if (location === 'left' || location === 'right') {
+                    location === 'left' ? style.left = '0px' : style.right = '0px';
+                    if (!options.inverse) {
+                        style.bottom = '0px';
+                    } else {
+                        style.top = '0px';
+                    }
+                    style.height = progress.percent + '%';
+                    style.width = options.thickness;
+                    style.transition = (isShow ? "height " + options.transition.speed + ", " : "") + "opacity " + options.transition.opacity;
+                }
+                return style;
+            },
+            progress() {
+                if (inBrowser) {
+                    return window.PLoadingEventBus.RADON_LOADING_BAR;
+                } else {
+                    return {
+                        percent: 0,
+                        options: {
+                            canSuccess: true,
+                            show: false,
+                            color: 'rgba(0, 127, 95, 1)',
+                            failedColor: 'red',
+                            thickness: '2px',
+                            transition: {
+                                speed: '0.5s',
+                                opacity: '0.6s',
+                                termination: 300
+                            },
+                            location: 'top',
+                            autoRevert: true,
+                            inverse: false
+                        }
+                    }
+                }
+            }
+        }
     }
-
-    public updateProgress() {
-      window.requestAnimationFrame(() => {
-        const step = Math.max((STUCK_THRESHOLD - this.progress) / 10, 1);
-        this.animating = true;
-        this.progress = this.progress + step;
-      });
-    }
-
-    public get customStyles() {
-      return {
-        transform: `scaleX(${Math.floor(this.progress) / 100})`,
-      };
-    }
-
-    @Watch('progress')
-    public onProgressChanged(value) {
-      if(value >= STUCK_THRESHOLD) {
-        return;
-      }
-
-      window.requestAnimationFrame(() => {
-        const step = Math.max((STUCK_THRESHOLD - value) / 10, 1);
-        this.animating = true;
-        this.progress = value + step;
-      });
-    }
-  }
 </script>
 
 <style scoped>
