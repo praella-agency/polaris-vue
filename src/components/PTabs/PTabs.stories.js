@@ -1,4 +1,5 @@
-import PTabs from '@/components/PTabs/PTabs.vue';
+import { PTabs } from '../PTabs';
+import { PCard, PCardSection } from '../PCard';
 
 export default {
     title: 'Navigation / Tabs',
@@ -53,45 +54,49 @@ export default {
 
 const Template = (args, { argTypes }) => ({
     props: Object.keys(argTypes),
-    components: { PTabs },
+    components: {
+        PTabs, PCard, PCardSection,
+    },
     data() {
         return {
             selectedTab: null,
+            items: [
+                {
+                    id: 'all-customers-1',
+                    content: 'All',
+                    url: 'javascript:void(0)',
+                    external: false,
+                },
+                {
+                    id: 'accepts-marketing-1',
+                    content: 'Accepts marketing',
+                    to: '/accepts-marketing-content-1'
+                },
+                {
+                    id: 'repeat-customers-1',
+                    content: 'Repeat customers',
+                    to: '/repeat-customers-content-1'
+                },
+                {
+                    id: 'prospects-1',
+                    content: 'Prospects',
+                },
+            ],
         };
     },
-    template: '<PTabs v-bind="$props" @select="selectMenu" :selected="selectedTab"/>',
+    template: `
+        <PCard>
+            <PTabs v-bind="$props" :tabs="items" @select="selectMenu" :selected="selectedTab">
+                <PCardSection :title="(selectedTab !== null) ? items[selectedTab].content : ''">
+                    <p>Tab {{ selectedTab }} selected</p>
+                </PCardSection>
+            </PTabs>
+        </PCard>`,
     methods: {
         selectMenu(menuIndex) {
             this.selectedTab = menuIndex;
-            alert('Tab => ' + this.tabs[this.selectedTab].content);
         },
-    }
+    },
 });
 
 export const Tabs = Template.bind({});
-
-Tabs.args = {
-    tabs: [
-        {
-            id: 'collections',
-            content: 'Collections',
-            url: 'https://www.google.com',
-            external: true,
-        },
-        {
-            id: 'customers',
-            content: 'Customers',
-            to: '/customers'
-        },
-        {
-            id: 'multiple-edit',
-            content: 'MultipleEdit',
-            to: '/multiple-edit'
-        },
-        {
-            id: 'products',
-            content: 'Products',
-        },
-    ],
-}
-
