@@ -11,7 +11,10 @@
               :external="tab.external"
               @click="handleTabClick"
         >
-          {{tab.content}}
+            {{ tab.content }}
+            <PBadge v-if="tab.badge && Object.keys(tab.badge).length > 0" v-bind="tab.badge">
+                {{ tab.badge.content }}
+            </PBadge>
         </PTab>
       </ul>
     </div>
@@ -25,6 +28,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
+import { PBadge } from '../PBadge';
 
 import {TabDescriptor} from './types';
 
@@ -38,8 +42,7 @@ import PPanel from './PPanel.vue';
 */
 @Component({
   components: {
-    PTab,
-    PPanel,
+    PTab, PPanel, PBadge,
   },
 })
 export default class PTabs extends Vue {

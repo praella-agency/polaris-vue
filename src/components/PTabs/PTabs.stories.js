@@ -37,7 +37,16 @@ export default {
     accessibilityLabel?: string,
     /** External URL */
     external?: boolean,
-}]`
+    /** Badge Object */
+    badge?: {
+        content?: string,
+        status?: string,
+        progress?: string,
+        background?: string,
+        color?: string,
+        size?: string,
+    },
+}]`,
                 },
             },
         },
@@ -66,16 +75,20 @@ const Template = (args, { argTypes }) => ({
                     content: 'All',
                     url: 'javascript:void(0)',
                     external: false,
+                    badge: {
+                        content: '10+',
+                        status: 'critical'
+                    },
                 },
                 {
                     id: 'accepts-marketing-1',
                     content: 'Accepts marketing',
-                    to: '/accepts-marketing-content-1'
+                    to: '/accepts-marketing-content-1',
                 },
                 {
                     id: 'repeat-customers-1',
                     content: 'Repeat customers',
-                    to: '/repeat-customers-content-1'
+                    to: '/repeat-customers-content-1',
                 },
                 {
                     id: 'prospects-1',
