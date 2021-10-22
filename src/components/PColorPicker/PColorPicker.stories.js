@@ -8,7 +8,14 @@ export default {
     argTypes: {
         color: {
             control: {
-                type: null
+                type: null,
+            },
+        },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
             },
         },
     },

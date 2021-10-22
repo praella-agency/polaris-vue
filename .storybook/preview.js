@@ -4,12 +4,14 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import PToast from '../src/components/PToast/index';
 import pLoading from '../src/components/PLoading/index';
+import { PTooltip } from '../src/components/PTooltip/';
 
 Vue.use(VueRouter);
 Vue.component('router-link', Vue.component('RouterLink'));
 
 Vue.use(PToast);
 Vue.use(pLoading);
+Vue.use(PTooltip);
 
 export const decorators = [(story) => ({
   components: {story},

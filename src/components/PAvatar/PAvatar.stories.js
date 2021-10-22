@@ -3,6 +3,9 @@ import PAvatar from './PAvatar';
 export default {
     title: 'Images & Icons / Avatar',
     component: PAvatar,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         size: {
             options: ['small', 'medium', 'large'],

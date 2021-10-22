@@ -1,50 +1,51 @@
 <template>
-    <div>
-        <div class="Polaris-Filters">
-            <div class="Polaris-Filters-ConnectedFilterControl__Wrapper">
-                <div class="Polaris-Filters-ConnectedFilterControl Polaris-Filters-ConnectedFilterControl--right">
-                    <PFilterItemWrapper position="center" v-if="!hideQueryField">
-                        <PTextField
-                            id="Polaris-Input-Filter"
-                            connected
-                            labelHidden
-                            showPrefix
-                            showClearButton
-                            :placeholder="queryPlaceholder || resourceTitle || resource"
-                            @change="onQueryChange"
-                            @blur="onQueryBlur"
-                            @focus="onQueryFocus"
-                            :value="queryValue"
-                            :autoFocus="focused"
-                            :label="queryPlaceholder || resourceTitle || resource"
-                            clearable
-                            :disabled="disabled"
-                            v-on="$listeners"
-                        >
-                          <PIcon source="SearchMinor" slot="prefix" />
-                        </PTextField>
-                    </PFilterItemWrapper>
-                    <PFilterItemWrapper v-if="$slots.hasOwnProperty('default')" position="right">
-                        <!-- @slot Filter content -->
-                        <slot />
-                    </PFilterItemWrapper>
-                </div>
-                <div class="Polaris-Filters-ConnectedFilterControl__AuxiliaryContainer">
-                    <slot name="auxiliaryContainer" />
-                </div>
-            </div>
-            <div class="Polaris-Filters__TagsContainer" v-if="!hideTags">
-                <PTag v-for="(filter, key) in appliedFilters" :key="key" v-on="$listeners" removable :tag="filter" />
-            </div>
+  <div>
+    <div class="Polaris-Filters">
+      <div class="Polaris-Filters-ConnectedFilterControl__Wrapper">
+        <div class="Polaris-Filters-ConnectedFilterControl Polaris-Filters-ConnectedFilterControl--right">
+          <PFilterItemWrapper position="center" v-if="!hideQueryField">
+            <PTextField
+                id="Polaris-Input-Filter"
+                connected
+                labelHidden
+                showPrefix
+                showClearButton
+                :placeholder="queryPlaceholder || resourceTitle || resource"
+                @change="onQueryChange"
+                @blur="onQueryBlur"
+                @focus="onQueryFocus"
+                :value="queryValue || inputFilter"
+                :autoFocus="focused"
+                :label="queryPlaceholder || resourceTitle || resource"
+                clearable
+                :disabled="disabled"
+                v-on="$listeners"
+            >
+              <PIcon source="SearchMinor" slot="prefix"/>
+            </PTextField>
+          </PFilterItemWrapper>
+          <PFilterItemWrapper v-if="$slots.hasOwnProperty('default')" position="right">
+            <!-- @slot Filter content -->
+            <slot/>
+          </PFilterItemWrapper>
         </div>
+        <div class="Polaris-Filters-ConnectedFilterControl__AuxiliaryContainer">
+          <!-- @slot Slot to add extra elements -->
+          <slot name="auxiliaryContainer"/>
+        </div>
+      </div>
+      <div class="Polaris-Filters__TagsContainer" v-if="!hideTags">
+        <PTag v-for="(filter, key) in appliedFilters" :key="key" v-on="$listeners" removable :tag="filter"/>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">
-  import {Component, Vue, Prop} from 'vue-property-decorator';
-  import {PTextField} from '@/components/PTextField';
-  import {PIcon} from '@/components/PIcon';
-  import {PTag} from '@/components/PTag';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
+  import { PTextField } from '@/components/PTextField';
+  import { PIcon } from '@/components/PIcon';
+  import { PTag } from '@/components/PTag';
   import PFilterItemWrapper from '@/components/PFilter/components/PFilterItemWrapper.vue';
 
   interface ResourceNameInterface {
@@ -75,6 +76,11 @@
     hideClearButton?: boolean;
   }
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">Filters is a composite component that filters the items of a list or table.</h4>
+   */
   @Component({
     components: {
       PTextField, PIcon, PTag, PFilterItemWrapper,
@@ -126,35 +132,45 @@
      * Callback when the query field is changed
      */
     @Prop({
-      type: Function, default: (queryValue) => {}
+      // tslint:disable-next-line:no-empty
+      type: Function, default: (queryValue) => {
+      },
     }) public onQueryChange!: void;
 
     /**
      * Callback when the clear button is triggered
      */
     @Prop({
-      type: Function, default: () => {}
+      // tslint:disable-next-line:no-empty
+      type: Function, default: () => {
+      },
     }) public onQueryClear!: void;
 
     /**
      * Callback when the reset all button is pressed
      */
     @Prop({
-      type: Function, default: () => {}
+      // tslint:disable-next-line:no-empty
+      type: Function, default: () => {
+      },
     }) public onQueryClearAll!: void;
 
     /**
      * Callback when the query field is blurred
      */
     @Prop({
-      type: Function, default: () => {}
+      // tslint:disable-next-line:no-empty
+      type: Function, default: () => {
+      },
     }) public onQueryBlur!: void;
 
     /**
      * Callback when the query field is focused
      */
     @Prop({
-      type: Function, default: () => {}
+      // tslint:disable-next-line:no-empty
+      type: Function, default: () => {
+      },
     }) public onQueryFocus!: void;
 
     /**
@@ -191,7 +207,14 @@
 
     public mounted() {
       if (this.resourceTitle != null) {
-        console.error('Deprecation Notice: `resourceTitle` will be removed in version 3.0.0, use `resourceName` instead.');
+        // tslint:disable-next-line:no-console
+        console.error('Deprecation Notice: `resourceTitle` will be removed in version 3.0.0, use `resourceName` ' +
+          'instead.');
+      }
+
+      if (this.inputFilter != null) {
+        // tslint:disable-next-line:no-console
+        console.error('Deprecation Notice: `inputFilter` will be removed in version 3.0.0, use `queryValue` instead.');
       }
     }
   }

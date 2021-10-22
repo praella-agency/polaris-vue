@@ -24,14 +24,96 @@ export default {
                 disable: true,
             },
         },
+        bulkActions: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    content: string,
+    onAction: void,
+}]`,
+                },
+            },
+        },
+        promotedBulkActions: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    content: string,
+    onAction: void,
+}]`,
+                },
+            },
+        },
+        resourceName: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    singular: string,
+    plural: string,
+}`,
+                },
+            },
+        },
+        sortOptions: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    label: string,
+    value: string,
+    disabled?: boolean,
+    hidden?: boolean,
+}]`,
+                },
+            },
+        },
+        change: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(items)',
+                },
+            },
+        },
+        'filter-removed': {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(tag)',
+                },
+            },
+        },
+        'input-filter-changed': {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(value)',
+                },
+            },
+        },
+        'select-mode': {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(selectionMode)',
+                },
+            },
+        },
         emptySearchState: {
             table: {
-                disable: true,
+                type: {
+                    summary: null,
+                },
             },
         },
         filter: {
             table: {
-                disable: true,
+                type: {
+                    summary: null,
+                },
             },
         },
     },
@@ -119,6 +201,7 @@ const Template = (args, {argTypes}) => ({
                 },
             ],
             taggedValue: 'Vue',
+            selectModeStatus: false,
         };
     },
     template: `
@@ -130,26 +213,18 @@ const Template = (args, {argTypes}) => ({
               :selected="selectedItems"
               :resourceName="resourceName"
               :loading="loading"
-              :promotedBulkActions="{
-                  content: 'Edit customers',
-                  onAction: handleBulkActionClick,
-                }"
-              :bulkActions="[
-                    {content: 'Publish', onAction: toggleStatusToPublished},
-                    {content: 'Unpublish', onAction: toggleStatusToUnpublished},
-                    {content: 'Archive', onAction: toggleStatusToArchived},
-                    {content: 'Delete', onAction: deleteSelected},
-              ]"
               v-bind="$props"
               :appliedFilters="[
                 { value: 'Tagged with ' + this.taggedValue, key: 'tag_' + this.taggedValue},
               ]"
               @filter-removed="removeTag"
               @change="toggleSelected"
-              @sortChange="() => handleSortChange(selected)"
+              @sort-change="handleSortChange"
+              @select-mode="handleSelectMode"
           >
             <template slot="filter">
               <PPopover
+                  id="resource_list_popover"
                   @close="statusFilterActive = false"
                   :active="statusFilterActive"
                   full-width
@@ -186,13 +261,14 @@ const Template = (args, {argTypes}) => ({
                 Save
               </PButton>
             </template>
-            <template slot="default" v-bind="{selectable}">
+            <template v-bind="{selectable}">
               <PResourceListItem
                   v-for="(item, key) in items"
                   :key="key"
                   :id="item.id"
                   :checked="selectedItems.indexOf(item.id) >= 0"
                   :selectable="selectable"
+                  :selectMode="selectModeStatus"
                   :loading="loading"
                   persistActions
                   :shortcutActions="[
@@ -226,18 +302,6 @@ const Template = (args, {argTypes}) => ({
           </PCardSection>
       </PCard>`,
     methods: {
-        toggleStatusToPublished() {
-            alert('Publish');
-        },
-        toggleStatusToUnpublished() {
-            alert('Unpublish');
-        },
-        toggleStatusToArchived() {
-            alert('Archived');
-        },
-        deleteSelected() {
-            alert('Deleted');
-        },
         toggleSelected(item) {
             this.selectedItems = item.selected ? this.items.map(book => book.id) : [];
             this.selectedAllItems = item.selectedMore;
@@ -260,18 +324,18 @@ const Template = (args, {argTypes}) => ({
         onNext() {
             this.queryParams.page++;
         },
-        removeTag() {
-            alert('Removed');
+        removeTag(tag) {
+            alert('Removed:- ' + tag);
         },
         handleButtonClick() {
             console.log('Saved');
         },
-        handleBulkActionClick() {
-            console.log('Edit Customer');
+        handleSortChange(value) {
+            console.log('Sorting value:- ' + value);
         },
-        handleSortChange(selected) {
-            console.log(selected)
-        }
+        handleSelectMode(selectMode) {
+            this.selectModeStatus = selectMode;
+        },
     },
 });
 
@@ -282,10 +346,42 @@ ResourceList.args = {
     resourceName: {singular: 'Book', plural: 'Books'},
     hasMore: true,
     loading: false,
-    showHeader: true,
-    hideFilters: true,
     sortOptions: [
-        {label: 'Newest update', value: 'DATE_MODIFIED_DESC', disabled: false, hidden: true},
+        {label: 'Newest update', value: 'DATE_MODIFIED_DESC', disabled: false,},
         {label: 'Oldest update', value: 'DATE_MODIFIED_ASC', disabled: false},
+    ],
+    promotedBulkActions: [
+        {
+            content: 'Edit customers',
+            onAction: () => {
+                console.log('Edit Customer');
+            },
+        }
+    ],
+    bulkActions: [
+        {
+            content: 'Publish',
+            onAction: () => {
+                alert('Publish');
+            }
+        },
+        {
+            content: 'Unpublish',
+            onAction: () => {
+                alert('Unpublish');
+            }
+        },
+        {
+            content: 'Archive',
+            onAction: () => {
+                alert('Archived');
+            }
+        },
+        {
+            content: 'Delete',
+            onAction: () => {
+                alert('Deleted');
+            }
+        },
     ],
 }

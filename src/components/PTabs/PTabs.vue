@@ -6,10 +6,15 @@
               :key="tabIndex + '-' + tab.id"
               :id="tab.id"
               :to="tab.to"
+              :url="tab.url"
               :selected="selected === tabIndex"
+              :external="tab.external"
               @click="handleTabClick"
         >
-          {{tab.content}}
+            {{ tab.content }}
+            <PBadge v-if="tab.badge && Object.keys(tab.badge).length > 0" v-bind="tab.badge">
+                {{ tab.badge.content }}
+            </PBadge>
         </PTab>
       </ul>
     </div>
@@ -23,19 +28,23 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
+import { PBadge } from '../PBadge';
 
 import {TabDescriptor} from './types';
 
 import PTab from './PTab.vue';
 import PPanel from './PPanel.vue';
 
+/**
+* <br/>
+* <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+*  sans-serif;">Use to alternate among related views within the same context.</h4>
+*/
 @Component({
   components: {
-    PTab,
-    PPanel,
+    PTab, PPanel, PBadge,
   },
 })
-
 export default class PTabs extends Vue {
 
   /**
@@ -45,7 +54,7 @@ export default class PTabs extends Vue {
   /**
    * Selected tab ID
    */
-  @Prop({type: Number, default: 0}) public selected!: number;
+  @Prop({type: Number, default: null}) public selected!: number;
   /**
    * Set true to enable navigation
    * @values true | false
@@ -66,7 +75,6 @@ export default class PTabs extends Vue {
   }
 
   protected handleTabClick(id: string, event: object) {
-
     const tab = this.tabs.find((aTab) => aTab.id === id);
     if (tab === null) {
       return;

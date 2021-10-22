@@ -21,6 +21,6 @@
     },
   })
   export default class PModelHeader extends Vue {
-    @Prop(String) public id!: string;
+    @Prop([String, Number]) public id!: string | number;
   }
 </script>

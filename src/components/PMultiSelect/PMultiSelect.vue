@@ -8,6 +8,10 @@
       </div>
     </div>
     <div :class="className">
+      <!--
+       Triggers on searchChange
+       @event searchChange
+       -->
       <multiselect
           :id="id"
           v-model="computedValue"
@@ -35,7 +39,7 @@
         <template v-slot:selection="{values, search, remove, isOpen}">
           <div class="multiselect__tags-wrap" v-show="values && values.length > 0">
             <template v-for="(option, index) of values" @mousedown.prevent>
-                <PTag :tag='{"value":option[textField],"key":option[valueField]}' removable @remove-tag="remove(option)"/>
+                <PTag :tag='{"value":option[textField], "key":option[valueField]}' removable @remove-tag="remove(option)"/>
             </template>
           </div>
           <template slot="limit"></template>
@@ -51,8 +55,6 @@
 import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import Multiselect from 'vue-multiselect';
 import {classNames} from '@/utilities/css';
-
-
 import {PIcon} from '@/components/PIcon';
 import {PTag} from '@/components/PTag';
 import {PFieldError} from '@/components/PFieldError';
@@ -68,7 +70,6 @@ interface StrictOption {
 @Component({
   components: {PIcon, Multiselect, PTag, PFieldError},
 })
-
 export default class PMultiSelect extends Vue {
   /**
    * Disable the PMultiSelect.
@@ -139,7 +140,8 @@ export default class PMultiSelect extends Vue {
    */
   @Prop({type: Boolean, default: true}) public multiple!: boolean;
 
-  public id = `PolarisMultiSelect${new Date().getUTCMilliseconds()}`;
+  @Prop({type: [String, Number], default: `PolarisMultiSelect${(new Date()).getTime()}`}) public id!: string | number;
+
   public selected = this.value;
 
   public get computedOptions() {
@@ -168,8 +170,11 @@ export default class PMultiSelect extends Vue {
      * @property {event}
      */
     this.$emit('change', value);
+    /**
+     * Callback when input is triggered
+     * @property {event}
+     */
     this.$emit('input', value);
-
   }
 
   public get computedMultiple() {

@@ -67,6 +67,7 @@ export default class PBreadcrumbs extends Vue {
                     ariaLabel: breadcrumb.accessibilityLabel,
                   },
                   nativeOn: {
+                    // tslint:disable-next-line:no-empty
                     click: onAction ? onAction : () => {},
                   },
                 }, [contentMarkup])
@@ -79,6 +80,7 @@ export default class PBreadcrumbs extends Vue {
                     ariaLabel: breadcrumb.accessibilityLabel,
                   },
                   on: {
+                    // tslint:disable-next-line:no-empty
                     click: onAction ? onAction : () => {},
                   },
                 }, [contentMarkup])

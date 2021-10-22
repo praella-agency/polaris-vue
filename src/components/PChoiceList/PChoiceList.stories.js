@@ -4,6 +4,44 @@ import {PTextField} from '../PTextField';
 export default {
     title: 'Forms / Choice List',
     component: PChoiceList,
+    argTypes: {
+        options: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    key: 'text',
+    value: 'text'
+}]`,
+                },
+            },
+        },
+        selected: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                },
+            },
+            control: {
+                type: null,
+            },
+        },
+        default: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        change: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(choice, checked, selected[], allowMultiple)',
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({
@@ -14,12 +52,14 @@ const Template = (args, {argTypes}) => ({
     data() {
         return {
             selectedData: ["hidden"],
+            data: null,
         };
     },
     template: `
         <PChoiceList
             v-bind="$props"
             :selected="selectedData"
+            v-model="data"
         >
             <PTextField />
         </PChoiceList>`,
@@ -30,8 +70,8 @@ export const ChoiceList = Template.bind({});
 ChoiceList.args = {
     options: [
         {label: 'Hidden', value: 'hidden', disable: false, error: true},
-        {label: 'Optional', value: 'optional', renderChildren: true, helpText: 'Reduces the number of fields required to check out. The billing address can still be edited.'},
-        {label: 'Required', value: 'required', renderChildren: true},
+        {label: 'Optional', value: 'optional', helpText: 'Reduces the number of fields required to check out. The billing address can still be edited.'},
+        {label: 'Required', value: 'required'},
     ],
     textField: 'label',
     valueField: 'value',

@@ -8,6 +8,12 @@ import { classNames, variationName } from '@/utilities/css';
 
 type Size = 'small' | 'medium' | 'large';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Skeleton thumbnail is used to provide a low fidelity representation of an image before it appears on
+ *  the page, and improves load times perceived by merchants. Use for thumbnails in or outside of a card.</h4>
+ */
 @Component
 export default class PSkeletonThumbnail extends Vue {
   /**

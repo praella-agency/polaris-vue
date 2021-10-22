@@ -24,7 +24,7 @@
           <div class="Polaris-Popover__Wrapper">
             <div class="Polaris-Popover__Content">
               <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical
-                          Polaris-Scrollable--hasBottomShadow Polaris-Scrollable--verticalHasScrolling"
+                          Polaris-Scrollable--hasBottomShadow"
                    data-polaris-scrollable="true">
                 <!-- @slot Popover Overlay content -->
                 <slot name="content"></slot>
@@ -47,16 +47,25 @@ import {Component, Vue, Prop, Ref, Watch} from 'vue-property-decorator';
 import {classNames} from '@/utilities/css';
 import PPopoverOverlay from '@/components/PPopover/components/PPopoverOverlay.vue';
 
+/**
+ * <br/>
+ * <h4 style={{fontFamily: '-apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif'}}>
+ *  Popovers are small overlays that open on demand. They let merchants access additional content and actions without
+ *  cluttering the page.</h4>
+*/
 @Component({
   components: {PPopoverOverlay},
 })
-
 export default class PPopover extends Vue {
 
   /**
    * Id for the PPopover.
    */
-  @Prop({type: String, default: `PolarisPopover${new Date().getUTCMilliseconds()}${Math.floor(Math.random() * 1000)}`}) public id!: string;
+  @Prop({
+    type: [String, Number],
+    default: `PolarisPopover${new Date().getUTCMilliseconds()}${Math.floor(Math.random() * 1000)}`,
+    required: true,
+  }) public id!: string | number;
 
   /**
    * Show or hide the PPopover.

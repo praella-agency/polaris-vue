@@ -84,18 +84,18 @@
 }
 .Polaris-ResourceList-CheckableButton__Checkbox {
 	pointer-events: none;
-	height: 1.6rem;
-	width: 1.6rem;
-	margin-left: -.9rem;
+	height: 2rem;
+	width: 2rem;
+	margin-left: calc(-0.9rem - 0.2rem);
 }
 .Polaris-ResourceList-CheckableButton__Label {
-	margin-left: 2rem;
 	flex: 1 1;
 	white-space: nowrap;
 	overflow: hidden;
 	max-width: 100%;
 	text-overflow: ellipsis;
-	padding: .1rem 0;
+	padding: 0.1rem 0;
+	margin-left: calc(2rem - 0.2rem);
 }
 .Polaris-ResourceList-BulkActions__Group {
 	font-size: $resourcelist-bulkactions-group-font-size;
@@ -367,6 +367,15 @@
 	.Polaris-ResourceList__SortWrapper {
 		padding-right: .8rem;
 	}
+}
+
+.Polaris-ResourceList__SortWrapper {
+	min-width: 0;
+	max-width: 100%;
+}
+
+.Polaris-ResourceList__SortWrapper > * {
+	max-width: 100%;
 }
 
 .Polaris-ResourceList__HeaderTitleWrapper {

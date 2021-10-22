@@ -31,7 +31,7 @@
         @Prop(Boolean) public checked!: boolean;
         @Prop(Boolean) public disabled!: boolean;
         @Prop(Boolean) public active!: boolean;
-        @Prop(String) public id!: string;
+        @Prop([String, Number]) public id!: string | number;
         @Prop(String) public name!: string;
         @Prop(String) public value!: string;
 

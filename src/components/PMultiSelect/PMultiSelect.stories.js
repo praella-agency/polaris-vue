@@ -4,6 +4,59 @@ import {PBadge} from "../PBadge";
 export default {
     title: 'Forms / Multi Select',
     component: PMultiSelect,
+    argTypes: {
+        options: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    key: 'text',
+    value: 'text'
+}]`,
+                },
+            },
+        },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
+        change: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail: '(value)',
+                },
+            },
+        },
+        input: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail: '(value)',
+                },
+            },
+        },
+        searchChange: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail: '(query)',
+                },
+            },
+        },
+    },
 };
 
 const Template = (args, {argTypes}) => ({

@@ -3,6 +3,9 @@ import PImage from './PImage';
 export default {
     title: 'Images & Icons / Image',
     component: PImage,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         height: {
             description: 'Image height',

@@ -4,6 +4,9 @@ import PListItem from './PListItem';
 export default {
     title: 'Lists & Tables / List',
     component: PList,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         type: {
             options: ['bullet', 'number'],

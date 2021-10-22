@@ -20,6 +20,7 @@
         <div :id="finalName + key"
              v-if="renderChildren[choice[valueField]] && choice[renderChildrenField]"
              class="Polaris-ChoiceList__ChoiceChildren">
+          <!-- @slot Default slot -->
           <slot/>
         </div>
       </li>
@@ -37,6 +38,12 @@ import {PCheckbox} from '../PCheckbox';
 import {PRadioButton} from '../PRadioButton';
 import {PInlineError} from '../PInlineError';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">A choice list lets you create a list of grouped radio buttons or checkboxes. Use this component if you
+ *  need to group together a related list of interactive choices.</h4>
+ */
 @Component({
   components: {
     PCheckbox, PRadioButton, PInlineError,
@@ -131,11 +138,17 @@ export default class PChoiceList extends Vue {
   }
 
   public handleChange(checked: boolean) {
+    /* tslint:disable-next-line */
     for (let [key, choice] of Object.entries(this.options)) {
+      /* tslint:disable-next-line */
       if (checked && (choice[this.valueField] === checked['value'])) {
+        /**
+         * Triggers when selection is change
+         */
         this.$emit(
-            'change',
-            this.updateSelectedChoices(choice, checked['checked'], this.selected, this.allowMultiple)
+          'change',
+          /* tslint:disable-next-line */
+          this.updateSelectedChoices(choice, checked['checked'], this.selected, this.allowMultiple)
         );
       }
     }
@@ -167,10 +180,8 @@ export default class PChoiceList extends Vue {
     //     }
     // }
     if (checked) {
-      console.log(allowMultiple);
       return allowMultiple ? [...selected, choice[this.valueField]] : [choice[this.valueField]];
     }
-    console.log(choice, JSON.stringify(selected));
     // return selected;
     return selected.filter((selectedChoice) => selectedChoice !== choice);
   }

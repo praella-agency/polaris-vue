@@ -1,5 +1,5 @@
 <template>
-    <PPopover :active="Boolean(active)" preferredAlignment="left" hideOnPrint @close="handleClose">
+    <PPopover :id="`Popover${this['_uid']}`" :active="Boolean(active)" preferredAlignment="left" hideOnPrint @close="handleClose">
         <PActionMenuMenuAction slot="activator" disclosure :content="title" :getOffsetWidth="getOffsetWidth" :icon="icon" :onAction="handleOpen" />
         <PActionList slot="content" :items="actions" @item-action="handleClose" />
         <div v-if="$slots.details" class="">

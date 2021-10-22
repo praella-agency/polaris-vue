@@ -3,6 +3,9 @@ import {PPagination} from './index';
 export default {
     title: 'Navigation / Pagination',
     component: PPagination,
+    parameters: {
+        layout: 'centered',
+    },
 }
 
 const Template = (args, {argTypes}) => ({

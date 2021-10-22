@@ -3,25 +3,72 @@ import { PFormLayout } from '../PFormLayout';
 import { PTextField } from '../PTextField';
 import { PBanner } from '../PBanner';
 import { PButton } from '../PButton';
+import { PStack, PStackItem } from '../PStack';
 
 export default {
     title: 'Overlays / Modal',
     component: PModal,
+    parameters: {
+        docs: {
+            inlineStories: false,
+            iframeHeight: 570,
+        },
+        layout: 'centered',
+    },
     argTypes: {
+        primaryAction: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail:`{
+    /** Content the action displays */
+    content?: string,
+    /** Disable the element */
+    disabled?: boolean,
+    /** Destructive the element */
+    destructive?: boolean,
+    /** Callback when an action takes place */
+    onAction?(): void,
+}`,
+                },
+            },
+        },
+        secondaryActions: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail:`[{
+    /** Content the action displays */
+    content?: string,
+    /** Disable the element */
+    disabled?: boolean,
+    /** Destructive the element */
+    destructive?: boolean,
+    /** Callback when an action takes place */
+    onAction?(): void,
+}]`,
+                },
+            },
+        },
+        close: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
+                },
+            },
+        },
         default: {
             table: {
-                disable: true,
+                type: {
+                    summary: null,
+                },
             },
         },
         footer: {
             table: {
-                disable: true,
-            },
-        },
-        primaryAction: {
-            table: {
-                defaultValue: {
-                    summary: '{}'
+                type: {
+                    summary: null,
                 },
             },
         },
@@ -31,7 +78,7 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PModal, PFormLayout, PTextField, PBanner, PButton,
+        PModal, PFormLayout, PTextField, PBanner, PButton, PStack, PStackItem,
     },
     data() {
         return {
@@ -39,44 +86,32 @@ const Template = (args, {argTypes}) => ({
         };
     },
     template: `
-      <div>
-          <PModal v-bind="$props"
-                  :secondaryActions= "[
-                      {
-                        content: 'Delete Customer',
-                        'destructive': true,
-                        onAction: handleDeleteAction,
-                      },
-                      {
-                        content:'Cancel',
-                        onAction: () => {
-                          this.is_active = false;
-                        },
-                      },
-                  ]"
-                  @close="closeModal"
-                  :open="this.is_active"
-          >
-              <PFormLayout>
-                <PTextField label="First Name"/>
-                <PTextField label="Last Name Name"/>
-                <PTextField label="Email" type="email"/>
-                <PBanner status="critical" title="Notice" :action="{}">
-                  We ensure complete privacy all of out customers
-                </PBanner>
-              </PFormLayout>
-          </PModal>
-          <PButton @click="openModal">Open Modal</PButton>
-      </div>`,
+      <PStack>
+          <PStackItem>
+              <PModal v-bind="$props"
+                      @close="closeModal"
+                      :open="this.is_active"
+              >
+                  <PFormLayout>
+                      <PTextField label="First Name"/>
+                      <PTextField label="Last Name Name"/>
+                      <PTextField label="Email" type="email"/>
+                      <PBanner status="critical" title="Notice" :action="{}">
+                          We ensure complete privacy all of out customers
+                      </PBanner>
+                  </PFormLayout>
+              </PModal>
+          </PStackItem>
+          <PStackItem>
+              <PButton @click="openModal">Open Modal</PButton>
+          </PStackItem>
+      </PStack>`,
     methods: {
         openModal() {
             this.is_active = true;
         },
         closeModal() {
             this.is_active = false;
-        },
-        handleDeleteAction() {
-            alert('Customer deleted');
         },
     },
 });
@@ -90,6 +125,52 @@ Modal.args = {
             alert('Customer saved');
         },
     },
+    secondaryActions: [
+        {
+            content: 'Delete Customer',
+            destructive: true,
+            onAction: () => {
+                alert('Customer deleted');
+            },
+        },
+        {
+            content: 'Cancel',
+            onAction: () => {
+                this.is_active = false;
+            },
+        },
+    ],
     title: "Enter Customer Details",
     sectioned: true,
+}
+
+Modal.parameters = {
+    docs: {
+        source: {
+            code: `
+<template>
+  <PStack>
+    <PStackItem>
+      <PModal
+        :open="false"
+        sectioned
+        :primaryAction='{"content":"Save Customer"}'
+        :secondaryActions='[{"content":"Delete Customer","destructive":true},{"content":"Cancel"}]'
+        title="Enter Customer Details"
+      >
+        <PFormLayout>
+          <PTextField label="First Name" />
+          <PTextField label="Last Name Name" />
+          <PTextField label="Email" type="email" />
+          <PBanner title="Notice" status="critical" :action="{}">
+            We ensure complete privacy all of out customers
+          </PBanner>
+        </PFormLayout>
+      </PModal>
+    </PStackItem>
+    <PStackItem><PButton>Open Modal</PButton></PStackItem>
+  </PStack>
+</template>`,
+        },
+    },
 }

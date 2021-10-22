@@ -21,10 +21,10 @@
                 <!-- @slot Actions Content -->
                 <slot name="actions">
                   <PStack spacing="tight" distribution="center" alignment="center">
-                    <PStackItem v-if="primaryAction">
+                    <PStackItem v-if="Object.keys(primaryAction).length > 0">
                       <PButton primary @click="primaryAction.onAction()">{{ primaryAction.content }}</PButton>
                     </PStackItem>
-                    <PStackItem v-if="secondaryAction">
+                    <PStackItem v-if="Object.keys(secondaryAction).length > 0">
                       <PButton @click="secondaryAction.onAction()">{{ secondaryAction.content }}</PButton>
                     </PStackItem>
                   </PStack>
@@ -59,6 +59,13 @@ import {PCard, PCardSection} from '@/components/PCard';
 import {PButton} from '@/components/PButton';
 import {ComplexAction, DisableableAction, LoadableAction} from '@/types';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Empty states are used when a list, table, or chart has no items or data to show. This is an opportunity
+ *  to provide explanation or guidance to help merchants progress. The empty state component is intended for use when a
+ *  full page in the admin is empty, and not for individual elements or areas in the interface.</h4>
+ */
 @Component({
   components: {
     PImage,

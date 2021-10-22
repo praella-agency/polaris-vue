@@ -21,7 +21,7 @@ import PPositionedOverlay from '@/components/PPopover/components/PPositionedOver
   components: {PPositionedOverlay},
 })
 export default class PPopoverOverlay extends Vue {
-  @Prop(String) public id!: string;
+  @Prop([String, Number]) public id!: string | number;
   @Prop(Boolean) public active!: boolean;
   @Prop(Boolean) public preventAutofocus!: boolean;
   @Prop(String) public preferredAlignment!: string;

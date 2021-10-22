@@ -11,6 +11,14 @@
 <script lang="ts">
   import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
   import { PIcon } from '@/components/PIcon';
+
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">Field errors are brief, in-context messages that tell merchants something went wrong with a single
+   *  or group of inputs in a form. Use field errors to help merchants understand why a form input may not be valid and
+   *  how to fix it.</h4>
+   */
   @Component({
     components: { PIcon },
   })

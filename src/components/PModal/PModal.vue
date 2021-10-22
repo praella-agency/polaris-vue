@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="open">
-            <PModalDialog :large="large" :limitHeight="limitHeight">
+            <PModalDialog :large="large" :small="small" :limitHeight="limitHeight">
                 <PModalHeader v-if="title" @close="handleOnClick">{{title}}</PModalHeader>
                 <PModalCloseButton v-else :title="false" @click="$emit('close', $event)" />
                 <div class="Polaris-Modal__BodyWrapper">
@@ -11,18 +11,20 @@
                             <PSpinner />
                         </div>
                         <template v-else>
-                            <PModalSection v-if="sectioned"><slot /></PModalSection>
+                            <PModalSection v-if="sectioned">
+                                <slot />
+                            </PModalSection>
                             <!-- @slot Default slot -->
                             <slot v-else />
                         </template>
                     </div>
                 </div>
+              <PModalFooter v-if="$slots.hasOwnProperty('footer')" >
                 <!-- @slot Footer slot -->
-              <PModalFooter v-if="$slots.hasOwnProperty('footer') && !Object.keys(primaryAction).length > 0 && !secondaryActions" >
                 <slot name="footer" />
               </PModalFooter>
-              <PModalFooter v-else-if="Object.keys(primaryAction).length > 0
-                                      || secondaryActions"
+              <PModalFooter v-if="!$slots.footer && (Object.keys(primaryAction).length > 0
+                                      || secondaryActions)"
                             :primaryAction="primaryAction" :secondaryActions="secondaryActions" >
               </PModalFooter>
             </PModalDialog>
@@ -33,14 +35,21 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
-import {classNames} from '@/utilities/css';
 import {PSpinner} from '@/components/PSpinner';
 import PModalDialog from './components/PModalDialog.vue';
 import PModalHeader from './components/PModalHeader.vue';
 import PModalFooter from './components/PModalFooter.vue';
 import PModalSection from './components/PModalSection.vue';
 import PModalCloseButton from './components/PModalCloseButton.vue';
+import { Action } from '@/types';
 
+/**
+* <br/>
+* <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+*  sans-serif;">Modals are overlays that prevent merchants from interacting with the rest of the application until a
+*  specific action is taken. They can be disruptive because they require merchants to take an action before they can
+*  continue interacting with the rest of Shopify. It should be used thoughtfully and sparingly.</h4>
+*/
 @Component({
     components: {
         PSpinner,
@@ -89,7 +98,7 @@ export default class PModel extends Vue {
     /**
      * Primary Action.
      */
-    @Prop({type: Object, default: () => ({})}) public primaryAction!: object;
+    @Prop({type: Object, default: () => ({})}) public primaryAction!: Action;
     /**
      * Secondary Action.
      */
@@ -99,14 +108,12 @@ export default class PModel extends Vue {
      */
     @Prop({type: String, default: null}) public title!: string;
 
-    public iframeHeight = 200;
+    /**
+     * Decreases the modal width
+     */
+    @Prop({type: Boolean, default: false}) public small!: boolean;
 
-    public get sizeClassName() {
-        return classNames(
-            'Polaris-Modal-Dialog__Modal',
-            this.large && 'Polaris-Modal-Dialog--sizeLarge',
-        );
-    }
+    public iframeHeight = 200;
 
     public setIframeHeight(height) {
         this.iframeHeight = height;

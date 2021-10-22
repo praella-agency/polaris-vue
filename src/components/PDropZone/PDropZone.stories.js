@@ -25,12 +25,17 @@ export default {
                 type: {
                     summary: 'array',
                 },
+                defaultValue: {
+                    summary: '[]',
+                    detail: `
+['image/gif', 'image/jpeg', 'image/png']`,
+                },
             },
         },
         uploadFiles: {
             table: {
                 type: {
-                    summary: 'slot',
+                    summary: null,
                 },
             },
         },
@@ -38,6 +43,13 @@ export default {
             table: {
                 type: {
                     summary: 'array',
+                },
+            },
+        },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
                 },
             },
         },
@@ -49,6 +61,10 @@ export default {
                 type: {
                     summary: 'function',
                 },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(files: File[], acceptedFiles: File[], rejectedFiles: File[]): void => {}`,
+                },
             },
         },
         handleOnDropAccepted: {
@@ -58,6 +74,10 @@ export default {
             table: {
                 type: {
                     summary: 'function',
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(acceptedFiles: File[]): void => {}`,
                 },
             },
         },
@@ -69,6 +89,10 @@ export default {
                 type: {
                     summary: 'function',
                 },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(rejectedFiles: File[]): void => {}`,
+                },
             },
         },
         handleOnFileDialogClose: {
@@ -78,6 +102,10 @@ export default {
             table: {
                 type: {
                     summary: 'function',
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(): void => {}`,
                 },
             },
         },
@@ -89,6 +117,10 @@ export default {
                 type: {
                     summary: 'function',
                 },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(): void => {}`,
+                },
             },
         },
         handleOnDragLeave: {
@@ -99,6 +131,10 @@ export default {
                 type: {
                     summary: 'function',
                 },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(): void => {}`,
+                },
             },
         },
         handleOnDragEnter: {
@@ -108,6 +144,32 @@ export default {
             table: {
                 type: {
                     summary: 'function',
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail:`(): void => {}`,
+                },
+            },
+        },
+        blur: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
+                },
+            },
+        },
+        focus: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
                 },
             },
         },
@@ -142,7 +204,7 @@ const Template = (args, {argTypes}) => ({
 export const DropZone = Template.bind({});
 
 DropZone.args = {
-    validImageTypes: ['image/gif', 'image/jpeg', 'image/png'],
+    type:"image"
 }
 
 const Template1 = (args, {argTypes}) => ({

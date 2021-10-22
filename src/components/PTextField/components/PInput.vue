@@ -36,6 +36,22 @@
               @input="onInput"
     ></textarea>
     <input
+        v-else-if="type === 'file'"
+        ref="input"
+        :name="name"
+        :class="inputClassName"
+        :id="id"
+        :disabled="disabled"
+        :readonly="readOnly"
+        :type="inputType"
+        :multiple="multiple"
+        :accept="accept"
+        :aria-describedby="describedBy"
+        :aria-labelledby="labelledBy"
+        :aria-invalid="hasError"
+        @change="onInput"
+    />
+    <input
       v-else
       ref="input"
       :name="name"
@@ -112,7 +128,8 @@
           | 'month'
           | 'time'
           | 'week'
-          | 'currency';
+          | 'currency'
+          | 'file';
 
   type Align =
           | 'left'
@@ -123,7 +140,7 @@
     components: { PFieldResizer, PSpinner, PIcon, ckeditor: CKEditor.component  },
   })
   export default class PInput extends Vue {
-    @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
+    @Prop({type: [String, Number], default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string | number;
     @Prop() public value!: any;
     @Prop(String) public type!: Type;
     @Prop(String) public align!: Align;
@@ -151,6 +168,8 @@
     @Prop([String, Number]) public min!: number;
     @Prop([String, Number]) public max!: number;
     @Prop(String) public describedBy!: string;
+    @Prop(Boolean) public multiple!: boolean;
+    @Prop(String) public accept!: string;
 
     public content = this.value !== null ? this.value : '';
     public height = this.minHeight;
@@ -248,6 +267,11 @@
     }
 
     public onInput(event: any) {
+      if (this.type === 'file') {
+        this.computedValue = event.target.files;
+        return;
+      }
+
       if (event.target) {
         this.computedValue = event.target.value;
       }
@@ -286,7 +310,6 @@
     }
   }
 </script>
-
 
 <style scoped>
 

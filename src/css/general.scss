@@ -152,13 +152,21 @@
     position: relative;
 }
 
+.Polaris-Scrollable:focus {
+    outline: 2px solid var(--p-focused);
+    outline-offset: 2px;
+}
+
 .Polaris-Scrollable--horizontal {
     overflow-x: auto;
 }
 
 .Polaris-Scrollable--vertical {
     overflow-y: auto;
-    overflow-x: hidden;
+}
+
+.Polaris-Scrollable--verticalHasScrolling {
+    overflow-y: auto;
 }
 
 .Polaris-Scrollable--hasTopShadow {
@@ -354,6 +362,10 @@
 
 .Polaris-PositionedOverlay--calculating {
     visibility: hidden;
+}
+
+.Polaris-PositionedOverlay--preventInteraction {
+    pointer-events: none;
 }
 
 /*=================== PositionedOverlay =======================*/
@@ -1714,6 +1726,10 @@
 .Polaris-ResourceItem__Owned {
     display: flex;
     align-self: flex-start;
+}
+
+.Polaris-ResourceItem__OwnedNoMedia {
+    padding-top: 0.4rem;
 }
 
 .Polaris-ResourceItem__Handle {

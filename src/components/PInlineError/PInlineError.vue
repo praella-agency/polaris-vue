@@ -11,6 +11,13 @@
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import {PIcon} from '@/components/PIcon';
 
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">Inline errors are brief, in-context messages that tell merchants something went wrong with a single
+     *  or group of inputs in a form. Use inline errors to help merchants understand why a form input may not be valid
+     *  and how to fix it.</h4>
+     */
     @Component({
         components: {
             PIcon,
@@ -26,6 +33,6 @@
         /**
          * Content briefly explaining how to resolve the invalid form field input.
          */
-        @Prop({type: String, default: null}) public fieldID!: string;
+        @Prop({type: [String, Number], default: null}) public fieldID!: string | number;
     }
 </script>

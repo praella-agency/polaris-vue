@@ -3,6 +3,46 @@ import PActionList from './PActionList';
 export default {
     title: 'Actions / Action List',
     component: PActionList,
+    argTypes: {
+        items: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    /** Content the action displays */
+    content?: string,
+    /** Icon to display */
+    icon?: boolean,
+    /** HelpText for the element */
+    helpText?: boolean,
+    /** Callback when an action takes place */
+    onAction?(): void,
+}]`,
+                },
+            },
+        },
+        sections: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    /** Title for the section */
+    title?: string,
+    /** Collection of action items for the list */
+    items: [],
+}]`,
+                },
+            },
+        },
+        'item-action': {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(action)',
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, { argTypes }) => ({
@@ -33,5 +73,23 @@ ActionList.args = {
             },
         },
     ],
-    sections: [],
+    sections: [
+        {
+            "title": "Traffic",
+            "items": [
+                {
+                    content: 'Action 3',
+                    onAction: () => {
+                        alert('Action 3 handled');
+                    },
+                },
+                {
+                    content: 'Action 4',
+                    onAction: () => {
+                        alert('Action 4 handled');
+                    },
+                },
+            ],
+        },
+    ],
 }

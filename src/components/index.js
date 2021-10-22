@@ -67,6 +67,11 @@ import { PUserMenu } from './PTopBar/components/PUserMenu';
 import { PMenu } from './PTopBar/components/PMenu';
 import { PSearchField } from './PTopBar/components/PSearchField';
 import { PCollapsible } from './PCollapsible';
+import { PDataTableRow } from './PDataTable/components';
+import { PDataTableCol } from './PDataTable/components/components';
+import { PIndexTable } from './PIndexTable';
+import { PScrollable } from './PScrollable';
+import { PTooltip } from './PTooltip';
 
 import '@/scss/main.scss';
 
@@ -139,6 +144,10 @@ const Components = {
   PMenu,
   PSearchField,
   PCollapsible,
+  PDataTableRow, PDataTableCol,
+  PIndexTable,
+  PScrollable,
+  PTooltip,
 };
 
 const PolarisVue = {
@@ -149,6 +158,7 @@ const PolarisVue = {
 
     Vue.use(PToast);
     Vue.use(PLoading);
+    Vue.use(PTooltip);
   },
 };
 

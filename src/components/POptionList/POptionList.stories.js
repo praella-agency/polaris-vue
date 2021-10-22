@@ -3,10 +3,53 @@ import POptionList from './POptionList';
 export default {
     title: 'Lists & Tables / Option List',
     component: POptionList,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         selected: {
             control: {
                 type: null,
+            },
+        },
+        options: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    value: string,
+    label: string,
+    disabled?: boolean,
+    active?: boolean,
+    id?: string,
+}]`,
+                },
+            },
+        },
+        sections: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                    detail: `[{
+    title?: string,
+    options: options[],
+}]`,
+                },
+            },
+        },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
+        change: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '([selectedValue])',
+                },
             },
         },
     },

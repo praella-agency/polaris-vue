@@ -13,6 +13,12 @@ import {classNames, variationName} from '@/utilities/css';
 
 type Size = 'small' | 'medium' | 'large';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">The progress bar component is used to visually represent the completion of a task or operation. It
+ *  shows how much of the task has been completed and how much is still left.</h4>
+ */
 @Component
 export default class PProgressBar extends Vue {
 

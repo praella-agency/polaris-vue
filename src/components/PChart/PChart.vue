@@ -15,13 +15,17 @@ import {Component, Vue, Prop, Emit, Watch} from 'vue-property-decorator';
 import {PCard} from '@/components/PCard';
 import VueApexCharts from 'vue-apexcharts';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">The chart component can be used to create simple graphs, chart.</h4>
+ */
 @Component({
   components: {
     VueApexCharts,
     PCard,
   },
 })
-
 export default class PChart extends Vue {
   public options = this.chartObject();
 

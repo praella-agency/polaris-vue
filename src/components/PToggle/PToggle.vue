@@ -17,6 +17,12 @@
 <script lang="ts">
 import {Component, Prop, Vue} from 'vue-property-decorator';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">The `p-toggle` component provides users the ability to choose between two distinct values. These are
+ *  very similar to a switch, or on/off switch, though aesthetically different than a checkbox.</h4>
+ */
 @Component
 export default class PToggle extends Vue {
 
@@ -29,7 +35,7 @@ export default class PToggle extends Vue {
   /**
    * ID of toggle
    */
-  @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
+  @Prop({type: [String, Number], default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string | number;
 
   /**
    * propsClass of toggle

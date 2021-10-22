@@ -16,7 +16,7 @@
 
   export default class PPanel extends Vue {
 
-    @Prop(String) public id!: string;
+    @Prop([String, Number]) public id!: string | number;
     @Prop(Boolean) public hidden!: boolean;
 
     public get className() {

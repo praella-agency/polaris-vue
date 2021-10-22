@@ -4,15 +4,27 @@ import { PLink } from '../PLink';
 export default {
     title: 'Navigation / Footer Help',
     component: PFooterHelp,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
-        icon: {
+        default: {
             table: {
                 disable: true,
             },
         },
-        default: {
+        id: {
             table: {
-                disable: true,
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
+        icon: {
+            table: {
+                type: {
+                    summary: null,
+                },
             },
         },
     },

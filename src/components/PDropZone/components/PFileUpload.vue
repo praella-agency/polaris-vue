@@ -21,7 +21,7 @@
         <template v-else-if="size === 'extraLarge'">
             <PStack vertical>
                 <PStackItem>
-                    <img src="../images/upload-arrow.svg" width="40" alt=""/>
+                    <PIcon source="UploadMajor" color="base" style="width: 40px; height: unset;"/>
                 </PStackItem>
                 <PStackItem>
                     <template v-if="(size === 'extraLarge' || size === 'large') && buttonStyleClassName">
@@ -40,7 +40,7 @@
         <template v-else-if="size === 'large'">
             <PStack vertical spacing="tight">
                 <PStackItem>
-                    <img src="../images/upload-arrow.svg" width="40" alt=""/>
+                    <PIcon source="UploadMajor" color="base" style="width: 40px; height: unset;"/>
                 </PStackItem>
                 <PStackItem>
                     <template v-if="(size === 'extraLarge' || size === 'large') && buttonStyleClassName">
@@ -75,7 +75,7 @@
 <!--            </PStack>-->
 <!--        </template>-->
 <!--        <template v-else-if="size === 'small'">-->
-<!--            <img src="../images/upload-arrow.svg" width="20" alt=""/>-->
+<!--        <PIcon source="UploadMajor" color="base" style="width: 40px; height: unset;"/>-->
 <!--        </template>-->
     </div>
 </template>
@@ -83,25 +83,24 @@
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
 import {classNames} from '@/utilities/css';
-import {PStack, PStackItem} from '../../PStack/index';
-import {PCaption} from '../../PCaption/index';
-import {PTextStyle} from '../../PTextStyle/index';
+import {PStack, PStackItem} from '@/components/PStack';
+import {PCaption} from '@/components/PCaption';
+import {PTextStyle} from '@/components/PTextStyle';
+import { PIcon } from '@/components/PIcon';
 import {Context, createAllowMultipleKey, capitalize} from '../context';
 
 @Component({
   components: {
-    PStack, PCaption, PTextStyle, PStackItem,
+    PStack, PCaption, PTextStyle, PStackItem, PIcon,
   },
 })
 export default class PFileUploads extends Vue {
   @Prop({
     type: String,
-    default: `Add files`,
   }) public actionTitle!: string;
 
   @Prop({
     type: String,
-    default: `or drop files to upload`,
   }) public actionHint!: string;
 
   @Prop({

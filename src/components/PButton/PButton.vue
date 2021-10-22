@@ -68,6 +68,13 @@ type Any = string|string[]|number|number[];
 
 const DEFAULT_SIZE = 'medium';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Buttons are used primarily for actions, such as “Add”, “Close”, “Cancel”, or “Save”. Plain buttons,
+ *  which look similar to links, are used for less important or less commonly used actions, such as “view shipping
+ *  settings”.</h4>
+ */
 @Component({
   components: { PIcon, PSpinner },
 })
@@ -76,7 +83,7 @@ export default class PButton extends Vue {
   /**
    * A destination to link to, rendered in the href attribute of a link
    */
-  @Prop({type: String, default: null}) public href!: string;
+  @Prop({type: String, default: undefined}) public href!: string;
 
   /**
    * VueRouter link | link object

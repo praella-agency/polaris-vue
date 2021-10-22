@@ -3,13 +3,23 @@ import PLink from './PLink';
 export default {
     title: 'Navigation / Link',
     component: PLink,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         default: {
             table: {
                 disable: true,
-            }
-        }
-    }
+            },
+        },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, { argTypes }) => ({

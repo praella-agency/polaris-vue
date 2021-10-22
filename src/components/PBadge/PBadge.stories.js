@@ -3,6 +3,9 @@ import PBadge from './PBadge';
 export default {
     title: 'Images & Icons / Badge',
     component: PBadge,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         size: {
             options: ['small', 'medium'],
