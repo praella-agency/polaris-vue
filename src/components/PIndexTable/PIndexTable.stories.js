@@ -3,7 +3,7 @@ import { PCard } from '../PCard';
 import argTypes from './args';
 
 export default {
-    title: 'Index Table',
+    title: 'Lists & Tables / Index Table',
     component: PIndexTable,
     argTypes: argTypes,
 }
