@@ -19,9 +19,9 @@
 import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 @Component
-export default class PPositionedOverlay extends Vue {
+export default class PTooltipPositionedOverlay extends Vue {
 
-    @Prop([String, Number]) public id!: string | number;
+    @Prop(String) public id!: string;
     @Prop(Boolean) public active!: boolean;
     @Prop(String) public preferredPosition!: string;
     @Prop(String) public preferredAlignment!: string; // right, left, center
@@ -105,9 +105,7 @@ export default class PPositionedOverlay extends Vue {
         let scrollableContainerRect = scrollableElement.getBoundingClientRect();
 
         const overlayRect = this.getBoundingClientRect(this.overlay);
-        if (this.fullWidth) {
-            overlayRect.width = activatorRect.width;
-        }
+        overlayRect.width = activatorRect.width;
 
         if (scrollableElement === document.body) {
             scrollableContainerRect = {
@@ -201,15 +199,13 @@ export default class PPositionedOverlay extends Vue {
         const activatorTop = activatorRect.top;
         const activatorBottom = activatorTop + activatorRect.height;
         const spaceAbove = activatorRect.top;
-        const spaceBelow = containerRect.height - activatorRect.top - activatorRect.height;
+        const spaceBelow = containerRect.height - (activatorRect.top + activatorRect.height);
 
         const desiredHeight = overlayRect.height;
         const verticalMargins = overlayMargins.activator + overlayMargins.container;
         const minimumSpaceToScroll = overlayMargins.container;
         const distanceToTopScroll = activatorRect.top - Math.max(scrollableContainerRect.top, 0);
-        const distanceToBottomScroll = containerRect.top
-            + Math.min(containerRect.height, scrollableContainerRect.top + scrollableContainerRect.height)
-            - (activatorRect.top + activatorRect.height);
+        const distanceToBottomScroll = containerRect.height - (activatorRect.top + activatorRect.height);
 
         const enoughSpaceFromTopScroll = distanceToTopScroll >= minimumSpaceToScroll;
         const enoughSpaceFromBottomScroll = distanceToBottomScroll >= minimumSpaceToScroll;

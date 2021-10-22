@@ -362,6 +362,10 @@
     visibility: hidden;
 }
 
+.Polaris-PositionedOverlay--preventInteraction {
+    pointer-events: none;
+}
+
 /*=================== PositionedOverlay =======================*/
 
 .Polaris-Heading {

@@ -2,7 +2,9 @@
   <div class="shopify-div">
     <PTextField class="shopify-polaris-text" placeholder="Search Icon" v-model="search" @input="searchIcon"/>
     <div class="container-div">
-      <div v-for="(icon, key) in icons" :key="key" class="icon-div icon-tooltip" @mouseover="changeCode(icon)"
+      <div v-for="(icon, key) in icons" :key="key" class="icon-div"
+           v-p-tooltip.mostSpace='"<PIcon source=\"" + icon + "\" />"'
+           @mouseover="changeCode(icon)"
            @click="copyCode(icon)">
         <div>
           <PIcon v-if="source" :source="source"/>
@@ -11,7 +13,6 @@
             {{ icon }}
           </div>
         </div>
-        <span class="span-tooltip">{{ iconCode }}</span>
       </div>
     </div>
   </div>
@@ -126,9 +127,10 @@ export default {
 .icon-div {
   width: 150px;
   padding: 12px;
-  margin: 12px;
+  margin: 10px;
   text-align: center;
   position: relative;
+  height: 100px;
 }
 
 .icon-div:hover {
@@ -143,46 +145,5 @@ export default {
   padding-top: 16px;
   word-break: break-all;
   font-size: 14px;
-}
-
-.icon-tooltip .span-tooltip {
-  background: none repeat scroll 0 0 #39a9a2;
-  color: #ffffff;
-  font-weight: normal;
-  padding: 8px 10px;
-  box-sizing: border-box;
-  margin-left: 0;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  position: absolute;
-  text-align: center;
-  white-space: nowrap;
-  border-radius: 5px;
-  box-shadow: 3px 3px 3px #e1e1e1;
-  visibility: hidden;
-  transition: all .3s linear;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  z-index: 99;
-  transform: translate(-50%, 0);
-}
-
-
-.icon-tooltip:hover .span-tooltip {
-  opacity: 1;
-  filter: alpha(opacity=100);
-  visibility: visible;
-}
-
-.icon-tooltip .span-tooltip:after {
-  border-color: #39a9a2 rgba(0, 0, 0, 0);
-  border-style: solid;
-  border-width: 8px 8px 0;
-  bottom: -8px;
-  content: "";
-  display: block;
-  left: calc(50% - 4px);
-  position: absolute;
-  width: 0;
 }
 </style>

@@ -60,6 +60,7 @@ import { PDataTableRow } from './PDataTable/components';
 import { PDataTableCol } from './PDataTable/components/components';
 import { PIndexTable } from './PIndexTable';
 import { PScrollable } from './PScrollable';
+import { PTooltip } from './PTooltip';
 
 import '@/scss/main.scss';
 
@@ -124,6 +125,7 @@ const Components = {
   PDataTableRow, PDataTableCol,
   PIndexTable,
   PScrollable,
+  PTooltip,
 };
 
 const PolarisVue = {
@@ -133,6 +135,7 @@ const PolarisVue = {
     }
 
     Vue.use(PToast);
+    Vue.use(PTooltip);
   },
 };
 
