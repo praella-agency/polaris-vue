@@ -210,7 +210,10 @@
   outline: none;
 }
 
-.Polaris-Frame__Navigation--enter, .Polaris-Frame__Navigation--enterActive, .Polaris-Frame__Navigation--exit, .Polaris-Frame__Navigation--exitActive {
+.Polaris-Frame__Navigation--enter,
+.Polaris-Frame__Navigation--enterActive,
+.Polaris-Frame__Navigation--exit,
+.Polaris-Frame__Navigation--exitActive {
   display: flex;
 }
 
