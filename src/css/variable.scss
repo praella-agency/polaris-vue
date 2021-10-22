@@ -288,11 +288,11 @@ $btn-plain-icononly-disabled-svg-icon-color: rgba(186, 190, 195, 1);
 
 /* Scrollable */
 
-$scroll-top-shadow: inset 0 2rem 2rem -2rem var(rgba(0, 0, 0, 0.15));
+$scroll-top-shadow: inset 0 2rem 2rem -2rem rgba(0, 0, 0, 0.15);
 
-$scroll-bottom-shadow: inset 0 -2rem 2rem -2rem var(rgba(0, 0, 0, 0.15));
+$scroll-bottom-shadow: inset 0 -2rem 2rem -2rem rgba(0, 0, 0, 0.15);
 
-$scroll-top-bottom-shadow: inset 0 2rem 2rem -2rem var(rgba(0, 0, 0, 0.15)), inset 0 -2rem 2rem -2rem var(rgba(0, 0, 0, 0.15));
+$scroll-top-bottom-shadow: inset 0 2rem 2rem -2rem rgba(0, 0, 0, 0.15), inset 0 -2rem 2rem -2rem rgba(0, 0, 0, 0.15);
 
 /* Badge */
 
@@ -806,7 +806,7 @@ $checkbox-input-indeterminate-backdrop-bgcolor: $theme-secondary-color;
 
 $checkbox-backdrop-bgcolor: $theme-default-button-color;
 $checkbox-backdrop-border: 0.2rem solid $btn-default-disable-color;
-$checkbox-backdrop-border-radius: 4px;
+$checkbox-backdrop-border-radius: 0.4rem;
 
 $checkbox-backdrop-after-bgcolor: $theme-secondary-color;
 $checkbox-backdrop-after-border-radius: 4px;

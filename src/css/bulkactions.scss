@@ -1,0 +1,129 @@
+.Polaris-BulkActions__Group {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.4rem;
+  border: none;
+  text-transform: initial;
+  letter-spacing: initial;
+  width: 100%;
+  display: none;
+  align-items: center;
+  flex-wrap: wrap;
+  opacity: 0;
+}
+
+@media (min-width: 40em) {
+  .Polaris-BulkActions__Group {
+    font-size: 1.4rem;
+  }
+}
+
+.Polaris-BulkActions__Group.Polaris-BulkActions__Group--measuring {
+  transition: none;
+  display: flex;
+  opacity: 0;
+}
+
+.Polaris-BulkActions__Group--entering, .Polaris-BulkActions__Group--exiting {
+  opacity: 0;
+  display: flex;
+}
+
+.Polaris-BulkActions__Group--entered {
+  opacity: 1;
+  display: flex;
+}
+
+.Polaris-BulkActions__Group--exited {
+  opacity: 0;
+  display: none;
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-BulkActions__Group--smallScreen {
+    display: none;
+  }
+}
+
+.Polaris-BulkActions__Group--largeScreen {
+  display: none;
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-BulkActions__Group--largeScreen {
+    display: flex;
+  }
+  .Polaris-BulkActions__Group--largeScreen.Polaris-BulkActions__Group--exiting {
+    transition: none;
+  }
+  .Polaris-BulkActions__Group--largeScreen.Polaris-BulkActions__Group--exited {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.Polaris-BulkActions__ButtonGroupWrapper {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 28.625em) {
+  .Polaris-BulkActions__ButtonGroupWrapper > div > div:first-child {
+    flex: 1 1 auto;
+  }
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-BulkActions__ButtonGroupWrapper {
+    width: auto;
+    justify-content: flex-start;
+    margin-right: 0.8rem;
+  }
+}
+
+.Polaris-BulkActions__Group--measuring .Polaris-BulkActions__ButtonGroupWrapper {
+  position: absolute;
+  width: auto;
+}
+
+.Polaris-BulkActions__BulkActionButton {
+  white-space: nowrap;
+}
+
+.Polaris-BulkActions__CheckableContainer {
+  flex: 1 1;
+}
+
+.Polaris-BulkActions--disabled {
+  transition: none;
+  box-shadow: none;
+  border-color: rgba(210, 213, 216, 1);
+  background: rgba(250, 251, 251, 1);
+  color: rgba(140, 145, 150, 1);
+  cursor: default;
+  pointer-events: none;
+}
+
+.Polaris-BulkActions--disabled svg {
+  fill: rgba(186, 190, 195, 1);
+}
+
+.Polaris-BulkActions__PaginatedSelectAll {
+  padding: 0.4rem 0;
+}
+
+.Polaris-BulkActions__Slide {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+  transform: translateY(0);
+  transition: transform cubic-bezier(0.64, 0, 0.35, 1) 200ms;
+}
+
+.Polaris-BulkActions__Slide--appear, .Polaris-BulkActions__Slide--enter, .Polaris-BulkActions__Slide--exit {
+  transform: translateX(-4rem);
+}
+
+.Polaris-BulkActions__Slide--appearing, .Polaris-BulkActions__Slide--entering {
+  transform: translateY(0);
+}
