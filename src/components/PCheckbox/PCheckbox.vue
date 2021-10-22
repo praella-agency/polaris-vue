@@ -37,7 +37,6 @@ import {classNames, variationName} from '@/utilities/css';
 
 import {PIcon} from '@/components/PIcon';
 import {PChoice} from '@/components/PChoice';
-import {MinusMinor, TickSmallMinor} from '@/assets/shopify-polaris-icons/index';
 
 /**
  * <br/>
@@ -122,7 +121,7 @@ export default class PCheckbox extends Vue {
     }
 
     public get iconSource() {
-        return this.indeterminate ? MinusMinor : TickSmallMinor;
+        return this.indeterminate ? 'MinusMinor' : 'TickSmallMinor';
     }
 
     public onChange(e: any) {
