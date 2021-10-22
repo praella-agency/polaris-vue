@@ -12,7 +12,7 @@ import { PTextField } from '../PTextField';
 import argTypes from './args';
 
 export default {
-    title: 'Index Table / Slot',
+    title: 'Lists & Tables / Index Table / Slot',
     component: PIndexTable,
     argTypes: argTypes,
 }
