@@ -1,7 +1,6 @@
 import { PFrame } from './index';
 import { PTopBar } from '../PTopBar';
 import { PNavigation } from '../PNavigation';
-import { PLoading } from '../PLoading-Old';
 import { PSkeletonPage } from '../PSkeletonPage';
 import { PLayout, PLayoutSection, PLayoutAnnotatedSection } from '../PLayout';
 import { PCard } from '../PCard';
@@ -166,7 +165,7 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PFrame, PTopBar, PNavigation, PLoading, PSkeletonPage, PLayout, PLayoutSection,
+        PFrame, PTopBar, PNavigation, PSkeletonPage, PLayout, PLayoutSection,
         PLayoutAnnotatedSection, PCard, PTextContainer, PSkeletonDisplayText, PSkeletonBodyText, PPage, PFormLayout,
         PTextField, PModal,
     },
@@ -584,7 +583,7 @@ Default.parameters = {
 const Template1 = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PFrame, PTopBar, PNavigation, PLoading, PSkeletonPage, PLayout, PLayoutSection,
+        PFrame, PTopBar, PNavigation, PSkeletonPage, PLayout, PLayoutSection,
         PLayoutAnnotatedSection, PCard, PTextContainer, PSkeletonDisplayText, PSkeletonBodyText, PPage, PFormLayout,
         PTextField, PModal,
     },

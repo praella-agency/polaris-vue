@@ -112,7 +112,6 @@
   import { ContextualSaveBarProps, ToastProps } from '../context';
   import { classNames } from '@/utilities/css';
   import { PContextualSaveBar } from '@/components/PFrame/components/PContextualSaveBar';
-  import { PLoading } from '@/components/PLoading-Old';
   import { PEventListener } from '@/components/PEventListener';
   import { PIcon } from '@/components/PIcon';
   import { PBackdrop } from '@/components/PBackdrop';
@@ -130,7 +129,7 @@
 
   @Component({
     components: {
-      PContextualSaveBar, PLoading, PEventListener, PIcon, PBackdrop, PTopBar, PNavigation,
+      PContextualSaveBar, PEventListener, PIcon, PBackdrop, PTopBar, PNavigation,
     }
   })
   export default class PFrameInner extends Vue {
