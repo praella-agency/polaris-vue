@@ -443,7 +443,6 @@ Default.parameters = {
         onAction: handleDiscard,
       }
   }"
-  :loading="navigationMarkup.isLoading"
   :topBar="{
       showNavigationToggle: true,
       logo: this.logoMarkup,
@@ -870,7 +869,6 @@ FrameWithAnOffset.parameters = {
             onAction: handleDiscard,
           }
       }"
-      :loading="navigationMarkup.isLoading"
       :topBar="{
           showNavigationToggle: true,
           logo: this.logoMarkup,
