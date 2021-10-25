@@ -254,7 +254,6 @@
         return this.matchingSubNavigationItems.sort(
           function({url: firstUrl}, {url: secondUrl}) {
             if(firstUrl !== undefined && secondUrl !== undefined) {
-              console.log(secondUrl, firstUrl);
               return secondUrl.length - firstUrl.length;
             }
             return 0;
