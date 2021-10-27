@@ -42,12 +42,12 @@
               :showFocusBorder="searchField.showFocusBorder"
               :focused="searchField.focused"
               :active="searchField.active"
-              @change="searchField.onChange ? searchField.onChange() : {}"
+              @change="handleSearchFieldChange"
           />
         </slot>
         <PSearch
-            :visible="Object.keys(searchField).length > 0 ? searchFieldValue.length > 0 : searchResultsVisible"
-            :onDismiss="onSearchResultsDismiss"
+            :visible="(Object.keys(searchField).length > 0 ? searchFieldValue.length > 0 : searchResultsVisible) && searchResultsVisible"
+            @dismiss="handleSearchResultsDismiss"
             :overlayVisible="searchResultsOverlayVisible"
         >
           <!-- @slot Slot to display custom list of result -->
@@ -66,6 +66,7 @@
         <!-- @slot Slot to customize SecondaryMenu -->
         <slot name="secondaryMenu">
           <PMenu
+              v-if="Object.keys(secondaryMenu).length > 0"
               v-bind="secondaryMenu"
           >
             <span slot="activatorContent">
@@ -78,6 +79,7 @@
       <!-- @slot Slot to customize UserMenu -->
       <slot name="userMenu">
         <PUserMenu
+            v-if="Object.keys(userMenu).length > 0"
             v-bind="userMenu"
         />
       </slot>
@@ -138,8 +140,6 @@
     showFocusBorder?: boolean;
     active?: boolean;
     focused?: boolean;
-
-    onChange(): void;
   }
 
   interface SearchResult {
@@ -171,17 +171,12 @@
     /**
      * A boolean property indicating whether search results are currently visible
      */
-    @Prop({type: Boolean, default: false}) public searchResultsVisible!: boolean;
+    @Prop({type: Boolean, default: true}) public searchResultsVisible!: boolean;
 
     /**
      * A callback function that handles hiding and showing mobile navigation
      */
     @Prop({type: Function, default: null}) public onNavigationToggle!: void;
-
-    /**
-     * A callback function that handles the dismissal of search results
-     */
-    @Prop({type: Function, default: null}) public onSearchResultsDismiss!: void;
 
     /**
      * Whether or not the search results overlay has a visible backdrop
@@ -237,6 +232,20 @@
       return {
         width: getWidth(this.logo, 104)
       };
+    }
+
+    public handleSearchFieldChange(value) {
+        /**
+         * A callback function that handles the search field value
+         */
+        this.$emit('searchFieldChange', value);
+    }
+
+    public handleSearchResultsDismiss() {
+        /**
+         * A callback function that handles the dismissal of search results
+         */
+        this.$emit('searchResultsDismiss');
     }
   }
 </script>

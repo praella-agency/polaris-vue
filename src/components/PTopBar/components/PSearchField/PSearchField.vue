@@ -15,14 +15,14 @@
         autoCorrect="off"
         ref="input"
         v-model="computedValue"
-        @change="handleChange"
+        @input="handleChange"
         @keydown="preventDefault"
     />
     <span class="Polaris-TopBar-SearchField__Icon">
         <PIcon source="SearchMinor"/>
     </span>
     <button
-        v-if="value !== ''"
+        v-if="inputValue !== ''"
         type="button"
         aria-label="Clear"
         class="Polaris-TopBar-SearchField__Clear"
@@ -145,15 +145,8 @@
     }
 
     public handleClear() {
-      this.$emit('cancel');
-
-      if (!this.inputValue) {
-        return;
-      }
-
       this.inputValue = '';
       this.$emit('change', '');
-      (this.$refs.input as HTMLInputElement).focus();
     }
   }
 </script>

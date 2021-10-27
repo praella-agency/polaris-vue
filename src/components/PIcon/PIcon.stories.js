@@ -26,6 +26,7 @@ export default {
         },
     },
     parameters: {
+        layout: 'fullscreen',
         docs: {
             page: PIconMDX,
         },
@@ -44,7 +45,3 @@ const Template1 = (args, { argTypes }) => ({
 });
 
 export const Icon = Template1.bind({});
-
-Icon.args = {
-    color: 'base',
-}

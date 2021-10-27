@@ -223,7 +223,7 @@ const Template = (args, {argTypes}) => ({
           :topBar="{
               showNavigationToggle: true,
               logo: this.logoMarkup,
-              onSearchResultsDismiss: this.handleTopBarSearchResultsDismiss,
+              searchResultsDismiss: this.handleTopBarSearchResultsDismiss,
               onNavigationToggle: this.handleMobileNavigationToggle,
               userMenu: {
                   id: 'Polaris-UserMenu',

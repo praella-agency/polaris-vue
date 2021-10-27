@@ -1,21 +1,33 @@
 <template>
-  <div class="shopify-div">
-    <PTextField class="shopify-polaris-text" placeholder="Search Icon" v-model="search" @input="searchIcon"/>
-    <div class="container-div">
-      <div v-for="(icon, key) in icons" :key="key" class="icon-div"
-           v-p-tooltip.mostSpace='"<PIcon source=\"" + icon + "\" />"'
-           @mouseover="changeCode(icon)"
-           @click="copyCode(icon)">
-        <div>
-          <PIcon v-if="source" :source="source"/>
-          <PIcon v-else :source="icon" :color="color" :backdrop="backdrop"/>
-          <div class="icon-text-div">
-            {{ icon }}
+  <PFrame>
+      <PTopBar
+          slot="topBar"
+          :searchField="{
+                value: search,
+                placeholder: 'Search',
+                showFocusBorder: true,
+          }"
+          :searchResultsVisible="false"
+          @searchFieldChange="searchIcon"
+          @searchResultsDismiss="handleSearchResultsDismiss"
+      />
+      <div class="shopify-div">
+          <div class="container-div">
+              <div v-for="(icon, key) in icons" :key="key" class="icon-div"
+                   v-p-tooltip.mostSpace='"<PIcon source=\"" + icon + "\" />"'
+                   @mouseover="changeCode(icon)"
+                   @click="copyCode(icon)">
+                  <div>
+                      <PIcon v-if="source" :source="source"/>
+                      <PIcon v-else :source="icon" :color="color" :backdrop="backdrop"/>
+                      <div class="icon-text-div">
+                          {{ icon }}
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
-  </div>
+  </PFrame>
 </template>
 
 <script>
@@ -25,6 +37,8 @@ import {PFormLayout} from '../PFormLayout';
 import {PTextStyle} from '../PTextStyle';
 import {PButton} from '../PButton';
 import {PStack, PStackItem} from '../PStack';
+import {PTopBar} from '../PTopBar';
+import {PFrame} from '../PFrame';
 import PIcon from './PIcon.vue';
 import * as AllIcon from '@/assets/shopify-polaris-icons/index';
 import {DeprecatedIcons} from './index';
@@ -32,7 +46,7 @@ import {DeprecatedIcons} from './index';
 export default {
   name: 'ShopifyIcons',
   components: {
-    PTextField, PIcon, PModal, PFormLayout, PTextStyle, PStack, PStackItem, PButton,
+    PTextField, PIcon, PModal, PFormLayout, PTextStyle, PStack, PStackItem, PButton, PTopBar, PFrame,
   },
   data() {
     return {
@@ -41,13 +55,13 @@ export default {
       iconCode: '',
       copyText: '',
       difference: {},
-      search: null,
+      search: '',
     };
   },
   props: {
     color: {
       type: String,
-      default: 'base',
+      default: 'null',
     },
     backdrop: {
       type: Boolean,
@@ -58,7 +72,8 @@ export default {
   },
   methods: {
     searchIcon(value) {
-      if (value === null) {
+        console.log(value)
+      if (value === '') {
         this.difference.forEach((icon) => {
           this.icons.push(icon);
         });
@@ -93,6 +108,9 @@ export default {
         message: this.copyText,
         duration: 3000,
       });
+    },
+    handleSearchResultsDismiss() {
+      this.search = '';
     },
   },
   created() {

@@ -226,6 +226,14 @@ export default {
                 },
             },
         },
+        searchFieldChange: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(value)',
+                },
+            },
+        },
     },
 }
 
@@ -247,7 +255,7 @@ const Template = (args, {argTypes}) => ({
         <PTopBar
             slot="topBar"
             v-bind="$props"
-            :onSearchResultsDismiss="handleSearchResultsDismiss"
+            @searchResultsDismiss="handleSearchResultsDismiss"
             :onNavigationToggle="handleNavigationToggle"
             :userMenu="{
                 id: 'Polaris-UserMenu',
