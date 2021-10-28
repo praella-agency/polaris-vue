@@ -12,46 +12,81 @@
           @searchResultsDismiss="handleSearchResultsDismiss"
       />
       <div class="shopify-div">
-          <div class="container-div">
-              <div v-for="(icon, key) in icons" :key="key" class="icon-div"
-                   v-p-tooltip.mostSpace='"<PIcon source=\"" + icon + "\" />"'
-                   @mouseover="changeCode(icon)"
-                   @click="copyCode(icon)">
-                  <div>
-                      <PIcon v-if="source" :source="source"/>
-                      <PIcon v-else :source="icon" :color="color" :backdrop="backdrop"/>
-                      <div class="icon-text-div">
-                          {{ icon }}
+          <PStack vertical>
+              <PStackItem class="iconHeading">
+                <PHeading>Major Icons</PHeading>
+              </PStackItem>
+              <PStackItem>
+                  <div class="container-div">
+                      <div
+                          v-for="(icon, key) in icons.major"
+                          :key="key"
+                          class="icon-div"
+                          v-p-tooltip.mostSpace='"<PIcon source=\"" + icon + "\" />"'
+                          @mouseover="changeCode(icon)"
+                          @click="copyCode(icon)"
+                      >
+                          <div>
+                              <PIcon v-if="source" :source="source"/>
+                              <PIcon v-else :source="icon" :color="color" :backdrop="backdrop"/>
+                              <div class="icon-text-div">
+                                  {{ icon.replace('Major', '') }}
+                              </div>
+                          </div>
                       </div>
                   </div>
-              </div>
-          </div>
+              </PStackItem>
+          </PStack>
+          <PStack vertical>
+              <PStackItem class="iconHeading">
+                <PHeading>Minor Icons</PHeading>
+              </PStackItem>
+              <PStackItem>
+                  <div class="container-div">
+                      <div
+                          v-for="(icon, key) in icons.minor"
+                          :key="key"
+                          class="icon-div"
+                          v-p-tooltip.mostSpace='"<PIcon source=\"" + icon + "\" />"'
+                          @mouseover="changeCode(icon)"
+                          @click="copyCode(icon)"
+                      >
+                          <div>
+                              <PIcon v-if="source" :source="source"/>
+                              <PIcon v-else :source="icon" :color="color" :backdrop="backdrop"/>
+                              <div class="icon-text-div">
+                                  {{ icon.replace('Minor', '') }}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </PStackItem>
+          </PStack>
       </div>
   </PFrame>
 </template>
 
 <script>
-import {PTextField} from '../PTextField';
-import {PModal} from '../PModal';
-import {PFormLayout} from '../PFormLayout';
-import {PTextStyle} from '../PTextStyle';
-import {PButton} from '../PButton';
-import {PStack, PStackItem} from '../PStack';
-import {PTopBar} from '../PTopBar';
-import {PFrame} from '../PFrame';
-import PIcon from './PIcon.vue';
+import { PStack, PStackItem } from '../PStack';
+import { PTopBar } from '../PTopBar';
+import { PFrame } from '../PFrame';
+import { PHeading } from '../PHeading';
+import { PIcon } from '../PIcon';
 import * as AllIcon from '@/assets/shopify-polaris-icons/index';
-import {DeprecatedIcons} from './index';
+import { DeprecatedIcons } from './index';
 
 export default {
   name: 'ShopifyIcons',
   components: {
-    PTextField, PIcon, PModal, PFormLayout, PTextStyle, PStack, PStackItem, PButton, PTopBar, PFrame,
+    PIcon, PStack, PStackItem, PTopBar, PFrame, PHeading,
   },
   data() {
     return {
       id: '',
-      icons: [],
+      icons: {
+          'major': [],
+          'minor': [],
+      },
       iconCode: '',
       copyText: '',
       difference: {},
@@ -61,7 +96,7 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'null',
+      default: null,
     },
     backdrop: {
       type: Boolean,
@@ -72,18 +107,26 @@ export default {
   },
   methods: {
     searchIcon(value) {
-        console.log(value)
       if (value === '') {
         this.difference.forEach((icon) => {
-          this.icons.push(icon);
+          if (icon.includes('Major')) {
+              this.icons.major.push(icon);
+          } else if (icon.includes('Minor')) {
+              this.icons.minor.push(icon);
+          }
         });
         return this.icons;
       } else {
-        this.icons = [];
+        this.icons = {
+            'major': [],
+            'minor': [],
+        };
         this.difference.forEach((icon) => {
-          if (icon.toLowerCase().includes(value.toLowerCase())) {
-            this.icons.push(icon);
-          }
+            if (icon.toLowerCase().includes(value.toLowerCase()) && icon.includes('Major')) {
+                this.icons.major.push(icon);
+            } else if (icon.toLowerCase().includes(value.toLowerCase()) && icon.includes('Minor')) {
+                this.icons.minor.push(icon);
+            }
         });
         return this.icons;
       }
@@ -99,9 +142,15 @@ export default {
             '<PIcon source="' + icon + '" color="' + this.color + '" backdrop="' + this.backdrop + '" />',
         );
       } else {
-        copy = navigator.clipboard.writeText(
-            '<PIcon source="' + icon + '" color="' + this.color + '"/>',
-        );
+        if(this.color === null) {
+            copy = navigator.clipboard.writeText(
+              '<PIcon source="' + icon + '" />',
+            );
+        } else {
+            copy = navigator.clipboard.writeText(
+                '<PIcon source="' + icon + '" color="' + this.color + '" />',
+            );
+        }
       }
       this.copyText = copy ? 'Copied!' : '';
       this.$pToast.open({
@@ -116,11 +165,14 @@ export default {
   created() {
     // let allIcon = Object.keys(AllIcon);
     this.difference = Object.keys(AllIcon).filter((icon) => !DeprecatedIcons.includes(icon));
-
+    this.difference.sort();
     this.difference.forEach((icon) => {
-      this.icons.push(icon);
+        if (icon.includes('Major')) {
+            this.icons.major.push(icon);
+        } else if (icon.includes('Minor')) {
+            this.icons.minor.push(icon);
+        }
     });
-    return this.icons;
   },
 };
 </script>
@@ -130,11 +182,6 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-}
-
-.shopify-polaris-text {
-  width: 300px;
-  margin-bottom: 30px;
 }
 
 .container-div {
@@ -163,5 +210,10 @@ export default {
   padding-top: 16px;
   word-break: break-all;
   font-size: 14px;
+}
+
+.iconHeading {
+    margin-left: 15px;
+    margin-top: 30px;
 }
 </style>

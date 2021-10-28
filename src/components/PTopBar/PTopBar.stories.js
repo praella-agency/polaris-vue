@@ -132,8 +132,6 @@ export default {
     active?: boolean;
     /** Focus on field */
     focused?: boolean;
-    /** Change event */
-    onChange(): void;
 }`,
                 },
             },
@@ -231,6 +229,13 @@ export default {
                 defaultValue: {
                     summary: '()',
                     detail: '(value)',
+                },
+            },
+        },
+        searchResultsDismiss: {
+            table: {
+                defaultValue: {
+                    summary: 'void',
                 },
             },
         },

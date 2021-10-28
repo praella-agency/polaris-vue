@@ -116,7 +116,8 @@ export default {
             },
         },
         navigation: {
-            description: `**Props**: Navigation props. 
+            description: `**Props**: 
+                <a href="https://polaris-vue.hulkapps.com/?path=/docs/navigation-navigation--navigation" target="_blank">Navigation props</a>. 
                 \n**Slots**: Accepts a navigation component that will be rendered in the left sidebar of an application 
                 frame.`,
             table: {
@@ -131,7 +132,8 @@ export default {
             },
         },
         topBar: {
-            description: `**Props**: TopBar props.
+            description: `**Props**: 
+                <a href="https://polaris-vue.hulkapps.com/?path=/docs/structure-top-bar--top-bar" target="_blank">TopBar props</a>.
                 \n**Slots**: Accepts a top bar component that will be rendered at the top-most portion of an application
                  frame.`,
             table: {

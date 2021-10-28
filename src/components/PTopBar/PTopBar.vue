@@ -109,7 +109,7 @@
 
   interface UserMenu {
     id: string;
-    actions?: object;
+    actions?: [];
     message?: object;
     name?: string;
     detail?: string;

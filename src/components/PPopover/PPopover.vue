@@ -23,8 +23,7 @@
           </div>
           <div class="Polaris-Popover__Wrapper">
             <div class="Polaris-Popover__Content">
-              <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical
-                          Polaris-Scrollable--hasBottomShadow"
+              <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical"
                    data-polaris-scrollable="true">
                 <!-- @slot Popover Overlay content -->
                 <slot name="content"></slot>
