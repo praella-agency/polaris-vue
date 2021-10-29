@@ -74,7 +74,7 @@
                 'Polaris-Avatar',
                 this.size && `Polaris-Avatar--${variationName('size', this.size)}`,
                 !this.customer && `Polaris-Avatar--${variationName('style', this.styleClass(this.nameString))}`,
-                (this.hasImage || this.initials.length === 0) && status !== Status.Loaded && 'Polaris-Avatar--hidden',
+                (this.hasImage || (this.initials && this.initials.length === 0)) && status !== Status.Loaded && 'Polaris-Avatar--hidden',
                 this.hasImage && 'Polaris-Avatar--hasImage',
             );
         }

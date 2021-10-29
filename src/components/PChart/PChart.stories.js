@@ -71,7 +71,7 @@ const Template1 = (args, {argTypes}) => ({
 export const GroupedChart = Template1.bind({});
 
 GroupedChart.args = {
-    title: "Vertical Grouped Bar Chart",
+    title: "Horizontal Grouped Bar Chart",
     width: "100%",
     vertical: true,
     height: "500",

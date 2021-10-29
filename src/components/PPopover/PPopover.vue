@@ -22,7 +22,7 @@
                tabindex="0">
           </div>
           <div class="Polaris-Popover__Wrapper">
-            <div class="Polaris-Popover__Content">
+            <div :class="contentClassName">
               <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical"
                    data-polaris-scrollable="true">
                 <!-- @slot Popover Overlay content -->
@@ -108,6 +108,18 @@ export default class PPopover extends Vue {
   @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
 
   /**
+   * Allow popover to stretch to fit content vertically.
+   * @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public fullHeight!: boolean;
+
+  /**
+   * Allow popover content to determine the overlay width and height.
+   * @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public fluidContent!: boolean;
+
+  /**
    * Enable measure
    * @values true | false
    */
@@ -146,6 +158,14 @@ export default class PPopover extends Vue {
         this.fullWidth && 'Polaris-Popover--fullWidth',
         this.measuring && 'Polaris-Popover--measuring',
     );
+  }
+
+  public get contentClassName() {
+      return classNames(
+          'Polaris-Popover__Content',
+          this.fullHeight && 'Polaris-Popover__Content--fullHeight',
+          this.fluidContent && 'Polaris-Popover__Content--fluidContent',
+      );
   }
 
   public get realId() {

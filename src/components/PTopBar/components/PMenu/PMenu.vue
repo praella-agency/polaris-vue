@@ -5,7 +5,7 @@
         :active="open"
         :close="onClose"
         fixed
-        fullWidth
+        :fullHeight="isFullHeight"
         preferredAlignment="right"
     >
       <div class="Polaris-TopBar-Menu__ActivatorWrapper" slot="activator">
@@ -101,6 +101,10 @@
         'Polaris-Popover__Section',
         'Polaris-Popover__Section+ Polaris-Popover__Section'
       );
+    }
+
+    public get isFullHeight() {
+        return Object.keys(this.message).length > 0;
     }
   }
 </script>

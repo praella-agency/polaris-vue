@@ -5,10 +5,7 @@
         <PStackItem>
           <PTextContainer>
             <PHeading>
-              {{ title }}
-              <PBadge v-if="Object.keys(badge).length > 0" :status="badge.status">
-                {{ badge.content }}
-              </PBadge>
+              {{ title }}<PBadge v-if="Object.keys(badge).length > 0" :status="badge.status">{{ badge.content }}</PBadge>
             </PHeading>
             <p>
               {{ description }}

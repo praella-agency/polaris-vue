@@ -1,6 +1,5 @@
 <template>
   <span :class="className" :style="{'background-color': background, 'color': color}">
-    <span v-if="status" class="Polaris-VisuallyHidden">{{ status }}</span>
     <span v-if="progress" class="Polaris-Badge__Pip">
       <span class="Polaris-VisuallyHidden">{{ progress }}</span>
     </span>

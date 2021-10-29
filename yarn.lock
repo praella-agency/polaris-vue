@@ -13390,11 +13390,6 @@ vue-color@^2.7.1:
     material-colors "^1.0.0"
     tinycolor2 "^1.1.2"
 
-vue-create-context@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/vue-create-context/-/vue-create-context-1.1.0.tgz#8f8f3a921453491bdb5e65aa6ff748be58c27a01"
-  integrity sha512-ZAJjB7ACu4s3rju1J6bj7LsUrpF+QVUf8y1ZkCJAEesOWl4j+VOmbA6UVzVaUPTmVXHaiJdLg5AU66BOfDiT4Q==
-
 vue-docgen-api@^4.38.0:
   version "4.41.2"
   resolved "https://registry.yarnpkg.com/vue-docgen-api/-/vue-docgen-api-4.41.2.tgz#1d0cca6e754f8cef30a0f2befcc87cba3d92880b"

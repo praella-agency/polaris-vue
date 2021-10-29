@@ -11,6 +11,12 @@
         margin-left: 1.6rem;
         max-width: 100%;
     }
+
+    >.Polaris-Stack__Item:not(:empty) {
+        margin-top: 0.8rem;
+        margin-left: 0.8rem;
+        max-width: 100%;
+    }
 }
 
 .Polaris-Stack--noWrap {
