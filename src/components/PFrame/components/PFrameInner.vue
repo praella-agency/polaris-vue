@@ -36,10 +36,10 @@
       <transition
           enter-class="Polaris-Frame__Navigation--enter"
           enter-active-class="Polaris-Frame__Navigation--enterActive"
+          enter-to-class="Polaris-Frame__Navigation--enterActive"
           leave-class="Polaris-Frame__Navigation--exit"
           leave-active-class="Polaris-Frame__Navigation--exitActive"
           @enter="enter"
-          @after-enter="afterEnter"
       >
         <div
             ref="navigationNode"
@@ -180,11 +180,6 @@ export default class PFrameInner extends Vue {
   public mobileNavHidden = this.useMediaQuery() && !this.toggleMobileNavigation;
   public mobileNavShowing = this.useMediaQuery() && this.toggleMobileNavigation;
 
-  public enterMobileNavigation = false;
-  public enterActiveMobileNavigation = false;
-  public exitMobileNavigation = false;
-  public exitActiveMobileNavigation = false;
-
   public state: State = {
     skipFocused: false,
     globalRibbonHeight: 0,
@@ -244,11 +239,6 @@ export default class PFrameInner extends Vue {
   public get navClassName() {
     return classNames(
         this.toggleMobileNavigation && 'Polaris-Frame__Navigation--visible',
-        this.enterMobileNavigation && 'Polaris-Frame__Navigation--enter',
-        this.enterActiveMobileNavigation && 'Polaris-Frame__Navigation--enterActive',
-        this.exitMobileNavigation && 'Polaris-Frame__Navigation--exit',
-        this.exitActiveMobileNavigation && 'Polaris-Frame__Navigation--exitActive',
-        // !this.toggleMobileNavigation && 'Navigation-exit Polaris-Frame__Navigation--exitActive'
     );
   }
 
@@ -343,15 +333,7 @@ export default class PFrameInner extends Vue {
   }
 
   public enter(el, done) {
-    this.exitMobileNavigation = false;
-    this.exitActiveMobileNavigation = false;
-    this.enterMobileNavigation = true;
     done();
-  }
-
-  public afterEnter(el) {
-    this.enterMobileNavigation = false;
-    this.enterActiveMobileNavigation = true;
   }
 }
 </script>

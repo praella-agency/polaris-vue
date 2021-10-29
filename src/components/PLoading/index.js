@@ -1,5 +1,4 @@
 'use strict'
-
 import PLoading from './PLoading.vue';
 
 function assign(target, source) { // eslint-disable-line no-unused-vars
@@ -123,14 +122,12 @@ function install(Vue, options = {}) {
         Loading.init(PLoadingEventBus);
     }
 
-    Vue.component('pLoading', PLoading);
-
+    Vue.$pLoading = Loading;
     Vue.prototype.$pLoading = Loading;
 
     let componentClass = Vue.extend(PLoading);
     let instance = new componentClass({});
     instance.$mount();
-
     document.body.prepend(instance.$el);
 }
 
