@@ -46,7 +46,7 @@
           />
         </slot>
         <PSearch
-            :visible="(Object.keys(searchField).length > 0 ? searchFieldValue.length > 0 : searchResultsVisible) && searchResultsVisible"
+            :visible="(searchFieldValue.length > 0) && searchResultsVisible"
             @dismiss="handleSearchResultsDismiss"
             :overlayVisible="searchResultsOverlayVisible"
         >

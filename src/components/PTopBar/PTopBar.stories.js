@@ -260,7 +260,9 @@ const Template = (args, {argTypes}) => ({
         <PTopBar
             slot="topBar"
             v-bind="$props"
+            :searchResultsVisible="isSearchActive"
             @searchResultsDismiss="handleSearchResultsDismiss"
+            @searchFieldChange="handleSearchChange"
             :onNavigationToggle="handleNavigationToggle"
             :userMenu="{
                 id: 'Polaris-UserMenu',
@@ -353,6 +355,10 @@ const Template = (args, {argTypes}) => ({
         },
         handleMessageActionClick() {
             console.log('Message Action Clicked!');
+        },
+        handleSearchChange(value) {
+              this.searchValue = value;
+              this.isSearchActive = value.length > 0;
         },
     },
 });

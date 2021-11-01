@@ -12,9 +12,9 @@
           @searchResultsDismiss="handleSearchResultsDismiss"
       />
       <div class="shopify-div">
-          <PStack vertical>
-              <PStackItem class="iconHeading">
-                <PHeading>Major Icons</PHeading>
+          <PStack vertical spacing="tight">
+              <PStackItem>
+                <PHeading class="icon-heading">Major Icons</PHeading>
               </PStackItem>
               <PStackItem>
                   <div class="container-div">
@@ -30,7 +30,7 @@
                               <PIcon v-if="source" :source="source"/>
                               <PIcon v-else :source="icon" :color="color" :backdrop="backdrop"/>
                               <div class="icon-text-div">
-                                  {{ icon.replace('Major', '') }}
+                                  {{ icon.replace('Major', '').replace(/([A-Z])/g, ' $1').trim() }}
                               </div>
                           </div>
                       </div>
@@ -38,8 +38,8 @@
               </PStackItem>
           </PStack>
           <PStack vertical>
-              <PStackItem class="iconHeading">
-                <PHeading>Minor Icons</PHeading>
+              <PStackItem>
+                <PHeading class="icon-heading">Minor Icons</PHeading>
               </PStackItem>
               <PStackItem>
                   <div class="container-div">
@@ -55,7 +55,7 @@
                               <PIcon v-if="source" :source="source"/>
                               <PIcon v-else :source="icon" :color="color" :backdrop="backdrop"/>
                               <div class="icon-text-div">
-                                  {{ icon.replace('Minor', '') }}
+                                  {{ icon.replace('Minor', '').replace(/([A-Z])/g, ' $1').trim() }}
                               </div>
                           </div>
                       </div>
@@ -212,8 +212,7 @@ export default {
   font-size: 14px;
 }
 
-.iconHeading {
-    margin-left: 15px;
-    margin-top: 30px;
+.icon-heading {
+  margin: 15px 0 0 15px;
 }
 </style>
