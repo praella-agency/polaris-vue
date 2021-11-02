@@ -76,5 +76,8 @@
     "typescript": "~3.5.3",
     "vue-loader": "^15.9.7",
     "vue-template-compiler": "^2.6.10"
+  },
+  "engines": {
+    "node": ">=14"
   }
 }
