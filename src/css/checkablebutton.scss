@@ -1,0 +1,107 @@
+.Polaris-CheckableButton {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.6rem;
+  text-transform: initial;
+  letter-spacing: initial;
+  display: flex;
+  align-items: center;
+  min-height: 3.6rem;
+  min-width: 3.6rem;
+  margin: 0;
+  padding: 0.7rem 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  text-decoration: none;
+  text-align: left;
+  border-radius: 0.4rem;
+  width: 100%;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(186, 191, 195, 1);
+  border-top-color: rgba(201, 204, 207, 1);
+  border-bottom-color: rgba(186, 191, 196, 1);
+}
+
+@media (min-width: 40em) {
+  .Polaris-CheckableButton {
+    font-size: 1.4rem;
+  }
+}
+
+.Polaris-CheckableButton svg {
+  fill: rgba(255, 255, 255, 1);
+}
+
+[data-buttongroup-segmented='true'] .Polaris-CheckableButton {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.Polaris-CheckableButton:hover {
+  background: rgba(246, 246, 247, 1);
+}
+
+.Polaris-CheckableButton:active {
+  background: rgba(241, 242, 243, 1);
+}
+
+.Polaris-CheckableButton.Polaris-CheckableButton__CheckableButton--measuring {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.Polaris-CheckableButton.Polaris-CheckableButton__CheckableButton--measuring::before {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-CheckableButton {
+    flex: 0 1 auto;
+  }
+}
+
+.Polaris-CheckableButton:focus {
+  outline: none;
+}
+
+.Polaris-CheckableButton.Polaris-CheckableButton__CheckableButton--plain {
+  border-radius: 3px;
+  box-shadow: none;
+  background: transparent;
+  border: none;
+}
+
+.Polaris-CheckableButton.Polaris-CheckableButton__CheckableButton--plain:hover {
+  background: transparent;
+}
+
+.Polaris-CheckableButton.Polaris-CheckableButton__CheckableButton--selectMode {
+  color: rgba(109, 113, 117, 1);
+  font-weight: 500;
+}
+
+.Polaris-CheckableButton.Polaris-CheckableButton__CheckableButton--selected {
+  color: rgba(32, 34, 35, 1);
+}
+
+.Polaris-CheckableButton__Checkbox {
+  pointer-events: none;
+  height: 2rem;
+  width: 2rem;
+  margin-left: calc(-0.9rem - 0.2rem);
+}
+
+.Polaris-CheckableButton__Label {
+  flex: 1 1;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  padding: 0.1rem 0;
+  margin-left: calc(2rem - 0.2rem);
+}

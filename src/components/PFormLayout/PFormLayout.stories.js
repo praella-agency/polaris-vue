@@ -4,6 +4,15 @@ import { PTextField } from '../PTextField';
 export default {
     title: 'Forms / Form Layout / Default',
     component: PFormLayout,
+    argTypes: {
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
+    }
 }
 
 const Template = (args, {argTypes}) => ({

@@ -3,6 +3,15 @@ import PInlineError from './PInlineError';
 export default {
     title: 'Forms / Inline Error',
     component: PInlineError,
+    argTypes: {
+        fieldID: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
+    }
 }
 
 const Template = (args, { argTypes }) => ({

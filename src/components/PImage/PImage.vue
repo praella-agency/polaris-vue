@@ -6,8 +6,13 @@
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import {classNames, variationName} from '@/utilities/css';
 
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">Use image as a visual anchor and identifier for an object. They should be used along with text
+     *  to provide context.</h4>
+     */
     @Component
-
     export default class PImage extends Vue {
 
         /**

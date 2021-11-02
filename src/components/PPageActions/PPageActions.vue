@@ -39,6 +39,13 @@ export interface PageActionsProps {
   secondaryActions?: ComplexAction[];
 }
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Page actions let merchants take key actions at the bottom of specific pages in the interface. This is
+ *  important because sometimes the primary call to action is hard to access when merchants are at the bottom of a page.
+ *  </h4>
+ */
 @Component({
   components: {
     PStack,

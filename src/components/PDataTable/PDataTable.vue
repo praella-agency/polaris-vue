@@ -2,8 +2,12 @@
   <div>
     <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs" :resourceName="resource"
              @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
-      <!-- @slot Slot to add a custom Filter content -->
-      <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
+        <!-- @slot Slot to add a custom Filter content -->
+        <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
+        <template slot="auxiliaryContainer">
+            <!-- @slot Slot to add auxiliary filters -->
+            <slot name="auxiliaryContainer"/>
+        </template>
     </PFilter>
     <div class="Polaris-DataTable" v-if="rows.length > 0 || $slots.hasOwnProperty('body')">
       <div class="Polaris-DataTable__ScrollContainer">
@@ -246,9 +250,16 @@ interface Sort {
   direction: SortDirection;
 }
 
+/**
+* <br/>
+* <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+*  sans-serif;">Data tables are used to organize and display all information from a data set. While a data
+*  visualization represents part of data set, a data table lets merchants view details from the entire set. This helps
+*  merchants compare and analyze the data.</h4>
+*/
 @Component({
   components: {
-    PDataTableCellNew, PPagination, PFilter, PSpinner, PEmptyState, PDataTableCell
+    PDataTableCellNew, PPagination, PFilter, PSpinner, PEmptyState, PDataTableCell,
   },
 })
 export default class PDataTable extends Vue {

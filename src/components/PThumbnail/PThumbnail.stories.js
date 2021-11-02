@@ -3,6 +3,9 @@ import PThumbnail from './PThumbnail';
 export default {
     title: 'Images & Icons / Thumbnail',
     component: PThumbnail,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         size: {
             options: ['small', 'medium', 'large'],

@@ -13,4 +13,13 @@ export interface TabDescriptor {
   accessibilityLabel?: string;
   /** External URL */
   external?: boolean;
+  /** Badge Object */
+  badge?: {
+    content?: string,
+    status?: string,
+    progress?: string,
+    background?: string,
+    color?: string,
+    size?: string,
+  };
 }

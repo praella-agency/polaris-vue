@@ -18,11 +18,16 @@
   import PTextField from '@/components/PTextField/PTextField.vue';
   import vClickOutside from 'v-click-outside';
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">The color picker is used to let merchants select a color visually. For example, merchants use the
+   *  color picker to customize the accent color of the email templates for their shop.</h4>
+   */
   @Component({
     components: {PTextField, Chrome},
     directives: {clickOutside: vClickOutside.directive},
   })
-
   export default class PColorPicker extends Vue {
 
     /**
@@ -33,7 +38,7 @@
     /**
      * ID for form input
      */
-    @Prop({type: String, required: true}) public id!: string;
+    @Prop({type: [String, Number], required: true}) public id!: string | number;
 
     /**
      * LabelClass for input

@@ -25,6 +25,37 @@ export default {
                 },
             },
         },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
+        blur: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '()',
+                },
+            },
+        },
+        focus: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '()',
+                },
+            },
+        },
+        change: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '({checked: target.checked, value: target.value})',
+                },
+            },
+        },
     },
 }
 

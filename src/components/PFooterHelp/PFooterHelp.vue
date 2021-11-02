@@ -20,16 +20,21 @@ import {Component, Vue, Prop} from 'vue-property-decorator';
 import {classNames, variationName} from '@/utilities/css';
 import {PIcon} from '@/components/PIcon';
 
+/**
+* <br/>
+* <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+*  sans-serif;">Footer help is used to refer merchants to more information related to the product or feature they’re
+*  using.</h4>
+*/
 @Component({
   components: { PIcon },
 })
-
 export default class PFooterHelp extends Vue {
 
   /**
    * Id for the element
    */
-  @Prop({type: String, default: null}) public id!: string;
+  @Prop({type: [String, Number], default: null}) public id!: string | number;
 
   /**
    * Url for the footer

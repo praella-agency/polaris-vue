@@ -31,6 +31,7 @@ export default {
                 type: {
                     summary: 'string',
                 },
+                category: 'Props | Slots',
             },
         },
         actions: {
@@ -59,6 +60,27 @@ export default {
                 },
             },
         },
+        children: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        footer: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        short_description: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
     },
 }
 
@@ -69,16 +91,16 @@ const Template = (arg, {argTypes}) => ({
     },
     template: `
       <PCard v-bind="$props">
-      <PCardHeader
+        <PCardHeader
           title="Sales"
           shortDescription="Sales Report"
           :actions="[
-          {
-            content: 'Total Sales',
-            to: '/to-route',
-          },
-      ]">
-      </PCardHeader>
+              {
+                content: 'Total Sales',
+                to: '/to-route',
+              }
+          ]"
+        />
         <PCardSection>
           View a summary of your online store’s performance.
         </PCardSection>
@@ -98,7 +120,7 @@ const Template1 = (args, {argTypes}) => ({
     },
     template: `
       <PCard v-bind="$props">
-          <PCardHeader title="Products"></PCardHeader>
+          <PCardHeader title="Products"/>
           <PCardSection>
             <PList>
               <PListItem>Samsung</PListItem>
@@ -148,87 +170,87 @@ const Template2 = (args, {argTypes}) => ({
     },
     template: `
       <PCard v-bind="$props">
-      <PCardHeader
-          title="Sales"
-          shortDescription="Sales Report"
-          :actions="[
-          {
-            content: 'Total Sales',
-            onAction: handleActionClick,
-          },
-      ]"
-          v-slot:children
-      >
-        <PPopover
-            id="CardHeaderPopover"
-            :active="statusFilterActive"
-            preferredAlignment="right"
-            @close="statusFilterActive = false"
+        <PCardHeader
+            title="Sales"
+            shortDescription="Sales Report"
+            :actions="[
+                {
+                content: 'Total Sales',
+                onAction: handleActionClick,
+                },
+            ]"
+            v-slot:children
         >
-          <PButton
-              slot="activator"
-              plain
-              :disclosure="statusFilterActive ? 'up' : 'down'"
-              @click.stop="statusFilterActive = !statusFilterActive"
-          >
-            Status
-          </PButton>
-          <PActionList slot="content"
-                       :items="[
-              {
-                content: 'Gross Sales'
-              },
-              {
-                content: 'Net Sales'
-              }
-          ]"
-          />
-        </PPopover>
-      </PCardHeader>
+            <PPopover
+                id="CardHeaderPopover"
+                :active="statusFilterActive"
+                preferredAlignment="right"
+                @close="statusFilterActive = false"
+            >
+              <PButton
+                  slot="activator"
+                  plain
+                  :disclosure="statusFilterActive ? 'up' : 'down'"
+                  @click.stop="statusFilterActive = !statusFilterActive"
+              >
+                Status
+              </PButton>
+              <PActionList slot="content"
+                           :items="[
+                  {
+                    content: 'Gross Sales'
+                  },
+                  {
+                    content: 'Net Sales'
+                  }
+              ]"
+              />
+            </PPopover>
+        </PCardHeader>
+        <PCardSection>
+            <PTextContainer>
+              You can use sales reports to see information about your customers’ orders
+              based on criteria such as sales over time, by channel, or by staff.
+            </PTextContainer>
+        </PCardSection>
 
-      <PCardSection>
-        <PTextContainer>
-          You can use sales reports to see information about your customers’ orders
-          based on criteria such as sales over time, by channel, or by staff.
-        </PTextContainer>
-      </PCardSection>
+        <PCardSection title="Total Sales Breakdown">
+            <PResourceList
+                :resource-name="{singular: 'Sale', plural: 'Sales'}"
+                :hideFilters="true"
+                :showHeader="false"
+            >
+              <PResourceListItem
+                  v-for="(item, key) in items"
+                  :key="key"
+                  :id="item.id"
+              >
+                <PStack>
+                  <PStackItem fill>{{ item.sales }}</PStackItem>
+                  <PStackItem>{{ item.amount }}</PStackItem>
+                </PStack>
+              </PResourceListItem>
+            </PResourceList>
+        </PCardSection>
 
-      <PCardSection title="Total Sales Breakdown">
-        <PResourceList
-            :resource-name="{singular: 'Sale', plural: 'Sales'}"
-            :hideFilters="false"
-        >
-          <PResourceListItem
-              v-for="(item, key) in items"
-              :key="key"
-              :id="item.id"
-          >
-            <PStack>
-              <PStackItem fill>{{ item.sales }}</PStackItem>
-              <PStackItem>{{ item.amount }}</PStackItem>
-            </PStack>
-          </PResourceListItem>
-        </PResourceList>
-      </PCardSection>
-
-      <PCardSection title="Deactivated reports" subdued>
-        <PList>
-          <PListItem>Payouts</PListItem>
-          <PListItem>Total Sales By Channel</PListItem>
-        </PList>
-      </PCardSection>
-
-      <PCardSection title="Note">
-        <PTextContainer>
-          The sales reports are available only if your store is on the Shopify plan
-          or higher.
-        </PTextContainer>
-      </PCardSection>
-
-      <PButtonGroup slot="footer">
-        <PButton @click="handleSecondaryButton">Dismiss</PButton>
-        <PButton primary @click="handlePrimaryButton">Export Report</PButton>
-      </PButtonGroup>
+        <PCardSection title="Deactivated reports" subdued>
+            <PList>
+              <PListItem>Payouts</PListItem>
+              <PListItem>Total Sales By Channel</PListItem>
+            </PList>
+        </PCardSection>
+        
+        <PCardSection title="Note">
+            <PTextContainer>
+              The sales reports are available only if your store is on the Shopify plan
+              or higher.
+            </PTextContainer>
+        </PCardSection>
+        
+        <PButtonGroup slot="footer">
+            <PButton @click="handleSecondaryButton">Dismiss</PButton>
+            <PButton primary @click="handlePrimaryButton">Export Report</PButton>
+        </PButtonGroup>
       </PCard>`,
     methods: {
         handleActionClick() {
@@ -247,5 +269,81 @@ export const AllElements = Template2.bind({});
 
 AllElements.args = {
     subdued: true,
-    actions: []
+}
+
+AllElements.parameters = {
+    docs:{
+        source: {
+            code: `
+<PCard :subdued="true">
+    <PCardHeader
+        title="Sales"
+        shortDescription="Sales Report"
+        :actions="[{content: 'Total Sales'}]"
+        v-slot:children
+    >
+        <PPopover
+            id="CardHeaderPopover"
+            :active="statusFilterActive"
+            preferredAlignment="right"
+        >
+            <PButton
+                slot="activator"
+                plain
+                :disclosure="statusFilterActive ? 'up' : 'down'"
+            >
+                Status
+            </PButton>
+            <PActionList 
+                slot="content"
+                :items="[{content: 'Gross Sales'},{content: 'Net Sales'}]"
+            />
+        </PPopover>
+    </PCardHeader>
+    <PCardSection>
+        <PTextContainer>
+            You can use sales reports to see information about your customers’ orders based on criteria such as sales
+            over time, by channel, or by staff.
+        </PTextContainer>
+    </PCardSection>
+    
+    <PCardSection title="Total Sales Breakdown">
+        <PResourceList
+            :resource-name="{singular: 'Sale', plural: 'Sales'}"
+            :hideFilters="true"
+            :showHeader="false"
+        >
+            <PResourceListItem
+              v-for="(item, key) in items"
+              :key="key"
+              :id="item.id"
+            >
+                <PStack>
+                    <PStackItem fill>{{ item.sales }}</PStackItem>
+                    <PStackItem>{{ item.amount }}</PStackItem>
+                </PStack>
+            </PResourceListItem>
+        </PResourceList>
+    </PCardSection>
+    
+    <PCardSection title="Deactivated reports" subdued>
+        <PList>
+            <PListItem>Payouts</PListItem>
+            <PListItem>Total Sales By Channel</PListItem>
+        </PList>
+    </PCardSection>
+    
+    <PCardSection title="Note">
+        <PTextContainer>
+            The sales reports are available only if your store is on the Shopify plan or higher.
+        </PTextContainer>
+    </PCardSection>
+    
+    <PButtonGroup slot="footer">
+        <PButton>Dismiss</PButton>
+        <PButton primary>Export Report</PButton>
+    </PButtonGroup>
+</PCard>`
+        },
+    },
 }

@@ -30,6 +30,7 @@
           </PFilterItemWrapper>
         </div>
         <div class="Polaris-Filters-ConnectedFilterControl__AuxiliaryContainer">
+          <!-- @slot Slot to add extra elements -->
           <slot name="auxiliaryContainer"/>
         </div>
       </div>
@@ -75,6 +76,11 @@
     hideClearButton?: boolean;
   }
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">Filters is a composite component that filters the items of a list or table.</h4>
+   */
   @Component({
     components: {
       PTextField, PIcon, PTag, PFilterItemWrapper,

@@ -11,18 +11,6 @@ import {classNames} from '@/utilities/css';
 import {ActionListSection, MenuActionDescriptor, MenuGroupDescriptor} from '@/types';
 import {PActionMenuActions, PActionMenuRollupActions} from './components';
 
-export interface ActionMenuProps {
-    actions?: MenuActionDescriptor[];
-    groups?: MenuGroupDescriptor[];
-    rollup?: boolean;
-}
-
-export function hasGroupsWithActions(groups: ActionMenuProps['groups'] = []) {
-    return groups.length === 0
-        ? false
-        : groups.some((group) => group.actions.length > 0);
-}
-
 @Component({
     components: {
         PActionMenuActions,

@@ -140,6 +140,12 @@
 
   type DropZoneFileType = 'file' | 'image';
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">The drop zone component lets users upload files by dragging and dropping the files into an area on a
+   *  page, or activating a button.</h4>
+   */
   @Component({
     components: {
       PIcon, PStack, PCaption, PDisplayText, PFileUpload, PLabelled, PDropZoneInput, PThumbnail, PStackItem,
@@ -164,7 +170,7 @@
     /**
      * ID for file input
      */
-    @Prop({type: String, default: `PDropZone${new Date().getUTCMilliseconds()}`}) public id!: string;
+    @Prop({type: [String, Number], default: `PDropZone${new Date().getUTCMilliseconds()}`}) public id!: string | number;
 
     /**
      * Allowed file types

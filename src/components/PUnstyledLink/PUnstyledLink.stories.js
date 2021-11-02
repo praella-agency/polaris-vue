@@ -3,6 +3,9 @@ import PUnstyledLink from './PUnstyledLink';
 export default {
     title: 'Navigation / Unstyled Link',
     component: PUnstyledLink,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         default: {
             table: {

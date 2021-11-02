@@ -22,6 +22,12 @@
         Errored = 'ERRORED',
     }
 
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">Avatars are used to show a thumbnail representation of an individual or business in the interface.
+     *  </h4>
+     */
     @Component({
         components: {
             PImage,
@@ -68,12 +74,13 @@
                 'Polaris-Avatar',
                 this.size && `Polaris-Avatar--${variationName('size', this.size)}`,
                 !this.customer && `Polaris-Avatar--${variationName('style', this.styleClass(this.nameString))}`,
+                (this.hasImage || (this.initials && this.initials.length === 0)) && status !== Status.Loaded && 'Polaris-Avatar--hidden',
                 this.hasImage && 'Polaris-Avatar--hasImage',
             );
         }
 
         public styleClass(name?: string) {
-            const finalStyleClasses = ['one', 'two', 'three', 'four', 'five', 'six'];
+            const finalStyleClasses = ['one', 'two', 'three', 'four', 'five'];
             return name ? finalStyleClasses[name.charCodeAt(0) % finalStyleClasses.length] : finalStyleClasses[0];
         }
     }

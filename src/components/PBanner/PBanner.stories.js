@@ -45,6 +45,17 @@ export default {
                 },
             },
         },
+        dismiss: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
+                },
+            },
+        },
     },
 }
 

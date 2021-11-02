@@ -13,6 +13,12 @@
     import {PIcon} from '@/components/PIcon';
     type Size = 'small' | 'medium' | 'large';
 
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">Use thumbnail as a visual anchor and identifier for an object. They should be used along with text
+     *  to provide context.</h4>
+     */
     @Component({
         components: {
             PImage, PIcon,

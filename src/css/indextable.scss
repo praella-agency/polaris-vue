@@ -1,0 +1,721 @@
+.Polaris-IndexTable {
+  position: relative;
+  overflow: hidden;
+}
+
+.Polaris-IndexTable__LoadingContainer--enter {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.Polaris-IndexTable--loadingContainerEnterActive {
+  opacity: 1;
+  transition: opacity 100ms ease-out, transform 100ms ease-out;
+  transform: translateY(0);
+}
+
+.Polaris-IndexTable__LoadingContainer--exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.Polaris-IndexTable--loadingContainerExitActive {
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 100ms ease-in, transform 100ms ease-in;
+}
+
+.Polaris-IndexTable__LoadingPanel {
+  position: absolute;
+  z-index: 37;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 1);
+  padding: 0.8rem 1.6rem;
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+}
+
+.Polaris-IndexTable__LoadingPanel .Polaris-IndexTable__LoadingPanelRow {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  background: rgba(235, 249, 252, 1);
+  padding: 0.8rem;
+  padding-bottom: 0.4rem;
+  border-radius: 0.4rem;
+}
+
+.Polaris-IndexTable__LoadingPanelText {
+  margin-left: 1.2rem;
+  color: rgba(32, 34, 35, 1);
+}
+
+.Polaris-IndexTable__Table {
+  width: 100%;
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+.Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--first, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--second {
+  visibility: visible;
+  background-color: rgba(255, 255, 255, 1);
+
+  &.Table-unselectable {
+    // stylelint-disable-next-line selector-max-class, selector-max-specificity
+    .TableHeading-second,
+    .TableCell:first-child {
+      visibility: visible;
+      filter: drop-shadow(1rem 0 0 rgba(225, 227, 229, 1));
+    }
+  }
+}
+
+.Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--first {
+  box-shadow: 0.1rem -0.1rem 0 0 rgba(225, 227, 229, 1);
+
+  &.Table-unselectable {
+    // stylelint-disable-next-line selector-max-class, selector-max-specificity
+    .TableHeading-second,
+    .TableCell:first-child {
+      visibility: visible;
+      filter: drop-shadow(1rem 0 0 rgba(225, 227, 229, 1));
+    }
+  }
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--first {
+    box-shadow: 0 -0.1rem 0 0 rgba(225, 227, 229, 1);
+
+    &.Table-unselectable {
+      // stylelint-disable-next-line selector-max-class, selector-max-specificity
+      .TableHeading-second,
+      .TableCell:first-child {
+        visibility: visible;
+        filter: drop-shadow(1rem 0 0 rgba(225, 227, 229, 1));
+      }
+    }
+  }
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell, .Polaris-IndexTable__Table--scrolling .Polaris-IndexTable__TableHeading--second {
+    box-shadow: 0.1rem -0.1rem 0 0 rgba(225, 227, 229, 1);
+
+    &.Table-unselectable {
+      // stylelint-disable-next-line selector-max-class, selector-max-specificity
+      .TableHeading-second,
+      .TableCell:first-child {
+        visibility: visible;
+        filter: drop-shadow(1rem 0 0 rgba(225, 227, 229, 1));
+      }
+    }
+  }
+}
+
+.Polaris-IndexTable__TableRow {
+  background-color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  filter: drop-shadow(0 -.1rem 0 rgba(225, 227, 229, 1));
+
+  &.TableRow-unclickable {
+    cursor: auto;
+  }
+}
+
+.Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSuccess, .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSuccess .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSuccess .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
+  background-color: rgba(241, 248, 245, 1);
+}
+
+.Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSubdued, .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSubdued .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable--statusSubdued .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
+  background-color: rgba(250, 251, 251, 1);
+}
+
+.Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--hovered, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--hovered .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--hovered .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
+  background-color: rgba(246, 246, 247, 1);
+}
+
+.Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableHeading--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableHeading--second, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableCell--first, .Polaris-IndexTable__TableRow.Polaris-IndexTable__TableRow--selected .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
+  background-color: rgba(242, 247, 254, 1);
+}
+
+.Polaris-IndexTable__TableRow--subdued {
+  color: rgba(109, 113, 117, 1);
+}
+
+.Polaris-IndexTable__TableHeading {
+  padding: 1.6rem;
+  text-align: left;
+  font-weight: 500;
+  white-space: nowrap;
+  border: 0;
+}
+
+.Polaris-IndexTable__TableHeading--first {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  padding-left: 1.4rem;
+  padding-right: 1.8rem;
+}
+
+.Polaris-IndexTable__ColumnHeaderCheckboxWrapper {
+  display: flex;
+}
+
+.Polaris-IndexTable__StickyColumnHeaderCheckbox {
+  margin-left: -0.2rem;
+  padding-right: 0.2rem;
+}
+
+.Polaris-IndexTable__TableHeading--second {
+  padding-left: 0;
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-IndexTable__TableHeading--second {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+.Polaris-IndexTable__TableHeading--last {
+  @media screen and (min-width: 457px) and (max-width: 688px) {
+    position: -webkit-sticky;
+    position: sticky;
+    right: 0;
+    z-index: auto;
+    background-color: rgba(255, 255, 255, 1);
+    filter: drop-shadow(-0.1rem 0 0 rgba(225, 227, 229, 1));
+  }
+}
+
+.Polaris-IndexTable__TableCell {
+  z-index: 1;
+  text-align: left;
+  padding: 0.8rem 1.6rem;
+  white-space: nowrap;
+  //box-shadow: 0 -0.1rem 0 0 rgba(225, 227, 229, 1);
+}
+
+.Polaris-IndexTable__TableCell--flush {
+  padding: 0;
+}
+
+.Polaris-IndexTable__TableCell--first {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  z-index: 30;
+  padding: 0;
+}
+
+:root {
+  --p-checkbox-offset: 0px;
+}
+
+.Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
+  left: var(--p-checkbox-offset);
+  padding-left: 0;
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-IndexTable__TableCell--first + .Polaris-IndexTable__TableCell {
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 30;
+    padding: 0;
+  }
+}
+
+.Polaris-IndexTable__StickyTable {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  visibility: hidden;
+  z-index: 37;
+}
+
+.Polaris-IndexTable__StickyTableHeader {
+  position: absolute;
+  display: flex;
+  width: 100%;
+}
+
+.Polaris-IndexTable__StickyTableHeader:not(.Polaris-IndexTable__StickyTableHeader--isSticky) {
+  top: -100rem;
+  left: -100rem;
+}
+
+.Polaris-IndexTable__StickyTableColumnHeader {
+  flex: 0 0 auto;
+}
+
+.Polaris-IndexTable__StickyTableColumnHeader--isScrolling {
+  box-shadow: 1px 1px 0 0 rgba(225, 227, 229, 1), 1px 0 1px 1px rgba(63, 63, 68, 0.05), 1px 0 3px 0 rgba(63, 63, 68, 0.15);
+}
+
+.Polaris-IndexTable__StickyTableHeadings {
+  overflow: hidden;
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.Polaris-IndexTable__StickyTableHeading--second {
+  padding-left: 0;
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-IndexTable__StickyTableHeading--second {
+    display: none;
+  }
+}
+
+.Polaris-IndexTable--stickyTableHeadingSecondScrolling {
+  padding: 0 0.06rem 0 1.6rem;
+  display: none;
+}
+
+@media (min-width: 28.625em) {
+  .Polaris-IndexTable--stickyTableHeadingSecondScrolling {
+    display: block;
+  }
+}
+
+.Polaris-IndexTable__StickyTableHeader--isSticky {
+  visibility: visible;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+}
+
+.Polaris-IndexTable:hover .Polaris-IndexTable__ScrollLeft {
+  display: block;
+}
+
+.Polaris-IndexTable:hover .Polaris-IndexTable__ScrollRight {
+  display: block;
+}
+
+.Polaris-IndexTable .Polaris-IndexTable__ScrollRight--onboarding {
+  display: block;
+}
+
+.Polaris-IndexTable__BulkActionsWrapper {
+  visibility: visible;
+  position: relative;
+  z-index: 36;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 1);
+}
+
+.Polaris-IndexTable__ScrollBarContainer {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 35;
+  bottom: 0;
+  padding: 0.2rem;
+  border-top: 0.1rem solid rgba(225, 227, 229, 1);
+  background-color: rgba(255, 255, 255, 1);
+  border-bottom-right-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+}
+
+.Polaris-IndexTable--scrollBarContainerCondensed {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.Polaris-IndexTable__ScrollBar {
+  overflow-x: scroll;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.Polaris-IndexTable__ScrollBar::-webkit-scrollbar-track {
+  border-radius: 0.4rem;
+  background-color: transparent;
+}
+
+.Polaris-IndexTable__ScrollBar::-webkit-scrollbar {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.8rem;
+  width: 0.8rem;
+  background-color: transparent;
+}
+
+.Polaris-IndexTable__ScrollBar::-webkit-scrollbar-thumb {
+  border-radius: 0.4rem;
+  background-color: rgba(186, 191, 195, 1);
+  -webkit-transition: background-color 100ms ease-out;
+  transition: background-color 100ms ease-out;
+}
+
+.Polaris-IndexTable__ScrollBar:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(87, 89, 89, 1);
+}
+
+.Polaris-IndexTable--disableTextSelection {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.Polaris-IndexTable--selectMode {
+  transform: translateY(-5.2rem);
+  margin-bottom: -5.2rem;
+}
+
+.Polaris-IndexTable__EmptySearchResultWrapper {
+  padding: 1.6rem;
+}
+
+.Polaris-IndexTable--condensedRow {
+  width: calc(100% + 3.4rem);
+  transform: translateX(-3.4rem);
+  transition: transform cubic-bezier(0.64, 0, 0.35, 1) 200ms;
+  display: flex;
+  border-top: 0.1rem solid rgba(225, 227, 229, 1);
+  filter: none;
+  align-items: center;
+}
+
+[data-selectmode='true'] .Polaris-IndexTable--condensedRow {
+  transform: none;
+}
+
+.Polaris-IndexTable__CondensedList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.Polaris-IndexTable__HeaderWrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 5.6rem;
+  padding: 1rem 1.6rem;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+}
+
+.Polaris-IndexTable__StickyTable--condensed {
+  visibility: visible;
+}
+
+.Polaris-IndexTable__StickyTableHeader--condensed {
+  padding: 1.6rem 1.6rem 0.8rem;
+}
+
+:root {
+  --p-scroll-bar-content-width: 0px;
+}
+
+.Polaris-IndexTable__ScrollBarContent {
+  height: 1px;
+  width: var(--p-scroll-bar-content-width);
+}
+
+
+.Polaris-IndexTable-Checkbox__TableCellContentContainer {
+  display: flex;
+  align-items: center;
+}
+
+.Polaris-IndexTable-Checkbox__Wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Polaris-IndexTable-Checkbox--expanded {
+  width: 3.2rem;
+  height: 3.2rem;
+  padding-left: 1.6rem;
+}
+
+.Polaris-IndexTable-Checkbox--condensed {
+  min-width: 5rem;
+  min-height: 4.4rem;
+  margin-right: -1.6rem;
+}
+
+
+.Polaris-IndexTable-ScrollContainer {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.Polaris-IndexTable-ScrollContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.Polaris-IndexTable-FirstStickyHeaderElement {
+  margin-left: 2rem;
+  padding-right: 2rem;
+}
+
+@mixin breakpoint-after($breakpoint, $inclusive: true) {
+  @media (min-width: #{breakpoint($breakpoint, if($inclusive, 0, 1px))}) {
+    @content;
+  }
+}
+
+.Polaris-IndexTable-StickyTableHeading-second-scrolling {
+  padding: 0 0.6rem 0 spacing();
+  display: none;
+
+  @include breakpoint-after(458px) {
+    display: block;
+  }
+}
+.Polaris-IndexTable-StickyTableHeading-second {
+  padding-left: 0;
+
+  @include breakpoint-after(458px) {
+    display: none;
+  }
+
+  &.unselectable {
+    display: none;
+  }
+}
+
+.Polaris-IndexTable-TableHeading-first {
+  position: sticky;
+  left: 0;
+  padding-left: 14rem;
+  padding-right: 18rem;
+}
+
+.Polaris-IndexTable-TableHeading-second {
+  &:not(.TableHeading-unselectable) {
+    padding-left: 0;
+
+    @include breakpoint-after(458px) {
+      position: sticky;
+      z-index: auto;
+      left: 0;
+    }
+  }
+
+  &.TableHeading-unselectable {
+    position: sticky;
+    z-index: auto;
+    left: 0;
+  }
+}
+
+$index-table-stacking-order: (
+        cell: 1,
+        sticky-cell: 31,
+        scroll-bar: 35,
+        bulk-actions: 36,
+        loading-panel: 37,
+);
+
+.Table-unselectable {
+  .TableCell:first-child {
+    left: 0;
+    background-color: rgba(255, 255, 255, 1);
+    position: sticky;
+    z-index: z-index(sticky-cell, $index-table-stacking-order);
+  }
+
+  .statusSuccess {
+    // stylelint-disable-next-line selector-max-combinators, selector-max-class, selector-max-specificity
+    .TableCell:first-child {
+      background-color: rgba(241, 248, 245, 1);
+    }
+  }
+
+  .statusSubdued {
+    // stylelint-disable-next-line selector-max-combinators, selector-max-class, selector-max-specificity
+    .TableCell:first-child {
+      background-color: rgba(250, 251, 251, 1);
+    }
+  }
+
+  .TableRow-hovered {
+    // stylelint-disable-next-line selector-max-combinators, selector-max-class, selector-max-specificity
+    .TableCell:first-child {
+      background-color: rgba(246, 246, 247, 1);
+    }
+  }
+}
+
+.Polaris-IndexTable__TableCell--last-child {
+  @media screen and (min-width: 457px) and (max-width: 688px) {
+    position: sticky;
+    right: 0;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: z-index(sticky-cell, $index-table-stacking-order);
+    filter: drop-shadow(-0.1rem 0 0 rgba(225, 227, 229, 1));
+  }
+}
+
+.Polaris-IndexTable__TableHeading-last{
+  @media screen and (min-width: 457px) and (max-width: 688px) {
+    position: sticky;
+    right: 0;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: auto;
+  }
+}
+
+.Polaris-IndexTable__Table-sticky-scrolling, .Polaris-IndexTable__TableCell--last-child, .Polaris-IndexTable__TableHeading--last {
+  @media screen and (min-width: 457px) {
+    filter: drop-shadow(-1rem 0 0 rgba(225, 227, 229, 1));
+  }
+}
+
+.Polaris-IndexTable-Table-sticky-last {
+  // stylelint-disable selector-max-class, selector-max-combinators, selector-max-specificity
+  .Polaris-IndexTable-statusSuccess {
+    .Polaris-IndexTable__TableCell:last-child {
+      background-color: rgba(241, 248, 245, 1);
+    }
+  }
+
+  .Polaris-IndexTable-statusSubdued {
+    .Polaris-IndexTable__TableCell:last-child {
+      background-color: rgba(250, 251, 251, 1);
+    }
+  }
+
+  .Polaris-IndexTable-TableRow-hovered {
+    .Polaris-IndexTable__TableCell:last-child {
+      background-color: rgba(246, 246, 247, 1);
+    }
+  }
+
+  .Polaris-IndexTable-TableRow-selected {
+    .Polaris-IndexTable__TableCell:last-child {
+      background-color: rgba(242, 247, 254, 1);
+    }
+  }
+}
+
+$spacing-data: (
+        'none': 0,
+        'extra-tight': 4px,
+        'tight': 8px,
+        'base-tight': 12px,
+        'base': 16px,
+        'loose': 20px,
+        'extra-loose': 32px,
+);
+
+$global-elements: (
+        content: 100,
+        overlay: 400,
+);
+
+@function z-index($element, $context: $global-elements) {
+  $index: map-get($context, $element);
+
+  @if $index {
+    @return $index;
+  } @else {
+    @error 'z-index `#{$element}` in `#{$context}` not found.';
+  }
+}
+
+@function spacing($variant: base) {
+  $fetched-value: map-get($spacing-data, $variant);
+
+  @if type-of($fetched-value) == number {
+    @return rem($fetched-value);
+  } @else {
+    @error 'Spacing variant `#{$variant}` not found. Available variants: #{available-names($spacing-data)}';
+  }
+}
+
+@function available-names($map, $level: 1) {
+  @if type-of($map) != 'map' {
+    @return null;
+  }
+
+  $output: '';
+  $newline: '\A ';
+
+  @if $level == 1 {
+    @each $key, $value in $map {
+      $output: $output +
+        '#{$newline}- #{$key} #{available-names($value, $level + 1)}';
+    }
+  } @else {
+    $output: '(';
+    $i: 1;
+
+    @each $key, $value in $map {
+      $sep: if($i < length($map), ', ', '');
+      $output: $output + '#{$key}#{$sep}#{available-names($value, $level + 1)}';
+      $i: $i + 1;
+    }
+
+    $output: $output + ')';
+  }
+
+  @return $output;
+}
+
+@function rem($value) {
+  $unit: unit($value);
+
+  @if $value == 0 {
+    @return 0;
+  } @else if $unit == 'rem' {
+    @return $value;
+  } @else if $unit == 'px' {
+    @return $value / 10px * 1rem;
+  } @else if $unit == 'em' {
+    @return $unit / 1em * 1rem;
+  } @else {
+    @error 'Value must be in px, em, or rem.';
+  }
+}
+
+@function em($value) {
+  $unit: unit($value);
+
+  @if $value == 0 {
+    @return 0;
+  } @else if $unit == 'em' {
+    @return $value;
+  } @else if $unit == 'rem' {
+    @return $value / 1rem * 1em * (10pc / 16px);
+  } @else if $unit == 'px' {
+    @return $value / 16px * 1em;
+  } @else {
+    @error 'Value must be in px, rem, or em.';
+  }
+}
+
+@function breakpoint($value, $adjustment: 0) {
+  $adjusted-value: em($adjustment);
+
+  // Reduces chances to have a style void
+  // between two media queries
+  // See https://github.com/sass-mq/sass-mq/issues/6
+  @if $adjustment == -1px {
+    $adjusted-value: -0.01em;
+  } @else if $adjustment == 1px {
+    $adjusted-value: 0.01em;
+  }
+
+  @return em($value) + $adjusted-value;
+}

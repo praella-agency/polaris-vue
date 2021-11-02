@@ -20,7 +20,7 @@
         <slot name="connectedRight">{{ connectedRight }}</slot>
       </template>
 
-      <PInput v-bind="[$attrs, $props]" v-on="$listeners" :hasError="!!error" :id="id">
+      <PInput v-bind="[$attrs, $props]" v-on="$listeners" :hasError="!!error" :id="id" @input="handleInput">
         <!-- @slot Field prefix -->
         <slot name="prefix" slot="prefix"></slot>
         <!-- @slot Field suffix -->
@@ -43,6 +43,12 @@
   import PConnected from '../PConnected/PConnected.vue';
   import {PFieldError} from '@/components/PFieldError';
 
+  /**
+   * <br/>
+   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+   *  sans-serif;">A text field is an input field that merchants can type into. It has a range of options and supports
+   *  several text formats including numbers.</h4>
+   */
   @Component({
     components: { PInput, PConnected, PFieldError },
   })
@@ -56,7 +62,7 @@
     /**
      * Text field id
      */
-    @Prop({type: String, default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string;
+    @Prop({type: [String, Number], default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string | number;
 
     /**
      * Text field label class
@@ -112,6 +118,27 @@
      * @values true | false
      */
     @Prop({type: Boolean, default: false}) public clearable!: boolean;
+
+    /**
+     * **For input type:- file**
+     *
+     * A Boolean which, if present, indicates that the user may choose more than one file
+     */
+    @Prop({type: Boolean, default: false}) public multiple!: boolean;
+
+    /**
+     * **For input type:- file**
+     *
+     * One or more unique file type specifiers describing file types to allow
+     */
+    @Prop({type: String, default: null}) public accept!: string;
+
+    public handleInput(value) {
+        /**
+         * Get inserted data
+         */
+        this.$emit('input', value);
+    }
   }
 </script>
 

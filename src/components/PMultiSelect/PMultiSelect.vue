@@ -8,6 +8,10 @@
       </div>
     </div>
     <div :class="className">
+      <!--
+       Triggers on searchChange
+       @event searchChange
+       -->
       <multiselect
           :id="id"
           v-model="computedValue"
@@ -51,8 +55,6 @@
 import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import Multiselect from 'vue-multiselect';
 import {classNames} from '@/utilities/css';
-
-
 import {PIcon} from '@/components/PIcon';
 import {PTag} from '@/components/PTag';
 import {PFieldError} from '@/components/PFieldError';
@@ -68,7 +70,6 @@ interface StrictOption {
 @Component({
   components: {PIcon, Multiselect, PTag, PFieldError},
 })
-
 export default class PMultiSelect extends Vue {
   /**
    * Disable the PMultiSelect.
@@ -139,7 +140,8 @@ export default class PMultiSelect extends Vue {
    */
   @Prop({type: Boolean, default: true}) public multiple!: boolean;
 
-  public id = `PolarisMultiSelect${new Date().getUTCMilliseconds()}`;
+  @Prop({type: [String, Number], default: `PolarisMultiSelect${(new Date()).getTime()}`}) public id!: string | number;
+
   public selected = this.value;
 
   public get computedOptions() {

@@ -26,6 +26,11 @@
     import {PUnstyledLink} from '@/components/PUnstyledLink';
     import {PIcon} from '@/components/PIcon';
 
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">Links take users to another place, and usually appear within or directly following a sentence.</h4>
+     */
     @Component({
         components: { PButton, PUnstyledLink, PIcon },
     })
@@ -34,7 +39,7 @@
         /**
          * ID for the link.
          */
-        @Prop({type: String, default: null}) public id!: string;
+        @Prop({type: [String, Number], default: null}) public id!: string | number;
 
         /**
          * The url to link to.

@@ -38,15 +38,15 @@ export default {
      * Form group Id
      */
     id: {
-      type: String,
-      default: `PolarisFormLayout${new Date().getUTCMilliseconds()}`
+      type: [String, Number],
+      default: `PolarisFormLayout${new Date().getUTCMilliseconds()}`,
     },
     /**
      * Form group title
      */
     title: {
       type: String,
-      default: null
+      default: null,
     },
     /**
      * Form group helpText
@@ -70,7 +70,7 @@ export default {
     grouped: {
       type: Boolean,
       default: true,
-    }
+    },
   },
   computed: {
     className() {
@@ -80,5 +80,5 @@ export default {
       );
     },
   },
-}
+};
 </script>

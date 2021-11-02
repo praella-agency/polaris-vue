@@ -57,6 +57,20 @@ export default {
                 },
             },
         },
+        actions: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        footer: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
     },
 }
 

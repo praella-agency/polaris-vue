@@ -54,6 +54,11 @@ interface PrimaryAction
     primary?: boolean;
 }
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Use to build the outer wrapper of a page, including the page title and associated actions.</h4>
+ */
 @Component({
     components: {
         PPageHeader,

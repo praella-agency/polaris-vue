@@ -1,6 +1,5 @@
 <template>
   <span :class="className" :style="{'background-color': background, 'color': color}">
-    <span v-if="status" class="Polaris-VisuallyHidden">{{ status }}</span>
     <span v-if="progress" class="Polaris-Badge__Pip">
       <span class="Polaris-VisuallyHidden">{{ progress }}</span>
     </span>
@@ -36,6 +35,12 @@
 
     const DEFAULT_SIZE = 'medium';
 
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">Badges are used to inform merchants of the status of an object or of an action that’s been taken.
+     *  </h4>
+     */
     @Component
     export default class PBadge extends Vue {
 

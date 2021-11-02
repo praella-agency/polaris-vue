@@ -1,376 +1,572 @@
 .Polaris-Frame-Loading {
-	overflow: hidden;
-	height: .3rem;
-	background-color: $frame-loading-bgcolor;
-	opacity: 1;
-}
-.Polaris-Frame-Loading__Level {
-	width: 100%;
-	height: 100%;
-	transform-origin: 0;
-	background-color: $frame-loading-level-bgcolor;
-	transition: transform .5s cubic-bezier(0,0,.42,1);
+  overflow: hidden;
+  height: 0.3rem;
+  background-color: rgba(255, 255, 255, 1);
+  opacity: 1;
 }
 
+.Polaris-Frame-Loading__Level {
+  width: 100%;
+  height: 100%;
+  transform-origin: 0;
+  background-color: rgba(0, 127, 95, 1);
+  transition: transform 500ms linear;
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .Polaris-Frame-Loading__Level {
+    background-color: highlight;
+  }
+}
 
 .Polaris-Frame-ContextualSaveBar {
-	display: flex;
-	height: 5.6rem;
-	background-color: $frame-contextualsavebar-bgcolor;
-	box-shadow: $frame-contextualsavebar-box-shadow;
-	&:after {
-		content: "";
-		position: absolute;
-		bottom: 0;
-		width: 100%;
-		border-bottom: 1px solid transparent;
-	}
+  display: flex;
+  height: 5.6rem;
+  background: rgba(32, 33, 35, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.Polaris-Frame-ContextualSaveBar .Polaris-Frame-ContextualSaveBar__LogoContainer {
+  border-right: none;
+}
+
+.Polaris-Frame-ContextualSaveBar .Polaris-Frame-ContextualSaveBar__ContextControl {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.Polaris-Frame-ContextualSaveBar .Polaris-Frame-ContextualSaveBar__Message {
+  color: rgba(227, 229, 231, 1);
+}
+
+@media (forced-colors: active) {
+  .Polaris-Frame-ContextualSaveBar {
+    border: 0.1rem solid transparent;
+  }
+}
+
 .Polaris-Frame-ContextualSaveBar__LogoContainer {
-	display: none;
-	@media (min-width:48.0625em) {
-		display: flex;
-		flex: 0 0 24rem;
-		align-items: center;
-		height: 100%;
-		padding: 0 1.6rem;
-		border-right: $frame-contextualsavebar-logocontainer-border;
-		background-color: $frame-contextualsavebar-logocontainer-bgcolor;
-	}
+  display: none;
 }
+
+@media (min-width: 48.0625em) {
+  .Polaris-Frame-ContextualSaveBar__LogoContainer {
+    display: flex;
+    flex: 0 0 24rem;
+    align-items: center;
+    height: 100%;
+    padding: 0 1.6rem;
+    background-color: transparent;
+  }
+}
+
 .Polaris-Frame-ContextualSaveBar__Contents {
-	display: flex;
-	flex: 1 1 auto;
-	align-items: center;
-	justify-content: space-between;
-	min-width: 1px;
-	max-width: 99.8rem;
-	height: 100%;
-	margin: 0 auto;
-	padding: 0 1.6rem;
-	@media (min-width:30.625em) {
-		padding: 0 2rem;
-	}
-	@media (min-width:46.5em) {
-		padding: 0 3.2rem;
-	}
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 1px;
+  max-width: 99.8rem;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 1.6rem;
 }
 
-@media (max-width:48.0625em) and (min-width:30.625em),(min-width:45.625em) {
-	[data-has-navigation] .Polaris-Frame-ContextualSaveBar__Contents {
-		padding: 0 2rem;
-	}
+@media (max-width: 48.0625em) and (min-width: 30.625em), (min-width: 45.625em) {
+  [data-has-navigation] .Polaris-Frame-ContextualSaveBar__Contents {
+    padding: 0 2rem;
+  }
 }
 
-@media (max-width:48.0625em) and (min-width:46.5em),(min-width:61.5em) {
-	[data-has-navigation] .Polaris-Frame-ContextualSaveBar__Contents {
-		padding: 0 3.2rem;
-	}
+@media (min-width: 30.625em) {
+  .Polaris-Frame-ContextualSaveBar__Contents {
+    padding: 0 2rem;
+  }
+}
+
+@media (max-width: 48.0625em) and (min-width: 46.5em), (min-width: 61.5em) {
+  [data-has-navigation] .Polaris-Frame-ContextualSaveBar__Contents {
+    padding: 0 3.2rem;
+  }
+}
+
+@media (min-width: 46.5em) {
+  .Polaris-Frame-ContextualSaveBar__Contents {
+    padding: 0 3.2rem;
+  }
+}
+
+.Polaris-Frame-ContextualSaveBar--fullWidth {
+  max-width: none;
+  padding: 0 1.6rem;
 }
 
 .Polaris-Frame-ContextualSaveBar__Message {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	font-size: $frame-contextualsavebar-message-font-size;
-	font-weight: $frame-contextualsavebar-message-font-weight;
-	line-height: $frame-contextualsavebar-message-line-height;
-	color: $frame-contextualsavebar-message-color;
-	@media (min-width:40em) {
-		font-size: $frame-contextualsavebar-message-media-font-size;
-	}
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  color: rgba(153, 159, 164, 1);
 }
+
+@media (min-width: 40em) {
+  .Polaris-Frame-ContextualSaveBar__Message {
+    font-size: 1.6rem;
+  }
+}
+
 .Polaris-Frame-ContextualSaveBar__ActionContainer {
-	flex-shrink: 0;
+  flex-shrink: 0;
 }
+
 .Polaris-Frame-ContextualSaveBar__Action {
-	margin-left: .8rem;
+  margin-left: 0.8rem;
 }
+
+.Polaris-Frame-ContextualSaveBar__ContextControl {
+  display: none;
+}
+
+@media (min-width: 48.0625em) {
+  .Polaris-Frame-ContextualSaveBar__ContextControl {
+    display: block;
+    width: 24rem;
+  }
+}
+
+
 .Polaris-Frame-CSSAnimation--startFade {
-	opacity: 0;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	will-change: opacity;
-	transition: opacity .3s cubic-bezier(0,0,.42,1);
-	pointer-events: none;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: opacity;
+  transition: opacity 300ms cubic-bezier(0, 0, 0.42, 1);
+  pointer-events: none;
 }
+
 .Polaris-Frame-CSSAnimation--endFade {
-	opacity: 1;
-	pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
+
+:root {
+  --p-frame-offset: 0px;
+}
+
 .Polaris-Frame {
-	width: 100%;
-	min-height: 100vh;
-	display: flex;
-	background-color: $frame-bgcolor;
-	@media print {
-		background-color: none;
-	}
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  background-color: rgba(246, 246, 247, 1);
 }
+
+@media print {
+  .Polaris-Frame {
+    background-color: transparent;
+  }
+}
+
+@media (min-width: 48.0625em) {
+  .Polaris-Frame {
+    width: calc(100% - var(--p-frame-offset));
+    margin-left: var(--p-frame-offset);
+  }
+}
+
 .Polaris-Frame__Navigation {
-	position: fixed;
-	z-index: 516;
-	top: 0;
-	left: 0;
-	display: none;
-	flex: 0 0 auto;
-	align-items: stretch;
-	height: 100%;
-	outline: none;
-	transform: translateX(0);
-	@media print {
-		display: none!important;
-	}
-	@media (min-width:48.0625em) {	
-		z-index: 1;
-		top: 5.6rem;
-		display: flex;
-		height: calc(100% - 5.6rem);
-	}
-	&:focus {
-		outline: none;
-	}
+  position: fixed;
+  z-index: 516;
+  top: 0;
+  left: 0;
+  display: none;
+  flex: 0 0 auto;
+  align-items: stretch;
+  height: 100%;
+  outline: none;
+  transform: translateX(0%);
 }
-.Polaris-Frame__Navigation--enter {
-	display: flex;
-	transform: translateX(-100%);
+
+@media print {
+  .Polaris-Frame__Navigation {
+    display: none !important;
+  }
 }
-.Polaris-Frame__Navigation--enterActive {
-	display: flex;
-	transform: translateX(0);
-	transition: transform .3s cubic-bezier(0,0,.42,1);
+
+@media (min-width: 48.0625em) {
+  .Polaris-Frame__Navigation {
+    z-index: 1;
+    left: var(--p-frame-offset);
+    display: flex;
+  }
+  .Polaris-Frame--hasTopBar .Polaris-Frame__Navigation {
+    top: 5.6rem;
+    height: calc(100% - 5.6rem);
+  }
 }
-.Polaris-Frame__Navigation--exit {
-	display: flex;
-	transform: translateX(0);
+
+.Polaris-Frame__Navigation:focus {
+  outline: none;
 }
+
+.Polaris-Frame__Navigation--enter,
+.Polaris-Frame__Navigation--enterActive,
+.Polaris-Frame__Navigation--exit,
 .Polaris-Frame__Navigation--exitActive {
-	display: flex;
-	transform: translateX(-100%);
-	transition: transform .3s cubic-bezier(0,0,.42,1);
+  display: flex;
 }
+
+.Polaris-Frame__Navigation--display {
+  display: flex;
+}
+
+.Polaris-Frame__Navigation--enter {
+  transform: translateX(-100%);
+}
+
+.Polaris-Frame__Navigation--enterActive {
+  transform: translateX(0%);
+  transition: transform 300ms cubic-bezier(0, 0, 0.42, 1);
+}
+
+.Polaris-Frame__Navigation--exit {
+  transform: translateX(0%);
+}
+
+.Polaris-Frame__Navigation--exitActive {
+  transform: translateX(-100%);
+  transition: transform 300ms cubic-bezier(0, 0, 0.42, 1);
+}
+
 .Polaris-Frame__NavigationDismiss {
-	position: absolute;
-	top: 0;
-	left: 100%;
-	width: 3.2rem;
-	height: 3.2rem;
-	margin: 1.6rem;
-	padding: 0;
-	border: $frame-navigationdismiss-border;
-	background: $frame-navigationdismiss-bgcolor;
-	opacity: 0;
-	pointer-events: none;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	will-change: opacity;
-	cursor: pointer;
-	transition: opacity .1s cubic-bezier(.64,0,.35,1);
-	@media print {
-		display: none!important;
-	}
-	@media (min-width:48.0625em) {
-		display: none;
-	}
-	&:focus {
-		border-radius: $frame-navigationdismiss-focus-border-radius;
-		background-color: $frame-navigationdismiss-focus-bgcolor;
-		outline: none;
-	}
+  position: relative;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 3.2rem;
+  height: 3.2rem;
+  margin: 1.6rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: opacity;
+  cursor: pointer;
+  transition: opacity 100ms cubic-bezier(0.64, 0, 0.35, 1);
 }
-.Polaris-Frame__Navigation--visible {
-	.Polaris-Frame__NavigationDismiss {
-		pointer-events: all;
-		opacity: 1;
-	}
+
+@media print {
+  .Polaris-Frame__NavigationDismiss {
+    display: none !important;
+  }
 }
+
+.Polaris-Frame__NavigationDismiss svg {
+  fill: rgba(255, 255, 255, 1);
+}
+
+.Polaris-Frame__NavigationDismiss::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: -0.1rem;
+  right: -0.1rem;
+  bottom: -0.1rem;
+  left: -0.1rem;
+  display: block;
+  pointer-events: none;
+  box-shadow: 0 0 0 -0.1rem rgba(69, 143, 255, 1);
+  transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+  border-radius: calc(0.4rem + 0.1rem);
+}
+
+.Polaris-Frame__Navigation--visible .Polaris-Frame__NavigationDismiss {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.Polaris-Frame__NavigationDismiss:focus {
+  position: absolute;
+  border-radius: 3px;
+  background-color: var(transparent, rgba(255, 255, 255, 0.16));
+  outline: none;
+}
+
+.Polaris-Frame__NavigationDismiss:focus::after {
+  box-shadow: 0 0 0 0.2rem rgba(69, 143, 255, 1);
+  outline: 0.1rem solid transparent;
+}
+
+@media (min-width: 48.0625em) {
+  .Polaris-Frame__NavigationDismiss {
+    display: none;
+  }
+}
+
+.Polaris-Frame__NavigationDismiss:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.Polaris-Frame__NavigationDismiss:active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 .Polaris-Frame__TopBar {
-	position: fixed;
-	z-index: 512;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 5.6rem;
-	@media print {
-		display: none!important;	
-	}
+  position: fixed;
+  z-index: 512;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5.6rem;
 }
+
+@media print {
+  .Polaris-Frame__TopBar {
+    display: none !important;
+  }
+}
+
+@media (min-width: 48.0625em) {
+  .Polaris-Frame__TopBar {
+    left: var(--p-frame-offset);
+    width: calc(100% - var(--p-frame-offset));
+  }
+}
+
 .Polaris-Frame__ContextualSaveBar {
-	position: fixed;
-	z-index: 513;
-	top: 0;
-	left: 0;
-	width: 100%;
+  position: fixed;
+  z-index: 513;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
+
+@media (min-width: 48.0625em) {
+  .Polaris-Frame__ContextualSaveBar {
+    left: var(--p-frame-offset);
+    width: calc(100% - var(--p-frame-offset));
+  }
+}
+
 .Polaris-Frame__Main {
-	flex: 1 1;
-	display: flex;
-	align-items: stretch;
-	min-width: 0;
-	max-width: 100%;
-	padding-right: calc(0px + env(safe-area-inset-right));
-	padding-left: calc(0px + env(safe-area-inset-left));
-	padding-bottom: calc(0px + env(safe-area-inset-bottom));
+  flex: 1 1;
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  max-width: 100%;
+  padding-right: 0px;
+  padding-right: calc(constant(safe-area-inset-right));
+  padding-right: calc(env(safe-area-inset-right));
+  padding-left: 0px;
+  padding-left: calc(constant(safe-area-inset-left));
+  padding-left: calc(env(safe-area-inset-left));
+  padding-bottom: 0px;
+  padding-bottom: calc(constant(safe-area-inset-bottom));
+  padding-bottom: calc(env(safe-area-inset-bottom));
 }
 
-@media (min-width:48.0625em) {
-	.Polaris-Frame--hasNav .Polaris-Frame__Main {
-		padding-left: calc(24rem + env(safe-area-inset-left));
-	}
+@media (min-width: 48.0625em) {
+  .Polaris-Frame--hasNav .Polaris-Frame__Main {
+    padding-left: 24rem;
+    padding-left: 24rem;
+    padding-left: calc(24rem + constant(safe-area-inset-left));
+    padding-left: calc(24rem + env(safe-area-inset-left));
+  }
 }
 
-@media print and (min-width:48.0625em) {
-	.Polaris-Frame--hasNav .Polaris-Frame__Main {
-		padding-left: 0;
-	}
+@media print and (min-width: 48.0625em) {
+  .Polaris-Frame--hasNav .Polaris-Frame__Main {
+    padding-left: 0;
+  }
 }
 
-.Polaris-Frame--hasTopBar {
-	.Polaris-Frame__Main {
-		padding-top: 5.6rem;
-		@media print {
-			padding-top: 0;
-		}
-	}
+.Polaris-Frame--hasTopBar .Polaris-Frame__Main {
+  padding-top: 5.6rem;
 }
 
-
+@media print {
+  .Polaris-Frame--hasTopBar .Polaris-Frame__Main {
+    padding-top: 0;
+  }
+}
 
 .Polaris-Frame__Content {
-	padding-bottom: var(--global-ribbon-height,0);
-	flex: 1 1;
-	min-width: 0;
-	max-width: 100%;
-}
-.Polaris-Frame__GlobalRibbonContainer {
-	position: fixed;
-	z-index: 510;
-	bottom: 0;
-	width: 100%;
+  position: relative;
+  padding-bottom: 0;
+  flex: 1 1;
+  min-width: 0;
+  max-width: 100%;
 }
 
-@media (min-width:48.0625em) {
-	.Polaris-Frame--hasNav .Polaris-Frame__GlobalRibbonContainer {
-		left: 24rem;
-		left: calc(24rem + constant(safe-area-inset-left));
-		left: calc(24rem + env(safe-area-inset-left));
-		width: calc(100% - 24rem);
-	}
+.Polaris-Frame__GlobalRibbonContainer {
+  position: fixed;
+  z-index: 510;
+  bottom: 0;
+  width: 100%;
+}
+
+@media (min-width: 48.0625em) {
+  .Polaris-Frame__GlobalRibbonContainer {
+    left: 0;
+  }
+  .Polaris-Frame--hasNav .Polaris-Frame__GlobalRibbonContainer {
+    left: 24rem;
+    left: 24rem;
+    left: calc(24rem + 0 + constant(safe-area-inset-left));
+    left: calc(24rem + var(--p-frame-offset) + env(safe-area-inset-left));
+    width: calc(100% - 24rem - var(--p-frame-offset));
+  }
 }
 
 .Polaris-Frame__LoadingBar {
-	position: fixed;
-	z-index: 514;
-	top: 0;
-	right: 0;
-	left: 0;
-	@media print {
-		display: none!important;
-	}
+  position: fixed;
+  z-index: 514;
+  top: 0;
+  right: 0;
+  left: 0;
 }
 
-@media (min-width:48.0625em) {
-	.Polaris-Frame--hasTopBar .Polaris-Frame__LoadingBar {
-		top: var(--p-override-zero,5.6rem);
-		z-index: var(--p-override-loading-z-index,511);
-	}
+@media print {
+  .Polaris-Frame__LoadingBar {
+    display: none !important;
+  }
+}
+
+@media (min-width: 48.0625em) {
+  .Polaris-Frame--hasNav .Polaris-Frame__LoadingBar {
+    left: 0;
+  }
+  .Polaris-Frame--hasTopBar .Polaris-Frame__LoadingBar {
+    top: var($p-override-zero, 5.6rem);
+    z-index: var($p-override-loading-z-index, 511);
+  }
 }
 
 .Polaris-Frame__Skip {
-	position: fixed;
-	z-index: 517;
-	top: 1rem;
-	left: .8rem;
-	opacity: 0;
-	pointer-events: none;
+  position: fixed;
+  z-index: 517;
+  top: 1rem;
+  left: calc(0.8rem + var(--p-frame-offset));
+  opacity: 0;
+  pointer-events: none;
 }
+
 .Polaris-Frame__Skip.Polaris-Frame--focused {
-	pointer-events: all;
-	opacity: 1;
+  pointer-events: all;
+  opacity: 1;
 }
-.Polaris-Frame__SkipAnchor {
-	position: relative;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 3.6rem;
-	min-width: 3.6rem;
-	margin: 0;
-	padding: .7rem 1.6rem;
-	background: $frame-skipanchor-bgcolor;
-	border: $frame-skipanchor-border;
-	box-shadow: $frame-skipanchor-box-shadow;
-	border-radius: $frame-skipanchor-border-radius;
-	line-height: $frame-skipanchor-line-height;
-	color: $frame-skipanchor-color;
-	text-align: center;
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	text-decoration: none;
-	transition-property: background,border,box-shadow;
-	transition-duration: .2s;
-	transition-timing-function: cubic-bezier(.64,0,.35,1);
-	-webkit-tap-highlight-color: transparent;
-	svg {
-		fill: $frame-skipanchor-svg-fill;
-	}
-	&:hover {
-		background: $frame-skipanchor-hover-bgcolor;
-		border-color: $frame-skipanchor-hover-border-color;
-	}
-	&:focus {
-		border-color: $frame-skipanchor-focus-border-color;
-		outline: 0;
-		box-shadow: $frame-skipanchor-focus-box-shadow;
-	}
-	&:active {
-		background: $frame-skipanchor-active-bgcolor;
-		border-color: $frame-skipanchor-active-border-color;
-		box-shadow: $frame-skipanchor-active-box-shadow;
-	}
+
+.Polaris-Frame__Skip.Polaris-Frame--focused > a::after {
+  box-shadow: 0 0 0 0.2rem rgba(69, 143, 255, 1);
+  outline: 0.1rem solid transparent;
 }
-/*
-.Polaris-Frame__SkipAnchor.Polaris-Frame--globalTheming {
-	background: var(--p-neutral-action);
-	border: none;
-	box-shadow: none;
-	border-radius: var(--p-border-radius-base);
-	color: var(--p-text-on-surface);
-	svg {
-		fill: var(--p-icon-on-surface);
-	}
-	&:hover {
-		background: var(--p-neutral-action-hovered);
-		border-color: transparent;
-	}
-	&:focus {
-		border-color: transparent;
-		box-shadow: none;
-		position: relative;
-		&:after {
-			content: var(--p-non-null-content,none);
-			position: absolute;
-			z-index: 1;
-			top: -.3rem;
-			right: -.3rem;
-			bottom: -.3rem;
-			left: -.3rem;
-			display: block;
-			border: .2rem solid var(--p-interactive-focus);
-			border-radius: calc(var(--p-border-radius-base) + .3rem);
-			pointer-events: none;
-		}
-	}
-	&:active {
-		background: var(--p-neutral-action-pressed);
-		border-color: transparent;
-		box-shadow: none;
-		&:after {
-			border: none;
-		}
-	}
+
+.Polaris-Frame__Skip > a {
+  position: relative;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.6rem;
+  min-width: 3.6rem;
+  margin: 0;
+  padding: 0.7rem 1.6rem;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 0.4rem;
+  color: rgba(32, 34, 35, 1);
+  border: 1px solid rgba(186, 191, 195, 1);
+  border-top-color: rgba(201, 204, 207, 1);
+  border-bottom-color: rgba(186, 191, 196, 1);
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  font-size: 1.5rem;
+  font-weight: var($p-button-font-weight, 400);
+  line-height: 1.6rem;
+  text-transform: initial;
+  letter-spacing: initial;
+  position: relative;
+  color: rgba(32, 34, 35, 1);
 }
-*/
+
+.Polaris-Frame__Skip > a svg {
+  fill: rgba(92, 95, 98, 1);
+}
+
+.Polaris-Frame__Skip > a::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: -0.2rem;
+  right: -0.2rem;
+  bottom: -0.2rem;
+  left: -0.2rem;
+  display: block;
+  pointer-events: none;
+  box-shadow: 0 0 0 -0.2rem rgba(69, 143, 255, 1);
+  transition: box-shadow 100ms cubic-bezier(0.4, 0.22, 0.28, 1);
+  border-radius: calc(0.4rem + 0.1rem);
+}
+
+.Polaris-Frame__Skip > a:hover {
+  background: rgba(246, 246, 247, 1);
+  outline: 0.1rem solid transparent;
+}
+
+.Polaris-Frame__Skip > a:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  outline: 0;
+}
+
+.Polaris-Frame__Skip > a:focus::after {
+  box-shadow: 0 0 0 0.2rem rgba(69, 143, 255, 1);
+  outline: 0.1rem solid transparent;
+}
+
+.Polaris-Frame__Skip > a:active {
+  background: rgba(241, 242, 243, 1);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.Polaris-Frame__Skip > a:active::after {
+  border: none;
+  box-shadow: none;
+}
+
+.Polaris-Frame__Skip > a.Polaris-Frame--pressed {
+  background: rgba(109, 113, 117, 1);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.15);
+  color: rgba(255, 255, 255, 1);
+  border-color: rgba(87, 89, 89, 1);
+}
+
+.Polaris-Frame__Skip > a.Polaris-Frame--pressed svg {
+  fill: currentColor;
+}
+
+@media (-ms-high-contrast: active) {
+  .Polaris-Frame__Skip > a {
+    border: 1px solid windowText;
+  }
+}
+
+@media (min-width: 40em) {
+  .Polaris-Frame__Skip > a {
+    font-size: 1.4rem;
+  }
+}
+
+.Polaris-Frame__Skip > a:focus {
+  border-color: none;
+  box-shadow: none;
+}

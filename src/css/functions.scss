@@ -1,0 +1,66 @@
+$polaris-spacing: (
+        'none': 0,
+        'extra-tight': 4px,
+        'tight': 8px,
+        'base-tight': 12px,
+        'base': 16px,
+        'loose': 20px,
+        'extra-loose': 32px,
+);
+$default-browser-font-size: 16px;
+$base-font-size: 10px;
+
+@function spacing($variant: base) {
+  $fetched-value: map-get($polaris-spacing, $variant);
+
+  @if type-of($fetched-value) == number {
+    @return rem($fetched-value);
+  } @else {
+    @error 'Spacing variant `#{$variant}` not found. Available variants: #{available-names($polaris-spacing)}';
+  }
+}
+
+@function rem($value) {
+  $unit: unit($value);
+
+  @if $value == 0 {
+    @return 0;
+  } @else if $unit == 'rem' {
+    @return $value;
+  } @else if $unit == 'px' {
+    @return $value / $base-font-size * 1rem;
+  } @else if $unit == 'em' {
+    @return $unit / 1em * 1rem;
+  } @else {
+    @error 'Value must be in px, em, or rem.';
+  }
+}
+
+@function available-names($map, $level: 1) {
+  @if type-of($map) != 'map' {
+    @return null;
+  }
+
+  $output: '';
+  $newline: '\A ';
+
+  @if $level == 1 {
+    @each $key, $value in $map {
+      $output: $output +
+        '#{$newline}- #{$key} #{available-names($value, $level + 1)}';
+    }
+  } @else {
+    $output: '(';
+    $i: 1;
+
+    @each $key, $value in $map {
+      $sep: if($i < length($map), ', ', '');
+      $output: $output + '#{$key}#{$sep}#{available-names($value, $level + 1)}';
+      $i: $i + 1;
+    }
+
+    $output: $output + ')';
+  }
+
+  @return $output;
+}

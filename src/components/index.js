@@ -56,8 +56,22 @@ import { PFooterHelp } from './PFooterHelp';
 import { PDropZone } from './PDropZone';
 import PToast from './PToast/index';
 import { PChoiceList } from './PChoiceList';
-import { PDataTableRow } from './PDataTable/components'
-import { PDataTableCol } from './PDataTable/components/components'
+import PLoading from './PLoading';
+import { PFrame } from './PFrame';
+import { PTopBar } from './PTopBar';
+import { PContextualSaveBar } from './PFrame/components/PContextualSaveBar';
+import { PSkeletonPage } from './PSkeletonPage';
+import { PNavigation } from './PNavigation';
+import { PVisuallyHidden } from './PVisuallyHidden';
+import { PUserMenu } from './PTopBar/components/PUserMenu';
+import { PMenu } from './PTopBar/components/PMenu';
+import { PSearchField } from './PTopBar/components/PSearchField';
+import { PCollapsible } from './PCollapsible';
+import { PDataTableRow } from './PDataTable/components';
+import { PDataTableCol } from './PDataTable/components/components';
+import { PIndexTable } from './PIndexTable';
+import { PScrollable } from './PScrollable';
+import { PTooltip } from './PTooltip';
 
 import '@/scss/main.scss';
 
@@ -119,7 +133,21 @@ const Components = {
   PFooterHelp,
   PDropZone,
   PChoiceList,
+  PLoading,
+  PFrame,
+  PTopBar,
+  PContextualSaveBar,
+  PSkeletonPage,
+  PNavigation,
+  PVisuallyHidden,
+  PUserMenu,
+  PMenu,
+  PSearchField,
+  PCollapsible,
   PDataTableRow, PDataTableCol,
+  PIndexTable,
+  PScrollable,
+  PTooltip,
 };
 
 const PolarisVue = {
@@ -129,6 +157,8 @@ const PolarisVue = {
     }
 
     Vue.use(PToast);
+    Vue.use(PLoading);
+    Vue.use(PTooltip);
   },
 };
 

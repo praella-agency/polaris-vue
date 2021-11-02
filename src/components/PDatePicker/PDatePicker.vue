@@ -100,6 +100,12 @@ interface DateRange {
   endDate?: DateType;
 }
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Date pickers let merchants choose dates from a visual calendar that’s consistently applied wherever
+ *  dates need to be selected across Shopify.</h4>
+ */
 @Component({
   components: {
     DateRangePicker, PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField,
@@ -122,7 +128,7 @@ export default class PDatePicker extends Vue {
   /**
    * ID for the element
    */
-  @Prop({type: String, required: true}) public id!: string;
+  @Prop({type: [String, Number], required: true}) public id!: string | number;
 
   /**
    * Makes the picker readonly. No button in footer. No ranges. Cannot change.
@@ -380,6 +386,10 @@ export default class PDatePicker extends Vue {
 }
 </style>
 <style>
+.daterangepicker {
+  border: none;
+  box-shadow: -1px 0px 20px rgba(23,24,24,0.05), 0px 1px 5px rgba(0,0,0,0.15);
+}
 @media screen and (min-width: 339px) {
   .vue-daterange-picker div.daterangepicker.single.show-ranges.show-weeknumbers,
   .vue-daterange-picker div.daterangepicker.single.show-ranges {

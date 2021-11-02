@@ -26,6 +26,21 @@ export default {
                 type: null,
             },
         },
+        default: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        change: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(choice, checked, selected[], allowMultiple)',
+                },
+            },
+        },
     },
 }
 

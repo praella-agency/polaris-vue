@@ -38,6 +38,16 @@ interface SectionDescriptor {
     title?: string;
 }
 
+/**
+* <br/>
+* <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+*  sans-serif;">The option list component lets you create a list of grouped items that merchants can pick from. This can
+*  include single selection or multiple selection of options. Option list usually appears in a popover, and sometimes
+*  in a modal or a sidebar. Option lists are styled differently than
+*  <a href="https://polaris-vue.hulkapps.com/?path=/docs/forms-choice-list--choice-list">choice lists</a>
+*  and should not be used within a form,
+*  but as a standalone menu.</h4>
+*/
 @Component({
     components: {
         POptionsListOption,
@@ -54,7 +64,7 @@ export default class POptionList extends Vue {
     /**
      * A unique identifier for the option list.
      */
-    @Prop({type: String, default: null}) public id!: string;
+    @Prop({type: [String, Number], default: null}) public id!: string | number;
 
     /**
      * List title.

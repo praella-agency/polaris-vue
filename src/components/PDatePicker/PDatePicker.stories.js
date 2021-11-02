@@ -20,6 +20,11 @@ export default {
             control: {
                 type: 'text',
             },
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
         },
         ranges: {
             table: {
@@ -36,9 +41,19 @@ export default {
         },
         helpText: {
             table: {
-                category: ['props', 'slots']
-            }
-        }
+                category: ['props', 'slots'],
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
     },
 }
 

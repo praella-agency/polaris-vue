@@ -37,8 +37,14 @@ import {classNames, variationName} from '@/utilities/css';
 
 import {PIcon} from '@/components/PIcon';
 import {PChoice} from '@/components/PChoice';
-import {MinusMinor, TickSmallMinor} from '@/assets/shopify-polaris-icons/index';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Checkboxes are most commonly used to give merchants a way to make a range of selections
+ *  (zero, one, or multiple). They may also be used as a way to have merchants indicate they agree to specific terms and
+ *  services.</h4>
+ */
 @Component({
     components: {
         PIcon, PChoice,
@@ -49,7 +55,7 @@ export default class PCheckbox extends Vue {
     /**
      * ID for form input
      */
-    @Prop({type: String, required: true}) public id!: string;
+    @Prop({type: [String, Number], required: true}) public id!: string | number;
 
     /**
      * Name for form input
@@ -115,7 +121,7 @@ export default class PCheckbox extends Vue {
     }
 
     public get iconSource() {
-        return this.indeterminate ? MinusMinor : TickSmallMinor;
+        return this.indeterminate ? 'MinusMinor' : 'TickSmallMinor';
     }
 
     public onChange(e: any) {

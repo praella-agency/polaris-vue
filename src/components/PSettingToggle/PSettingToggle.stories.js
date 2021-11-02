@@ -24,19 +24,28 @@ export default {
             table: {
                 defaultValue: {
                     summary: '{}',
-                    detail: `{
-    /** Display the content */
-    contentStatus?: string,
-    /** Url for the element */
-    url?: string,
-    /** Disable the element */
-    disabled?: boolean,
+                    detail: `{    
     /** Accessibility Label for the element */
     accessibilityLabel?: string,
     /** Destructive element */
     destructive?: boolean,
+    /** Disable the element */
+    disabled?: boolean,
+    /** Forces url to open in a new tab */
+    external?: boolean,
     /** Add Icon support */
     icon?: string,
+    /** A unique identifier for the action */
+    id?: string | number,
+    /** Should a spinner be displayed */
+    loading?: boolean,
+    /** Should action be displayed as an outlined button */
+    outline?: boolean,
+    /** Url for the element */
+    url?: string,
+    /** Display the content */
+    contentStatus?: string,
+
     /** Callback when an action takes place */
     onAction?(): void,
 }`

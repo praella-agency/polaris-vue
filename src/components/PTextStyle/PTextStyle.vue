@@ -23,6 +23,12 @@ function variationElement(variation?: Variation) {
   return variation === VariationValue.Code ? 'code' : 'span';
 }
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Text style enhances text with additional visual meaning. For example, using subdued text to
+ *  de-emphasize it from its surrounding text.</h4>
+ */
 @Component
 export default class PTextStyle extends Vue {
 

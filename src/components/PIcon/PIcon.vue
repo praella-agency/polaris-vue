@@ -1,8 +1,8 @@
 <template>
   <span :class="className" :aria-label="accessibilityLabel" @click="handleClick" :style="clickable">
-    <div v-if="source === 'placeholder'" class="Polaris-Icon__Placeholder" />
+    <div v-if="sourceType === 'placeholder'" class="Polaris-Icon__Placeholder" />
     <img
-      v-else-if="source === 'external'"
+      v-else-if="sourceType === 'external'"
       class="Polaris-Icon__Img"
       :src="`data:image/svg+xml;utf8,${encodedSource}`"
       alt=""
@@ -72,6 +72,16 @@ export default class PIcon extends Vue {
     return encodeSVG(this.source);
   }
 
+  public get sourceType() {
+    if (this.source === 'function' || Object.keys(Icon).filter((icon) => icon === this.source).length > 0) {
+      return 'function';
+    } else if (this.source === 'placeholder') {
+      return 'placeholder';
+    } else {
+      return 'external';
+    }
+  }
+
   public get enhancedSource() {
     if (DeprecatedIcons.indexOf(this.source) > -1) {
       // tslint:disable-next-line:no-console
@@ -96,6 +106,9 @@ export default class PIcon extends Vue {
   }
 
   public handleClick() {
+    /**
+     * Handle click event
+     */
     this.$emit('click');
   }
 }

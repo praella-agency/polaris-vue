@@ -16,6 +16,29 @@ export default {
                 },
             },
         },
+        id: {
+            table: {
+                type: {
+                    summary: 'string | number',
+                },
+            },
+        },
+        change: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(value)',
+                },
+            },
+        },
+        input: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(value)',
+                },
+            },
+        },
     },
 }
 

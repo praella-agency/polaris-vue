@@ -70,6 +70,52 @@ export default {
                 },
             },
         },
+        change: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(items)',
+                },
+            },
+        },
+        'filter-removed': {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(tag)',
+                },
+            },
+        },
+        'input-filter-changed': {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(value)',
+                },
+            },
+        },
+        'select-mode': {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(selectionMode)',
+                },
+            },
+        },
+        emptySearchState: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        filter: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
     },
 }
 
@@ -155,6 +201,7 @@ const Template = (args, {argTypes}) => ({
                 },
             ],
             taggedValue: 'Vue',
+            selectModeStatus: false,
         };
     },
     template: `
@@ -172,7 +219,8 @@ const Template = (args, {argTypes}) => ({
               ]"
               @filter-removed="removeTag"
               @change="toggleSelected"
-              @sortChange="() => handleSortChange(selected)"
+              @sort-change="handleSortChange"
+              @select-mode="handleSelectMode"
           >
             <template slot="filter">
               <PPopover
@@ -213,13 +261,14 @@ const Template = (args, {argTypes}) => ({
                 Save
               </PButton>
             </template>
-            <template slot="default" v-bind="{selectable}">
+            <template v-bind="{selectable}">
               <PResourceListItem
                   v-for="(item, key) in items"
                   :key="key"
                   :id="item.id"
                   :checked="selectedItems.indexOf(item.id) >= 0"
                   :selectable="selectable"
+                  :selectMode="selectModeStatus"
                   :loading="loading"
                   persistActions
                   :shortcutActions="[
@@ -275,15 +324,18 @@ const Template = (args, {argTypes}) => ({
         onNext() {
             this.queryParams.page++;
         },
-        removeTag() {
-            alert('Removed');
+        removeTag(tag) {
+            alert('Removed:- ' + tag);
         },
         handleButtonClick() {
             console.log('Saved');
         },
-        handleSortChange(selected) {
-            console.log(selected)
-        }
+        handleSortChange(value) {
+            console.log('Sorting value:- ' + value);
+        },
+        handleSelectMode(selectMode) {
+            this.selectModeStatus = selectMode;
+        },
     },
 });
 
@@ -294,10 +346,8 @@ ResourceList.args = {
     resourceName: {singular: 'Book', plural: 'Books'},
     hasMore: true,
     loading: false,
-    showHeader: true,
-    hideFilters: true,
     sortOptions: [
-        {label: 'Newest update', value: 'DATE_MODIFIED_DESC', disabled: false, hidden: true},
+        {label: 'Newest update', value: 'DATE_MODIFIED_DESC', disabled: false,},
         {label: 'Oldest update', value: 'DATE_MODIFIED_ASC', disabled: false},
     ],
     promotedBulkActions: [

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <transition>
     <!--
       Triggered on click
       @event click
@@ -23,7 +23,7 @@
         <slot name="helpText">{{ helpText }}</slot>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -39,7 +39,7 @@ export default class PChoice extends Vue {
   /**
    * ID for form input
    */
-  @Prop({type: String, required: true}) public id!: string;
+  @Prop({type: [String, Number], required: true}) public id!: string | number;
 
   /**
    * Label for the checkbox

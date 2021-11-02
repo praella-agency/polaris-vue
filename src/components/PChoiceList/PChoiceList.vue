@@ -20,6 +20,7 @@
         <div :id="finalName + key"
              v-if="renderChildren[choice[valueField]] && choice[renderChildrenField]"
              class="Polaris-ChoiceList__ChoiceChildren">
+          <!-- @slot Default slot -->
           <slot/>
         </div>
       </li>
@@ -37,6 +38,12 @@ import {PCheckbox} from '../PCheckbox';
 import {PRadioButton} from '../PRadioButton';
 import {PInlineError} from '../PInlineError';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">A choice list lets you create a list of grouped radio buttons or checkboxes. Use this component if you
+ *  need to group together a related list of interactive choices.</h4>
+ */
 @Component({
   components: {
     PCheckbox, PRadioButton, PInlineError,
@@ -56,22 +63,22 @@ export default class PChoiceList extends Vue {
   /**
    * Field name in the `options` array that should be used for the text label
    */
-  @Prop({type: String, default: null}) public textField!: string;
+  @Prop({type: String, default: 'label'}) public textField!: string;
 
   /**
    * Field name in the `options` array that should be used for the value
    */
-  @Prop({type: String, default: null}) public valueField!: string;
+  @Prop({type: String, default: 'value'}) public valueField!: string;
 
   /**
    * Field name in the `options` array that should be used for the disabled state
    */
-  @Prop({type: String, default: null}) public disabledField!: string;
+  @Prop({type: String, default: 'disabled'}) public disabledField!: string;
 
   /**
    * Field name in the `options` array that should be used for the help text
    */
-  @Prop({type: String, default: null}) public helpTextField!: string;
+  @Prop({type: String, default: 'helpText'}) public helpTextField!: string;
 
   /**
    * Field name in the `options` array that should be used for the error message
@@ -135,6 +142,9 @@ export default class PChoiceList extends Vue {
     for (let [key, choice] of Object.entries(this.options)) {
       /* tslint:disable-next-line */
       if (checked && (choice[this.valueField] === checked['value'])) {
+        /**
+         * Triggers when selection is change
+         */
         this.$emit(
           'change',
           /* tslint:disable-next-line */

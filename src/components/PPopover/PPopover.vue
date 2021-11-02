@@ -22,9 +22,8 @@
                tabindex="0">
           </div>
           <div class="Polaris-Popover__Wrapper">
-            <div class="Polaris-Popover__Content">
-              <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical
-                          Polaris-Scrollable--hasBottomShadow Polaris-Scrollable--verticalHasScrolling"
+            <div :class="contentClassName">
+              <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical"
                    data-polaris-scrollable="true">
                 <!-- @slot Popover Overlay content -->
                 <slot name="content"></slot>
@@ -47,20 +46,25 @@ import {Component, Vue, Prop, Ref, Watch} from 'vue-property-decorator';
 import {classNames} from '@/utilities/css';
 import PPopoverOverlay from '@/components/PPopover/components/PPopoverOverlay.vue';
 
+/**
+ * <br/>
+ * <h4 style={{fontFamily: '-apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif'}}>
+ *  Popovers are small overlays that open on demand. They let merchants access additional content and actions without
+ *  cluttering the page.</h4>
+*/
 @Component({
   components: {PPopoverOverlay},
 })
-
 export default class PPopover extends Vue {
 
   /**
    * Id for the PPopover.
    */
   @Prop({
-    type: String,
+    type: [String, Number],
     default: `PolarisPopover${new Date().getUTCMilliseconds()}${Math.floor(Math.random() * 1000)}`,
     required: true,
-  }) public id!: string;
+  }) public id!: string | number;
 
   /**
    * Show or hide the PPopover.
@@ -104,6 +108,18 @@ export default class PPopover extends Vue {
   @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
 
   /**
+   * Allow popover to stretch to fit content vertically.
+   * @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public fullHeight!: boolean;
+
+  /**
+   * Allow popover content to determine the overlay width and height.
+   * @values true | false
+   */
+  @Prop({type: Boolean, default: false}) public fluidContent!: boolean;
+
+  /**
    * Enable measure
    * @values true | false
    */
@@ -142,6 +158,14 @@ export default class PPopover extends Vue {
         this.fullWidth && 'Polaris-Popover--fullWidth',
         this.measuring && 'Polaris-Popover--measuring',
     );
+  }
+
+  public get contentClassName() {
+      return classNames(
+          'Polaris-Popover__Content',
+          this.fullHeight && 'Polaris-Popover__Content--fullHeight',
+          this.fluidContent && 'Polaris-Popover__Content--fluidContent',
+      );
   }
 
   public get realId() {

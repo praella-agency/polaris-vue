@@ -54,12 +54,17 @@
     import { PButtonGroup } from '@/components/PButtonGroup';
     import { PLink } from '@/components/PLink';
 
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">Cards are used to group similar concepts and tasks together to make Shopify easier for merchants to
+     *  scan, read, and get things done.</h4>
+     */
     @Component({
         components: {
             PCardFooter, PCardHeader, PCardSection, PHeading, PCaption, PButtonGroup, PLink,
         },
     })
-
     export default class PCard extends Vue {
 
         /**
@@ -69,7 +74,7 @@
         @Prop({type: String, default: null}) public title!: string;
 
         /**
-         * Card description. **Deprecated** Actions will be removed on future releases,
+         * Card description. **Deprecated** ShortDescription will be removed on future releases,
          * use PCardHeader instead props.
          */
         @Prop({type: String, default: null}) public shortDescription!: string;

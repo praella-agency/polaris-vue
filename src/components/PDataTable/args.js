@@ -1,15 +1,15 @@
 export default {
     verticalAlign: {
         options: ['top', 'bottom', 'middle', 'baseline'],
-            control: {
+        control: {
             type: 'select',
         },
     },
     defaultSortDirection: {
         options: ['ascending', 'descending', 'none'],
-            control: {
+        control: {
             type: 'select',
-                labels: {
+            labels: {
                 'none': 'Default',
             },
         },
@@ -19,14 +19,75 @@ export default {
             type: 'text',
         },
     },
-default: {
+    default: {
         name: 'item.<heading-value>',
+        table: {
+            type: {
+                summary: null,
+            },
+        },
+    },
+    auxiliaryContainer: {
+        table: {
+            type: {
+                summary: null,
+            },
+        },
+    },
+    body: {
+        table: {
+            type: {
+                summary: null,
+            },
+        },
+    },
+    emptyState: {
+        table: {
+            type: {
+                summary: null,
+            },
+        },
+    },
+    filter: {
+        table: {
+            type: {
+                summary: null,
+            },
+        },
+    },
+    footer: {
+        table: {
+            type: {
+                summary: null,
+            },
+        },
+    },
+    head: {
+        table: {
+            type: {
+                summary: null,
+            },
+        },
+    },
+    item: {
+        table: {
+            type: {
+                summary: null,
+            },
+        },
+    },
+    tbody: {
+        table: {
+            type: {
+                summary: null,
+            },
+        },
     },
     actions: {
         table: {
             defaultValue: {
                 summary: '[]',
-                    detail: `
+                detail: `
 [{
     /** stringVisually hidden text for screen readers */
     accessibilityLabel?: string,
@@ -56,7 +117,7 @@ default: {
         table: {
             defaultValue: {
                 summary: '[]',
-                    detail: `
+                detail: `
 Array of type: ("text" | "numeric")[]
 
 text
@@ -70,7 +131,7 @@ type: "numeric"`,
         table: {
             defaultValue: {
                 summary: '[]',
-                    detail: `
+                detail: `
 [{
     /** Header title */
     content: string,
@@ -90,7 +151,7 @@ type: "numeric"`,
         table: {
             defaultValue: {
                 summary: '[]',
-                    detail: `
+                detail: `
 /** Contains numeric value */
 [1, 2, 3, ...]`,
             },
@@ -100,7 +161,7 @@ type: "numeric"`,
         table: {
             defaultValue: {
                 summary: '{}',
-                    detail: `{
+                detail: `{
     nextURL?: string,
     previousURL?: string,
     hasNext?: boolean,
@@ -116,7 +177,7 @@ type: "numeric"`,
         table: {
             defaultValue: {
                 summary: '[]',
-                    detail: `[{
+                detail: `[{
     <heading.value>: 'value',
 }]`,
             },
@@ -126,7 +187,7 @@ type: "numeric"`,
         table: {
             defaultValue: {
                 summary: '{}',
-                    detail: `{
+                detail: `{
     value: string,
     direction: 'ascending' | 'descending' | 'none',
 }`,
@@ -137,7 +198,7 @@ type: "numeric"`,
         table: {
             defaultValue: {
                 summary: '[]',
-                    detail: `
+                detail: `
 Array of type: ("text" | "numeric")[]
 
 text
@@ -152,12 +213,36 @@ type: "numeric"
         table: {
             defaultValue: {
                 summary: '{}',
-                    detail: `{
+                detail: `{
     /** Singular label */
     singular: string;
     /** Plural label */
     plural: string;
 }`
+            },
+        },
+    },
+    'filter-removed': {
+        table: {
+            defaultValue: {
+                summary: '()',
+                detail: '(tag)',
+            },
+        },
+    },
+    'input-filter-changed': {
+        table: {
+            defaultValue: {
+                summary: '()',
+                detail: '(value)',
+            },
+        },
+    },
+    'sort-changed': {
+        table: {
+            defaultValue: {
+                summary: '()',
+                detail: '(value, direction)',
             },
         },
     },

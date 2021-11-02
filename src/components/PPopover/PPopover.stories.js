@@ -1,15 +1,16 @@
 import PPopover from './PPopover';
 import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';
-import PopoverMDX from "./PopoverMDX.mdx";
 
 export default {
     title: 'Overlays / Popover',
     component: PPopover,
     parameters: {
         docs: {
-            page: PopoverMDX,
+            inlineStories: false,
+            iframeHeight: 500,
         },
+        layout: 'centered',
     },
     argTypes: {
         preferredAlignment: {
@@ -22,6 +23,20 @@ export default {
             options: ['below', 'above', 'mostSpace'],
             control: {
                 type: 'select',
+            },
+        },
+        activator: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+        content: {
+            table: {
+                type: {
+                    summary: null,
+                },
             },
         },
     },
@@ -82,4 +97,22 @@ export const Popover = Template.bind({});
 
 Popover.args = {
     id: 'items-status-filter',
+}
+
+Popover.parameters = {
+    docs: {
+        source: {
+            code: `
+<template>
+  <PPopover id="items-status-filter" :active="false">
+    <PButton slot="activator" disclosure="down">More Actions</PButton>
+    <POptionList
+      slot="content"
+      :options='[{"label":"Pending","value":"0"},{"label":"Published","value":"1"},{"label":"Archived","value":"-1"}]'
+      :selected="[]"
+    />
+  </PPopover>
+</template>`,
+        },
+    },
 }

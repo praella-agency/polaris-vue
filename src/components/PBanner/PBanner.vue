@@ -50,6 +50,13 @@ import {
 } from '@/types';
 type BannerStatus = 'success' | 'info' | 'warning' | 'critical';
 
+/**
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Informs merchants about important changes or persistent conditions. Use this component if you need to
+ *  communicate to merchants in a prominent way. Banners are placed at the top of the page or section they apply to, and
+ *  below the page or section header.</h4>
+ */
 @Component({
   components: {
     PIcon, PButton, PHeading,
