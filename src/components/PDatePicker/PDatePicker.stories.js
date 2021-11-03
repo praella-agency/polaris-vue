@@ -41,7 +41,7 @@ export default {
         },
         helpText: {
             table: {
-                category: ['props', 'slots'],
+                category: 'props | slots',
                 type: {
                     summary: null,
                 },
@@ -71,7 +71,7 @@ const Template = (args, {argTypes}) => ({
       <PDatePicker
           v-bind="$props"
           v-model="data"
-      ></PDatePicker>`,
+      />`,
 });
 
 export const DatePicker = Template.bind({});
@@ -79,4 +79,5 @@ export const DatePicker = Template.bind({});
 DatePicker.args = {
     id: "pDatePicker",
     singleDatePicker: true,
+    placeholder: "Select Date",
 }
