@@ -23,7 +23,7 @@
       <span :class="tabTitleClassNames"><slot/></span>
     </a>
 
-    <router-link v-else :tabIndex="tabIndex" :class="className" :to="to" @click.native="$emit('click', id, $event)">
+    <router-link v-else :tabIndex="tabIndex" :active-class="activeClass" :class="className" :to="to" @click.native="$emit('click', id, $event)">
       <span :class="tabTitleClassNames"><slot/></span>
     </router-link>
   </li>
@@ -43,6 +43,7 @@ export default class PTab extends Vue {
   @Prop([String, Object]) public to!: string | object;
   @Prop(String) public url!: string;
   @Prop(Boolean) public external!: boolean;
+  @Prop({type: String, default: 'Polaris-Tabs__Tab--selected'}) public activeClass!: string;
 
   public tabIndex: number = -1;
   public mounted() {

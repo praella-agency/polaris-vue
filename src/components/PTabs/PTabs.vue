@@ -9,6 +9,7 @@
               :url="tab.url"
               :selected="selected === tabIndex"
               :external="tab.external"
+              :active-class="activeClass"
               @click="handleTabClick"
         >
             {{ tab.content }}
@@ -60,6 +61,10 @@ export default class PTabs extends Vue {
    * @values true | false
    */
   @Prop({type: Boolean, default: false}) public navigation!: boolean;
+  /**
+   * Configure the active CSS class applied when the link is active
+   */
+  @Prop({type: String, default: 'Polaris-Tabs__Tab--selected'}) public activeClass!: string;
 
   public get className() {
     return classNames(
