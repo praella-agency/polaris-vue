@@ -65,7 +65,7 @@ export default class PTab extends Vue {
   public get className() {
     return classNames(
         'Polaris-Tabs__Tab',
-        this.selected && `Polaris-Tabs__Tab--selected`,
+        !this.to && this.selected && `Polaris-Tabs__Tab--selected`,
     );
   }
 
