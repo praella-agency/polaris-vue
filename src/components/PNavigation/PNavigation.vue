@@ -53,13 +53,13 @@
       view: string;
       hide: string;
       activePath: string;
-    }
+    };
     /** Action */
     action?: {
       icon: string;
       accessibilityLabel: string;
       onClick(): void;
-    }
+    };
     /** Separator */
     separator?: boolean;
     /** Icon */
@@ -107,7 +107,7 @@
      */
     @Prop({type: Boolean, default: false}) public showMobileNavigation!: boolean;
 
-    //PSection's props
+    // PSection's props
     /**
      * A collection of navigation items
      */
@@ -115,7 +115,7 @@
 
     public get width() {
       return {
-        width: getWidth(this.logo, 104)
+        width: getWidth(this.logo, 104),
       };
     }
 
@@ -128,11 +128,11 @@
       this.showLogo = value;
     }
 
-    created() {
+    public created() {
       window.addEventListener('resize', this.useMediaQuery);
     }
 
-    destroyed() {
+    public destroyed() {
       window.removeEventListener('resize', this.useMediaQuery);
     }
 

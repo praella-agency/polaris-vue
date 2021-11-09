@@ -519,20 +519,12 @@
   }
 }
 
-$index-table-stacking-order: (
-        cell: 1,
-        sticky-cell: 31,
-        scroll-bar: 35,
-        bulk-actions: 36,
-        loading-panel: 37,
-);
-
 .Table-unselectable {
   .TableCell:first-child {
     left: 0;
     background-color: rgba(255, 255, 255, 1);
     position: sticky;
-    z-index: z-index(sticky-cell, $index-table-stacking-order);
+    z-index: 31;
   }
 
   .statusSuccess {
@@ -562,7 +554,7 @@ $index-table-stacking-order: (
     position: sticky;
     right: 0;
     background-color: rgba(255, 255, 255, 1);
-    z-index: z-index(sticky-cell, $index-table-stacking-order);
+    z-index: 31;
     filter: drop-shadow(-0.1rem 0 0 rgba(225, 227, 229, 1));
   }
 }
@@ -578,7 +570,7 @@ $index-table-stacking-order: (
 
 .Polaris-IndexTable__Table-sticky-scrolling, .Polaris-IndexTable__TableCell--last-child, .Polaris-IndexTable__TableHeading--last {
   @media screen and (min-width: 457px) {
-    filter: drop-shadow(-1rem 0 0 rgba(225, 227, 229, 1));
+    filter: drop-shadow(-0.1rem 0 0 rgba(225, 227, 229, 1));
   }
 }
 

@@ -44,7 +44,10 @@
     })
     export default class PActionMenuMenuAction extends Vue {
 
-        @Prop({type: [String, Number], default: `ActionMenuMenuAction${new Date().getUTCMilliseconds()}`}) public id!: string | number;
+        @Prop({
+            type: [String, Number],
+            default: `ActionMenuMenuAction${new Date().getUTCMilliseconds()}`,
+        }) public id!: string | number;
         @Prop(String) public content!: string;
         @Prop(String) public url!: string;
         @Prop(Boolean) public external!: boolean;

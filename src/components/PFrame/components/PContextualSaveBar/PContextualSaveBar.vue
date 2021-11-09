@@ -109,7 +109,7 @@
   @Component({
     components: {
       PButton, PImage, PStack, PStackItem, PModal,
-    }
+    },
   })
   export default class PContextualSaveBar extends Vue {
     /**
@@ -150,7 +150,7 @@
     public get contentsClassName() {
       return classNames(
         'Polaris-Frame-ContextualSaveBar__Contents',
-        this.fullWidth && 'Polaris-Frame-ContextualSaveBar--fullWidth'
+        this.fullWidth && 'Polaris-Frame-ContextualSaveBar--fullWidth',
       );
     }
 
@@ -168,7 +168,7 @@
 
     public get width() {
       return {
-        width: getWidth(this.logo, 104)
+        width: getWidth(this.logo, 104),
       };
     }
 

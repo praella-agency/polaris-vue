@@ -197,7 +197,7 @@
   @Component({
     components: {
       PCheckableButton, PButtonGroup, PPopover, PBulkActionButton, PActionList, PButton, PBulkActionMenu,
-    }
+    },
   })
   export default class PBulkActions extends Vue {
     /**
@@ -228,11 +228,13 @@
     /**
      * Actions that will be given more prominence
      */
+    /* tslint:disable-next-line */
     @Prop({type: Array, default: () => ([])}) public promotedActions!: (BulkAction | MenuGroupDescriptor)[];
 
     /**
      * List of actions
      */
+    /* tslint:disable-next-line */
     @Prop({type: Array, default: () => ([])}) public actions!: (BulkAction | ActionListSection)[];
 
     /**
@@ -303,13 +305,14 @@
     }
 
     public isNewBadgeInBadgeActions() {
-      let actions = this.actionSections;
+      const actions = this.actionSections;
       if (!actions) {
         return false;
       }
 
-      for (let action of actions) {
-        for (let item of action['items']) {
+      for (const action of actions) {
+        /* tslint:disable-next-line */
+        for (const item of action['items']) {
           return item.badge ? (item.badge.status === 'new') : false;
         }
       }
@@ -317,6 +320,7 @@
       return false;
     }
 
+    /* tslint:disable-next-line */
     public clamp(number: number, min: number, max: number) {
       if (number < min) {
         return min;
@@ -336,12 +340,16 @@
         return this.promotedActions.length;
       }
 
+      /* tslint:disable-next-line */
       let sufficientSpace = false;
+      /* tslint:disable-next-line */
       let counter = this.promotedActions.length - 1;
+      /* tslint:disable-next-line */
       let totalWidth = 0;
 
       while (!sufficientSpace && counter >= 0) {
         totalWidth += this.promotedActionsWidths[counter];
+        /* tslint:disable-next-line */
         let widthWithRemovedAction = this.bulkActionsWidth - totalWidth + this.addedMoreActionsWidthForMeasuring;
 
         if (this.containerWidth >= widthWithRemovedAction) {
@@ -355,6 +363,7 @@
     }
 
     public get promotedActionsMarkup() {
+      /* tslint:disable-next-line */
       let actions: (BulkAction | MenuGroupDescriptor)[] = [];
       [...this.promotedActions].slice(0, this.numberOfPromotedActionsToRender()).map((action) => {
         actions.push(action);
@@ -371,7 +380,9 @@
       this.largeScreenPopoverVisible = !this.largeScreenPopoverVisible;
     }
 
+    /* tslint:disable-next-line */
     public instanceOfBulkActionListSectionArray(actions: (BulkAction | ActionListSection)[]) {
+      /* tslint:disable-next-line */
       let validList = this.actions.filter((action: any) => {
         return action.items;
       });
@@ -379,7 +390,9 @@
       return actions.length === validList.length;
     }
 
+    /* tslint:disable-next-line */
     public instanceOfBulkActionArray(actions: (BulkAction | ActionListSection)[]) {
+      /* tslint:disable-next-line */
       let validList = this.actions.filter((action: any) => {
         return !action.items;
       });
@@ -418,6 +431,7 @@
     }
 
     public get rolledInPromotedActions() {
+      /* tslint:disable-next-line */
       let numberOfPromotedActionsToRender = this.numberOfPromotedActionsToRender();
 
       if (!this.promotedActions || this.promotedActions.length === 0 ||
@@ -425,16 +439,17 @@
         return [];
       }
 
+      /* tslint:disable-next-line */
       let rolledInPromotedActions = this.promotedActions.map((action) => {
         if (this.instanceOfMenuGroupDescriptor(action)) {
           return {
-            items: [...action.actions]
-          }
+            items: [...action.actions],
+          };
         }
 
         return {
-          items: [action]
-        }
+          items: [action],
+        };
       });
 
       return rolledInPromotedActions.slice(numberOfPromotedActionsToRender);

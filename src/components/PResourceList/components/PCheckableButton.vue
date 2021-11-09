@@ -28,7 +28,10 @@ const DEFAULT_SIZE = 'medium';
 
 export default class PCheckableButton extends Vue {
 
-    @Prop({type: [String, Number], default: `PCheckableButton${new Date().getUTCMilliseconds()}`}) public id!: string | number;
+    @Prop({
+        type: [String, Number],
+        default: `PCheckableButton${new Date().getUTCMilliseconds()}`,
+    }) public id!: string | number;
     @Prop(Boolean) public checkedAll!: boolean;
     @Prop(Boolean) public checked!: boolean;
     @Prop(Boolean) public ariaProps!: boolean;

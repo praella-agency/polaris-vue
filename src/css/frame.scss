@@ -417,7 +417,7 @@
   .Polaris-Frame--hasNav .Polaris-Frame__GlobalRibbonContainer {
     left: 24rem;
     left: 24rem;
-    left: calc(24rem + 0 + constant(safe-area-inset-left));
+    left: calc(24rem + 0rem + constant(safe-area-inset-left));
     left: calc(24rem + var(--p-frame-offset) + env(safe-area-inset-left));
     width: calc(100% - 24rem - var(--p-frame-offset));
   }

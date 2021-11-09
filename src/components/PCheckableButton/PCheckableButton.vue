@@ -31,14 +31,14 @@
   @Component({
     components: {
       PCheckbox,
-    }
+    },
   })
   export default class PCheckableButton extends Vue {
     @Prop({type: String, default: null}) public accessibilityLabel!: string;
     @Prop({type: String, default: null}) public label!: string;
     @Prop({type: [Boolean, String], default: false}) public selected!: boolean | 'indeterminate';
     @Prop({type: Boolean, default: false}) public selectMode!: boolean;
-    @Prop({type: Boolean, default: false}) smallScreen!: boolean;
+    @Prop({type: Boolean, default: false}) public smallScreen!: boolean;
     @Prop({type: Boolean, default: false}) public plain!: boolean;
     @Prop({type: Boolean, default: false}) public measuring!: boolean;
     @Prop({type: Boolean, default: false}) public disabled?: boolean;

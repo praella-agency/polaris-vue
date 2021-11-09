@@ -84,8 +84,8 @@ export default {
     return {
       id: '',
       icons: {
-          'major': [],
-          'minor': [],
+          major: [],
+          minor: [],
       },
       iconCode: '',
       copyText: '',
@@ -118,8 +118,8 @@ export default {
         return this.icons;
       } else {
         this.icons = {
-            'major': [],
-            'minor': [],
+            major: [],
+            minor: [],
         };
         this.difference.forEach((icon) => {
             if (icon.toLowerCase().includes(value.toLowerCase()) && icon.includes('Major')) {
@@ -142,7 +142,7 @@ export default {
             '<PIcon source="' + icon + '" color="' + this.color + '" backdrop="' + this.backdrop + '" />',
         );
       } else {
-        if(this.color === null) {
+        if (this.color === null) {
             copy = navigator.clipboard.writeText(
               '<PIcon source="' + icon + '" />',
             );

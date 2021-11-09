@@ -50,7 +50,9 @@
    *  several text formats including numbers.</h4>
    */
   @Component({
-    components: { PInput, PConnected, PFieldError },
+    components: {
+        PInput, PConnected, PFieldError,
+    },
   })
   export default class PTextField extends Vue {
 
@@ -62,7 +64,10 @@
     /**
      * Text field id
      */
-    @Prop({type: [String, Number], default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string | number;
+    @Prop({
+        type: [String, Number],
+        default: `PolarisTextField${new Date().getUTCMilliseconds()}`,
+    }) public id!: string | number;
 
     /**
      * Text field label class

@@ -29,7 +29,7 @@
   @Component({
     components: {
       PBulkActionButton, PPopover, PActionList,
-    }
+    },
   })
   export default class PBulkActionMenu extends Vue {
     @Prop({type: String, default: null}) public title!: string;

@@ -19,7 +19,7 @@ import PTooltipPositionedOverlay from './PTooltipPositionedOverlay.vue';
 
 @Component({
   components: {
-    PTooltipPositionedOverlay
+    PTooltipPositionedOverlay,
   },
 })
 export default class PTooltipOverlay extends Vue {

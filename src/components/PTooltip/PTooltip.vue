@@ -42,7 +42,7 @@
   @Component({
     components: {
       PTooltipOverlay,
-    }
+    },
   })
   export default class PTooltip extends Vue {
     /**

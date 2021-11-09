@@ -73,7 +73,7 @@ const Template = (args, { argTypes }) => ({
                 {
                     id: 'all-customers-1',
                     content: 'All',
-                    url: 'javascript:void(0)',
+                    to: '/all-customers-1',
                     external: false,
                     badge: {
                         content: '10+',
@@ -93,6 +93,7 @@ const Template = (args, { argTypes }) => ({
                 {
                     id: 'prospects-1',
                     content: 'Prospects',
+                    to: '/prospects-1',
                 },
             ],
         };

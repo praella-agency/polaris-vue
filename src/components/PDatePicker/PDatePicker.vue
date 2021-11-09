@@ -16,7 +16,8 @@
         :readonly="readOnly"
         :disabled="disabled"
         :locale-data="{ firstDay: 1, format: 'dd-mm-yyyy HH:mm:ss' }"
-        :minDate="minDate" :maxDate="maxDate"
+        :minDate="minDate"
+        :maxDate="maxDate"
         :singleDatePicker="singleDatePicker"
         :timePicker="timePicker"
         :timePicker24Hour="timePicker24Hour"
@@ -43,15 +44,29 @@
       </template>
       <template v-slot:input="picker" style="min-width: 100%">
         <PTextField v-if="!button" readOnly aria-readonly="true" :value="computedTextValue(picker)" style="min-width:100%" labelHidden>
-          <template  slot="suffix">
-            <PIcon slot="suffix" source="CalendarMajor"/>
+          <template slot="suffix">
+              <PStack slot="suffix">
+                  <PStackItem>
+                      <PIcon source="CalendarMajor"/>
+                  </PStackItem>
+                  <PStackItem v-if="clearable">
+                      <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
+                  </PStackItem>
+              </PStack>
           </template>
           <template v-if="showPrefix" slot="prefix">
             {{ prefix }}
           </template>
         </PTextField>
         <PButton icon="CalendarMajor" v-else>
-          {{computedTextValue(picker)}}
+            <PStack>
+                <PStackItem style="padding: 2px 0;">
+                    {{computedTextValue(picker)}}
+                </PStackItem>
+                <PStackItem v-if="clearable">
+                    <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
+                </PStackItem>
+            </PStack>
         </PButton>
       </template>
       <template slot="footer" slot-scope="data" class="slot">
@@ -74,13 +89,12 @@
       </slot>
     </div>
     <PFieldError v-if="error" :error="error"/>
-
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Vue, Prop, Emit, Watch} from 'vue-property-decorator';
-import {classNames, variationName} from '@/utilities/css';
+import {classNames} from '@/utilities/css';
 import DateRangePicker from 'vue2-daterange-picker';
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 import {PIcon} from '@/components/PIcon';
@@ -96,8 +110,13 @@ import {PTextField} from '@/components/PTextField';
 type DateType = Date | null | string;
 
 interface DateRange {
-  startDate?: DateType;
-  endDate?: DateType;
+    singleDatePicker: {
+        startDate?: DateType;
+    };
+    rangeDatePicker: {
+        startDate?: DateType;
+        endDate?: DateType;
+    };
 }
 
 /**
@@ -257,7 +276,7 @@ export default class PDatePicker extends Vue {
   /**
    * This should be an object containing startDate and endDate.
    */
-  @Prop({type: Object}) public dateRange!: DateRange;
+  @Prop({type: Object}) public dateRange!: DateRange['singleDatePicker'] | DateRange['rangeDatePicker'];
 
   /**
    * Each calendar has separate navigation when this is false
@@ -274,8 +293,19 @@ export default class PDatePicker extends Vue {
    */
   @Prop({type: String, default: null}) public helpText!: string;
 
-  public content: DateRange = (this.dateRange !== null && this.dateRange !== undefined) ?
-      this.dateRange : {startDate: new Date(), endDate: new Date()};
+  /**
+   * Clear date
+   */
+  @Prop({type: Boolean, default: false}) public clearable!: boolean;
+
+  /**
+   * Containing a hint to the user of what can be entered in the control
+   */
+  @Prop({type: String, default: '-'}) public placeholder!: string;
+
+  public content: DateRange['singleDatePicker'] | DateRange['rangeDatePicker'] =
+      (this.dateRange && Object.keys(this.dateRange).length > 0 && this.dateRange !== null &&
+          this.dateRange !== undefined) ? this.dateRange : {startDate: null, endDate: null};
 
   public selectedRanges = null;
 
@@ -311,8 +341,10 @@ export default class PDatePicker extends Vue {
   }
 
   public computedTextValue(picker) {
-    return !this.singleDatePicker ? `${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}` :
-      this.formatDate(picker.startDate);
+    return !this.singleDatePicker ?
+      ((picker.startDate !== null && picker.endDate !== null) ?
+      (`${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}`) : this.placeholder) :
+      (picker.startDate !== null ? this.formatDate(picker.startDate) : this.placeholder);
   }
 
   /**
@@ -333,11 +365,11 @@ export default class PDatePicker extends Vue {
     this.$emit('checkOpen');
   }
 
-  public get computedValue(): DateRange {
+  public get computedValue(): DateRange['singleDatePicker'] | DateRange['rangeDatePicker'] {
     return this.content;
   }
 
-  public set computedValue(dateRange: DateRange) {
+  public set computedValue(dateRange: DateRange['singleDatePicker'] | DateRange['rangeDatePicker']) {
 
     this.content = dateRange;
     /**
@@ -357,7 +389,7 @@ export default class PDatePicker extends Vue {
   }
 
   @Watch('dateRange')
-  public onValueChanged(dateRange: DateRange) {
+  public onValueChanged(dateRange: DateRange['singleDatePicker'] | DateRange['rangeDatePicker']) {
     this.content = dateRange;
   }
 
@@ -373,6 +405,11 @@ export default class PDatePicker extends Vue {
     if (typeof ranges.ranges[range] !== 'undefined') {
       ranges.clickRange(ranges.ranges[range]);
     }
+  }
+
+  public handleCancelClick(event) {
+      event.stopPropagation();
+      this.computedValue = {startDate: null, endDate: null};
   }
 }
 </script>

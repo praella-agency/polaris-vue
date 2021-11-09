@@ -52,14 +52,14 @@
     @Prop({type: String, default: null}) public description!: string;
     @Prop({
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     }) public action!: {
+      content: string;
       onClick(): void;
-      content: string
     };
     @Prop({
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     }) public link!: {
       to: string | object;
       content: string;
@@ -67,10 +67,10 @@
     };
     @Prop({
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     }) public badge!: {
       content: string;
-      status: BadgeProps['status']
+      status: BadgeProps['status'];
     };
   }
 </script>

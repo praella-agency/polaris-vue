@@ -1,5 +1,5 @@
 <template>
-  <transition>
+  <div>
     <!--
       Triggered on click
       @event click
@@ -23,7 +23,7 @@
         <slot name="helpText">{{ helpText }}</slot>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script lang="ts">

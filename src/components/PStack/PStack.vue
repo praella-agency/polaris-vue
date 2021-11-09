@@ -17,7 +17,6 @@ type Spacing = 'extraTight' | 'tight' | 'loose' | 'extraLoose' | 'none';
 type Alignment = 'leading' | 'trailing' | 'center' | 'fill' | 'baseline';
 type Distribution = 'equalSpacing' | 'leading' | 'trailing' | 'center' | 'fill' | 'fillEvenly';
 
-
 /**
  * <br/>
  * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -26,7 +25,9 @@ type Distribution = 'equalSpacing' | 'leading' | 'trailing' | 'center' | 'fill' 
  *  relative size of the items in the stack.</h4>
  */
 @Component({
-  components: {PStackItem},
+  components: {
+      PStackItem,
+  },
 })
 export default class PStack extends Vue {
   /**

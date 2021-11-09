@@ -9,6 +9,7 @@
               :url="tab.url"
               :selected="selected === tabIndex"
               :external="tab.external"
+              :active-class="activeClass"
               @click="handleTabClick"
         >
             {{ tab.content }}
@@ -36,10 +37,10 @@ import PTab from './PTab.vue';
 import PPanel from './PPanel.vue';
 
 /**
-* <br/>
-* <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
-*  sans-serif;">Use to alternate among related views within the same context.</h4>
-*/
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Use to alternate among related views within the same context.</h4>
+ */
 @Component({
   components: {
     PTab, PPanel, PBadge,
@@ -60,6 +61,10 @@ export default class PTabs extends Vue {
    * @values true | false
    */
   @Prop({type: Boolean, default: false}) public navigation!: boolean;
+  /**
+   * Configure the active CSS class applied when the link is active
+   */
+  @Prop({type: String, default: 'Polaris-Tabs__Tab--selected'}) public activeClass!: string;
 
   public get className() {
     return classNames(

@@ -30,7 +30,7 @@
   @Component({
     components: {
       PCheckbox,
-    }
+    },
   })
   export default class PIndexTableCheckbox extends Vue {
     @Prop({type: Boolean, default: false}) public condensed!: boolean;
@@ -78,7 +78,7 @@
         return;
       }
 
-      let {width} = this.checkboxNode.getBoundingClientRect();
+      const {width} = this.checkboxNode.getBoundingClientRect();
       this.checkboxNode.style.setProperty('--p-checkbox-offset', width + 'px');
     }
 

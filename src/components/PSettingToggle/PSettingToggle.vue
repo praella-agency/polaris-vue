@@ -30,18 +30,18 @@
   import PSettingAction from '@/components/PSettingToggle/PSettingAction.vue';
 
   interface Action {
-    accessibilityLabel?: string,
-    destructive?: boolean,
-    disabled?: boolean,
-    external?: boolean,
-    icon?: string,
-    id?: string | number,
-    loading?: boolean,
-    outline?: boolean,
-    url?: string,
-    contentStatus?: string,
+    accessibilityLabel?: string;
+    destructive?: boolean;
+    disabled?: boolean;
+    external?: boolean;
+    icon?: string;
+    id?: string | number;
+    loading?: boolean;
+    outline?: boolean;
+    url?: string;
+    contentStatus?: string;
 
-    onAction(): void
+    onAction(): void;
   }
 
   /**
@@ -50,7 +50,9 @@
    *  sans-serif;">Use to give merchants control over a feature or option that can be turned on or off.</h4>
    */
   @Component({
-    components: {PSettingAction, PCard, PButton },
+    components: {
+        PSettingAction, PCard, PButton,
+    },
   })
   export default class PSettingToggle extends Vue {
     /**

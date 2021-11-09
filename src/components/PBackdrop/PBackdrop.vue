@@ -20,7 +20,7 @@
         'Polaris-Backdrop',
         this.belowNavigation && 'Polaris-Backdrop--belowNavigation',
         this.transparent && 'Polaris-Backdrop--transparent',
-      )
+      );
     }
   }
 </script>

@@ -33,7 +33,8 @@
   @Component
   export default class PCollapsible extends Vue {
     /**
-     * Assign a unique ID to the collapsible. For accessibility, pass this ID as the value of the triggering component’s aria-controls prop.
+     * Assign a unique ID to the collapsible. For accessibility, pass this ID as the value of the triggering
+     * component’s aria-controls prop.
      */
     @Prop({type: [String, Number], default: null}) public id!: string | number;
 
@@ -132,7 +133,8 @@
     }
 
     public beforeDestroy() {
-      (this.$refs.collapsibleContainer as HTMLDivElement).removeEventListener('transitionend', this.handleCompleteAnimation);
+      (this.$refs.collapsibleContainer as HTMLDivElement)
+          .removeEventListener('transitionend', this.handleCompleteAnimation);
     }
 
     public get isFullyOpen() {
@@ -153,7 +155,7 @@
 
     public get collapsibleStyles() {
       let transitionStyle = {};
-      let collapsible = {
+      const collapsible = {
         maxHeight: this.isFullyOpen ? 'none' : `${this.height}px`,
         overflow: this.isFullyOpen ? 'visible' : 'hidden',
       };

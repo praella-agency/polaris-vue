@@ -109,7 +109,7 @@ export default class PIcon extends Vue {
     /**
      * Handle click event
      */
-    this.$emit('click');
+    this.$emit('click', event);
   }
 }
 </script>

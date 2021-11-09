@@ -641,7 +641,7 @@
         components: {
             PBulkActions, PEmptySearchResult, PSpinner, PButton, PStack, PStackItem, PCheckbox, PBadge, PIndexTableRow,
             PIndexTableCell, PTextStyle, PFilter, PPagination,
-        }
+        },
     })
     export default class PIndexTable extends Vue {
         /**
@@ -662,6 +662,7 @@
         /**
          * Actions available on the currently selected items
          */
+        /* tslint:disable-next-line */
         @Prop({type: Array, default: () => ([])}) public bulkActions!: BulkActionsProps['actions'][];
 
         /**
@@ -854,7 +855,7 @@
 
         public get stickyColumnHeaderStyle() {
             return this.tableHeadingRect && this.tableHeadingRect.length > 0 ? {
-                minWidth: this.calculateFirstHeaderOffset()
+                minWidth: this.calculateFirstHeaderOffset(),
             } : undefined;
         }
 
@@ -868,7 +869,7 @@
                 return;
             }
 
-            let actionText = this.selectedRowsCount === 'All'
+            const actionText = this.selectedRowsCount === 'All'
                 ? 'Undo' : `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
 
             this.paginatedSelectAction = {
@@ -919,6 +920,7 @@
             this.emitSelection('multiple', this.selectMode, this.selectedResources);
         }
 
+        /* tslint:disable-next-line */
         public handleSelectModeToggle(val: boolean) {
         }
 
@@ -941,6 +943,7 @@
             this.paginatedSelectAllText = '';
             this.togglePlus = '';
 
+            /* tslint:disable-next-line */
             if (checked['checked']) {
                 this.rows.map((row) => {
                     this.selectedResources = [ ...this.selectedResources, row ];
@@ -950,14 +953,16 @@
                 this.selectedResources = [];
             }
 
+            /* tslint:disable-next-line */
             this.selectMode = checked['checked'];
+            /* tslint:disable-next-line */
             this.emitSelection('multiple', checked['checked'], this.selectedResources);
         }
 
         public headingStyle(position) {
             return this.tableHeadingRect && this.tableHeadingRect.length > position
                 ? {
-                    minWidth: this.tableHeadingRect[position].offsetWidth
+                    minWidth: this.tableHeadingRect[position].offsetWidth,
                 } : undefined;
         }
 
@@ -965,13 +970,13 @@
             return classNames(
                 'Polaris-IndexTable__TableHeading',
                 index === 0 && 'Polaris-IndexTable-StickyTableHeading-second',
-                index === 0 && !this.selectable && 'unselectable'
+                index === 0 && !this.selectable && 'unselectable',
             );
         }
 
         public headingContentClassName(heading, index) {
-            let isSecond = index === 0;
-            let isLast = index === this.headings.length - 1;
+            const isSecond = index === 0;
+            const isLast = index === this.headings.length - 1;
 
             return classNames(
                 'Polaris-IndexTable__TableHeading',
@@ -1023,8 +1028,10 @@
         public handleSelectionChange(selectionType, selected, id) {
             this.selectMode = true;
 
-            let index = this.selectedResources.findIndex(x => x.id === id);
-            let rowId = this.rows.findIndex(x => x['id'] === id);
+            /* tslint:disable-next-line */
+            const index = this.selectedResources.findIndex(x => x.id === id);
+            /* tslint:disable-next-line */
+            const rowId = this.rows.findIndex(x => x['id'] === id);
 
             if (!selected) {
                 if (this.hasMoreItems) {

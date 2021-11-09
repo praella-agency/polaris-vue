@@ -72,6 +72,7 @@
     /**
      * An array of action objects that are rendered inside of a popover triggered by this menu
      */
+    /* tslint:disable-next-line */
     @Prop({type: Array, default: () => ([])}) public actions!: { items: Action[] }[];
 
     /**

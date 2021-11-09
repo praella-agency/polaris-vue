@@ -29,9 +29,10 @@
                 return;
             }
 
-            let availableScrollAmount = this.scrollableContainerRef.scrollWidth - this.scrollableContainerRef.offsetHeight;
-            let canScrollLeft = this.scrollableContainerRef.scrollLeft > 0;
-            let canScrollRight = this.scrollableContainerRef.scrollLeft < availableScrollAmount;
+            const availableScrollAmount = this.scrollableContainerRef.scrollWidth -
+                this.scrollableContainerRef.offsetHeight;
+            const canScrollLeft = this.scrollableContainerRef.scrollLeft > 0;
+            const canScrollRight = this.scrollableContainerRef.scrollLeft < availableScrollAmount;
 
             this.$emit('onScroll', canScrollLeft, canScrollRight);
         }

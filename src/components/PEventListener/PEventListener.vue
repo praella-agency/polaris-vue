@@ -21,6 +21,7 @@
 
     @Prop({type: Boolean, default: false}) public capture!: boolean;
 
+    /* tslint:disable-next-line */
     @Prop({type: Function, default: (event: Event):void => {}}) public handler!: any;
 
     @Prop({type: Boolean, default: false}) public passive!: boolean;
@@ -38,7 +39,7 @@
       this.detachListener();
     }
 
-    render() {
+    public render() {
       return null;
     }
 
