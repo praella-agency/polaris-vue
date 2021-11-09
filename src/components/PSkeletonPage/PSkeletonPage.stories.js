@@ -8,6 +8,15 @@ import { PTextContainer } from '../PTextContainer';
 export default {
     title: 'Feedback indicators / Skeleton Page',
     component: PSkeletonPage,
+    argTypes: {
+        default: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({
