@@ -34,7 +34,7 @@
   @Component({
     components: {
       PIndexTableCheckbox,
-    }
+    },
   })
   export default class PIndexTableRow extends Vue {
     @Prop({type: [String, Number], required: true}) public id!: string | number;
@@ -95,8 +95,8 @@
 
         if (this.primaryLinkElement && !this.selectMode) {
           this.isNavigating = true;
-          let ctrlKey = event.ctrlKey;
-          let metaKey = event.metaKey;
+          const ctrlKey = event.ctrlKey;
+          const metaKey = event.metaKey;
 
           this.$emit('navigation', this.id);
 
@@ -117,14 +117,14 @@
     public handleInteraction(event: MouseEvent) {
       event.stopPropagation();
 
-      let selectionType = event.shiftKey ? SelectionType.Multi : SelectionType.Single;
+      const selectionType = event.shiftKey ? SelectionType.Multi : SelectionType.Single;
 
       this.$emit('selectionChange', selectionType, !this.selected, this.id, this.position);
     }
 
     public tableRowCallbackRef(node) {
       this.tableRowRef = node;
-      let el = node.querySelector('[data-primary-link]');
+      const el = node.querySelector('[data-primary-link]');
 
       if (el) {
         this.primaryLinkElement = el;

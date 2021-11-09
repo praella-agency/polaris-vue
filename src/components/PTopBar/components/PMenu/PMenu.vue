@@ -79,10 +79,8 @@
     /**
      * A callback function to handle opening the menu popover
      */
-    @Prop({
-      type: Function, default: () => {
-      }
-    }) public onOpen!: void;
+    /* tslint:disable-next-line */
+    @Prop({type: Function, default: () => {}}) public onOpen!: void;
 
     /**
      * A callback function to handle closing the menu popover
@@ -99,7 +97,7 @@
     public get className() {
       return classNames(
         'Polaris-Popover__Section',
-        'Polaris-Popover__Section+ Polaris-Popover__Section'
+        'Polaris-Popover__Section+ Polaris-Popover__Section',
       );
     }
 

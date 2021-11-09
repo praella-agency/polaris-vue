@@ -191,7 +191,7 @@ export default class PResourceListHeader extends Vue {
 
     public get isSelectable() {
         return Boolean((Object.keys(this.promotedBulkActions).length > 0) ||
-            (Object.keys(this.bulkActions).length > 0) || this.selectable)
+            (Object.keys(this.bulkActions).length > 0) || this.selectable);
     }
 
     public get bulkActionsForSmallScreen() {
@@ -199,7 +199,7 @@ export default class PResourceListHeader extends Vue {
             return [
                 {
                     items: this.bulkActions,
-                }
+                },
             ];
         }
     }

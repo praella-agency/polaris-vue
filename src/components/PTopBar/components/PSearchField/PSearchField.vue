@@ -74,6 +74,9 @@
      */
     @Prop({type: Boolean, default: false}) public showFocusBorder!: boolean;
 
+    public forceActive = false;
+    public inputValue = this.value;
+
     @Watch('focused')
     public onFocusedChanged(value) {
       if (!(this.$refs.input as HTMLInputElement)) {
@@ -87,20 +90,17 @@
       }
     }
 
-    public forceActive = false;
-    public inputValue = this.value;
-
     public get className() {
       return classNames(
         'Polaris-TopBar-SearchField',
-        (this.focused || this.active || this.forceActive) && 'Polaris-TopBar-SearchField--focused'
+        (this.focused || this.active || this.forceActive) && 'Polaris-TopBar-SearchField--focused',
       );
     }
 
     public get divClassName() {
       return classNames(
         'Polaris-TopBar-SearchField__Backdrop',
-        this.showFocusBorder && 'Polaris-TopBar-SearchField__BackdropShowFocusBorder'
+        this.showFocusBorder && 'Polaris-TopBar-SearchField__BackdropShowFocusBorder',
       );
     }
 

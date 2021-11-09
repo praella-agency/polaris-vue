@@ -62,7 +62,7 @@
   @Component({
     components: {
       PSkeletonBodyText, PSkeletonDisplayText,
-    }
+    },
   })
   export default class PSkeletonPage extends Vue {
     /**
@@ -109,10 +109,11 @@
         const width = Math.round(Math.random() * 40 + 60);
         actions.push(
           {
-            'width': {
+            width: {
+              /* tslint:disable-next-line */
               'width': `${width}px`,
             },
-            'key': i,
+            key: i,
           },
         );
       }

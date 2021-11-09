@@ -17,7 +17,7 @@
   @Component({
     components: {
       PCollapsible,
-    }
+    },
   })
   export default class PSecondary extends Vue {
     @Prop({type: Boolean, required: true}) public expanded!: boolean;

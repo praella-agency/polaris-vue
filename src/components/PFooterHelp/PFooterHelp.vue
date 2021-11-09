@@ -21,11 +21,11 @@ import {classNames, variationName} from '@/utilities/css';
 import {PIcon} from '@/components/PIcon';
 
 /**
-* <br/>
-* <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
-*  sans-serif;">Footer help is used to refer merchants to more information related to the product or feature they’re
-*  using.</h4>
-*/
+ * <br/>
+ * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+ *  sans-serif;">Footer help is used to refer merchants to more information related to the product or feature they’re
+ *  using.</h4>
+ */
 @Component({
   components: { PIcon },
 })

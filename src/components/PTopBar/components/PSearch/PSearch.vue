@@ -31,7 +31,7 @@
     public get className() {
       return classNames(
         'Polaris-TopBar-Search',
-        this.visible && 'Polaris-TopBar-Search--visible'
+        this.visible && 'Polaris-TopBar-Search--visible',
       );
     }
 

@@ -20,9 +20,9 @@
         'Polaris-IndexTable__TableCell',
         this.flush && 'Polaris-IndexTable__TableCell--flush',
         this.lastChild && 'Polaris-IndexTable__TableCell--last-child',
-      )
+      );
     }
-  };
+  }
 </script>
 
 <style scoped>

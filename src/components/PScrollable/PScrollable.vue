@@ -98,12 +98,12 @@
                 return;
             }
 
-            let {scrollTop, clientHeight, scrollHeight} = (this.$refs.scrollArea as HTMLElement);
-            let shouldBottomShadow = Boolean(this.shadow && !(scrollTop + clientHeight >= scrollHeight));
-            let shouldTopShadow = Boolean(this.shadow && scrollTop > 0 && this.scrollPosition > 0);
+            const {scrollTop, clientHeight, scrollHeight} = (this.$refs.scrollArea as HTMLElement);
+            const shouldBottomShadow = Boolean(this.shadow && !(scrollTop + clientHeight >= scrollHeight));
+            const shouldTopShadow = Boolean(this.shadow && scrollTop > 0 && this.scrollPosition > 0);
 
-            let canScroll = scrollHeight > clientHeight;
-            let hasScrolledToBottom = scrollHeight - scrollTop <= clientHeight + 2;
+            const canScroll = scrollHeight > clientHeight;
+            const hasScrolledToBottom = scrollHeight - scrollTop <= clientHeight + 2;
 
             if (canScroll && hasScrolledToBottom) {
                 /**
@@ -123,20 +123,32 @@
                 return;
             }
 
-            let {clientHeight, scrollHeight} = (this.$refs.scrollArea as HTMLElement);
+            const {clientHeight, scrollHeight} = (this.$refs.scrollArea as HTMLElement);
             if (this.prefersReducedMotion || this.scrollPosition > 0 || scrollHeight <= clientHeight) {
                 return;
             }
 
-            let scrollDistance = scrollHeight - clientHeight;
+            const scrollDistance = scrollHeight - clientHeight;
             this.toggleLock();
 
             this.scrollPosition = scrollDistance > 100 ? 100 : scrollDistance;
             window.requestAnimationFrame(this.scrollStep);
         }
 
+        public prevent(evt: Event) {
+            evt.preventDefault();
+        }
+
+        public prefersReducedMotion() {
+            try {
+                return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            } catch (err) {
+                return false;
+            }
+        }
+
         private scrollStep() {
-            let delta = this.scrollPosition * 0.2;
+            const delta = this.scrollPosition * 0.2;
             this.scrollPosition = delta < 0.2 ? 0 : this.scrollPosition - delta;
 
             if (this.scrollPosition > 0) {
@@ -158,18 +170,6 @@
                     (this.$refs.scrollArea as HTMLElement).removeEventListener(eventName, this.prevent);
                 }
             });
-        }
-
-        public prevent(evt: Event) {
-            evt.preventDefault();
-        }
-
-        public prefersReducedMotion() {
-            try {
-                return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            } catch (err) {
-                return false;
-            }
         }
     }
 </script>

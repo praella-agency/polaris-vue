@@ -22,7 +22,7 @@
                     'background-color': options.canSuccess ? options.color : options.failedColor,
                     'opacity': options.show ? 1 : 0,
                     'position': options.position,
-                }
+                };
                 if (location === 'top' || location === 'bottom') {
                     location === 'top' ? style.top = '0px' : style.bottom = '0px';
                     if (!options.inverse) {
@@ -32,8 +32,7 @@
                     }
                     style.width = progress.percent + '%';
                     style.height = '3px';
-                    style.transition = isShow ? "width " + options.transition.speed + " linear " : "";
-                    // style.transition = (isShow ? "width " + options.transition.speed + ", " : "") + "opacity " + options.transition.opacity;
+                    style.transition = isShow ? 'width ' + options.transition.speed + ' linear ' : '';
                 } else if (location === 'left' || location === 'right') {
                     location === 'left' ? style.left = '0px' : style.right = '0px';
                     if (!options.inverse) {
@@ -43,7 +42,8 @@
                     }
                     style.height = progress.percent + '%';
                     style.width = options.thickness;
-                    style.transition = (isShow ? "height " + options.transition.speed + ", " : "") + "opacity " + options.transition.opacity;
+                    style.transition = (isShow ? 'height ' + options.transition.speed + ', ' : '') + 'opacity ' +
+                        options.transition.opacity;
                 }
                 return style;
             },
@@ -62,17 +62,17 @@
                             transition: {
                                 speed: '0.5s',
                                 opacity: '0.6s',
-                                termination: 300
+                                termination: 300,
                             },
                             location: 'top',
                             autoRevert: true,
-                            inverse: false
-                        }
-                    }
+                            inverse: false,
+                        },
+                    };
                 }
-            }
-        }
-    }
+            },
+        },
+    };
 </script>
 
 <style scoped>

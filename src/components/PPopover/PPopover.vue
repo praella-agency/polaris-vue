@@ -48,10 +48,11 @@ import PPopoverOverlay from '@/components/PPopover/components/PPopoverOverlay.vu
 
 /**
  * <br/>
- * <h4 style={{fontFamily: '-apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif'}}>
- *  Popovers are small overlays that open on demand. They let merchants access additional content and actions without
- *  cluttering the page.</h4>
-*/
+ * <h4 style={{fontFamily: '-apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto,
+ * Helvetica Neue, sans-serif'}}>
+ * Popovers are small overlays that open on demand. They let merchants access additional content and actions without
+ * cluttering the page.</h4>
+ */
 @Component({
   components: {PPopoverOverlay},
 })

@@ -58,7 +58,10 @@
     /**
      * ID for form input.
      */
-    @Prop({type: [String, Number], default: `PolarisSelect${new Date().getUTCMilliseconds()}`}) public id!: string | number;
+    @Prop({
+        type: [String, Number],
+        default: `PolarisSelect${new Date().getUTCMilliseconds()}`,
+    }) public id!: string | number;
 
     /**
      * Name for form input.

@@ -79,17 +79,17 @@
 
   const noWindowMatches: MediaQueryList = {
     media: '',
-    addListener: () => {
-    },
-    removeListener: () => {
-    },
+    /* tslint:disable-next-line */
+    addListener: () => {},
+    /* tslint:disable-next-line */
+    removeListener: () => {},
     matches: false,
-    onchange: () => {
-    },
-    addEventListener: () => {
-    },
-    removeEventListener: () => {
-    },
+    /* tslint:disable-next-line */
+    onchange: () => {},
+    /* tslint:disable-next-line */
+    addEventListener: () => {},
+    /* tslint:disable-next-line */
+    removeEventListener: () => {},
     dispatchEvent: (_: Event) => true,
   };
 
@@ -101,7 +101,7 @@
   @Component({
     components: {
       PItem, PIcon, PCollapsible,
-    }
+    },
   })
   export default class PSection extends Vue {
     @Prop({type: Array, default: null}) public items!: ItemProps[];
@@ -110,7 +110,7 @@
     @Prop({type: Boolean, default: false}) public fill!: boolean;
     @Prop({
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     }) public rollup!: {
       after: number;
       view: string;
@@ -119,7 +119,7 @@
     };
     @Prop({
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     }) public action!: {
       icon: string;
       accessibilityLabel: string;
@@ -132,14 +132,13 @@
     @Prop(Function) public onNavigationDismiss!: void;
 
     public animationFrame: number | null = null;
+    public itemsMarkup = this.items;
+    public expanded = false;
 
     @Watch('animationFrame')
     public onAnimationFrameChanged(value) {
       return value && cancelAnimationFrame(value);
     }
-
-    public itemsMarkup = this.items;
-    public expanded = false;
     public get additionalItems() {
       return Object.keys(this.rollup).length > 0 ? this.itemsMarkup.slice(this.rollup.after) : [];
     }
@@ -183,7 +182,7 @@
       if (!hasSubNavItems || this.navigationBarCollapsed().matches) {
         this.animationFrame = requestAnimationFrame(() => {
             this.expanded = false;
-          }
+          },
         );
       }
     }

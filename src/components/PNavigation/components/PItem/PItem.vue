@@ -118,7 +118,7 @@
   @Component({
     components: {
       PUnstyledLink, PIcon, PBadge, PSecondary, PItem,
-    }
+    },
   })
   export default class PItem extends Vue {
     @Prop({type: String, default: null}) public icon!: string | 'placeholder';
@@ -132,11 +132,11 @@
     @Prop({type: Array, default: () => ([])}) public subNavigationItems!: SubNavigationItem[];
     @Prop({type: Object, default: () => ({})}) public secondaryAction!: SecondaryAction;
 
-    /*Navigation Props*/
+    /* Navigation Props */
     @Prop({type: String, default: null}) public location!: string;
     @Prop(Function) public onNavigationDismiss!: any;
 
-    //ItemURLDetails Props
+    // ItemURLDetails Props
     @Prop({type: String, default: null}) public url!: string;
     @Prop({type: [String, Object], default: null}) public to!: object | string;
     @Prop({type: Boolean, default: false}) public matches!: boolean;
@@ -156,7 +156,7 @@
       matches: this.matches,
       exactMatch: this.exactMatch,
       matchPaths: this.matchPaths,
-      excludePaths: this.excludePaths
+      excludePaths: this.excludePaths,
     }, this.location);
 
     public selectedOverride = !this.selected
@@ -246,18 +246,19 @@
         return;
       }
 
-      this.$emit('click')
+      this.$emit('click');
     }
 
     public get longestMatch() {
       if (this.subNavigationItems.length > 0) {
         return this.matchingSubNavigationItems.sort(
+            /* tslint:disable-next-line */
           function({url: firstUrl}, {url: secondUrl}) {
-            if(firstUrl !== undefined && secondUrl !== undefined) {
+            if (firstUrl !== undefined && secondUrl !== undefined) {
               return secondUrl.length - firstUrl.length;
             }
             return 0;
-          }
+          },
         )[0];
       }
     }

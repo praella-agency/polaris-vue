@@ -35,7 +35,7 @@
     @Component({
       components: {
         PStack, PStackItem, PDisplayText, PTextStyle, PImage,
-      }
+      },
     })
     export default class PEmptySearchResult extends Vue {
         @Prop({type: String, required: true}) public title!: string;

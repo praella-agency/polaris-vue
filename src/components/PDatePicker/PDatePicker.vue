@@ -112,11 +112,11 @@ type DateType = Date | null | string;
 interface DateRange {
     singleDatePicker: {
         startDate?: DateType;
-    }
+    };
     rangeDatePicker: {
         startDate?: DateType;
         endDate?: DateType;
-    }
+    };
 }
 
 /**
@@ -304,8 +304,8 @@ export default class PDatePicker extends Vue {
   @Prop({type: String, default: '-'}) public placeholder!: string;
 
   public content: DateRange['singleDatePicker'] | DateRange['rangeDatePicker'] =
-      (this.dateRange && Object.keys(this.dateRange).length > 0 && this.dateRange !== null && this.dateRange !== undefined) ?
-      this.dateRange : {startDate: null, endDate: null};
+      (this.dateRange && Object.keys(this.dateRange).length > 0 && this.dateRange !== null &&
+          this.dateRange !== undefined) ? this.dateRange : {startDate: null, endDate: null};
 
   public selectedRanges = null;
 

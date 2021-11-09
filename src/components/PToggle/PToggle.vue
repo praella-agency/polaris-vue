@@ -35,7 +35,10 @@ export default class PToggle extends Vue {
   /**
    * ID of toggle
    */
-  @Prop({type: [String, Number], default: `PolarisTextField${new Date().getUTCMilliseconds()}`}) public id!: string | number;
+  @Prop({
+      type: [String, Number],
+      default: `PolarisTextField${new Date().getUTCMilliseconds()}`,
+  }) public id!: string | number;
 
   /**
    * propsClass of toggle

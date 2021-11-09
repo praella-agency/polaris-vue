@@ -140,10 +140,10 @@ interface State {
 @Component({
   components: {
     PContextualSaveBar, PEventListener, PIcon, PBackdrop, PTopBar, PNavigation,
-  }
+  },
 })
 export default class PFrameInner extends Vue {
-  @Prop({type: Boolean, default: false}) showMobileNavigation!: boolean;
+  @Prop({type: Boolean, default: false}) public showMobileNavigation!: boolean;
 
   @Prop({type: Function}) public onNavigationDismiss!: any;
 
@@ -174,7 +174,6 @@ export default class PFrameInner extends Vue {
   public APP_FRAME_MAIN = 'AppFrameMain';
   public APP_FRAME_NAV = 'AppFrameNav';
   public APP_FRAME_TOP_BAR = 'AppFrameTopBar';
-  public APP_FRAME_LOADING_BAR = 'AppFrameLoadingBar';
 
   public toggleMobileNavigation = this.showMobileNavigation;
   public mobileNavHidden = this.useMediaQuery() && !this.toggleMobileNavigation;
@@ -226,13 +225,13 @@ export default class PFrameInner extends Vue {
     return classNames(
         'Polaris-Frame__ContextualSaveBar Polaris-Frame-CSSAnimation--startFade',
         this.contextualSaveBar.active && ' Polaris-Frame-CSSAnimation--endFade',
-    )
+    );
   }
 
   public get skipClassName() {
     return classNames(
         'Polaris-Frame__Skip',
-        this.state.skipFocused && 'Polaris-Frame--focused'
+        this.state.skipFocused && 'Polaris-Frame--focused',
     );
   }
 
@@ -256,7 +255,7 @@ export default class PFrameInner extends Vue {
 
   public setGlobalRibbonContainer = (node: HTMLDivElement) => {
     this.globalRibbonContainer = node;
-  };
+  }
 
   public handleResize() {
     if (this.$slots.hasOwnProperty('globalRibbon')) {
@@ -269,7 +268,7 @@ export default class PFrameInner extends Vue {
     this.setRootProperty(
         '--global-ribbon-height',
         `${globalRibbonHeight}px`,
-        null
+        null,
     );
   }
 
@@ -291,22 +290,8 @@ export default class PFrameInner extends Vue {
     }
 
     const styleNode = node && node instanceof HTMLElement ? node : document.documentElement;
+    /* tslint:disable-next-line */
     styleNode && styleNode.style.setProperty(name, value);
-  }
-
-  private handleFocus() {
-    this.state.skipFocused = true;
-  }
-
-  private handleBlur() {
-    this.state.skipFocused = false;
-  }
-
-  private handleClick(event: MouseEvent) {
-    if (this.$refs.skipToContentTarget) {
-      (this.$refs.skipToContentTarget as HTMLInputElement).focus();
-      event.preventDefault();
-    }
   }
 
   public useMediaQuery() {
@@ -334,6 +319,21 @@ export default class PFrameInner extends Vue {
 
   public enter(el, done) {
     done();
+  }
+
+  private handleFocus() {
+    this.state.skipFocused = true;
+  }
+
+  private handleBlur() {
+    this.state.skipFocused = false;
+  }
+
+  private handleClick(event: MouseEvent) {
+    if (this.$refs.skipToContentTarget) {
+      (this.$refs.skipToContentTarget as HTMLInputElement).focus();
+      event.preventDefault();
+    }
   }
 }
 </script>

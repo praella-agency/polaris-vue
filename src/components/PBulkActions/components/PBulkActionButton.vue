@@ -27,7 +27,7 @@
     @Component({
       components: {
         PButton,
-      }
+      },
     })
     export default class PBulkActionButton extends Vue {
       @Prop({type: String}) public url!: string;
@@ -40,7 +40,7 @@
 
       public mounted() {
         if (this.$refs.bulkActionButton) {
-          let width = (this.$refs.bulkActionButton as HTMLDivElement).getBoundingClientRect().width;
+          const width = (this.$refs.bulkActionButton as HTMLDivElement).getBoundingClientRect().width;
           this.$emit('handleMeasurement', width);
         }
       }

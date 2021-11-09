@@ -47,7 +47,10 @@ type MenuDescriptorWithIndex = (MenuActionDescriptor | MenuGroupDescriptor) & {
 
 export default class PActionMenuActions extends Vue {
 
-  @Prop({type: [String, Number], default: `ActionMenuLayout${new Date().getUTCMilliseconds()}`}) public id!: string | number;
+  @Prop({
+      type: [String, Number],
+      default: `ActionMenuLayout${new Date().getUTCMilliseconds()}`,
+  }) public id!: string | number;
   @Prop(Array) public actions!: MenuActionDescriptor[];
   @Prop(Array) public groups!: MenuGroupDescriptor[];
 

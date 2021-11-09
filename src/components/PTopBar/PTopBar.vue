@@ -164,7 +164,8 @@
     public popoverActive = false;
 
     /**
-     * Toggles whether or not a navigation component has been provided. Controls the presence of the mobile nav toggle button
+     * Toggles whether or not a navigation component has been provided. Controls the presence of the mobile nav
+     * toggle button
      */
     @Prop({type: Boolean}) public showNavigationToggle!: boolean;
 
@@ -189,7 +190,8 @@
     @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
 
     /**
-     * Accepts a user component that is made available as a static member of the top bar component and renders as the primary menu
+     * Accepts a user component that is made available as a static member of the top bar component and renders as
+     * the primary menu
      */
     @Prop({type: Object, default: () => ({})}) public userMenu!: UserMenu;
 
@@ -204,7 +206,8 @@
     @Prop({type: Object, default: () => ({})}) public searchField!: SearchField;
 
     /**
-     * Accepts a search results component that is ideally composed of a card component containing a list of actionable search results
+     * Accepts a search results component that is ideally composed of a card component containing a list of actionable
+     * search results
      */
     @Prop({type: Object, default: () => ({})}) public searchResult!: SearchResult;
 
@@ -213,9 +216,8 @@
     public get className() {
       return classNames(
         'Polaris-TopBar__LogoContainer',
-        (this.showNavigationToggle ||
-          this.$slots['searchField'] ||
-          this.$scopedSlots['searchField']) ?
+        /* tslint:disable-next-line */
+        (this.showNavigationToggle || this.$slots['searchField'] || this.$scopedSlots['searchField']) ?
           'Polaris-TopBar__LogoDisplayControl' :
           'Polaris-TopBar__LogoDisplayContainer',
       );
@@ -230,7 +232,7 @@
 
     public get width() {
       return {
-        width: getWidth(this.logo, 104)
+        width: getWidth(this.logo, 104),
       };
     }
 

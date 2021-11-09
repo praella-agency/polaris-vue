@@ -39,17 +39,18 @@
    * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
    *  sans-serif;">The frame component, while not visible in the user interface itself, provides the structure for
    *  an application. It wraps the main elements and houses the primary
-   *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/navigation-navigation--navigation" target="_blank">navigation</a>,
+   *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/navigation-navigation--navigation" target="_blank">
+   *      navigation</a>,
    *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/structure-top-bar--top-bar" target="_blank">top bar</a>,
-   *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/feedback-indicators-toast--toast" target="_blank">toast</a>, and
-   *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/forms-contextual-save-bar--contextual-save-bar" target="_blank">contextual
-   *  save bar</a>
-   *  components.</h4>
+   *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/feedback-indicators-toast--toast" target="_blank">toast</a>,
+   *  and
+   *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/forms-contextual-save-bar--contextual-save-bar"
+   *    target="_blank">contextual save bar</a> components.</h4>
    */
   @Component({
     components: {
       PIcon, PFrameInner,
-    }
+    },
   })
   export default class PFrame extends Vue {
     /**
