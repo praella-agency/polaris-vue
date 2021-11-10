@@ -43,6 +43,58 @@ export default {
                 },
             },
         },
+        filters: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    /** A unique key used to identify the filter */
+    key: string;
+    /** The label for the filter */
+    label: string;
+    /** The markup for the given filter */
+    filter: string;
+    /** Whether or not the filter should have a shortcut popover displayed */
+    shortcut?: boolean;
+    /** Whether or not the filter is disabled */
+    disabled?: boolean;
+    /**
+     * @default false
+     * Whether or not the clear button is displayed
+     */
+    hideClearButton?: boolean;
+}`,
+                },
+            },
+        },
+        onQueryBlur: {
+            table: {
+                defaultValue: {
+                    summary: 'void',
+                },
+            },
+        },
+        onQueryClear: {
+            table: {
+                defaultValue: {
+                    summary: 'void',
+                },
+            },
+        },
+        onQueryClearAll: {
+            table: {
+                defaultValue: {
+                    summary: 'void',
+                },
+            },
+        },
+        onQueryFocus: {
+            table: {
+                defaultValue: {
+                    summary: 'void',
+                },
+            },
+        },
     },
 }
 

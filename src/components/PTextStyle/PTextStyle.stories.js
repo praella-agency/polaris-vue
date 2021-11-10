@@ -17,7 +17,7 @@ export default {
             control: {
                 type: 'select',
                 labels: {
-                    null: 'Default',
+                    null: 'default',
                 },
             },
         },

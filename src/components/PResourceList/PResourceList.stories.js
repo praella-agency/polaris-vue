@@ -18,6 +18,11 @@ export default {
             control: {
                 type: null,
             },
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                },
+            },
         },
         default: {
             table: {

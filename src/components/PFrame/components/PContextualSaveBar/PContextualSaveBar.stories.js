@@ -7,6 +7,69 @@ export default {
     parameters: {
         layout: 'fullscreen',
     },
+    argTypes: {
+        discardAction: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    /** A destination to link to */
+    url?: string;
+    /** Content the action displays */
+    content?: string;
+    /** Should a spinner be displayed */
+    loading?: boolean;
+    /** Should the action be disabled */
+    disabled?: boolean;
+    /** Callback when an action takes place */
+    onAction?(): void;
+    
+    /** Whether to show a modal confirming the discard action */
+    discardConfirmationModal?: boolean;
+}`,
+               },
+            },
+        },
+        logo: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    /** Provides a path for a logo used on a dark background */
+    topBarSource?: string;
+    /** Provides a path for a logo used on a light background */
+    contextualSaveBarSource?: string;
+    /** Destination the merchant will navigate to when clicking the logo */
+    url?: string;
+    /** Accessible label the logo image */
+    accessibilityLabel?: string;
+    /** Number of pixels wide the logo image is */
+    width?: number;
+}`,
+                },
+            },
+        },
+        saveAction: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    /** A destination to link to */
+    url?: string;
+    /** Content the action displays */
+    content?: string;
+    /** Should a spinner be displayed */
+    loading?: boolean;
+    /** Should the action be disabled */
+    disabled?: boolean;
+
+    /** Callback when an action takes place */
+    onAction?(): void;
+}`,
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, {argTypes}) => ({
