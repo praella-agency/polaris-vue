@@ -12,7 +12,7 @@
           @searchResultsDismiss="handleSearchResultsDismiss"
       />
       <div class="shopify-div">
-          <PStack vertical spacing="tight">
+          <PStack v-if="icons.major.length > 0" vertical spacing="tight">
               <PStackItem>
                 <PHeading class="icon-heading">Major Icons</PHeading>
               </PStackItem>
@@ -37,7 +37,7 @@
                   </div>
               </PStackItem>
           </PStack>
-          <PStack vertical>
+          <PStack v-if="icons.minor.length > 0" vertical spacing="tight">
               <PStackItem>
                 <PHeading class="icon-heading">Minor Icons</PHeading>
               </PStackItem>
