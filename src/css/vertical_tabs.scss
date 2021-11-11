@@ -1,0 +1,205 @@
+.Polaris-VerticalTabs__Wrapper {
+  display: flex;
+  border-top: 0.1rem solid $p-divider;
+  border-radius: 0 0 $p-border-radius-wide $p-border-radius-wide;
+  overflow: hidden;
+
+  @media screen and (max-width: 990px) {
+    display: block;
+  }
+}
+
+.Polaris-VerticalTabs {
+  display: flex;
+  flex-direction: column;
+  margin: -1px 0 0 -1px;
+  padding: 0;
+  border-right: 0.1rem solid $p-divider;
+  border-left: 0.1rem solid $p-divider;
+  list-style: none;
+  background-color: $p-surface-subdued;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  @media screen and (max-width: 990px) {
+    flex-direction: row;
+    margin: 0 0 0 -1px;
+    border: 0;
+    overflow-x: scroll;
+  }
+}
+
+.Polaris-VerticalTabs__Tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 -1px;
+  padding: 0;
+  border-top: 0.1rem solid $p-divider;
+  border-bottom: 0.1rem solid $p-divider;
+
+  @media screen and (max-width: 990px) {
+    flex: 1 1;
+    margin: 0;
+    border: 0;
+    border-left: 0.1rem solid $p-divider;
+    flex-direction: row;
+  }
+}
+
+.Polaris-VerticalTabs__Tab:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0.3rem;
+  background: $p-action-primary;
+  opacity: 0;
+
+  @media screen and (max-width: 990px) {
+    right: 0;
+    bottom: auto;
+    width: auto;
+    height: 0.3rem;
+  }
+}
+
+.Polaris-VerticalTabs__Tab--selected:after {
+  opacity: 1;
+}
+
+.Polaris-VerticalTabs__Title {
+  display: none;
+  margin: 0;
+
+  @media (min-width: 34.375em) {
+    font-weight: 600;
+    display: block;
+  }
+
+  @media screen and (max-width: 990px) {
+    margin-top: 0.8rem;
+  }
+}
+
+.Polaris-VerticalTabs__TabElement {
+  --focus-state-box-shadow-color: rgba(0,128,96,0.8);
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 2rem;
+  text-transform: none;
+  letter-spacing: normal;
+  color: $p-text-subdued;
+  position: relative;
+  display: flex;
+  flex: 0 0 100%;
+  align-items: center;
+  text-align: left;
+  width: 22rem;
+  margin: 0 -1px;
+  padding: 2.4rem;
+  outline: none;
+  text-decoration: none;
+  cursor: pointer;
+  border-right: 0.1rem solid $p-divider;
+  border-left: 0.1rem solid $p-divider;
+
+  @media (min-width: 40em) {
+    font-size: 1.4rem;
+  }
+
+  @media screen and (max-width: 990px) {
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 2rem;
+    display: block;
+    text-align: center;
+    margin: 0;
+    border: 0;
+    border-bottom: 0.1rem solid $p-divider;
+    padding: 1.6rem;
+    width: 100%;
+    min-width: 5.5rem;
+  }
+
+  @media screen and (max-width: 990px) and (min-width: 40em) {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+}
+
+.Polaris-VerticalTabs__TabElement--selected {
+  font-weight: 400;
+  color: $p-text;
+  background: $p-surface;
+  color: $p-text-success;
+  border-right-color: transparent;
+
+  @media screen and (max-width: 990px) {
+    border-bottom-color: transparent;
+  }
+}
+
+.Polaris-VerticalTabs__TabElement:focus {
+  box-shadow: inset 0 0 2px 0 rgba(0,128,96,0.8),0 0 2px 0 rgba(0,128,96,0.8);
+  outline: none;
+}
+
+.Polaris-VerticalTabs__TabElement:hover {
+  text-decoration: none;
+}
+
+.Polaris-VerticalTabs__TabElement:focus, .Polaris-VerticalTabs__TabElement:hover {
+  font-weight: 400;
+  color: $p-text;
+}
+
+.Polaris-VerticalTabs__TabElement--icon {
+  margin-right: 1.6rem;
+
+  @media screen and (max-width: 990px) {
+    display: block;
+    margin-right: 0;
+  }
+}
+
+.Polaris-VerticalTabs__Navigation {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  > ul {
+    border-bottom: none;
+  }
+
+  .Polaris-VerticalTabs__Title {
+    &:before{
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+    }
+  }
+}
+
+.Polaris-VerticalTabs__Panel {
+  display: block;
+  width: 100%;
+  padding: 2.4rem 3.2rem;
+  background: $p-surface;
+
+  @media screen and (max-width: 990px) {
+    padding: 2.4rem 1.6rem;
+  }
+}
+
+.Polaris-VerticalTabs__Panel--hidden {
+  display: none;
+}

@@ -31,7 +31,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
 import { PBadge } from '../PBadge';
 
-import {TabDescriptor} from './types';
+import {TabDescriptor} from '@/types/tabs';
 
 import PTab from './PTab.vue';
 import PPanel from './PPanel.vue';
