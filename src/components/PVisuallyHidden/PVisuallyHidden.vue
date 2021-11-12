@@ -1,6 +1,6 @@
 <template>
   <span class="Polaris-VisuallyHidden" :id="id">
-    <!-- @slot Slot to add content -->
+    <!-- @slot The content to be hidden visually -->
     <slot/>
   </span>
 </template>

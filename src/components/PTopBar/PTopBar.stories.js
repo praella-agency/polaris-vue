@@ -68,7 +68,7 @@ export default {
         secondaryMenu: {
             description: `**Props**: Accepts a menu component that is made available as a static member of the top bar 
                 component.
-                \n**Slots**: Slot to customize SecondaryMenu.`,
+                \n**Slots**: Customize SecondaryMenu.`,
             table: {
                 category: 'Props | Slots',
                 type: {
@@ -113,7 +113,7 @@ export default {
         searchField: {
             description: `**Props**: Accepts a search field component that is made available as a <code>TextField</code> 
                 static member of the top bar component.
-                \n**Slots**: Slot to customize SearchField.`,
+                \n**Slots**: Customize SearchField.`,
             table: {
                 category: 'Props | Slots',
                 type: {
@@ -139,7 +139,7 @@ export default {
         searchResult: {
             description: `**Props**: Accepts a search results component that is ideally composed of a card component 
                 containing a list of actionable search results.
-                \n**Slots**: Slot to display custom list of result.`,
+                \n**Slots**: Display custom list of result.`,
             table: {
                 category: 'Props | Slots',
                 type: {
@@ -171,7 +171,7 @@ export default {
         userMenu: {
             description: `**Props**: Accepts a user component that is made available as a static member of the top bar 
                 component and renders as the primary menu.
-                \n**Slots**: Slot to customize UserMenu.`,
+                \n**Slots**: Customize UserMenu.`,
             table: {
                 category: 'Props | Slots',
                 type: {

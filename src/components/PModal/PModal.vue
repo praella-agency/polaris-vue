@@ -14,13 +14,13 @@
                             <PModalSection v-if="sectioned">
                                 <slot />
                             </PModalSection>
-                            <!-- @slot Default slot -->
+                            <!-- @slot The content to display inside modal -->
                             <slot v-else />
                         </template>
                     </div>
                 </div>
               <PModalFooter v-if="$slots.hasOwnProperty('footer')" >
-                <!-- @slot Footer slot -->
+                <!-- @slot The content to display inside modal footer -->
                 <slot name="footer" />
               </PModalFooter>
               <PModalFooter v-if="!$slots.footer && (Object.keys(primaryAction).length > 0

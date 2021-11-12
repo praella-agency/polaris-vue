@@ -21,7 +21,7 @@
         <PHeading element="p">{{ title }}</PHeading>
       </div>
       <div class="Polaris-Banner__Content">
-        <!-- @slot Banner content -->
+        <!-- @slot The content to display inside the badge -->
         <slot/>
         <div v-if="Object.keys(action).length > 0" class="Polaris-Banner__Actions">
           <PButtonGroup>

@@ -2,11 +2,12 @@
   <div class="Polaris-Layout">
     <template v-if="sectioned">
       <PLayoutSection>
-        <!-- @slot Content for the layout  -->
+        <!-- @slot The content to display inside the layout -->
         <slot/>
       </PLayoutSection>
     </template>
     <template v-else>
+      <!-- @slot The content to display inside the layout -->
       <slot/>
     </template>
   </div>

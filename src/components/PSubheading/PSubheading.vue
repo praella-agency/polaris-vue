@@ -1,6 +1,6 @@
 <template>
   <component :is="element" :class="className">
-    <!-- @slot Subheading content -->
+    <!-- @slot Text to display in subheading -->
     <slot/>
   </component>
 </template>

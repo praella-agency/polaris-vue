@@ -1,6 +1,6 @@
 <template>
     <component :is="element" :class="className">
-        <!-- @slot Default content -->
+        <!-- @slot List item elements -->
         <slot/>
     </component>
 </template>

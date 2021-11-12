@@ -2,8 +2,8 @@
   <PCard sectioned>
     <PSettingAction>
       <template slot="children">
-        <!-- @slot SettingAction child content -->
-        <slot></slot>
+        <!-- @slot Inner content of the card -->
+        <slot/>
       </template>
       <PButton slot="action"
          :accessibility-label="action.accessibilityLabel"

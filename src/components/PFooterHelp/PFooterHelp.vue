@@ -8,7 +8,7 @@
         </div>
       </slot>
       <div class="Polaris-FooterHelp__Text">
-        <!-- @slot Default content -->
+        <!-- @slot Display the content inside the layout -->
         <slot/>
       </div>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div :class="className">
-    <!-- @slot TextContainer content -->
+    <!-- @slot The content to render in the text container. -->
     <slot/>
   </div>
 </template>

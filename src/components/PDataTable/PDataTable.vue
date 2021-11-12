@@ -2,10 +2,10 @@
   <div>
     <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs" :resourceName="resource"
              @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
-        <!-- @slot Slot to add a custom Filter content -->
+        <!-- @slot Add a custom Filter content -->
         <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
         <template slot="auxiliaryContainer">
-            <!-- @slot Slot to add auxiliary filters -->
+            <!-- @slot Add auxiliary filters -->
             <slot name="auxiliaryContainer"/>
         </template>
     </PFilter>
@@ -13,7 +13,7 @@
       <div class="Polaris-DataTable__ScrollContainer">
         <table class="Polaris-DataTable__Table">
           <thead ref="thead">
-          <!-- @slot Slot to add a custom Header content -->
+          <!-- @slot Add a custom Header content -->
           <slot name="head">
             <template>
               <tr>
@@ -75,7 +75,7 @@
           </slot>
           </thead>
 
-          <!-- @slot Slot to overwrite tbody element.<br />**Warning:** Using this slot will not allow rows populated from package, you must have to utilize **body** slot as well.
+          <!-- @slot Overwrite tbody element.<br />**Warning:** Using this slot will not allow rows populated from package, you must have to utilize **body** slot as well.
            -->
           <slot name="tbody">
             <tbody ref="tbody">
@@ -86,11 +86,11 @@
               <tr class="Polaris-ResourceList__LoadingOverlay"/>
             </template>
 
-            <!-- @slot Slot to add a custom Body content -->
+            <!-- @slot Add a custom Body content -->
             <slot name="body">
               <template v-if="!hasOldRows">
                 <template v-for="row in rows">
-                  <!-- @slot Slot to replace the default rendering of a row. This slot provides row values.
+                  <!-- @slot Replace the default rendering of a row. This slot provides row values.
 
                   Access values with `slot-props` attribute -->
                   <slot name="item" :item="row">
@@ -105,7 +105,7 @@
                             :vertical-align="verticalAlign"
                             :sortable="false">
                           <template v-slot:[`item.${heading.value}`]="slotProps">
-                            <!-- @slot Slot to customize a specific column. This slot provides row values.
+                            <!-- @slot Customize a specific column. This slot provides row values.
 
                             Access values with `slot-props` attribute. -->
                             <slot :name="`item.${heading.value}`" :item="row"/>
@@ -175,7 +175,7 @@
       </div>
 
       <div v-if="footerContent" class="Polaris-DataTable__Footer">
-        <!-- @slot Slot to add a custom Footer content -->
+        <!-- @slot Add a custom Footer content -->
         <slot name="footer">
           {{ footerContent }}
         </slot>
@@ -185,7 +185,7 @@
       </div>
     </div>
     <div v-else>
-      <!-- @slot Slot to display when no record available -->
+      <!-- @slot Display when no record available -->
       <slot name="emptyState">
         <PEmptyState
             :heading="emptyStateTitle"

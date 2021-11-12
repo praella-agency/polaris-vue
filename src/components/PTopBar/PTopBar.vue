@@ -12,7 +12,7 @@
       <PIcon source="MobileHamburgerMajor"/>
     </button>
     <div v-if="$slots.hasOwnProperty('contextControl')" testID="ContextControl" class="Polaris-TopBar__ContextControl">
-      <!-- @slot Slot to Accepts a component that is used to help users switch between different contexts -->
+      <!-- @slot Accepts a component that is used to help users switch between different contexts -->
       <slot name="contextControl"/>
     </div>
     <div v-else-if="Object.keys(logo).length > 0" :class="className">
@@ -34,7 +34,7 @@
           v-if="$slots.hasOwnProperty('pSearchField') || Object.keys(searchField).length > 0"
           class="Polaris-TopBar__SearchField"
       >
-        <!-- @slot Slot to customize SearchField -->
+        <!-- @slot Customize SearchField -->
         <slot name="searchField">
           <PSearchField
               v-model="searchFieldValue"
@@ -50,7 +50,7 @@
             @dismiss="handleSearchResultsDismiss"
             :overlayVisible="searchResultsOverlayVisible"
         >
-          <!-- @slot Slot to display custom list of result -->
+          <!-- @slot Display custom list of result -->
           <slot name="searchResult">
             <PActionList
                 :items="searchResult.items"
@@ -63,7 +63,7 @@
           v-if="$slots.hasOwnProperty('pSecondaryMenu') || Object.keys(secondaryMenu).length > 0"
           class="Polaris-TopBar__SecondaryMenu"
       >
-        <!-- @slot Slot to customize SecondaryMenu -->
+        <!-- @slot Customize SecondaryMenu -->
         <slot name="secondaryMenu">
           <PMenu
               v-if="Object.keys(secondaryMenu).length > 0"
@@ -76,7 +76,7 @@
           </PMenu>
         </slot>
       </div>
-      <!-- @slot Slot to customize UserMenu -->
+      <!-- @slot Customize UserMenu -->
       <slot name="userMenu">
         <PUserMenu
             v-if="Object.keys(userMenu).length > 0"

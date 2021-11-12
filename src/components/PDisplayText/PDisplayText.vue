@@ -1,6 +1,6 @@
 <template>
   <component :is="element" :class="className">
-    <!-- @slot Display content -->
+    <!-- @slot Content to display -->
     <slot/>
   </component>
 </template>

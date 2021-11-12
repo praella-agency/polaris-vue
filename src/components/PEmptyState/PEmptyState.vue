@@ -13,7 +13,7 @@
                   </slot>
                 </PDisplayText>
                 <div class="Polaris-EmptyState__Content">
-                  <!-- @slot Default Content -->
+                  <!-- @slot Display the elements inside empty state -->
                   <slot/>
                 </div>
               </PTextContainer>
