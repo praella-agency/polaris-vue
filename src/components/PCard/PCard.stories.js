@@ -20,7 +20,9 @@ export default {
     argTypes: {
         default: {
             table: {
-                disable: true,
+                type: {
+                    summary: null,
+                },
             },
         },
         title: {

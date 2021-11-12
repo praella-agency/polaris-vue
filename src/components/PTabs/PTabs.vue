@@ -20,7 +20,7 @@
       </ul>
     </div>
     <PPanel v-if="!navigation" v-for="(tab, tabIndex) in tabs" :key="tab.id" :id="tab.id + '-panel'" :tabID="tab.id" :hidden="!(selected === tabIndex)">
-      <!-- @slot Panel content -->
+      <!-- @slot The content to display in tabs -->
       <slot v-if="selected === tabIndex"/>
     </PPanel>
   </div>

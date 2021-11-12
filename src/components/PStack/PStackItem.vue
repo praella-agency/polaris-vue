@@ -1,6 +1,6 @@
 <template>
   <div :class="className" v-bind:style="style">
-    <!-- @slot StackItem content -->
+    <!-- @slot Elements to display inside stack item -->
     <slot/>
   </div>
 </template>

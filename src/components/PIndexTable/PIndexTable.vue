@@ -8,10 +8,10 @@
                 @remove-tag="onRemoveFilter"
                 @input="onFilterInputChanged"
             >
-                <!-- @slot Slot to add filterOptions -->
+                <!-- @slot Add filterOptions -->
                 <slot name="filterOptions"/>
                 <template slot="auxiliaryContainer">
-                    <!-- @slot Slot to add auxiliary filters -->
+                    <!-- @slot Add auxiliary filters -->
                     <slot name="auxiliaryContainer"/>
                 </template>
             </PFilter>
@@ -84,7 +84,7 @@
                                     </div>
                                 </transition>
                             </template>
-                            <!-- @slot Slot to customize sort when condensed is true -->
+                            <!-- @slot Customize sort when condensed is true -->
                             <slot name="sort"/>
                             <PButton
                                 v-if="selectable"
@@ -267,7 +267,7 @@
                                 v-for="(heading, key) in headings"
                             >
                                 <PIndexTableCell :lastChild="!!(lastColumnSticky && headings.length === key + 1)">
-                                    <!-- @slot Slot to customize a specific column. This slot provides row values.
+                                    <!-- @slot Customize a specific column. This slot provides row values.
 
                                     Access values with `slot-props` attribute. -->
                                     <slot :name="`item.${heading.value}`" :item="row">
@@ -332,7 +332,7 @@
                                     </div>
                                 </transition>
                             </template>
-                            <!-- @slot Slot to customize sort when condensed is true -->
+                            <!-- @slot Customize sort when condensed is true -->
                             <slot name="sort"/>
                             <PButton
                                 v-if="selectable"
@@ -574,7 +574,7 @@
                                     v-for="(heading, key) in headings"
                                 >
                                     <PIndexTableCell :lastChild="!!(lastColumnSticky && headings.length === key + 1)">
-                                        <!-- @slot Slot to customize a specific column. This slot provides row values.
+                                        <!-- @slot Customize a specific column. This slot provides row values.
 
                                         Access values with `slot-props` attribute.-->
                                         <slot :name="`item.${heading.value}`" :item="row">
@@ -591,7 +591,7 @@
                 <div
                     class="Polaris-IndexTable__EmptySearchResultWrapper"
                 >
-                    <!-- @slot Slot to customize empty state -->
+                    <!-- @slot Customize empty state -->
                     <slot name="emptyState">
                         <PEmptySearchResult
                             :title="`No ${resourceName.plural} found`"

@@ -1,6 +1,6 @@
 <template>
     <PUnstyledLink v-if="url || to" :id="id" :to="to" :url="url" :external="external" :class="className" v-on="$listeners" data-polaris-unstyled="true">
-        <!-- @slot Default slot -->
+        <!-- @slot The content to display inside the link -->
         <slot/>
         <span v-if="isStringSlot" class="Polaris-Link__IconLockup">
             <span class="Polaris-Link__IconLayout">
@@ -9,7 +9,7 @@
         </span>
     </PUnstyledLink>
     <button v-else type="button" :id="id" :class="className" v-on="$listeners">
-        <!-- @slot Default slot -->
+        <!-- @slot The content to display inside the link -->
         <slot/>
         <span v-if="isStringSlot" class="Polaris-Link__IconLockup">
             <span class="Polaris-Link__IconLayout">

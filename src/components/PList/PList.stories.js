@@ -16,7 +16,9 @@ export default {
         },
         default: {
             table: {
-                disable: true,
+                type: {
+                    summary: null,
+                },
             },
         },
     },

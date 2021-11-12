@@ -1,6 +1,6 @@
 <template>
     <p class="Polaris-Caption" :id="id">
-        <!-- @slot Caption content -->
+        <!-- @slot Add content to use as a graph label or timestamp -->
         <slot/>
     </p>
 </template>

@@ -9,15 +9,19 @@ export default {
     argTypes: {
         default: {
             table: {
-                disable: true,
+                type: {
+                    summary: null,
+                },
             },
         },
         primaryAction: {
             type: {
                 name: 'json',
             },
+            description: `**Props**: Primary page-level action. 
+                \n**Slots**: Use some other component for primary Action.`,
             table: {
-                category: ['props', 'slots'],
+                category: 'Props | Slots',
                 defaultValue: {
                     summary: '{}',
                     detail: `{
@@ -26,6 +30,9 @@ export default {
     /** Callback when an action takes place */
     onAction?(): void,
 }`,
+                },
+                type: {
+                    summary: null,
                 },
             },
         },

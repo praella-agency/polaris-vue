@@ -1,6 +1,6 @@
 <template>
   <component :is="element" class="Polaris-Heading">
-    <!-- @slot Heading content -->
+    <!-- @slot The content to display inside the heading -->
     <slot/>
   </component>
 </template>

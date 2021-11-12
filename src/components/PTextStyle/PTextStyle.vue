@@ -1,6 +1,6 @@
 <template>
   <component :is="element" :class="className">
-    <!-- @slot Text content -->
+    <!-- @slot The content that should get the intended styling -->
     <slot/>
   </component>
 </template>

@@ -37,7 +37,7 @@
               </div>
             </PStackItem>
             <PStackItem>
-              <!-- @slot Default slot -->
+              <!-- @slot The visual media to display in the card -->
               <slot/>
             </PStackItem>
             <PStackItem v-if="hasAction">

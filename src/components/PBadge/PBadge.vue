@@ -4,7 +4,7 @@
       <span class="Polaris-VisuallyHidden">{{ progress }}</span>
     </span>
     <span class="Polaris-Badge__Content">
-      <!-- @slot Badge content -->
+      <!-- @slot The content to display inside the badge -->
       <slot/>
     </span>
   </span>
