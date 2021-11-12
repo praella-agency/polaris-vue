@@ -44,11 +44,11 @@ export default class PTab extends Vue {
   @Prop(String) public url!: string;
   @Prop(Boolean) public external!: boolean;
   @Prop({type: String, default: 'Polaris-Tabs__Tab--selected'}) public activeClass!: string;
+  @Prop({type: Boolean, default: false}) public siblingTabHasFocus!: boolean;
 
-  public tabIndex: number = -1;
-  public mounted() {
-    this.tabIndex = this.focused ? 0 : -1;
-  }
+  // public mounted() {
+  //   this.tabIndex = this.focused ? 0 : -1;
+  // }
 
   public get tabContainerClassNames() {
     return classNames(
@@ -67,6 +67,15 @@ export default class PTab extends Vue {
         'Polaris-Tabs__Tab',
         !this.to && this.selected && `Polaris-Tabs__Tab--selected`,
     );
+  }
+
+  public get tabIndex() {
+      if (this.selected && !this.siblingTabHasFocus) {
+          return 0;
+      } else if (this.focused) {
+          return 0;
+      }
+      return -1;
   }
 
   // protected handleClick(id: string) {

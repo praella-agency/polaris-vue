@@ -1,7 +1,55 @@
 <template>
   <div>
     <div :class="wrapperClassName">
-      <ul :class="className">
+      <PTabMeasurer
+          :tab-to-focus="tabToFocus"
+          :selected="selected"
+          :tabs="tabs"
+          :sibling-tab-has-focus="tabToFocus > -1"
+          @handleMeasurement="handleMeasurement"
+      >
+        <div v-if="disclosureText" class="Polaris-Tabs__TabContainer">
+            <button
+                type="button"
+                :class="disclosureButtonClassName"
+                @click="handleDisclosureActivatorClick"
+                aria-label="More tabs"
+            >
+                <span :class="disclosureButtonContentWrapperClassName">
+                    <template v-if="disclosureText">
+                        {{ disclosureText }}
+                        <PIcon source="CaretDownMinor" color="subdued" />
+                    </template>
+                    <template v-else>
+                        <PIcon source="HorizontalDotsMinor" color="subdued" />
+                    </template>
+                </span>
+            </button>
+        </div>
+        <button
+            v-else
+            type="button"
+            :class="disclosureButtonClassName"
+            @click="handleDisclosureActivatorClick"
+            aria-label="More tabs"
+        >
+              <span :class="disclosureButtonContentWrapperClassName">
+                  <template v-if="disclosureText">
+                      {{ disclosureText }}
+                      <PIcon source="CaretDownMinor" color="subdued" />
+                  </template>
+                  <template v-else>
+                      <PIcon source="HorizontalDotsMinor" color="subdued" />
+                  </template>
+              </span>
+        </button>
+      </PTabMeasurer>
+      <ul
+          role="tablist"
+          :class="className"
+          @focus="handleFocus"
+          @blur="handleBlur"
+      >
         <PTab v-for="(tab, tabIndex) in tabs"
               :key="tabIndex + '-' + tab.id"
               :id="tab.id"
@@ -17,6 +65,57 @@
                 {{ tab.badge.content }}
             </PBadge>
         </PTab>
+        <li
+            :class="disclosureTabClassName"
+            role="presentation"
+        >
+            <PPopover
+                id="TabsPopoverRollup"
+                :active="disclosureActivatorVisible && showDisclosure"
+                preferred-position="below"
+                @close="handleClose"
+            >
+
+                <template slot="activator">
+                    <div v-if="disclosureText" class="Polaris-Tabs__TabContainer">
+                        <button
+                            type="button"
+                            :class="disclosureButtonClassName"
+                            @click="handleDisclosureActivatorClick"
+                            aria-label="More tabs"
+                        >
+                            <span :class="disclosureButtonContentWrapperClassName">
+                                <template v-if="disclosureText">
+                                    {{ disclosureText }}
+                                    <PIcon source="CaretDownMinor" color="subdued" />
+                                </template>
+                                <template v-else>
+                                    <PIcon source="HorizontalDotsMinor" color="subdued" />
+                                </template>
+                            </span>
+                        </button>
+                    </div>
+                    <button
+                        v-else
+                        type="button"
+                        :class="disclosureButtonClassName"
+                        @click="handleDisclosureActivatorClick"
+                        aria-label="More tabs"
+                    >
+                      <span :class="disclosureButtonContentWrapperClassName">
+                          <template v-if="disclosureText">
+                              {{ disclosureText }}
+                              <PIcon source="CaretDownMinor" color="subdued" />
+                          </template>
+                          <template v-else>
+                              <PIcon source="HorizontalDotsMinor" color="subdued" />
+                          </template>
+                      </span>
+                    </button>
+                </template>
+
+            </PPopover>
+        </li>
       </ul>
     </div>
     <PPanel v-if="!navigation" v-for="(tab, tabIndex) in tabs" :key="tab.id" :id="tab.id + '-panel'" :tabID="tab.id" :hidden="!(selected === tabIndex)">
@@ -29,12 +128,15 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
-import { PBadge } from '../PBadge';
+import { PBadge } from '@/components/PBadge';
+import { PPopover } from '@/components/PPopover';
+import { PTab } from '@/components/PTabs/components/PTab';
+import { PPanel } from '@/components/PTabs/components/PPanel';
+import { PTabMeasurer } from '@/components/PTabs/components/PTabMeasurer';
+import { PIcon } from '@/components/PIcon';
 
 import {TabDescriptor} from './types';
-
-import PTab from './PTab.vue';
-import PPanel from './PPanel.vue';
+import { getVisibleAndHiddenTabIndices } from '@/components/PTabs/utilities';
 
 /**
  * <br/>
@@ -43,7 +145,7 @@ import PPanel from './PPanel.vue';
  */
 @Component({
   components: {
-    PTab, PPanel, PBadge,
+    PTab, PPanel, PBadge, PPopover, PTabMeasurer, PIcon,
   },
 })
 export default class PTabs extends Vue {
@@ -65,10 +167,31 @@ export default class PTabs extends Vue {
    * Configure the active CSS class applied when the link is active
    */
   @Prop({type: String, default: 'Polaris-Tabs__Tab--selected'}) public activeClass!: string;
+  /**
+   * Fit tabs to container
+   */
+  @Prop({type: Boolean, default: false}) public fitted!: boolean;
+  /**
+   * Text to replace disclosures horizontal dots
+   */
+  @Prop({type: String, default: ''}) public disclosureText!: string;
+
+  public disclosureWidth = 0;
+  public tabsWidth = [];
+  public visibleTabs = [];
+  public hiddenTabs = [];
+  public showDisclosure = false;
+  public containerWidth = Infinity;
+  public tabToFocus = -1;
+
+  public visibleHiddenTabs = getVisibleAndHiddenTabIndices(this.tabs, this.selected, this.disclosureWidth, this.tabsWidth, this.containerWidth);
+  public disclosureActivatorVisible = this.visibleHiddenTabs['visibleTabs'].length < this.tabs.length;
 
   public get className() {
     return classNames(
         'Polaris-Tabs',
+        this.fitted && 'Polaris-Tabs--fitted',
+        this.disclosureActivatorVisible && 'Polaris-Tabs--fillSpace',
     );
   }
 
@@ -77,6 +200,36 @@ export default class PTabs extends Vue {
         'Polaris-Tabs__Wrapper',
         this.navigation && 'Polaris-Tabs__Navigation',
     );
+  }
+
+  public get disclosureTabClassName() {
+      return classNames(
+          'Polaris-Tabs__DisclosureTab',
+          this.disclosureActivatorVisible && 'Polaris-Tabs__DisclosureTab--visible',
+      );
+  }
+
+  public get disclosureButtonClassName() {
+      return classNames(
+          'Polaris-Tabs__DisclosureActivator',
+          this.disclosureText && 'Polaris-Tabs__Tab',
+      );
+  }
+
+  public disclosureButtonContentWrapperClassName() {
+      return classNames(
+          'Polaris-Tabs__Title',
+          this.disclosureText && 'Polaris-Tabs--titleWithIcon',
+      );
+  }
+
+  public handleMeasurement(containerWidth, disclosureWidth, hiddenTabWidths: this['tabsWidth']) {
+    this.tabToFocus = this.tabToFocus === -1 ? -1 : this.selected;
+    this.visibleTabs = this.visibleHiddenTabs.visibleTabs;
+    this.hiddenTabs = this.visibleHiddenTabs.hiddenTabs;
+    this.disclosureWidth = disclosureWidth;
+    this.containerWidth = containerWidth;
+    this.tabsWidth = hiddenTabWidths;
   }
 
   protected handleTabClick(id: string, event: object) {
@@ -92,5 +245,70 @@ export default class PTabs extends Vue {
      */
     this.$emit('select', selectedIndex, event);
   }
+
+    private handleFocus(event: FocusEvent<HTMLUListElement>) {
+        const target = event.target;
+
+        if (target.classList.contains('Polaris-Tabs__Tab') || target.classList.containes('Polaris-Tabs__Item')) {
+            let tabToFocus = -1;
+
+            this.tabs.every((tab, index) => {
+                if (tab.id === target.id) {
+                    tabToFocus = index;
+                    return false;
+                }
+
+                return true;
+            });
+
+            this.tabToFocus = tabToFocus;
+            return;
+        }
+
+        if (target.classList.contains('Polaris-Tabs__DisclosureActivator')) {
+            return;
+        }
+
+        if (!event.relatedTarget) {
+            this.tabToFocus = this.selected;
+            return;
+        }
+
+        const relatedTarget = event.relatedTarget;
+
+        if (
+            relatedTarget instanceof HTMLElement &&
+            !relatedTarget.classList.contains('Polaris-Tabs__Tab') &&
+            !relatedTarget.classList.contains('Polaris-Tabs__Item') &&
+            !relatedTarget.classList.contains('Polaris-Tabs__DisclosureActivator')
+        ) {
+            this.tabToFocus = this.selected;
+        }
+    }
+
+    private handleBlur(event: FocusEvent<HTMLUListElement>) {
+        if (event.relatedTarget == null) {
+            this.tabToFocus = -1;
+            return;
+        }
+
+        const target = event.relatedTarget;
+
+        if (
+            target instanceof HTMLElement &&
+            !target.classList.contains('Polaris-Tabs__Tab') &&
+            !target.classList.contains('Polaris-Tabs__Item')
+        ) {
+            this.tabToFocus = -1;
+        }
+    }
+
+    private handleDisclosureActivatorClick() {
+      this.showDisclosure = !this.showDisclosure;
+    }
+
+    private handleClose() {
+      this.showDisclosure = false;
+    }
 }
 </script>
