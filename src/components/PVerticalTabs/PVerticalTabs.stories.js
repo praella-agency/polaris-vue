@@ -25,7 +25,9 @@ export default {
         },
         default: {
             table: {
-                disable: true,
+                type: {
+                    summary: null,
+                },
             },
         },
         tabs: {
@@ -108,8 +110,8 @@ const Template = (args, { argTypes }) => ({
                     id: 'add-domain',
                     content: 'Add domain',
                     icon: {
-                        source: 'GlobeMajor',
-                        color: 'base',
+                        source: 'DomainsMajor',
+                        color: 'success',
                     },
                 },
             ],
@@ -152,7 +154,7 @@ const Template = (args, { argTypes }) => ({
             </PCardHeader>
             <PVerticalTabs v-bind="$props" :tabs="items" @select="selectMenu" :selected="selectedTab">
                 <PStack v-if="selectedTab === 0">
-                    <PStackItem>
+                    <PStackItem width="60%">
                         <PStack vertical>
                             <PStackItem>
                                 <PHeading>You've added new products</PHeading>
@@ -174,9 +176,12 @@ const Template = (args, { argTypes }) => ({
                             </PStackItem>
                         </PStack>
                     </PStackItem>
+                    <PStackItem>
+                        <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/admin/home/onboarding/home-onboard-prod-complete-b2bdb8d2f037f3e8dcb82d48cd28890f64d110732716c351b1a6369a7a54ced0.svg" alt="">
+                    </PStackItem>
                 </PStack>
                 <PStack v-if="selectedTab === 1">
-                    <PStackItem>
+                    <PStackItem width="60%">
                         <PStack vertical>
                             <PStackItem>
                                 <PHeading>You've updated your theme</PHeading>
@@ -198,9 +203,12 @@ const Template = (args, { argTypes }) => ({
                             </PStackItem>
                         </PStack>
                     </PStackItem>
+                    <PStackItem>
+                        <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/admin/home/onboarding/home-onboard-theme-complete-d9f6c7b20c6f3df6c748cc969e52e15b2f1ce8182280552ac5fa56547814281e.svg" alt="">
+                    </PStackItem>
                 </PStack>
                 <PStack v-if="selectedTab === 2">
-                    <PStackItem>
+                    <PStackItem width="60%">
                         <PStack vertical>
                             <PStackItem>
                                 <PHeading>Strengthen your brand with a custom domain</PHeading>
@@ -221,6 +229,9 @@ const Template = (args, { argTypes }) => ({
                                 </PFooterHelp>
                             </PStackItem>
                         </PStack>
+                    </PStackItem>
+                    <PStackItem>
+                        <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/admin/home/onboarding/home-onboard-domain-incomplete-b7b91c4368b4716d22343af73d5949da5c2d00678c60f839cb7e2ea06ec0b602.svg" alt=""/>
                     </PStackItem>
                 </PStack>
             </PVerticalTabs>
@@ -271,7 +282,7 @@ VerticalTabs.parameters = {
     </PCardHeader>
     <PVerticalTabs v-bind="$props" :tabs="items" :selected="selectedTab">
         <PStack v-if="selectedTab === 0">
-            <PStackItem>
+            <PStackItem width="60%">
                 <PStack vertical>
                     <PStackItem>
                         <PHeading>You've added new products</PHeading>
@@ -293,9 +304,12 @@ VerticalTabs.parameters = {
                     </PStackItem>
                 </PStack>
             </PStackItem>
+            <PStackItem>
+                <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/admin/home/onboarding/home-onboard-prod-complete-b2bdb8d2f037f3e8dcb82d48cd28890f64d110732716c351b1a6369a7a54ced0.svg" alt="">
+            </PStackItem>
         </PStack>
         <PStack v-if="selectedTab === 1">
-            <PStackItem>
+            <PStackItem width="60%">
                 <PStack vertical>
                     <PStackItem>
                         <PHeading>You've updated your theme</PHeading>
@@ -317,9 +331,12 @@ VerticalTabs.parameters = {
                     </PStackItem>
                 </PStack>
             </PStackItem>
+            <PStackItem>
+                <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/admin/home/onboarding/home-onboard-theme-complete-d9f6c7b20c6f3df6c748cc969e52e15b2f1ce8182280552ac5fa56547814281e.svg" alt="">
+            </PStackItem>
         </PStack>
         <PStack v-if="selectedTab === 2">
-            <PStackItem>
+            <PStackItem width="60%">
                 <PStack vertical>
                     <PStackItem>
                         <PHeading>Strengthen your brand with a custom domain</PHeading>
@@ -340,6 +357,9 @@ VerticalTabs.parameters = {
                         </PFooterHelp>
                     </PStackItem>
                 </PStack>
+            </PStackItem>
+            <PStackItem>
+                <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/admin/home/onboarding/home-onboard-domain-incomplete-b7b91c4368b4716d22343af73d5949da5c2d00678c60f839cb7e2ea06ec0b602.svg" alt=""/>
             </PStackItem>
         </PStack>
     </PVerticalTabs>

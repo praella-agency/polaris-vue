@@ -150,7 +150,7 @@
   }
 }
 
-.Polaris-VerticalTabs__TabElement:focus {
+.Polaris-VerticalTabs__TabElement:active {
   box-shadow: inset 0 0 2px 0 rgba(0,128,96,0.8),0 0 2px 0 rgba(0,128,96,0.8);
   outline: none;
 }
@@ -159,7 +159,7 @@
   text-decoration: none;
 }
 
-.Polaris-VerticalTabs__TabElement:focus, .Polaris-VerticalTabs__TabElement:hover {
+.Polaris-VerticalTabs__TabElement:active, .Polaris-VerticalTabs__TabElement:hover {
   font-weight: 400;
   color: $p-text;
 }

@@ -18,7 +18,7 @@
                     :id="tab.id"
                     :hidden="!(selected === tabIndex)"
                 >
-                    <!-- @slot Panel content -->
+                    <!-- @slot Slot display content in tabs -->
                     <slot v-if="selected === tabIndex"/>
                 </PVerticalTabsPanel>
             </template>
