@@ -1,3 +1,5 @@
+import { Color } from '@/types';
+
 export interface TabDescriptor {
   /** A unique identifier for the tab */
   id: string;
@@ -21,5 +23,12 @@ export interface TabDescriptor {
     background?: string,
     color?: string,
     size?: string,
+  };
+  /** Icon Object */
+  icon?: {
+    source?: string | 'placeholder',
+    color?: Color,
+    backdrop?: boolean,
+    accessibilityLabel?: string,
   };
 }
