@@ -48,9 +48,8 @@
           role="tablist"
           :class="className"
           @focus="handleFocus"
-          @blur="handleBlur"
       >
-        <PTab v-for="(tab, tabIndex) in tabs"
+        <PTab v-for="(tab, tabIndex) in computedVisibleTabs"
               :key="tabIndex + '-' + tab.id"
               :id="tab.id"
               :to="tab.to"
@@ -58,13 +57,10 @@
               :selected="selected === tabIndex"
               :external="tab.external"
               :active-class="activeClass"
+              :content="tab.content"
+              :badge="tab.badge"
               @click="handleTabClick"
-        >
-            {{ tab.content }}
-            <PBadge v-if="tab.badge && Object.keys(tab.badge).length > 0" v-bind="tab.badge">
-                {{ tab.badge.content }}
-            </PBadge>
-        </PTab>
+        />
         <li
             :class="disclosureTabClassName"
             role="presentation"
@@ -114,6 +110,17 @@
                     </button>
                 </template>
 
+                <template
+                    slot="content"
+                >
+                    <PList
+                        :focus-index="hiddenTabs.indexOf(tabToFocus)"
+                        :disclosure-tabs="disclosureTabs"
+                        @click="handleTabClick"
+                        @keypress="handleKeyPress"
+                    />
+                </template>
+
             </PPopover>
         </li>
       </ul>
@@ -133,6 +140,7 @@ import { PPopover } from '@/components/PPopover';
 import { PTab } from '@/components/PTabs/components/PTab';
 import { PPanel } from '@/components/PTabs/components/PPanel';
 import { PTabMeasurer } from '@/components/PTabs/components/PTabMeasurer';
+import { PList } from '@/components/PTabs/components/PList';
 import { PIcon } from '@/components/PIcon';
 
 import {TabDescriptor} from './types';
@@ -145,7 +153,7 @@ import { getVisibleAndHiddenTabIndices } from '@/components/PTabs/utilities';
  */
 @Component({
   components: {
-    PTab, PPanel, PBadge, PPopover, PTabMeasurer, PIcon,
+    PTab, PPanel, PBadge, PPopover, PTabMeasurer, PList, PIcon,
   },
 })
 export default class PTabs extends Vue {
@@ -178,14 +186,11 @@ export default class PTabs extends Vue {
 
   public disclosureWidth = 0;
   public tabsWidth = [];
-  public visibleTabs = [];
-  public hiddenTabs = [];
+  public visibleTabs: any = [];
+  public hiddenTabs: any = [];
   public showDisclosure = false;
   public containerWidth = Infinity;
   public tabToFocus = -1;
-
-  public visibleHiddenTabs = getVisibleAndHiddenTabIndices(this.tabs, this.selected, this.disclosureWidth, this.tabsWidth, this.containerWidth);
-  public disclosureActivatorVisible = this.visibleHiddenTabs['visibleTabs'].length < this.tabs.length;
 
   public get className() {
     return classNames(
@@ -216,11 +221,35 @@ export default class PTabs extends Vue {
       );
   }
 
-  public disclosureButtonContentWrapperClassName() {
+  public get computedVisibleTabs() {
+      const visibleTabs = this.visibleTabs.sort((tabA, tabB) => tabA - tabB);
+      let tabs: TabDescriptor[] = [];
+      let that = this;
+
+      visibleTabs.map(function(tabIndex) {
+        tabs.push(that.tabs[tabIndex]);
+      });
+
+      return tabs;
+  }
+
+  public get disclosureButtonContentWrapperClassName() {
       return classNames(
           'Polaris-Tabs__Title',
           this.disclosureText && 'Polaris-Tabs--titleWithIcon',
       );
+  }
+
+  public get visibleHiddenTabs() {
+    return getVisibleAndHiddenTabIndices(this.tabs, this.selected, this.disclosureWidth, this.tabsWidth, this.containerWidth);
+  }
+
+  public get disclosureActivatorVisible() {
+      return this.visibleHiddenTabs.visibleTabs.length < this.tabs.length;
+  }
+
+  public get disclosureTabs() {
+      return this.hiddenTabs.map((tabIndex) => this.tabs[tabIndex]);
   }
 
   public handleMeasurement(containerWidth, disclosureWidth, hiddenTabWidths: this['tabsWidth']) {
@@ -244,16 +273,23 @@ export default class PTabs extends Vue {
      * @property {tabId, event}
      */
     this.$emit('select', selectedIndex, event);
+    this.$nextTick(() => {
+        this.visibleTabs = this.visibleHiddenTabs.visibleTabs;
+        this.hiddenTabs = this.visibleHiddenTabs.hiddenTabs;
+    });
   }
 
-    private handleFocus(event: FocusEvent<HTMLUListElement>) {
+    private handleFocus(event: FocusEvent) {
         const target = event.target;
 
-        if (target.classList.contains('Polaris-Tabs__Tab') || target.classList.containes('Polaris-Tabs__Item')) {
+        if (
+            (target && target['classList'].contains('Polaris-Tabs__Tab')) ||
+            (target && target['classList'].contains('Polaris-Tabs__Item'))
+        ) {
             let tabToFocus = -1;
 
             this.tabs.every((tab, index) => {
-                if (tab.id === target.id) {
+                if (tab.id === (target && target['id'])) {
                     tabToFocus = index;
                     return false;
                 }
@@ -265,7 +301,7 @@ export default class PTabs extends Vue {
             return;
         }
 
-        if (target.classList.contains('Polaris-Tabs__DisclosureActivator')) {
+        if (target && target['classList']!.contains('Polaris-Tabs__DisclosureActivator')) {
             return;
         }
 
@@ -278,28 +314,11 @@ export default class PTabs extends Vue {
 
         if (
             relatedTarget instanceof HTMLElement &&
-            !relatedTarget.classList.contains('Polaris-Tabs__Tab') &&
-            !relatedTarget.classList.contains('Polaris-Tabs__Item') &&
-            !relatedTarget.classList.contains('Polaris-Tabs__DisclosureActivator')
+            !relatedTarget['classList'].contains('Polaris-Tabs__Tab') &&
+            !relatedTarget['classList'].contains('Polaris-Tabs__Item') &&
+            !relatedTarget['classList'].contains('Polaris-Tabs__DisclosureActivator')
         ) {
             this.tabToFocus = this.selected;
-        }
-    }
-
-    private handleBlur(event: FocusEvent<HTMLUListElement>) {
-        if (event.relatedTarget == null) {
-            this.tabToFocus = -1;
-            return;
-        }
-
-        const target = event.relatedTarget;
-
-        if (
-            target instanceof HTMLElement &&
-            !target.classList.contains('Polaris-Tabs__Tab') &&
-            !target.classList.contains('Polaris-Tabs__Item')
-        ) {
-            this.tabToFocus = -1;
         }
     }
 
@@ -309,6 +328,31 @@ export default class PTabs extends Vue {
 
     private handleClose() {
       this.showDisclosure = false;
+    }
+
+    private handleKeyPress(event: KeyboardEvent) {
+      const key = event.key;
+      const tabsArrayInOrder = this.showDisclosure ? this.visibleTabs.concat(this.hiddenTabs) : [...this.visibleTabs];
+
+      let newFocus = tabsArrayInOrder.indexOf(this.tabToFocus);
+
+      if (key === 'ArrowRight') {
+          newFocus += 1;
+
+          if (newFocus === tabsArrayInOrder.length) {
+              newFocus = 0;
+          }
+      }
+
+      if (key === 'ArrowLeft') {
+          if (newFocus === -1 || newFocus === 0) {
+              newFocus = tabsArrayInOrder.length - 1;
+          } else {
+              newFocus = -1;
+          }
+      }
+
+      this.tabToFocus = tabsArrayInOrder[newFocus];
     }
 }
 </script>

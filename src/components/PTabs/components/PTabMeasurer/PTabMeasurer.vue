@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-    import { Vue, Component, Prop, Ref } from 'vue-property-decorator';
+    import { Vue, Component, Prop } from 'vue-property-decorator';
     import { PTab } from '@/components/PTabs/components/PTab';
     import { TabDescriptor } from '@/components/PTabs/types';
     import { PEventListener } from '@/components/PEventListener';
@@ -29,9 +29,9 @@
         @Prop({type: Number, default: 0}) public tabToFocus!: number;
         @Prop({type: Boolean, default: false}) public siblingTabHasFocus!: boolean;
         @Prop({type: Number, default: 0}) public selected!: number;
-        @Prop({type: Object, default: () => ({})}) public tabs!: TabDescriptor[];
+        @Prop({type: Array, default: () => ([])}) public tabs!: TabDescriptor[];
 
-        @Ref() public animationFrame!: number = null;
+        public animationFrame!: number;
 
         public handleMeasurement() {
             if (this.animationFrame) {
@@ -39,13 +39,10 @@
             }
 
             this.animationFrame = requestAnimationFrame(() => {
-                if (!this.$refs.containerNode as HTMLDivElement) {
-                    return;
-                }
-
                 const containerWidth = (this.$refs.containerNode as HTMLDivElement).offsetWidth;
                 const hiddenTabNodes = (this.$refs.containerNode as HTMLDivElement).children;
                 const hiddenTabNodesArray = Array.from(hiddenTabNodes);
+                hiddenTabNodesArray.shift();
                 const hiddenTabWidths = hiddenTabNodesArray.map((node) => {
                     return Math.ceil(node.getBoundingClientRect().width);
                 });

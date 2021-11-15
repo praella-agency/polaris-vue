@@ -8,7 +8,12 @@
         :class="className"
         @click="$emit('click', id, $event)"
     >
-      <span :class="tabTitleClassNames"><slot/></span>
+      <span :class="tabTitleClassNames">
+            {{ content }}
+            <PBadge v-if="badge && Object.keys(badge).length > 0" v-bind="badge">
+                {{ badge.content }}
+            </PBadge>
+      </span>
     </button>
 
     <a
@@ -20,11 +25,29 @@
       :class="className"
       @click="$emit('click', id, $event)"
     >
-      <span :class="tabTitleClassNames"><slot/></span>
+      <span :class="tabTitleClassNames">
+            {{ content }}
+            <PBadge v-if="badge && Object.keys(badge).length > 0" v-bind="badge">
+                {{ badge.content }}
+            </PBadge>
+      </span>
     </a>
 
-    <router-link v-else :tabIndex="tabIndex" :active-class="activeClass" :class="className" :to="to" @click.native="$emit('click', id, $event)">
-      <span :class="tabTitleClassNames"><slot/></span>
+    <router-link
+        v-else
+        :id="id"
+        :tabIndex="tabIndex"
+        :active-class="activeClass"
+        :class="className"
+        :to="to"
+        @click.native="$emit('click', id, $event)"
+    >
+      <span :class="tabTitleClassNames">
+            {{ content }}
+            <PBadge v-if="badge && Object.keys(badge).length > 0" v-bind="badge">
+                {{ badge.content }}
+            </PBadge>
+      </span>
     </router-link>
   </li>
 </template>
@@ -32,9 +55,22 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
+import { PBadge } from '@/components/PBadge';
 
-@Component
+interface Badge {
+    content?: string;
+    status?: string;
+    progress?: string;
+    background?: string;
+    color?: string;
+    size?: string;
+}
 
+@Component({
+    components: {
+        PBadge,
+    },
+})
 export default class PTab extends Vue {
 
   @Prop([String, Number]) public id!: string | number;
@@ -45,6 +81,8 @@ export default class PTab extends Vue {
   @Prop(Boolean) public external!: boolean;
   @Prop({type: String, default: 'Polaris-Tabs__Tab--selected'}) public activeClass!: string;
   @Prop({type: Boolean, default: false}) public siblingTabHasFocus!: boolean;
+  @Prop({type: String, default: null}) public content!: string;
+  @Prop({type: Object, default: () => ({})}) public badge!: Badge;
 
   // public mounted() {
   //   this.tabIndex = this.focused ? 0 : -1;

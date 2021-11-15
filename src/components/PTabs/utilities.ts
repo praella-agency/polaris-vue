@@ -18,6 +18,9 @@ export function getVisibleAndHiddenTabIndices(
   if (containerWidth > sumTabWidths) {
     visibleTabs.push(...arrayOfTabIndices);
   } else {
+    if (selected === null) {
+      selected = 0;
+    }
     visibleTabs.push(selected);
 
     let tabListWidth = tabWidths[selected];
