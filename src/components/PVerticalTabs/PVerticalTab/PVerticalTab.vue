@@ -80,14 +80,14 @@
     import { PBadge } from '@/components/PBadge';
     import { Color } from '@/types';
 
-    interface icon {
+    interface Icon {
         source?: string | 'placeholder';
         color?: Color;
         backdrop?: boolean;
         accessibilityLabel?: string;
     }
 
-    interface badge {
+    interface Badge {
         content?: string;
         status?: string;
         progress?: string;
@@ -111,8 +111,8 @@
         @Prop(String) public content!: string;
         @Prop(Boolean) public external!: boolean;
         @Prop({type: String, default: 'Polaris-VerticalTabs__TabElement--selected'}) public activeClass!: string;
-        @Prop({type: Object, default: () => ({})}) public icon!: icon;
-        @Prop({type: Object, default: () => ({})}) public badge!: badge;
+        @Prop({type: Object, default: () => ({})}) public icon!: Icon;
+        @Prop({type: Object, default: () => ({})}) public badge!: Badge;
 
         public get className() {
             return classNames(

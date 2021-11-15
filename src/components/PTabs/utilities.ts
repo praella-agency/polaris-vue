@@ -1,4 +1,4 @@
-import { TabDescriptor } from '@/components/PTabs/types';
+import { TabDescriptor } from '@/types/tabs/';
 
 export function getVisibleAndHiddenTabIndices(
   tabs: TabDescriptor[],

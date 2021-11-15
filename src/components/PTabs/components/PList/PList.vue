@@ -20,7 +20,7 @@
 <script lang="ts">
     import { Vue, Component, Prop } from 'vue-property-decorator';
     import { PItem } from '@/components/PTabs/components/PItem';
-    import { TabDescriptor } from '@/components/PTabs/types';
+    import { TabDescriptor } from '@/types/tabs/';
 
     @Component({
         components: {

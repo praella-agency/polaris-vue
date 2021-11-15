@@ -143,7 +143,7 @@ import { PTabMeasurer } from '@/components/PTabs/components/PTabMeasurer';
 import { PList } from '@/components/PTabs/components/PList';
 import { PIcon } from '@/components/PIcon';
 
-import {TabDescriptor} from './types';
+import { TabDescriptor } from '@/types/tabs/';
 import { getVisibleAndHiddenTabIndices } from '@/components/PTabs/utilities';
 
 /**
@@ -223,12 +223,10 @@ export default class PTabs extends Vue {
 
   public get computedVisibleTabs() {
       const visibleTabs = this.visibleTabs.sort((tabA, tabB) => tabA - tabB);
-      let tabs: TabDescriptor[] = [];
-      let that = this;
+      const tabs: TabDescriptor[] = [];
+      const that = this;
 
-      visibleTabs.map(function(tabIndex) {
-        tabs.push(that.tabs[tabIndex]);
-      });
+      visibleTabs.map((tabIndex) => tabs.push(that.tabs[tabIndex]));
 
       return tabs;
   }
@@ -241,7 +239,13 @@ export default class PTabs extends Vue {
   }
 
   public get visibleHiddenTabs() {
-    return getVisibleAndHiddenTabIndices(this.tabs, this.selected, this.disclosureWidth, this.tabsWidth, this.containerWidth);
+    return getVisibleAndHiddenTabIndices(
+        this.tabs,
+        this.selected,
+        this.disclosureWidth,
+        this.tabsWidth,
+        this.containerWidth,
+    );
   }
 
   public get disclosureActivatorVisible() {
@@ -283,12 +287,15 @@ export default class PTabs extends Vue {
         const target = event.target;
 
         if (
+            /* tslint:disable-next-line */
             (target && target['classList'].contains('Polaris-Tabs__Tab')) ||
+            /* tslint:disable-next-line */
             (target && target['classList'].contains('Polaris-Tabs__Item'))
         ) {
             let tabToFocus = -1;
 
             this.tabs.every((tab, index) => {
+                /* tslint:disable-next-line */
                 if (tab.id === (target && target['id'])) {
                     tabToFocus = index;
                     return false;
@@ -301,6 +308,7 @@ export default class PTabs extends Vue {
             return;
         }
 
+        /* tslint:disable-next-line */
         if (target && target['classList']!.contains('Polaris-Tabs__DisclosureActivator')) {
             return;
         }
@@ -314,8 +322,11 @@ export default class PTabs extends Vue {
 
         if (
             relatedTarget instanceof HTMLElement &&
+            /* tslint:disable-next-line */
             !relatedTarget['classList'].contains('Polaris-Tabs__Tab') &&
+            /* tslint:disable-next-line */
             !relatedTarget['classList'].contains('Polaris-Tabs__Item') &&
+            /* tslint:disable-next-line */
             !relatedTarget['classList'].contains('Polaris-Tabs__DisclosureActivator')
         ) {
             this.tabToFocus = this.selected;
