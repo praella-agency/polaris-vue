@@ -70,7 +70,7 @@ const Template = (args, { argTypes }) => ({
     },
     data() {
         return {
-            selectedTab: null,
+            selectedTab: 0,
             items: [
                 {
                     id: 'all-customers-1',
