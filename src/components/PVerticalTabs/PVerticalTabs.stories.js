@@ -9,7 +9,7 @@ import { PPopover } from '../PPopover';
 import { PActionList } from '../PActionList';
 
 export default {
-    title: 'Vertical Tabs',
+    title: 'Navigation / Vertical Tabs',
     component: PVerticalTabs,
     parameters: {
         docs: {
@@ -88,7 +88,7 @@ const Template = (args, { argTypes }) => ({
     },
     data() {
         return {
-            selectedTab: null,
+            selectedTab: 0,
             items: [
                 {
                     id: 'add-product',

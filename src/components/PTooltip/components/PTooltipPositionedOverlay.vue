@@ -1,5 +1,5 @@
 <template>
-    <div :id="id" class="Polaris-PositionedOverlay"
+    <div :id="id" class="Polaris-TooltipPositionedOverlay"
          :style="containerStyle"
          v-show="active"
          ref="overlay">
@@ -127,7 +127,7 @@ export default class PTooltipPositionedOverlay extends Vue {
             width: window.innerWidth,
         };
 
-        const zIndexForLayer = 400;
+        const zIndexForLayer = 530;
         const verticalPosition = this.calculateVerticalPosition(activatorRect,
             overlayRect,
             overlayMargins,
