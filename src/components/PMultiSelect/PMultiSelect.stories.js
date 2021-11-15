@@ -56,6 +56,13 @@ export default {
                 },
             },
         },
+        value: {
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                },
+            },
+        },
     },
 };
 

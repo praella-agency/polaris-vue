@@ -9,7 +9,7 @@
       {{ title }}
     </div>
     <PFormLayoutGroupItemWrapper v-for="(slot,name) in $slots" :key="name">
-      <!-- @slot Form group body -->
+      <!-- @slot The content to display inside the group layout -->
       <slot/>
     </PFormLayoutGroupItemWrapper>
     <div v-if="helpText || $slots.helpText"

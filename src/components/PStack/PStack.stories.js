@@ -10,7 +10,9 @@ export default {
     argTypes: {
         default: {
             table: {
-                disable: true,
+                type: {
+                    summary: null,
+                },
             },
         },
         spacing: {
@@ -18,7 +20,7 @@ export default {
             control: {
                 type: 'select',
                 labels: {
-                    null: 'Default',
+                    null: 'default',
                 },
             },
         },
@@ -27,7 +29,7 @@ export default {
             control: {
                 type: 'select',
                 labels: {
-                    null: 'Default',
+                    null: 'default',
                 },
             },
         },
@@ -36,7 +38,7 @@ export default {
             control: {
                 type: 'select',
                 labels: {
-                    null: 'Default',
+                    null: 'default',
                 },
             },
         },

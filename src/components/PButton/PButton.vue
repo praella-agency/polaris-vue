@@ -42,7 +42,7 @@
         <PIcon :source="loading ? 'placeholder' : icon"/>
       </span>
       <span v-if="!hasNoChildren" class="Polaris-Button__Text">
-        <!-- @slot Button content -->
+        <!-- @slot The content to display content inside the button -->
         <slot/>
       </span>
       <span v-if="disclosure" class="Polaris-Button__Icon">

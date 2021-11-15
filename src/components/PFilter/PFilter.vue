@@ -25,12 +25,12 @@
             </PTextField>
           </PFilterItemWrapper>
           <PFilterItemWrapper v-if="$slots.hasOwnProperty('default')" position="right">
-            <!-- @slot Filter content -->
+            <!-- @slot The content to display inline with the controls -->
             <slot/>
           </PFilterItemWrapper>
         </div>
         <div class="Polaris-Filters-ConnectedFilterControl__AuxiliaryContainer">
-          <!-- @slot Slot to add extra elements -->
+          <!-- @slot Add extra elements -->
           <slot name="auxiliaryContainer"/>
         </div>
       </div>

@@ -20,7 +20,7 @@
         <div :id="finalName + key"
              v-if="renderChildren[choice[valueField]] && choice[renderChildrenField]"
              class="Polaris-ChoiceList__ChoiceChildren">
-          <!-- @slot Default slot -->
+          <!-- @slot Render children -->
           <slot/>
         </div>
       </li>

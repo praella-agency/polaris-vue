@@ -15,7 +15,9 @@ export default {
         },
         default: {
             table: {
-                disable: true,
+                type: {
+                    summary: null,
+                },
             },
         },
         tabs: {
@@ -68,7 +70,7 @@ const Template = (args, { argTypes }) => ({
     },
     data() {
         return {
-            selectedTab: null,
+            selectedTab: 0,
             items: [
                 {
                     id: 'all-customers-1',

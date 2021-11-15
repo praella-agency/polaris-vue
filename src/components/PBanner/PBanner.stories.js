@@ -6,7 +6,9 @@ export default {
     argTypes: {
         default: {
             table: {
-                disable: true,
+                type: {
+                    summary: null,
+                },
             },
         },
         status: {
@@ -14,7 +16,7 @@ export default {
             control: {
                 type: 'select',
                 labels: {
-                    null: 'Default',
+                    null: 'default',
                 },
             },
         },

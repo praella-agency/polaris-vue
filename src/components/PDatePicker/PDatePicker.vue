@@ -83,7 +83,7 @@
       </template>
     </DateRangePicker>
     <div class="Polaris-Labelled__HelpText" v-if="$slots.hasOwnProperty('helpText') || helpText">
-      <!-- @slot Slot to custom helpText -->
+      <!-- @slot Custom helpText -->
       <slot name="helpText">
           {{helpText}}
       </slot>

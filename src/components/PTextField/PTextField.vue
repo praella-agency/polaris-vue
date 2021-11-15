@@ -11,12 +11,12 @@
 
     <PConnected v-if="connected">
       <template v-if="$slots.hasOwnProperty('connectedLeft')" slot="left">
-        <!-- @slot Left connected component slot -->
+        <!-- @slot An element connected to the left of the input -->
         <slot name="connectedLeft">{{ connectedLeft }}</slot>
       </template>
 
       <template slot="right" v-if="$slots.hasOwnProperty('connectedRight')">
-        <!-- @slot Right connected component slot -->
+        <!-- @slot An element connected to the right of the input -->
         <slot name="connectedRight">{{ connectedRight }}</slot>
       </template>
 

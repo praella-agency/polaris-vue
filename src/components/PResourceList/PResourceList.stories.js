@@ -18,10 +18,17 @@ export default {
             control: {
                 type: null,
             },
+            table: {
+                defaultValue: {
+                    summary: '[]',
+                },
+            },
         },
         default: {
             table: {
-                disable: true,
+                type: {
+                    summary: null,
+                },
             },
         },
         bulkActions: {

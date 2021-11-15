@@ -17,7 +17,7 @@
       </div>
 
       <div class="Polaris-Layout__AnnotationContent">
-        <!-- @slot Default slot for content  -->
+        <!-- @slot The content to display inside the annotated section layout -->
         <slot/>
       </div>
     </div>

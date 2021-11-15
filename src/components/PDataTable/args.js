@@ -10,7 +10,7 @@ export default {
         control: {
             type: 'select',
             labels: {
-                'none': 'Default',
+                'none': 'default',
             },
         },
     },

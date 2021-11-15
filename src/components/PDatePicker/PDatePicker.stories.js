@@ -41,7 +41,7 @@ export default {
         },
         helpText: {
             table: {
-                category: 'props | slots',
+                category: 'Props | Slots',
                 type: {
                     summary: null,
                 },

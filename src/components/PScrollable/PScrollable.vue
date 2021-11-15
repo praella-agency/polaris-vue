@@ -5,6 +5,7 @@
         :data-polaris-scrollable="true"
         :tabindex="focusable ? 0 : undefined"
     >
+        <!-- @slot Content to display in scrollable area -->
         <slot/>
     </div>
 </template>

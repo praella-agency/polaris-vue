@@ -145,3 +145,8 @@
   word-break: break-word;
   font-weight: normal;
 }
+
+.Polaris-TooltipPositionedOverlay {
+  position: absolute;
+  z-index: 530;
+}

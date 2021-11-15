@@ -2,7 +2,7 @@
   <component
       :is="(to ? 'router-link' : 'a')" :href="url" :to="to" :target="target" :rel="rel" v-bind="$attrs"
       v-on="$listeners">
-    <!-- @slot Field prefix -->
+    <!-- @slot The content to display inside the link -->
     <slot/>
   </component>
 </template>

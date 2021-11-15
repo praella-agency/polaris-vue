@@ -18,7 +18,7 @@ export default {
             control: {
                 type: 'select',
                 labels: {
-                    null: 'Default',
+                    null: 'default',
                 },
             },
         },
@@ -27,13 +27,15 @@ export default {
             control: {
                 type: 'select',
                 labels: {
-                    null: 'Default',
+                    null: 'default',
                 },
             },
         },
         default: {
             table: {
-                disable: true,
+                type: {
+                    summary: null,
+                },
             },
         },
     },

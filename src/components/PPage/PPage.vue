@@ -13,15 +13,15 @@
             v-bind="$attrs"
             v-on="$listeners"
         >
-            <!-- @slot Use slot if you want to use some other component for primary Action -->
+            <!-- @slot Use some other component for primary Action -->
             <slot slot="primaryAction" name="primaryAction" />
-            <!-- @slot Use slot if you want to use some other component for title meta data -->
+            <!-- @slot Use some other component for title meta data -->
             <slot slot="titleMetadata" name="titleMetadata" />
-            <!-- @slot Use slot if you want to use some other component for additional navigation -->
+            <!-- @slot Use some other component for additional navigation -->
             <slot slot="additionalNavigation" name="additionalNavigation" />
         </PPageHeader>
         <div class="Polaris-Page__Content">
-            <!-- @slot Page content -->
+            <!-- @slot The contents of the page -->
             <slot/>
         </div>
     </div>

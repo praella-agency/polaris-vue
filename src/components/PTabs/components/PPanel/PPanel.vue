@@ -13,7 +13,6 @@
   import {classNames} from '@/utilities/css';
 
   @Component
-
   export default class PPanel extends Vue {
 
     @Prop([String, Number]) public id!: string | number;
