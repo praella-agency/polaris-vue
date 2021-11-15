@@ -72,6 +72,7 @@ import { PDataTableCol } from './PDataTable/components/components';
 import { PIndexTable } from './PIndexTable';
 import { PScrollable } from './PScrollable';
 import { PTooltip } from './PTooltip';
+import { PVerticalTabs } from './PVerticalTabs';
 
 import '@/scss/main.scss';
 
@@ -148,6 +149,7 @@ const Components = {
   PIndexTable,
   PScrollable,
   PTooltip,
+  PVerticalTabs,
 };
 
 const PolarisVue = {
