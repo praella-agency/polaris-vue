@@ -33,6 +33,14 @@
     import { TabDescriptor } from '@/types/tabs';
     import { classNames } from '@/utilities/css';
 
+
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">The Vertical Tabs component serves as a container to show groups of content, divided into tabs.
+     *  Each tab label should correspond with a block of related content. Only one tab's contents are visible at any
+     *  given time.</h4>
+     */
     @Component({
         components: {
             PVerticalTab, PVerticalTabsPanel,
