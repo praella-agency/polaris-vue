@@ -1,4 +1,4 @@
-import { PPage } from '../PPage';
+import { PPage } from './index';
 import { PButton } from '../PButton';
 import { PBadge } from '../PBadge';
 import { PAvatar } from '../PAvatar';

@@ -28,11 +28,12 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue} from 'vue-property-decorator';
-import {ComplexAction, DisableableAction, LoadableAction} from '@/types';
-import {PStack, PStackItem} from '@/components/PStack';
-import {PButtonGroup} from '@/components/PButtonGroup';
-import {PButton} from '@/components/PButton';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { ComplexAction, DisableableAction, LoadableAction } from '@/types';
+import { PStack } from '@/components/PStack';
+import { PStackItem } from '@/components/PStack/components/PStackItem';
+import { PButtonGroup } from '@/components/PButtonGroup';
+import { PButton } from '@/components/PButton';
 
 export interface PageActionsProps {
   primaryAction?: DisableableAction & LoadableAction;
@@ -48,10 +49,7 @@ export interface PageActionsProps {
  */
 @Component({
   components: {
-    PStack,
-    PStackItem,
-    PButtonGroup,
-    PButton,
+    PStack, PStackItem, PButtonGroup, PButton,
   },
 })
 export default class PPageActions extends Vue {

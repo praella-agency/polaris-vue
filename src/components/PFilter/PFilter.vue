@@ -46,7 +46,7 @@
   import { PTextField } from '@/components/PTextField';
   import { PIcon } from '@/components/PIcon';
   import { PTag } from '@/components/PTag';
-  import PFilterItemWrapper from '@/components/PFilter/components/PFilterItemWrapper.vue';
+  import { PFilterItemWrapper } from '@/components/PFilter/components/PFilterItemWrapper';
 
   interface ResourceNameInterface {
     singular: string;

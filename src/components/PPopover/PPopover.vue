@@ -44,7 +44,7 @@
 <script lang="ts">
 import {Component, Vue, Prop, Ref, Watch} from 'vue-property-decorator';
 import {classNames} from '@/utilities/css';
-import PPopoverOverlay from '@/components/PPopover/components/PPopoverOverlay.vue';
+import { PPopoverOverlay } from '@/components/PPopover/components/PPopoverOverlay';
 
 /**
  * <br/>
@@ -54,7 +54,9 @@ import PPopoverOverlay from '@/components/PPopover/components/PPopoverOverlay.vu
  * cluttering the page.</h4>
  */
 @Component({
-  components: {PPopoverOverlay},
+  components: {
+      PPopoverOverlay,
+  },
 })
 export default class PPopover extends Vue {
 

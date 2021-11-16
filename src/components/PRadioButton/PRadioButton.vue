@@ -29,8 +29,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
-import PChoice from '@/components/PChoice/PChoice.vue';
+import { classNames } from '@/utilities/css';
+import { PChoice } from '@/components/PChoice/';
 
 /**
  * <br/>
@@ -39,7 +39,9 @@ import PChoice from '@/components/PChoice/PChoice.vue';
  *  selection.</h4>
  */
 @Component({
-  components: {PChoice},
+  components: {
+      PChoice,
+  },
 })
 export default class PRadioButton extends Vue {
   /**

@@ -32,11 +32,10 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
-import {classNames, variationName} from '@/utilities/css';
-
-import {PIcon} from '@/components/PIcon';
-import {PChoice} from '@/components/PChoice';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { classNames } from '@/utilities/css';
+import { PIcon } from '@/components/PIcon';
+import { PChoice } from '@/components/PChoice';
 
 /**
  * <br/>

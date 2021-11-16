@@ -36,11 +36,11 @@
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { PUnstyledLink } from '../PUnstyledLink';
-  import { PImage } from '../PImage';
-  import { PSection } from './components/PSection';
   import { getWidth, ThemeLogo } from '@/types/logo';
   import { ItemProps } from '@/components/PNavigation/utilities';
+  import { PUnstyledLink } from '@/components/PUnstyledLink';
+  import { PImage } from '@/components/PImage';
+  import { PSection } from '@/components/PNavigation/components/PSection';
 
   interface SectionItems {
     /** Section Title */

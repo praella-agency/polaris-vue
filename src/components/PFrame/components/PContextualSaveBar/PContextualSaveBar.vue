@@ -71,7 +71,8 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { PButton } from '@/components/PButton';
   import { PImage } from '@/components/PImage';
-  import { PStack, PStackItem } from '@/components/PStack';
+  import { PStack } from '@/components/PStack';
+  import { PStackItem } from '@/components/PStack/components/PStackItem';
   import { PModal } from '@/components/PModal';
   import { getWidth } from '../context';
   import { classNames } from '@/utilities/css';

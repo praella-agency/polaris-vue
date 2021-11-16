@@ -1,5 +1,5 @@
-import {PChoiceList} from './index';
-import {PTextField} from '../PTextField';
+import { PChoiceList } from './index';
+import { PTextField } from '../PTextField';
 
 export default {
     title: 'Forms / Choice List',

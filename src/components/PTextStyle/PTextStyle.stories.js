@@ -1,4 +1,4 @@
-import PTextStyle from './PTextStyle';
+import { PTextStyle } from './index';
 
 export default {
     title: 'Titles & Text / Text Style',

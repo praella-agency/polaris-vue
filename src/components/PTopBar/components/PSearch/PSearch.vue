@@ -20,9 +20,7 @@
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
 
-  @Component({
-    components: {},
-  })
+  @Component
   export default class PSearch extends Vue {
 
     @Prop({type: Boolean, default: false}) public visible!: boolean;

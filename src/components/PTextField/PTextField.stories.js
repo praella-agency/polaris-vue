@@ -1,4 +1,4 @@
-import PTextField from './PTextField';
+import { PTextField } from './index';
 import { PButton } from '../PButton';
 import { PSelect } from '../PSelect';
 import { PIcon } from '../PIcon';

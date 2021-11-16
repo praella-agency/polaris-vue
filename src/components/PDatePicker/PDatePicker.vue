@@ -93,19 +93,20 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Prop, Emit, Watch} from 'vue-property-decorator';
-import {classNames} from '@/utilities/css';
+import { Component, Vue, Prop, Emit, Watch } from 'vue-property-decorator';
+import { classNames } from '@/utilities/css';
 import DateRangePicker from 'vue2-daterange-picker';
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
-import {PIcon} from '@/components/PIcon';
 import dayjs from 'dayjs';
-import {PFieldError} from '@/components/PFieldError';
-import {PButton} from '@/components/PButton';
-import {PButtonGroup} from '@/components/PButtonGroup';
-import {PStack, PStackItem} from '@/components/PStack';
-import {PCard} from '@/components/PCard';
-import {PSelect} from '@/components/PSelect';
-import {PTextField} from '@/components/PTextField';
+import { PIcon } from '@/components/PIcon';
+import { PFieldError } from '@/components/PFieldError';
+import { PButton } from '@/components/PButton';
+import { PButtonGroup } from '@/components/PButtonGroup';
+import { PStack } from '@/components/PStack';
+import { PStackItem } from '@/components/PStack/components/PStackItem';
+import { PCard } from '@/components/PCard';
+import { PSelect } from '@/components/PSelect';
+import { PTextField } from '@/components/PTextField';
 
 type DateType = Date | null | string;
 

@@ -23,11 +23,12 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-
-import PConnectedItem from './PConnectedItem.vue';
+import { PConnectedItem } from '@/components/PConnected/components/PConnectedItem';
 
 @Component({
-  components: { PConnectedItem },
+  components: {
+      PConnectedItem,
+  },
 })
 export default class PConnected extends Vue {
   @Prop(String) public left!: string;

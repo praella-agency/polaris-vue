@@ -1,4 +1,4 @@
-import PSettingToggle from './PSettingToggle';
+import { PSettingToggle } from './index';
 import { PTextStyle } from '../PTextStyle';
 
 export default {

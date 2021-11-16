@@ -1,9 +1,10 @@
-import PModal from './PModal';
+import { PModal } from './index';
 import { PFormLayout } from '../PFormLayout';
 import { PTextField } from '../PTextField';
 import { PBanner } from '../PBanner';
 import { PButton } from '../PButton';
-import { PStack, PStackItem } from '../PStack';
+import { PStack } from '../PStack';
+import { PStackItem } from '../PStack/components/PStackItem';
 
 export default {
     title: 'Overlays / Modal',
@@ -96,7 +97,7 @@ const Template = (args, {argTypes}) => ({
                       <PTextField label="First Name"/>
                       <PTextField label="Last Name Name"/>
                       <PTextField label="Email" type="email"/>
-                      <PBanner status="critical" title="Notice" :action="{}">
+                      <PBanner status="critical" title="Notice">
                           We ensure complete privacy all of out customers
                       </PBanner>
                   </PFormLayout>
@@ -136,7 +137,7 @@ Modal.args = {
         {
             content: 'Cancel',
             onAction: () => {
-                this.is_active = false;
+                alert('Cancel Modal')
             },
         },
     ],

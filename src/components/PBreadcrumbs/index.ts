@@ -1,3 +1,3 @@
 import PBreadcrumbs from './PBreadcrumbs.vue';
 
-export {PBreadcrumbs};
+export { PBreadcrumbs };

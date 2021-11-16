@@ -62,17 +62,18 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue} from 'vue-property-decorator';
-import {classNames} from '@/utilities/css';
-import {PCard} from '@/components/PCard';
-import {DestructableAction, DisableableAction, IconableAction, LoadableAction, Video} from '@/types';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { classNames } from '@/utilities/css';
+import { DestructableAction, DisableableAction, IconableAction, LoadableAction, Video } from '@/types';
 import VuePlyr from '@hulkapps/vue-plyr';
 import '@hulkapps/vue-plyr/dist/vue-plyr.css';
-import {PStack, PStackItem} from '@/components/PStack';
-import {PHeading} from '@/components/PHeading';
-import {PImage} from '@/components/PImage';
-import {PButtonGroup} from '@/components/PButtonGroup';
-import {PButton} from '@/components/PButton';
+import { PCard } from '@/components/PCard';
+import { PStack } from '@/components/PStack';
+import { PStackItem } from '@/components/PStack/components/PStackItem';
+import { PHeading } from '@/components/PHeading';
+import { PImage } from '@/components/PImage';
+import { PButtonGroup } from '@/components/PButtonGroup';
+import { PButton } from '@/components/PButton';
 
 type Size = 'small' | 'medium';
 
@@ -92,14 +93,7 @@ interface PrimaryAction
  */
 @Component({
   components: {
-    PCard,
-    VuePlyr,
-    PStack,
-    PStackItem,
-    PHeading,
-    PImage,
-    PButtonGroup,
-    PButton,
+    PCard, VuePlyr, PStack, PStackItem, PHeading, PImage, PButtonGroup, PButton,
   },
 })
 export default class PTag extends Vue {

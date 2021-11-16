@@ -67,7 +67,8 @@
 </template>
 
 <script>
-import { PStack, PStackItem } from '../PStack';
+import { PStack } from '../PStack';
+import { PStackItem } from '../PStack/components/PStackItem';
 import { PTopBar } from '../PTopBar';
 import { PFrame } from '../PFrame';
 import { PHeading } from '../PHeading';

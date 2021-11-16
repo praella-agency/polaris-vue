@@ -1,4 +1,4 @@
-import PEmptyState from './PEmptyState';
+import { PEmptyState } from './index';
 import { PLink } from '../PLink';
 import { PTextContainer } from '../PTextContainer';
 

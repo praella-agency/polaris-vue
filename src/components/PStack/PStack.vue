@@ -11,7 +11,7 @@ import { classNames, variationName } from '@/utilities/css';
 /**
  * @requires PStackItem
  */
-import PStackItem from './PStackItem.vue';
+import { PStackItem } from './components/PStackItem';
 
 type Spacing = 'extraTight' | 'tight' | 'loose' | 'extraLoose' | 'none';
 type Alignment = 'leading' | 'trailing' | 'center' | 'fill' | 'baseline';

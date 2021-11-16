@@ -49,15 +49,17 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Prop} from 'vue-property-decorator';
-import {classNames, variationName} from '@/utilities/css';
-import {PImage} from '@/components/PImage';
-import {PStack, PStackItem} from '@/components/PStack';
-import {PDisplayText} from '@/components/PDisplayText';
-import {PTextContainer} from '@/components/PTextContainer';
-import {PCard, PCardSection} from '@/components/PCard';
-import {PButton} from '@/components/PButton';
-import {ComplexAction, DisableableAction, LoadableAction} from '@/types';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { classNames } from '@/utilities/css';
+import { PImage } from '@/components/PImage';
+import { PStack } from '@/components/PStack';
+import { PStackItem } from '@/components/PStack/components/PStackItem';
+import { PDisplayText } from '@/components/PDisplayText';
+import { PTextContainer } from '@/components/PTextContainer';
+import { PCard } from '@/components/PCard';
+import { PCardSection } from '@/components/PCard/components/PCardSection';
+import { PButton } from '@/components/PButton';
+import { ComplexAction, DisableableAction, LoadableAction } from '@/types';
 
 /**
  * <br/>
@@ -68,14 +70,7 @@ import {ComplexAction, DisableableAction, LoadableAction} from '@/types';
  */
 @Component({
   components: {
-    PImage,
-    PCard,
-    PCardSection,
-    PTextContainer,
-    PDisplayText,
-    PStack,
-    PStackItem,
-    PButton,
+    PImage, PCard, PCardSection, PTextContainer, PDisplayText, PStack, PStackItem, PButton,
   },
 })
 export default class PEmptyState extends Vue {

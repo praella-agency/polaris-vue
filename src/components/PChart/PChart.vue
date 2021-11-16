@@ -11,8 +11,8 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Prop, Emit, Watch} from 'vue-property-decorator';
-import {PCard} from '@/components/PCard';
+import { Component, Vue, Prop, Emit, Watch } from 'vue-property-decorator';
+import { PCard } from '@/components/PCard';
 import VueApexCharts from 'vue-apexcharts';
 
 /**

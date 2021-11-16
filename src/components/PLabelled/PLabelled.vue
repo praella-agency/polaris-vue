@@ -39,12 +39,12 @@
 </template>
 
 <script lang="ts">
-import {Vue, Component, Prop} from 'vue-property-decorator';
-import {PLabel} from '@/components/PLabel';
-import {PButton} from '@/components/PButton';
-import {PInlineError} from '@/components/PInlineError';
-import {Action} from '@/types';
-import {classNames} from '@/utilities/css';
+import { Vue, Component, Prop } from 'vue-property-decorator';
+import { classNames } from '@/utilities/css';
+import { Action } from '@/types';
+import { PLabel } from '@/components/PLabel';
+import { PButton } from '@/components/PButton';
+import { PInlineError } from '@/components/PInlineError';
 
 @Component({
   components: {

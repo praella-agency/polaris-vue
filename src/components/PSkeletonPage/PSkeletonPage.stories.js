@@ -1,6 +1,8 @@
 import { PSkeletonPage } from './index';
-import { PLayout, PLayoutSection } from '../PLayout'
-import { PCard, PCardSection } from '../PCard';
+import { PLayout } from '../PLayout'
+import { PLayoutSection } from '../PLayout/components/PLayoutSection'
+import { PCard } from '../PCard';
+import { PCardSection } from '../PCard/components/PCardSection';
 import { PSkeletonBodyText } from '../PSkeletonBodyText';
 import { PSkeletonDisplayText } from '../PSkeletonDisplayText';
 import { PTextContainer } from '../PTextContainer';

@@ -1,4 +1,4 @@
-import PSkeletonThumbnail from './PSkeletonThumbnail';
+import { PSkeletonThumbnail } from './index';
 
 export default {
     title: 'Feedback indicators / Skeleton Thumbnail',

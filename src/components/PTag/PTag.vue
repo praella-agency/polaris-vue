@@ -9,8 +9,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
-import {PIcon} from '@/components/PIcon';
+import { classNames } from '@/utilities/css';
+import { PIcon } from '@/components/PIcon';
 
 interface TagInterface {
     value: string;

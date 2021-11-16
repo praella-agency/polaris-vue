@@ -32,8 +32,8 @@
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
-
-  import { PStack, PStackItem } from '@/components/PStack';
+  import { PStack } from '@/components/PStack';
+  import { PStackItem } from '@/components/PStack/components/PStackItem';
   import { PButton } from '@/components/PButton';
   import { PBadge } from '@/components/PBadge';
   import { PTextContainer } from '@/components/PTextContainer';

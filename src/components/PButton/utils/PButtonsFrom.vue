@@ -12,11 +12,12 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { ComplexAction } from '@/types';
-
-import PButton from '../PButton.vue';
+import { PButton } from '@/components/PButton';
 
 @Component({
-  components: { PButton },
+  components: {
+      PButton,
+  },
 })
 export default class PButtonsFrom extends Vue {
   /**

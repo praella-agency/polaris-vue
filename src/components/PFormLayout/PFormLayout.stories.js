@@ -1,4 +1,4 @@
-import PFormLayout from './PFormLayout';
+import { PFormLayout } from './index';
 import { PTextField } from '../PTextField';
 
 export default {

@@ -199,15 +199,14 @@
 
 
 <script lang="ts">
-import {Component, Vue, Prop} from 'vue-property-decorator';
-
-import PDataTableCellNew from './PDataTableCellNew.vue';
-import PDataTableCell from './PDataTableCell.vue';
-import {PPagination, PPaginationDescriptor} from '@/components/PPagination';
-import {PFilter} from '@/components/PFilter';
-import {PSpinner} from '@/components/PSpinner';
-import {ComplexAction, LinkAction} from '@/types';
-import {PEmptyState} from '@/components/PEmptyState';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { PDataTableCellNew } from '@/components/PDataTable/components/PDataTableCellNew';
+import { PDataTableCell } from '@/components/PDataTable/components/PDataTableCell';
+import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
+import { PFilter } from '@/components/PFilter';
+import { PSpinner } from '@/components/PSpinner';
+import { ComplexAction, LinkAction } from '@/types';
+import { PEmptyState } from '@/components/PEmptyState';
 
 type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
 type Progress = 'incomplete' | 'partiallyComplete' | 'complete';

@@ -38,10 +38,10 @@
 </template>
 
 <script lang="ts">
-  import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
-  import PInput from './components/PInput.vue';
-  import PConnected from '../PConnected/PConnected.vue';
-  import {PFieldError} from '@/components/PFieldError';
+    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { PInput } from '@/components/PTextField/components/PInput';
+    import { PConnected } from '@/components/PConnected';
+    import { PFieldError } from '@/components/PFieldError';
 
   /**
    * <br/>

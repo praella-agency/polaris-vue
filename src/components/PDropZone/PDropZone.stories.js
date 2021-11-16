@@ -1,5 +1,7 @@
-import {PDropZone} from './index';
-import {PCard, PCardHeader, PCardSection} from '../PCard';
+import { PDropZone } from './index';
+import { PCard } from '../PCard';
+import { PCardHeader } from '../PCard/components/PCardHeader';
+import { PCardSection } from '../PCard/components/PCardSection';
 
 export default {
     title: 'Actions / Drop Zone',

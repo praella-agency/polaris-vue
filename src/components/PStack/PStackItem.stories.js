@@ -1,5 +1,5 @@
-import PStack from './PStack';
-import PStackItem from './PStackItem';
+import { PStack } from './index';
+import { PStackItem } from './components/PStackItem';
 
 export default {
     title: 'Structure / Stack Item',

@@ -91,7 +91,6 @@
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
   import { ThemeLogo, getWidth } from '@/types/logo';
-
   import { PIcon } from '@/components/PIcon';
   import { PButton } from '@/components/PButton';
   import { PUnstyledLink } from '@/components/PUnstyledLink';

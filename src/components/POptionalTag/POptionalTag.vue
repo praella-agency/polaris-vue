@@ -2,7 +2,6 @@
     import { Component, Vue, Prop } from 'vue-property-decorator';
 
     @Component
-
     export default class POptionalTag extends Vue {
         @Prop({type: String, required: true}) public tag!: string;
         @Prop({type: Boolean, required: true}) public active!: boolean;

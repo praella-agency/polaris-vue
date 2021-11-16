@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-  import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
   import { PIcon } from '@/components/PIcon';
 
   /**
@@ -20,7 +20,9 @@
    *  how to fix it.</h4>
    */
   @Component({
-    components: { PIcon },
+    components: {
+        PIcon,
+    },
   })
   export default class PFieldError extends Vue {
     @Prop({type: String, default: null}) public error!: string;

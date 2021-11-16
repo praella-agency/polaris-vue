@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames} from '@/utilities/css';
-import PActionListSection from '@/components/PActionList/components/PActionListSection.vue';
+import { PActionListSection } from '@/components/PActionList/components/PActionListSection';
 
 /**
  * <br/>

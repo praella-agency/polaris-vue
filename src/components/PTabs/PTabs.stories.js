@@ -1,5 +1,6 @@
-import { PTabs } from '../PTabs';
-import { PCard, PCardSection } from '../PCard';
+import { PTabs } from './index';
+import { PCard } from '../PCard';
+import { PCardSection } from '../PCard/components/PCardSection';
 
 export default {
     title: 'Navigation / Tabs',

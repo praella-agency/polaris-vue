@@ -1,8 +1,8 @@
 <script lang="tsx">
 import {Component, Vue, Prop} from 'vue-property-decorator';
-import {classNames, variationName} from '@/utilities/css';
+import {classNames} from '@/utilities/css';
 import ComponentHelpers from '../../ComponentHelpers';
-import {PButtonGroupItem} from '@/components/PButtonGroup';
+import {PButtonGroupItem} from '@/components/PButtonGroup/components/PButtonGroupItem';
 
 type Spacing = 'extraTight' | 'tight' | 'loose';
 

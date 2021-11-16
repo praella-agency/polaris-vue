@@ -1,4 +1,4 @@
-import PNavigation from './PNavigation';
+import { PNavigation } from './index';
 
 export default {
     title: 'Navigation / Navigation',

@@ -1,4 +1,4 @@
-import PIcon from './PIcon';
+import { PIcon } from './index';
 import ShopifyIcons from './ShopifyIcons';
 import PIconMDX from './PIcon.mdx';
 

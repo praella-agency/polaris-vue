@@ -1,4 +1,4 @@
-import PAvatar from './PAvatar';
+import { PAvatar } from './index';
 
 export default {
     title: 'Images & Icons / Avatar',

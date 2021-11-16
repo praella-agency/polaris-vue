@@ -1,4 +1,4 @@
-import PToggle from './PToggle.vue';
+import { PToggle } from './index';
 
 export default {
     title: 'Forms / Toggle',

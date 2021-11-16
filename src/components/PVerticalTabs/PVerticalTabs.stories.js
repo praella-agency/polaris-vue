@@ -1,6 +1,9 @@
-import { PVerticalTabs } from '../PVerticalTabs';
-import { PCard, PCardSection, PCardHeader } from '../PCard';
-import { PStack, PStackItem } from '../PStack';
+import { PVerticalTabs } from './index';
+import { PCard } from '../PCard';
+import { PCardHeader } from '../PCard/components/PCardHeader';
+import { PCardSection } from '../PCard/components/PCardSection';
+import { PStack } from '../PStack';
+import { PStackItem } from '../PStack/components/PStackItem';
 import { PHeading } from '../PHeading';
 import { PButton } from '../PButton';
 import { PFooterHelp } from '../PFooterHelp';

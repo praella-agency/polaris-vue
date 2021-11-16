@@ -14,14 +14,18 @@
 </template>
 
 <script>
-import {PDisplayText} from '../../components/PDisplayText';
-import {PLayout} from '../../components/PLayout';
-import {PStack, PStackItem} from '../../components/PStack';
-import {PList, PListItem} from '../../components/PList';
-import {PLink} from '../../components/PLink';
-import {PCard, PCardHeader, PCardSection} from '../../components/PCard';
-import {PHeading} from '../../components/PHeading';
-import {PTextContainer} from '../../components/PTextContainer';
+import { PDisplayText } from '../../components/PDisplayText';
+import { PLayout } from '../../components/PLayout';
+import { PStack } from '../../components/PStack';
+import { PStackItem } from '../../components/PStack/components/PStackItem';
+import { PList } from '../../components/PList';
+import { PListItem } from '../../components/PList/components/PListItem';
+import { PLink } from '../../components/PLink';
+import { PCard } from '../../components/PCard';
+import { PCardSection } from '../../components/PCard/components/PCardSection';
+import { PCardHeader } from '../../components/PCard/components/PCardHeader';
+import { PHeading } from '../../components/PHeading';
+import { PTextContainer } from '../../components/PTextContainer';
 import dayjs from 'dayjs';
 import showdown from 'showdown';
 

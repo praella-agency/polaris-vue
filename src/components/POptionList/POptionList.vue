@@ -22,8 +22,7 @@
 
 <script lang="ts">
 import {Component, Vue, Prop} from 'vue-property-decorator';
-import { classNames } from '@/utilities/css';
-import POptionsListOption from './POptionsListOption.vue';
+import { POptionsListOption } from '@/components/POptionList/components/POptionsListOption';
 
 export interface OptionDescriptor {
     label?: string;

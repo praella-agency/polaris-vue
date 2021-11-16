@@ -44,11 +44,11 @@
 
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
-    import { classNames, variationName } from '@/utilities/css';
+    import { classNames } from '@/utilities/css';
 
-    import PCardHeader from './PCardHeader.vue';
-    import PCardSection from './PCardSection.vue';
-    import PCardFooter from '@/components/PCard/PCardFooter.vue';
+    import { PCardHeader } from '@/components/PCard/components/PCardHeader';
+    import { PCardSection } from '@/components/PCard/components/PCardSection';
+    import { PCardFooter } from '@/components/PCard/components/PCardFooter';
     import { PHeading } from '@/components/PHeading';
     import { PCaption } from '@/components/PCaption';
     import { PButtonGroup } from '@/components/PButtonGroup';

@@ -1,5 +1,6 @@
-import PCaption from './PCaption';
-import { PList, PListItem } from '../PList';
+import { PCaption } from './index';
+import { PList } from '../PList';
+import { PListItem } from '../PList/components/PListItem';
 
 export default {
     title: 'Titles & Text / Caption',

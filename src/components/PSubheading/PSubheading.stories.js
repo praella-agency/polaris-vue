@@ -1,4 +1,4 @@
-import PSubheading from './PSubheading';
+import { PSubheading } from './index';
 
 export default {
     title: 'Titles & Text / Subheading',
@@ -39,5 +39,5 @@ const Template = (args, {argTypes}) => ({
 export const Subheading = Template.bind({});
 
 Subheading.args = {
-    element: "h2",
+    element: 'h2',
 }

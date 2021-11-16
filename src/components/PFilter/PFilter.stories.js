@@ -1,9 +1,11 @@
-import PFilter from './PFilter';
+import { PFilter } from './index';
 import { PButton } from '../PButton';
 import { PPopover } from '../PPopover';
 import { POptionList } from '../POptionList';
-import { PCard, PCardSection } from '../PCard';
-import { PStack, PStackItem } from '../PStack';
+import { PCard } from '../PCard';
+import { PCardSection } from '../PCard/components/PCardSection';
+import { PStack } from '../PStack';
+import { PStackItem } from '../PStack/components/PStackItem';
 import { PTextField } from '../PTextField';
 import { PCheckbox } from '../PCheckbox';
 import { PChoiceList } from '../PChoiceList';

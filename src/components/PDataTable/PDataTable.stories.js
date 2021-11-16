@@ -1,4 +1,4 @@
-import PDataTable from './PDataTable.vue';
+import { PDataTable } from './index';
 import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';

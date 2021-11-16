@@ -76,7 +76,9 @@ const DEFAULT_SIZE = 'medium';
  *  settings”.</h4>
  */
 @Component({
-  components: { PIcon, PSpinner },
+  components: {
+      PIcon, PSpinner,
+  },
 })
 export default class PButton extends Vue {
 

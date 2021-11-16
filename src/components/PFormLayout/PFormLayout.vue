@@ -1,7 +1,7 @@
 <script lang="tsx">
-import {Component, Vue, Prop} from 'vue-property-decorator';
-import PFormLayoutItem from '@/components/PFormLayout/PFormLayoutItem.vue';
-import PFormLayoutGroup from '@/components/PFormLayout/PFormLayoutGroup.vue';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { PFormLayoutItem } from '@/components/PFormLayout/components/PFormLayoutItem';
+import { PFormLayoutGroup } from '@/components/PFormLayout/components/PFormLayoutGroup';
 import ComponentHelpers from '../../ComponentHelpers';
 
 /**
@@ -12,8 +12,7 @@ import ComponentHelpers from '../../ComponentHelpers';
  */
 @Component({
   components: {
-    PFormLayoutItem,
-    PFormLayoutGroup,
+    PFormLayoutItem, PFormLayoutGroup,
   },
 })
 export default class PFormLayout extends Vue {

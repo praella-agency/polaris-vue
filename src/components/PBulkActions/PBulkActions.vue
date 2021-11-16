@@ -190,8 +190,8 @@
   import { PActionList } from '@/components/PActionList';
   import { PButton } from '@/components/PButton';
   import { Action, ActionListSection, MenuGroupDescriptor } from '@/types';
-  import PBulkActionMenu from '@/components/PBulkActions/components/PBulkActionMenu.vue';
-  import PBulkActionButton from '@/components/PBulkActions/components/PBulkActionButton.vue';
+  import { PBulkActionMenu } from '@/components/PBulkActions/components/PBulkActionMenu';
+  import { PBulkActionButton } from '@/components/PBulkActions/components/PBulkActionButton';
   import { classNames } from '@/utilities/css';
 
   @Component({

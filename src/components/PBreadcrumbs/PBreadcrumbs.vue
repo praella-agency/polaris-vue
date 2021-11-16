@@ -14,8 +14,7 @@ interface PBreadcrumbsProps {
 
 @Component({
     components: {
-        PUnstyledLink,
-        PIcon,
+        PUnstyledLink, PIcon,
     },
 })
 export default class PBreadcrumbs extends Vue {

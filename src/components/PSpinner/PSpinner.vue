@@ -1,11 +1,11 @@
 <template>
-  <img :src="`data:image/svg+xml;utf8,${spinnerSVG}`" :class="className">
+  <img :src="`data:image/svg+xml;utf8,${spinnerSVG}`" :class="className" alt="">
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
-import { encode as encodeSVG, encode } from '@/utilities/svg';
+import { encode as encodeSVG } from '@/utilities/svg';
 import { spinnerLarge, spinnerSmall } from './images';
 
 type Color = 'white' | 'teal' | 'inkLightest';

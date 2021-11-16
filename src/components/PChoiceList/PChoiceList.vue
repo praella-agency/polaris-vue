@@ -32,11 +32,11 @@
 </template>
 
 <script lang="ts">
-import {Vue, Component, Prop} from 'vue-property-decorator';
-import {classNames} from '@/utilities/css';
-import {PCheckbox} from '../PCheckbox';
-import {PRadioButton} from '../PRadioButton';
-import {PInlineError} from '../PInlineError';
+import { Vue, Component, Prop } from 'vue-property-decorator';
+import { classNames } from '@/utilities/css';
+import { PCheckbox } from '@/components/PCheckbox';
+import { PRadioButton } from '@/components/PRadioButton';
+import { PInlineError } from '@/components/PInlineError';
 
 /**
  * <br/>

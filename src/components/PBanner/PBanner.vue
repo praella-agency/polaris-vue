@@ -59,8 +59,7 @@ type BannerStatus = 'success' | 'info' | 'warning' | 'critical';
  */
 @Component({
   components: {
-    PIcon, PButton, PHeading,
-    PButtonGroup, PButtonsFrom,
+    PIcon, PButton, PHeading, PButtonGroup, PButtonsFrom,
   },
 })
 export default class PBanner extends Vue {

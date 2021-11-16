@@ -1,5 +1,5 @@
-import PSelect from './PSelect';
-import {PBadge} from "../PBadge";
+import { PSelect } from './index';
+import { PBadge } from '../PBadge';
 
 export default {
     title: 'Forms / Select',

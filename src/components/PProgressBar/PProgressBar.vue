@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Prop} from 'vue-property-decorator';
-import {classNames, variationName} from '@/utilities/css';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { classNames, variationName } from '@/utilities/css';
 
 type Size = 'small' | 'medium' | 'large';
 

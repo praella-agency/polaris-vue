@@ -16,9 +16,9 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Prop} from 'vue-property-decorator';
-import {classNames, variationName} from '@/utilities/css';
-import {PIcon} from '@/components/PIcon';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { classNames } from '@/utilities/css';
+import { PIcon } from '@/components/PIcon';
 
 /**
  * <br/>
@@ -27,7 +27,9 @@ import {PIcon} from '@/components/PIcon';
  *  using.</h4>
  */
 @Component({
-  components: { PIcon },
+  components: {
+      PIcon,
+  },
 })
 export default class PFooterHelp extends Vue {
 

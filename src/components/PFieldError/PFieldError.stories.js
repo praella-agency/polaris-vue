@@ -1,4 +1,4 @@
-import PFieldError from './PFieldError';
+import { PFieldError } from './index';
 
 export default {
     title: 'Forms / Field Error',

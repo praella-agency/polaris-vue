@@ -27,10 +27,11 @@
 
 <script lang="ts">
     import { Vue, Component, Prop } from 'vue-property-decorator';
-    import { PStack, PStackItem } from '../PStack';
-    import { PDisplayText } from '../PDisplayText';
-    import { PTextStyle } from '../PTextStyle';
-    import { PImage } from '../PImage';
+    import { PStack } from '@/components/PStack';
+    import { PStackItem } from '@/components/PStack/components/PStackItem';
+    import { PDisplayText } from '@/components/PDisplayText';
+    import { PTextStyle } from '@/components/PTextStyle';
+    import { PImage } from '@/components/PImage';
 
     @Component({
       components: {

@@ -13,10 +13,10 @@
 </template>
 
 <script lang="ts">
-  import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
-  import {Chrome} from 'vue-color';
-  import PTextField from '@/components/PTextField/PTextField.vue';
-  import vClickOutside from 'v-click-outside';
+    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Chrome } from 'vue-color';
+    import { PTextField } from '@/components/PTextField/';
+    import vClickOutside from 'v-click-outside';
 
   /**
    * <br/>
@@ -25,8 +25,12 @@
    *  color picker to customize the accent color of the email templates for their shop.</h4>
    */
   @Component({
-    components: {PTextField, Chrome},
-    directives: {clickOutside: vClickOutside.directive},
+    components: {
+        PTextField, Chrome,
+    },
+    directives: {
+        clickOutside: vClickOutside.directive,
+    },
   })
   export default class PColorPicker extends Vue {
 

@@ -30,8 +30,7 @@
 <script lang="ts">
 import {Component, Vue, Prop} from 'vue-property-decorator';
 import {classNames} from '@/utilities/css';
-import {PPageHeader, PPageHeaderProps} from './components';
-
+import { PPageHeader, PPageHeaderProps } from '@/components/PPage/components/PPageHeader';
 import {
     DestructableAction,
     DisableableAction, IconableAction,

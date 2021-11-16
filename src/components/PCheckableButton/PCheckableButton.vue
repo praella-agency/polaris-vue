@@ -26,7 +26,7 @@
 <script lang="ts">
   import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
-  import { PCheckbox } from '../PCheckbox';
+  import { PCheckbox } from '@/components/PCheckbox';
 
   @Component({
     components: {

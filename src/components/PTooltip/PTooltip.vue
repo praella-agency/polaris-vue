@@ -36,8 +36,8 @@
 
 <script lang="ts">
   import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator';
-  import PTooltipOverlay from './components/PTooltipOverlay.vue';
   import { classNames } from '@/utilities/css';
+  import { PTooltipOverlay } from '@/components/PTooltip/components/PTooltipOverlay';
 
   @Component({
     components: {

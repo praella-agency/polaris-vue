@@ -1,18 +1,18 @@
-import PCard from './PCard';
-import PCardSection from './PCardSection';
-import {PList} from '../PList';
-import {PListItem} from '../PList';
-import {PButtonGroup} from '../PButtonGroup';
-import {PButton} from '../PButton';
-import {PPopover} from '../PPopover';
-import {PActionList} from '../PActionList';
-import {PCardHeader} from './index';
-import {PTextContainer} from '../PTextContainer';
-import {PResourceList} from '../PResourceList';
-import {PResourceListItem} from '../PResourceList';
-import {PStack} from '../PStack';
-import {PStackItem} from '../PStack';
-import {POptionList} from '../POptionList';
+import { PCard } from './index';
+import { PCardSection } from './components/PCardSection';
+import { PCardHeader } from './components/PCardHeader';
+import { PList } from '../PList';
+import { PListItem } from '../PList/components/PListItem';
+import { PButtonGroup } from '../PButtonGroup';
+import { PButton } from '../PButton';
+import { PPopover } from '../PPopover';
+import { PActionList } from '../PActionList';
+import { PTextContainer } from '../PTextContainer';
+import { PResourceList } from '../PResourceList';
+import { PResourceListItem } from '../PResourceList/components/PResourceListItem';
+import { PStack } from '../PStack';
+import { PStackItem } from '../PStack/components/PStackItem';
+import { POptionList } from '../POptionList';
 
 export default {
     title: 'Structure / Card',

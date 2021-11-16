@@ -8,9 +8,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
-@Component({
-  components: { },
-})
+@Component
 export default class PMessageIndicator extends Vue {
 
   @Prop({type: Boolean, default: true}) public active!: boolean;

@@ -1,6 +1,6 @@
-import PDataTable from './PDataTable.vue';
-import { PDataTableRow } from '../PDataTable/components/';
-import { PDataTableCol } from '../PDataTable/components/components';
+import { PDataTable } from './index';
+import { PDataTableRow } from './components/PDataTableRow';
+import { PDataTableCol } from './components/PDataTableCol';
 import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
 import { PLink } from '../PLink';
@@ -9,7 +9,8 @@ import { PIcon } from '../PIcon';
 import { PToggle } from '../PToggle';
 import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';
-import { PStack, PStackItem } from '../PStack';
+import { PStack } from '../PStack';
+import { PStackItem } from '../PStack/components/PStackItem';
 import argTypes from './args';
 
 export default {

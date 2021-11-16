@@ -9,12 +9,12 @@
 import {Component, Vue, Prop} from 'vue-property-decorator';
 import {classNames} from '@/utilities/css';
 import {ActionListSection, MenuActionDescriptor, MenuGroupDescriptor} from '@/types';
-import {PActionMenuActions, PActionMenuRollupActions} from './components';
+import { PActionMenuRollupActions } from '@/components/PActionMenu/components/PActionMenuRollupActions';
+import { PActionMenuActions } from '@/components/PActionMenu/components/PActionMenuActions';
 
 @Component({
     components: {
-        PActionMenuActions,
-        PActionMenuRollupActions,
+        PActionMenuActions, PActionMenuRollupActions,
     },
 })
 export default class PActionMenu extends Vue {

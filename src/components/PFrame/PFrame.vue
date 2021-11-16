@@ -29,10 +29,10 @@
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { PIcon } from '@/components/PIcon';
-  import { PFrameInner } from '@/components/PFrame/components';
   import { ContextualSaveBarProps } from '@/components/PFrame/context';
   import { ThemeLogo } from '@/types/logo';
+  import { PIcon } from '@/components/PIcon';
+  import { PFrameInner } from '@/components/PFrame/components/PFrameInner';
 
   /**
    * <br/>

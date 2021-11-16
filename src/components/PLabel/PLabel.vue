@@ -12,9 +12,9 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
-import {classNames} from '@/utilities/css';
+import { classNames } from '@/utilities/css';
 
-@Component({})
+@Component
 export default class PLabel extends Vue {
   /**
    * A unique identifier for the label

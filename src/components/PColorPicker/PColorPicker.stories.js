@@ -1,6 +1,7 @@
-import PColorPicker from './PColorPicker';
+import { PColorPicker } from './index';
 import { PBadge } from '../PBadge';
-import { PStack, PStackItem } from '../PStack';
+import { PStack } from '../PStack';
+import { PStackItem } from '../PStack/components/PStackItem';
 
 export default {
     title: 'Forms / Color Picker',

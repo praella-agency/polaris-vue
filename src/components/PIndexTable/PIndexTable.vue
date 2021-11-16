@@ -614,7 +614,8 @@
     import { PSpinner } from '@/components/PSpinner';
     import { PButton } from '@/components/PButton';
     import { PEmptySearchResult } from '@/components/PEmptySearchResult';
-    import { PStack, PStackItem } from '@/components/PStack';
+    import { PStack } from '@/components/PStack';
+    import { PStackItem } from '@/components/PStack/components/PStackItem';
     import { PCheckbox } from '@/components/PCheckbox';
     import { PBadge } from '@/components/PBadge';
     import { BulkActionsProps, IndexTableHeading } from '@/components/PIndexTable/utilities';

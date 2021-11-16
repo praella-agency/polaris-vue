@@ -1,13 +1,16 @@
-import { PCard, PCardHeader, PCardSection } from '../PCard';
-import PResourceListItem from './components/PResourceListItem';
-import PResourceList from './PResourceList';
+import { PResourceList } from './index';
+import { PResourceListItem } from './components/PResourceListItem/index';
+import { PCard } from '../PCard';
+import { PCardSection } from '../PCard/components/PCardSection';
+import { PCardHeader } from '../PCard/components/PCardHeader';
 import { PPopover } from '../PPopover';
-import PButton from '../PButton/PButton.vue';
+import { PButton } from '../PButton';
 import { PAvatar } from '../PAvatar';
 import { PBadge } from '../PBadge';
 import { PTextStyle } from '../PTextStyle';
 import { PPagination } from '../PPagination';
-import { PStack, PStackItem } from '../PStack';
+import { PStack } from '../PStack';
+import { PStackItem } from '../PStack/components/PStackItem';
 import { PTextField } from '../PTextField';
 
 export default {

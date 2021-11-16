@@ -112,14 +112,15 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Prop, Emit, Ref } from 'vue-property-decorator';
+  import { Component, Vue, Prop, Ref } from 'vue-property-decorator';
   import { classNames, variationName } from '@/utilities/css';
   import { PIcon } from '@/components/PIcon';
-  import { PStack, PStackItem } from '@/components/PStack';
+  import { PStack } from '@/components/PStack';
+  import { PStackItem } from '@/components/PStack/components/PStackItem';
   import { PCaption } from '@/components/PCaption';
   import { PDisplayText } from '@/components/PDisplayText';
-  import PFileUpload from './components/PFileUpload.vue';
-  import PDropZoneInput from './components/PDropZoneInput.vue';
+  import { PFileUpload } from '@/components/PDropZone/components/PFileUpload';
+  import { PDropZoneInput } from '@/components/PDropZone/components/PDropZoneInput';
   import { PLabelled } from '@/components/PLabelled';
   import { PThumbnail } from '@/components/PThumbnail';
   import { Action } from '@/types';

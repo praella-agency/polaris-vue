@@ -73,12 +73,12 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop, Ref } from 'vue-property-decorator';
+  import { Vue, Component, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
   import { PUnstyledLink } from '@/components/PUnstyledLink';
   import { PIcon } from '@/components/PIcon';
   import { PBadge } from '@/components/PBadge';
-  import { PSecondary } from './PSecondary';
+  import { PSecondary } from '@/components/PNavigation/components/PItem/components/PSecondary';
 
   interface ItemURLDetails {
     url?: string;

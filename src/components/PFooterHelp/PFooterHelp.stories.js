@@ -1,4 +1,4 @@
-import PFooterHelp from './PFooterHelp';
+import { PFooterHelp } from './index';
 import { PLink } from '../PLink';
 
 export default {

@@ -1,4 +1,4 @@
-import PDisplayText from './PDisplayText';
+import { PDisplayText } from './index';
 
 export default {
     title: 'Titles & Text / Display Text',

@@ -15,9 +15,7 @@
 
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
-    import { classNames } from '@/utilities/css';
-
-    import PLayoutSection from './PLayoutSection.vue';
+    import { PLayoutSection } from '@/components/PLayout/components/PLayoutSection';
 
     /**
      * <br/>

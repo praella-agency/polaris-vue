@@ -28,11 +28,13 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
+import { classNames } from '@/utilities/css';
 import {PFieldError} from '@/components/PFieldError';
 
 @Component({
-  components: { PFieldError },
+  components: {
+      PFieldError,
+  },
 })
 export default class PChoice extends Vue {
 

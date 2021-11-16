@@ -49,9 +49,7 @@
    */
   @Component({
     components: {
-      PUnstyledLink,
-      PIcon,
-      PTextStyle,
+      PUnstyledLink, PIcon, PTextStyle,
     },
   })
   export default class PPagination extends Vue {

@@ -1,4 +1,4 @@
-import PPageActions from './PPageActions';
+import { PPageActions } from './index';
 
 export default {
     title: 'Structure / Page Actions',

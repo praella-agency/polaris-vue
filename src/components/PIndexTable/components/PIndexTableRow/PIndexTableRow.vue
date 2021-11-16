@@ -22,7 +22,7 @@
 <script lang="ts">
   import { Vue, Component, Prop, Ref } from 'vue-property-decorator';
   import { classNames, variationName } from '@/utilities/css';
-  import PIndexTableCheckbox from '@/components/PIndexTable/components/PIndexTableCheckbox/PIndexTableCheckbox.vue';
+  import { PIndexTableCheckbox } from '@/components/PIndexTable/components/PIndexTableCheckbox/';
 
   enum SelectionType {
     All = 'all',

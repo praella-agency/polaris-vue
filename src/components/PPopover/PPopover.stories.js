@@ -1,4 +1,4 @@
-import PPopover from './PPopover';
+import { PPopover } from './index';
 import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';
 

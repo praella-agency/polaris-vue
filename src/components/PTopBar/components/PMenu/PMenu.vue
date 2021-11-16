@@ -44,10 +44,10 @@
 
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
+  import { classNames } from '@/utilities/css';
   import { PActionList } from '@/components/PActionList';
   import { PPopover } from '@/components/PPopover';
   import { PMessage } from './components/PMessage';
-  import { classNames } from '@/utilities/css';
   import { ActionListProps, MessageProps } from '@/types';
 
   @Component({

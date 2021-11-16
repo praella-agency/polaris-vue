@@ -35,13 +35,13 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
-import {PSpinner} from '@/components/PSpinner';
-import PModalDialog from './components/PModalDialog.vue';
-import PModalHeader from './components/PModalHeader.vue';
-import PModalFooter from './components/PModalFooter.vue';
-import PModalSection from './components/PModalSection.vue';
-import PModalCloseButton from './components/PModalCloseButton.vue';
 import { Action } from '@/types';
+import { PSpinner } from '@/components/PSpinner';
+import { PModalDialog } from '@/components/PModal/components/PModalDialog';
+import { PModalHeader } from '@/components/PModal/components/PModalHeader';
+import { PModalFooter } from '@/components/PModal/components/PModalFooter';
+import { PModalSection } from '@/components/PModal/components/PModalSection';
+import { PModalCloseButton } from '@/components/PModal/components/PModalCloseButton';
 
 /**
  * <br/>
@@ -52,12 +52,7 @@ import { Action } from '@/types';
  */
 @Component({
     components: {
-        PSpinner,
-        PModalDialog,
-        PModalHeader,
-        PModalFooter,
-        PModalSection,
-        PModalCloseButton,
+        PSpinner, PModalDialog, PModalHeader, PModalFooter, PModalSection, PModalCloseButton,
     },
 })
 export default class PModel extends Vue {

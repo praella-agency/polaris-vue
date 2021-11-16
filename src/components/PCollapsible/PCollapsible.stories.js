@@ -1,6 +1,7 @@
 import { PCollapsible } from './index';
 import { PCard } from '../PCard';
-import { PStack, PStackItem } from '../PStack';
+import { PStack } from '../PStack';
+import { PStackItem } from '../PStack/components/PStackItem';
 import { PButton } from '../PButton';
 import { PTextContainer } from '../PTextContainer';
 import { PLink } from '../PLink';

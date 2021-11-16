@@ -1,4 +1,4 @@
-import PInlineError from './PInlineError';
+import { PInlineError } from './index';
 
 export default {
     title: 'Forms / Inline Error',

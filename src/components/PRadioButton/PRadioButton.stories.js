@@ -1,5 +1,6 @@
-import PRadioButton from './PRadioButton';
-import { PStack, PStackItem } from '../PStack';
+import { PRadioButton } from './index';
+import { PStack } from '../PStack';
+import { PStackItem } from '../PStack/components/PStackItem';
 
 export default {
     title: 'Forms / Radio Button',

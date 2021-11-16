@@ -1,8 +1,8 @@
-import PLayout from './PLayout';
-import PLayoutSection from './PLayoutSection';
+import { PLayout } from './index';
+import { PLayoutSection } from './components/PLayoutSection';
 import { PCard } from '../PCard';
 import { PBanner } from '../PBanner';
-import PLayoutAnnotatedSection from './PLayoutAnnotatedSection';
+import { PLayoutAnnotatedSection } from './components/PLayoutAnnotatedSection';
 import { PFormLayout } from '../PFormLayout';
 import { PTextField } from '../PTextField';
 

@@ -1,4 +1,4 @@
-import PMediaCard from './PMediaCard';
+import { PMediaCard } from './index';
 
 export default {
     title: 'Structure / Media Card',

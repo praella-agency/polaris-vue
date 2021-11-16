@@ -100,14 +100,15 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames, variationName } from '@/utilities/css';
-import {PIcon} from '@/components/PIcon';
-import PResourceListHeader from '@/components/PResourceList/components/PResourceListHeader.vue';
-import PFilter from '@/components/PFilter/PFilter.vue';
-import {PSpinner} from '@/components/PSpinner';
-import {PStack, PStackItem} from '@/components/PStack';
-import {PDisplayText} from '@/components/PDisplayText';
-import {PTextStyle} from '@/components/PTextStyle';
+import { classNames } from '@/utilities/css';
+import { PIcon } from '@/components/PIcon';
+import { PFilter } from '@/components/PFilter';
+import { PSpinner } from '@/components/PSpinner';
+import { PStack } from '@/components/PStack';
+import { PStackItem } from '@/components/PStack/components/PStackItem';
+import { PDisplayText } from '@/components/PDisplayText';
+import { PTextStyle } from '@/components/PTextStyle';
+import { PResourceListHeader } from '@/components/PResourceList/components/PResourceListHeader';
 
 interface ResourceNameInterface {
     singular: string;
@@ -128,10 +129,6 @@ interface BulkActionsInterface {
     onAction: void;
 }
 
-interface ItemType {
-
-}
-
 /**
  * <br/>
  * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -140,13 +137,7 @@ interface ItemType {
  */
 @Component({
     components: {
-        PFilter,
-        PResourceListHeader,
-        PIcon,
-        PSpinner,
-        PStack, PStackItem,
-        PDisplayText,
-        PTextStyle,
+        PFilter, PResourceListHeader, PIcon, PSpinner, PStack, PStackItem, PDisplayText, PTextStyle,
     },
 })
 export default class PResourceList extends Vue {

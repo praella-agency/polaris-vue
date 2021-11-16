@@ -24,10 +24,10 @@
 </template>
 
 <script lang="ts">
-  import {Component, Prop, Vue} from 'vue-property-decorator';
-  import {PCard} from '@/components/PCard';
-  import {PButton} from '@/components/PButton';
-  import PSettingAction from '@/components/PSettingToggle/PSettingAction.vue';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { PCard } from '@/components/PCard';
+  import { PButton } from '@/components/PButton';
+  import { PSettingAction } from '@/components/PSettingToggle/PSettingAction';
 
   interface Action {
     accessibilityLabel?: string;

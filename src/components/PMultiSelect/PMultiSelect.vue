@@ -52,12 +52,12 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { classNames } from '@/utilities/css';
 import Multiselect from 'vue-multiselect';
-import {classNames} from '@/utilities/css';
-import {PIcon} from '@/components/PIcon';
-import {PTag} from '@/components/PTag';
-import {PFieldError} from '@/components/PFieldError';
+import { PIcon } from '@/components/PIcon';
+import { PTag } from '@/components/PTag';
+import { PFieldError } from '@/components/PFieldError';
 
 interface StrictOption {
   value: string;
@@ -68,7 +68,9 @@ interface StrictOption {
 }
 
 @Component({
-  components: {PIcon, Multiselect, PTag, PFieldError},
+  components: {
+      PIcon, Multiselect, PTag, PFieldError,
+  },
 })
 export default class PMultiSelect extends Vue {
   /**
