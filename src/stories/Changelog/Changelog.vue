@@ -114,9 +114,13 @@
                 if (value) {
                     this.releases.forEach((item, index) => {
                         if (
+                            /* tslint:disable-next-line */
                             item['tag_name'].toLowerCase().includes(value.toLowerCase()) ||
+                            /* tslint:disable-next-line */
                             item['name'].toLowerCase().includes(value.toLowerCase()) ||
+                            /* tslint:disable-next-line */
                             item['published_at'].toLowerCase().includes(value.toLowerCase()) ||
+                            /* tslint:disable-next-line */
                             item['body'].toLowerCase().includes(value.toLowerCase())
                         ) {
                             this.$set(this.isOpen, index, true);

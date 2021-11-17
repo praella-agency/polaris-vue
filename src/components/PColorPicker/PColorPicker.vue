@@ -18,72 +18,73 @@
     import { PTextField } from '@/components/PTextField/';
     import vClickOutside from 'v-click-outside';
 
-  /**
-   * <br/>
-   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
-   *  sans-serif;">The color picker is used to let merchants select a color visually. For example, merchants use the
-   *  color picker to customize the accent color of the email templates for their shop.</h4>
-   */
-  @Component({
-    components: {
-        PTextField, Chrome,
-    },
-    directives: {
-        clickOutside: vClickOutside.directive,
-    },
-  })
-  export default class PColorPicker extends Vue {
-
     /**
-     * Label for the colorPicker
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">The color picker is used to let merchants select a color visually. For example, merchants use the
+     *  color picker to customize the accent color of the email templates for their shop.</h4>
      */
-    @Prop({type: String, default: null}) public label!: string;
+    @Component({
+        components: {
+            PTextField, Chrome,
+        },
+        directives: {
+            clickOutside: vClickOutside.directive,
+        },
+    })
+    export default class PColorPicker extends Vue {
 
-    /**
-     * ID for form input
-     */
-    @Prop({type: [String, Number], required: true}) public id!: string | number;
+        /**
+         * Label for the colorPicker
+         */
+        @Prop({type: String, default: null}) public label!: string;
 
-    /**
-     * LabelClass for input
-     */
-    @Prop({type: String, default: null}) public labelClass!: string;
+        /**
+         * ID for form input
+         */
+        @Prop({type: [ String, Number ], required: true}) public id!: string | number;
 
-    /**
-     * Hide/Show input
-     * @values true | false
-     */
-    @Prop({type: Boolean, default: false}) public showInput!: boolean;
+        /**
+         * LabelClass for input
+         */
+        @Prop({type: String, default: null}) public labelClass!: string;
 
-    /**
-     * PropsClass for input
-     */
-    @Prop({type: String, default: null}) public propsClass!: string;
+        /**
+         * Hide/Show input
+         * @values true | false
+         */
+        @Prop({type: Boolean, default: false}) public showInput!: boolean;
 
-    /**
-     * Selected color
-     */
-    @Prop({type: String, default: '#FFF'}) public color!: string;
+        /**
+         * PropsClass for input
+         */
+        @Prop({type: String, default: null}) public propsClass!: string;
 
-    public showPicker = false;
+        /**
+         * Selected color
+         */
+        @Prop({type: String, default: '#FFF'}) public color!: string;
 
-    public updateColor(color: any) {
+        public showPicker = false;
 
-      /**
-       * Triggers when color is changed
-       *
-       * @property {string} color new color hex
-       */
-      this.$emit('update:color', color.hex);
+        public updateColor(color: any) {
+
+            /**
+             * Triggers when color is changed
+             *
+             * @property {string} color new color hex
+             */
+            this.$emit('update:color', color.hex);
+        }
+
+        public togglePicker() {
+            this.showPicker = !this.showPicker;
+        }
+
+        public hidePicker() {
+            this.showPicker = false;
+        }
     }
-
-    public togglePicker() {
-      this.showPicker = !this.showPicker;
-    }
-    public hidePicker() {
-      this.showPicker = false;
-    }
-  }
 </script>
 
 <style>

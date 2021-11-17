@@ -14,7 +14,7 @@
                     createElement,
                     this.$slots.default,
                     PFormLayoutItem,
-                )
+                ),
             );
         }
     }
