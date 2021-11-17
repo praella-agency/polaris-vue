@@ -62,11 +62,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { classNames } from '@/utilities/css';
-import { DestructableAction, DisableableAction, IconableAction, LoadableAction, Video } from '@/types';
+import {Component, Prop, Vue} from 'vue-property-decorator';
+import {classNames} from '@/utilities/css';
+import {DestructableAction, DisableableAction, IconableAction, LoadableAction, Video} from '@/types';
 import VuePlyr from '@hulkapps/vue-plyr';
-import '@hulkapps/vue-plyr/dist/vue-plyr.css';
 import { PCard } from '@/components/PCard';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';

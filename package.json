@@ -18,7 +18,7 @@
     "component library"
   ],
   "license": "MIT",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -29,8 +29,6 @@
   },
   "main": "./dist/polaris-vue.common.js",
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^24.0.0",
-    "@ckeditor/ckeditor5-vue2": "^1.0.5",
     "@hulkapps/vue-plyr": "^7.0.5",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "@vue/babel-preset-jsx": "^1.1.1",
@@ -44,8 +42,10 @@
     "vue-apexcharts": "^1.6.1",
     "vue-class-component": "^7.0.2",
     "vue-color": "^2.7.1",
+    "vue-mce": "^1.5.3",
     "vue-multiselect": "^2.1.6",
     "vue-property-decorator": "^8.3.0",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.5.1",
     "vue2-daterange-picker": "^0.6.5"
   },
