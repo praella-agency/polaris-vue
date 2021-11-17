@@ -42,7 +42,6 @@
     "vue-apexcharts": "^1.6.1",
     "vue-class-component": "^7.0.2",
     "vue-color": "^2.7.1",
-    "vue-mce": "^1.5.3",
     "vue-multiselect": "^2.1.6",
     "vue-property-decorator": "^8.3.0",
     "vue-quill-editor": "^3.0.6",

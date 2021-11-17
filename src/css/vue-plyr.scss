@@ -595,7 +595,7 @@ a.plyr__control::after, a.plyr__control::before {
   margin-right: 10px;
 }
 
-@media (max-width: calc(768px - 1)) {
+@media (max-width: calc(768px - 1px)) {
   .plyr__time + .plyr__time {
     display: none
   }
