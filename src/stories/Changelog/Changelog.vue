@@ -1,16 +1,4 @@
 <template>
-    <!--  <PStack spacing="extraLoose">-->
-    <!--    <PStackItem fill>-->
-    <!--      <PCard v-for="(release, key) in releases" :key="key" :actions="[]" subdued>-->
-    <!--        <PCardHeader-->
-    <!--            :title="release['tag_name']+ ' - ' +release['name']"-->
-    <!--            :shortDescription="formatDate(release['published_at'])"-->
-    <!--        />-->
-    <!--        <PCardSection class="release-content" v-html="formattedContent(release['body'])">-->
-    <!--        </PCardSection>-->
-    <!--      </PCard>-->
-    <!--    </PStackItem>-->
-    <!--  </PStack>-->
     <PFrame>
         <PTopBar
             slot="topBar"

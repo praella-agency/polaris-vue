@@ -33,6 +33,10 @@
 
         public animationFrame!: number;
 
+        public mounted() {
+            this.handleMeasurement();
+        }
+
         public handleMeasurement() {
             if (this.animationFrame) {
                 cancelAnimationFrame(this.animationFrame);

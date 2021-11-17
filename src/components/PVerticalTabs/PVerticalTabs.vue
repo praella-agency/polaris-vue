@@ -29,8 +29,8 @@
 <script lang="ts">
     import { Vue, Component, Prop } from 'vue-property-decorator';
     import { classNames } from '@/utilities/css';
-    import { PVerticalTabsPanel } from '@/components/PVerticalTabs/PVerticalTabsPanel';
-    import { PVerticalTab } from '@/components/PVerticalTabs/PVerticalTab';
+    import { PVerticalTabsPanel } from '@/components/PVerticalTabs/components/PVerticalTabsPanel';
+    import { PVerticalTab } from '@/components/PVerticalTabs/components/PVerticalTab';
     import { TabDescriptor } from '@/types/tabs';
 
     /**
