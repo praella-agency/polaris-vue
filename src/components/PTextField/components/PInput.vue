@@ -129,10 +129,10 @@ import {classNames} from '@/utilities/css';
 import PSpinner from './PSpinner.vue';
 import PFieldResizer from '@/components/PTextField/components/PFieldResizer.vue';
 import {PIcon} from '@/components/PIcon';
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
-import { quillEditor } from 'vue-quill-editor'
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
+import { quillEditor } from 'vue-quill-editor';
 
 type Type =
     | 'text'
@@ -198,19 +198,19 @@ export default class PInput extends Vue {
   public editorConfig = {
     modules: {
       toolbar: [
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
 
         ['bold', 'italic', 'underline', 'strike', 'link'],
-        [{ 'align': [] }],
+        [{ align: [] }],
         ['blockquote', 'code-block'],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        [{ 'indent': '-1' }, { 'indent': '+1' }],
-        ['image', 'video']
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ indent: '-1' }, { indent: '+1' }],
+        ['image', 'video'],
       ],
       syntax: {
-        highlight: text => text
-      }
-    }
+        highlight: text => text,
+      },
+    },
   };
 
   public characterCountLabel = this.maxLength || 'characterCountLabel';
