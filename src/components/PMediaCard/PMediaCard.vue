@@ -67,7 +67,6 @@ import {classNames} from '@/utilities/css';
 import {PCard} from '@/components/PCard';
 import {DestructableAction, DisableableAction, IconableAction, LoadableAction, Video} from '@/types';
 import VuePlyr from '@hulkapps/vue-plyr';
-import '@hulkapps/vue-plyr/dist/vue-plyr.css';
 import {PStack, PStackItem} from '@/components/PStack';
 import {PHeading} from '@/components/PHeading';
 import {PImage} from '@/components/PImage';

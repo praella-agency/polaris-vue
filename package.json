@@ -29,8 +29,6 @@
   },
   "main": "./dist/polaris-vue.common.js",
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^24.0.0",
-    "@ckeditor/ckeditor5-vue2": "^1.0.5",
     "@hulkapps/vue-plyr": "^7.0.5",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "@vue/babel-preset-jsx": "^1.1.1",
@@ -46,6 +44,7 @@
     "vue-color": "^2.7.1",
     "vue-multiselect": "^2.1.6",
     "vue-property-decorator": "^8.3.0",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.5.1",
     "vue2-daterange-picker": "^0.6.5"
   },
