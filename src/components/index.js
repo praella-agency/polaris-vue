@@ -8,7 +8,7 @@ import { PCardSection } from './PCard/components/PCardSection';
 import { PCardSubsection } from './PCard/components/PCardSubsection';
 import { PCheckbox } from './PCheckbox';
 import { PDataTable } from './PDataTable';
-import { PDisplayText } from './PDisplayText';
+import { PDisplayText } from './PDisplayText/index.js';
 import { PFormLayout } from './PFormLayout';
 import { PFormLayoutItem } from './PFormLayout/components/PFormLayoutItem';
 import { PFormLayoutGroup } from './PFormLayout/components/PFormLayoutGroup';

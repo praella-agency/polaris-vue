@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
-import {PDisplayText} from '@/components/PDisplayText';
+import {PDisplayText} from '@/components/PDisplayText/index.js';
 import {PTextStyle} from '@/components/PTextStyle';
 import {classNames} from '@/utilities/css';
 import {PThumbnail} from '@/components/PThumbnail/index.js';

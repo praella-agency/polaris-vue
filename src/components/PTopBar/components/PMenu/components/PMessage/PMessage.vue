@@ -38,7 +38,7 @@
   import { PBadge } from '@/components/PBadge/index.js';
   import { PTextContainer } from '@/components/PTextContainer';
   import { PHeading } from '@/components/PHeading';
-  import { PDisplayText } from '@/components/PDisplayText';
+  import { PDisplayText } from '@/components/PDisplayText/index.js';
   import { PLink } from '@/components/PLink';
   import { BadgeProps } from '@/types';
 

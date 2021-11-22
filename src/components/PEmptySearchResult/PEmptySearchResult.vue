@@ -29,7 +29,7 @@
     import { Vue, Component, Prop } from 'vue-property-decorator';
     import { PStack } from '@/components/PStack';
     import { PStackItem } from '@/components/PStack/components/PStackItem';
-    import { PDisplayText } from '@/components/PDisplayText';
+    import { PDisplayText } from '@/components/PDisplayText/index.js';
     import { PTextStyle } from '@/components/PTextStyle';
     import { PImage } from '@/components/PImage/index.js';
 

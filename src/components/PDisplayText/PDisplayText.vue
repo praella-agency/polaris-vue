@@ -5,12 +5,11 @@
   </component>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+<script>
 import { classNames, variationName } from '@/utilities/css';
 
-type Size = 'small' | 'medium' | 'large' | 'extraLarge';
-type HeadingTagName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
+const Size = 'small' | 'medium' | 'large' | 'extraLarge';
+const HeadingTagName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
 
 /**
  * <br/>
@@ -19,25 +18,41 @@ type HeadingTagName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
  *  storytelling. For example, use display text to convince or reassure merchants such as in marketing content or to
  *  capture attention during onboarding.</h4>
  */
-@Component
-export default class PDisplayText extends Vue {
-  /**
-   * Size of the text
-   * @values small | medium | large | extraLarge
-   */
-  @Prop({ type: String, default: 'medium' }) public size!: Size;
 
-  /**
-   * Element of text
-   * @values h1...h6 | p | span
-   */
-  @Prop({ type: String, default: 'p' }) public element!: HeadingTagName;
+export default {
+  name: 'PDisplayText',
+  props: {
+    /**
+     * Size of the text
+     * @values small | medium | large | extraLarge
+     */
+    size: {
+      type: String,
+      default: 'medium',
+      validator: function (value) {
+        return ['small', 'medium', 'large', 'extraLarge'].indexOf(value) !== -1
+      }
+    },
 
-  public get className() {
-    return classNames(
-      'Polaris-DisplayText',
-      this.size && `Polaris-DisplayText--${variationName('size', this.size)}`,
-    );
-  }
+    /**
+     * Element of text
+     * @values h1...h6 | p | span
+     */
+    element: {
+      type: String,
+      default: 'p',
+      validator: function (value) {
+        return ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span'].indexOf(value) !== -1
+      }
+    },
+  },
+  computed: {
+    className() {
+      return classNames(
+          'Polaris-DisplayText',
+          this.size && `Polaris-DisplayText--${variationName('size', this.size)}`,
+      );
+    }
+  },
 }
 </script>

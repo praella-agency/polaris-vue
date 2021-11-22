@@ -48,7 +48,7 @@
 </template>
 
 <script>
-    import { PDisplayText } from '../../components/PDisplayText';
+    import { PDisplayText } from '../../components/PDisplayText/index.js';
     import { PLayout } from '../../components/PLayout';
     import { PStack } from '../../components/PStack';
     import { PStackItem } from '../../components/PStack/components/PStackItem';

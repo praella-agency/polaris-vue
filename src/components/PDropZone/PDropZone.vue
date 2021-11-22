@@ -118,7 +118,7 @@
   import { PStack } from '@/components/PStack';
   import { PStackItem } from '@/components/PStack/components/PStackItem';
   import { PCaption } from '@/components/PCaption/index.js';
-  import { PDisplayText } from '@/components/PDisplayText';
+  import { PDisplayText } from '@/components/PDisplayText/index.js';
   import { PFileUpload } from '@/components/PDropZone/components/PFileUpload';
   import { PDropZoneInput } from '@/components/PDropZone/components/PDropZoneInput';
   import { PLabelled } from '@/components/PLabelled';
