@@ -117,7 +117,7 @@
   import { PIcon } from '@/components/PIcon/index.js';
   import { PStack } from '@/components/PStack';
   import { PStackItem } from '@/components/PStack/components/PStackItem';
-  import { PCaption } from '@/components/PCaption';
+  import { PCaption } from '@/components/PCaption/index.js';
   import { PDisplayText } from '@/components/PDisplayText';
   import { PFileUpload } from '@/components/PDropZone/components/PFileUpload';
   import { PDropZoneInput } from '@/components/PDropZone/components/PDropZoneInput';

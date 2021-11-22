@@ -50,7 +50,7 @@
     import { PCardSection } from '@/components/PCard/components/PCardSection';
     import { PCardFooter } from '@/components/PCard/components/PCardFooter';
     import { PHeading } from '@/components/PHeading';
-    import { PCaption } from '@/components/PCaption';
+    import { PCaption } from '@/components/PCaption/index.js';
     import { PButtonGroup } from '@/components/PButtonGroup';
     import { PLink } from '@/components/PLink';
 

@@ -45,7 +45,7 @@ import { PAvatar } from './PAvatar';
 import { PModal } from './PModal';
 import { PInlineError } from './PInlineError';
 import { PPagination } from './PPagination';
-import { PCaption } from './PCaption';
+import { PCaption } from './PCaption/index.js';
 import { PProgressBar } from './PProgressBar';
 import { PResourceList } from './PResourceList';
 import { PResourceListItem } from './PResourceList/components/PResourceListItem';

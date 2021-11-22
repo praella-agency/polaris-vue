@@ -1,4 +1,4 @@
-import { PCaption } from './index';
+import { PCaption } from './index.js';
 import { PList } from '../PList';
 import { PListItem } from '../PList/components/PListItem';
 
@@ -17,6 +17,9 @@ export default {
             },
         },
         id: {
+            control: {
+                type: 'text',
+            },
             table: {
                 type: {
                     summary: 'string | number',
