@@ -1,7 +1,7 @@
 import { PIndexTable } from './index';
 import { PCard } from '../PCard';
 import { PLink } from '../PLink';
-import { PThumbnail } from '../PThumbnail';
+import { PThumbnail } from '../PThumbnail/index.js';
 import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';

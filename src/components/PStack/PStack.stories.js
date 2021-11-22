@@ -1,6 +1,6 @@
 import { PStack } from './index';
 import { PStackItem } from './components/PStackItem';
-import { PThumbnail } from '../PThumbnail';
+import { PThumbnail } from '../PThumbnail/index.js';
 import { PTextStyle } from '../PTextStyle';
 import { PButton } from '../PButton';
 

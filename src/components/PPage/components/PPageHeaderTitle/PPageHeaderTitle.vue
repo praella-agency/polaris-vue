@@ -23,7 +23,7 @@ import {Vue, Component, Prop} from 'vue-property-decorator';
 import {PDisplayText} from '@/components/PDisplayText';
 import {PTextStyle} from '@/components/PTextStyle';
 import {classNames} from '@/utilities/css';
-import {PThumbnail} from '@/components/PThumbnail';
+import {PThumbnail} from '@/components/PThumbnail/index.js';
 
 export interface PPageHeaderTitleProps {
   title?: string;

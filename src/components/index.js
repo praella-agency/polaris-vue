@@ -40,7 +40,7 @@ import { PLink } from './PLink';
 import { PList } from './PList';
 import { PListItem } from './PList/components/PListItem';
 import { PImage } from './PImage';
-import { PThumbnail } from './PThumbnail';
+import { PThumbnail } from './PThumbnail/index.js';
 import { PAvatar } from './PAvatar';
 import { PModal } from './PModal';
 import { PInlineError } from './PInlineError';

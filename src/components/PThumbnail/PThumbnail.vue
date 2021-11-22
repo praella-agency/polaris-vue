@@ -6,12 +6,11 @@
     </span>
 </template>
 
-<script lang="ts">
-    import { Component, Vue, Prop } from 'vue-property-decorator';
+<script>
     import { classNames, variationName } from '@/utilities/css';
     import { PImage } from '@/components/PImage/index.js';
     import { PIcon } from '@/components/PIcon/index.js';
-    type Size = 'small' | 'medium' | 'large';
+    const Size = 'small' | 'medium' | 'large';
 
     /**
      * <br/>
@@ -19,42 +18,57 @@
      *  sans-serif;">Use thumbnail as a visual anchor and identifier for an object. They should be used along with text
      *  to provide context.</h4>
      */
-    @Component({
+
+    export default {
+        name: 'PThumbnail',
         components: {
             PImage, PIcon,
         },
-    })
-    export default class PThumbnail extends Vue {
+        props: {
+          /**
+           * Thumbnail Size.
+           * @values small | medium | large
+           */
+          size: {
+            type: String,
+            default: 'medium',
+            validator: function (value) {
+              return ['small', 'medium', 'large'].indexOf(value) !== -1;
+            }
+          },
 
-        /**
-         * Thumbnail Size.
-         * @values small | medium | large
-         */
-        @Prop({type: String, default: 'medium'}) public size!: Size;
+          /**
+           * Image source.
+           * @values URL | Path
+           */
+          source: {
+            type: String,
+            default: null
+          },
 
-        /**
-         * Image source.
-         * @values URL | Path
-         */
-        @Prop({type: String, default: null}) public source!: string;
-
-        /**
-         * Image alt
-         * @values text
-         */
-        @Prop({type: String, default: null}) public alt!: string;
-
-        public get className() {
+          /**
+           * Image alt
+           * @values text
+           */
+          alt: {
+            type: String,
+            default: null
+          }
+        },
+        computed: {
+          className() {
             return classNames(
                 'Polaris-Thumbnail',
                 this.size && `Polaris-Thumbnail--${variationName('size', this.size)}`,
             );
-        }
+          }
+        },
+        methods: {
+          isSvg(source) {
+            const isSVG = new RegExp(/(<svg)([^<]*|[^>]*)/);
 
-        public isSvg(source) {
-          const isSVG = new RegExp(/(<svg)([^<]*|[^>]*)/);
-
-          return isSVG.test(source);
+            return isSVG.test(source);
+          }
         }
     }
 </script>

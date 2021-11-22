@@ -1,4 +1,4 @@
-import { PThumbnail } from './index';
+import { PThumbnail } from './index.js';
 
 export default {
     title: 'Images & Icons / Thumbnail',

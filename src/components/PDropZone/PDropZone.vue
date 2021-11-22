@@ -122,7 +122,7 @@
   import { PFileUpload } from '@/components/PDropZone/components/PFileUpload';
   import { PDropZoneInput } from '@/components/PDropZone/components/PDropZoneInput';
   import { PLabelled } from '@/components/PLabelled';
-  import { PThumbnail } from '@/components/PThumbnail';
+  import { PThumbnail } from '@/components/PThumbnail/index.js';
   import { Action } from '@/types';
   import { NoteMinor } from '@/assets/shopify-polaris-icons';
 
