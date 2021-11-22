@@ -95,7 +95,7 @@ import { DisableableAction } from '@/types';
 import { PCheckbox } from '@/components/PCheckbox';
 import { PAvatar } from '@/components/PAvatar';
 import { PPopover } from '@/components/PPopover';
-import { PButton } from '@/components/PButton';
+import { PButton } from '@/components/PButton/index.js';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PActionList } from '@/components/PActionList';
 

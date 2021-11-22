@@ -47,7 +47,7 @@
     import { classNames, variationName } from '@/utilities/css';
     import { PIcon } from '@/components/PIcon';
     import {Action, ComplexAction, LinkAction} from '@/types';
-    import { PButton } from '@/components/PButton';
+    import { PButton } from '@/components/PButton/index.js';
     import { PButtonGroup } from '@/components/PButtonGroup';
     import { PLink } from '@/components/PLink';
     import { PToggle } from '@/components/PToggle';

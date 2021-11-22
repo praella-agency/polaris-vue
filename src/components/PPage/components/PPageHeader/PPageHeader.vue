@@ -70,7 +70,7 @@ import { PTextStyle } from '@/components/PTextStyle';
 import { PBreadcrumbs } from '@/components/PBreadcrumbs';
 import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
 import { PActionMenu } from '@/components/PActionMenu';
-import { PButton } from '@/components/PButton';
+import { PButton } from '@/components/PButton/index.js';
 import { PPageHeaderTitle, PPageHeaderTitleProps } from '@/components/PPage/components/PPageHeaderTitle';
 import { PPopover } from '@/components/PPopover';
 import { PActionList } from '@/components/PActionList';

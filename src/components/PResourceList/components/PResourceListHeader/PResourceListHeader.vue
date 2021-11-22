@@ -108,7 +108,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
 import ComponentHelpers from '../../../../ComponentHelpers';
 import { PButtonGroup } from '@/components/PButtonGroup';
-import { PButton } from '@/components/PButton';
+import { PButton } from '@/components/PButton/index.js';
 import { PCheckableButton } from '@/components/PResourceList/components/PCheckableButton';
 import { PBulkActionButtonWrapper } from '@/components/PResourceList/components/PBulkActionButtonWrapper';
 import { PPopover } from '@/components/PPopover';

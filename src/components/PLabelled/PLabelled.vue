@@ -43,7 +43,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
 import { Action } from '@/types';
 import { PLabel } from '@/components/PLabel';
-import { PButton } from '@/components/PButton';
+import { PButton } from '@/components/PButton/index.js';
 import { PInlineError } from '@/components/PInlineError';
 
 @Component({

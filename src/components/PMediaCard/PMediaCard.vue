@@ -72,7 +72,7 @@ import { PStackItem } from '@/components/PStack/components/PStackItem';
 import { PHeading } from '@/components/PHeading';
 import { PImage } from '@/components/PImage';
 import { PButtonGroup } from '@/components/PButtonGroup';
-import { PButton } from '@/components/PButton';
+import { PButton } from '@/components/PButton/index.js';
 
 type Size = 'small' | 'medium';
 

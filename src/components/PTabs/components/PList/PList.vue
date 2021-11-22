@@ -17,29 +17,35 @@
     </ul>
 </template>
 
-<script lang="ts">
-    import { Vue, Component, Prop } from 'vue-property-decorator';
-    import { PItem } from '@/components/PTabs/components/PItem';
-    import { TabDescriptor } from '@/types/tabs/';
+<script>
+    import { PItem } from '../../../../components/PTabs/components/PItem';
+    import { TabDescriptor } from '../../../../types/tabs/index.js';
 
-    @Component({
+    export default {
+        name: 'PList',
         components: {
             PItem,
         },
-    })
-    export default class PList extends Vue {
+        props: {
+            focusIndex: {
+                type: Number,
+                default: 0,
+            },
+            disclosureTabs: {
+                type: Array,
+                default: () => ([]),
+            },
+        },
+        methods: {
+            handleKeyDown(event) {
+                const { key } = event;
 
-        @Prop({type: Number, default: 0}) public focusIndex!: number;
-        @Prop({type: Array, default: () => ([])}) public disclosureTabs!: TabDescriptor[];
-
-        public handleKeyDown(event: KeyboardEvent) {
-            const { key } = event;
-
-            if (key === 'ArrowLeft' || key === 'ArrowRight') {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-        }
+                if (key === 'ArrowLeft' || key === 'ArrowRight') {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            },
+        },
     }
 </script>
 

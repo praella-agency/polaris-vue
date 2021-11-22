@@ -22,7 +22,7 @@
 
 <script lang="ts">
     import { Vue, Component, Prop } from 'vue-property-decorator';
-    import { PButton } from '@/components/PButton';
+    import { PButton } from '@/components/PButton/index.js';
 
     @Component({
       components: {

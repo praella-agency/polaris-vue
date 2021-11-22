@@ -4,7 +4,7 @@ import { PCardHeader } from './components/PCardHeader';
 import { PList } from '../PList';
 import { PListItem } from '../PList/components/PListItem';
 import { PButtonGroup } from '../PButtonGroup';
-import { PButton } from '../PButton';
+import { PButton } from '../PButton/index.js';
 import { PPopover } from '../PPopover';
 import { PActionList } from '../PActionList';
 import { PTextContainer } from '../PTextContainer';

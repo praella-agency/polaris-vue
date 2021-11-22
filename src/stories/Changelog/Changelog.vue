@@ -61,7 +61,7 @@
     import { PHeading } from '../../components/PHeading';
     import { PTextContainer } from '../../components/PTextContainer';
     import { PCollapsible } from '../../components/PCollapsible';
-    import { PButton } from '../../components/PButton';
+    import { PButton } from '../../components/PButton/index.js';
     import { PFrame } from '../../components/PFrame';
     import { PTopBar } from '../../components/PTopBar';
     import dayjs from 'dayjs';

@@ -22,7 +22,7 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
-  import { PUnstyledLink } from '@/components/PUnstyledLink';
+  import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';
   import { PIcon } from '@/components/PIcon';
   import { PTextStyle } from '@/components/PTextStyle';
 

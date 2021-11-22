@@ -4,7 +4,7 @@ import { PCard } from '../PCard';
 import { PCardSection } from '../PCard/components/PCardSection';
 import { PCardHeader } from '../PCard/components/PCardHeader';
 import { PPopover } from '../PPopover';
-import { PButton } from '../PButton';
+import { PButton } from '../PButton/index.js';
 import { PAvatar } from '../PAvatar';
 import { PBadge } from '../PBadge';
 import { PTextStyle } from '../PTextStyle';

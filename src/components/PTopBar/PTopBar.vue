@@ -92,8 +92,8 @@
   import { classNames } from '@/utilities/css';
   import { ThemeLogo, getWidth } from '@/types/logo';
   import { PIcon } from '@/components/PIcon';
-  import { PButton } from '@/components/PButton';
-  import { PUnstyledLink } from '@/components/PUnstyledLink';
+  import { PButton } from '@/components/PButton/index.js';
+  import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';
   import { PImage } from '@/components/PImage';
   import { PTextField } from '@/components/PTextField';
   import { PActionList } from '@/components/PActionList';

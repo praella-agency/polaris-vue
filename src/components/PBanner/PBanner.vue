@@ -40,7 +40,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
 
 import { PIcon } from '@/components/PIcon';
-import { PButton } from '@/components/PButton';
+import { PButton } from '@/components/PButton/index.js';
 import { PHeading } from '@/components/PHeading';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PButtonsFrom } from '@/components/PButton/utils';

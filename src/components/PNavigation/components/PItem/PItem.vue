@@ -75,7 +75,7 @@
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
-  import { PUnstyledLink } from '@/components/PUnstyledLink';
+  import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';
   import { PIcon } from '@/components/PIcon';
   import { PBadge } from '@/components/PBadge';
   import { PSecondary } from '@/components/PNavigation/components/PItem/components/PSecondary';

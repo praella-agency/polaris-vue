@@ -33,7 +33,7 @@ import { ComplexAction, DisableableAction, LoadableAction } from '@/types';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
 import { PButtonGroup } from '@/components/PButtonGroup';
-import { PButton } from '@/components/PButton';
+import { PButton } from '@/components/PButton/index.js';
 
 export interface PageActionsProps {
   primaryAction?: DisableableAction & LoadableAction;

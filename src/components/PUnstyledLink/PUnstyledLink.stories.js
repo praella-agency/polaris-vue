@@ -1,4 +1,4 @@
-import { PUnstyledLink } from './index';
+import { PUnstyledLink } from './index.js';
 
 export default {
     title: 'Navigation / Unstyled Link',

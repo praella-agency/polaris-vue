@@ -1,6 +1,6 @@
 <template>
     <div class="Polaris-Tabs Polaris-Tabs__TabMeasurer" ref="containerNode">
-        <PEventListener event="resize" :handler="handleMeasurement" />
+        <PEventListener event="resize" :handler="handleMeasurement"/>
         <PTab
             v-for="(tab, index) in tabs"
             :key="`${index}-${tab.id}Hidden`"
@@ -13,48 +13,62 @@
     </div>
 </template>
 
-<script lang="ts">
-    import { Vue, Component, Prop } from 'vue-property-decorator';
-    import { PTab } from '@/components/PTabs/components/PTab';
-    import { TabDescriptor } from '@/types/tabs/';
-    import { PEventListener } from '@/components/PEventListener';
+<script>
+    import { PTab } from '../../../../components/PTabs/components/PTab';
+    import { TabDescriptor } from '../../../../types/tabs/index.js';
+    import { PEventListener } from '../../../../components/PEventListener';
 
-    @Component({
+    export default {
+        name: 'PTabMeasurer',
         components: {
             PTab, PEventListener,
         },
-    })
-    export default class PTabMeasurer extends Vue {
+        props: {
+            tabToFocus: {
+                type: Number,
+                default: 0,
+            },
+            siblingTabHasFocus: {
+                type: Boolean,
+                default: false,
+            },
+            selected: {
+                type: Number,
+                default: 0,
+            },
+            tabs: {
+                type: Array,
+                default: () => ([]),
+            },
+        },
+        data() {
+            return {
+                animationFrame: Number,
+            };
+        },
+        methods: {
+            handleMeasurement() {
+                if (this.animationFrame) {
+                    cancelAnimationFrame(this.animationFrame);
+                }
 
-        @Prop({type: Number, default: 0}) public tabToFocus!: number;
-        @Prop({type: Boolean, default: false}) public siblingTabHasFocus!: boolean;
-        @Prop({type: Number, default: 0}) public selected!: number;
-        @Prop({type: Array, default: () => ([])}) public tabs!: TabDescriptor[];
+                this.animationFrame = requestAnimationFrame(() => {
+                    const containerWidth = (this.$refs.containerNode).offsetWidth;
+                    const hiddenTabNodes = (this.$refs.containerNode).children;
+                    const hiddenTabNodesArray = Array.from(hiddenTabNodes);
+                    hiddenTabNodesArray.shift();
+                    const hiddenTabWidths = hiddenTabNodesArray.map((node) => {
+                        return Math.ceil(node.getBoundingClientRect().width);
+                    });
+                    const disclosureWidth = hiddenTabWidths.pop() || 0;
 
-        public animationFrame!: number;
-
-        public mounted() {
-            this.handleMeasurement();
-        }
-
-        public handleMeasurement() {
-            if (this.animationFrame) {
-                cancelAnimationFrame(this.animationFrame);
-            }
-
-            this.animationFrame = requestAnimationFrame(() => {
-                const containerWidth = (this.$refs.containerNode as HTMLDivElement).offsetWidth;
-                const hiddenTabNodes = (this.$refs.containerNode as HTMLDivElement).children;
-                const hiddenTabNodesArray = Array.from(hiddenTabNodes);
-                hiddenTabNodesArray.shift();
-                const hiddenTabWidths = hiddenTabNodesArray.map((node) => {
-                    return Math.ceil(node.getBoundingClientRect().width);
+                    this.$emit('handleMeasurement', containerWidth, disclosureWidth, hiddenTabWidths);
                 });
-                const disclosureWidth = hiddenTabWidths.pop() || 0;
-
-                this.$emit('handleMeasurement', containerWidth, disclosureWidth, hiddenTabWidths);
-            });
-        }
+            },
+        },
+        mounted() {
+            this.handleMeasurement();
+        },
     }
 </script>
 

@@ -1,5 +1,5 @@
 import { PButtonGroup } from './index';
-import { PButton } from '../PButton';
+import { PButton } from '../PButton/index.js';
 
 export default {
     title: 'Actions / Button Group',

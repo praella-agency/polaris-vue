@@ -2,7 +2,7 @@ import { PDataTable } from './index';
 import { PDataTableRow } from './components/PDataTableRow';
 import { PDataTableCol } from './components/PDataTableCol';
 import { PPopover } from '../PPopover';
-import { PButton } from '../PButton';
+import { PButton } from '../PButton/index.js';
 import { PLink } from '../PLink';
 import { PBadge } from '../PBadge';
 import { PIcon } from '../PIcon';

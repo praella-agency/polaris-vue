@@ -1,5 +1,5 @@
 import { PPopover } from './index';
-import { PButton } from '../PButton';
+import { PButton } from '../PButton/index.js';
 import { POptionList } from '../POptionList';
 
 export default {

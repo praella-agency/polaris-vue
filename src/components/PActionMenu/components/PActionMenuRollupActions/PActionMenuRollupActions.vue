@@ -11,7 +11,7 @@
 import {Component, Vue, Prop} from 'vue-property-decorator';
 import {ActionListSection, ActionListItemDescriptor } from '@/types';
 import {PPopover} from '@/components/PPopover';
-import {PButton} from '@/components/PButton';
+import {PButton} from '@/components/PButton/index.js';
 import {PActionList} from '@/components/PActionList';
 
 @Component({

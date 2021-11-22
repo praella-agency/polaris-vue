@@ -38,7 +38,7 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { getWidth, ThemeLogo } from '@/types/logo';
   import { ItemProps } from '@/components/PNavigation/utilities';
-  import { PUnstyledLink } from '@/components/PUnstyledLink';
+  import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';
   import { PImage } from '@/components/PImage';
   import { PSection } from '@/components/PNavigation/components/PSection';
 

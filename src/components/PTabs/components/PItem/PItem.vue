@@ -43,42 +43,57 @@
     </li>
 </template>
 
-<script lang="ts">
-    import { Vue, Component, Prop } from 'vue-property-decorator';
-
-    @Component
-    export default class PItem extends Vue {
-
-        @Prop({type: String, required: true}) public id!: string;
-        @Prop({type: Boolean, required: true}) public focused!: boolean;
-        @Prop({type: String, default: null}) public panelID!: string;
-        @Prop({type: String, default: null}) public url!: string;
-        @Prop([String, Object]) public to!: string | object;
-        @Prop({type: String, default: null}) public accessibilityLabel!: string;
-
-        public mounted() {
+<script>
+    export default {
+        name: 'PItem',
+        props: {
+            id: {
+                type: String,
+                required: true
+            },
+            focused: {
+                type: Boolean,
+                required: true,
+            },
+            panelID: {
+                type: String,
+                default: null,
+            },
+            url: {
+                type: String,
+                default: null,
+            },
+            to: {
+                type: Object | String,
+            },
+            accessibilityLabel: {
+                type: String,
+                default: null,
+            },
+        },
+        methods: {
+            handleClick() {
+                this.$emit('click');
+            }
+        },
+        mounted() {
             if (
-                (this.$refs.focusedNode as HTMLElement) &&
-                (this.$refs.focusedNode as HTMLElement) instanceof HTMLElement &&
+                (this.$refs.focusedNode) &&
+                (this.$refs.focusedNode) instanceof HTMLElement &&
                 this.focused
             ) {
-                (this.$refs.focusedNode as HTMLElement).focus();
+                (this.$refs.focusedNode).focus();
             }
-        }
-
-        public updated() {
+        },
+        updated() {
             if (
-                (this.$refs.focusedNode as HTMLElement) &&
-                (this.$refs.focusedNode as HTMLElement) instanceof HTMLElement &&
+                (this.$refs.focusedNode) &&
+                (this.$refs.focusedNode) instanceof HTMLElement &&
                 this.focused
             ) {
-                (this.$refs.focusedNode as HTMLElement).focus();
+                (this.$refs.focusedNode).focus();
             }
-        }
-
-        public handleClick() {
-            this.$emit('click');
-        }
+        },
     }
 </script>
 

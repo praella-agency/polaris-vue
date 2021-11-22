@@ -3,7 +3,7 @@ import { PCard } from '../PCard';
 import { PLink } from '../PLink';
 import { PThumbnail } from '../PThumbnail';
 import { PPopover } from '../PPopover';
-import { PButton } from '../PButton';
+import { PButton } from '../PButton/index.js';
 import { POptionList } from '../POptionList';
 import { PBadge } from '../PBadge';
 import { PStack } from '../PStack';

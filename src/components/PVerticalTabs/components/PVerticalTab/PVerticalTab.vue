@@ -73,63 +73,86 @@
     </li>
 </template>
 
-<script lang="ts">
-    import { Vue, Component, Prop } from 'vue-property-decorator';
-    import { classNames } from '@/utilities/css';
-    import { PIcon } from '@/components/PIcon';
-    import { PBadge } from '@/components/PBadge';
-    import { Color } from '@/types';
+<script>
+    import { classNames } from '../../../../utilities/css';
+    import { PIcon } from '../../../PIcon/';
+    import { PBadge } from '../../../PBadge';
 
-    interface Icon {
-        source?: string | 'placeholder';
-        color?: Color;
-        backdrop?: boolean;
-        accessibilityLabel?: string;
+    const Color = 'base' | 'subdued' | 'critical' | 'interactive' | 'warning' | 'highlight' | 'success' | 'primary';
+
+    const Icon = {
+        source: String | 'placeholder',
+        color: Color,
+        backdrop: Boolean,
+        accessibilityLabel: String,
     }
 
-    interface Badge {
-        content?: string;
-        status?: string;
-        progress?: string;
-        background?: string;
-        color?: string;
-        size?: string;
+    const Badge = {
+        content: String,
+        status: String,
+        progress: String,
+        background: String,
+        color: String,
+        size: String,
     }
 
-    @Component({
+    export default {
+        name: 'PVerticalTab',
         components: {
             PIcon, PBadge,
         },
-    })
-    export default class PVerticalTab extends Vue {
-
-        @Prop([ String, Number ]) public id!: string | number;
-        @Prop(Boolean) public focused!: boolean;
-        @Prop(Boolean) public selected!: boolean;
-        @Prop([ String, Object ]) public to!: string | object;
-        @Prop(String) public url!: string;
-        @Prop(String) public content!: string;
-        @Prop(Boolean) public external!: boolean;
-        @Prop({type: String, default: 'Polaris-VerticalTabs__TabElement--selected'}) public activeClass!: string;
-        @Prop({type: Object, default: () => ({})}) public icon!: Icon;
-        @Prop({type: Object, default: () => ({})}) public badge!: Badge;
-
-        public get className() {
-            return classNames(
-                'Polaris-VerticalTabs__Tab',
-                this.selected && 'Polaris-VerticalTabs__Tab--selected',
-            );
-        }
-
-        public get elementClassName() {
-            return classNames(
-                'Polaris-VerticalTabs__TabElement',
-                this.selected && 'Polaris-VerticalTabs__TabElement--selected',
-            );
-        }
-
-        public get tabIndex() {
-            return this.selected ? 0 : -1;
+        props: {
+            id: {
+                type: [String, Number],
+            },
+            focused: {
+                type: Boolean,
+            },
+            selected: {
+                type: Boolean,
+            },
+            to: {
+                type: [String, Object],
+            },
+            url: {
+                type: String,
+            },
+            content: {
+                type: String,
+                default: null,
+            },
+            external: {
+                type: Boolean,
+            },
+            activeClass: {
+                type: String,
+                default: 'Polaris-Tabs__Tab--selected',
+            },
+            badge: {
+                type: Object,
+                default: () => ({}),
+            },
+            icon: {
+                type: Object,
+                default: () => ({}),
+            },
+        },
+        computed: {
+            className() {
+                return classNames(
+                    'Polaris-VerticalTabs__Tab',
+                    this.selected && 'Polaris-VerticalTabs__Tab--selected',
+                );
+            },
+            elementClassName() {
+                return classNames(
+                    'Polaris-VerticalTabs__TabElement',
+                    this.selected && 'Polaris-VerticalTabs__TabElement--selected',
+                );
+            },
+            tabIndex() {
+                return this.selected ? 0 : -1;
+            },
         }
     }
 </script>

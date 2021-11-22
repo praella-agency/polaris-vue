@@ -612,7 +612,7 @@
     import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator';
     import { classNames } from '@/utilities/css';
     import { PSpinner } from '@/components/PSpinner';
-    import { PButton } from '@/components/PButton';
+    import { PButton } from '@/components/PButton/index.js';
     import { PEmptySearchResult } from '@/components/PEmptySearchResult';
     import { PStack } from '@/components/PStack';
     import { PStackItem } from '@/components/PStack/components/PStackItem';

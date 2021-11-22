@@ -10,22 +10,27 @@
     </div>
 </template>
 
-<script lang="ts">
-    import { Vue, Component, Prop } from 'vue-property-decorator';
-    import { classNames } from '@/utilities/css';
+<script>
+    import { classNames } from '../../../../utilities/css';
 
-    @Component
-    export default class PVerticalTabsPanel extends Vue {
-
-        @Prop([String, Number]) public id!: string | number;
-        @Prop(Boolean) public hidden!: boolean;
-
-        public get className() {
-            return classNames(
-                'Polaris-VerticalTabs__Panel',
-                this.hidden && `Polaris-VerticalTabs__Panel--hidden`,
-            );
-        }
+    export default {
+        name: 'PVerticalTabsPanel',
+        props: {
+            id: {
+                type: [String, Number],
+            },
+            hidden: {
+                type: Boolean,
+            },
+        },
+        computed: {
+            className() {
+                return classNames(
+                    'Polaris-VerticalTabs__Panel',
+                    this.hidden && `Polaris-VerticalTabs__Panel--hidden`,
+                );
+            },
+        },
     }
 </script>
 

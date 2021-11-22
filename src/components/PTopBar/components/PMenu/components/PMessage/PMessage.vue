@@ -34,7 +34,7 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { PStack } from '@/components/PStack';
   import { PStackItem } from '@/components/PStack/components/PStackItem';
-  import { PButton } from '@/components/PButton';
+  import { PButton } from '@/components/PButton/index.js';
   import { PBadge } from '@/components/PBadge';
   import { PTextContainer } from '@/components/PTextContainer';
   import { PHeading } from '@/components/PHeading';

@@ -12,7 +12,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { ComplexAction } from '@/types';
-import { PButton } from '@/components/PButton';
+import { PButton } from '@/components/PButton/index.js';
 
 @Component({
   components: {

@@ -1,5 +1,5 @@
 import { PFilter } from './index';
-import { PButton } from '../PButton';
+import { PButton } from '../PButton/index.js';
 import { PPopover } from '../PPopover';
 import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';

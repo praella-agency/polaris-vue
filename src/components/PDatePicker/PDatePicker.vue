@@ -100,7 +100,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 import dayjs from 'dayjs';
 import { PIcon } from '@/components/PIcon';
 import { PFieldError } from '@/components/PFieldError';
-import { PButton } from '@/components/PButton';
+import { PButton } from '@/components/PButton/index.js';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';

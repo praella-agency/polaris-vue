@@ -22,8 +22,8 @@
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import { classNames } from '@/utilities/css';
-    import { PButton } from '@/components/PButton';
-    import { PUnstyledLink } from '@/components/PUnstyledLink';
+    import { PButton } from '@/components/PButton/index.js';
+    import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';
     import { PIcon } from '@/components/PIcon';
 
     /**

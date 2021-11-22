@@ -30,7 +30,7 @@
     import {classNames} from '@/utilities/css';
     import {ComplexAction, MenuActionDescriptor} from '@/types';
     import {PIcon} from '@/components/PIcon';
-    import {PUnstyledLink} from '@/components/PUnstyledLink';
+    import {PUnstyledLink} from '@/components/PUnstyledLink/index.js';
 
     export interface MenuActionProps extends ComplexAction {
         disclosure?: boolean;

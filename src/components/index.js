@@ -1,6 +1,6 @@
 import { PBadge } from './PBadge';
 import { PBanner } from './PBanner';
-import { PButton } from './PButton';
+import { PButton } from './PButton/index.js';
 import { PButtonGroup } from './PButtonGroup';
 import { PCard } from './PCard';
 import { PCardHeader } from './PCard/components/PCardHeader';
@@ -35,7 +35,7 @@ import { PColorPicker } from './PColorPicker';
 import { PTabs } from './PTabs';
 import { PRadioButton } from './PRadioButton';
 import { PConnected } from './PConnected';
-import { PUnstyledLink } from './PUnstyledLink';
+import { PUnstyledLink } from './PUnstyledLink/index.js';
 import { PLink } from './PLink';
 import { PList } from './PList';
 import { PListItem } from './PList/components/PListItem';

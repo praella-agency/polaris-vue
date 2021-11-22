@@ -26,12 +26,11 @@
     </div>
 </template>
 
-<script lang="ts">
-    import { Vue, Component, Prop } from 'vue-property-decorator';
-    import { classNames } from '@/utilities/css';
-    import { PVerticalTabsPanel } from '@/components/PVerticalTabs/components/PVerticalTabsPanel';
-    import { PVerticalTab } from '@/components/PVerticalTabs/components/PVerticalTab';
-    import { TabDescriptor } from '@/types/tabs';
+<script>
+    import { PVerticalTabsPanel } from '../../components/PVerticalTabs/components/PVerticalTabsPanel/index.js';
+    import { PVerticalTab } from '../../components/PVerticalTabs/components/PVerticalTab';
+    import { TabDescriptor } from '../../types/tabs';
+    import { classNames } from '../../utilities/css';
 
     /**
      * <br/>
@@ -40,52 +39,63 @@
      *  Each tab label should correspond with a block of related content. Only one tab's contents are visible at any
      *  given time.</h4>
      */
-    @Component({
+    export default {
+        name: 'PVerticalTabs',
         components: {
             PVerticalTab, PVerticalTabsPanel,
         },
-    })
-    export default class PVerticalTabs extends Vue {
-
-        /**
-         * Lists of tabs
-         */
-        @Prop({type: Array, default: () => []}) public tabs!: TabDescriptor[];
-
-        /**
-         * Selected tab ID
-         */
-        @Prop({type: Number, default: null}) public selected!: number;
-
-        /**
-         * Set true to enable navigation
-         */
-        @Prop({type: Boolean, default: false}) public navigation!: boolean;
-
-        /**
-         * Configure the active CSS class applied when the link is active
-         */
-        @Prop({type: String, default: 'Polaris-VerticalTabs__TabElement--selected'}) public activeClass!: string;
-
-        public get className() {
-            return classNames(
-                'Polaris-VerticalTabs__Wrapper',
-                this.navigation && 'Polaris-VerticalTabs__Navigation',
-            );
-        }
-
-        protected handleTabClick(id: string, event: object) {
-            const tab = this.tabs.find((aTab) => aTab.id === id);
-            if (tab === null) {
-                return;
-            }
-
-            const selectedIndex = this.tabs.indexOf(tab!);
+        props: {
             /**
-             * Method to handle tab click
+             * Lists of tabs
              */
-            this.$emit('select', selectedIndex, event);
-        }
+            tabs: {
+                type: Array,
+                default: () => ([]),
+            },
+            /**
+             * Selected tab ID
+             */
+            selected: {
+                type: Number,
+                default: null,
+            },
+            /**
+             * Set true to enable navigation
+             */
+            navigation: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Configure the active CSS class applied when the link is active
+             */
+            activeClass: {
+                type: String,
+                default: 'Polaris-VerticalTabs__TabElement--selected',
+            },
+        },
+        computed: {
+            className() {
+                return classNames(
+                    'Polaris-VerticalTabs__Wrapper',
+                    this.navigation && 'Polaris-VerticalTabs__Navigation',
+                );
+            },
+        },
+        methods: {
+            handleTabClick(id, event) {
+                const tab = this.tabs.find((aTab) => aTab.id === id);
+                if (tab === null) {
+                    return;
+                }
+
+                const selectedIndex = this.tabs.indexOf(tab);
+                /**
+                 * Method to handle tab click
+                 */
+                this.$emit('select', selectedIndex, event);
+            },
+        },
     }
 </script>
 

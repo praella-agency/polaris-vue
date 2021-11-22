@@ -1,5 +1,5 @@
 import { PTextField } from './index';
-import { PButton } from '../PButton';
+import { PButton } from '../PButton/index.js';
 import { PSelect } from '../PSelect';
 import { PIcon } from '../PIcon';
 

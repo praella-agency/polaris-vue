@@ -1,19 +1,19 @@
-import { TabDescriptor } from '@/types/tabs/';
+import { TabDescriptor } from '../../types/tabs/index.js';
 
 export function getVisibleAndHiddenTabIndices(
-  tabs: TabDescriptor[],
-  selected: number,
-  disclosureWidth: number,
-  tabWidths: number[],
-  containerWidth: number,
+  tabs,
+  selected,
+  disclosureWidth,
+  tabWidths,
+  containerWidth,
 ) {
   const sumTabWidths = tabWidths.reduce((sum, width) => sum + width, 0);
   const arrayOfTabIndices = tabs.map((_, index) => {
     return index;
   });
 
-  const visibleTabs: number[] = [];
-  const hiddenTabs: number[] = [];
+  const visibleTabs = [];
+  const hiddenTabs = [];
 
   if (containerWidth > sumTabWidths) {
     visibleTabs.push(...arrayOfTabIndices);

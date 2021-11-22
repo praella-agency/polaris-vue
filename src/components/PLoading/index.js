@@ -125,10 +125,14 @@ function install(Vue, options = {}) {
     Vue.$pLoading = Loading;
     Vue.prototype.$pLoading = Loading;
 
-    let componentClass = Vue.extend(PLoading);
-    let instance = new componentClass({});
-    instance.$mount();
-    document.body.prepend(instance.$el);
+    if (inBrowser && document.body) {
+        document.addEventListener('DOMContentLoaded', () => {
+            let componentClass = Vue.extend(PLoading);
+            let instance = new componentClass({});
+            instance.$mount();
+            document.body.prepend(instance.$el);
+        });
+    }
 }
 
 export default {

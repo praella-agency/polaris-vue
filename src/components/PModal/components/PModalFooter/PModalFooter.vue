@@ -37,7 +37,7 @@
   import { PStack } from '@/components/PStack';
   import { PStackItem } from '@/components/PStack/components/PStackItem';
   import { PButtonGroup } from '@/components/PButtonGroup';
-  import { PButton } from '@/components/PButton';
+  import { PButton } from '@/components/PButton/index.js';
 
   @Component({
     components: {
