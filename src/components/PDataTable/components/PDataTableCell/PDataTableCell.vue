@@ -51,7 +51,7 @@
     import { PButtonGroup } from '@/components/PButtonGroup';
     import { PLink } from '@/components/PLink';
     import { PToggle } from '@/components/PToggle';
-    import { PBadge } from '@/components/PBadge';
+    import { PBadge } from '@/components/PBadge/index.js';
 
     type SortDirection = 'ascending' | 'descending' | 'none';
     type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';

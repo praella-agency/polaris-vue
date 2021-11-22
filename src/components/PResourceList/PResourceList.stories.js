@@ -6,7 +6,7 @@ import { PCardHeader } from '../PCard/components/PCardHeader';
 import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
 import { PAvatar } from '../PAvatar';
-import { PBadge } from '../PBadge';
+import { PBadge } from '../PBadge/index.js';
 import { PTextStyle } from '../PTextStyle';
 import { PPagination } from '../PPagination';
 import { PStack } from '../PStack';

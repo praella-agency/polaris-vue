@@ -1,6 +1,6 @@
 import { PPage } from './index';
 import { PButton } from '../PButton';
-import { PBadge } from '../PBadge';
+import { PBadge } from '../PBadge/index.js';
 import { PAvatar } from '../PAvatar';
 
 export default {

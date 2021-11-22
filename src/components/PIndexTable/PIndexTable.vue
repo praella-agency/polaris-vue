@@ -617,7 +617,7 @@
     import { PStack } from '@/components/PStack';
     import { PStackItem } from '@/components/PStack/components/PStackItem';
     import { PCheckbox } from '@/components/PCheckbox';
-    import { PBadge } from '@/components/PBadge';
+    import { PBadge } from '@/components/PBadge//index.js';
     import { BulkActionsProps, IndexTableHeading } from '@/components/PIndexTable/utilities';
     import { PBulkActions } from '@/components/PBulkActions';
     import { PIndexTableCell } from '@/components/PIndexTable/components/PIndexTableCell';

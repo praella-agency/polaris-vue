@@ -1,4 +1,4 @@
-import PBadge from './PBadge';
+import { PBadge } from './index.js';
 
 export default {
     title: 'Images & Icons / Badge',

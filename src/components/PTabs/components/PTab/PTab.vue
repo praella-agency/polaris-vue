@@ -55,7 +55,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
-import { PBadge } from '@/components/PBadge';
+import { PBadge } from '@/components/PBadge/index.js';
 
 interface Badge {
     content?: string;

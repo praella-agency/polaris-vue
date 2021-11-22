@@ -77,7 +77,7 @@
   import { classNames } from '@/utilities/css';
   import { PUnstyledLink } from '@/components/PUnstyledLink';
   import { PIcon } from '@/components/PIcon';
-  import { PBadge } from '@/components/PBadge';
+  import { PBadge } from '@/components/PBadge/index.js';
   import { PSecondary } from '@/components/PNavigation/components/PItem/components/PSecondary';
 
   interface ItemURLDetails {

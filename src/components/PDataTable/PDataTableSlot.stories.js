@@ -4,7 +4,7 @@ import { PDataTableCol } from './components/PDataTableCol';
 import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
 import { PLink } from '../PLink';
-import { PBadge } from '../PBadge';
+import { PBadge } from '../PBadge/index.js';
 import { PIcon } from '../PIcon';
 import { PToggle } from '../PToggle';
 import { POptionList } from '../POptionList';

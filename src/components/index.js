@@ -1,4 +1,4 @@
-import { PBadge } from './PBadge';
+import { PBadge } from './PBadge/index.js';
 import { PBanner } from './PBanner';
 import { PButton } from './PButton';
 import { PButtonGroup } from './PButtonGroup';

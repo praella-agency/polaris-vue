@@ -5,7 +5,7 @@ import { PThumbnail } from '../PThumbnail';
 import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';
-import { PBadge } from '../PBadge';
+import { PBadge } from '../PBadge/index.js';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PRadioButton } from '../PRadioButton';

@@ -1,5 +1,5 @@
 import { PColorPicker } from './index';
-import { PBadge } from '../PBadge';
+import { PBadge } from '../PBadge/index.js';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 
