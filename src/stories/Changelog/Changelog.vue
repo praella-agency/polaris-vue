@@ -58,7 +58,7 @@
     import { PCard } from '../../components/PCard';
     import { PCardSection } from '../../components/PCard/components/PCardSection';
     import { PCardHeader } from '../../components/PCard/components/PCardHeader';
-    import { PHeading } from '../../components/PHeading';
+    import { PHeading } from '../../components/PHeading/index.js';
     import { PTextContainer } from '../../components/PTextContainer';
     import { PCollapsible } from '../../components/PCollapsible';
     import { PButton } from '../../components/PButton';

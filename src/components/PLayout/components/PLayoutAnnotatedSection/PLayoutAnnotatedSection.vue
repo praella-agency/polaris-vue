@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { PHeading } from '@/components/PHeading';
+import { PHeading } from '@/components/PHeading/index.js';
 import { PTextContainer } from '@/components/PTextContainer';
 
 @Component({

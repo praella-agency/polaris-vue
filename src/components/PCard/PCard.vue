@@ -49,7 +49,7 @@
     import { PCardHeader } from '@/components/PCard/components/PCardHeader';
     import { PCardSection } from '@/components/PCard/components/PCardSection';
     import { PCardFooter } from '@/components/PCard/components/PCardFooter';
-    import { PHeading } from '@/components/PHeading';
+    import { PHeading } from '@/components/PHeading/index.js';
     import { PCaption } from '@/components/PCaption/index.js';
     import { PButtonGroup } from '@/components/PButtonGroup';
     import { PLink } from '@/components/PLink';

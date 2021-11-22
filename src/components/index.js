@@ -12,7 +12,7 @@ import { PDisplayText } from './PDisplayText/index.js';
 import { PFormLayout } from './PFormLayout';
 import { PFormLayoutItem } from './PFormLayout/components/PFormLayoutItem';
 import { PFormLayoutGroup } from './PFormLayout/components/PFormLayoutGroup';
-import { PHeading } from './PHeading';
+import { PHeading } from './PHeading/index.js';
 import { PIcon } from './PIcon/index.js';
 import { PLayout } from './PLayout';
 import { PLayoutSection } from './PLayout/components/PLayoutSection';

@@ -71,7 +71,7 @@ import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PTopBar } from '../PTopBar';
 import { PFrame } from '../PFrame';
-import { PHeading } from '../PHeading';
+import { PHeading } from '../PHeading/index.js';
 import { PIcon } from '../PIcon/index.js';
 import * as AllIcon from '@/assets/shopify-polaris-icons/index';
 import { DeprecatedIcons } from './index';

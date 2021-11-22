@@ -41,7 +41,7 @@ import { classNames, variationName } from '@/utilities/css';
 
 import { PIcon } from '@/components/PIcon/index.js';
 import { PButton } from '@/components/PButton';
-import { PHeading } from '@/components/PHeading';
+import { PHeading } from '@/components/PHeading/index.js';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PButtonsFrom } from '@/components/PButton/utils';
 import {
