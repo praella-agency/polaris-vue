@@ -1,39 +1,63 @@
 <template>
-  <PTooltipPositionedOverlay
-      :id="id"
-      :fullWidth="fullWidth"
-      :active="active"
-      :preferredPosition="preferredPosition"
-      :preferredAlignment="preferredAlignment"
-      :activatorId="activatorId"
-      @scrollout="handleScrollOut">
-    <template slot="overlay" slot-scope="props">
-      <slot name="overlay" :data="props"></slot>
-    </template>
-  </PTooltipPositionedOverlay>
+    <PTooltipPositionedOverlay
+        :id="id"
+        :fullWidth="fullWidth"
+        :active="active"
+        :preferredPosition="preferredPosition"
+        :preferredAlignment="preferredAlignment"
+        :activatorId="activatorId"
+        @scrollout="handleScrollOut"
+    >
+        <template
+            slot="overlay"
+            slot-scope="props"
+        >
+            <slot
+                name="overlay"
+                :data="props"
+            />
+        </template>
+    </PTooltipPositionedOverlay>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { PTooltipPositionedOverlay } from '@/components/PTooltip/components/PTooltipPositionedOverlay';
+<script>
+    import { PTooltipPositionedOverlay } from '../../../../components/PTooltip/components/PTooltipPositionedOverlay/index.js';
 
-@Component({
-  components: {
-    PTooltipPositionedOverlay,
-  },
-})
-export default class PTooltipOverlay extends Vue {
-  @Prop(String) public id!: string;
-  @Prop(Boolean) public active!: boolean;
-  @Prop(Boolean) public preventAutofocus!: boolean;
-  @Prop(String) public preferredAlignment!: string;
-  @Prop(Boolean) public sectioned!: boolean;
-  @Prop(Boolean) public fullWidth!: boolean;
-  @Prop(String) public preferredPosition!: string;
-  @Prop(String) public activatorId!: string;
-
-  public handleScrollOut() {
-    this.$emit('scrollout');
-  }
-}
+    export default {
+        name: 'PTooltipOverlay',
+        components: {
+            PTooltipPositionedOverlay,
+        },
+        props: {
+            id: {
+                type: [String, Number],
+            },
+            active: {
+                type: Boolean,
+            },
+            preventAutoFocus: {
+                type: Boolean,
+            },
+            preferredAlignment: {
+                type: String,
+            },
+            preferredPosition: {
+                type: String,
+            },
+            sectioned: {
+                type: Boolean,
+            },
+            fullWidth: {
+                type: Boolean,
+            },
+            activatorId: {
+                type: String,
+            },
+        },
+        methods: {
+            handleScrollOut() {
+                this.$emit('scrollout');
+            }
+        },
+    }
 </script>

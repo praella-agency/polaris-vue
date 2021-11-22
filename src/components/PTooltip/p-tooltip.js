@@ -1,5 +1,5 @@
-import { Vue } from 'vue-property-decorator';
-import Tooltip from './PTooltip';
+import Vue from 'vue';
+import Tooltip from './PTooltip.vue';
 
 function tooltipBind(event, binding, togglePop, elementId) {
     let position = 'below';
@@ -21,7 +21,8 @@ function tooltipBind(event, binding, togglePop, elementId) {
 
         let id = `_${targetEl.id}_`;
         if (togglePop) {
-            let instance = new Tooltip({
+            let componentClass = Vue.extend(Tooltip);
+            let instance = new componentClass({
                 propsData: {
                     id: id,
                     active: togglePop,
