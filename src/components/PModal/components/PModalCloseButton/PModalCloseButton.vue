@@ -1,28 +1,31 @@
 <template>
     <button :class="className" @click="$emit('click', $event)">
-        <PIcon source="MobileCancelMajor" color="inkLighter" />
+        <PIcon source="MobileCancelMajor" color="inkLighter"/>
     </button>
 </template>
 
-<script lang="ts">
-    import { Vue, Component, Prop } from 'vue-property-decorator';
-    import { classNames } from '@/utilities/css';
-    import { PIcon } from '@/components/PIcon';
+<script>
+    import { classNames } from '../../../../utilities/css';
+    import { PIcon } from '../../../../components/PIcon';
 
-    @Component({
+    export default {
+        name: 'PModalCloseButton',
         components: {
             PIcon,
         },
-    })
-    export default class PModalCloseButton extends Vue {
-
-        @Prop({type: Boolean, default: true}) public title!: boolean;
-
-        public get className() {
-            return classNames(
-                'Polaris-Modal-CloseButton',
-                !this.title && 'Polaris-Modal-CloseButton--withoutTitle',
-            );
-        }
+        props: {
+            title: {
+                type: Boolean,
+                default: true,
+            },
+        },
+        computed: {
+            className() {
+                return classNames(
+                    'Polaris-Modal-CloseButton',
+                    !this.title && 'Polaris-Modal-CloseButton--withoutTitle',
+                );
+            },
+        },
     }
 </script>

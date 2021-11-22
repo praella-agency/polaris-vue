@@ -12,7 +12,7 @@ import { PSkeletonBodyText } from '../PSkeletonBodyText';
 import { PPage } from '../PPage';
 import { PFormLayout } from '../PFormLayout';
 import { PTextField } from '../PTextField';
-import { PModal } from '../PModal';
+import { PModal } from '../PModal/index.js';
 
 export default {
     title: 'Structure / Frame',

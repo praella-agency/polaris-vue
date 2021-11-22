@@ -5,21 +5,23 @@
                 <slot/>
             </PDisplayText>
         </div>
-        <PModalCloseButton @click="$emit('close', $event)" />
+        <PModalCloseButton @click="$emit('close', $event)"/>
     </div>
 </template>
 
-<script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { PDisplayText } from '@/components/PDisplayText';
-  import { PModalCloseButton } from '@/components/PModal/components/PModalCloseButton';
+<script>
+    import { PDisplayText } from '../../../../components/PDisplayText';
+    import { PModalCloseButton } from '../../../../components/PModal/components/PModalCloseButton/index.js';
 
-  @Component({
-    components: {
-        PDisplayText, PModalCloseButton,
-    },
-  })
-  export default class PModelHeader extends Vue {
-    @Prop([String, Number]) public id!: string | number;
-  }
+    export default {
+        name: 'PModalHeader',
+        components: {
+            PDisplayText, PModalCloseButton,
+        },
+        props: {
+            id: {
+                type: [String, Number],
+            },
+        },
+    }
 </script>

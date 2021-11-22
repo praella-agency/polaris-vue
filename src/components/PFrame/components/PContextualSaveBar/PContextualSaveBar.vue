@@ -73,7 +73,7 @@
   import { PImage } from '@/components/PImage';
   import { PStack } from '@/components/PStack';
   import { PStackItem } from '@/components/PStack/components/PStackItem';
-  import { PModal } from '@/components/PModal';
+  import { PModal } from '@/components/PModal/index.js';
   import { getWidth } from '../context';
   import { classNames } from '@/utilities/css';
   import { ThemeLogo } from '@/types/logo';

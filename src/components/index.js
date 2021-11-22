@@ -42,7 +42,7 @@ import { PListItem } from './PList/components/PListItem';
 import { PImage } from './PImage';
 import { PThumbnail } from './PThumbnail';
 import { PAvatar } from './PAvatar/index.js';
-import { PModal } from './PModal';
+import { PModal } from './PModal/index.js';
 import { PInlineError } from './PInlineError';
 import { PPagination } from './PPagination';
 import { PCaption } from './PCaption';
