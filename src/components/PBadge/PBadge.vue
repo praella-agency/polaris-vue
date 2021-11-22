@@ -35,6 +35,9 @@
           status: {
             type: String,
             default: null,
+            validator: function (value) {
+              return ['info', 'success', 'warning', 'attention', 'critical', 'new'].indexOf(value) !== -1
+            }
           },
 
           /**
@@ -44,6 +47,9 @@
           progress: {
             type: String,
             default: null,
+            validator: function (value) {
+              return ['incomplete', 'partiallyComplete', 'complete'].indexOf(value) !== -1
+            }
           },
 
           /**
@@ -69,6 +75,9 @@
           size: {
             type: String,
             default: 'medium',
+            validator: function (value) {
+              return ['small', 'medium'].indexOf(value) !== -1
+            }
           }
         },
         computed: {
