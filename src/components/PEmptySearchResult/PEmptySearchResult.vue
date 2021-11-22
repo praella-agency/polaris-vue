@@ -31,7 +31,7 @@
     import { PStackItem } from '@/components/PStack/components/PStackItem';
     import { PDisplayText } from '@/components/PDisplayText';
     import { PTextStyle } from '@/components/PTextStyle';
-    import { PImage } from '@/components/PImage';
+    import { PImage } from '@/components/PImage/index.js';
 
     @Component({
       components: {

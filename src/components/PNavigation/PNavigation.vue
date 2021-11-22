@@ -39,7 +39,7 @@
   import { getWidth, ThemeLogo } from '@/types/logo';
   import { ItemProps } from '@/components/PNavigation/utilities';
   import { PUnstyledLink } from '@/components/PUnstyledLink';
-  import { PImage } from '@/components/PImage';
+  import { PImage } from '@/components/PImage/index.js';
   import { PSection } from '@/components/PNavigation/components/PSection';
 
   interface SectionItems {

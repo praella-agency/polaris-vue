@@ -94,7 +94,7 @@
   import { PIcon } from '@/components/PIcon/index.js';
   import { PButton } from '@/components/PButton';
   import { PUnstyledLink } from '@/components/PUnstyledLink';
-  import { PImage } from '@/components/PImage';
+  import { PImage } from '@/components/PImage/index.js';
   import { PTextField } from '@/components/PTextField';
   import { PActionList } from '@/components/PActionList';
   import { PPopover } from '@/components/PPopover';

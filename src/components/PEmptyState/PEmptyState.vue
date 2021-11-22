@@ -51,7 +51,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
-import { PImage } from '@/components/PImage';
+import { PImage } from '@/components/PImage/index.js';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
 import { PDisplayText } from '@/components/PDisplayText';

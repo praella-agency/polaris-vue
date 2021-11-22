@@ -70,7 +70,7 @@ import { PCard } from '@/components/PCard';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
 import { PHeading } from '@/components/PHeading';
-import { PImage } from '@/components/PImage';
+import { PImage } from '@/components/PImage/index.js';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PButton } from '@/components/PButton';
 

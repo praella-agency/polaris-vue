@@ -9,7 +9,7 @@
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import { classNames, variationName } from '@/utilities/css';
-    import { PImage } from '@/components/PImage';
+    import { PImage } from '@/components/PImage/index.js';
     import { PIcon } from '@/components/PIcon/index.js';
     type Size = 'small' | 'medium' | 'large';
 
