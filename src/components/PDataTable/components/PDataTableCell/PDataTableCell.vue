@@ -45,7 +45,7 @@
 <script lang="tsx">
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import { classNames, variationName } from '@/utilities/css';
-    import { PIcon } from '@/components/PIcon';
+    import { PIcon } from '@/components/PIcon/index.js';
     import {Action, ComplexAction, LinkAction} from '@/types';
     import { PButton } from '@/components/PButton';
     import { PButtonGroup } from '@/components/PButtonGroup';

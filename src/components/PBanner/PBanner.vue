@@ -39,7 +39,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
 
-import { PIcon } from '@/components/PIcon';
+import { PIcon } from '@/components/PIcon/index.js';
 import { PButton } from '@/components/PButton';
 import { PHeading } from '@/components/PHeading';
 import { PButtonGroup } from '@/components/PButtonGroup';

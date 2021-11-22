@@ -5,7 +5,7 @@ import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
 import { PLink } from '../PLink';
 import { PBadge } from '../PBadge/index.js';
-import { PIcon } from '../PIcon';
+import { PIcon } from '../PIcon/index.js';
 import { PToggle } from '../PToggle';
 import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';

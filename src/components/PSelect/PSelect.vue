@@ -40,7 +40,7 @@
 <script lang="ts">
   import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
-  import { PIcon } from '@/components/PIcon';
+  import { PIcon } from '@/components/PIcon/index.js';
   import { PFieldError } from '@/components/PFieldError';
 
   const PLACEHOLDER_VALUE = '';

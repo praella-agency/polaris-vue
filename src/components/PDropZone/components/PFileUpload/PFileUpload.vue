@@ -87,7 +87,7 @@ import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
 import { PCaption } from '@/components/PCaption';
 import { PTextStyle } from '@/components/PTextStyle';
-import { PIcon } from '@/components/PIcon';
+import { PIcon } from '@/components/PIcon/index.js';
 import { Context, createAllowMultipleKey, capitalize } from '@/components/PDropZone/context';
 
 @Component({

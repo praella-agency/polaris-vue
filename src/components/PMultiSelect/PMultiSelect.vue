@@ -55,7 +55,7 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
 import Multiselect from 'vue-multiselect';
-import { PIcon } from '@/components/PIcon';
+import { PIcon } from '@/components/PIcon/index.js';
 import { PTag } from '@/components/PTag';
 import { PFieldError } from '@/components/PFieldError';
 

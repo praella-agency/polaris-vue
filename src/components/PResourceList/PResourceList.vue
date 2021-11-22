@@ -101,7 +101,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
-import { PIcon } from '@/components/PIcon';
+import { PIcon } from '@/components/PIcon/index.js';
 import { PFilter } from '@/components/PFilter';
 import { PSpinner } from '@/components/PSpinner';
 import { PStack } from '@/components/PStack';

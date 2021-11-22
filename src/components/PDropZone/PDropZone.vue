@@ -114,7 +114,7 @@
 <script lang="ts">
   import { Component, Vue, Prop, Ref } from 'vue-property-decorator';
   import { classNames, variationName } from '@/utilities/css';
-  import { PIcon } from '@/components/PIcon';
+  import { PIcon } from '@/components/PIcon/index.js';
   import { PStack } from '@/components/PStack';
   import { PStackItem } from '@/components/PStack/components/PStackItem';
   import { PCaption } from '@/components/PCaption';

@@ -143,7 +143,7 @@ import { PTab } from '@/components/PTabs/components/PTab';
 import { PPanel } from '@/components/PTabs/components/PPanel';
 import { PTabMeasurer } from '@/components/PTabs/components/PTabMeasurer';
 import { PList } from '@/components/PTabs/components/PList';
-import { PIcon } from '@/components/PIcon';
+import { PIcon } from '@/components/PIcon/index.js';
 
 /**
  * <br/>

@@ -17,7 +17,7 @@
   </transition>
 </template>
 <script>
-import {PIcon} from '@/components/PIcon';
+import {PIcon} from '@/components/PIcon/index.js';
 import Timer from './timer.js';
 import mitt from 'mitt';
 import {classNames} from '@/utilities/css';

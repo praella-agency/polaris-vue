@@ -31,7 +31,7 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { ContextualSaveBarProps } from '@/components/PFrame/context';
   import { ThemeLogo } from '@/types/logo';
-  import { PIcon } from '@/components/PIcon';
+  import { PIcon } from '@/components/PIcon/index.js';
   import { PFrameInner } from '@/components/PFrame/components/PFrameInner';
 
   /**

@@ -29,7 +29,7 @@
     import {Vue, Component, Prop} from 'vue-property-decorator';
     import {classNames} from '@/utilities/css';
     import {ComplexAction, MenuActionDescriptor} from '@/types';
-    import {PIcon} from '@/components/PIcon';
+    import {PIcon} from '@/components/PIcon/index.js';
     import {PUnstyledLink} from '@/components/PUnstyledLink';
 
     export interface MenuActionProps extends ComplexAction {

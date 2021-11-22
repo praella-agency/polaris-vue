@@ -72,7 +72,7 @@ import { PStackItem } from '../PStack/components/PStackItem';
 import { PTopBar } from '../PTopBar';
 import { PFrame } from '../PFrame';
 import { PHeading } from '../PHeading';
-import { PIcon } from '../PIcon';
+import { PIcon } from '../PIcon/index.js';
 import * as AllIcon from '@/assets/shopify-polaris-icons/index';
 import { DeprecatedIcons } from './index';
 
@@ -80,6 +80,18 @@ export default {
   name: 'ShopifyIcons',
   components: {
     PIcon, PStack, PStackItem, PTopBar, PFrame, PHeading,
+  },
+  props: {
+    color: {
+      type: String,
+      default: null,
+    },
+    backdrop: {
+      type: Boolean,
+    },
+    source: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -93,18 +105,6 @@ export default {
       difference: {},
       search: '',
     };
-  },
-  props: {
-    color: {
-      type: String,
-      default: null,
-    },
-    backdrop: {
-      type: Boolean,
-    },
-    source: {
-      type: String,
-    },
   },
   methods: {
     searchIcon(value) {

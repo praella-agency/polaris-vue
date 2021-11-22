@@ -44,7 +44,7 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import { PTextField } from '@/components/PTextField';
-  import { PIcon } from '@/components/PIcon';
+  import { PIcon } from '@/components/PIcon/index.js';
   import { PTag } from '@/components/PTag';
   import { PFilterItemWrapper } from '@/components/PFilter/components/PFilterItemWrapper';
 
