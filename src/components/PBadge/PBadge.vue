@@ -16,21 +16,6 @@
     const Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
     const Progress = 'incomplete' | 'partiallyComplete' | 'complete';
     const Size = 'small' | 'medium';
-    //
-    // const PROGRESS_LABELS: {[key in Progress]: Progress} = {
-    //     incomplete: 'incomplete',
-    //     partiallyComplete: 'partiallyComplete',
-    //     complete: 'complete',
-    // };
-    //
-    // const STATUS_LABELS: {[key in Status]: Status} = {
-    //     info: 'info',
-    //     success: 'success',
-    //     warning: 'warning',
-    //     attention: 'attention',
-    //     new: 'new',
-    //     critical: 'critical',
-    // };
 
     const DEFAULT_SIZE = 'medium';
 
