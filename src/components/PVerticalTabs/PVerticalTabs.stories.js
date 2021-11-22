@@ -8,7 +8,7 @@ import { PHeading } from '../PHeading';
 import { PButton } from '../PButton/index.js';
 import { PFooterHelp } from '../PFooterHelp';
 import { PLink } from '../PLink';
-import { PPopover } from '../PPopover';
+import { PPopover } from '../PPopover/index.js';
 import { PActionList } from '../PActionList';
 
 export default {

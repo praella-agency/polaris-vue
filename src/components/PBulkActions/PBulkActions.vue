@@ -186,7 +186,7 @@
   import { BulkAction } from '@/components/PIndexTable/utilities';
   import { PButtonGroup } from '@/components/PButtonGroup';
   import { PCheckableButton } from '@/components/PCheckableButton';
-  import { PPopover } from '@/components/PPopover';
+  import { PPopover } from '@/components/PPopover/index.js';
   import { PActionList } from '@/components/PActionList';
   import { PButton } from '@/components/PButton/index.js';
   import { Action, ActionListSection, MenuGroupDescriptor } from '@/types';

@@ -12,7 +12,7 @@
 import {Vue, Component, Prop} from 'vue-property-decorator';
 import {MenuGroupDescriptor, ActionListItemDescriptor} from '@/types';
 import {PActionList} from '@/components/PActionList';
-import {PPopover} from '@/components/PPopover';
+import {PPopover} from '@/components/PPopover/index.js';
 import { PActionMenuMenuAction } from '@/components/PActionMenu/components/PActionMenuMenuAction';
 
 export interface MenuGroupProps extends MenuGroupDescriptor {

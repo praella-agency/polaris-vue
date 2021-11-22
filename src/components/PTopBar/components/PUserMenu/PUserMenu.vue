@@ -29,7 +29,7 @@
   import { PIcon } from '@/components/PIcon';
   import { PMenu } from '@/components/PTopBar/components/PMenu/';
   import { PMessageIndicator } from '@/components/PMessageIndicator';
-  import { PAvatar } from '@/components/PAvatar';
+  import { PAvatar } from '@/components/PAvatar/index.js';
   import { MessageProps } from '@/types';
 
   type IconSource = 'placeholder' | string;

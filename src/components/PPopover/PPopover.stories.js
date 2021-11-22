@@ -1,4 +1,4 @@
-import { PPopover } from './index';
+import { PPopover } from './index.js';
 import { PButton } from '../PButton/index.js';
 import { POptionList } from '../POptionList';
 

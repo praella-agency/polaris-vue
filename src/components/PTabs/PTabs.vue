@@ -135,7 +135,7 @@
 <script>
     import { classNames } from '../../utilities/css';
     import { PBadge } from '../../components/PBadge';
-    import { PPopover } from '../../components/PPopover';
+    import { PPopover } from '../../components/PPopover/index.js';
     import { PTab } from '../../components/PTabs/components/PTab/index.js';
     import { PPanel } from '../../components/PTabs/components/PPanel/index.js';
     import { PTabMeasurer } from './components/PTabMeasurer/index.js';

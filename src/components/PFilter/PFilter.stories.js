@@ -1,6 +1,6 @@
 import { PFilter } from './index';
 import { PButton } from '../PButton/index.js';
-import { PPopover } from '../PPopover';
+import { PPopover } from '../PPopover/index.js';
 import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';
 import { PCardSection } from '../PCard/components/PCardSection';

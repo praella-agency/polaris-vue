@@ -1,5 +1,5 @@
 import { PDataTable } from './index';
-import { PPopover } from '../PPopover';
+import { PPopover } from '../PPopover/index.js';
 import { PButton } from '../PButton/index.js';
 import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';

@@ -2,7 +2,7 @@ import { PIndexTable } from './index';
 import { PCard } from '../PCard';
 import { PLink } from '../PLink';
 import { PThumbnail } from '../PThumbnail';
-import { PPopover } from '../PPopover';
+import { PPopover } from '../PPopover/index.js';
 import { PButton } from '../PButton/index.js';
 import { POptionList } from '../POptionList';
 import { PBadge } from '../PBadge';

@@ -22,7 +22,7 @@
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { PPopover } from '@/components/PPopover';
+  import { PPopover } from '@/components/PPopover/index.js';
   import { PActionList } from '@/components/PActionList';
   import { PBulkActionButton } from '@/components/PBulkActions/components/PBulkActionButton';
 

@@ -111,7 +111,7 @@ import { PButtonGroup } from '@/components/PButtonGroup';
 import { PButton } from '@/components/PButton/index.js';
 import { PCheckableButton } from '@/components/PResourceList/components/PCheckableButton';
 import { PBulkActionButtonWrapper } from '@/components/PResourceList/components/PBulkActionButtonWrapper';
-import { PPopover } from '@/components/PPopover';
+import { PPopover } from '@/components/PPopover/index.js';
 import { PActionList } from '@/components/PActionList';
 import { PSelect } from '@/components/PSelect';
 

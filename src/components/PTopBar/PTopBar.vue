@@ -97,9 +97,9 @@
   import { PImage } from '@/components/PImage';
   import { PTextField } from '@/components/PTextField';
   import { PActionList } from '@/components/PActionList';
-  import { PPopover } from '@/components/PPopover';
+  import { PPopover } from '@/components/PPopover/index.js';
   import { POptionList } from '@/components/POptionList';
-  import { PAvatar } from '@/components/PAvatar';
+  import { PAvatar } from '@/components/PAvatar/index.js';
   import { PSearch } from '@/components/PTopBar/components/PSearch';
   import { PUserMenu } from '@/components/PTopBar/components/PUserMenu';
   import { PMenu } from '@/components/PTopBar/components/PMenu';
