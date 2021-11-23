@@ -70,7 +70,7 @@ import { PChoiceList } from './PChoiceList/index.js';
 import PLoading from './PLoading';
 import { PFrame } from './PFrame';
 import { PTopBar } from './PTopBar';
-import { PContextualSaveBar } from './PFrame/components/PContextualSaveBar';
+import { PContextualSaveBar } from './PFrame/components/PContextualSaveBar/index.js';
 import { PSkeletonPage } from './PSkeletonPage';
 import { PNavigation } from './PNavigation';
 import { PVisuallyHidden } from './PVisuallyHidden';

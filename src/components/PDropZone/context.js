@@ -1,15 +1,15 @@
 export const defaultAllowMultiple = true;
 
-interface DropZoneContextType {
-  disabled: boolean;
-  focused: boolean;
-  measuring: boolean;
-  allowMultiple: boolean;
-  size: string;
-  type: string;
-}
+const DropZoneContextType = {
+  disabled: Boolean,
+  focused: Boolean,
+  measuring: Boolean,
+  allowMultiple: Boolean,
+  size: String,
+  type: String,
+};
 
-export const Context: DropZoneContextType = {
+export const Context = {
   disabled: false,
   focused: false,
   size: 'extraLarge',
@@ -18,7 +18,7 @@ export const Context: DropZoneContextType = {
   allowMultiple: defaultAllowMultiple,
 };
 
-export function createAllowMultipleKey(allowMultiple: boolean) {
+export function createAllowMultipleKey(allowMultiple) {
   return allowMultiple ? 'allowMultiple' : 'single';
 }
 
@@ -27,11 +27,11 @@ export function capitalize(word = '') {
   return wordLower.charAt(0).toUpperCase() + wordLower.slice(1);
 }
 
-export function fileAccepted(file: File, accept: string | undefined) {
+export function fileAccepted(file, accept) {
   return file.type === 'application/x-moz-file' || accepts(file, accept);
 }
 
-export function accepts(file: File, acceptedFiles: string | string[] | undefined) {
+export function accepts(file, acceptedFiles) {
   if (file && acceptedFiles) {
     const fileName = file.name || '';
     const mimeType = file.type || '';
@@ -58,11 +58,11 @@ export function isServer() {
   return typeof window === 'undefined' || typeof document === 'undefined';
 }
 
-type DropZoneEvent = DragEvent | HTMLInputElement | Event;
+const DropZoneEvent = [DragEvent, HTMLInputElement, Event];
 
 const dragEvents = ['dragover', 'dragenter', 'drop'];
 
-export function getDataTransferFiles(event: DropZoneEvent) {
+export function getDataTransferFiles(event) {
   if (isDragEvent(event) && event.dataTransfer) {
     const dt = event.dataTransfer;
     if (dt.files && dt.files.length) {
@@ -72,26 +72,24 @@ export function getDataTransferFiles(event: DropZoneEvent) {
       // events and uses `items` instead of `files` in this case.
       return Array.from(dt.items);
     }
-  } else if (isChangeEvent(event) && (event.target as HTMLInputElement).files) {
+  } else if (isChangeEvent(event) && (event.target).files) {
     // Return files from even when a file was selected from an upload dialog
-    const target = event.target as HTMLInputElement;
+    const target = event.target;
     return target.files;
   }
 
   return [];
 }
 
-function isDragEvent(event: DropZoneEvent): event is DragEvent {
+function isDragEvent(event) {
   return dragEvents.indexOf(event.type) > 0;
 }
 
-function isChangeEvent(
-  event: DropZoneEvent,
-): event is Event {
+function isChangeEvent(event) {
   return event.type === 'change';
 }
 
-export function useToggle(initialState: boolean) {
+export function useToggle(initialState) {
   let value = initialState;
 
   return {
