@@ -32,7 +32,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { ComplexAction, DisableableAction, LoadableAction } from '@/types';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
-import { PButtonGroup } from '@/components/PButtonGroup';
+import { PButtonGroup } from '@/components/PButtonGroup/index.js';
 import { PButton } from '@/components/PButton/index.js';
 
 export interface PageActionsProps {

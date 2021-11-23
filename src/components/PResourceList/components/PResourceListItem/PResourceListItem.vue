@@ -96,7 +96,7 @@ import { PCheckbox } from '@/components/PCheckbox';
 import { PAvatar } from '@/components/PAvatar/index.js';
 import { PPopover } from '@/components/PPopover/index.js';
 import { PButton } from '@/components/PButton/index.js';
-import { PButtonGroup } from '@/components/PButtonGroup';
+import { PButtonGroup } from '@/components/PButtonGroup/index.js';
 import { PActionList } from '@/components/PActionList/index.js';
 
 type Alignment = 'leading' | 'trailing' | 'center' | 'fill' | 'baseline';

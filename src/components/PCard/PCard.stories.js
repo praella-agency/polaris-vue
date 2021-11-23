@@ -3,7 +3,7 @@ import { PCardSection } from './components/PCardSection';
 import { PCardHeader } from './components/PCardHeader';
 import { PList } from '../PList';
 import { PListItem } from '../PList/components/PListItem';
-import { PButtonGroup } from '../PButtonGroup';
+import { PButtonGroup } from '../PButtonGroup/index.js';
 import { PButton } from '../PButton/index.js';
 import { PPopover } from '../PPopover/index.js';
 import { PActionList } from '../PActionList/index.js';

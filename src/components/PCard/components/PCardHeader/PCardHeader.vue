@@ -44,7 +44,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
 import { PHeading } from '@/components/PHeading';
-import { PButtonGroup } from '@/components/PButtonGroup';
+import { PButtonGroup } from '@/components/PButtonGroup/index.js';
 import { PButton } from '@/components/PButton/index.js';
 import { PLink } from '@/components/PLink/index.js';
 

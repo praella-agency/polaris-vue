@@ -35,7 +35,7 @@
 <script>
     import { PStack } from '../../../../components/PStack';
     import { PStackItem } from '../../../../components/PStack/components/PStackItem';
-    import { PButtonGroup } from '../../../../components/PButtonGroup';
+    import { PButtonGroup } from '../../../../components/PButtonGroup/index.js';
     import { PButton } from '../../../../components/PButton/index.js';
 
     export default {

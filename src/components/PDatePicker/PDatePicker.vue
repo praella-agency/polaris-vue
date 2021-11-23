@@ -101,7 +101,7 @@ import dayjs from 'dayjs';
 import { PIcon } from '@/components/PIcon';
 import { PFieldError } from '@/components/PFieldError';
 import { PButton } from '@/components/PButton/index.js';
-import { PButtonGroup } from '@/components/PButtonGroup';
+import { PButtonGroup } from '@/components/PButtonGroup/index.js';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
 import { PCard } from '@/components/PCard';

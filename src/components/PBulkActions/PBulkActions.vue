@@ -184,7 +184,7 @@
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { BulkAction } from '@/components/PIndexTable/utilities';
-  import { PButtonGroup } from '@/components/PButtonGroup';
+  import { PButtonGroup } from '@/components/PButtonGroup/index.js';
   import { PCheckableButton } from '@/components/PCheckableButton';
   import { PPopover } from '@/components/PPopover/index.js';
   import { PActionList } from '@/components/PActionList/index.js';

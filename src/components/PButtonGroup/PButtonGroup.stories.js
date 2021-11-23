@@ -1,4 +1,4 @@
-import { PButtonGroup } from './index';
+import { PButtonGroup } from './index.js';
 import { PButton } from '../PButton/index.js';
 
 export default {

@@ -42,7 +42,7 @@ import { classNames, variationName } from '@/utilities/css';
 import { PIcon } from '@/components/PIcon';
 import { PButton } from '@/components/PButton/index.js';
 import { PHeading } from '@/components/PHeading';
-import { PButtonGroup } from '@/components/PButtonGroup';
+import { PButtonGroup } from '@/components/PButtonGroup/index.js';
 import { PButtonsFrom } from '@/components/PButton/components/index.js';
 import {
   DisableableAction,

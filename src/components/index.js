@@ -1,7 +1,7 @@
 import { PBadge } from './PBadge';
 import { PBanner } from './PBanner';
 import { PButton } from './PButton/index.js';
-import { PButtonGroup } from './PButtonGroup';
+import { PButtonGroup } from './PButtonGroup/index.js';
 import { PCard } from './PCard';
 import { PCardHeader } from './PCard/components/PCardHeader';
 import { PCardSection } from './PCard/components/PCardSection';
