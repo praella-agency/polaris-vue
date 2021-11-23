@@ -7,8 +7,9 @@
 
 <script>
 import { classNames, variationName } from '@/utilities/css';
+import StringValidator from "./../../utilities/validators/StringValidator";
 
-const Spacing = 'tight' | 'loose';
+const Spacing = ['tight', 'loose', null];
 
 /**
  * <br/>
@@ -26,9 +27,7 @@ export default {
     spacing: {
       type: String,
       default: null,
-      validator: function (value) {
-        return ['tight', 'loose'].indexOf(value) !== -1;
-      }
+      ...StringValidator('spacing', Spacing)
     }
   },
   computed: {

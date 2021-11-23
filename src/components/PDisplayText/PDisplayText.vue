@@ -7,9 +7,10 @@
 
 <script>
 import { classNames, variationName } from '@/utilities/css';
+import StringValidator from "./../../utilities/validators/StringValidator";
 
-const Size = 'small' | 'medium' | 'large' | 'extraLarge';
-const HeadingTagName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
+const Size = ['small', 'medium', 'large', 'extraLarge'];
+const HeadingTagName = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span'];
 
 /**
  * <br/>
@@ -29,9 +30,7 @@ export default {
     size: {
       type: String,
       default: 'medium',
-      validator: function (value) {
-        return ['small', 'medium', 'large', 'extraLarge'].indexOf(value) !== -1
-      }
+      ...StringValidator('size', Size)
     },
 
     /**
@@ -41,9 +40,7 @@ export default {
     element: {
       type: String,
       default: 'p',
-      validator: function (value) {
-        return ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span'].indexOf(value) !== -1
-      }
+      ...StringValidator('element', HeadingTagName)
     },
   },
   computed: {

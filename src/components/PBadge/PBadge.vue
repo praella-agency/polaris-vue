@@ -12,10 +12,11 @@
 
 <script>
     import { classNames, variationName } from '@/utilities/css';
+    import StringValidator from "./../../utilities/validators/StringValidator";
 
-    const Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
-    const Progress = 'incomplete' | 'partiallyComplete' | 'complete';
-    const Size = 'small' | 'medium';
+    const Status = ['success', 'info', 'attention', 'warning', 'new', 'critical', null];
+    const Progress = ['incomplete', 'partiallyComplete', 'complete', null];
+    const Size = ['small', 'medium'];
 
     const DEFAULT_SIZE = 'medium';
 
@@ -35,9 +36,7 @@
           status: {
             type: String,
             default: null,
-            validator: function (value) {
-              return ['info', 'success', 'warning', 'attention', 'critical', 'new'].indexOf(value) !== -1
-            }
+            ...StringValidator('status', Status)
           },
 
           /**
@@ -47,9 +46,7 @@
           progress: {
             type: String,
             default: null,
-            validator: function (value) {
-              return ['incomplete', 'partiallyComplete', 'complete'].indexOf(value) !== -1
-            }
+            ...StringValidator('progress', Progress)
           },
 
           /**
@@ -75,9 +72,7 @@
           size: {
             type: String,
             default: 'medium',
-            validator: function (value) {
-              return ['small', 'medium'].indexOf(value) !== -1
-            }
+            ...StringValidator('size', Size)
           }
         },
         computed: {

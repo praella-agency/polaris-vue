@@ -7,8 +7,9 @@
 
 <script>
 import { classNames, variationName } from '@/utilities/css';
+import StringValidator from "./../../utilities/validators/StringValidator";
 
-const Variation = 'positive' | 'negative' | 'strong' | 'subdued' | 'code';
+const Variation = ['positive', 'negative', 'strong', 'subdued', 'code'];
 
 const VariationValue = {
   Positive: 'positive',
@@ -40,9 +41,7 @@ export default {
     variation: {
       type: String,
       default: null,
-      validator: function (value) {
-        return ['positive', 'negative', 'strong', 'subdued', 'code'].indexOf(value) !== -1;
-      }
+      ...StringValidator('variation', Variation)
     },
   },
   computed: {

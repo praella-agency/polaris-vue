@@ -10,7 +10,9 @@
     import { classNames, variationName } from '@/utilities/css';
     import { PImage } from './../../components/PImage/index.js';
     import { PIcon } from './../../components/PIcon/index.js';
-    const Size = 'small' | 'medium' | 'large';
+    import StringValidator from "./../../utilities/validators/StringValidator";
+
+    const Size = ['small', 'medium', 'large'];
 
     /**
      * <br/>
@@ -32,9 +34,7 @@
           size: {
             type: String,
             default: 'medium',
-            validator: function (value) {
-              return ['small', 'medium', 'large'].indexOf(value) !== -1;
-            }
+            ...StringValidator('size', Size)
           },
 
           /**

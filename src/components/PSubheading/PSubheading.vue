@@ -6,8 +6,9 @@
 </template>
 
 <script>
+import StringValidator from "./../../utilities/validators/StringValidator";
 
-const HeadingTagName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
+const HeadingTagName = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
 
 /**
  * <br/>
@@ -24,9 +25,7 @@ export default {
     element: {
       type: String,
       default: 'h3',
-      validator: function (value) {
-        return ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'].indexOf(value) !== -1
-      }
+      ...StringValidator('element', HeadingTagName)
     }
   },
   computed: {
