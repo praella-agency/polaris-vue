@@ -624,7 +624,7 @@
     import { PIndexTableRow } from '@/components/PIndexTable/components/PIndexTableRow';
     import { PTextStyle } from '@/components/PTextStyle';
     import { PFilter } from '@/components/PFilter';
-    import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
+    import { PPagination, PPaginationDescriptor } from '@/components/PPagination/index.js';
 
     interface TableHeadingRect {
         offsetWidth: number;

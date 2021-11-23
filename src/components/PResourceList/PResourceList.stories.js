@@ -8,7 +8,7 @@ import { PButton } from '../PButton/index.js';
 import { PAvatar } from '../PAvatar/index.js';
 import { PBadge } from '../PBadge';
 import { PTextStyle } from '../PTextStyle';
-import { PPagination } from '../PPagination';
+import { PPagination } from '../PPagination/index.js';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PTextField } from '../PTextField';

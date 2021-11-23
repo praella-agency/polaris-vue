@@ -44,7 +44,7 @@ import { PThumbnail } from './PThumbnail';
 import { PAvatar } from './PAvatar/index.js';
 import { PModal } from './PModal/index.js';
 import { PInlineError } from './PInlineError';
-import { PPagination } from './PPagination';
+import { PPagination } from './PPagination/index.js';
 import { PCaption } from './PCaption';
 import { PProgressBar } from './PProgressBar';
 import { PResourceList } from './PResourceList';

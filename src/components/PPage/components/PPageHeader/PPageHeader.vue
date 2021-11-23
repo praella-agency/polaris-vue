@@ -68,7 +68,7 @@ import {
 import { hasGroupsWithActions } from '@/components/PActionMenu/utilities';
 import { PTextStyle } from '@/components/PTextStyle';
 import { PBreadcrumbs } from '@/components/PBreadcrumbs';
-import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
+import { PPagination, PPaginationDescriptor } from '@/components/PPagination/index.js';
 import { PActionMenu } from '@/components/PActionMenu';
 import { PButton } from '@/components/PButton/index.js';
 import { PPageHeaderTitle, PPageHeaderTitleProps } from '@/components/PPage/components/PPageHeaderTitle';

@@ -202,7 +202,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { PDataTableCellNew } from '@/components/PDataTable/components/PDataTableCellNew';
 import { PDataTableCell } from '@/components/PDataTable/components/PDataTableCell';
-import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
+import { PPagination, PPaginationDescriptor } from '@/components/PPagination/index.js';
 import { PFilter } from '@/components/PFilter';
 import { PSpinner } from '@/components/PSpinner';
 import { ComplexAction, LinkAction } from '@/types';

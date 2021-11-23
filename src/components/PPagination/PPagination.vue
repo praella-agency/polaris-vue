@@ -19,25 +19,23 @@
     </nav>
 </template>
 
-<script lang="ts">
-  import { Component, Vue, Prop } from 'vue-property-decorator';
-  import { classNames } from '@/utilities/css';
-  import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';
-  import { PIcon } from '@/components/PIcon';
-  import { PTextStyle } from '@/components/PTextStyle';
+<script>
+  import { classNames } from '../../utilities/css';
+  import { PUnstyledLink } from '../../components/PUnstyledLink/index.js';
+  import { PIcon } from '../../components/PIcon';
+  import { PTextStyle } from '../../components/PTextStyle';
 
-  export interface PPaginationDescriptor {
-    nextTooltip?: string;
-    previousTooltip?: string;
-    nextURL?: string;
-    previousURL?: string;
-    hasNext?: boolean;
-    hasPrevious?: boolean;
-    accessibilityLabel?: string;
-
-    onNext?(): void;
-
-    onPrevious?(): void;
+  export const PPaginationDescriptor = {
+    nextTooltip: String,
+    previousTooltip: String,
+    nextURL: String,
+    previousURL: String,
+    hasNext: Boolean,
+    hasPrevious: Boolean,
+    accessibilityLabel: String,
+    // onNext(): void,
+    //
+    // onPrevious(): void,
   }
 
   /**
@@ -47,66 +45,75 @@
    *  into pages. On the web, pagination uses buttons to move back and forth between pages. On iOS and Android,
    *  pagination uses infinite scrolling.</h4>
    */
-  @Component({
-    components: {
-      PUnstyledLink, PIcon, PTextStyle,
-    },
-  })
-  export default class PPagination extends Vue {
-
-    /**
-     * The URL of the next page
-     */
-    @Prop(String) public nextURL!: string;
-
-    /**
-     * Keyboard shortcuts for the previous button
-     */
-    @Prop(String) public previousURL!: string;
-
-    /**
-     * Text to provide more context in between the arrow buttons
-     */
-    @Prop(String) public label!: string;
-
-    /**
-     * Whether there is a next page to show
-     */
-    @Prop(Boolean) public hasNext!: boolean;
-
-    /**
-     * Whether there is a previous page to show
-     */
-    @Prop(Boolean) public hasPrevious!: boolean;
-
-    /**
-     * Callback when previous button is clicked
-     */
-    @Prop({type: Function, default: null}) public onPrevious!: void;
-
-    /**
-     * Callback when next button is clicked
-     */
-    @Prop({type: Function, default: null}) public onNext!: void;
-
-    public get className() {
-      return classNames(
-        'Polaris-Pagination',
-      );
-    }
-
-    public get previousClassName() {
-      return classNames(
-        'Polaris-Pagination__Button',
-        !this.label && 'Polaris-Pagination__PreviousButton',
-      );
-    }
-
-    public get nextClassName() {
-      return classNames(
-        'Polaris-Pagination__Button',
-        !this.label && 'Polaris-Pagination__NextButton',
-      );
-    }
+  export default {
+    name: 'PPagination',
+      components: {
+          PUnstyledLink, PIcon, PTextStyle,
+      },
+      props: {
+          /**
+           * The URL of the next page
+           */
+            nextURL: {
+                type: String,
+          },
+          /**
+           * Keyboard shortcuts for the previous button
+           */
+          previousURL: {
+              type: String,
+          },
+          /**
+           * Text to provide more context in between the arrow buttons
+           */
+          label: {
+              type: String,
+          },
+          /**
+           * Whether there is a next page to show
+           */
+            hasNext: {
+                type: Boolean,
+          },
+          /**
+           * Whether there is a previous page to show
+           */
+          hasPrevious: {
+              type: Boolean,
+          },
+          /**
+           * Callback when previous button is clicked
+           */
+          onPrevious: {
+              type: Function,
+              default: null,
+          },
+          /**
+           * Callback when next button is clicked
+           */
+          onNext: {
+              type: Function,
+              default: null,
+          }
+      },
+      computed: {
+          className() {
+              return classNames(
+                  'Polaris-Pagination',
+              );
+          },
+          previousClassName() {
+              return classNames(
+                  'Polaris-Pagination__Button',
+                  !this.label && 'Polaris-Pagination__PreviousButton',
+              );
+          },
+          nextClassName() {
+              return classNames(
+                  'Polaris-Pagination__Button',
+                  !this.label && 'Polaris-Pagination__NextButton',
+              );
+          },
+      },
   }
 </script>

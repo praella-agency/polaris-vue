@@ -38,7 +38,7 @@ import {
     MenuActionDescriptor,
     MenuGroupDescriptor,
 } from '@/types';
-import { PPaginationDescriptor } from '@/components/PPagination';
+import { PPaginationDescriptor } from '@/components/PPagination/index.js';
 
 export interface PPageProps extends PPageHeaderProps {
     fullWidth?: boolean;
