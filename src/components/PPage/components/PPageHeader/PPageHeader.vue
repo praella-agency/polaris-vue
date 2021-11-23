@@ -66,7 +66,7 @@ import {
     IconableAction,
 } from '@/types';
 import { hasGroupsWithActions } from '@/components/PActionMenu/utilities';
-import { PTextStyle } from '@/components/PTextStyle';
+import { PTextStyle } from '@/components/PTextStyle/index.js';
 import { PBreadcrumbs } from '@/components/PBreadcrumbs';
 import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
 import { PActionMenu } from '@/components/PActionMenu';

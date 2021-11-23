@@ -24,7 +24,7 @@
   import { classNames } from '@/utilities/css';
   import { PUnstyledLink } from '@/components/PUnstyledLink';
   import { PIcon } from '@/components/PIcon/index.js';
-  import { PTextStyle } from '@/components/PTextStyle';
+  import { PTextStyle } from '@/components/PTextStyle/index.js';
 
   export interface PPaginationDescriptor {
     nextTooltip?: string;

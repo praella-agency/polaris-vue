@@ -28,7 +28,7 @@ import { PStackItem } from './PStack/components/PStackItem';
 import { PSubheading } from './PSubheading/index.js';
 import { PTextContainer } from './PTextContainer/index.js';
 import { PTextField } from './PTextField';
-import { PTextStyle } from './PTextStyle';
+import { PTextStyle } from './PTextStyle/index.js';
 import { PToggle } from './PToggle';
 import { PSettingToggle } from './PSettingToggle';
 import { PColorPicker } from './PColorPicker';

@@ -1,5 +1,5 @@
 import { PSettingToggle } from './index';
-import { PTextStyle } from '../PTextStyle';
+import { PTextStyle } from '../PTextStyle/index.js';
 
 export default {
     title: 'Actions / Setting Toggle',

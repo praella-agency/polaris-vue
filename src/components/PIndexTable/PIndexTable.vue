@@ -622,7 +622,7 @@
     import { PBulkActions } from '@/components/PBulkActions';
     import { PIndexTableCell } from '@/components/PIndexTable/components/PIndexTableCell';
     import { PIndexTableRow } from '@/components/PIndexTable/components/PIndexTableRow';
-    import { PTextStyle } from '@/components/PTextStyle';
+    import { PTextStyle } from '@/components/PTextStyle/index.js';
     import { PFilter } from '@/components/PFilter';
     import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
 

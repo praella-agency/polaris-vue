@@ -107,7 +107,7 @@ import { PSpinner } from '@/components/PSpinner';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
 import { PDisplayText } from '@/components/PDisplayText/index.js';
-import { PTextStyle } from '@/components/PTextStyle';
+import { PTextStyle } from '@/components/PTextStyle/index.js';
 import { PResourceListHeader } from '@/components/PResourceList/components/PResourceListHeader';
 
 interface ResourceNameInterface {

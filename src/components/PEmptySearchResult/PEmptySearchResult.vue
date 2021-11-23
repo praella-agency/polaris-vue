@@ -30,7 +30,7 @@
     import { PStack } from '@/components/PStack';
     import { PStackItem } from '@/components/PStack/components/PStackItem';
     import { PDisplayText } from '@/components/PDisplayText/index.js';
-    import { PTextStyle } from '@/components/PTextStyle';
+    import { PTextStyle } from '@/components/PTextStyle/index.js';
     import { PImage } from '@/components/PImage/index.js';
 
     @Component({

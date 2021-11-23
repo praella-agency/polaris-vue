@@ -86,7 +86,7 @@ import { classNames } from '@/utilities/css';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
 import { PCaption } from '@/components/PCaption/index.js';
-import { PTextStyle } from '@/components/PTextStyle';
+import { PTextStyle } from '@/components/PTextStyle/index.js';
 import { PIcon } from '@/components/PIcon/index.js';
 import { Context, createAllowMultipleKey, capitalize } from '@/components/PDropZone/context';
 
