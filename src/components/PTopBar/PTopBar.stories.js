@@ -4,7 +4,7 @@ import { PUserMenu } from './components/PUserMenu';
 import { PMenu } from './components/PMenu';
 import { PIcon } from '../PIcon/index.js';
 import { PActionList } from '../PActionList';
-import { PVisuallyHidden } from '../PVisuallyHidden';
+import { PVisuallyHidden } from '../PVisuallyHidden/index.js';
 import { PFrame } from '../PFrame';
 
 export default {

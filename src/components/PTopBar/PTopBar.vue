@@ -103,7 +103,7 @@
   import { PSearch } from '@/components/PTopBar/components/PSearch';
   import { PUserMenu } from '@/components/PTopBar/components/PUserMenu';
   import { PMenu } from '@/components/PTopBar/components/PMenu';
-  import { PVisuallyHidden } from '@/components/PVisuallyHidden';
+  import { PVisuallyHidden } from '@/components/PVisuallyHidden/index.js';
   import { PSearchField } from '@/components/PTopBar/components/PSearchField';
 
   interface UserMenu {

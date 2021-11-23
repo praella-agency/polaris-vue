@@ -1,10 +1,13 @@
-import { PVisuallyHidden } from './index';
+import { PVisuallyHidden } from './index.js';
 
 export default {
     title: 'Titles & Text / Visually Hidden',
     component: PVisuallyHidden,
     argTypes: {
         id: {
+            control: {
+                type: 'text'
+            },
             table: {
                 type: {
                     summary: 'string | number',
@@ -22,6 +25,7 @@ export default {
 }
 
 const Template = (args, {argTypes}) => ({
+    props: Object.keys(args),
     components: {
         PVisuallyHidden,
     },
@@ -30,7 +34,7 @@ const Template = (args, {argTypes}) => ({
         <thead>
         <tr>
           <th scope="col">
-            <PVisuallyHidden>Line item</PVisuallyHidden>
+            <PVisuallyHidden v-bind="$props">Line item</PVisuallyHidden>
           </th>
           <th scope="col">
             <PVisuallyHidden>Value</PVisuallyHidden>

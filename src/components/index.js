@@ -73,7 +73,7 @@ import { PTopBar } from './PTopBar';
 import { PContextualSaveBar } from './PFrame/components/PContextualSaveBar';
 import { PSkeletonPage } from './PSkeletonPage';
 import { PNavigation } from './PNavigation';
-import { PVisuallyHidden } from './PVisuallyHidden';
+import { PVisuallyHidden } from './PVisuallyHidden/index.js';
 import { PUserMenu } from './PTopBar/components/PUserMenu';
 import { PMenu } from './PTopBar/components/PMenu';
 import { PSearchField } from './PTopBar/components/PSearchField';
