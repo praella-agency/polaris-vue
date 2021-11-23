@@ -1,4 +1,4 @@
-import { PColorPicker } from './index';
+import { PColorPicker } from './index.js';
 import { PBadge } from '../PBadge';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
