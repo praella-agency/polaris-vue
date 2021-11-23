@@ -1,5 +1,5 @@
 import { PBadge } from './PBadge/index.js';
-import { PBanner } from './PBanner';
+import { PBanner } from './PBanner/index.js';
 import { PButton } from './PButton';
 import { PButtonGroup } from './PButtonGroup';
 import { PCard } from './PCard';

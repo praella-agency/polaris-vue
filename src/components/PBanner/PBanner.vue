@@ -35,20 +35,20 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+<script>
 import { classNames, variationName } from '@/utilities/css';
 
-import { PIcon } from '@/components/PIcon/index.js';
+import { PIcon } from './../../components/PIcon/index.js';
 import { PButton } from '@/components/PButton';
-import { PHeading } from '@/components/PHeading/index.js';
+import { PHeading } from './../../components/PHeading/index.js';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PButtonsFrom } from '@/components/PButton/utils';
 import {
   DisableableAction,
   LoadableAction,
-} from '@/types';
-type BannerStatus = 'success' | 'info' | 'warning' | 'critical';
+} from '../../types/types.js'
+
+const BannerStatus = 'success' | 'info' | 'warning' | 'critical';
 
 /**
  * <br/>
@@ -57,69 +57,84 @@ type BannerStatus = 'success' | 'info' | 'warning' | 'critical';
  *  communicate to merchants in a prominent way. Banners are placed at the top of the page or section they apply to, and
  *  below the page or section header.</h4>
  */
-@Component({
+
+export default {
+  name: 'PBanner',
   components: {
     PIcon, PButton, PHeading, PButtonGroup, PButtonsFrom,
   },
-})
-export default class PBanner extends Vue {
+  props: {
+    /**
+     * Title content for the banner.
+     */
+    title: {
+      type: String,
+      default: null
+    },
 
-  /**
-   * Title content for the banner.
-   */
-  @Prop({type: String, default: null}) public title!: string;
+    /**
+     * Set the status of the banner
+     * @values success | info | warning | critical
+     */
+    status: {
+      type: String,
+      default: null,
+      validator: function (value) {
+        return ['success', 'info', 'warning', 'critical'].indexOf(value) !== -1
+      }
+    },
 
-  /**
-   * Set the status of the banner
-   * @values success | info | warning | critical
-   */
-  @Prop({type: String, default: null}) public status!: string;
-
-  /**
-   * Action of the banner
-   */
-  @Prop({type: Object, default: {}}) public action!: DisableableAction & LoadableAction;
-
-  public get className() {
-    return classNames(
-      'Polaris-Banner',
-      'Polaris-Banner--withinPage',
-      this.isDismissable && 'Polaris-Banner--hasDismiss',
-      this.status && `Polaris-Banner--${variationName('status', this.status)}`,
-    );
-  }
-
-  public get isDismissable() {
-    return this.$listeners && this.$listeners.dismiss;
-  }
-
-  public get colorAndIcon() {
-    let color;
-    let icon;
-
-    switch (this.status) {
-      case 'success':
-        color = 'success';
-        icon = 'CircleTickMajor';
-        break;
-      case 'info':
-        color = 'highlight';
-        icon = 'CircleInformationMajor';
-        break;
-      case 'warning':
-        color = 'warning';
-        icon = 'CircleAlertMajor';
-        break;
-      case 'critical':
-        color = 'critical';
-        icon = 'DiamondAlertMajor';
-        break;
-      default:
-        color = 'base';
-        icon = 'CircleInformationMajor';
+    /**
+     * Action of the banner
+     */
+    action: {
+      type: [Object, DisableableAction, LoadableAction],
+      default: () => {}
     }
+  },
+  computed: {
+    className() {
+      return classNames(
+          'Polaris-Banner',
+          'Polaris-Banner--withinPage',
+          this.isDismissable && 'Polaris-Banner--hasDismiss',
+          this.status && `Polaris-Banner--${variationName('status', this.status)}`,
+      );
+    },
+    isDismissable() {
+      return this.$listeners && this.$listeners.dismiss;
+    },
+    colorAndIcon() {
+      let color;
+      let icon;
 
-    return { color, icon };
+      switch (this.status) {
+        case 'success':
+          color = 'success';
+          icon = 'CircleTickMajor';
+          break;
+        case 'info':
+          color = 'highlight';
+          icon = 'CircleInformationMajor';
+          break;
+        case 'warning':
+          color = 'warning';
+          icon = 'CircleAlertMajor';
+          break;
+        case 'critical':
+          color = 'critical';
+          icon = 'DiamondAlertMajor';
+          break;
+        default:
+          color = 'base';
+          icon = 'CircleInformationMajor';
+      }
+
+      return { color, icon };
+    }
+  },
+  mounted() {
+    console.log(DisableableAction);
   }
 }
 </script>
