@@ -63,7 +63,7 @@ import { PDatePicker } from './PDatePicker';
 import { PMediaCard } from './PMediaCard';
 import { PChart } from './PChart/index.js';
 import { PEmptyState } from './PEmptyState';
-import { PFooterHelp } from './PFooterHelp';
+import { PFooterHelp } from './PFooterHelp/index.js';
 import { PDropZone } from './PDropZone';
 import PToast from './PToast/index';
 import { PChoiceList } from './PChoiceList';

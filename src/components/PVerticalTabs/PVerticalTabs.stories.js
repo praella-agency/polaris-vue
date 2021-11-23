@@ -6,7 +6,7 @@ import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PHeading } from '../PHeading';
 import { PButton } from '../PButton/index.js';
-import { PFooterHelp } from '../PFooterHelp';
+import { PFooterHelp } from '../PFooterHelp/index.js';
 import { PLink } from '../PLink';
 import { PPopover } from '../PPopover/index.js';
 import { PActionList } from '../PActionList';

@@ -1,4 +1,4 @@
-import { PFooterHelp } from './index';
+import { PFooterHelp } from './index.js';
 import { PLink } from '../PLink';
 
 export default {

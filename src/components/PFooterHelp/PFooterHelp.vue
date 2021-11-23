@@ -15,10 +15,9 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames } from '@/utilities/css';
-import { PIcon } from '@/components/PIcon';
+<script>
+import { classNames } from '../../utilities/css';
+import { PIcon } from '../../components/PIcon';
 
 /**
  * <br/>
@@ -26,50 +25,59 @@ import { PIcon } from '@/components/PIcon';
  *  sans-serif;">Footer help is used to refer merchants to more information related to the product or feature they’re
  *  using.</h4>
  */
-@Component({
-  components: {
-      PIcon,
-  },
-})
-export default class PFooterHelp extends Vue {
-
-  /**
-   * Id for the element
-   */
-  @Prop({type: [String, Number], default: null}) public id!: string | number;
-
-  /**
-   * Url for the footer
-   */
-  @Prop({type: String, default: null}) public url!: string;
-
-  /**
-   * Set to for router link
-   */
-  @Prop([String, Object]) public to!: string | object;
-
-  /**
-   * Makes the link open in a new tab.
-   * @values true | false
-   */
-  @Prop({type: Boolean, default: false}) public external!: boolean;
-
-  /**
-   * Makes the link color the same as the current text color and adds an underline.
-   * @values true | false
-   */
-  @Prop({type: Boolean, default: false}) public monochrome!: boolean;
-
-  public get isStringSlot() {
-
-    const slots = (this.$slots.default || []);
-    return this.external && slots.length === 1 && slots[0].text;
-  }
-
-  public get className() {
-    return classNames(
-        'Polaris-FooterHelp',
-    );
-  }
+export default {
+    name: 'PFooterHelp',
+    components: {
+        PIcon,
+    },
+    props: {
+        /**
+         * Id for the element
+         */
+        id: {
+            type: [String, Number],
+            default: null,
+        },
+        /**
+         * Url for the footer
+         */
+        url: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Set to for router link
+         */
+        to: {
+            type: [String, Object],
+        },
+        /**
+         * Makes the link open in a new tab.
+         * @values true | false
+         */
+        external: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Makes the link color the same as the current text color and adds an underline.
+         * @values true | false
+         */
+        monochrome: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    computed: {
+        className() {
+            return classNames(
+                'Polaris-FooterHelp',
+            );
+        },
+        isStringSlot() {
+            const slots = (this.$slots.default || []);
+            return this.external && slots.length === 1 && slots[0].text;
+        },
+    },
 }
 </script>
