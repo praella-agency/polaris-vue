@@ -30,7 +30,7 @@ import { PTextContainer } from './PTextContainer';
 import { PTextField } from './PTextField';
 import { PTextStyle } from './PTextStyle';
 import { PToggle } from './PToggle';
-import { PSettingToggle } from './PSettingToggle';
+import { PSettingToggle } from './PSettingToggle/index.js';
 import { PColorPicker } from './PColorPicker';
 import { PTabs } from './PTabs';
 import { PRadioButton } from './PRadioButton';

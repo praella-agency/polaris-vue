@@ -1,74 +1,83 @@
 <template>
-  <PCard sectioned>
-    <PSettingAction>
-      <template slot="children">
-        <!-- @slot Inner content of the card -->
-        <slot/>
-      </template>
-      <PButton slot="action"
-         :accessibility-label="action.accessibilityLabel"
-         :destructive="action.destructive"
-         :disabled="action.disabled"
-         :external="action.external"
-         :icon="action.icon"
-         :id="action.id ? action.id : `Polaris-Setting-Toggle${this['_uid']}`"
-         :loading="action.loading"
-         :outline="action.outline"
-         :url="action.url"
-         :primary="!enabled"
-         @click="action.onAction"
-      > {{ action.contentStatus }}
-      </PButton>
-    </PSettingAction>
-  </PCard>
+    <PCard sectioned>
+        <PSettingAction>
+            <template slot="children">
+                <!-- @slot Inner content of the card -->
+                <slot/>
+            </template>
+            <PButton slot="action"
+                     :accessibility-label="action.accessibilityLabel"
+                     :destructive="action.destructive"
+                     :disabled="action.disabled"
+                     :external="action.external"
+                     :icon="action.icon"
+                     :id="action.id ? action.id : `Polaris-Setting-Toggle${this['_uid']}`"
+                     :loading="action.loading"
+                     :outline="action.outline"
+                     :url="action.url"
+                     :primary="!enabled"
+                     @click="action.onAction"
+            > {{ action.contentStatus }}
+            </PButton>
+        </PSettingAction>
+    </PCard>
 </template>
 
-<script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { PCard } from '@/components/PCard';
-  import { PButton } from '@/components/PButton/index.js';
-  import { PSettingAction } from '@/components/PSettingToggle/PSettingAction';
+<script>
+    import { PCard } from '../../components/PCard';
+    import { PButton } from '../../components/PButton/index.js';
+    import { PSettingAction } from '../../components/PSettingToggle/components/PSettingAction/index.js';
 
-  interface Action {
-    accessibilityLabel?: string;
-    destructive?: boolean;
-    disabled?: boolean;
-    external?: boolean;
-    icon?: string;
-    id?: string | number;
-    loading?: boolean;
-    outline?: boolean;
-    url?: string;
-    contentStatus?: string;
+    const Action = {
+        accessibilityLabel: String,
+        destructive: Boolean,
+        disabled: Boolean,
+        external: Boolean,
+        icon: String,
+        id: [String| Number],
+        loading: Boolean,
+        outline: Boolean,
+        url: String,
+        contentStatus: String,
 
-    onAction(): void;
-  }
-
-  /**
-   * <br/>
-   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
-   *  sans-serif;">Use to give merchants control over a feature or option that can be turned on or off.</h4>
-   */
-  @Component({
-    components: {
-        PSettingAction, PCard, PButton,
-    },
-  })
-  export default class PSettingToggle extends Vue {
-    /**
-     * Card header actions.
-     */
-    @Prop({type: Object, default: Object}) public action!: Action;
+        onAction() {
+            return 0;
+        },
+    }
 
     /**
-     * Sets toggle state.
-     * @values true|false
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">Use to give merchants control over a feature or option that can be turned on or off.</h4>
      */
-    @Prop({type: Boolean, default: false}) public enabled!: boolean;
-
-    /**
-     * @ignore
-     */
-    @Prop({type: String, default: null}) public propsClass!: string;
-  }
+    export default {
+        name: 'PSettingToggle',
+        components: {
+            PSettingAction, PCard, PButton,
+        },
+        props: {
+            /**
+             * Card header actions.
+             */
+            action: {
+                type: [Object, Action],
+                default: Object,
+            },
+            /**
+             * Sets toggle state.
+             * @values true|false
+             */
+            enabled: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * @ignore
+             */
+            propsClass: {
+                type: String,
+                default: null,
+            },
+        },
+    }
 </script>
