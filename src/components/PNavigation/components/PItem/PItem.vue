@@ -76,8 +76,8 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
   import { PUnstyledLink } from '@/components/PUnstyledLink';
-  import { PIcon } from '@/components/PIcon/index.js';
-  import { PBadge } from '@/components/PBadge/index.js';
+  import { PIcon } from './../../../../components/PIcon/index.js';
+  import { PBadge } from './../../../../components/PBadge/index.js';
   import { PSecondary } from '@/components/PNavigation/components/PItem/components/PSecondary';
 
   interface ItemURLDetails {

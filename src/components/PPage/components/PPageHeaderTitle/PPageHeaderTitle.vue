@@ -20,10 +20,10 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
-import {PDisplayText} from '@/components/PDisplayText/index.js';
-import {PTextStyle} from '@/components/PTextStyle/index.js';
+import {PDisplayText} from './../../../../components/PDisplayText/index.js';
+import {PTextStyle} from './../../../../components/PTextStyle/index.js';
 import {classNames} from '@/utilities/css';
-import {PThumbnail} from '@/components/PThumbnail/index.js';
+import {PThumbnail} from './../../../../components/PThumbnail/index.js';
 
 export interface PPageHeaderTitleProps {
   title?: string;

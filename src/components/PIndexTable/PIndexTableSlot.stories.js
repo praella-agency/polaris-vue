@@ -1,11 +1,11 @@
 import { PIndexTable } from './index';
 import { PCard } from '../PCard';
 import { PLink } from '../PLink';
-import { PThumbnail } from '../PThumbnail/index.js';
+import { PThumbnail } from '../../components/PThumbnail/index.js';
 import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';
-import { PBadge } from '../PBadge/index.js';
+import { PBadge } from '../../components/PBadge/index.js';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PRadioButton } from '../PRadioButton';

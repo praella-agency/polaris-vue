@@ -5,7 +5,7 @@ import { PCard } from '../PCard';
 import { PCardSection } from '../PCard/components/PCardSection';
 import { PSkeletonBodyText } from '../PSkeletonBodyText';
 import { PSkeletonDisplayText } from '../PSkeletonDisplayText';
-import { PTextContainer } from '../PTextContainer/index.js';
+import { PTextContainer } from '../../components/PTextContainer/index.js';
 
 export default {
     title: 'Feedback indicators / Skeleton Page',

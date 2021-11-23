@@ -45,13 +45,13 @@
 <script lang="tsx">
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import { classNames, variationName } from '@/utilities/css';
-    import { PIcon } from '@/components/PIcon/index.js';
+    import { PIcon } from './../../../../components/PIcon/index.js';
     import {Action, ComplexAction, LinkAction} from '@/types';
     import { PButton } from '@/components/PButton';
     import { PButtonGroup } from '@/components/PButtonGroup';
     import { PLink } from '@/components/PLink';
     import { PToggle } from '@/components/PToggle';
-    import { PBadge } from '@/components/PBadge/index.js';
+    import { PBadge } from './../../../../components/PBadge/index.js';
 
     type SortDirection = 'ascending' | 'descending' | 'none';
     type VerticalAlign = 'top' | 'bottom' | 'middle' | 'baseline';

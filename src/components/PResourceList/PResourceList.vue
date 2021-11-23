@@ -101,13 +101,13 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
-import { PIcon } from '@/components/PIcon/index.js';
+import { PIcon } from './../../components/PIcon/index.js';
 import { PFilter } from '@/components/PFilter';
 import { PSpinner } from '@/components/PSpinner';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
-import { PDisplayText } from '@/components/PDisplayText/index.js';
-import { PTextStyle } from '@/components/PTextStyle/index.js';
+import { PDisplayText } from './../../components/PDisplayText/index.js';
+import { PTextStyle } from './../../components/PTextStyle/index.js';
 import { PResourceListHeader } from '@/components/PResourceList/components/PResourceListHeader';
 
 interface ResourceNameInterface {

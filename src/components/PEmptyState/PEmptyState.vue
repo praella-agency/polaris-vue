@@ -51,11 +51,11 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
-import { PImage } from '@/components/PImage/index.js';
+import { PImage } from './../../components/PImage/index.js';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
-import { PDisplayText } from '@/components/PDisplayText/index.js';
-import { PTextContainer } from '@/components/PTextContainer/index.js';
+import { PDisplayText } from './../../components/PDisplayText/index.js';
+import { PTextContainer } from './../../components/PTextContainer/index.js';
 import { PCard } from '@/components/PCard';
 import { PCardSection } from '@/components/PCard/components/PCardSection';
 import { PButton } from '@/components/PButton';

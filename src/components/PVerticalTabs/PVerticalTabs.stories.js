@@ -4,7 +4,7 @@ import { PCardHeader } from '../PCard/components/PCardHeader';
 import { PCardSection } from '../PCard/components/PCardSection';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
-import { PHeading } from '../PHeading/index.js';
+import { PHeading } from '../../components/PHeading/index.js';
 import { PButton } from '../PButton';
 import { PFooterHelp } from '../PFooterHelp';
 import { PLink } from '../PLink';

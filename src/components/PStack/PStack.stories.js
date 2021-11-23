@@ -1,7 +1,7 @@
 import { PStack } from './index';
 import { PStackItem } from './components/PStackItem';
-import { PThumbnail } from '../PThumbnail/index.js';
-import { PTextStyle } from '../PTextStyle/index.js';
+import { PThumbnail } from '../../components/PThumbnail/index.js';
+import { PTextStyle } from '../../components/PTextStyle/index.js';
 import { PButton } from '../PButton';
 
 export default {

@@ -7,7 +7,7 @@ import { PButtonGroup } from '../PButtonGroup';
 import { PButton } from '../PButton';
 import { PPopover } from '../PPopover';
 import { PActionList } from '../PActionList';
-import { PTextContainer } from '../PTextContainer/index.js';
+import { PTextContainer } from '../../components/PTextContainer/index.js';
 import { PResourceList } from '../PResourceList';
 import { PResourceListItem } from '../PResourceList/components/PResourceListItem';
 import { PStack } from '../PStack';

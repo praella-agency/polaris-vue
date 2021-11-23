@@ -1,7 +1,7 @@
 import { PTextField } from './index';
 import { PButton } from '../PButton';
 import { PSelect } from '../PSelect';
-import { PIcon } from '../PIcon/index.js';
+import { PIcon } from '../../components/PIcon/index.js';
 
 export default {
     title: 'Forms / Text Field',

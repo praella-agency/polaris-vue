@@ -6,7 +6,7 @@ import { PLayout } from '../PLayout';
 import { PLayoutAnnotatedSection } from '../PLayout/components/PLayoutAnnotatedSection';
 import { PLayoutSection } from '../PLayout/components/PLayoutSection';
 import { PCard } from '../PCard';
-import { PTextContainer } from '../PTextContainer/index.js';
+import { PTextContainer } from '../../components/PTextContainer/index.js';
 import { PSkeletonDisplayText } from '../PSkeletonDisplayText';
 import { PSkeletonBodyText } from '../PSkeletonBodyText';
 import { PPage } from '../PPage';

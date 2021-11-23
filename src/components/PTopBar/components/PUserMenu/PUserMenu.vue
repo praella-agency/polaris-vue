@@ -26,7 +26,7 @@
 
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
-  import { PIcon } from '@/components/PIcon/index.js';
+  import { PIcon } from './../../../../components/PIcon/index.js';
   import { PMenu } from '@/components/PTopBar/components/PMenu/';
   import { PMessageIndicator } from '@/components/PMessageIndicator';
   import { PAvatar } from '@/components/PAvatar';

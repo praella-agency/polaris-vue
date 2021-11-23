@@ -7,7 +7,7 @@
 <script lang="ts">
     import { Vue, Component, Prop } from 'vue-property-decorator';
     import { classNames } from '@/utilities/css';
-    import { PIcon } from '@/components/PIcon/index.js';
+    import { PIcon } from './../../../../components/PIcon/index.js';
 
     @Component({
         components: {

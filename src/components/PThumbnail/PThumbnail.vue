@@ -8,8 +8,8 @@
 
 <script>
     import { classNames, variationName } from '@/utilities/css';
-    import { PImage } from '@/components/PImage/index.js';
-    import { PIcon } from '@/components/PIcon/index.js';
+    import { PImage } from './../../components/PImage/index.js';
+    import { PIcon } from './../../components/PIcon/index.js';
     const Size = 'small' | 'medium' | 'large';
 
     /**

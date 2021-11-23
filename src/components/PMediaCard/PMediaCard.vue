@@ -69,8 +69,8 @@ import VuePlyr from '@hulkapps/vue-plyr';
 import { PCard } from '@/components/PCard';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
-import { PHeading } from '@/components/PHeading/index.js';
-import { PImage } from '@/components/PImage/index.js';
+import { PHeading } from './../../components/PHeading/index.js';
+import { PImage } from './../../components/PImage/index.js';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PButton } from '@/components/PButton';
 

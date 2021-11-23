@@ -1,7 +1,7 @@
 import { PModal } from './index';
 import { PFormLayout } from '../PFormLayout';
 import { PTextField } from '../PTextField';
-import { PBanner } from '../PBanner/index.js';
+import { PBanner } from '../../components/PBanner/index.js';
 import { PButton } from '../PButton';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';

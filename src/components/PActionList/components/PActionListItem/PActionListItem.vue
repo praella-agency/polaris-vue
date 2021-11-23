@@ -42,7 +42,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames} from '@/utilities/css';
 import { PUnstyledLink } from '@/components/PUnstyledLink';
-import { PIcon } from '@/components/PIcon/index.js';
+import { PIcon } from './../../../../components/PIcon/index.js';
 
 @Component({
     components: {

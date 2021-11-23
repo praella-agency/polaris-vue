@@ -91,10 +91,10 @@
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
   import { ThemeLogo, getWidth } from '@/types/logo';
-  import { PIcon } from '@/components/PIcon/index.js';
+  import { PIcon } from './../../components/PIcon/index.js';
   import { PButton } from '@/components/PButton';
   import { PUnstyledLink } from '@/components/PUnstyledLink';
-  import { PImage } from '@/components/PImage/index.js';
+  import { PImage } from './../../components/PImage/index.js';
   import { PTextField } from '@/components/PTextField';
   import { PActionList } from '@/components/PActionList';
   import { PPopover } from '@/components/PPopover';
@@ -103,7 +103,7 @@
   import { PSearch } from '@/components/PTopBar/components/PSearch';
   import { PUserMenu } from '@/components/PTopBar/components/PUserMenu';
   import { PMenu } from '@/components/PTopBar/components/PMenu';
-  import { PVisuallyHidden } from '@/components/PVisuallyHidden/index.js';
+  import { PVisuallyHidden } from './../../components/PVisuallyHidden/index.js';
   import { PSearchField } from '@/components/PTopBar/components/PSearchField';
 
   interface UserMenu {

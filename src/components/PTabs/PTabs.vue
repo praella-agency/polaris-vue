@@ -137,13 +137,13 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
 import { TabDescriptor } from '@/types/tabs/';
 import { getVisibleAndHiddenTabIndices } from '@/components/PTabs/utilities';
-import { PBadge } from '@/components/PBadge/index.js';
+import { PBadge } from './../../components/PBadge/index.js';
 import { PPopover } from '@/components/PPopover';
 import { PTab } from '@/components/PTabs/components/PTab';
 import { PPanel } from '@/components/PTabs/components/PPanel';
 import { PTabMeasurer } from '@/components/PTabs/components/PTabMeasurer';
 import { PList } from '@/components/PTabs/components/PList';
-import { PIcon } from '@/components/PIcon/index.js';
+import { PIcon } from './../../components/PIcon/index.js';
 
 /**
  * <br/>

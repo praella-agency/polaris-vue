@@ -11,7 +11,7 @@
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { PDisplayText } from '@/components/PDisplayText/index.js';
+  import { PDisplayText } from './../../../../components/PDisplayText/index.js';
   import { PModalCloseButton } from '@/components/PModal/components/PModalCloseButton';
 
   @Component({

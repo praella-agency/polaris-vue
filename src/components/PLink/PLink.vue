@@ -24,7 +24,7 @@
     import { classNames } from '@/utilities/css';
     import { PButton } from '@/components/PButton';
     import { PUnstyledLink } from '@/components/PUnstyledLink';
-    import { PIcon } from '@/components/PIcon/index.js';
+    import { PIcon } from './../../components/PIcon/index.js';
 
     /**
      * <br/>
