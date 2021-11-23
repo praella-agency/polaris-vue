@@ -47,8 +47,10 @@ import {
   DisableableAction,
   LoadableAction,
 } from '../../types/types.js'
+import ObjectValidator from "../../utilities/validators/ObjectValidator";
+import StringValidator from "../../utilities/validators/StringValidator";
 
-const BannerStatus = 'success' | 'info' | 'warning' | 'critical';
+const BannerStatus = ['success', 'info', 'warning', 'critical', null];
 
 /**
  * <br/>
@@ -79,17 +81,19 @@ export default {
     status: {
       type: String,
       default: null,
-      validator: function (value) {
-        return ['success', 'info', 'warning', 'critical'].indexOf(value) !== -1
-      }
+      ...StringValidator('status', BannerStatus)
     },
 
     /**
      * Action of the banner
      */
     action: {
-      type: [Object, DisableableAction, LoadableAction],
-      default: () => {}
+      type: Object,
+      default: () => ({}),
+      ...ObjectValidator('action', {
+        ...LoadableAction,
+        ...DisableableAction,
+      })
     }
   },
   computed: {
@@ -134,7 +138,6 @@ export default {
     }
   },
   mounted() {
-    console.log(DisableableAction);
   }
 }
 </script>
