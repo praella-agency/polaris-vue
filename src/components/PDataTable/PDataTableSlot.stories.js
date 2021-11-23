@@ -3,7 +3,7 @@ import { PDataTableRow } from './components/PDataTableRow';
 import { PDataTableCol } from './components/PDataTableCol';
 import { PPopover } from '../PPopover/index.js';
 import { PButton } from '../PButton/index.js';
-import { PLink } from '../PLink';
+import { PLink } from '../PLink/index.js';
 import { PBadge } from '../PBadge';
 import { PIcon } from '../PIcon';
 import { PToggle } from '../PToggle';

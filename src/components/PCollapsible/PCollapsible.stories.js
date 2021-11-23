@@ -4,7 +4,7 @@ import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PButton } from '../PButton/index.js';
 import { PTextContainer } from '../PTextContainer';
-import { PLink } from '../PLink';
+import { PLink } from '../PLink/index.js';
 
 export default {
     title: 'Behavior / Collapsible',

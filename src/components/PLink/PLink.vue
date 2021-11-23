@@ -1,10 +1,11 @@
 <template>
-    <PUnstyledLink v-if="url || to" :id="id" :to="to" :url="url" :external="external" :class="className" v-on="$listeners" data-polaris-unstyled="true">
+    <PUnstyledLink v-if="url || to" :id="id" :to="to" :url="url" :external="external" :class="className"
+                   v-on="$listeners" data-polaris-unstyled="true">
         <!-- @slot The content to display inside the link -->
         <slot/>
         <span v-if="isStringSlot" class="Polaris-Link__IconLockup">
             <span class="Polaris-Link__IconLayout">
-                <PIcon source="ExternalSmallMinor" />
+                <PIcon source="ExternalSmallMinor"/>
             </span>
         </span>
     </PUnstyledLink>
@@ -13,68 +14,80 @@
         <slot/>
         <span v-if="isStringSlot" class="Polaris-Link__IconLockup">
             <span class="Polaris-Link__IconLayout">
-                <PIcon source="ExternalSmallMinor" />
+                <PIcon source="ExternalSmallMinor"/>
             </span>
         </span>
     </button>
 </template>
 
-<script lang="ts">
-    import { Component, Vue, Prop } from 'vue-property-decorator';
-    import { classNames } from '@/utilities/css';
-    import { PButton } from '@/components/PButton/index.js';
-    import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';
-    import { PIcon } from '@/components/PIcon';
+<script>
+    import { classNames } from '../../utilities/css';
+    import { PButton } from '../../components/PButton/index.js';
+    import { PUnstyledLink } from '../../components/PUnstyledLink/index.js';
+    import { PIcon } from '../../components/PIcon';
 
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
      *  sans-serif;">Links take users to another place, and usually appear within or directly following a sentence.</h4>
      */
-    @Component({
-        components: { PButton, PUnstyledLink, PIcon },
-    })
-    export default class PLink extends Vue {
+    export default {
+        name: 'PLink',
+        components: {
+            PButton, PUnstyledLink, PIcon,
+        },
+        props: {
+            /**
+             * ID for the link.
+             */
+            id: {
+                type: [String, Number],
+                default: null,
+            },
+            /**
+             * The url to link to.
+             */
+            url: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Set to for router link
+             * @values Internal route link
+             */
+            to: {
+                type: [String, Object],
+                default: null,
+            },
+            /**
+             * Makes the link open in a new tab.
+             * @values true | false
+             */
+            external: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Makes the link color the same as the current text color and adds an underline.
+             * @values true | false
+             */
+            monochrome: {
+                type: Boolean,
+                default: false,
+            },
+        },
+        computed: {
+            className() {
+                return classNames(
+                    'Polaris-Link',
+                    this.monochrome && 'Polaris-Link--monochrome',
+                );
+            },
+            isStringSlot() {
 
-        /**
-         * ID for the link.
-         */
-        @Prop({type: [String, Number], default: null}) public id!: string | number;
-
-        /**
-         * The url to link to.
-         */
-        @Prop({type: String, default: null}) public url!: string;
-
-        /**
-         * Set to for router link
-         * @values Internal route link
-         */
-        @Prop({type: [String, Object], default: null}) public to!: string | object;
-
-        /**
-         * Makes the link open in a new tab.
-         * @values true | false
-         */
-        @Prop({type: Boolean, default: false}) public external!: boolean;
-
-        /**
-         * Makes the link color the same as the current text color and adds an underline.
-         * @values true | false
-         */
-        @Prop({type: Boolean, default: false}) public monochrome!: boolean;
-
-        public get isStringSlot() {
-
-            const slots = (this.$slots.default || []);
-            return this.external && slots.length === 1 && slots[0].text;
-        }
-
-        public get className() {
-            return classNames(
-                'Polaris-Link',
-                this.monochrome && 'Polaris-Link--monochrome',
-            );
-        }
+                const slots = (this.$slots.default || []);
+                return this.external && slots.length === 1 && slots[0].text;
+            },
+        },
     }
 </script>

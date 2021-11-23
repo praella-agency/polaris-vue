@@ -1,6 +1,6 @@
 import { PIndexTable } from './index';
 import { PCard } from '../PCard';
-import { PLink } from '../PLink';
+import { PLink } from '../PLink/index.js';
 import { PThumbnail } from '../PThumbnail';
 import { PPopover } from '../PPopover/index.js';
 import { PButton } from '../PButton/index.js';

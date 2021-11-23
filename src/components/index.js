@@ -36,7 +36,7 @@ import { PTabs } from './PTabs';
 import { PRadioButton } from './PRadioButton';
 import { PConnected } from './PConnected';
 import { PUnstyledLink } from './PUnstyledLink/index.js';
-import { PLink } from './PLink';
+import { PLink } from './PLink/index.js';
 import { PList } from './PList';
 import { PListItem } from './PList/components/PListItem';
 import { PImage } from './PImage';

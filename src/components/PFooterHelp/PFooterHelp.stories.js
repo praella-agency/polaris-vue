@@ -1,5 +1,5 @@
 import { PFooterHelp } from './index.js';
-import { PLink } from '../PLink';
+import { PLink } from '../PLink/index.js';
 
 export default {
     title: 'Navigation / Footer Help',

@@ -54,7 +54,7 @@
     import { PStackItem } from '../../components/PStack/components/PStackItem';
     import { PList } from '../../components/PList';
     import { PListItem } from '../../components/PList/components/PListItem';
-    import { PLink } from '../../components/PLink';
+    import { PLink } from '../../components/PLink/index.js';
     import { PCard } from '../../components/PCard';
     import { PCardSection } from '../../components/PCard/components/PCardSection';
     import { PCardHeader } from '../../components/PCard/components/PCardHeader';

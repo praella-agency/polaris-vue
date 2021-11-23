@@ -1,5 +1,5 @@
 import { PEmptyState } from './index';
-import { PLink } from '../PLink';
+import { PLink } from '../PLink/index.js';
 import { PTextContainer } from '../PTextContainer';
 
 export default {

@@ -49,7 +49,7 @@
     import {Action, ComplexAction, LinkAction} from '@/types';
     import { PButton } from '@/components/PButton/index.js';
     import { PButtonGroup } from '@/components/PButtonGroup';
-    import { PLink } from '@/components/PLink';
+    import { PLink } from '@/components/PLink/index.js';
     import { PToggle } from '@/components/PToggle';
     import { PBadge } from '@/components/PBadge';
 

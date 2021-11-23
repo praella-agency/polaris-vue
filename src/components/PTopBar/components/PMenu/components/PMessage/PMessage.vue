@@ -39,7 +39,7 @@
   import { PTextContainer } from '@/components/PTextContainer';
   import { PHeading } from '@/components/PHeading';
   import { PDisplayText } from '@/components/PDisplayText';
-  import { PLink } from '@/components/PLink';
+  import { PLink } from '@/components/PLink/index.js';
   import { BadgeProps } from '@/types';
 
   @Component({

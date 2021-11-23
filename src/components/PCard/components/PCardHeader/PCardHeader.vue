@@ -46,7 +46,7 @@ import { PStackItem } from '@/components/PStack/components/PStackItem';
 import { PHeading } from '@/components/PHeading';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PButton } from '@/components/PButton/index.js';
-import { PLink } from '@/components/PLink';
+import { PLink } from '@/components/PLink/index.js';
 
 @Component({
   components: {

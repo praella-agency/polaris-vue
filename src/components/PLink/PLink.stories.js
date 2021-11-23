@@ -1,4 +1,4 @@
-import { PLink } from './index';
+import { PLink } from './index.js';
 
 export default {
     title: 'Navigation / Link',

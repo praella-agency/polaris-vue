@@ -52,7 +52,7 @@
     import { PHeading } from '@/components/PHeading';
     import { PCaption } from '@/components/PCaption';
     import { PButtonGroup } from '@/components/PButtonGroup';
-    import { PLink } from '@/components/PLink';
+    import { PLink } from '@/components/PLink/index.js';
 
     /**
      * <br/>
