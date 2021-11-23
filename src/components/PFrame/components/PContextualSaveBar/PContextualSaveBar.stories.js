@@ -1,4 +1,4 @@
-import { PContextualSaveBar } from './index';
+import { PContextualSaveBar } from './index.js';
 import { PFrame } from '../../../PFrame';
 
 export default {
