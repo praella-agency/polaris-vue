@@ -23,59 +23,88 @@
     </div>
 </template>
 
-<script lang="ts">
-  import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
-  import { classNames } from '@/utilities/css';
-  import { PCheckbox } from '@/components/PCheckbox/index.js';
+<script>
+    import { classNames } from '../../utilities/css';
+    import { PCheckbox } from '../../components/PCheckbox/index.js';
 
-  @Component({
-    components: {
-      PCheckbox,
-    },
-  })
-  export default class PCheckableButton extends Vue {
-    @Prop({type: String, default: null}) public accessibilityLabel!: string;
-    @Prop({type: String, default: null}) public label!: string;
-    @Prop({type: [Boolean, String], default: false}) public selected!: boolean | 'indeterminate';
-    @Prop({type: Boolean, default: false}) public selectMode!: boolean;
-    @Prop({type: Boolean, default: false}) public smallScreen!: boolean;
-    @Prop({type: Boolean, default: false}) public plain!: boolean;
-    @Prop({type: Boolean, default: false}) public measuring!: boolean;
-    @Prop({type: Boolean, default: false}) public disabled?: boolean;
-    @Prop({type: Boolean, default: false}) public indeterminate?: boolean;
-
-    public currentKey: 'plain' | 'bulkSm' | 'bulkLg' = 'bulkLg';
-
-    @Watch('plain')
-    public onPlainChanged(value) {
-      if (value) {
-        this.currentKey = 'plain';
-      }
+    export default {
+        name: 'PCheckableButton',
+        components: {
+            PCheckbox,
+        },
+        props: {
+            accessibilityLabel: {
+                type: String,
+                default: null,
+            },
+            label: {
+                type: String,
+                default: null,
+            },
+            selected: {
+                type: [Boolean, String, 'indeterminate'],
+                default: false,
+            },
+            selectMode: {
+                type: Boolean,
+                default: false,
+            },
+            smallScreen: {
+                type: Boolean,
+                default: false,
+            },
+            plain: {
+                type: Boolean,
+                default: false,
+            },
+            measuring: {
+                type: Boolean,
+                default: false,
+            },
+            disabled: {
+                type: Boolean,
+                default: false,
+            },
+            indeterminate: {
+                type: Boolean,
+                default: false,
+            },
+        },
+        data() {
+            return {
+                currentKey: 'bulkLg',
+            };
+        },
+        computed: {
+            className() {
+                if (this.plain) {
+                    return classNames(
+                        'Polaris-CheckableButton',
+                        'Polaris-CheckableButton__CheckableButton--plain',
+                    );
+                } else {
+                    return classNames(
+                        'Polaris-CheckableButton',
+                        this.selectMode && 'Polaris-CheckableButton__CheckableButton--selectMode',
+                        this.selected && 'Polaris-CheckableButton__CheckableButton--selected',
+                        this.measuring && 'Polaris-CheckableButton__CheckableButton--measuring',
+                    );
+                }
+            },
+        },
+        watch: {
+            plain(value, oldValue) {
+                if (value) {
+                    this.currentKey = 'plain';
+                }
+            },
+            smallScreen(value, oldValue) {
+                if (value === true) {
+                    this.currentKey = 'bulkSm';
+                }
+            },
+        },
     }
-
-    @Watch('smallScreen')
-    public onSmallScreenChanged(value) {
-      if (value === true) {
-        this.currentKey = 'bulkSm';
-      }
-    }
-
-    public get className() {
-      if (this.plain) {
-        return classNames(
-          'Polaris-CheckableButton',
-          'Polaris-CheckableButton__CheckableButton--plain',
-        );
-      } else {
-        return classNames(
-          'Polaris-CheckableButton',
-          this.selectMode && 'Polaris-CheckableButton__CheckableButton--selectMode',
-          this.selected && 'Polaris-CheckableButton__CheckableButton--selected',
-          this.measuring && 'Polaris-CheckableButton__CheckableButton--measuring',
-        );
-      }
-    }
-  }
 </script>
 
 <style scoped>
