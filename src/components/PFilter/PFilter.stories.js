@@ -7,7 +7,7 @@ import { PCardSection } from '../PCard/components/PCardSection';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PTextField } from '../PTextField';
-import { PCheckbox } from '../PCheckbox';
+import { PCheckbox } from '../PCheckbox/index.js';
 import { PChoiceList } from '../PChoiceList';
 
 export default {

@@ -92,7 +92,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
 import { DisableableAction } from '@/types';
-import { PCheckbox } from '@/components/PCheckbox';
+import { PCheckbox } from '@/components/PCheckbox/index.js';
 import { PAvatar } from '@/components/PAvatar/index.js';
 import { PPopover } from '@/components/PPopover/index.js';
 import { PButton } from '@/components/PButton/index.js';

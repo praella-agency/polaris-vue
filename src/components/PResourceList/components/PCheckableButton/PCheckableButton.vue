@@ -11,7 +11,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
 import { PChoice } from '@/components/PChoice';
-import { PCheckbox } from '@/components/PCheckbox';
+import { PCheckbox } from '@/components/PCheckbox/index.js';
 
 type Size = 'slim' | 'medium' | 'large';
 type TextAlign = 'left' | 'right' | 'center';

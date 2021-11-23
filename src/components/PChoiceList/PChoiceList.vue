@@ -34,7 +34,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
-import { PCheckbox } from '@/components/PCheckbox';
+import { PCheckbox } from '@/components/PCheckbox/index.js';
 import { PRadioButton } from '@/components/PRadioButton';
 import { PInlineError } from '@/components/PInlineError';
 

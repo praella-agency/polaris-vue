@@ -1,4 +1,4 @@
-import { PCheckbox } from './index';
+import { PCheckbox } from './index.js';
 
 export default {
     title: 'Forms / Checkbox',
