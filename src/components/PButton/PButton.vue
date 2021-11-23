@@ -13,7 +13,6 @@
       Triggered on blur
       @event blur
     -->
-
     <component
         :is="(to ? 'router-link' : (href ? 'a' : 'button'))"
         :to="to"
@@ -47,7 +46,7 @@
       </span>
       <span v-if="disclosure" class="Polaris-Button__Icon">
         <div :class="disclosureIconClassName">
-          <PIcon :source="loading ? 'placeholder' : 'CaretDownMinor'" />
+          <PIcon :source="loading ? 'placeholder' : 'CaretDownMinor'"/>
         </div>
       </span>
     </span>

@@ -43,7 +43,7 @@ import { PIcon } from '@/components/PIcon';
 import { PButton } from '@/components/PButton/index.js';
 import { PHeading } from '@/components/PHeading';
 import { PButtonGroup } from '@/components/PButtonGroup';
-import { PButtonsFrom } from '@/components/PButton/utils';
+import { PButtonsFrom } from '@/components/PButton/components/index.js';
 import {
   DisableableAction,
   LoadableAction,
