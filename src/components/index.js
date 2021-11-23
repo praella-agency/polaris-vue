@@ -26,7 +26,7 @@ import { PSpinner } from './PSpinner';
 import { PStack } from './PStack';
 import { PStackItem } from './PStack/components/PStackItem';
 import { PSubheading } from './PSubheading/index.js';
-import { PTextContainer } from './PTextContainer';
+import { PTextContainer } from './PTextContainer/index.js';
 import { PTextField } from './PTextField';
 import { PTextStyle } from './PTextStyle';
 import { PToggle } from './PToggle';

@@ -36,7 +36,7 @@
   import { PStackItem } from '@/components/PStack/components/PStackItem';
   import { PButton } from '@/components/PButton';
   import { PBadge } from '@/components/PBadge/index.js';
-  import { PTextContainer } from '@/components/PTextContainer';
+  import { PTextContainer } from '@/components/PTextContainer/index.js';
   import { PHeading } from '@/components/PHeading/index.js';
   import { PDisplayText } from '@/components/PDisplayText/index.js';
   import { PLink } from '@/components/PLink';

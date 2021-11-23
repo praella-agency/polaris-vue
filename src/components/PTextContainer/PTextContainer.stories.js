@@ -1,4 +1,4 @@
-import { PTextContainer } from './index';
+import { PTextContainer } from './index.js';
 import { PHeading } from '../PHeading/index.js';
 
 export default {

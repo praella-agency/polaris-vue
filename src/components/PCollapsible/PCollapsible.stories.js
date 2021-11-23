@@ -3,7 +3,7 @@ import { PCard } from '../PCard';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PButton } from '../PButton';
-import { PTextContainer } from '../PTextContainer';
+import { PTextContainer } from '../PTextContainer/index.js';
 import { PLink } from '../PLink';
 
 export default {
