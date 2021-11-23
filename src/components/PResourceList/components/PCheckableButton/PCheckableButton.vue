@@ -10,7 +10,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
-import { PChoice } from '@/components/PChoice';
+import { PChoice } from '@/components/PChoice/index.js';
 import { PCheckbox } from '@/components/PCheckbox/index.js';
 
 type Size = 'slim' | 'medium' | 'large';

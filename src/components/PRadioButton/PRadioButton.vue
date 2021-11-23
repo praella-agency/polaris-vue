@@ -30,7 +30,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
-import { PChoice } from '@/components/PChoice/';
+import { PChoice } from '@/components/PChoice/index.js';
 
 /**
  * <br/>
