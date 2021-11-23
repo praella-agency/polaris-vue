@@ -8,7 +8,7 @@ import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PTextField } from '../PTextField';
 import { PCheckbox } from '../PCheckbox/index.js';
-import { PChoiceList } from '../PChoiceList';
+import { PChoiceList } from '../PChoiceList/index.js';
 
 export default {
     title: 'Lists & Tables / Filter',

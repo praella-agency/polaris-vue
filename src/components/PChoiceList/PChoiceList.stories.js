@@ -1,4 +1,4 @@
-import { PChoiceList } from './index';
+import { PChoiceList } from './index.js';
 import { PTextField } from '../PTextField';
 
 export default {
