@@ -61,7 +61,7 @@ import { PPageActions } from './PPageActions';
 import { PMultiSelect } from './PMultiSelect';
 import { PDatePicker } from './PDatePicker';
 import { PMediaCard } from './PMediaCard';
-import { PChart } from './PChart';
+import { PChart } from './PChart/index.js';
 import { PEmptyState } from './PEmptyState';
 import { PFooterHelp } from './PFooterHelp';
 import { PDropZone } from './PDropZone';
