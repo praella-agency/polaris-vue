@@ -4,9 +4,7 @@ export const BaseAction = {
     accessibilityLabel: String,
     url: String,
     external: Boolean,
-    onAction() {
-        return 0;
-    },
+    onAction: Function,
 }
 
 export const Action = {
