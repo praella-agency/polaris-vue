@@ -49,7 +49,7 @@ import { PCaption } from './PCaption';
 import { PProgressBar } from './PProgressBar';
 import { PResourceList } from './PResourceList';
 import { PResourceListItem } from './PResourceList/components/PResourceListItem';
-import { PActionList } from './PActionList';
+import { PActionList } from './PActionList/index.js';
 import { PPopover } from './PPopover/index.js';
 import { PTag } from './PTag';
 import { PFilter } from './PFilter';

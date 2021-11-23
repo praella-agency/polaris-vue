@@ -45,7 +45,7 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
-  import { PActionList } from '@/components/PActionList';
+  import { PActionList } from '@/components/PActionList/index.js';
   import { PPopover } from '@/components/PPopover/index.js';
   import { PMessage } from './components/PMessage';
   import { ActionListProps, MessageProps } from '@/types';

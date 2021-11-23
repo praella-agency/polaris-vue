@@ -3,7 +3,7 @@ import { PSearchField } from './components/PSearchField';
 import { PUserMenu } from './components/PUserMenu';
 import { PMenu } from './components/PMenu';
 import { PIcon } from '../PIcon';
-import { PActionList } from '../PActionList';
+import { PActionList } from '../PActionList/index.js';
 import { PVisuallyHidden } from '../PVisuallyHidden';
 import { PFrame } from '../PFrame';
 

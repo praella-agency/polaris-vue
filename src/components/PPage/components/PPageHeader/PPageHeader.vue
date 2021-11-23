@@ -73,7 +73,7 @@ import { PActionMenu } from '@/components/PActionMenu';
 import { PButton } from '@/components/PButton/index.js';
 import { PPageHeaderTitle, PPageHeaderTitleProps } from '@/components/PPage/components/PPageHeaderTitle';
 import { PPopover } from '@/components/PPopover/index.js';
-import { PActionList } from '@/components/PActionList';
+import { PActionList } from '@/components/PActionList/index.js';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PAvatar } from '@/components/PAvatar/index.js';
 

@@ -11,7 +11,7 @@
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
 import {MenuGroupDescriptor, ActionListItemDescriptor} from '@/types';
-import {PActionList} from '@/components/PActionList';
+import {PActionList} from '@/components/PActionList/index.js';
 import {PPopover} from '@/components/PPopover/index.js';
 import { PActionMenuMenuAction } from '@/components/PActionMenu/components/PActionMenuMenuAction';
 

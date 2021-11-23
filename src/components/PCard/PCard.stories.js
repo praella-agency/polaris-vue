@@ -6,7 +6,7 @@ import { PListItem } from '../PList/components/PListItem';
 import { PButtonGroup } from '../PButtonGroup';
 import { PButton } from '../PButton/index.js';
 import { PPopover } from '../PPopover/index.js';
-import { PActionList } from '../PActionList';
+import { PActionList } from '../PActionList/index.js';
 import { PTextContainer } from '../PTextContainer';
 import { PResourceList } from '../PResourceList';
 import { PResourceListItem } from '../PResourceList/components/PResourceListItem';

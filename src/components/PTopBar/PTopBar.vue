@@ -96,7 +96,7 @@
   import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';
   import { PImage } from '@/components/PImage';
   import { PTextField } from '@/components/PTextField';
-  import { PActionList } from '@/components/PActionList';
+  import { PActionList } from '@/components/PActionList/index.js';
   import { PPopover } from '@/components/PPopover/index.js';
   import { POptionList } from '@/components/POptionList';
   import { PAvatar } from '@/components/PAvatar/index.js';

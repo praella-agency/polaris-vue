@@ -9,7 +9,7 @@ import { PButton } from '../PButton/index.js';
 import { PFooterHelp } from '../PFooterHelp/index.js';
 import { PLink } from '../PLink/index.js';
 import { PPopover } from '../PPopover/index.js';
-import { PActionList } from '../PActionList';
+import { PActionList } from '../PActionList/index.js';
 
 export default {
     title: 'Navigation / Vertical Tabs',

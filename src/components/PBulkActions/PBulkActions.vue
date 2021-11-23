@@ -187,7 +187,7 @@
   import { PButtonGroup } from '@/components/PButtonGroup';
   import { PCheckableButton } from '@/components/PCheckableButton';
   import { PPopover } from '@/components/PPopover/index.js';
-  import { PActionList } from '@/components/PActionList';
+  import { PActionList } from '@/components/PActionList/index.js';
   import { PButton } from '@/components/PButton/index.js';
   import { Action, ActionListSection, MenuGroupDescriptor } from '@/types';
   import { PBulkActionMenu } from '@/components/PBulkActions/components/PBulkActionMenu';

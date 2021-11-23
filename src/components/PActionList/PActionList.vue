@@ -6,10 +6,9 @@
     </component>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames} from '@/utilities/css';
-import { PActionListSection } from '@/components/PActionList/components/PActionListSection';
+<script>
+import { classNames} from '../../utilities/css';
+import { PActionListSection } from '../../components/PActionList/components/PActionListSection/index.js';
 
 /**
  * <br/>
@@ -18,52 +17,54 @@ import { PActionListSection } from '@/components/PActionList/components/PActionL
  *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/overlays-popover--popover">popover</a>
  *  container to create a dropdown menu or to let merchants select from a list of options.</h4>
  */
-@Component({
+export default {
+    name: 'PActionList',
     components: {
         PActionListSection,
     },
-})
-export default class PActionList extends Vue {
-
-    /**
-     * Collection of actions for list
-     */
-    @Prop({type: Array, default: () => ([])}) public items!: any[];
-
-    /**
-     * Collection of sectioned action items
-     */
-    @Prop({type: Array, default: () => ([])}) public sections!: any[];
-
-    public get className() {
-        return classNames(
-            'Polaris-ActionList',
-        );
-    }
-
-    public get finalSections() {
-
-        /* tslint:disable-next-line */
-        if (typeof this.items != 'undefined' && this.items !== null && this.items.length != null
-            && this.items.length > 0) {
-            return [{items: this.items}, ...this.sections];
-        }
-        return this.sections;
-    }
-
-    public get hasMultipleSections() {
-
-        return this.finalSections.length > 1;
-    }
-
-    public onItemAction(action) {
-
+    props: {
         /**
-         * Triggers when the item is selected/clicked
-         *
-         * @property {event} action that will be called on selection
+         * Collection of actions for list
          */
-        this.$emit('item-action', action);
-    }
+        items: {
+            type: Array,
+            default: () => ([]),
+        },
+        /**
+         * Collection of sectioned action items
+         */
+        sections: {
+            type: Array,
+            default: () => ([]),
+        }
+    },
+    computed: {
+        className() {
+            return classNames(
+                'Polaris-ActionList',
+            );
+        },
+        finalSections() {
+            /* tslint:disable-next-line */
+            if (typeof this.items != 'undefined' && this.items !== null && this.items.length != null
+                && this.items.length > 0) {
+                return [{items: this.items}, ...this.sections];
+            }
+            return this.sections;
+        },
+        hasMultipleSections() {
+            return this.finalSections.length > 1;
+        },
+    },
+    methods: {
+        onItemAction(action) {
+            /**
+             * Triggers when the item is selected/clicked
+             *
+             * @property {event} action that will be called on selection
+             */
+            this.$emit('item-action', action);
+        },
+    },
 }
 </script>

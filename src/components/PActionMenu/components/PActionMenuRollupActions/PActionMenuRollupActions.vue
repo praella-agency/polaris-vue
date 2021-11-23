@@ -12,7 +12,7 @@ import {Component, Vue, Prop} from 'vue-property-decorator';
 import {ActionListSection, ActionListItemDescriptor } from '@/types';
 import {PPopover} from '@/components/PPopover/index.js';
 import {PButton} from '@/components/PButton/index.js';
-import {PActionList} from '@/components/PActionList';
+import {PActionList} from '@/components/PActionList/index.js';
 
 @Component({
     components: {

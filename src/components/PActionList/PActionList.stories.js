@@ -1,4 +1,4 @@
-import { PActionList } from './index';
+import { PActionList } from './index.js';
 
 export default {
     title: 'Actions / Action List',
