@@ -121,7 +121,7 @@
 import { Vue, Component, Prop, Ref } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
 import { ContextualSaveBarProps, ToastProps } from '../../context';
-import { ThemeLogo } from '@/types/logo';
+import { ThemeLogo } from '@/types/logo.js';
 import { PContextualSaveBar } from '@/components/PFrame/components/PContextualSaveBar';
 import { PEventListener } from '@/components/PEventListener';
 import { PIcon } from '@/components/PIcon';

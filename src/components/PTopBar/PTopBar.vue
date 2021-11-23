@@ -90,7 +90,7 @@
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
-  import { ThemeLogo, getWidth } from '@/types/logo';
+  import { ThemeLogo, getWidth } from '@/types/logo.js';
   import { PIcon } from '@/components/PIcon';
   import { PButton } from '@/components/PButton/index.js';
   import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';

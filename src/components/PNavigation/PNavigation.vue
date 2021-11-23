@@ -36,7 +36,7 @@
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { getWidth, ThemeLogo } from '@/types/logo';
+  import { ThemeLogo, getWidth } from '@/types/logo.js';
   import { ItemProps } from '@/components/PNavigation/utilities';
   import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';
   import { PImage } from '@/components/PImage';

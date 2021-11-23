@@ -30,7 +30,7 @@
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { ContextualSaveBarProps } from '@/components/PFrame/context';
-  import { ThemeLogo } from '@/types/logo';
+  import { ThemeLogo } from '@/types/logo.js';
   import { PIcon } from '@/components/PIcon';
   import { PFrameInner } from '@/components/PFrame/components/PFrameInner';
 

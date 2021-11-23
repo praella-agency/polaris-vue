@@ -67,37 +67,37 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { PButton } from '@/components/PButton/index.js';
-  import { PImage } from '@/components/PImage';
-  import { PStack } from '@/components/PStack';
-  import { PStackItem } from '@/components/PStack/components/PStackItem';
-  import { PModal } from '@/components/PModal/index.js';
+<script>
+  import { PButton } from '../../../../components/PButton/index.js';
+  import { PImage } from '../../../../components/PImage';
+  import { PStack } from '../../../../components/PStack';
+  import { PStackItem } from '../../../../components/PStack/components/PStackItem';
+  import { PModal } from '../../../../components/PModal/index.js';
   import { getWidth } from '../context';
-  import { classNames } from '@/utilities/css';
-  import { ThemeLogo } from '@/types/logo';
+  import { classNames } from '../../../../utilities/css';
+  import { ThemeLogo } from '../../../../types/logo.js';
+  import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
-  interface ContextualSaveBarAction {
+  const ContextualSaveBarAction = {
     /** A destination to link to */
-    url?: string;
+    url: String,
     /** Content the action displays */
-    content?: string;
+    content: String,
     /** Should a spinner be displayed */
-    loading?: boolean;
+    loading: Boolean,
     /** Should the action be disabled */
-    disabled?: boolean;
+    disabled: Boolean,
 
     /** Callback when an action takes place */
-    onAction?(): void;
+    onAction: Function,
   }
 
-  interface ContextualSaveBarDiscardActionProps {
+  const ContextualSaveBarDiscardActionProps = {
     /** Whether to show a modal confirming the discard action */
-    discardConfirmationModal?: boolean;
+    discardConfirmationModal: Boolean,
   }
 
-  type ContextualSaveBarCombinedActionProps = ContextualSaveBarDiscardActionProps &
+  const ContextualSaveBarCombinedActionProps = ContextualSaveBarDiscardActionProps &
     ContextualSaveBarAction;
 
   /**
@@ -107,79 +107,97 @@
    *  page. This component is also shown while creating a new object like a product or customer. Merchants can use this
    *  component to save or discard their work.</h4>
    */
-  @Component({
-    components: {
-      PButton, PImage, PStack, PStackItem, PModal,
-    },
-  })
-  export default class PContextualSaveBar extends Vue {
-    /**
-     * Extend the contents section to be flush with the left edge
-     */
-    @Prop({type: Boolean, default: false}) public alignContentFlush!: boolean;
-
-    /**
-     * Accepts a string of content that will be rendered to the left of the actions
-     */
-    @Prop({type: String, default: null}) public message!: string;
-
-    /**
-     * Save or commit contextual save bar action with text defaulting to 'Save'
-     */
-    @Prop({type: Object, default: () => ({})}) public saveAction!: ContextualSaveBarAction;
-
-    /**
-     * Discard or cancel contextual save bar action with text defaulting to 'Discard'
-     */
-    @Prop({type: Object, default: () => ({})}) public discardAction?: ContextualSaveBarCombinedActionProps;
-
-    /**
-     * Remove the normal max-width on the contextual save bar
-     */
-    @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
-
-    /**
-     * To open a contextual modal
-     */
-    @Prop({type: Boolean, default: false}) public openModal!: boolean;
-
-    /**
-     * ContextualSaveBar Logo
-     */
-    @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
-
-    public get contentsClassName() {
-      return classNames(
-        'Polaris-Frame-ContextualSaveBar__Contents',
-        this.fullWidth && 'Polaris-Frame-ContextualSaveBar--fullWidth',
-      );
-    }
-
-    public get discardActionContent() {
-      return this.discardAction && this.discardAction.content
-        ? this.discardAction.content
-        : 'Discard';
-    }
-
-    public get saveActionContent() {
-      return this.saveAction && this.saveAction.content
-        ? this.saveAction.content
-        : 'Save';
-    }
-
-    public get width() {
-      return {
-        width: getWidth(this.logo, 104),
-      };
-    }
-
-    public discardActionHandler() {
-      if (this.discardAction && this.discardAction.discardConfirmationModal) {
-        return (this.openModal = !this.openModal);
-      } else if (this.discardAction) {
-        return this.discardAction.onAction ? this.discardAction.onAction() : {};
-      }
-    }
+  export default {
+      name: 'PContextualSaveBar',
+      components: {
+          PButton, PImage, PStack, PStackItem, PModal,
+      },
+      props: {
+          /**
+           * Extend the contents section to be flush with the left edge
+           */
+          alignContentFlush: {
+              type: Boolean,
+              default: false,
+          },
+          /**
+           * Accepts a string of content that will be rendered to the left of the actions
+           */
+          message: {
+              type: String,
+              default: null,
+          },
+          /**
+           * Save or commit contextual save bar action with text defaulting to 'Save'
+           */
+            saveAction: {
+                type: Object,
+              default: () => ({}),
+                ...ObjectValidator('saveAction', ContextualSaveBarAction),
+          },
+          /**
+           * Discard or cancel contextual save bar action with text defaulting to 'Discard'
+           */
+          discardAction: {
+              type: Object,
+              default: () => ({}),
+              ...ObjectValidator('discardAction', ContextualSaveBarCombinedActionProps),
+          },
+          /**
+           * Remove the normal max-width on the contextual save bar
+           */
+          fullWidth: {
+              type: Boolean,
+              default: false,
+          },
+          /**
+           * To open a contextual modal
+           */
+          openModal: {
+              type: Boolean,
+              default: false,
+          },
+          /**
+           * ContextualSaveBar Logo
+           */
+          logo: {
+              type: Object,
+              default: () => ({}),
+              ...ObjectValidator('logo', ThemeLogo),
+          },
+      },
+      computed: {
+          contentsClassName() {
+              return classNames(
+                  'Polaris-Frame-ContextualSaveBar__Contents',
+                  this.fullWidth && 'Polaris-Frame-ContextualSaveBar--fullWidth',
+              );
+          },
+          discardActionContent() {
+              return this.discardAction && this.discardAction.content
+                  ? this.discardAction.content
+                  : 'Discard';
+          },
+          saveActionContent() {
+              return this.saveAction && this.saveAction.content
+                  ? this.saveAction.content
+                  : 'Save';
+          },
+          width() {
+              return {
+                  width: getWidth(this.logo, 104),
+              };
+          },
+      },
+      methods: {
+          discardActionHandler() {
+              if (this.discardAction && this.discardAction.discardConfirmationModal) {
+                  return (this.openModal = !this.openModal);
+              } else if (this.discardAction) {
+                  return this.discardAction.onAction ? this.discardAction.onAction() : {};
+              }
+          },
+      },
   }
 </script>
 
