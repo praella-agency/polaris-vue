@@ -26,7 +26,7 @@
         },
         props: {
             /**
-             * Error message
+             * Content briefly explaining how to resolve the invalid form field input
              */
             error: {
                 type: String,
