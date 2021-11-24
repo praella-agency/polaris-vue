@@ -1,5 +1,5 @@
 import { PModal } from './index.js';
-import { PFormLayout } from '../PFormLayout';
+import { PFormLayout } from '../PFormLayout/index.js';
 import { PTextField } from '../PTextField';
 import { PBanner } from '../PBanner';
 import { PButton } from '../PButton/index.js';

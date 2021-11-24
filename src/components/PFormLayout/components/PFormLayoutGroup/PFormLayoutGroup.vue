@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import { classNames } from '@/utilities/css';
-import { PFormLayoutItem } from '@/components/PFormLayout/components/PFormLayoutItem';
-import { PFormLayoutGroupItemWrapper } from '@/components/PFormLayout/components/PFormLayoutGroupItemWrapper';
+import { classNames } from '../../../../utilities/css';
+import { PFormLayoutItem } from '../../../../components/PFormLayout/components/PFormLayoutItem/index.js';
+import { PFormLayoutGroupItemWrapper } from '../../../../components/PFormLayout/components/PFormLayoutGroupItemWrapper/index.js';
 export default {
   name: 'PFormLayoutGroup',
   components: {

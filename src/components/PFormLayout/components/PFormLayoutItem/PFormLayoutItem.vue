@@ -1,13 +1,12 @@
 <template functional>
-  <div class="Polaris-FormLayout__Item">
-    <slot/>
-  </div>
+    <div class="Polaris-FormLayout__Item">
+        <slot/>
+    </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+<script>
 
-@Component
-export default class PFormLayoutItem extends Vue {
-}
+    export default {
+        name: 'PFormLayoutItem',
+    }
 </script>

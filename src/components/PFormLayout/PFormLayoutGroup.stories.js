@@ -1,5 +1,5 @@
-import { PFormLayout } from './index';
-import { PFormLayoutGroup } from './components/PFormLayoutGroup';
+import { PFormLayout } from './index.js';
+import { PFormLayoutGroup } from './components/PFormLayoutGroup/index.js';
 import { PTextField } from '../PTextField';
 
 export default {

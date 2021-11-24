@@ -3,7 +3,7 @@ import { PLayoutSection } from './components/PLayoutSection';
 import { PCard } from '../PCard';
 import { PBanner } from '../PBanner';
 import { PLayoutAnnotatedSection } from './components/PLayoutAnnotatedSection';
-import { PFormLayout } from '../PFormLayout';
+import { PFormLayout } from '../PFormLayout/index.js';
 import { PTextField } from '../PTextField';
 
 export default {

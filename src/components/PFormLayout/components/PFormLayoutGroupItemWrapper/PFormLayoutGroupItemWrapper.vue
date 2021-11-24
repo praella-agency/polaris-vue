@@ -1,12 +1,13 @@
-<script lang="tsx">
-    import { Component, Vue } from 'vue-property-decorator';
-    import { PFormLayoutItem } from '@/components/PFormLayout/components/PFormLayoutItem';
+<script>
+    import { PFormLayoutItem } from '../../../../components/PFormLayout/components/PFormLayoutItem/index.js';
     import ComponentHelpers from '../../../../ComponentHelpers';
 
-    @Component
-    export default class PFormLayoutGroupItemWrapper extends Vue {
-
-        public render(createElement: any) {
+    export default {
+        name: 'PFormLayoutGroupItemWrapper',
+        components: {
+            PFormLayoutItem,
+        },
+        render(createElement) {
             return createElement('div', {
                     class: 'Polaris-FormLayout__Items',
                 },
@@ -16,6 +17,6 @@
                     PFormLayoutItem,
                 ),
             );
-        }
+        },
     }
 </script>

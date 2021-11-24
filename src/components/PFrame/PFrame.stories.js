@@ -10,7 +10,7 @@ import { PTextContainer } from '../PTextContainer';
 import { PSkeletonDisplayText } from '../PSkeletonDisplayText';
 import { PSkeletonBodyText } from '../PSkeletonBodyText';
 import { PPage } from '../PPage';
-import { PFormLayout } from '../PFormLayout';
+import { PFormLayout } from '../PFormLayout/index.js';
 import { PTextField } from '../PTextField';
 import { PModal } from '../PModal/index.js';
 
