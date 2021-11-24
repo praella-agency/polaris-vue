@@ -3,12 +3,11 @@
         <div class="Polaris-InlineError__Icon">
             <PIcon source="AlertMinor"/>
         </div>
-        {{message}}
+        {{ message }}
     </div>
 </template>
 
-<script lang="ts">
-    import { Component, Vue, Prop } from 'vue-property-decorator';
+<script>
     import { PIcon } from '@/components/PIcon';
 
     /**
@@ -18,21 +17,26 @@
      *  or group of inputs in a form. Use inline errors to help merchants understand why a form input may not be valid
      *  and how to fix it.</h4>
      */
-    @Component({
+    export default {
+        name: 'PInlineError',
         components: {
             PIcon,
         },
-    })
-    export default class PInlineError extends Vue {
-
-        /**
-         * Unique identifier of the invalid form field that the message describes
-         */
-        @Prop({type: String, default: null}) public message!: string;
-
-        /**
-         * Content briefly explaining how to resolve the invalid form field input.
-         */
-        @Prop({type: [String, Number], default: null}) public fieldID!: string | number;
+        props: {
+            /**
+             * Unique identifier of the invalid form field that the message describes
+             */
+            message: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Content briefly explaining how to resolve the invalid form field input.
+             */
+            fieldID: {
+                type: [String, Number],
+                default: null,
+            },
+        },
     }
 </script>

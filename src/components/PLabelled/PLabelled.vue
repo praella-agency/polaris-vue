@@ -44,7 +44,7 @@ import { classNames } from '@/utilities/css';
 import { Action } from '@/types';
 import { PLabel } from '@/components/PLabel';
 import { PButton } from '@/components/PButton/index.js';
-import { PInlineError } from '@/components/PInlineError';
+import { PInlineError } from '@/components/PInlineError/index.js';
 
 @Component({
   components: {

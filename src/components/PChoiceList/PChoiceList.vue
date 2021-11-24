@@ -35,7 +35,7 @@
     import { classNames } from '../../utilities/css';
     import { PCheckbox } from '../../components/PCheckbox/index.js';
     import { PRadioButton } from '../../components/PRadioButton';
-    import { PInlineError } from '../../components/PInlineError';
+    import { PInlineError } from '../../components/PInlineError/index.js';
 
     /**
      * <br/>

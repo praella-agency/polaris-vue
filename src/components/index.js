@@ -43,7 +43,7 @@ import { PImage } from './PImage';
 import { PThumbnail } from './PThumbnail';
 import { PAvatar } from './PAvatar/index.js';
 import { PModal } from './PModal/index.js';
-import { PInlineError } from './PInlineError';
+import { PInlineError } from './PInlineError/index.js';
 import { PPagination } from './PPagination/index.js';
 import { PCaption } from './PCaption';
 import { PProgressBar } from './PProgressBar';
