@@ -137,7 +137,5 @@ export default {
       return { color, icon };
     }
   },
-  mounted() {
-  }
 }
 </script>
