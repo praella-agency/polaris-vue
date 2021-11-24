@@ -1,5 +1,5 @@
-import { PFrame } from './index';
-import { PTopBar } from '../PTopBar';
+import { PFrame } from './index.js';
+import { PTopBar } from '../PTopBar/index.js';
 import { PNavigation } from '../PNavigation';
 import { PSkeletonPage } from '../PSkeletonPage';
 import { PLayout } from '../PLayout';

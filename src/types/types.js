@@ -286,7 +286,7 @@ export const Key = {
 
 /*Message Component*/
 
-export const Status = ['success', 'info', 'attention', 'critical', 'warning', 'new'];
+export const Status = ['success', 'attention', 'info', 'critical', 'warning', 'new'];
 export const Progress = ['incomplete', 'partiallyComplete', 'complete'];
 export const Size = ['small', 'medium'];
 
@@ -314,7 +314,7 @@ export const MessageProps = {
         type: Object,
         properties: {
             to: {
-                type: [String, Object],
+                type: String,
                 required: true,
             },
             content: {

@@ -195,7 +195,7 @@
           return {
             focused: false,
             popoverActive: false,
-            searchFieldValue: Object.keys(this.searchField).length > 0 ? this.searchField.value : ''
+            searchFieldValue: Object.keys(this.searchField).length > 0 ? this.searchField.value : '',
           };
       },
       computed: {

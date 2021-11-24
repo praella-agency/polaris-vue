@@ -1,61 +1,70 @@
-interface ContextualSaveBarAction {
+const ContextualSaveBarAction = {
   /** A destination to link to */
-  url?: string;
+  url: String,
   /** Content the action displays */
-  content?: string;
+  content: String,
   /** Should a spinner be displayed */
-  loading?: boolean;
+  loading: Boolean,
   /** Should the action be disabled */
-  disabled?: boolean;
+  disabled: Boolean,
 
   /** Callback when an action takes place */
-  onAction?(): void;
-}
+  onAction: Function,
+};
 
-interface ContextualSaveBarDiscardActionProps {
+const ContextualSaveBarDiscardActionProps = {
   /** Whether to show a modal confirming the discard action */
-  discardConfirmationModal?: boolean;
-}
+  discardConfirmationModal: Boolean,
+};
 
-type ContextualSaveBarCombinedActionProps = ContextualSaveBarDiscardActionProps &
-  ContextualSaveBarAction;
-
-export interface ContextualSaveBarProps {
+export const ContextualSaveBarProps = {
   /** Active contextualSaveBar */
-  active?: boolean;
+  active: Boolean,
   /** Extend the contents section to be flush with the left edge  */
-  alignContentFlush?: boolean;
+  alignContentFlush: Boolean,
   /** Accepts a string of content that will be rendered to the left of the actions */
-  message?: string;
+  message: String,
   /** Save or commit contextual save bar action with text defaulting to 'Save' */
-  saveAction?: ContextualSaveBarAction;
+  saveAction: {
+    type: Object,
+    properties: ContextualSaveBarAction,
+  },
   /** Discard or cancel contextual save bar action with text defaulting to 'Discard' */
-  discardAction?: ContextualSaveBarCombinedActionProps;
+  discardAction: {
+    type: Array,
+    properties: {
+      ...ContextualSaveBarAction,
+      ...ContextualSaveBarDiscardActionProps,
+    }
+  },
   /** Remove the normal max-width on the contextual save bar */
-  fullWidth?: boolean;
-  /** Accepts a component that is used to help users switch between different contexts */
-  // contextControl?: React.ReactNode;
-}
+  fullWidth: Boolean,
+};
 
 // Toast
-export interface ToastProps {
+export const ToastProps = {
   /** The content that should appear in the toast message */
-  message: string;
+  message: {
+    type: String,
+    required: true,
+  },
   /**
    * The length of time in milliseconds the toast message should persist
    * @default 5000
    */
-  duration?: number;
+  duration: Number,
   /** Display an error toast. */
-  error?: boolean;
+  error: Boolean,
   /** Callback when the dismiss icon is clicked */
-  onDismiss?: void;
+  onDismiss: Function,
   /** Adds an action next to the message */
-  oncClick?: void;
-}
+  oncClick: Function,
+};
 
-export interface ToastID {
-  id: string;
-}
+export const ToastID = {
+  id: {
+    type: String,
+  },
+};
 
-export type ToastPropsWithID = ToastProps & ToastID;
+export const ToastPropsWithID = [ToastProps, ToastID];

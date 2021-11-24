@@ -14,26 +14,29 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
             isRequired = objectType.required || false;
             valueType = objectType.type || undefined;
 
-            switch (valueType.name) {
-                case 'Object': {
-                    if (objectType.properties) {
-                        result = ObjectPropertyValidator(name, object[objectKey], objectType.properties);
+            if (valueType.name) {
+                switch (valueType.name) {
+                    case 'Object': {
+                        if (objectType.properties) {
+                            result = ObjectPropertyValidator(name, object[`${objectKey}`], objectType.properties);
+                        }
+                        break;
                     }
-                    break;
-                }
-                case 'Array': {
-                    if (objectType.properties) {
-                        result = ArrayValidator(name, object[objectKey], objectType.properties);
+                    case 'Array': {
+                        if (objectType.properties) {
+                            result = ArrayValidator(name, object[`${objectKey}`], objectType.properties);
+                        }
+                        break;
                     }
-                    break;
-                }
-                case 'String': {
-                    if (objectType.expectedValues) {
-                        result = StringValidator(name, object[objectKey], objectType.expectedValues);
+                    case 'String': {
+                        if (objectType.expectedValues) {
+                            result = StringValidator(name, object[`${objectKey}`], objectType.expectedValues);
+                        }
+                        break;
                     }
-                    break;
                 }
             }
+            continue;
         }
 
         if(isRequired && !object.hasOwnProperty(objectKey)) {

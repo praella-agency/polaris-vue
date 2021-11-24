@@ -1,3 +1,4 @@
+import { PFrame } from '../PFrame/index.js';
 import { PTopBar } from './index.js';
 import { PSearchField } from './components/PSearchField/index.js';
 import { PUserMenu } from './components/PUserMenu/index.js';
@@ -5,7 +6,6 @@ import { PMenu } from './components/PMenu/index.js';
 import { PIcon } from '../PIcon';
 import { PActionList } from '../PActionList/index.js';
 import { PVisuallyHidden } from '../PVisuallyHidden';
-import { PFrame } from '../PFrame';
 
 export default {
     title: 'Structure / Top Bar',
@@ -271,14 +271,14 @@ const Template = (args, {argTypes}) => ({
                         items: [
                             {
                                 content: 'Back to Shopify',
-                                icon: 'ArrowLeftMinor'
+                                icon: 'ArrowLeftMinor',
                             }
                         ],
                     },
                     {
                         items: [
                             {
-                                content: 'Community forums'
+                                content: 'Community forums',
                             }
                         ],
                     }

@@ -48,6 +48,8 @@
 </template>
 
 <script>
+    import { PFrame } from '../../components/PFrame/index.js';
+    import { PTopBar } from '../../components/PTopBar/index.js';
     import { PDisplayText } from '../../components/PDisplayText';
     import { PLayout } from '../../components/PLayout';
     import { PStack } from '../../components/PStack';
@@ -62,8 +64,6 @@
     import { PTextContainer } from '../../components/PTextContainer';
     import { PCollapsible } from '../../components/PCollapsible';
     import { PButton } from '../../components/PButton/index.js';
-    import { PFrame } from '../../components/PFrame';
-    import { PTopBar } from '../../components/PTopBar/index.js';
     import dayjs from 'dayjs';
     import showdown from 'showdown';
 

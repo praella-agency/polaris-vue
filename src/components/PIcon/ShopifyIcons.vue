@@ -67,13 +67,13 @@
 </template>
 
 <script>
+import { PFrame } from '../PFrame/index.js';
+import { PTopBar } from '../PTopBar/index.js';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
-import { PTopBar } from '../PTopBar/index.js';
-import { PFrame } from '../PFrame';
 import { PHeading } from '../PHeading';
 import { PIcon } from '../PIcon';
-import * as AllIcon from '@/assets/shopify-polaris-icons/index';
+import * as AllIcon from '../../assets/shopify-polaris-icons/index';
 import { DeprecatedIcons } from './index';
 
 export default {

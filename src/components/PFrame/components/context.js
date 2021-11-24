@@ -1,13 +1,9 @@
-export function getWidth(
-  value: { [key: string]: any } | number | null | undefined = {},
-  defaultWidth: number | null = 0,
-  key = 'width',
-) {
+export function getWidth(value = {}, defaultWidth = 0, key = 'width') {
   const width = typeof value === 'number' ? value : pluckDeep(value, key);
   return width ? `${width}px` : `${defaultWidth}px`;
 }
 
-export function pluckDeep(obj: { [key: string]: any } | null, key: string): any {
+export function pluckDeep(obj, key) {
   if (!obj) {
     return null;
   }
@@ -29,7 +25,7 @@ export function pluckDeep(obj: { [key: string]: any } | null, key: string): any 
   return null;
 }
 
-export function isObject(value: any) {
+export function isObject(value) {
   const type = typeof value;
   return value != null && (type === 'object' || type === 'function');
 }

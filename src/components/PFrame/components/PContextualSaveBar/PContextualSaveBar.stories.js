@@ -1,5 +1,5 @@
+import { PFrame } from '../../../PFrame/index.js';
 import { PContextualSaveBar } from './index.js';
-import { PFrame } from '../../../PFrame';
 
 export default {
     title: 'Forms / Contextual Save Bar',

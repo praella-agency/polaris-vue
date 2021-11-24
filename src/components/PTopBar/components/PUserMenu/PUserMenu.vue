@@ -89,7 +89,7 @@
           actions: {
               type: Array,
               default: () => ([]),
-              ...ArrayValidator('actions', Actions),
+              // ...ArrayValidator('actions', Actions),
           },
           /**
            * Accepts a message that facilitates direct, urgent communication with the merchant through the user menu

@@ -117,224 +117,220 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Component, Prop, Ref } from 'vue-property-decorator';
-import { classNames } from '@/utilities/css';
+<script>
+import { classNames } from '../../../../utilities/css';
 import { ContextualSaveBarProps, ToastProps } from '../../context';
-import { ThemeLogo } from '@/types/logo.js';
-import { PContextualSaveBar } from '@/components/PFrame/components/PContextualSaveBar/index.js';
-import { PEventListener } from '@/components/PEventListener';
-import { PIcon } from '@/components/PIcon';
-import { PBackdrop } from '@/components/PBackdrop';
-import { PTopBar } from '@/components/PTopBar/index.js';
-import { PNavigation } from '@/components/PNavigation';
+import { ThemeLogo } from '../../../../types/logo.js';
+import { PContextualSaveBar } from '../../../../components/PFrame/components/PContextualSaveBar/index.js';
+import { PEventListener } from '../../../../components/PEventListener';
+import { PIcon } from '../../../../components/PIcon';
+import { PBackdrop } from '../../../../components/PBackdrop';
+import PTopBar from '../../../../components/PTopBar/PTopBar.vue';
+import { PNavigation } from '../../../../components/PNavigation';
+import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
-interface State {
-  skipFocused?: boolean;
-  globalRibbonHeight: number;
-  loadingStack: number;
-  toastMessages: ToastProps[];
-  showContextualSaveBar: boolean;
+const State = {
+  skipFocused: Boolean, //not required
+  globalRibbonHeight: Number,
+  loadingStack: Number,
+  toastMessages: [ToastProps],
+  showContextualSaveBar: Boolean,
 }
 
-@Component({
-  components: {
-    PContextualSaveBar, PEventListener, PIcon, PBackdrop, PTopBar, PNavigation,
-  },
-})
-export default class PFrameInner extends Vue {
-  @Prop({type: Boolean, default: false}) public showMobileNavigation!: boolean;
+export default {
+    name: 'PFrameInner',
+    components: {
+        PContextualSaveBar, PEventListener, PIcon, PBackdrop, PTopBar, PNavigation,
+    },
+    props: {
+        showMobileNavigation: {
+            type: Boolean,
+            default: false,
+        },
+        onNavigationDismiss: {
+            type: Function,
+        },
+        contextualSaveBar: {
+            type: Object,
+            default: () => ({}),
+            // ...ObjectValidator('contextualSaveBar', ContextualSaveBarProps),
+        },
+        toggleContextualSaveBar: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * ContextualSaveBar Logo
+         */
+        logo: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('logo', ThemeLogo),
+        },
+        /**
+         * TopBar props
+         */
+        topBar: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Navigation props
+         */
+        navigation: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Frame offset value
+         */
+        frameOffset: {
+            type: String,
+            default: '0px',
+        },
+    },
+    data() {
+        return {
+            APP_FRAME_MAIN: 'AppFrameMain',
+            APP_FRAME_NAV: 'AppFrameNav',
+            APP_FRAME_TOP_BAR: 'AppFrameTopBar',
+            toggleMobileNavigation: this.showMobileNavigation,
+            mobileNavHidden: this.useMediaQuery() && !this.toggleMobileNavigation,
+            mobileNavShowing: this.useMediaQuery() && this.toggleMobileNavigation,
+            state: {
+                skipFocused: false,
+                globalRibbonHeight: 0,
+                loadingStack: 0,
+                toastMessages: [],
+                showContextualSaveBar: false,
+            },
+            globalRibbonContainer: HTMLDivElement,
+        };
+    },
+    computed: {
+        className() {
+            return classNames(
+                'Polaris-Frame',
+                (this.$slots.hasOwnProperty('navigation') || Object.keys(this.navigation).length > 0)
+                && 'Polaris-Frame--hasNav',
+                (this.$slots.hasOwnProperty('topBar') || Object.keys(this.topBar).length > 0) && 'Polaris-Frame--hasTopBar',
+            );
+        },
+        contextualSaveBarClassName() {
+            return classNames(
+                'Polaris-Frame__ContextualSaveBar Polaris-Frame-CSSAnimation--startFade',
+                this.contextualSaveBar.active && ' Polaris-Frame-CSSAnimation--endFade',
+            );
+        },
+        skipClassName() {
+            return classNames(
+                'Polaris-Frame__Skip',
+                this.state.skipFocused && 'Polaris-Frame--focused',
+            );
+        },
+        navClassName() {
+            return classNames(
+                this.toggleMobileNavigation && 'Polaris-Frame__Navigation--visible',
+            );
+        },
+        ariaModal() {
+            if (this.toggleMobileNavigation) {
+                return true;
+            }
+        },
+        role() {
+            if (this.toggleMobileNavigation) {
+                return 'dialog';
+            }
+        },
+    },
+    methods: {
+        setGlobalRibbonContainer(node) {
+            this.globalRibbonContainer = node;
+        },
+        handleResize() {
+            if (this.$slots.hasOwnProperty('globalRibbon')) {
+                this.setGlobalRibbonHeight();
+            }
+        },
+        setGlobalRibbonRootProperty() {
+            const {globalRibbonHeight} = this.state;
+            this.setRootProperty(
+                '--global-ribbon-height',
+                `${globalRibbonHeight}px`,
+                null,
+            );
+        },
+        setGlobalRibbonHeight() {
+            const {globalRibbonContainer} = this;
+            if (globalRibbonContainer) {
+                this.state.globalRibbonHeight = globalRibbonContainer.offsetHeight;
+                this.setGlobalRibbonRootProperty();
+            }
+        },
+        setRootProperty(name, value, node) {
+            if (document == null) {
+                return;
+            }
 
-  @Prop({type: Function}) public onNavigationDismiss!: any;
-
-  @Prop({type: Object, default: () => ({})}) public contextualSaveBar!: ContextualSaveBarProps;
-
-  @Prop({type: Boolean, default: false}) public toggleContextualSaveBar!: boolean;
-
-  /**
-   * ContextualSaveBar Logo
-   */
-  @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
-
-  /**
-   * TopBar props
-   */
-  @Prop({type: Object, default: () => ({})}) public topBar!: object;
-
-  /**
-   * Navigation props
-   */
-  @Prop({type: Object, default: () => ({})}) public navigation!: object;
-
-  /**
-   * Frame offset value
-   */
-  @Prop({type: String, default: '0px'}) public frameOffset!: string;
-
-  public APP_FRAME_MAIN = 'AppFrameMain';
-  public APP_FRAME_NAV = 'AppFrameNav';
-  public APP_FRAME_TOP_BAR = 'AppFrameTopBar';
-
-  public toggleMobileNavigation = this.showMobileNavigation;
-  public mobileNavHidden = this.useMediaQuery() && !this.toggleMobileNavigation;
-  public mobileNavShowing = this.useMediaQuery() && this.toggleMobileNavigation;
-
-  public state: State = {
-    skipFocused: false,
-    globalRibbonHeight: 0,
-    loadingStack: 0,
-    toastMessages: [],
-    showContextualSaveBar: false,
-  };
-
-  private globalRibbonContainer: HTMLDivElement | null = null;
-  @Ref() private navigationNode!: HTMLDivElement;
-
-  public mounted() {
-    document.getElementById('PFrame')!.style.setProperty('--p-frame-offset', this.frameOffset);
-    this.handleResize();
-    if (this.$slots.hasOwnProperty('globalRibbon')) {
-      return;
-    }
-    this.setGlobalRibbonRootProperty();
-  }
-
-  public updated() {
-    this.setGlobalRibbonHeight();
-  }
-
-  public created() {
-    window.addEventListener('resize', this.useMediaQuery);
-    this.useMediaQuery();
-  }
-
-  public destroyed() {
-    window.removeEventListener('resize', this.useMediaQuery);
-  }
-
-  public get className() {
-    return classNames(
-        'Polaris-Frame',
-        (this.$slots.hasOwnProperty('navigation') || Object.keys(this.navigation).length > 0)
-        && 'Polaris-Frame--hasNav',
-        (this.$slots.hasOwnProperty('topBar') || Object.keys(this.topBar).length > 0) && 'Polaris-Frame--hasTopBar',
-    );
-  }
-
-  public get contextualSaveBarClassName() {
-    return classNames(
-        'Polaris-Frame__ContextualSaveBar Polaris-Frame-CSSAnimation--startFade',
-        this.contextualSaveBar.active && ' Polaris-Frame-CSSAnimation--endFade',
-    );
-  }
-
-  public get skipClassName() {
-    return classNames(
-        'Polaris-Frame__Skip',
-        this.state.skipFocused && 'Polaris-Frame--focused',
-    );
-  }
-
-  public get navClassName() {
-    return classNames(
-        this.toggleMobileNavigation && 'Polaris-Frame__Navigation--visible',
-    );
-  }
-
-  public get ariaModal() {
-    if (this.toggleMobileNavigation) {
-      return true;
-    }
-  }
-
-  public get role() {
-    if (this.toggleMobileNavigation) {
-      return 'dialog';
-    }
-  }
-
-  public setGlobalRibbonContainer = (node: HTMLDivElement) => {
-    this.globalRibbonContainer = node;
-  }
-
-  public handleResize() {
-    if (this.$slots.hasOwnProperty('globalRibbon')) {
-      this.setGlobalRibbonHeight();
-    }
-  }
-
-  public setGlobalRibbonRootProperty() {
-    const {globalRibbonHeight} = this.state;
-    this.setRootProperty(
-        '--global-ribbon-height',
-        `${globalRibbonHeight}px`,
-        null,
-    );
-  }
-
-  public setGlobalRibbonHeight() {
-    const {globalRibbonContainer} = this;
-    if (globalRibbonContainer) {
-      this.state.globalRibbonHeight = globalRibbonContainer.offsetHeight;
-      this.setGlobalRibbonRootProperty();
-    }
-  }
-
-  public setRootProperty(
-      name: string,
-      value: string,
-      node: Element | null,
-  ) {
-    if (document == null) {
-      return;
-    }
-
-    const styleNode = node && node instanceof HTMLElement ? node : document.documentElement;
-    /* tslint:disable-next-line */
-    styleNode && styleNode.style.setProperty(name, value);
-  }
-
-  public useMediaQuery() {
-    if (window.innerWidth <= 768) {
-      this.toggleMobileNavigation = true;
-      return true;
-    }
-    this.toggleMobileNavigation = false;
-    return false;
-  }
-
-  public handleNavKeydown(event: KeyboardEvent) {
-    const {key} = event;
-    const mobileNavShowing = this.useMediaQuery() && this.toggleMobileNavigation;
-    if (mobileNavShowing && key === 'Escape') {
-      this.handleNavigationDismiss();
-    }
-  }
-
-  public handleNavigationDismiss() {
-    if (this.onNavigationDismiss) {
-      return this.onNavigationDismiss();
-    }
-  }
-
-  public enter(el, done) {
-    done();
-  }
-
-  private handleFocus() {
-    this.state.skipFocused = true;
-  }
-
-  private handleBlur() {
-    this.state.skipFocused = false;
-  }
-
-  private handleClick(event: MouseEvent) {
-    if (this.$refs.skipToContentTarget) {
-      (this.$refs.skipToContentTarget as HTMLInputElement).focus();
-      event.preventDefault();
-    }
-  }
+            const styleNode = node && node instanceof HTMLElement ? node : document.documentElement;
+            /* tslint:disable-next-line */
+            styleNode && styleNode.style.setProperty(name, value);
+        },
+        useMediaQuery() {
+            if (window.innerWidth <= 768) {
+                this.toggleMobileNavigation = true;
+                return true;
+            }
+            this.toggleMobileNavigation = false;
+            return false;
+        },
+        handleNavKeydown(event) {
+            const {key} = event;
+            const mobileNavShowing = this.useMediaQuery() && this.toggleMobileNavigation;
+            if (mobileNavShowing && key === 'Escape') {
+                this.handleNavigationDismiss();
+            }
+        },
+        handleNavigationDismiss() {
+            if (this.onNavigationDismiss) {
+                return this.onNavigationDismiss();
+            }
+        },
+        handleFocus() {
+            this.state.skipFocused = true;
+        },
+        handleBlur() {
+            this.state.skipFocused = false;
+        },
+        handleClick(event) {
+            if (this.$refs.skipToContentTarget) {
+                (this.$refs.skipToContentTarget).focus();
+                event.preventDefault();
+            }
+        },
+        enter(el, done) {
+            done();
+        },
+    },
+    mounted() {
+        document.getElementById('PFrame').style.setProperty('--p-frame-offset', this.frameOffset);
+        this.handleResize();
+        if (this.$slots.hasOwnProperty('globalRibbon')) {
+            return;
+        }
+        this.setGlobalRibbonRootProperty();
+    },
+    created() {
+        window.addEventListener('resize', this.useMediaQuery);
+        this.useMediaQuery();
+    },
+    updated() {
+        this.setGlobalRibbonHeight();
+    },
+    destroyed() {
+        window.removeEventListener('resize', this.useMediaQuery);
+    },
 }
 </script>
 

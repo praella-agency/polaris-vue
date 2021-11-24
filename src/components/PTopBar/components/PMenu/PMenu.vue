@@ -70,7 +70,7 @@
             actions: {
                 type: Array,
                 default: () => ([]),
-                ...ArrayValidator('actions', [...ActionListSection]),
+                // ...ArrayValidator('actions', [ActionListSection]),
             },
             /**
              * Accepts a message that facilitates direct, urgent communication with the merchant through the menu

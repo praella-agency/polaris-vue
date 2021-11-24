@@ -97,9 +97,6 @@
     discardConfirmationModal: Boolean,
   }
 
-  const ContextualSaveBarCombinedActionProps = ContextualSaveBarDiscardActionProps &
-    ContextualSaveBarAction;
-
   /**
    * <br/>
    * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -141,7 +138,10 @@
           discardAction: {
               type: Object,
               default: () => ({}),
-              ...ObjectValidator('discardAction', ContextualSaveBarCombinedActionProps),
+              ...ObjectValidator('discardAction', {
+                  ...ContextualSaveBarDiscardActionProps,
+                  ...ContextualSaveBarAction
+              }),
           },
           /**
            * Remove the normal max-width on the contextual save bar
