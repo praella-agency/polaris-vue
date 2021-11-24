@@ -59,7 +59,7 @@ import { PBreadcrumbs } from './PBreadcrumbs';
 import { PActionMenu } from './PActionMenu';
 import { PPageActions } from './PPageActions';
 import { PMultiSelect } from './PMultiSelect';
-import { PDatePicker } from './PDatePicker';
+import { PDatePicker } from './PDatePicker/index.js';
 import { PMediaCard } from './PMediaCard';
 import { PChart } from './PChart/index.js';
 import { PEmptyState } from './PEmptyState';

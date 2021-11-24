@@ -1,4 +1,4 @@
-import { PDatePicker } from './index';
+import { PDatePicker } from './index.js';
 
 export default {
     title: 'Forms / Date Picker',
