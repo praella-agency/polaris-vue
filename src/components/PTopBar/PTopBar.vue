@@ -87,64 +87,25 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { Component, Vue, Prop } from 'vue-property-decorator';
-  import { classNames } from '@/utilities/css';
-  import { ThemeLogo, getWidth } from '@/types/logo.js';
-  import { PIcon } from '@/components/PIcon';
-  import { PButton } from '@/components/PButton/index.js';
-  import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';
-  import { PImage } from '@/components/PImage';
-  import { PTextField } from '@/components/PTextField';
-  import { PActionList } from '@/components/PActionList/index.js';
-  import { PPopover } from '@/components/PPopover/index.js';
-  import { POptionList } from '@/components/POptionList';
-  import { PAvatar } from '@/components/PAvatar/index.js';
-  import { PSearch } from '@/components/PTopBar/components/PSearch';
-  import { PUserMenu } from '@/components/PTopBar/components/PUserMenu';
-  import { PMenu } from '@/components/PTopBar/components/PMenu';
-  import { PVisuallyHidden } from '@/components/PVisuallyHidden';
-  import { PSearchField } from '@/components/PTopBar/components/PSearchField';
-
-  interface UserMenu {
-    id: string;
-    actions?: [];
-    message?: object;
-    name?: string;
-    detail?: string;
-    accessibilityLabel?: string;
-    initials?: string;
-    avatar?: string;
-    open: boolean;
-
-    onToggle(): void;
-  }
-
-  interface SecondaryMenu {
-    id: string;
-    actions?: [];
-    message?: object;
-    open: boolean;
-    icon: string;
-    accessibilityLabel?: string;
-
-    onOpen(): void;
-
-    onClose(): void;
-  }
-
-  interface SearchField {
-    value?: string;
-    placeholder?: object;
-    showFocusBorder?: boolean;
-    active?: boolean;
-    focused?: boolean;
-  }
-
-  interface SearchResult {
-    items?: [];
-    sections?: [];
-  }
+<script>
+  import { classNames } from '../../utilities/css';
+  import { ThemeLogo, getWidth } from '../../types/logo.js';
+  import { PIcon } from '../../components/PIcon';
+  import { PButton } from '../../components/PButton/index.js';
+  import { PUnstyledLink } from '../../components/PUnstyledLink/index.js';
+  import { PImage } from '../../components/PImage';
+  import { PTextField } from '../../components/PTextField';
+  import { PActionList } from '../../components/PActionList/index.js';
+  import { PPopover } from '../../components/PPopover/index.js';
+  import { POptionList } from '../../components/POptionList';
+  import { PAvatar } from '../../components/PAvatar/index.js';
+  import { PSearch } from '../../components/PTopBar/components/PSearch/index.js';
+  import { PUserMenu } from '../../components/PTopBar/components/PUserMenu/index.js';
+  import { PMenu } from '../../components/PTopBar/components/PMenu/index.js';
+  import { PVisuallyHidden } from '../../components/PVisuallyHidden';
+  import { PSearchField } from '../../components/PTopBar/components/PSearchField/index.js';
+  import { UserMenu, SecondaryMenu, SearchField, SearchResult } from './utilities';
+  import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
   /**
    * <br/>
@@ -152,101 +113,126 @@
    *  sans-serif;">The collapsible component is used to put long sections of information under a block that merchants
    *  can expand or collapse.</h4>
    */
-  @Component({
-    components: {
-      PSearch, PIcon, PButton, PUnstyledLink, PImage, PTextField, PPopover, POptionList, PAvatar, PUserMenu, PMenu,
-      PVisuallyHidden, PSearchField, PActionList,
-    },
-  })
-  export default class PTopBar extends Vue {
-    public focused = false;
-    public popoverActive = false;
-
-    /**
-     * Toggles whether or not a navigation component has been provided. Controls the presence of the mobile nav
-     * toggle button
-     */
-    @Prop({type: Boolean}) public showNavigationToggle!: boolean;
-
-    /**
-     * A boolean property indicating whether search results are currently visible
-     */
-    @Prop({type: Boolean, default: true}) public searchResultsVisible!: boolean;
-
-    /**
-     * A callback function that handles hiding and showing mobile navigation
-     */
-    @Prop({type: Function, default: null}) public onNavigationToggle!: void;
-
-    /**
-     * Whether or not the search results overlay has a visible backdrop
-     */
-    @Prop({type: Boolean, default: false}) public searchResultsOverlayVisible!: void;
-
-    /**
-     * Customize logo
-     */
-    @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
-
-    /**
-     * Accepts a user component that is made available as a static member of the top bar component and renders as
-     * the primary menu
-     */
-    @Prop({type: Object, default: () => ({})}) public userMenu!: UserMenu;
-
-    /**
-     * Accepts a menu component that is made available as a static member of the top bar component
-     */
-    @Prop({type: Object, default: () => ({})}) public secondaryMenu!: SecondaryMenu;
-
-    /**
-     * Accepts a search field component that is made available as a `TextField` static member of the top bar component
-     */
-    @Prop({type: Object, default: () => ({})}) public searchField!: SearchField;
-
-    /**
-     * Accepts a search results component that is ideally composed of a card component containing a list of actionable
-     * search results
-     */
-    @Prop({type: Object, default: () => ({})}) public searchResult!: SearchResult;
-
-    public searchFieldValue = Object.keys(this.searchField).length > 0 ? this.searchField.value : '';
-
-    public get className() {
-      return classNames(
-        'Polaris-TopBar__LogoContainer',
-        /* tslint:disable-next-line */
-        (this.showNavigationToggle || this.$slots['searchField'] || this.$scopedSlots['searchField']) ?
-          'Polaris-TopBar__LogoDisplayControl' :
-          'Polaris-TopBar__LogoDisplayContainer',
-      );
-    }
-
-    public get iconClassName() {
-      return classNames(
-        'Polaris-TopBar__NavigationIcon',
-        this.focused && 'Polaris-TopBar__NavigationIcon Polaris-TopBar--focused',
-      );
-    }
-
-    public get width() {
-      return {
-        width: getWidth(this.logo, 104),
-      };
-    }
-
-    public handleSearchFieldChange(value) {
-        /**
-         * A callback function that handles the search field value
-         */
-        this.$emit('searchFieldChange', value);
-    }
-
-    public handleSearchResultsDismiss() {
-        /**
-         * A callback function that handles the dismissal of search results
-         */
-        this.$emit('searchResultsDismiss');
-    }
+  export default {
+      name: 'PTopBar',
+      components: {
+          PSearch, PIcon, PButton, PUnstyledLink, PImage, PTextField, PPopover, POptionList, PAvatar, PUserMenu, PMenu,
+          PVisuallyHidden, PSearchField, PActionList,
+      },
+      props: {
+          /**
+           * Toggles whether or not a navigation component has been provided. Controls the presence of the mobile nav
+           * toggle button
+           */
+            showNavigationToggle: {
+                type: Boolean,
+          },
+          /**
+           * A boolean property indicating whether search results are currently visible
+           */
+          searchResultsVisible: {
+              type: Boolean,
+              default: true,
+          },
+          /**
+           * A callback function that handles hiding and showing mobile navigation
+           */
+          onNavigationToggle: {
+              type: Function,
+              default: null,
+          },
+          /**
+           * Whether or not the search results overlay has a visible backdrop
+           */
+          searchResultsOverlayVisible: {
+              type: Boolean,
+              default: false,
+          },
+          /**
+           * Customize logo
+           */
+          logo: {
+              type: Object,
+              default: () => ({}),
+              ...ObjectValidator('logo', ThemeLogo),
+          },
+          /**
+           * Accepts a user component that is made available as a static member of the top bar component and renders as
+           * the primary menu
+           */
+          userMenu: {
+              type: Object,
+              default: () => ({}),
+              ...ObjectValidator('userMenu', UserMenu),
+          },
+          /**
+           * Accepts a menu component that is made available as a static member of the top bar component
+           */
+          secondaryMenu: {
+              type: Object,
+              default: () => ({}),
+              ...ObjectValidator('secondaryMenu', SecondaryMenu),
+          },
+          /**
+           * Accepts a search field component that is made available as a `TextField` static member of the top bar component
+           */
+          searchField: {
+              type: Object,
+              default: () => ({}),
+              ...ObjectValidator('searchField', SearchField),
+          },
+          /**
+           * Accepts a search results component that is ideally composed of a card component containing a list of actionable
+           * search results
+           */
+          searchResult: {
+              type: Object,
+              default: () => ({}),
+              ...ObjectValidator('searchResult', SearchResult),
+          },
+      },
+      data() {
+          return {
+            focused: false,
+            popoverActive: false,
+            searchFieldValue: Object.keys(this.searchField).length > 0 ? this.searchField.value : ''
+          };
+      },
+      computed: {
+          className() {
+              return classNames(
+                  'Polaris-TopBar__LogoContainer',
+                  /* tslint:disable-next-line */
+                  (this.showNavigationToggle || this.$slots['searchField'] || this.$scopedSlots['searchField']) ?
+                      'Polaris-TopBar__LogoDisplayControl' :
+                      'Polaris-TopBar__LogoDisplayContainer',
+              );
+          },
+          iconClassName() {
+              return classNames(
+                  'Polaris-TopBar__NavigationIcon',
+                  this.focused && 'Polaris-TopBar__NavigationIcon Polaris-TopBar--focused',
+              );
+          },
+          width() {
+              return {
+                  width: getWidth(this.logo, 104),
+              };
+          },
+      },
+      methods: {
+          handleSearchFieldChange(value) {
+              /**
+               * A callback function that handles the search field value
+               */
+              this.$emit('searchFieldChange', value);
+          },
+          handleSearchResultsDismiss() {
+              /**
+               * A callback function that handles the dismissal of search results
+               */
+              this.$emit('searchResultsDismiss');
+          },
+      },
   }
 </script>

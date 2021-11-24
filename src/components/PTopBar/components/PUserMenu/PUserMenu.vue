@@ -24,97 +24,135 @@
   </PMenu>
 </template>
 
-<script lang="ts">
-  import { Component, Vue, Prop } from 'vue-property-decorator';
-  import { PIcon } from '@/components/PIcon';
-  import { PMenu } from '@/components/PTopBar/components/PMenu/';
-  import { PMessageIndicator } from '@/components/PMessageIndicator';
-  import { PAvatar } from '@/components/PAvatar/index.js';
-  import { MessageProps } from '@/types';
+<script>
+  import { PIcon } from '../../../../components/PIcon';
+  import { PMenu } from '../../../../components/PTopBar/components/PMenu/index.js';
+  import { PMessageIndicator } from '../../../../components/PMessageIndicator';
+  import { PAvatar } from '../../../../components/PAvatar/index.js';
+  import { MessageProps } from '../../../../types/types.js';
+  import ArrayValidator from '../../../../utilities/validators/ArrayValidator';
+  import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
-  type IconSource = 'placeholder' | string;
+  const IconSource = ['placeholder', String];
 
-  export interface Action {
+  export const Action = {
     /** Source of the icon */
-    icon?: IconSource;
+    icon: {
+        type: String,
+        expectedValues: IconSource,
+    },
     /** A unique identifier for the action */
-    id?: string;
+    id: String,
     /** Content the action displays */
-    content?: string;
+    content: String,
     /** Visually hidden text for screen readers */
-    accessibilityLabel?: string;
+    accessibilityLabel: String,
     /** A destination to link to, rendered in the action */
-    url?: string;
+    url: String,
     /** Forces url to open in a new tab */
-    external?: boolean;
+    external: Boolean,
 
     /** Callback when an action takes place */
-    onAction?(): void;
+    onAction: Function,
 
     /** Callback when mouse enter */
-    onMouseEnter?(): void;
+    onMouseEnter: Function,
 
     /** Callback when element is touched */
-    onTouchStart?(): void;
+    onTouchStart: Function,
   }
 
-  @Component({
-    components: {
-      PIcon, PMenu, PMessageIndicator, PAvatar,
-    },
-  })
-  export default class PUserMenu extends Vue {
-    /**
-     * Id for the UserMenu
-     */
-    @Prop({type: String, required: true}) public id!: string;
+  const Actions = {
+      items: {
+          type: Array,
+          properties: {...Action},
+      }
+  };
 
-    /**
-     * An array of action objects that are rendered inside of a popover triggered by this menu
-     */
-    /* tslint:disable-next-line */
-    @Prop({type: Array, default: () => ([])}) public actions!: { items: Action[] }[];
-
-    /**
-     * Accepts a message that facilitates direct, urgent communication with the merchant through the user menu
-     */
-    @Prop({type: Object, default: () => ({})}) public message!: MessageProps;
-
-    /**
-     * A string detailing the merchant’s full name to be displayed in the user menu \
-     */
-    @Prop({type: String, default: null}) public name!: string;
-
-    /**
-     * A string allowing further detail on the merchant’s name displayed in the user menu
-     */
-    @Prop({type: String, default: null}) public detail!: string;
-
-    /**
-     * A string that provides the accessibility labeling
-     */
-    @Prop({type: String, default: null}) public accessibilityLabel!: string;
-
-    /**
-     * The merchant’s initials, rendered in place of an avatar image when not provided
-     */
-    @Prop({type: String, default: null}) public initials!: string;
-
-    /**
-     * An avatar image representing the merchant
-     */
-    @Prop({type: String, default: null}) public avatar!: string;
-
-    /**
-     * A boolean property indicating whether the user menu is currently open
-     */
-    @Prop({type: Boolean, required: true, default: false}) public open!: boolean;
-
-    /**
-     * A callback function to handle opening and closing the user menu
-     */
-    @Prop({type: Function}) public onToggle!: void;
-
-    public showIndicator = Boolean(Object.keys(this.message).length > 0);
+  export default {
+      name: 'PUserMenu',
+      components: {
+          PIcon, PMenu, PMessageIndicator, PAvatar,
+      },
+      props: {
+          /**
+           * Id for the UserMenu
+           */
+          id: {
+              type: String,
+              required: true,
+          },
+          /**
+           * An array of action objects that are rendered inside of a popover triggered by this menu
+           */
+          /* tslint:disable-next-line */
+          actions: {
+              type: Array,
+              default: () => ([]),
+              ...ArrayValidator('actions', Actions),
+          },
+          /**
+           * Accepts a message that facilitates direct, urgent communication with the merchant through the user menu
+           */
+          message: {
+              type: Object,
+              default: () => ({}),
+              ...ObjectValidator('message', MessageProps),
+          },
+          /**
+           * A string detailing the merchant’s full name to be displayed in the user menu \
+           */
+          name: {
+              type: String,
+              default: null,
+          },
+          /**
+           * A string allowing further detail on the merchant’s name displayed in the user menu
+           */
+          detail: {
+              type: String,
+              default: null,
+          },
+          /**
+           * A string that provides the accessibility labeling
+           */
+          accessibilityLabel: {
+              type: String,
+              default: null,
+          },
+          /**
+           * The merchant’s initials, rendered in place of an avatar image when not provided
+           */
+          initials: {
+              type: String,
+              default: null,
+          },
+          /**
+           * An avatar image representing the merchant
+          */
+          avatar: {
+              type: String,
+              default: null,
+          },
+          /**
+           * A boolean property indicating whether the user menu is currently open
+           */
+          open: {
+              type: Boolean,
+              default: false,
+              required: true,
+          },
+          /**
+           * A callback function to handle opening and closing the user menu
+           */
+          onToggle: {
+              type: Function,
+          },
+      },
+      data() {
+          return {
+              showIndicator: Boolean(Object.keys(this.message).length > 0),
+          };
+      },
   }
 </script>

@@ -63,7 +63,7 @@
     import { PCollapsible } from '../../components/PCollapsible';
     import { PButton } from '../../components/PButton/index.js';
     import { PFrame } from '../../components/PFrame';
-    import { PTopBar } from '../../components/PTopBar';
+    import { PTopBar } from '../../components/PTopBar/index.js';
     import dayjs from 'dayjs';
     import showdown from 'showdown';
 

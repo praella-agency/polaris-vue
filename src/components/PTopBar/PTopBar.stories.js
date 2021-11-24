@@ -1,7 +1,7 @@
-import PTopBar from './PTopBar.vue';
-import { PSearchField } from './components/PSearchField';
-import { PUserMenu } from './components/PUserMenu';
-import { PMenu } from './components/PMenu';
+import { PTopBar } from './index.js';
+import { PSearchField } from './components/PSearchField/index.js';
+import { PUserMenu } from './components/PUserMenu/index.js';
+import { PMenu } from './components/PMenu/index.js';
 import { PIcon } from '../PIcon';
 import { PActionList } from '../PActionList/index.js';
 import { PVisuallyHidden } from '../PVisuallyHidden';

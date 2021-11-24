@@ -69,7 +69,7 @@
 <script>
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
-import { PTopBar } from '../PTopBar';
+import { PTopBar } from '../PTopBar/index.js';
 import { PFrame } from '../PFrame';
 import { PHeading } from '../PHeading';
 import { PIcon } from '../PIcon';

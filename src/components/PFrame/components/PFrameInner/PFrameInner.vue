@@ -126,7 +126,7 @@ import { PContextualSaveBar } from '@/components/PFrame/components/PContextualSa
 import { PEventListener } from '@/components/PEventListener';
 import { PIcon } from '@/components/PIcon';
 import { PBackdrop } from '@/components/PBackdrop';
-import { PTopBar } from '@/components/PTopBar';
+import { PTopBar } from '@/components/PTopBar/index.js';
 import { PNavigation } from '@/components/PNavigation';
 
 interface State {
