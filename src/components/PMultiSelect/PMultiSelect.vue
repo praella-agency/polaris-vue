@@ -57,7 +57,7 @@ import { classNames } from '@/utilities/css';
 import Multiselect from 'vue-multiselect';
 import { PIcon } from '@/components/PIcon';
 import { PTag } from '@/components/PTag';
-import { PFieldError } from '@/components/PFieldError';
+import { PFieldError } from '@/components/PFieldError/index.js';
 
 interface StrictOption {
   value: string;

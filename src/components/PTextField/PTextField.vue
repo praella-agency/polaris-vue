@@ -41,7 +41,7 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import { PInput } from '@/components/PTextField/components/PInput';
     import { PConnected } from '@/components/PConnected';
-    import { PFieldError } from '@/components/PFieldError';
+    import { PFieldError } from '@/components/PFieldError/index.js';
 
     /**
      * <br/>
