@@ -1,4 +1,4 @@
-import { PSkeletonPage } from './index';
+import { PSkeletonPage } from './index.js';
 import { PLayout } from '../PLayout'
 import { PLayoutSection } from '../PLayout/components/PLayoutSection'
 import { PCard } from '../PCard';

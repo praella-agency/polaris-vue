@@ -71,7 +71,7 @@ import PLoading from './PLoading';
 import { PFrame } from './PFrame';
 import { PTopBar } from './PTopBar';
 import { PContextualSaveBar } from './PFrame/components/PContextualSaveBar';
-import { PSkeletonPage } from './PSkeletonPage';
+import { PSkeletonPage } from './../components/PSkeletonPage/index.js';
 import { PNavigation } from './PNavigation';
 import { PVisuallyHidden } from './../components/PVisuallyHidden/index.js';
 import { PUserMenu } from './PTopBar/components/PUserMenu';

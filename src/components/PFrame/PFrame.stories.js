@@ -1,7 +1,7 @@
 import { PFrame } from './index';
 import { PTopBar } from '../PTopBar';
 import { PNavigation } from '../PNavigation';
-import { PSkeletonPage } from '../PSkeletonPage';
+import { PSkeletonPage } from '../../components/PSkeletonPage/index.js';
 import { PLayout } from '../PLayout';
 import { PLayoutAnnotatedSection } from '../PLayout/components/PLayoutAnnotatedSection';
 import { PLayoutSection } from '../PLayout/components/PLayoutSection';

@@ -47,8 +47,7 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+<script>
   import { classNames } from '@/utilities/css';
   import { PSkeletonBodyText } from './../../components/PSkeletonBodyText/index.js';
   import { PSkeletonDisplayText } from '../../components/PSkeletonDisplayText/index.js';
@@ -59,66 +58,89 @@
    *  sans-serif;">Skeleton page is used with other skeleton loading components to provide a low fidelity representation
    *  of the user interface (UI) before content appears on the page. It improves load times perceived by merchants.</h4>
    */
-  @Component({
+  export default {
+    name: 'PSkeletonPage',
     components: {
       PSkeletonBodyText, PSkeletonDisplayText,
     },
-  })
-  export default class PSkeletonPage extends Vue {
-    /**
-     * Page title, in large type
-     */
-    @Prop({type: String, default: null}) public title!: string;
+    props: {
+        /**
+         * Page title, in large type
+         */
+        title: {
+          type: String,
+          default: null
+        },
 
-    /**
-     * Remove the normal max-width on the page
-     */
-    @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
+      /**
+       * Remove the normal max-width on the page
+       */
+      fullWidth: {
+        type: Boolean,
+        default: false
+      },
 
-    /**
-     * Decreases the maximum layout width. Intended for single-column layouts
-     */
-    @Prop({type: Boolean, default: false}) public narrowWidth!: boolean;
+      /**
+       * Decreases the maximum layout width. Intended for single-column layouts
+       */
+      narrowWidth: {
+        type: Boolean,
+        default: false
+      },
 
-    /**
-     * Shows a skeleton over the primary action
-     */
-    @Prop({type: Boolean, default: false}) public primaryAction!: boolean;
+      /**
+       * Shows a skeleton over the primary action
+       */
+      primaryAction: {
+        type: Boolean,
+        default: false
+      },
 
-    /**
-     * Number of secondary page-level actions to display
-     */
-    @Prop({type: Number}) public secondaryActions!: number;
+      /**
+       * Number of secondary page-level actions to display
+       */
+      secondaryActions: {
+        type: Number,
+        default: false
+      },
 
-    /**
-     * Shows a skeleton over the breadcrumb
-     */
-    @Prop({type: Boolean, default: false}) public breadcrumbs!: boolean;
-
-    public get className() {
-      return classNames(
-        'Polaris-SkeletonPage__Page',
-        this.fullWidth && 'Polaris-SkeletonPage--fullWidth',
-        this.narrowWidth && 'Polaris-SkeletonPage--narrowWidth',
-      );
-    }
-
-    public renderSecondaryActions(actionCount: number) {
-      const actions: any = [];
-      for (let i = 0; i < actionCount; i++) {
-        const width = Math.round(Math.random() * 40 + 60);
-        actions.push(
-          {
-            width: {
-              /* tslint:disable-next-line */
-              'width': `${width}px`,
-            },
-            key: i,
-          },
+      /**
+       * Shows a skeleton over the breadcrumb
+       */
+      breadcrumbs: {
+        type: Boolean,
+        default: false
+      },
+    },
+    computed: {
+      className() {
+        return classNames(
+            'Polaris-SkeletonPage__Page',
+            this.fullWidth && 'Polaris-SkeletonPage--fullWidth',
+            this.narrowWidth && 'Polaris-SkeletonPage--narrowWidth',
         );
-      }
+      },
+    },
+    methods: {
+      renderSecondaryActions(actionCount) {
+        if(typeof actionCount === 'number') {
+          const actions = [];
+          for (let i = 0; i < actionCount; i++) {
+            const width = Math.round(Math.random() * 40 + 60);
+            actions.push(
+                {
+                  width: {
+                    /* tslint:disable-next-line */
+                    'width': `${width}px`,
+                  },
+                  key: i,
+                },
+            );
+          }
 
-      return actions;
+          return actions;
+        }
+      }
     }
   }
 </script>
