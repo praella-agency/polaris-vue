@@ -290,52 +290,34 @@ export const Status = ['success', 'attention', 'info', 'critical', 'warning', 'n
 export const Progress = ['incomplete', 'partiallyComplete', 'complete'];
 export const Size = ['small', 'medium'];
 
-export const MessageProps = {
-    title: {
+export const MessageActionProps = {
+    content: {
         type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        required: true
-    },
-    action: {
-        type: Object,
         required: true,
-        properties: {
-            content: {
-                type: String,
-                required: true,
-            },
-            onClick: Function,
-        }
     },
-    link: {
-        type: Object,
-        properties: {
-            to: {
-                type: String,
-                required: true,
-            },
-            content: {
-                type: String,
-                required: true,
-            },
-            external: Boolean,
-        }
+    onClick: Function,
+}
+
+export const MessageLinkProps = {
+    to: {
+        type: [String, Object],
+        required: true,
     },
-    badge: {
-        type: Object,
-        properties: {
-            content: {
-                type: String,
-                required: true,
-            },
-            status: {
-                type: String,
-                expectedValues: Status,
-            },
-        }
+    content: {
+        type: String,
+        required: true,
+    },
+    external: Boolean,
+}
+
+export const MessageBadgeProps = {
+    content: {
+        type: String,
+        required: true,
+    },
+    status: {
+        type: String,
+        expectedValues: Status,
     },
 }
 
