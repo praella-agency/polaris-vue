@@ -1,4 +1,4 @@
-import { PProgressBar } from './index';
+import { PProgressBar } from './index.js';
 
 export default {
     title: 'Feedback indicators / Progress Bar',

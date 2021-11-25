@@ -46,7 +46,7 @@ import { PModal } from './PModal';
 import { PInlineError } from './PInlineError';
 import { PPagination } from './PPagination';
 import { PCaption } from './../components/PCaption/index.js';
-import { PProgressBar } from './PProgressBar';
+import { PProgressBar } from './../components/PProgressBar/index.js';
 import { PResourceList } from './PResourceList';
 import { PResourceListItem } from './PResourceList/components/PResourceListItem';
 import { PActionList } from './PActionList';
