@@ -164,7 +164,6 @@
              */
             labelAction: {
                 type: Function,
-                ...ObjectValidator('labelAction', Action),
             },
             /**
              * Visually hide the label

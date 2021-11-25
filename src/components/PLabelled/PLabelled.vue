@@ -1,21 +1,21 @@
 <template>
     <div :class="className">
-        <div v-if="label" :class="labelClassName">
+        <div v-if="label" class="Polaris-Labelled__LabelWrapper">
             <PLabel
-                    :id="id"
-                    :requiredIndicator="requiredIndicator"
-                    :hidden="false"
-                    v-bind="$attrs"
+                :id="id"
+                :requiredIndicator="requiredIndicator"
+                :hidden="false"
+                v-bind="$attrs"
             >
                 {{ label }}
             </PLabel>
             <div
-                    v-if="action"
-                    :class="actionClassName"
+                v-if="action"
+                class="Polaris-Labelled__Action"
             >
                 <PButton
-                        plain
-                        v-on="action.onAction ? { click: action.onAction } : {}"
+                    plain
+                    v-on="action.onAction ? { click: action.onAction } : {}"
                 >
                     {{ action.content }}
                 </PButton>
@@ -23,104 +23,96 @@
         </div>
         <slot/>
         <div
-                v-if="error && (typeof error !== 'boolean')"
-                :class="errorClass"
+            v-if="error && (typeof error !== 'boolean')"
+            class="Polaris-Labelled__Error"
         >
             <PInlineError :message="error" :fieldID="id"/>
         </div>
         <div
-                v-if="helpText"
-                :class="helpTextClassName"
-                :id="helpTextID"
+            v-if="helpText"
+            class="Polaris-Labelled__HelpText"
+            :id="helpTextID"
         >
             {{ helpText }}
         </div>
     </div>
 </template>
 
-<script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
-import { classNames } from '@/utilities/css';
-import { Action } from '@/types';
-import { PLabel } from '@/components/PLabel';
-import { PButton } from '@/components/PButton/index.js';
-import { PInlineError } from '@/components/PInlineError/index.js';
+<script>
+    import { classNames } from '../../utilities/css';
+    import { Action } from '../../types/types';
+    import { PLabel } from '../../components/PLabel';
+    import { PButton } from '../../components/PButton/index.js';
+    import { PInlineError } from '../../components/PInlineError/index.js';
+    import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
-@Component({
-  components: {
-    PLabel, PButton, PInlineError,
-  },
-})
-export default class PLabelled extends Vue {
-  /**
-   * A unique identifier for the label
-   */
-  @Prop({type: [String, Number], default: null}) public id!: string | number;
-
-  /**
-   * Text for the label
-   */
-  @Prop({type: String, default: null}) public label!: string;
-
-  /**
-   * Error to display beneath the label
-   */
-  @Prop({type: Boolean, default: false}) public error?: boolean;
-
-  /**
-   * An action
-   */
-  @Prop({type: Function}) public action!: Action;
-
-  /**
-   * Additional hint text to display
-   */
-  @Prop({type: String, default: null}) public helpText!: string;
-
-  /**
-   * Visually hide the label
-   */
-  @Prop({type: Boolean, default: false}) public labelHidden!: boolean;
-
-  /**
-   * Visual required indicator for the label
-   */
-  @Prop({type: Boolean, default: false}) public requiredIndicator!: boolean;
-
-  public get className() {
-    return classNames(
-      this.labelHidden && 'Polaris-Labelled--hidden',
-    );
-  }
-
-  public get labelClassName() {
-    return classNames(
-      'Polaris-Labelled__LabelWrapper',
-    );
-  }
-
-  public get actionClassName() {
-    return classNames(
-      'Polaris-Labelled__Action',
-    );
-  }
-
-  public get errorClass() {
-    return classNames(
-      'Polaris-Labelled__Error',
-    );
-  }
-
-  public get helpTextClassName() {
-    return classNames(
-      'Polaris-Labelled__HelpText',
-    );
-  }
-
-  public get helpTextID() {
-    return this.id + 'HelpText';
-  }
-}
+    export default {
+        name: 'PLabelled',
+        components: {
+            PLabel, PButton, PInlineError,
+        },
+        props: {
+            /**
+             * A unique identifier for the label
+             */
+            id: {
+                type: [String, Number],
+                default: null,
+            },
+            /**
+             * Text for the label
+             */
+            label: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Error to display beneath the label
+             */
+            error: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * An action
+             */
+            action: {
+                type: Function,
+                ...ObjectValidator('action', Action),
+            },
+            /**
+             * Additional hint text to display
+             */
+            helpText: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Visually hide the label
+             */
+            labelHidden: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Visual required indicator for the label
+             */
+            requiredIndicator: {
+                type: Boolean,
+                default: false,
+            },
+        },
+        computed: {
+            className() {
+                return classNames(
+                    this.labelHidden && 'Polaris-Labelled--hidden',
+                );
+            },
+            helpTextID() {
+                return this.id + 'HelpText';
+            },
+        },
+    }
 </script>
 
 <style scoped>
