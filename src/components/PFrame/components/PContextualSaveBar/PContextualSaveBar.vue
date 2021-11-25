@@ -129,7 +129,7 @@
            */
             saveAction: {
                 type: Object,
-              default: () => ({}),
+                default: () => ({}),
                 ...ObjectValidator('saveAction', ContextualSaveBarAction),
           },
           /**

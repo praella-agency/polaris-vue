@@ -108,7 +108,7 @@ export const ActionListSection = {
     title: String,
     items: {
         type: Array,
-        properties: {...ActionListItemDescriptor}
+        properties: ActionListItemDescriptor
     },
 }
 

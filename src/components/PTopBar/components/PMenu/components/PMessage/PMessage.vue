@@ -42,7 +42,7 @@
     import { PHeading } from '../../../../../../components/PHeading';
     import { PDisplayText } from '../../../../../../components/PDisplayText';
     import { PLink } from '../../../../../../components/PLink/index.js';
-    import { MessageProps, Status } from '../../../../../../types/types.js';
+    import { MessageActionProps, MessageLinkProps, MessageBadgeProps } from '../../../../../../types/types.js';
     import ObjectValidator from '../../../../../../utilities/validators/ObjectValidator';
 
     export default {
@@ -54,25 +54,27 @@
             title: {
                 type: String,
                 default: null,
+                required: true,
             },
             description: {
                 type: String,
                 default: null,
+                required: true,
             },
             action: {
                 type: Object,
                 default: () => ({}),
-                ...ObjectValidator('action', MessageProps['action']['properties']),
+                ...ObjectValidator('action', MessageActionProps, true),
             },
             link: {
                 type: Object,
                 default: () => ({}),
-                ...ObjectValidator('link', MessageProps['link']['properties']),
+                ...ObjectValidator('link', MessageLinkProps),
             },
             badge: {
                 type: Object,
                 default: () => ({}),
-                ...ObjectValidator('badge', MessageProps['badge']['properties']),
+                ...ObjectValidator('badge', MessageBadgeProps),
             }
         },
     }

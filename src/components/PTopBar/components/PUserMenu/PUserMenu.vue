@@ -29,9 +29,6 @@
   import { PMenu } from '../../../../components/PTopBar/components/PMenu/index.js';
   import { PMessageIndicator } from '../../../../components/PMessageIndicator';
   import { PAvatar } from '../../../../components/PAvatar/index.js';
-  import { MessageProps } from '../../../../types/types.js';
-  import ArrayValidator from '../../../../utilities/validators/ArrayValidator';
-  import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
   const IconSource = ['placeholder', String];
 
@@ -89,7 +86,6 @@
           actions: {
               type: Array,
               default: () => ([]),
-              // ...ArrayValidator('actions', Actions),
           },
           /**
            * Accepts a message that facilitates direct, urgent communication with the merchant through the user menu
@@ -97,7 +93,6 @@
           message: {
               type: Object,
               default: () => ({}),
-              ...ObjectValidator('message', MessageProps),
           },
           /**
            * A string detailing the merchant’s full name to be displayed in the user menu \

@@ -31,7 +31,7 @@ export const ContextualSaveBarProps = {
   },
   /** Discard or cancel contextual save bar action with text defaulting to 'Discard' */
   discardAction: {
-    type: Array,
+    type: Object,
     properties: {
       ...ContextualSaveBarAction,
       ...ContextualSaveBarDiscardActionProps,

@@ -15,7 +15,12 @@
                     @click="onOpen"
                     :aria-label="accessibilityLabel"
                 >
-                    <slot name="activatorContent"/>
+                    <slot name="activatorContent">
+                        <span>
+                            <PIcon :source="icon"/>
+                            <PVisuallyHidden>Secondary menu</PVisuallyHidden>
+                        </span>
+                    </slot>
                 </button>
             </div>
             <PActionList slot="content" :sections="actions"/>
@@ -24,19 +29,9 @@
                 v-if="Object.keys(message).length > 0"
                 :title="message.title"
                 :description="message.description"
-                :action="Object.keys(message).length > 0 ? {
-            onClick: message.action !== undefined ? message.action.onClick : {},
-            content: message.action !== undefined ? message.action.content : ''
-          }: {}"
-                :link="Object.keys(message).length > 0 ? {
-            to: message.link !== undefined ? message.link.to : '',
-            content: message.link !== undefined ? message.link.content : '',
-            external: message.link !== undefined ? message.link.external : false,
-          } : {}"
-                :badge="message && message.badge ? {
-              content: message.badge !== undefined ? message.badge.content : '',
-              status: message.badge !== undefined ? message.badge.status : ''
-          } : {}"
+                :action="Object.keys(message).length > 0 ? message.action: {}"
+                :link="Object.keys(message).length > 0 ? message.link : {}"
+                :badge="message && message.badge ? message.badge : {}"
             />
         </PPopover>
     </div>
@@ -47,14 +42,15 @@
     import { PActionList } from '../../../../components/PActionList/index.js';
     import { PPopover } from '../../../../components/PPopover/index.js';
     import { PMessage } from './components/PMessage/index.js';
-    import { ActionListSection, MessageProps } from '../../../../types/types.js';
+    import { PVisuallyHidden } from '../../../../components/PVisuallyHidden';
+    import { PIcon } from '../../../../components/PIcon';
+    import { ActionListSection } from '../../../../types/types.js';
     import ArrayValidator from '../../../../utilities/validators/ArrayValidator';
-    import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
     export default {
         name: 'PMenu',
         components: {
-            PActionList, PPopover, PMessage,
+            PActionList, PPopover, PMessage, PVisuallyHidden, PIcon,
         },
         props: {
             /**
@@ -70,7 +66,7 @@
             actions: {
                 type: Array,
                 default: () => ([]),
-                // ...ArrayValidator('actions', [ActionListSection]),
+                ...ArrayValidator('actions', ActionListSection),
             },
             /**
              * Accepts a message that facilitates direct, urgent communication with the merchant through the menu
@@ -78,13 +74,19 @@
             message: {
                 type: Object,
                 default: () => ({}),
-                ...ObjectValidator('message', MessageProps),
             },
             /**
              * A boolean property indicating whether the menu is currently open
              */
             open: {
                 type: Boolean,
+                required: true,
+            },
+            /**
+             * Icon to display on activator content
+             */
+            icon: {
+                type: String,
             },
             /**
              * A callback function to handle opening the menu popover

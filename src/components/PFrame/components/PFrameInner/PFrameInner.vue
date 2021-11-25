@@ -153,7 +153,6 @@ export default {
         contextualSaveBar: {
             type: Object,
             default: () => ({}),
-            // ...ObjectValidator('contextualSaveBar', ContextualSaveBarProps),
         },
         toggleContextualSaveBar: {
             type: Boolean,
@@ -165,7 +164,6 @@ export default {
         logo: {
             type: Object,
             default: () => ({}),
-            ...ObjectValidator('logo', ThemeLogo),
         },
         /**
          * TopBar props

@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import { ContextualSaveBarProps } from '../../components/PFrame/context.js';
+    import { ContextualSaveBarProps } from './context';
     import { ThemeLogo } from '../../types/logo.js';
     import { PIcon } from '../../components/PIcon';
     import { PFrameInner } from '../../components/PFrame/components/PFrameInner';
@@ -72,7 +72,6 @@
             contextualSaveBar: {
                 type: Object,
                 default: () => ({}),
-                // ...ObjectValidator('contextualSaveBar', ContextualSaveBarProps),
             },
             /**
              * ContextualSaveBar Logo
@@ -80,7 +79,6 @@
             logo: {
                 type: Object,
                 default: () => ({}),
-                ...ObjectValidator('logo', ThemeLogo),
             },
             /**
              * TopBar props

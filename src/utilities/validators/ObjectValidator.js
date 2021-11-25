@@ -8,36 +8,57 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
     for(let objectKey in objectInterface) {
         const objectType = objectInterface[objectKey];
         let isRequired = false;
-        let valueType = objectType;
+        let valueType = [];
+        if (!Array.isArray(objectType)) {
+            if (typeof objectType !== 'object') {
+                valueType = [objectType.name];
+            }
+        } else {
+            objectType.forEach((type) => {
+                valueType.push(type.name || undefined);
+            });
+        }
 
         if(typeof objectType === 'object') {
             isRequired = objectType.required || false;
-            valueType = objectType.type || undefined;
+            if (!Array.isArray(objectType.type)) {
+                valueType = [objectType.type.name] || undefined;
+            } else {
+                objectType.type.forEach((type) => {
+                    valueType.push(type.name || undefined);
+                });
+            }
         }
 
-        if (valueType.name && object.hasOwnProperty(objectKey)) {
-            switch (valueType.name) {
-                case 'Object': {
-                    if (objectType.properties) {
-                        result = ObjectValidator(name, object[`${objectKey}`], objectType.properties, isRequired);
-                        continue;
+        if (valueType && object.hasOwnProperty(objectKey)) {
+            let isContinue = false;
+            valueType.forEach(vType => {
+                switch (vType) {
+                    case 'object': {
+                        if (objectType.properties) {
+                            result = ObjectValidator(name, object[`${objectKey}`], objectType.properties, isRequired);
+                            isContinue = true;
+                        }
+                        break;
                     }
-                    break;
-                }
-                case 'Array': {
-                    if (objectType.properties) {
-                        result = ArrayValidator(name, object[`${objectKey}`], objectType.properties, isRequired);
-                        continue;
+                    case 'array': {
+                        if (objectType.properties) {
+                            result = ArrayValidator(name, object[`${objectKey}`], objectType.properties, isRequired);
+                            isContinue = true;
+                        }
+                        break;
                     }
-                    break;
-                }
-                case 'String': {
-                    if (objectType.expectedValues) {
-                        result = StringValidator(name, object[`${objectKey}`], objectType.expectedValues, isRequired);
-                        continue;
+                    case 'string': {
+                        if (objectType.expectedValues) {
+                            result = StringValidator(name, object[`${objectKey}`], objectType.expectedValues, isRequired);
+                            isContinue = true;
+                        }
+                        break;
                     }
-                    break;
                 }
+            })
+            if (isContinue) {
+                continue;
             }
         }
 
@@ -48,12 +69,12 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
             let objectValue = object[objectKey];
 
             if (Array.isArray(objectValue)) {
-                if (valueType.name.toLowerCase() !== 'array') {
-                    Vue.util.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType.name.toLowerCase()}", got "${typeof objectValue}".`, true);
+                if (!valueType.includes('Array')) {
+                    Vue.util.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`, true);
                     result = false;
                 }
-            } else if (typeof (objectValue) !== valueType.name.toLowerCase()) {
-                Vue.util.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType.name.toLowerCase()}", got "${typeof objectValue}".`, true);
+            } else if (!valueType.includes((typeof (objectValue)).charAt(0).toUpperCase() + (typeof (objectValue)).slice(1))) {
+                Vue.util.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`, true);
                 result = false;
             }
         }
