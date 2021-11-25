@@ -43,11 +43,7 @@ import { PButton } from '@/components/PButton';
 import { PHeading } from './../../components/PHeading/index.js';
 import { PButtonGroup } from '@/components/PButtonGroup';
 import { PButtonsFrom } from '@/components/PButton/utils';
-import {
-  DisableableAction,
-  LoadableAction,
-} from '../../types/types.js'
-import ObjectValidator from "../../utilities/validators/ObjectValidator";
+
 import StringValidator from "../../utilities/validators/StringValidator";
 
 const BannerStatus = ['success', 'info', 'warning', 'critical', null];
@@ -90,10 +86,6 @@ export default {
     action: {
       type: Object,
       default: () => ({}),
-      ...ObjectValidator('action', {
-        ...LoadableAction,
-        ...DisableableAction,
-      })
     }
   },
   computed: {
