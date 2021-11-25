@@ -8,7 +8,7 @@ import { PLayoutSection } from '../PLayout/components/PLayoutSection';
 import { PCard } from '../PCard';
 import { PTextContainer } from '../../components/PTextContainer/index.js';
 import { PSkeletonDisplayText } from '../../components/PSkeletonDisplayText/index.js';
-import { PSkeletonBodyText } from '../PSkeletonBodyText';
+import { PSkeletonBodyText } from '../../components/PSkeletonBodyText/index.js';
 import { PPage } from '../PPage';
 import { PFormLayout } from '../PFormLayout';
 import { PTextField } from '../PTextField';

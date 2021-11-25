@@ -50,7 +50,7 @@
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
-  import { PSkeletonBodyText } from '../PSkeletonBodyText';
+  import { PSkeletonBodyText } from './../../components/PSkeletonBodyText/index.js';
   import { PSkeletonDisplayText } from '../../components/PSkeletonDisplayText/index.js';
 
   /**

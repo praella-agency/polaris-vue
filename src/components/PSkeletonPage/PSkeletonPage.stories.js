@@ -3,7 +3,7 @@ import { PLayout } from '../PLayout'
 import { PLayoutSection } from '../PLayout/components/PLayoutSection'
 import { PCard } from '../PCard';
 import { PCardSection } from '../PCard/components/PCardSection';
-import { PSkeletonBodyText } from '../PSkeletonBodyText';
+import { PSkeletonBodyText } from '../../components/PSkeletonBodyText/index.js';
 import { PSkeletonDisplayText } from '../../components/PSkeletonDisplayText/index.js';
 import { PTextContainer } from '../../components/PTextContainer/index.js';
 
