@@ -77,7 +77,7 @@
              * An action
              */
             action: {
-                type: Function,
+                type: Object,
                 ...ObjectValidator('action', Action),
             },
             /**

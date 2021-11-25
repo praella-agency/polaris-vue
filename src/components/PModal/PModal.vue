@@ -35,11 +35,6 @@
 </template>
 
 <script>
-
-    // const ActionKeys = [
-    //     'id', 'content', 'accessibilityLabel', 'url', 'external', 'onAction'
-    // ];
-
     import { PSpinner } from '../../components/PSpinner';
     import { PModalDialog } from '../../components/PModal/components/PModalDialog/index.js';
     import { PModalHeader } from '../../components/PModal/components/PModalHeader/index.js';
@@ -120,18 +115,6 @@
             primaryAction: {
                 type: Object,
                 default: () => ({}),
-                // validator: function (value) {
-                //     if (typeof value === 'object') {
-                //         let result = true;
-                //         ActionKeys.forEach(item => {
-                //             const keys = Object.keys(item);
-                //             if (!ActionKeys.every(key => keys.includes(key))) {
-                //                 result = false;
-                //             }
-                //         });
-                //         return result;
-                //     }
-                // },
             },
             /**
              * Secondary Action.
@@ -165,7 +148,6 @@
                 this.iframeHeight = height;
             },
             handleIFrameLoad(evt) {
-
                 const iframe = evt.target;
                 if (iframe && iframe.contentWindow) {
                     try {

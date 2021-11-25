@@ -163,7 +163,7 @@
              * Adds an action to the label
              */
             labelAction: {
-                type: Function,
+                type: Object,
             },
             /**
              * Visually hide the label

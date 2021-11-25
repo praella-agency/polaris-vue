@@ -11,7 +11,8 @@
                     :content="item.content"
                     :icon="item.icon"
                     :helpText="item.helpText"
-                    :action="wrapAction(item)"/>
+                    :action="wrapAction(item)"
+                />
             </ul>
         </div>
     </POptionalTag>
@@ -21,10 +22,11 @@
     import { classNames } from '../../../../utilities/css';
     import { POptionalTag } from '../../../../components/POptionalTag';
     import { PActionListItem } from '../../../../components/PActionList/components/PActionListItem/index.js';
+    import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
     const SectionInterface = {
         title: String,
-        items: [],
+        items: Array,
     }
 
     export default {
@@ -36,7 +38,7 @@
             section: {
                 type: Object,
                 default: () => ({}),
-                // Validator
+                ...ObjectValidator('actions', SectionInterface),
             },
             hasMultipleSections: {
                 type: Boolean,

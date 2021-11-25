@@ -10,8 +10,9 @@
 </template>
 
 <script>
-    import { ComplexAction } from '../../../types';
+    import { ComplexAction } from '../../../types/types';
     import { PButton } from '../../../components/PButton/index.js';
+    import ObjectValidator from '../../../utilities/validators/ObjectValidator';
 
     export default {
         name: 'PButtonsFrom',
@@ -24,7 +25,7 @@
              */
             actions: {
                 type: [Array, Object],
-                // Validator
+                ...ObjectValidator('actions', ComplexAction),
             },
             overrides: {
                 type: Object,
