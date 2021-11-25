@@ -51,7 +51,7 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { classNames } from '@/utilities/css';
   import { PSkeletonBodyText } from '../PSkeletonBodyText';
-  import { PSkeletonDisplayText } from '../PSkeletonDisplayText';
+  import { PSkeletonDisplayText } from '../../components/PSkeletonDisplayText/index.js';
 
   /**
    * <br/>

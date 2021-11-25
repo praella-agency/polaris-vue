@@ -20,7 +20,7 @@ import { PLayoutAnnotatedSection } from './PLayout/components/PLayoutAnnotatedSe
 import { PPage } from './PPage';
 import { PSelect } from './PSelect';
 import { PSkeletonBodyText } from './PSkeletonBodyText';
-import { PSkeletonDisplayText } from './PSkeletonDisplayText';
+import { PSkeletonDisplayText } from './../components/PSkeletonDisplayText/index.js';
 import { PSkeletonThumbnail } from './PSkeletonThumbnail';
 import { PSpinner } from './PSpinner';
 import { PStack } from './PStack';
