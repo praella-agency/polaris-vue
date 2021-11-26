@@ -113,7 +113,7 @@ import { PCheckableButton } from '@/components/PResourceList/components/PCheckab
 import { PBulkActionButtonWrapper } from '@/components/PResourceList/components/PBulkActionButtonWrapper';
 import { PPopover } from '@/components/PPopover/index.js';
 import { PActionList } from '@/components/PActionList/index.js';
-import { PSelect } from '@/components/PSelect';
+import { PSelect } from '@/components/PSelect/index.js';
 
 interface BulkActionsInterface {
     content: string;
