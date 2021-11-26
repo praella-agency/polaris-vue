@@ -32,7 +32,7 @@ export default {
                 },
             },
         },
-        onQueryChange: {
+        queryChange: {
             table: {
                 defaultValue: {
                     summary: '()',
@@ -71,28 +71,28 @@ export default {
                 },
             },
         },
-        onQueryBlur: {
+        queryBlur: {
             table: {
                 defaultValue: {
                     summary: 'void',
                 },
             },
         },
-        onQueryClear: {
+        queryClear: {
             table: {
                 defaultValue: {
                     summary: 'void',
                 },
             },
         },
-        onQueryClearAll: {
+        queryClearAll: {
             table: {
                 defaultValue: {
                     summary: 'void',
                 },
             },
         },
-        onQueryFocus: {
+        queryFocus: {
             table: {
                 defaultValue: {
                     summary: 'void',
