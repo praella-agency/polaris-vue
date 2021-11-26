@@ -81,7 +81,7 @@ import { PCollapsible } from './../components/PCollapsible/index.js';
 import { PDataTableRow } from './PDataTable/components/PDataTableRow';
 import { PDataTableCol } from './PDataTable/components/PDataTableCol';
 import { PIndexTable } from './PIndexTable';
-import { PScrollable } from './PScrollable';
+import { PScrollable } from './../components/PScrollable/index.js';
 import { PTooltip } from './PTooltip';
 import { PVerticalTabs } from './PVerticalTabs';
 
