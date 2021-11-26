@@ -21,7 +21,7 @@
                 <slot name="connectedRight">{{ connectedRight }}</slot>
             </template>
 
-            <PInput v-bind="[$attrs, $props]" v-on="$listeners" :hasError="!!error" :id="id" @input="handleInput">
+            <PInput v-bind="[$attrs, $props]" v-on="$listeners" :hasError="!!error" :id="id">
                 <!-- @slot Field prefix -->
                 <slot name="prefix" slot="prefix"></slot>
                 <!-- @slot Field suffix -->
