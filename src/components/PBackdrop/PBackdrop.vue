@@ -6,21 +6,29 @@
   />
 </template>
 
-<script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+<script>
   import { classNames } from '@/utilities/css';
 
-  @Component
-  export default class PBackdrop extends Vue {
-    @Prop({type: Boolean, default: false}) public belowNavigation!: boolean;
-    @Prop({type: Boolean, default: false}) public transparent!: boolean;
-
-    public get className() {
-      return classNames(
-        'Polaris-Backdrop',
-        this.belowNavigation && 'Polaris-Backdrop--belowNavigation',
-        this.transparent && 'Polaris-Backdrop--transparent',
-      );
+  export default {
+    name: 'PBackdrop',
+    props: {
+      belowNavigation: {
+        type: Boolean,
+        default: false
+      },
+      transparent: {
+        type: Boolean,
+        default: false
+      },
+    },
+    computed: {
+      className() {
+        return classNames(
+            'Polaris-Backdrop',
+            this.belowNavigation && 'Polaris-Backdrop--belowNavigation',
+            this.transparent && 'Polaris-Backdrop--transparent',
+        );
+      }
     }
   }
 </script>

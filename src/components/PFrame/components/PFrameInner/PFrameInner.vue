@@ -125,7 +125,7 @@ import { ThemeLogo } from '@/types/logo';
 import { PContextualSaveBar } from '@/components/PFrame/components/PContextualSaveBar';
 import { PEventListener } from '@/components/PEventListener';
 import { PIcon } from './../../../../components/PIcon/index.js';
-import { PBackdrop } from '@/components/PBackdrop';
+import { PBackdrop } from './../../../../components/PBackdrop/index.js';
 import { PTopBar } from '@/components/PTopBar';
 import { PNavigation } from '@/components/PNavigation';
 
