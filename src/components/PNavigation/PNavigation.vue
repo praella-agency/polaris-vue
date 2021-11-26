@@ -1,149 +1,139 @@
 <template>
-  <nav class="Polaris-Navigation" :aria-labelledby="ariaLabelledBy">
-    <template v-if="$slots.hasOwnProperty('contextControl')">
-      <div class="Polaris-Navigation__ContextControl">
-        <!-- @slot Add context control. -->
-        <slot name="contextControl"/>
-      </div>
-    </template>
-    <template v-else-if="Object.keys(logo).length > 0 && toggleLogo">
-      <div class="Polaris-Navigation__LogoContainer">
-        <PUnstyledLink
-            class="Polaris-Navigation__LogoLink"
-            :url="logo.url"
-            :style="width"
-        >
-          <PImage
-              class="Polaris-Navigation__Logo"
-              :source="logo.topBarSource"
-              :alt="logo.accessibilityLabel"
-              :style="width"
-          />
-        </PUnstyledLink>
-      </div>
-    </template>
-    <div class="Polaris-Navigation__PrimaryNavigation" v-if="items.length > 0">
-      <PSection
-          v-for="(item, key) in items"
-          :key="key"
-          v-bind="item"
-          :location="location"
-          :onNavigationDismiss="onDismiss"
-      />
-    </div>
-  </nav>
+    <nav class="Polaris-Navigation" :aria-labelledby="ariaLabelledBy">
+        <template v-if="$slots.hasOwnProperty('contextControl')">
+            <div class="Polaris-Navigation__ContextControl">
+                <!-- @slot Add context control. -->
+                <slot name="contextControl"/>
+            </div>
+        </template>
+        <template v-else-if="Object.keys(logo).length > 0 && toggleLogo">
+            <div class="Polaris-Navigation__LogoContainer">
+                <PUnstyledLink
+                    class="Polaris-Navigation__LogoLink"
+                    :url="logo.url"
+                    :style="width"
+                >
+                    <PImage
+                        class="Polaris-Navigation__Logo"
+                        :source="logo.topBarSource"
+                        :alt="logo.accessibilityLabel"
+                        :style="width"
+                    />
+                </PUnstyledLink>
+            </div>
+        </template>
+        <div class="Polaris-Navigation__PrimaryNavigation" v-if="items.length > 0">
+            <PSection
+                v-for="(item, key) in items"
+                :key="key"
+                v-bind="item"
+                :location="location"
+                :onNavigationDismiss="onDismiss"
+            />
+        </div>
+    </nav>
 </template>
 
-<script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { ThemeLogo, getWidth } from '@/types/logo.js';
-  import { ItemProps } from '@/components/PNavigation/utilities';
-  import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';
-  import { PImage } from '@/components/PImage';
-  import { PSection } from '@/components/PNavigation/components/PSection';
-
-  interface SectionItems {
-    /** Section Title */
-    title?: string;
-    /** Items for sections */
-    items: ItemProps[];
-    /** Rollup */
-    rollup?: {
-      after: number;
-      view: string;
-      hide: string;
-      activePath: string;
-    };
-    /** Action */
-    action?: {
-      icon: string;
-      accessibilityLabel: string;
-      onClick(): void;
-    };
-    /** Separator */
-    separator?: boolean;
-    /** Icon */
-    icon?: string;
-    /** Fill */
-    fill?: boolean;
-  }
-
-  /**
-   * <br/>
-   * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
-   *  sans-serif;">The navigation component is used to display the primary navigation in the sidebar of the
-   *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/structure-frame--default">frame</a>
-   *  of an application. Navigation includes a list of links that merchants use to move between sections of the
-   *  application.</h4>
-   */
-  @Component({
-    components: {
-      PUnstyledLink, PImage, PSection,
-    },
-  })
-  export default class PNavigation extends Vue {
-    /**
-     * Navigation Location
-     */
-    @Prop({type: String, default: null}) public location!: string;
+<script>
+    import { ThemeLogo, getWidth } from '../../types/logo.js';
+    import { PUnstyledLink } from '../../components/PUnstyledLink/index.js';
+    import { PImage } from '../../components/PImage';
+    import { PSection } from '../../components/PNavigation/components/PSection';
+    import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
     /**
-     * Handle on dismiss method
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">The navigation component is used to display the primary navigation in the sidebar of the
+     *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/structure-frame--default">frame</a>
+     *  of an application. Navigation includes a list of links that merchants use to move between sections of the
+     *  application.</h4>
      */
-    @Prop({type: Function}) public onDismiss!: void;
-
-    /**
-     * Id of the element used as aria-labelledby
-     */
-    @Prop({type: String}) public ariaLabelledBy!: string;
-
-    /**
-     * Customize logo
-     */
-    @Prop({type: Object, default: () => ({})}) public logo!: ThemeLogo;
-
-    /**
-     * Show mobile navigation
-     */
-    @Prop({type: Boolean, default: false}) public showMobileNavigation!: boolean;
-
-    // PSection's props
-    /**
-     * A collection of navigation items
-     */
-    @Prop({type: Array, default: () => ([])}) public items!: SectionItems[];
-
-    public get width() {
-      return {
-        width: getWidth(this.logo, 104),
-      };
+    export default {
+        name: 'PNavigation',
+        components: {
+            PUnstyledLink, PImage, PSection,
+        },
+        props: {
+            /**
+             * Navigation Location
+             */
+            location: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Handle on dismiss method
+             */
+            onDismiss: {
+                type: Function,
+            },
+            /**
+             * Id of the element used as aria-labelledby
+             */
+            ariaLabelledBy: {
+                type: String,
+            },
+            /**
+             * Customize logo
+             */
+            logo: {
+                type: Object,
+                default: () => ({}),
+                ...ObjectValidator('logo', ThemeLogo),
+            },
+            /**
+             * Show mobile navigation
+             */
+            showMobileNavigation: {
+                type: Boolean,
+                default: false,
+            },
+            // PSection's props
+            /**
+             * A collection of navigation items
+             */
+            items: {
+                type: Array,
+                default: () => ([]),
+            },
+        },
+        data() {
+            return {
+                showLogo: this.showMobileNavigation,
+            };
+        },
+        computed: {
+            width() {
+                return {
+                    width: getWidth(this.logo, 104),
+                };
+            },
+            toggleLogo: {
+                get() {
+                    return this.showLogo;
+                },
+                set(value) {
+                    this.showLogo = value;
+                },
+            },
+        },
+        methods: {
+            useMediaQuery() {
+                if (window.innerWidth <= 768) {
+                    this.showLogo = true;
+                    return;
+                }
+                this.showLogo = false;
+            },
+        },
+        created() {
+            window.addEventListener('resize', this.useMediaQuery);
+        },
+        destroyed() {
+            window.removeEventListener('resize', this.useMediaQuery);
+        },
     }
-
-    public showLogo = this.showMobileNavigation;
-    public get toggleLogo() {
-      return this.showLogo;
-    }
-
-    public set toggleLogo(value) {
-      this.showLogo = value;
-    }
-
-    public created() {
-      window.addEventListener('resize', this.useMediaQuery);
-    }
-
-    public destroyed() {
-      window.removeEventListener('resize', this.useMediaQuery);
-    }
-
-    public useMediaQuery() {
-      if (window.innerWidth <= 768) {
-        this.showLogo = true;
-        return;
-      }
-      this.showLogo = false;
-    }
-  }
 </script>
 
 <style scoped>

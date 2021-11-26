@@ -119,15 +119,13 @@
 
 <script>
 import { classNames } from '../../../../utilities/css';
-import { ContextualSaveBarProps, ToastProps } from '../../context';
-import { ThemeLogo } from '../../../../types/logo.js';
+import { ToastProps } from '../../context';
 import { PContextualSaveBar } from '../../../../components/PFrame/components/PContextualSaveBar/index.js';
 import { PEventListener } from '../../../../components/PEventListener';
 import { PIcon } from '../../../../components/PIcon';
 import { PBackdrop } from '../../../../components/PBackdrop';
-import PTopBar from '../../../../components/PTopBar/PTopBar.vue';
+import { PTopBar } from '../../../../components/PTopBar/';
 import { PNavigation } from '../../../../components/PNavigation';
-import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
 const State = {
   skipFocused: Boolean, //not required

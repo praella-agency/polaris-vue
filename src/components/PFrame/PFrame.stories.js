@@ -1,6 +1,6 @@
 import { PFrame } from './index.js';
 import { PTopBar } from '../PTopBar/index.js';
-import { PNavigation } from '../PNavigation';
+import { PNavigation } from '../PNavigation/index.js';
 import { PSkeletonPage } from '../PSkeletonPage';
 import { PLayout } from '../PLayout';
 import { PLayoutAnnotatedSection } from '../PLayout/components/PLayoutAnnotatedSection';

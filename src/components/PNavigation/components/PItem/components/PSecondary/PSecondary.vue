@@ -1,31 +1,39 @@
 <template>
-  <PCollapsible
-      :id="id || uid"
-      :open="expanded"
-      :transition="{duration: '0ms', timingFunction: 'linear'}"
-  >
-    <ul class="Polaris-Navigation__List">
-      <slot />
-    </ul>
-  </PCollapsible>
+    <PCollapsible
+        :id="id || uid"
+        :open="expanded"
+        :transition="{duration: '0ms', timingFunction: 'linear'}"
+    >
+        <ul class="Polaris-Navigation__List">
+            <slot/>
+        </ul>
+    </PCollapsible>
 </template>
 
-<script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { PCollapsible } from '@/components/PCollapsible';
+<script>
+    import { PCollapsible } from '../../../../../../components/PCollapsible';
 
-  @Component({
-    components: {
-      PCollapsible,
-    },
-  })
-  export default class PSecondary extends Vue {
-    @Prop({type: Boolean, required: true}) public expanded!: boolean;
-
-    @Prop({type: String, default: null}) public id!: string;
-
-    public uid = `SecondaryNavigation${new Date().getUTCMilliseconds()}`;
-  }
+    export default {
+        name: 'PSecondary',
+        components: {
+            PCollapsible,
+        },
+        props: {
+            id: {
+                type: String,
+                default: null
+            },
+            expanded: {
+                type: Boolean,
+                default: true,
+            },
+        },
+        data() {
+            return {
+                uid: `SecondaryNavigation${new Date().getUTCMilliseconds()}`,
+            };
+        },
+    }
 </script>
 
 <style scoped>
