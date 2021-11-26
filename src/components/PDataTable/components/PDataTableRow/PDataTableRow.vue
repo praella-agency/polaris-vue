@@ -4,11 +4,9 @@
   </tr>
 </template>
 
-<script lang="ts">
-  import { Vue, Component } from 'vue-property-decorator';
-
-  @Component
-  export default class PDataTableRow extends Vue {
+<script>
+  export default {
+      name: 'PDataTableRow',
   }
 </script>
 
