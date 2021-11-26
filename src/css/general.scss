@@ -3235,7 +3235,7 @@ div.multiselect {
 
     .multiselect__tags-wrap {
         display: block;
-        height: 34px;
+        height: auto;
         > .Polaris-Tag {
             margin: 3px 10px 3px 0;
         }

@@ -1,4 +1,4 @@
-import { PTag } from './index';
+import { PTag } from './index.js';
 
 export default {
     title: 'Forms / Tag',

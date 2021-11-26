@@ -7,15 +7,21 @@
     </span>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames } from '@/utilities/css';
-import { PIcon } from '@/components/PIcon';
+<script>
+import { classNames } from '../../utilities/css';
+import { PIcon } from '../../components/PIcon';
+import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
-interface TagInterface {
-    value: string;
-    key: string;
-}
+const TagInterface = {
+    value: {
+        type: String,
+        required: true,
+    },
+    key: {
+        type: String,
+        required: true,
+    },
+};
 
 /**
  * <br/>
@@ -23,36 +29,46 @@ interface TagInterface {
  *  sans-serif;">Tags represent a set of interactive, merchant-supplied keywords that help label, organize, and
  *  categorize objects. Tags can be added or removed from an object by merchants.</h4>
  */
-@Component({
+export default {
+    name: 'PTag',
     components: {
         PIcon,
     },
-})
-export default class PTag extends Vue {
-    /**
-     * Tag object
-     * @values { value: 'Test', key: 'test'}
-     */
-    @Prop({type: Object, default: () => ({})}) public tag!: TagInterface;
-    /**
-     * Set true if you want to make it removable
-     * @values true | false
-     */
-    @Prop({type: Boolean, default: false}) public removable!: boolean;
-
-    public get className() {
-        return classNames(
-            'Polaris-Tag',
-            this.removable && `Polaris-Tag--removable`,
-        );
-    }
-
-    public handleRemove() {
+    props: {
         /**
-         * Method to remove tag
-         * @property tag-key
+         * Tag object
+         * @values { value: 'Test', key: 'test'}
          */
-        this.$emit('remove-tag', this.tag.key);
-    }
+        tag: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('tag', TagInterface),
+        },
+        /**
+         * Set true if you want to make it removable
+         * @values true | false
+         */
+        removable: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    computed: {
+        className() {
+            return classNames(
+                'Polaris-Tag',
+                this.removable && `Polaris-Tag--removable`,
+            );
+        },
+    },
+    methods: {
+        handleRemove() {
+            /**
+             * Method to remove tag
+             * @property tag-key
+             */
+            this.$emit('remove-tag', this.tag.key);
+        },
+    },
 }
 </script>
