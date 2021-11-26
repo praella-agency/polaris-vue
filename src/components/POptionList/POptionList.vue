@@ -20,21 +20,28 @@
     </ul>
 </template>
 
-<script lang="ts">
-import {Component, Vue, Prop} from 'vue-property-decorator';
-import { POptionsListOption } from '@/components/POptionList/components/POptionsListOption';
+<script>
+import { POptionsListOption } from './../../components/POptionList/components/POptionsListOption/index.js';
+import ArrayValidator from "./../../utilities/validators/ArrayValidator";
 
-export interface OptionDescriptor {
-    label?: string;
-    value: string;
-    disabled?: boolean;
-    active?: boolean;
-    id?: string;
+export const OptionDescriptor = {
+    label: String,
+    value: {
+      type: String,
+      required: true
+    },
+    disabled: Boolean,
+    active: Boolean,
+    id: String,
 }
 
-interface SectionDescriptor {
-    options: OptionDescriptor[];
-    title?: string;
+const SectionDescriptor = {
+  options: {
+    type: Array,
+    required: true,
+    properties: OptionDescriptor
+  },
+  title: String,
 }
 
 /**
@@ -47,81 +54,111 @@ interface SectionDescriptor {
  *  and should not be used within a form,
  *  but as a standalone menu.</h4>
  */
-@Component({
-    components: {
-        POptionsListOption,
-    },
-})
-export default class POptionList extends Vue {
 
+export default {
+  name: 'POptionList',
+  components: {
+    POptionsListOption,
+  },
+  props: {
     /**
      * Add to allow multiple options.
      * @values true | false
      */
-    @Prop({type: Boolean, default: false}) public allowMultiple!: boolean;
+    allowMultiple: {
+      type: Boolean,
+      default: false,
+    },
 
     /**
      * A unique identifier for the option list.
      */
-    @Prop({type: [String, Number], default: null}) public id!: string | number;
+    id: {
+      type: [String, Number],
+      default: null,
+    },
 
     /**
      * List title.
      */
-    @Prop({type: String, default: null}) public title!: string;
+    title: {
+      type: String,
+      default: null,
+    },
 
     /**
      * Collection of options to be listed.
      */
-    @Prop({type: Array, default: () => []}) public options!: OptionDescriptor[];
+    options: {
+      type: Array,
+      default: () => ([]),
+      ...ArrayValidator('options', OptionDescriptor)
+    },
 
     /**
      * Sections containing a header and related options.
      */
-    @Prop({type: Array, default: () => []}) public sections!: SectionDescriptor[];
+    sections: {
+      type: Array,
+      default: () => ([]),
+      ...ArrayValidator('sections', SectionDescriptor)
+    },
 
     /**
      * The selected options.
      */
-    @Prop({type: Array, required: true, default: []}) public selected!: string[];
-
-    public get normalizedOptions() {
-
-        if (this.options == null) {
-            return this.sections == null ? [] : [{options: [], title: this.title}, ...this.sections];
-        }
-
-        if (this.sections == null) {
-            return [{title: this.title, options: this.options}];
-        }
-
-        return [{title: this.title, options: this.options}, ...this.sections];
+    selected: {
+      type: Array,
+      default: () => ([]),
+      required: true,
+    },
+  },
+  data() {
+    return {
+      optionsExist: true,
     }
+  },
+  computed: {
+    normalizedOptions() {
 
-    public optionsExist = this.normalizedOptions.length > 0;
+      if (this.options == null) {
+        return this.sections == null ? [] : [{options: [], title: this.title}, ...this.sections];
+      }
 
-    public handleClick(sectionIndex: number, optionIndex: number) {
+      if (this.sections == null) {
+        return [{title: this.title, options: this.options}];
+      }
 
+      return [{title: this.title, options: this.options}, ...this.sections];
+    }
+  },
+  methods: {
+    handleClick(sectionIndex, optionIndex) {
+      if(typeof sectionIndex === 'number' && typeof optionIndex === 'number') {
         const selectedValue = this.normalizedOptions[sectionIndex].options[optionIndex].value;
         const foundIndex = this.selected.indexOf(selectedValue);
         if (this.allowMultiple) {
+          const newSelection =
+              foundIndex === -1
+                  ? [selectedValue, ...this.selected]
+                  : [
+                    ...this.selected.slice(0, foundIndex),
+                    ...this.selected.slice(foundIndex + 1, this.selected.length),
+                  ];
 
-            const newSelection =
-                foundIndex === -1
-                    ? [selectedValue, ...this.selected]
-                    : [
-                        ...this.selected.slice(0, foundIndex),
-                        ...this.selected.slice(foundIndex + 1, this.selected.length),
-                    ];
-
-            this.$emit('change', newSelection);
-            return;
+          this.$emit('change', newSelection);
+          return;
         }
         /**
          * Method to handle click event
          * @property {Default}
          */
         this.$emit('change', [selectedValue]);
+      }
     }
+  },
+  created() {
+    this.optionsExist = this.normalizedOptions.length > 0
+  }
 }
 </script>

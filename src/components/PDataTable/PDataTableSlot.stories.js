@@ -7,7 +7,7 @@ import { PLink } from '../PLink';
 import { PBadge } from '../../components/PBadge/index.js';
 import { PIcon } from '../../components/PIcon/index.js';
 import { PToggle } from '../PToggle';
-import { POptionList } from '../POptionList';
+import { POptionList } from '../../components/POptionList/index.js';
 import { PCard } from '../PCard';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';

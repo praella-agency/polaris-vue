@@ -18,46 +18,64 @@
     </li>
 </template>
 
-<script lang="ts">
-    import {Component, Vue, Prop} from 'vue-property-decorator';
+<script>
     import { classNames } from '@/utilities/css';
-    import { POptionsListCheckbox } from '@/components/POptionList/components/POptionsListCheckbox';
+    import { POptionsListCheckbox } from './../../../../components/POptionList/components/POptionsListCheckbox';
 
-    @Component({
-        components: {
-            POptionsListCheckbox,
+    export default {
+      name: 'POptionsListOption',
+      components: {
+        POptionsListCheckbox,
+      },
+      props: {
+        id: {
+          type: [String, Number],
         },
-    })
-    export default class POptionsListOption extends Vue {
-
-        @Prop([String, Number]) public id!: string | number;
-        @Prop(String) public value!: string;
-        @Prop(Number) public section!: number;
-        @Prop(Number) public index!: number;
-        @Prop(Boolean) public disabled!: boolean;
-        @Prop(Boolean) public active!: boolean;
-        @Prop(Boolean) public select!: boolean;
-        @Prop(Boolean) public allowMultiple!: boolean;
-
-        public focused = false;
-
-        public get singleSelectClassName() {
-            return classNames(
-                'Polaris-OptionList-Option__SingleSelectOption',
-                this.disabled && 'Polaris-OptionList-Option--disabled',
-                this.select && 'Polaris-OptionList-Option--select',
-                this.active && 'Polaris-OptionList-Option--active',
-                this.focused && 'Polaris-OptionList-Option--focused',
-            );
+        value: {
+          type: String,
+        },
+        section: {
+          type: Number,
+        },
+        index: {
+          type: Number,
+        },
+        disabled: {
+          type: Boolean,
+        },
+        active: {
+          type: Boolean,
+        },
+        select: {
+          type: Boolean,
+        },
+        allowMultiple: {
+          type: Boolean,
+        },
+      },
+      data() {
+        return {
+          focused: false,
         }
-
-        public get multiSelectClassName() {
-            return classNames(
-                'Polaris-OptionList-Option__Label',
-                this.disabled && 'Polaris-OptionList-Option--disabled',
-                this.active && 'Polaris-OptionList-Option--active',
-                this.select && 'Polaris-OptionList-Option--select',
-            );
+      },
+      computed: {
+        singleSelectClassName() {
+          return classNames(
+              'Polaris-OptionList-Option__SingleSelectOption',
+              this.disabled && 'Polaris-OptionList-Option--disabled',
+              this.select && 'Polaris-OptionList-Option--select',
+              this.active && 'Polaris-OptionList-Option--active',
+              this.focused && 'Polaris-OptionList-Option--focused',
+          );
+        },
+        multiSelectClassName() {
+          return classNames(
+              'Polaris-OptionList-Option__Label',
+              this.disabled && 'Polaris-OptionList-Option--disabled',
+              this.active && 'Polaris-OptionList-Option--active',
+              this.select && 'Polaris-OptionList-Option--select',
+          );
         }
+      },
     }
 </script>

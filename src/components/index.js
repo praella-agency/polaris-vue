@@ -54,7 +54,7 @@ import { PPopover } from './PPopover';
 import { PTag } from './PTag';
 import { PFilter } from './PFilter';
 import { PFilterItem } from './PFilter/components/PFilterItem';
-import { POptionList } from './POptionList';
+import { POptionList } from './../components/POptionList/index.js';
 import { PBreadcrumbs } from './PBreadcrumbs';
 import { PActionMenu } from './PActionMenu';
 import { PPageActions } from './PPageActions';

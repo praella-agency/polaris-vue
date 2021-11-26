@@ -4,7 +4,7 @@ import { PLink } from '../PLink';
 import { PThumbnail } from '../../components/PThumbnail/index.js';
 import { PPopover } from '../PPopover';
 import { PButton } from '../PButton';
-import { POptionList } from '../POptionList';
+import { POptionList } from '../../components/POptionList/index.js';
 import { PBadge } from '../../components/PBadge/index.js';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';

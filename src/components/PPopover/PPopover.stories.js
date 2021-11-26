@@ -1,6 +1,6 @@
 import { PPopover } from './index';
 import { PButton } from '../PButton';
-import { POptionList } from '../POptionList';
+import { POptionList } from '../../components/POptionList/index.js';
 
 export default {
     title: 'Overlays / Popover',

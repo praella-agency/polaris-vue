@@ -12,7 +12,7 @@ import { PResourceList } from '../PResourceList';
 import { PResourceListItem } from '../PResourceList/components/PResourceListItem';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
-import { POptionList } from '../POptionList';
+import { POptionList } from '../../components/POptionList/index.js';
 
 export default {
     title: 'Structure / Card',

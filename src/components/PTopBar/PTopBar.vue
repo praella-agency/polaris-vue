@@ -98,7 +98,7 @@
   import { PTextField } from '@/components/PTextField';
   import { PActionList } from '@/components/PActionList';
   import { PPopover } from '@/components/PPopover';
-  import { POptionList } from '@/components/POptionList';
+  import { POptionList } from './../../components/POptionList/index.js';
   import { PAvatar } from '@/components/PAvatar';
   import { PSearch } from '@/components/PTopBar/components/PSearch';
   import { PUserMenu } from '@/components/PTopBar/components/PUserMenu';

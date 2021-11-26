@@ -1,7 +1,7 @@
 import { PFilter } from './index';
 import { PButton } from '../PButton';
 import { PPopover } from '../PPopover';
-import { POptionList } from '../POptionList';
+import { POptionList } from '../../components/POptionList/index.js';
 import { PCard } from '../PCard';
 import { PCardSection } from '../PCard/components/PCardSection';
 import { PStack } from '../PStack';
