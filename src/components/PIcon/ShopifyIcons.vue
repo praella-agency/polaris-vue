@@ -108,7 +108,7 @@ export default {
   },
   methods: {
     searchIcon(value) {
-      if (value === '') {
+      if (!value) {
         this.difference.forEach((icon) => {
           if (icon.includes('Major')) {
               this.icons.major.push(icon);
