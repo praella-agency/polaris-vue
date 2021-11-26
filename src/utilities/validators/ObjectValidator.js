@@ -19,7 +19,7 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
             });
         }
 
-        if(typeof objectType === 'object') {
+        if(typeof objectType === 'object' && !Array.isArray(objectType)) {
             isRequired = objectType.required || false;
             if (!Array.isArray(objectType.type)) {
                 valueType = [objectType.type.name] || undefined;
