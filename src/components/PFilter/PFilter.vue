@@ -43,7 +43,7 @@
 
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator';
-  import { PTextField } from '@/components/PTextField';
+  import { PTextField } from '@/components/PTextField/index.js';
   import { PIcon } from '@/components/PIcon';
   import { PTag } from '@/components/PTag/index.js';
   import { PFilterItemWrapper } from '@/components/PFilter/components/PFilterItemWrapper';

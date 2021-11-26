@@ -11,8 +11,7 @@
     </div>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+<script>
     const ENTITIES_TO_REPLACE = {
         '&': '&amp;',
         '<': '&lt;',
@@ -22,52 +21,59 @@
 
     const REPLACE_REGEX = /[\n&<>]/g;
 
-    @Component
-    export default class PFieldResizer extends Vue {
-        @Prop(String) public contents!: string;
-        @Prop(Number) public currentHeight!: number;
-        @Prop(Number) public minimumLines!: number;
+    export default {
+        name: 'PFieldResizer',
+        props: {
+            contents: {
+                type: String,
+            },
+            currentHeight: {
+                type: Number,
+            },
+            minimumLines: {
+                type: Number,
+            },
+        },
+        computed: {
+            finalContents() {
+                return this.contents ? this.contents.replace(REPLACE_REGEX, this.replaceEntity) + '<br>' : '<br>';
+            },
+            minimumLinesContent() {
+                let content = '';
+                for (let line = 0; line < this.minimumLines; line++) {
+                    content += '<br>';
+                }
+                return content;
+            },
+        },
+        methods: {
+            handleHeightCheck() {
+                if (this.$refs.dummyInput === null || this.$refs.minimumLines === null) {
+                    return;
+                }
 
-        public handleHeightCheck() {
-            if (this.$refs.dummyInput === null || this.$refs.minimumLines === null) {
-                return;
-            }
+                const dummyInput = this.$refs.dummyInput;
+                const minimumLines = this.$refs.minimumLines;
 
-            const dummyInput: any = this.$refs.dummyInput;
-            const minimumLines: any = this.$refs.minimumLines;
+                const contentHeight = dummyInput.offsetHeight;
+                const minimumHeight = minimumLines ? minimumLines.offsetHeight : 0;
+                const newHeight = Math.max(contentHeight, minimumHeight);
 
-            const contentHeight = dummyInput.offsetHeight;
-            const minimumHeight = minimumLines ? minimumLines.offsetHeight : 0;
-            const newHeight = Math.max(contentHeight, minimumHeight);
-
-            if (this.currentHeight !== newHeight) {
-                this.$emit('heightchange', newHeight);
-            }
-        }
-
-        public get finalContents() {
-            return this.contents ? this.contents.replace(REPLACE_REGEX, this.replaceEntity) + '<br>' : '<br>';
-        }
-
-        public get minimumLinesContent() {
-            let content = '';
-            for (let line = 0; line < this.minimumLines; line++) {
-                content += '<br>';
-            }
-            return content;
-        }
-
-        public mounted() {
+                if (this.currentHeight !== newHeight) {
+                    this.$emit('heightchange', newHeight);
+                }
+            },
+            replaceEntity(entity) {
+                return ENTITIES_TO_REPLACE[entity] || entity;
+            },
+        },
+        mounted() {
             this.handleHeightCheck();
-        }
-
-        public replaceEntity(entity: string) {
-            return ENTITIES_TO_REPLACE[entity] || entity;
-        }
-
-        @Watch('finalContents')
-        public onFinalContentsChanged(val: string, oldVal: string) {
-            this.handleHeightCheck();
-        }
+        },
+        watch: {
+            finalContents(value, oldValue) {
+                this.handleHeightCheck();
+            }
+        },
     }
 </script>
