@@ -1,17 +1,18 @@
 <template>
-  <div class="Polaris-MessageIndicator__MessageIndicatorWrapper">
-    <div v-show="active" class="Polaris-MessageIndicator" testID="indicator"/>
-    <slot/>
-  </div>
+    <div class="Polaris-MessageIndicator__MessageIndicatorWrapper">
+        <div v-show="active" class="Polaris-MessageIndicator" testID="indicator"/>
+        <slot/>
+    </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-
-@Component
-export default class PMessageIndicator extends Vue {
-
-  @Prop({type: Boolean, default: true}) public active!: boolean;
-
-}
+<script>
+    export default {
+        name: 'PMessageIndicator',
+        props: {
+            active: {
+                type: Boolean,
+                default: true,
+            },
+        },
+    }
 </script>
