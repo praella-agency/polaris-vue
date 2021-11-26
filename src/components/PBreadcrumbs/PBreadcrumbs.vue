@@ -1,95 +1,99 @@
-<script lang="tsx">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames } from '@/utilities/css';
-import { PUnstyledLink } from '@/components/PUnstyledLink/index.js';
-import { PIcon } from '@/components/PIcon';
+<script>
+    import { classNames } from '../../utilities/css';
+    import { PUnstyledLink } from '../../components/PUnstyledLink/index.js';
+    import { PIcon } from '../../components/PIcon';
+    import ArrayValidator from '../../utilities/validators/ArrayValidator';
 
-interface PBreadcrumbsProps {
-  content?: any;
-  url?: any;
-  to?: any;
-  accessibilityLabel?: string;
-  onAction?(): void;
-}
+    const PBreadcrumbsProps = {
+        content: [String, Object],
+        url: String,
+        to: [String, Object],
+        accessibilityLabel: String,
+        onAction: Function,
+    }
 
-@Component({
-    components: {
-        PUnstyledLink, PIcon,
-    },
-})
-export default class PBreadcrumbs extends Vue {
+    export default {
+        name: 'PBreadcrumbs',
+        components: {
+            PUnstyledLink, PIcon,
+        },
+        props: {
+            /**
+             * Collection of breadcrumbs
+             */
+            breadcrumbs: {
+                type: Array,
+                default: () => ([]),
+                ...ArrayValidator('breadcrumbs', PBreadcrumbsProps),
+            },
+        },
+        render(h) {
+            const breadcrumb = this.breadcrumbs[this.breadcrumbs.length - 1];
+            if (breadcrumb == null) {
+                return null;
+            }
 
-    /**
-     * Collection of breadcrumbs
-     */
-    @Prop({type: Array, default: Array}) public breadcrumbs!: [];
+            const {content} = breadcrumb;
+            const {onAction} = breadcrumb;
 
-    public render(h: any) {
-
-        const breadcrumb = this.breadcrumbs[this.breadcrumbs.length - 1] as PBreadcrumbsProps;
-        if (breadcrumb == null) {
-            return null;
-        }
-
-        const { content } = breadcrumb;
-        const { onAction } = breadcrumb;
-
-        const contentMarkup = this.$createElement('span', {
-            class: 'Polaris-Breadcrumbs__ContentWrapper',
-        }, [
-            this.$createElement('span', {
-              class: 'Polaris-Breadcrumbs__Icon',
+            const contentMarkup = this.$createElement('span', {
+                class: 'Polaris-Breadcrumbs__ContentWrapper',
             }, [
-              this.$createElement(PIcon, {
-                attrs: {
-                  source: 'ChevronLeftMinor',
-                },
-              }),
-            ]),
-            this.$createElement('span', {
-              class: 'Polaris-Breadcrumbs__Content',
-            }, content),
-        ]);
+                this.$createElement('span', {
+                    class: 'Polaris-Breadcrumbs__Icon',
+                }, [
+                    this.$createElement(PIcon, {
+                        attrs: {
+                            source: 'ChevronLeftMinor',
+                        },
+                    }),
+                ]),
+                this.$createElement('span', {
+                    class: 'Polaris-Breadcrumbs__Content',
+                }, content),
+            ]);
 
-        const breadcrumbClassNames = classNames(
-            'Polaris-Breadcrumbs__Breadcrumb',
-        );
-
-        const breadcrumbMarkup =
-            'url' in breadcrumb || 'to' in breadcrumb ? (
-                this.$createElement(PUnstyledLink, {
-                  class: breadcrumbClassNames,
-                  attrs: {
-                    key: content,
-                    url: breadcrumb.url,
-                    to: breadcrumb.to,
-                    ariaLabel: breadcrumb.accessibilityLabel,
-                  },
-                  nativeOn: {
-                    // tslint:disable-next-line:no-empty
-                    click: onAction ? onAction : () => {},
-                  },
-                }, [contentMarkup])
-            ) : (
-                this.$createElement('button', {
-                  class: breadcrumbClassNames,
-                  attrs: {
-                    key: content,
-                    type: 'button',
-                    ariaLabel: breadcrumb.accessibilityLabel,
-                  },
-                  on: {
-                    // tslint:disable-next-line:no-empty
-                    click: onAction ? onAction : () => {},
-                  },
-                }, [contentMarkup])
+            const breadcrumbClassNames = classNames(
+                'Polaris-Breadcrumbs__Breadcrumb',
             );
 
-        return this.$createElement('nav', {
-          attrs: {
-            role: 'navigation',
-          },
-        }, [breadcrumbMarkup]);
+            const breadcrumbMarkup =
+                'url' in breadcrumb || 'to' in breadcrumb ? (
+                    this.$createElement(PUnstyledLink, {
+                        class: breadcrumbClassNames,
+                        attrs: {
+                            key: content,
+                            url: breadcrumb.url,
+                            to: breadcrumb.to,
+                            ariaLabel: breadcrumb.accessibilityLabel,
+                        },
+                        nativeOn: {
+                            // tslint:disable-next-line:no-empty
+                            click: onAction ? onAction : () => {
+                            },
+                        },
+                    }, [contentMarkup])
+                ) : (
+                    this.$createElement('button', {
+                        class: breadcrumbClassNames,
+                        attrs: {
+                            key: content,
+                            type: 'button',
+                            ariaLabel: breadcrumb.accessibilityLabel,
+                        },
+                        on: {
+                            // tslint:disable-next-line:no-empty
+                            click: onAction ? onAction : () => {
+                            },
+                        },
+                    }, [contentMarkup])
+                );
+
+            return this.$createElement('nav', {
+                attrs: {
+                    role: 'navigation',
+                },
+            }, [breadcrumbMarkup]);
+        },
     }
-}
 </script>
