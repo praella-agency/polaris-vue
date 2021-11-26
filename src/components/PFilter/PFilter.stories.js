@@ -115,7 +115,10 @@ const Template = (args, {argTypes}) => ({
             status: [],
             taggedValue: '',
             appliedFilter: [
-                { value: 'Test', key: 'test'},
+                {
+                    value: 'Test',
+                    key: 'test',
+                },
             ],
             accountStatus: [],
         };
@@ -213,13 +216,16 @@ const Template = (args, {argTypes}) => ({
         handleTag(value) {
             this.accountStatus = value;
             if (value.length > 0) {
-                if(this.accountStatusPopover) {
+                if (this.accountStatusPopover) {
                     let key = 'accountStatus';
                     this.taggedValue += value.map((val) => `Customer ${val}`).join(', ');
                     this.appliedFilter.splice(0, this.appliedFilter.length);
                     return this.appliedFilter.push(
-                        { value: this.disambiguateLabel(key, value),
-                            key: 'tag_' + this.taggedValue, remove: () => {}},
+                        {
+                            value: this.disambiguateLabel(key, value),
+                            key: 'tag_' + this.taggedValue,
+                            remove: () => {},
+                        },
                     )
                 }
             }
