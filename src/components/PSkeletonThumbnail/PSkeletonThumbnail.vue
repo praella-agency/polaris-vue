@@ -2,11 +2,11 @@
   <div :class="className"></div>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+<script>
 import { classNames, variationName } from '@/utilities/css';
+import StringValidator from "./../../utilities/validators/StringValidator";
 
-type Size = 'small' | 'medium' | 'large';
+const Size = ['small', 'medium', 'large'];
 
 /**
  * <br/>
@@ -14,19 +14,27 @@ type Size = 'small' | 'medium' | 'large';
  *  sans-serif;">Skeleton thumbnail is used to provide a low fidelity representation of an image before it appears on
  *  the page, and improves load times perceived by merchants. Use for thumbnails in or outside of a card.</h4>
  */
-@Component
-export default class PSkeletonThumbnail extends Vue {
-  /**
-   * Size of Skeleton
-   * @values 'small' | 'medium' | 'large'
-   */
-  @Prop({ type: String, default: 'medium' }) public size!: Size;
+export default {
+  name: 'PSkeletonThumbnail',
+  props: {
+    /**
+     * Size of Skeleton
+     * @values 'small' | 'medium' | 'large'
+     */
 
-  public get className() {
-    return classNames(
-      'Polaris-SkeletonThumbnail',
-      this.size && `Polaris-SkeletonThumbnail--${variationName('size', this.size)}`,
-    );
-  }
+    size: {
+      type: String,
+      default: 'medium',
+      ...StringValidator('size', Size)
+    }
+  },
+  computed: {
+    className() {
+      return classNames(
+          'Polaris-SkeletonThumbnail',
+          this.size && `Polaris-SkeletonThumbnail--${variationName('size', this.size)}`,
+      );
+    }
+  },
 }
 </script>

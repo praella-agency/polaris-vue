@@ -21,7 +21,7 @@ import { PPage } from './PPage';
 import { PSelect } from './PSelect';
 import { PSkeletonBodyText } from './../components/PSkeletonBodyText/index.js';
 import { PSkeletonDisplayText } from './../components/PSkeletonDisplayText/index.js';
-import { PSkeletonThumbnail } from './PSkeletonThumbnail';
+import { PSkeletonThumbnail } from './../components/PSkeletonThumbnail/index.js';
 import { PSpinner } from './PSpinner';
 import { PStack } from './PStack';
 import { PStackItem } from './PStack/components/PStackItem';
