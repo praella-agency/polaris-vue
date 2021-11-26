@@ -1,151 +1,182 @@
 <template>
-  <PCard>
-    <div :class="className">
-      <div class="Polaris-MediaCard__MediaContainer Polaris-MediaCard--sizeSmall">
-        <PImage v-if="imageSrc" width="100%" height="100%" style="object-fit: cover; object-position: center center;"
-                :src="imageSrc"/>
-        <vue-plyr>
-          <video
-              controls
-              crossorigin
-              playsinline
-              :data-poster="videoThumbSrc"
-          >
-          <source
-              v-for="(video, key) in videoSrc" :key="key"
-              controls
-              crossorigin
-              playsinline
-              :size="video.size"
-              :src="video.src"
-              :type="video.type"
-          />
-          </video>
-        </vue-plyr>
-      </div>
-      <div class="Polaris-MediaCard__InfoContainer">
-        <div class="Polaris-Card__Section">
-          <!--          <div class="Polaris-MediaCard__Popover">
-                      <div>
-                       <PButton plain icon="HorizontalDotsMinor"/>
-                      </div>
-                    </div>-->
-          <PStack vertical>
-            <PStackItem>
-              <div class="Polaris-MediaCard__Heading">
-                <PHeading element="h2">{{ title }}</PHeading>
-              </div>
-            </PStackItem>
-            <PStackItem>
-              <!-- @slot The visual media to display in the card -->
-              <slot/>
-            </PStackItem>
-            <PStackItem v-if="hasAction">
-              <PButtonGroup>
-                <div class="Polaris-MediaCard__PrimaryAction">
-                  <PButton v-bind="primaryAction" @click="primaryAction.onAction">
-                    {{ primaryAction.content }}
-                  </PButton>
+    <PCard>
+        <div :class="className">
+            <div class="Polaris-MediaCard__MediaContainer Polaris-MediaCard--sizeSmall">
+                <PImage v-if="imageSrc" width="100%" height="100%"
+                        style="object-fit: cover; object-position: center center;"
+                        :src="imageSrc"/>
+                <vue-plyr>
+                    <video
+                        controls
+                        crossorigin
+                        playsinline
+                        :data-poster="videoThumbSrc"
+                    >
+                        <source
+                            v-for="(video, key) in videoSrc" :key="key"
+                            controls
+                            crossorigin
+                            playsinline
+                            :size="video.size"
+                            :src="video.src"
+                            :type="video.type"
+                        />
+                    </video>
+                </vue-plyr>
+            </div>
+            <div class="Polaris-MediaCard__InfoContainer">
+                <div class="Polaris-Card__Section">
+                    <!--          <div class="Polaris-MediaCard__Popover">
+                                <div>
+                                 <PButton plain icon="HorizontalDotsMinor"/>
+                                </div>
+                              </div>-->
+                    <PStack vertical>
+                        <PStackItem>
+                            <div class="Polaris-MediaCard__Heading">
+                                <PHeading element="h2">{{ title }}</PHeading>
+                            </div>
+                        </PStackItem>
+                        <PStackItem>
+                            <!-- @slot The visual media to display in the card -->
+                            <slot/>
+                        </PStackItem>
+                        <PStackItem v-if="hasAction">
+                            <PButtonGroup>
+                                <div class="Polaris-MediaCard__PrimaryAction">
+                                    <PButton v-bind="primaryAction" @click="primaryAction.onAction">
+                                        {{ primaryAction.content }}
+                                    </PButton>
+                                </div>
+                                <div class="Polaris-MediaCard__SecondaryAction" v-if="secondaryAction">
+                                    <PButton v-bind="secondaryAction" plain @click="secondaryAction.onAction">
+                                        {{ secondaryAction.content }}
+                                    </PButton>
+                                </div>
+                            </PButtonGroup>
+                        </PStackItem>
+                    </PStack>
                 </div>
-                <div class="Polaris-MediaCard__SecondaryAction" v-if="secondaryAction">
-                  <PButton v-bind="secondaryAction" plain @click="secondaryAction.onAction">
-                    {{ secondaryAction.content }}
-                  </PButton>
-                </div>
-              </PButtonGroup>
-            </PStackItem>
-          </PStack>
+            </div>
         </div>
-      </div>
-    </div>
-  </PCard>
+    </PCard>
 </template>
 
-<script lang="ts">
-import {Component, Prop, Vue} from 'vue-property-decorator';
-import {classNames} from '@/utilities/css';
-import {DestructableAction, DisableableAction, IconableAction, LoadableAction, Video} from '@/types';
-import VuePlyr from '@hulkapps/vue-plyr';
-import { PCard } from '@/components/PCard/index.js';
-import { PStack } from '@/components/PStack/index.js';
-import { PStackItem } from '@/components/PStack/components/PStackItem/index.js';
-import { PHeading } from '@/components/PHeading';
-import { PImage } from '@/components/PImage';
-import { PButtonGroup } from '@/components/PButtonGroup/index.js';
-import { PButton } from '@/components/PButton/index.js';
+<script>
+    import { classNames } from '../../utilities/css';
+    import { DestructableAction, DisableableAction, IconableAction, LoadableAction, Video } from '../../types/types';
+    import VuePlyr from '@hulkapps/vue-plyr';
+    import { PCard } from '../../components/PCard/index.js';
+    import { PStack } from '../../components/PStack/index.js';
+    import { PStackItem } from '../../components/PStack/components/PStackItem/index.js';
+    import { PHeading } from '../../components/PHeading';
+    import { PImage } from '../../components/PImage';
+    import { PButtonGroup } from '../../components/PButtonGroup/index.js';
+    import { PButton } from '../../components/PButton/index.js';
+    import StringValidator from '../../utilities/validators/StringValidator';
+    import ArrayValidator from '../../utilities/validators/ArrayValidator';
 
-type Size = 'small' | 'medium';
+    const Size = ['small', 'medium'];
 
-interface PrimaryAction
-    extends DestructableAction,
-        DisableableAction,
-        LoadableAction,
-        IconableAction {
-  primary?: boolean;
-}
+    const PrimaryAction = {
+        ...DestructableAction,
+        ...DisableableAction,
+        ...LoadableAction,
+        ...IconableAction,
+        primary: Boolean,
+    }
 
-/**
- * <br/>
- * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
- *  sans-serif;">Media cards provide a consistent layout to present visual information to merchants. Visual media is
- *  used to provide additional context to the written information it's paired with.</h4>
- */
-@Component({
-  components: {
-    PCard, VuePlyr, PStack, PStackItem, PHeading, PImage, PButtonGroup, PButton,
-  },
-})
-export default class PTag extends Vue {
-
-  /**
-   * Heading content.
-   */
-  @Prop({type: String, default: null}) public title!: string;
-  /**
-   * Body content
-   */
-  @Prop({type: String, default: null}) public description!: string;
-  /**
-   * Whether or not card content should be laid out vertically.
-   */
-  @Prop({type: Boolean, default: false}) public portrait!: boolean;
-  /**
-   * Size of the visual media in the card.
-   * @values small | medium
-   */
-  @Prop({type: String, default: 'small'}) public size!: Size;
-  /**
-   * Main call action, rendered as basic button.
-   */
-  @Prop({type: Object, default: []}) public primaryAction!: PrimaryAction;
-  /**
-   * Secondary call action, rendered as plain button.
-   */
-  @Prop({type: Object, default: []}) public secondaryAction!: PrimaryAction;
-  /**
-   * Source of image.
-   */
-  @Prop({type: String, default: null}) public imageSrc!: string;
-  /**
-   * Source of thumbnail video.
-   */
-  @Prop({type: String, default: null}) public videoThumbSrc!: string;
-  /**
-   * Source of video.
-   */
-  @Prop({type: Array, default: []}) public videoSrc!: Video[];
-
-  public get hasAction() {
-    return this.primaryAction || this.secondaryAction;
-  }
-
-  public get className() {
-    return classNames(
-        'Polaris-MediaCard',
-        this.portrait && `Polaris-MediaCard--portrait`,
-    );
-  }
-}
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">Media cards provide a consistent layout to present visual information to merchants. Visual media is
+     *  used to provide additional context to the written information it's paired with.</h4>
+     */
+    export default {
+        name: 'PMediaCard',
+        components: {
+            PCard, VuePlyr, PStack, PStackItem, PHeading, PImage, PButtonGroup, PButton,
+        },
+        props: {
+            /**
+             * Heading content.
+             */
+            title: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Body content
+             */
+            description: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Whether or not card content should be laid out vertically.
+             */
+            portrait: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Size of the visual media in the card.
+             * @values small | medium
+             */
+            size: {
+                type: String,
+                default: 'small',
+                ...StringValidator('size', Size),
+            },
+            /**
+             * Main call action, rendered as basic button.
+             */
+            primaryAction: {
+                type: Object,
+                default: () => ({}),
+            },
+            /**
+             * Secondary call action, rendered as plain button.
+             */
+            secondaryAction: {
+                type: Object,
+                default: () => ({})
+            },
+            /**
+             * Source of image.
+             */
+            imageSrc: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Source of thumbnail video.
+             */
+            videoThumbSrc: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Source of video.
+             */
+            videoSrc: {
+                type: Array,
+                default: () => ([]),
+                ...ArrayValidator('videoSrc', Video),
+            },
+        },
+        computed: {
+            className() {
+                return classNames(
+                    'Polaris-MediaCard',
+                    this.portrait && `Polaris-MediaCard--portrait`,
+                );
+            },
+            hasAction() {
+                return this.primaryAction || this.secondaryAction;
+            },
+        },
+    }
 </script>
 
 <style scoped lang="scss">
