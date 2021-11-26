@@ -62,7 +62,7 @@ import { PMultiSelect } from './PMultiSelect';
 import { PDatePicker } from './PDatePicker';
 import { PMediaCard } from './PMediaCard';
 import { PChart } from './PChart';
-import { PEmptyState } from './PEmptyState';
+import { PEmptyState } from './../components/PEmptyState/index.js';
 import { PFooterHelp } from './PFooterHelp';
 import { PDropZone } from './PDropZone';
 import PToast from './PToast/index';

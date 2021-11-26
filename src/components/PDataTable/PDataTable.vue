@@ -206,7 +206,7 @@ import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
 import { PFilter } from '@/components/PFilter';
 import { PSpinner } from './../../components/PSpinner/index.js';
 import { ComplexAction, LinkAction } from '@/types';
-import { PEmptyState } from '@/components/PEmptyState';
+import { PEmptyState } from './../../components/PEmptyState/index.js';
 
 type Status = 'success' | 'info' | 'attention' | 'warning' | 'new' | 'critical';
 type Progress = 'incomplete' | 'partiallyComplete' | 'complete';

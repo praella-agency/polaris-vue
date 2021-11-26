@@ -83,9 +83,13 @@ export const DestructableAction = {
     destructive: Boolean,
 }
 
+// Note: Changed icon: IconProps.source type
 export const IconableAction = {
     ...Action,
-    icon: IconProps.source
+    icon: {
+        type: String,
+        expectedValues: IconSource,
+    }
 }
 
 
