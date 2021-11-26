@@ -34,21 +34,21 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
             let isContinue = false;
             valueType.forEach(vType => {
                 switch (vType) {
-                    case 'object': {
+                    case 'Object': {
                         if (objectType.properties) {
                             result = ObjectValidator(name, object[`${objectKey}`], objectType.properties, isRequired);
                             isContinue = true;
                         }
                         break;
                     }
-                    case 'array': {
+                    case 'Array': {
                         if (objectType.properties) {
                             result = ArrayValidator(name, object[`${objectKey}`], objectType.properties, isRequired);
                             isContinue = true;
                         }
                         break;
                     }
-                    case 'string': {
+                    case 'String': {
                         if (objectType.expectedValues) {
                             result = StringValidator(name, object[`${objectKey}`], objectType.expectedValues, isRequired);
                             isContinue = true;
