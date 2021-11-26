@@ -623,7 +623,7 @@
     import { PIndexTableCell } from '@/components/PIndexTable/components/PIndexTableCell';
     import { PIndexTableRow } from '@/components/PIndexTable/components/PIndexTableRow';
     import { PTextStyle } from '@/components/PTextStyle';
-    import { PFilter } from '@/components/PFilter';
+    import { PFilter } from '@/components/PFilter/index.js';
     import { PPagination, PPaginationDescriptor } from '@/components/PPagination/index.js';
 
     interface TableHeadingRect {

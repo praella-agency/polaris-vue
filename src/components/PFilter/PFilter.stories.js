@@ -124,7 +124,7 @@ const Template = (args, {argTypes}) => ({
       <PFilter 
           v-bind="$props" 
           @remove-tag="onRemoveFilter" 
-          @input="onFilterInputChanged"
+          @queryChange="onFilterQueryChange"
           :appliedFilters="appliedFilter"
       >
           <PPopover
@@ -204,7 +204,7 @@ const Template = (args, {argTypes}) => ({
         onRemoveFilter() {
             alert("Removed");
         },
-        onFilterInputChanged() {
+        onFilterQueryChange() {
             alert("Changed");
         },
         updateStatusFilter() {

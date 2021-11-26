@@ -102,7 +102,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames } from '@/utilities/css';
 import { PIcon } from '@/components/PIcon';
-import { PFilter } from '@/components/PFilter';
+import { PFilter } from '@/components/PFilter/index.js';
 import { PSpinner } from '@/components/PSpinner';
 import { PStack } from '@/components/PStack/index.js';
 import { PStackItem } from '@/components/PStack/components/PStackItem/index.js';
