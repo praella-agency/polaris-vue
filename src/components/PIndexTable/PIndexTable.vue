@@ -611,7 +611,7 @@
 <script lang="ts">
     import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator';
     import { classNames } from '@/utilities/css';
-    import { PSpinner } from '@/components/PSpinner';
+    import { PSpinner } from './../../components/PSpinner/index.js';
     import { PButton } from '@/components/PButton';
     import { PEmptySearchResult } from '@/components/PEmptySearchResult';
     import { PStack } from '@/components/PStack';

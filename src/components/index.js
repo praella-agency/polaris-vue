@@ -22,7 +22,7 @@ import { PSelect } from './PSelect';
 import { PSkeletonBodyText } from './../components/PSkeletonBodyText/index.js';
 import { PSkeletonDisplayText } from './../components/PSkeletonDisplayText/index.js';
 import { PSkeletonThumbnail } from './../components/PSkeletonThumbnail/index.js';
-import { PSpinner } from './PSpinner';
+import { PSpinner } from './../components/PSpinner/index.js';
 import { PStack } from './PStack';
 import { PStackItem } from './PStack/components/PStackItem';
 import { PSubheading } from './../components/PSubheading/index.js';

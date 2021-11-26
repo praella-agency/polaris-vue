@@ -1,4 +1,4 @@
-import { PSpinner } from './index';
+import { PSpinner } from './index.js';
 
 export default {
     title: 'Feedback indicators / Spinner',

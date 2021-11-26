@@ -204,7 +204,7 @@ import { PDataTableCellNew } from '@/components/PDataTable/components/PDataTable
 import { PDataTableCell } from '@/components/PDataTable/components/PDataTableCell';
 import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
 import { PFilter } from '@/components/PFilter';
-import { PSpinner } from '@/components/PSpinner';
+import { PSpinner } from './../../components/PSpinner/index.js';
 import { ComplexAction, LinkAction } from '@/types';
 import { PEmptyState } from '@/components/PEmptyState';
 

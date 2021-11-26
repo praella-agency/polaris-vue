@@ -36,7 +36,7 @@
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
 import { Action } from '@/types';
-import { PSpinner } from '@/components/PSpinner';
+import { PSpinner } from './../../components/PSpinner/index.js';
 import { PModalDialog } from '@/components/PModal/components/PModalDialog';
 import { PModalHeader } from '@/components/PModal/components/PModalHeader';
 import { PModalFooter } from '@/components/PModal/components/PModalFooter';

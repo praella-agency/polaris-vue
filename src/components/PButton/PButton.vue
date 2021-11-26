@@ -59,7 +59,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { classNames, variationName } from '@/utilities/css';
 
 import { PIcon } from './../../components/PIcon/index.js';
-import { PSpinner } from '@/components/PSpinner';
+import { PSpinner } from './../../components/PSpinner/index.js';
 
 type Size = 'slim' | 'medium' | 'large';
 type TextAlign = 'left' | 'right' | 'center';
