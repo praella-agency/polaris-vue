@@ -1,5 +1,5 @@
-import { PMultiSelect } from './index';
-import { PBadge } from "../PBadge";
+import { PMultiSelect } from './index.js';
+import { PBadge } from '../PBadge';
 
 export default {
     title: 'Forms / Multi Select',

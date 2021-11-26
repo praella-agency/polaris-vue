@@ -51,164 +51,192 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { classNames } from '@/utilities/css';
+<script>
+import { classNames } from '../../utilities/css';
 import Multiselect from 'vue-multiselect';
-import { PIcon } from '@/components/PIcon';
-import { PTag } from '@/components/PTag';
-import { PFieldError } from '@/components/PFieldError/index.js';
+import { PIcon } from '../../components/PIcon';
+import { PTag } from '../../components/PTag';
+import { PFieldError } from '../../components/PFieldError/index.js';
 
-interface StrictOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-  $isDisabled?: boolean;
-  hidden?: boolean;
-}
-
-@Component({
-  components: {
-      PIcon, Multiselect, PTag, PFieldError,
-  },
-})
-export default class PMultiSelect extends Vue {
-  /**
-   * Disable the PMultiSelect.
-   * @values true | false
-   */
-  @Prop({type: Boolean, default: false}) public disabled!: boolean;
-
-  /**
-   * Label for the PMultiSelect.
-   */
-  @Prop({type: String, default: null}) public label!: string;
-
-  /**
-   * Options of PMultiSelect.
-   */
-  @Prop({required: true, default: []}) public options!: any[];
-
-  /**
-   * Field name in the `options` array that should be used for the text label
-   */
-  @Prop({type: String, default: 'label'}) public textField!: string;
-
-  /**
-   * Field name in the `options` array that should be used for the value
-   */
-  @Prop({type: String, default: 'value'}) public valueField!: string;
-
-  /**
-   * Field name in the `options` array that should be used for the disabled state
-   */
-  @Prop({type: String, default: 'disabled'}) public disabledField!: string;
-
-  /**
-   * Value for PMultiSelect.
-   */
-  @Prop({default: () => ([])}) public value!: any;
-
-  /**
-   * Disable the searchable options feature.
-   * @values true | false
-   */
-  @Prop({type: Boolean, default: true}) public searchable!: boolean;
-
-  /**
-   * Taggable provides ability to add new user-input value on multiselect.
-   * @values true | false
-   */
-  @Prop({type: Boolean, default: false}) public taggable!: boolean;
-
-  /**
-   * Provide Placeholder.
-   */
-  @Prop({type: String, default: null}) public placeholder!: string;
-
-  /**
-   * Help text
-   */
-  @Prop({type: String, default: null}) public helpText!: string;
-
-  /**
-   * Validation error
-   */
-  @Prop({type: String, default: null}) public error!: string;
-
-  /**
-   * To allow multiple selections
-   * @values true | false
-   */
-  @Prop({type: Boolean, default: true}) public multiple!: boolean;
-
-  @Prop({type: [String, Number], default: `PolarisMultiSelect${(new Date()).getTime()}`}) public id!: string | number;
-
-  public selected = this.value;
-
-  public get computedOptions() {
-    const options: any[] = [];
-    this.options.map((value) => {
-      if (typeof value === 'object') {
-        if (value[this.disabledField]) {
-          value.$isDisabled = value[this.disabledField];
-        }
-        options.push(value);
-      } else {
-        options.push({[this.textField]: value, [this.valueField]: value});
-      }
-    });
-    return options;
-  }
-
-  public get computedValue() {
-    return this.selected;
-  }
-
-  public set computedValue(value) {
-    this.selected = value;
-    /**
-     * Callback when selection is changed
-     * @property {event}
-     */
-    this.$emit('change', value);
-    /**
-     * Callback when input is triggered
-     * @property {event}
-     */
-    this.$emit('input', value);
-  }
-
-  public get computedMultiple() {
-    return !this.multiple;
-  }
-
-  public get className() {
-    return classNames(
-        'Polaris-Select',
-        this.disabled && 'Polaris-Select--disabled',
-        this.error && 'invalid',
-    );
-  }
-
-  public addTag(newTag) {
-    const tag = {
-      [this.textField]: newTag,
-      [this.valueField]: newTag,
-    };
-    if (this.multiple) {
-      this.selected.push(tag);
-    } else {
-      this.selected = tag;
-    }
-    this.options.push(tag);
-    this.$emit('change', this.selected);
-  }
-
-  @Watch('value')
-  public onValueChanged(value: any) {
-    this.selected = value;
-  }
+export default {
+    name: 'PMultiSelect',
+    components: {
+        PIcon, Multiselect, PTag, PFieldError,
+    },
+    props: {
+        /**
+         * Disable the PMultiSelect.
+         * @values true | false
+         */
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Label for the PMultiSelect.
+         */
+        label: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Options of PMultiSelect.
+         */
+        options: {
+            type: Array,
+            required: true,
+            default: () => ([]),
+        },
+        /**
+         * Field name in the `options` array that should be used for the text label
+         */
+        textField: {
+            type: String,
+            default: 'label',
+        },
+        /**
+         * Field name in the `options` array that should be used for the value
+         */
+        valueField: {
+            type: String,
+            default: 'value',
+        },
+        /**
+         * Field name in the `options` array that should be used for the disabled state
+         */
+        disabledField: {
+            type: String,
+            default: 'disabled',
+        },
+        /**
+         * Value for PMultiSelect.
+         */
+        value: {
+            type: [String, Object, Array, Number, Boolean],
+            default: () => ([]),
+        },
+        /**
+         * Disable the searchable options feature.
+         * @values true | false
+         */
+        searchable: {
+            type: Boolean,
+            default: true,
+        },
+        /**
+         * Taggable provides ability to add new user-input value on multiselect.
+         * @values true | false
+         */
+        taggable: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Provide Placeholder.
+         */
+        placeholder: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Help text
+         */
+        helpText: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Validation error
+         */
+        error: {
+            type: String,
+            default: null,
+        },
+        /**
+         * To allow multiple selections
+         * @values true | false
+         */
+        multiple: {
+            type: Boolean,
+            default: true,
+        },
+        /**
+         * Id for the element
+         */
+        id: {
+            type: [String, Number],
+            default: `PolarisMultiSelect${(new Date()).getTime()}`,
+        },
+    },
+    data() {
+        return {
+            selected: this.value,
+        };
+    },
+    computed: {
+        className() {
+            return classNames(
+                'Polaris-Select',
+                this.disabled && 'Polaris-Select--disabled',
+                this.error && 'invalid',
+            );
+        },
+        computedOptions() {
+            const options = [];
+            this.options.map((value) => {
+                if (typeof value === 'object') {
+                    if (value[this.disabledField]) {
+                        value.$isDisabled = value[this.disabledField];
+                    }
+                    options.push(value);
+                } else {
+                    options.push({[this.textField]: value, [this.valueField]: value});
+                }
+            });
+            return options;
+        },
+        computedValue: {
+            get() {
+                return this.selected;
+            },
+            set(value) {
+                this.selected = value;
+                /**
+                 * Callback when selection is changed
+                 * @property {event}
+                 */
+                this.$emit('change', value);
+                /**
+                 * Callback when input is triggered
+                 * @property {event}
+                 */
+                this.$emit('input', value);
+            },
+        },
+        computedMultiple() {
+            return !this.multiple;
+        },
+    },
+    methods: {
+        addTag(newTag) {
+            const tag = {
+                [this.textField]: newTag,
+                [this.valueField]: newTag,
+            };
+            if (this.multiple) {
+                this.selected.push(tag);
+            } else {
+                this.selected = tag;
+            }
+            this.options.push(tag);
+            this.$emit('change', this.selected);
+        },
+    },
+    watch: {
+        value(value) {
+            this.selected = value;
+        },
+    },
 }
 </script>
 
