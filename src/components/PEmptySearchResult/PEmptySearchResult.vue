@@ -27,8 +27,8 @@
 
 <script lang="ts">
     import { Vue, Component, Prop } from 'vue-property-decorator';
-    import { PStack } from '@/components/PStack';
-    import { PStackItem } from '@/components/PStack/components/PStackItem';
+    import { PStack } from '@/components/PStack/index.js';
+    import { PStackItem } from '@/components/PStack/components/PStackItem/index.js';
     import { PDisplayText } from '@/components/PDisplayText';
     import { PTextStyle } from '@/components/PTextStyle';
     import { PImage } from '@/components/PImage';

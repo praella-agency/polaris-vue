@@ -614,8 +614,8 @@
     import { PSpinner } from '@/components/PSpinner';
     import { PButton } from '@/components/PButton/index.js';
     import { PEmptySearchResult } from '@/components/PEmptySearchResult';
-    import { PStack } from '@/components/PStack';
-    import { PStackItem } from '@/components/PStack/components/PStackItem';
+    import { PStack } from '@/components/PStack/index.js';
+    import { PStackItem } from '@/components/PStack/components/PStackItem/index.js';
     import { PCheckbox } from '@/components/PCheckbox/index.js';
     import { PBadge } from '@/components/PBadge';
     import { BulkActionsProps, IndexTableHeading } from '@/components/PIndexTable/utilities';
