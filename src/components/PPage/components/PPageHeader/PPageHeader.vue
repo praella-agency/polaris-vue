@@ -54,134 +54,139 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
-import { classNames } from '@/utilities/css';
-import {
-    MenuGroupDescriptor,
-    MenuActionDescriptor,
-    DestructableAction,
-    DisableableAction,
-    LoadableAction,
-    IconableAction,
-} from '@/types';
-import { hasGroupsWithActions } from '@/components/PActionMenu/utilities';
-import { PTextStyle } from '@/components/PTextStyle';
-import { PBreadcrumbs } from '@/components/PBreadcrumbs';
-import { PPagination, PPaginationDescriptor } from '@/components/PPagination/index.js';
-import { PActionMenu } from '@/components/PActionMenu';
-import { PButton } from '@/components/PButton/index.js';
-import { PPageHeaderTitle, PPageHeaderTitleProps } from '@/components/PPage/components/PPageHeaderTitle';
-import { PPopover } from '@/components/PPopover/index.js';
-import { PActionList } from '@/components/PActionList/index.js';
-import { PButtonGroup } from '@/components/PButtonGroup/index.js';
-import { PAvatar } from '@/components/PAvatar/index.js';
+<script>
+import { classNames } from '../../../../utilities/css';
+import { hasGroupsWithActions } from '../../../../components/PActionMenu/utilities';
+import { PTextStyle } from '../../../../components/PTextStyle';
+import { PBreadcrumbs } from '../../../../components/PBreadcrumbs';
+import { PPagination } from '../../../../components/PPagination';
+import { PActionMenu } from '../../../../components/PActionMenu';
+import { PButton } from '../../../../components/PButton';
+import { PPageHeaderTitle } from '../../../../components/PPage/components/PPageHeaderTitle';
+import { PPopover } from '../../../../components/PPopover';
+import { PActionList } from '../../../../components/PActionList';
+import { PButtonGroup } from '../../../../components/PButtonGroup';
+import { PAvatar } from '../../../../components/PAvatar';
 
-interface PrimaryAction
-    extends DestructableAction,
-        DisableableAction,
-        LoadableAction,
-        IconableAction {
-  primary?: boolean;
-}
+export default {
+    name: 'PPageHeader',
+    components: {
+        PBreadcrumbs, PPagination, PPageHeaderTitle, PActionMenu, PTextStyle, PButton, PPopover, PActionList,
+        PButtonGroup, PAvatar,
+    },
+    props: {
+        title: {
+            type: String,
+        },
+        subtitle: {
+            type: String,
+        },
+        thumbnail: {
+            type: String,
+        },
+        thumbnailAlt: {
+            type: String,
+        },
+        titleMetadata: {
+            type: String,
+        },
+        avatar: {
+            type: String,
+        },
+        avatarInitials: {
+            type: String,
+        },
+        additionalMetaData: {
+            type: String,
+        },
+        titleHidden: {
+            type: Boolean,
+            default: false,
+        },
+        separator: {
+            type: Boolean,
+        },
+        primaryAction: {
+            type: Object,
+            default: () => ({}),
+        },
+        pagination: {
+            type: Object,
+            default: () => ({}),
+        },
+        breadcrumbs: {
+            type: Array,
+            default: () => ([]),
+        },
+        secondaryActions: {
+            type: Array,
+            default: () => ([]),
+        },
+        actionGroups: {
+            type: Array,
+            default: () => ([]),
+        },
+    },
+    data() {
+        return {
+            /**
+             * To Check that view collapsed or not
+             * @values true | false
+             */
+            isNavigationCollapsed: {
+                rollup: false,
+            },
+            bulkActionsShown: false,
+        };
+    },
+    computed: {
+        headerClassNames() {
+            return classNames(
+                'Polaris-Page-Header',
+                this.titleHidden && 'Polaris-Page-Header--titleHidden',
+                this.separator && 'Polaris-Page-Header--separator',
+                this.hasNavigation && 'Polaris-Page-Header--hasNavigation',
+                this.hasActionMenu && 'Polaris-Page-Header--hasActionMenu',
+                this.title && 'Polaris-Page-Header--mediumTitle',
+                this.isNavigationCollapsed.rollup && 'Polaris-Page-Header--mobileView',
+            );
+        },
+        hasNavigation() {
 
-export interface PPageHeaderProps extends PPageHeaderTitleProps {
-  titleHidden?: boolean;
-  separator?: boolean;
-  primaryAction?: PrimaryAction;
-  pagination?: PPaginationDescriptor;
-  breadcrumbs?: [];
-  secondaryActions?: MenuActionDescriptor[];
-  actionGroups?: MenuGroupDescriptor[];
-  additionalMetaData?: string;
-}
-
-@Component({
-  components: {
-    PBreadcrumbs, PPagination, PPageHeaderTitle, PActionMenu, PTextStyle, PButton, PPopover, PActionList,
-    PButtonGroup, PAvatar,
-  },
-})
-export default class PPageHeader extends Vue {
-
-  @Prop(String) public title!: string;
-  @Prop(String) public subtitle!: string;
-  @Prop(String) public thumbnail!: string;
-  @Prop(String) public thumbnailAlt!: string;
-  @Prop(String) public titleMetadata!: string;
-  @Prop(String) public avatar!: string;
-  @Prop(String) public avatarInitials!: string;
-  @Prop(String) public additionalMetaData!: string;
-  @Prop({type: Boolean, default: false}) public titleHidden!: boolean;
-  @Prop(Boolean) public separator!: boolean;
-  @Prop({type: Object, default: {}}) public primaryAction!: PrimaryAction;
-  @Prop({type: Object, default: () => ({})}) public pagination!: PPaginationDescriptor;
-  @Prop({type: Array, default: Array}) public breadcrumbs!: [];
-  @Prop({type: Array, default: () => []}) public secondaryActions!: MenuActionDescriptor[];
-  @Prop({type: Array, default: () => []}) public actionGroups!: MenuGroupDescriptor[];
-
-  /**
-   * To Check that view collapsed or not
-   * @values true | false
-   */
-  public isNavigationCollapsed = {
-    rollup: false,
-  };
-
-  public bulkActionsShown: boolean = false;
-
-  public get hasNavigation() {
-
-    return this.breadcrumbs.length > 0 || this.$slots.additionalNavigation || this.pagination;
-  }
-
-  public get hasActions() {
-    return this.hasActionMenu ||
-        Object.keys(this.primaryAction).length > 0 ||
-        Object.keys(this.pagination).length > 0 ||
-        this.$props.hasOwnProperty('primaryAction');
-  }
-
-  public get hasActionMenu() {
-    return this.secondaryActions.length > 0 || hasGroupsWithActions(this.actionGroups);
-  }
-
-  public get hasTitle() {
-    return this.title || this.subtitle || this.titleMetadata || this.thumbnail ||
-        this.$slots.hasOwnProperty('titleMetadata');
-  }
-
-  public get hasAvatar() {
-    return this.avatar || this.avatarInitials;
-  }
-
-  public get headerClassNames() {
-    return classNames(
-        'Polaris-Page-Header',
-        this.titleHidden && 'Polaris-Page-Header--titleHidden',
-        this.separator && 'Polaris-Page-Header--separator',
-        this.hasNavigation && 'Polaris-Page-Header--hasNavigation',
-        this.hasActionMenu && 'Polaris-Page-Header--hasActionMenu',
-        this.title && 'Polaris-Page-Header--mediumTitle',
-        this.isNavigationCollapsed.rollup && 'Polaris-Page-Header--mobileView',
-    );
-  }
-
-  public created() {
-    window.addEventListener('resize', this.useMediaQuery);
-    this.useMediaQuery();
-  }
-
-  public destroyed() {
-    window.removeEventListener('resize', this.useMediaQuery);
-  }
-
-  public useMediaQuery() {
-    if (window.innerWidth <= 768) {
-      this.$set(this.isNavigationCollapsed, 'rollup', true);
-    } else {
-      this.$set(this.isNavigationCollapsed, 'rollup', false);
-    }
-  }
+            return this.breadcrumbs.length > 0 || this.$slots.additionalNavigation || this.pagination;
+        },
+        hasActions() {
+            return this.hasActionMenu ||
+                Object.keys(this.primaryAction).length > 0 ||
+                Object.keys(this.pagination).length > 0 ||
+                this.$props.hasOwnProperty('primaryAction');
+        },
+        hasActionMenu() {
+            return this.secondaryActions.length > 0 || hasGroupsWithActions(this.actionGroups);
+        },
+        hasTitle() {
+            return this.title || this.subtitle || this.titleMetadata || this.thumbnail ||
+                this.$slots.hasOwnProperty('titleMetadata');
+        },
+        hasAvatar() {
+            return this.avatar || this.avatarInitials;
+        },
+    },
+    methods: {
+        useMediaQuery() {
+            if (window.innerWidth <= 768) {
+                this.$set(this.isNavigationCollapsed, 'rollup', true);
+            } else {
+                this.$set(this.isNavigationCollapsed, 'rollup', false);
+            }
+        },
+    },
+    created() {
+        window.addEventListener('resize', this.useMediaQuery);
+        this.useMediaQuery();
+    },
+    destroyed() {
+        window.removeEventListener('resize', this.useMediaQuery);
+    },
 }
 </script>
