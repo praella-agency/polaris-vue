@@ -56,8 +56,8 @@ import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
 import { PDisplayText } from '@/components/PDisplayText';
 import { PTextContainer } from '@/components/PTextContainer';
-import { PCard } from '@/components/PCard';
-import { PCardSection } from '@/components/PCard/components/PCardSection';
+import { PCard } from '@/components/PCard/index.js';
+import { PCardSection } from '@/components/PCard/components/PCardSection/index.js';
 import { PButton } from '@/components/PButton/index.js';
 import { ComplexAction, DisableableAction, LoadableAction } from '@/types';
 

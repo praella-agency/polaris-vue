@@ -66,7 +66,7 @@ import {Component, Prop, Vue} from 'vue-property-decorator';
 import {classNames} from '@/utilities/css';
 import {DestructableAction, DisableableAction, IconableAction, LoadableAction, Video} from '@/types';
 import VuePlyr from '@hulkapps/vue-plyr';
-import { PCard } from '@/components/PCard';
+import { PCard } from '@/components/PCard/index.js';
 import { PStack } from '@/components/PStack';
 import { PStackItem } from '@/components/PStack/components/PStackItem';
 import { PHeading } from '@/components/PHeading';

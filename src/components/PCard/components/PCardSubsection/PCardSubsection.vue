@@ -5,10 +5,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-
-@Component
-export default class PCardSubsection extends Vue {
+<script>
+export default {
+    name: 'PCardSubsection',
 }
 </script>
