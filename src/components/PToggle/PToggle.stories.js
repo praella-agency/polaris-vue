@@ -1,4 +1,4 @@
-import { PToggle } from './index';
+import { PToggle } from './index.js';
 
 export default {
     title: 'Forms / Toggle',
@@ -31,6 +31,11 @@ export default {
                     summary: '()',
                     detail: '({checked: target.checked, value: target.value})',
                 },
+            },
+        },
+        value: {
+            control: {
+                type: 'text',
             },
         },
     },

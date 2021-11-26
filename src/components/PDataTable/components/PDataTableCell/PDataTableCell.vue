@@ -50,7 +50,7 @@
     import { PButton } from '@/components/PButton/index.js';
     import { PButtonGroup } from '@/components/PButtonGroup/index.js';
     import { PLink } from '@/components/PLink/index.js';
-    import { PToggle } from '@/components/PToggle';
+    import { PToggle } from '@/components/PToggle/index.js';
     import { PBadge } from '@/components/PBadge';
 
     type SortDirection = 'ascending' | 'descending' | 'none';

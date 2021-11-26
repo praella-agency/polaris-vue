@@ -6,7 +6,7 @@ import { PButton } from '../PButton/index.js';
 import { PLink } from '../PLink/index.js';
 import { PBadge } from '../PBadge';
 import { PIcon } from '../PIcon';
-import { PToggle } from '../PToggle';
+import { PToggle } from '../PToggle/index.js';
 import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';
 import { PStack } from '../PStack';
