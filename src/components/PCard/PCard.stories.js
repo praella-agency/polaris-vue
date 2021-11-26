@@ -1,8 +1,8 @@
 import { PCard } from './index';
 import { PCardSection } from './components/PCardSection';
 import { PCardHeader } from './components/PCardHeader';
-import { PList } from '../PList';
-import { PListItem } from '../PList/components/PListItem';
+import { PList } from '../../components/PList/index.js';
+import { PListItem } from '../../components/PList/components/PListItem/index.js';
 import { PButtonGroup } from '../PButtonGroup';
 import { PButton } from '../PButton';
 import { PPopover } from '../PPopover';

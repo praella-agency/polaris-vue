@@ -52,8 +52,8 @@
     import { PLayout } from '../../components/PLayout';
     import { PStack } from '../../components/PStack';
     import { PStackItem } from '../../components/PStack/components/PStackItem';
-    import { PList } from '../../components/PList';
-    import { PListItem } from '../../components/PList/components/PListItem';
+    import { PList } from '../../components/PList/index.js';
+    import { PListItem } from '../../components/PList/components/PListItem/index.js';
     import { PLink } from '../../components/PLink';
     import { PCard } from '../../components/PCard';
     import { PCardSection } from '../../components/PCard/components/PCardSection';
