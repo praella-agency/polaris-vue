@@ -77,7 +77,7 @@ import { PVisuallyHidden } from './../components/PVisuallyHidden/index.js';
 import { PUserMenu } from './PTopBar/components/PUserMenu';
 import { PMenu } from './PTopBar/components/PMenu';
 import { PSearchField } from './PTopBar/components/PSearchField';
-import { PCollapsible } from './PCollapsible';
+import { PCollapsible } from './../components/PCollapsible/index.js';
 import { PDataTableRow } from './PDataTable/components/PDataTableRow';
 import { PDataTableCol } from './PDataTable/components/PDataTableCol';
 import { PIndexTable } from './PIndexTable';

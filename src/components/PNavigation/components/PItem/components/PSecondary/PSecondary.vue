@@ -12,7 +12,7 @@
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { PCollapsible } from '@/components/PCollapsible';
+  import { PCollapsible } from './../../../../../../components/PCollapsible/index.js';
 
   @Component({
     components: {

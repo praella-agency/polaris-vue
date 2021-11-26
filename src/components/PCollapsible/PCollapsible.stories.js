@@ -1,4 +1,4 @@
-import { PCollapsible } from './index';
+import { PCollapsible } from './index.js';
 import { PCard } from '../PCard';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
@@ -24,6 +24,9 @@ export default {
             },
         },
         id: {
+            control: {
+                type: 'text'
+            },
             table: {
                 type: {
                     summary: 'string | number',

@@ -73,7 +73,7 @@
   import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator';
   import { PItem } from '@/components/PNavigation/components/PItem';
   import { PIcon } from './../../../../components/PIcon/index.js';
-  import { PCollapsible } from '@/components/PCollapsible';
+  import { PCollapsible } from './../../../../components/PCollapsible/index.js';
   import { classNames } from '@/utilities/css';
   import { ItemProps } from '@/components/PNavigation/utilities';
 

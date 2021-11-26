@@ -60,7 +60,7 @@
     import { PCardHeader } from '../../components/PCard/components/PCardHeader';
     import { PHeading } from '../../components/PHeading/index.js';
     import { PTextContainer } from '../../components/PTextContainer/index.js';
-    import { PCollapsible } from '../../components/PCollapsible';
+    import { PCollapsible } from '../../components/PCollapsible/index.js';
     import { PButton } from '../../components/PButton';
     import { PFrame } from '../../components/PFrame';
     import { PTopBar } from '../../components/PTopBar';
