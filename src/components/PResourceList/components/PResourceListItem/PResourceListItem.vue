@@ -3,7 +3,7 @@
         <div :class="className" :data-href="url">
             <a v-if="url" :aria-describedby="id" :aria-label="`View details for ${itemName}`"
                class="Polaris-ResourceItem__Link" :tabindex="tabIndex" id="PolarisResourceListItemOverlay3" :href="url"
-               data-polaris-unstyled="true" />
+               data-polaris-unstyled="true"/>
             <button v-else class="Polaris-ResourceItem__Button" ref="buttonOverlay"
                     :aria-label="`View details for ${itemName}`" :aria-controls="ariaControls"
                     :aria-expanded="ariaExpanded" :tabIndex="tabIndex"/>
@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="Polaris-ResourceItem__Media" v-if="$slots.media">
-                    <!-- @slot Content for the media area at the left of the item, usually an Avatar or Thumbnail -->
+                        <!-- @slot Content for the media area at the left of the item, usually an Avatar or Thumbnail -->
                         <slot name="media"/>
                     </div>
                 </div>
@@ -88,157 +88,200 @@
 </template>
 
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { classNames } from '@/utilities/css';
-import { DisableableAction } from '@/types';
-import { PCheckbox } from '@/components/PCheckbox/index.js';
-import { PAvatar } from '@/components/PAvatar/index.js';
-import { PPopover } from '@/components/PPopover/index.js';
-import { PButton } from '@/components/PButton/index.js';
-import { PButtonGroup } from '@/components/PButtonGroup/index.js';
-import { PActionList } from '@/components/PActionList/index.js';
+<script>
+    import { classNames } from '../../../../utilities/css';
+    import { DisableableAction } from '../../../../types/types';
+    import { PCheckbox } from '../../../../components/PCheckbox';
+    import { PAvatar } from '../../../../components/PAvatar';
+    import { PPopover } from '../../../../components/PPopover';
+    import { PButton } from '../../../../components/PButton';
+    import { PButtonGroup } from '../../../../components/PButtonGroup';
+    import { PActionList } from '../../../../components/PActionList';
+    import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
+    import ArrayValidator from '../../../../utilities/validators/ArrayValidator';
+    import StringValidator from '../../../../utilities/validators/StringValidator';
 
-type Alignment = 'leading' | 'trailing' | 'center' | 'fill' | 'baseline';
+    const Alignment = ['leading', 'trailing', 'center', 'fill', 'baseline'];
 
-@Component({
-  components: {
-    PCheckbox, PAvatar, PButtonGroup, PButton, PPopover, PActionList,
-  },
-})
-export default class PResourceListItem extends Vue {
-
-    // Deprecated Start
-    @Prop({type: Boolean, default: false}) public checked!: boolean;
-    // Deprecated End
-
-    /**
-     * Name of the resource, such as customers or products
-     */
-    @Prop({type: Object, default: () => ({})}) public resourceName!: {
-        singular: string;
-        plural: string;
-    };
-
-    /**
-     * Visually hidden text for screen readers used for item link
-     */
-    @Prop({type: String, default: null}) public accessibilityLabel!: string;
-
-    /**
-     * Individual item name used by various text labels
-     */
-    @Prop({type: String, default: null}) public name!: string;
-
-    /**
-     * Renders a Select All button at the top of the list and checkboxes in front of each list item.
-     * For use when bulkActions aren't provided.
-     */
-    @Prop({type: Boolean, default: false}) public selectable!: boolean;
-
-    /**
-     * Overlays item list with a spinner while a background action is being performed
-     */
-    @Prop({type: Boolean, default: false}) public loading!: boolean;
-
-    /**
-     * Set to activate the selectable items for small screen
-     */
-    @Prop({type: Boolean, default: false}) public selectMode!: boolean;
-
-    /**
-     * Id of the element the item onClick controls
-     */
-    @Prop({type: String, default: null}) public ariaControls!: string;
-
-    /**
-     * Tells screen reader the controlled element is expanded
-     */
-    @Prop({type: Boolean, default: false}) public ariaExpanded!: boolean;
-
-    /**
-     * Unique identifier for the item
-     */
-    @Prop({type: [String, Number], required: true}) public id!: string | number;
-
-    /**
-     * Makes the shortcut actions always visible
-     */
-    @Prop({type: Boolean, default: false}) public persistActions!: boolean;
-
-    /**
-     * 1 or 2 shortcut actions; must be available on the page linked to by url
-     */
-    @Prop({type: Array, default: () => ([])}) public shortcutActions!: DisableableAction[];
-
-    /**
-     * The order the item is rendered
-     */
-    @Prop({type: Number, default: null}) public sortOrder!: number;
-
-    /**
-     * URL for the resource’s details page (required unless onClick is provided)
-     */
-    @Prop({type: String, default: null}) public url!: string;
-
-    /**
-     * Allows url to open in a new tab
-     */
-    @Prop({type: Boolean, default: false}) public external!: boolean;
-
-    /** Adjust vertical alignment of elements */
-    @Prop({type: String, default: null}) public verticalAlignment!: Alignment;
-
-    /**
-     * Prefetched url attribute to bind to the main element being returned
-     */
-    @Prop({type: String, default: null}) public dataHref!: string;
-
-  public actionMenuVisible = false;
-
-  public get className() {
-    return classNames(
-      'Polaris-ResourceItem',
-      this.selectable && 'Polaris-ResourceItem--selectable',
-      this.selectMode && 'Polaris-ResourceItem--selectMode',
-      this.persistActions && 'Polaris-ResourceItem--persistActions',
-    );
-  }
-
-  public get ownedClassName() {
-      return classNames(
-          'Polaris-ResourceItem__Owned',
-          !this.$slots.media && 'Polaris-ResourceItem__OwnedNoMedia',
-      );
-  }
-
-  public get checkboxId() {
-
-    return 'ResourceListCheckBox--' + this.id;
-  }
-
-  public get tabIndex() {
-
-      return this.loading ? -1 : 0;
-  }
-
-  public get itemName() {
-
-      return this.accessibilityLabel || (this.name ||
-          (Object.keys(this.resourceName).length > 0 ? this.resourceName.singular : '') || '');
-  }
-
-  public handleChange(event) {
-
-    this.$emit('change', this.id, event.checked);
-  }
-
-  public stopPropagation(event: MouseEvent) {
-    event.stopPropagation();
-  }
-
-  public handlePopoverClick() {
-    this.actionMenuVisible = !this.actionMenuVisible;
-  }
-}
+    export default {
+        name: 'PResourceListItem',
+        components: {
+            PCheckbox, PAvatar, PButtonGroup, PButton, PPopover, PActionList,
+        },
+        props: {
+            // Deprecated Start
+            checked: {
+                type: Boolean,
+                default: false,
+            },
+            // Deprecated End
+            /**
+             * Name of the resource, such as customers or products
+             */
+            resourceName: {
+                type: Object,
+                default: () => ({}),
+                ...ObjectValidator('resourceName', {
+                    singular: {
+                        type: String,
+                        required: true,
+                    },
+                    plural: {
+                        type: String,
+                        required: true,
+                    },
+                }),
+            },
+            /**
+             * Visually hidden text for screen readers used for item link
+             */
+            accessibilityLabel: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Individual item name used by various text labels
+             */
+            name: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Renders a Select All button at the top of the list and checkboxes in front of each list item.
+             * For use when bulkActions aren't provided.
+             */
+            selectable: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Overlays item list with a spinner while a background action is being performed
+             */
+            loading: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Set to activate the selectable items for small screen
+             */
+            selectMode: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Id of the element the item onClick controls
+             */
+            ariaControls: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Tells screen reader the controlled element is expanded
+             */
+            ariaExpanded: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Unique identifier for the item
+             */
+            id: {
+                type: [String, Number],
+                required: true,
+            },
+            /**
+             * Makes the shortcut actions always visible
+             */
+            persistActions: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * 1 or 2 shortcut actions; must be available on the page linked to by url
+             */
+            shortcutActions: {
+                type: Array,
+                default: () => ([]),
+                ...ArrayValidator('shortcutActions', DisableableAction),
+            },
+            /**
+             * The order the item is rendered
+             */
+            sortOrder: {
+                type: Number,
+                default: null,
+            },
+            /**
+             * URL for the resource’s details page (required unless onClick is provided)
+             */
+            url: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Allows url to open in a new tab
+             */
+            external: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Adjust vertical alignment of elements
+             */
+            verticalAlignment: {
+                type: String,
+                default: null,
+                ...StringValidator('verticalAlignment', Alignment),
+            },
+            /**
+             * Prefetched url attribute to bind to the main element being returned
+             */
+            dataHref: {
+                type: String,
+                default: null,
+            },
+        },
+        data() {
+            return {
+                actionMenuVisible: false,
+            };
+        },
+        computed: {
+            className() {
+                return classNames(
+                    'Polaris-ResourceItem',
+                    this.selectable && 'Polaris-ResourceItem--selectable',
+                    this.selectMode && 'Polaris-ResourceItem--selectMode',
+                    this.persistActions && 'Polaris-ResourceItem--persistActions',
+                );
+            },
+            ownedClassName() {
+                return classNames(
+                    'Polaris-ResourceItem__Owned',
+                    !this.$slots.media && 'Polaris-ResourceItem__OwnedNoMedia',
+                );
+            },
+            checkboxId() {
+                return 'ResourceListCheckBox--' + this.id;
+            },
+            tabIndex() {
+                return this.loading ? -1 : 0;
+            },
+            itemName() {
+                return this.accessibilityLabel || (this.name ||
+                    (Object.keys(this.resourceName).length > 0 ? this.resourceName.singular : '') || '');
+            },
+        },
+        methods: {
+            handleChange(event) {
+                this.$emit('change', this.id, event.checked);
+            },
+            stopPropagation(event) {
+                event.stopPropagation();
+            },
+            handlePopoverClick() {
+                this.actionMenuVisible = !this.actionMenuVisible;
+            },
+        },
+    }
 </script>
