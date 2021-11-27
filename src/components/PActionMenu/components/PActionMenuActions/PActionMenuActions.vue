@@ -21,167 +21,177 @@
   </div>
 </template>
 
-<script lang="ts">
-import {Vue, Component, Prop} from 'vue-property-decorator';
-import {MenuActionDescriptor, MenuGroupDescriptor} from '@/types';
-import {sortAndOverrideActionOrder} from '@/components/PActionMenu/utilities';
-import { PActionMenuMenuGroup } from '@/components/PActionMenu/components/PActionMenuMenuGroup';
-import { PActionMenuMenuAction } from '@/components/PActionMenu/components/PActionMenuMenuAction';
+<script>
+import {MenuActionDescriptor, MenuGroupDescriptor} from './../../../../types/types.js';
+import {sortAndOverrideActionOrder} from './../../../../components/PActionMenu/utilities.js';
+import { PActionMenuMenuGroup } from './../../../../components/PActionMenu/components/PActionMenuMenuGroup/index.js';
+import { PActionMenuMenuAction } from './../../../../components/PActionMenu/components/PActionMenuMenuAction/index.js';
+import ArrayValidator from "./../../../../utilities/validators/ArrayValidator";
 
-interface Props {
-  actions?: MenuActionDescriptor[];
-  groups?: MenuGroupDescriptor[];
+const Props = {
+  actions: {
+    type: Object,
+    properties: MenuActionDescriptor
+  },
+  groups: {
+    type: Object,
+    properties: MenuGroupDescriptor
+  },
 }
 
 const ACTION_SPACING = 8;
-type MenuDescriptorWithIndex = (MenuActionDescriptor | MenuGroupDescriptor) & {
-  index: number;
-};
 
-@Component({
+export default {
+  name: 'PActionMenuActions',
   components: {
     PActionMenuMenuGroup, PActionMenuMenuAction,
   },
-})
-
-export default class PActionMenuActions extends Vue {
-
-  @Prop({
+  props: {
+    id: {
       type: [String, Number],
       default: `ActionMenuLayout${new Date().getUTCMilliseconds()}`,
-  }) public id!: string | number;
-  @Prop(Array) public actions!: MenuActionDescriptor[];
-  @Prop(Array) public groups!: MenuGroupDescriptor[];
+    },
+   actions: {
+      type: Array,
+     ...ArrayValidator('actions', MenuActionDescriptor)
+   },
+    groups: {
+      type: Array,
+      ...ArrayValidator('actions', MenuGroupDescriptor)
+    }
+  },
+  data() {
+    return {
+      activeMenuGroup: '',
+      hiddenActions: [],
+      showableActions: [],
+      availableWidthRef: 0,
+      timesMeasured: 0,
+      actionsAndGroupsLengthRef: 0,
+      actionWidthsRef: [],
+    }
+  },
+  computed: {
+    lastMenuGroupWidth() {
+      return [...this.actionWidthsRef].pop() || 0;
+    },
 
-  /* Measure Variables Start*/
-  public activeMenuGroup = '';
-  public hiddenActions = [];
-  public showableActions!: MenuActionDescriptor[];
-  public availableWidthRef = 0;
-  public timesMeasured = 0;
-  public actionsAndGroupsLengthRef = 0;
+    lastMenuGroup() {
+      return [...this.groups].pop();
+    },
 
-  public actionWidthsRef: any[] = [];
+    /* Measure Variables End*/
 
-  public get lastMenuGroupWidth() {
-    return [...this.actionWidthsRef].pop() || 0;
-  }
+    computedShowableActions: {
+      get() {
+        return this.showableActions;
+      },
+      set(value) {
+        this.showableActions = value;
+      }
+    },
 
-  public get lastMenuGroup() {
-    return [...this.groups].pop();
-  }
+    computedHiddenActions: {
+      get() {
+        return this.hiddenActions;
+      },
+      set(value) {
+        this.hiddenActions = value;
+      }
+    },
 
-  /* Measure Variables End*/
+    computedActiveMenuGroup: {
+      get() {
+        return this.activeMenuGroup;
+      },
+      set(value) {
+        this.activeMenuGroup = value;
+      }
+    },
 
-  public get computedShowableActions() {
-    return this.showableActions;
-  }
+    menuActions() {
+      return [...this.actions, ...this.groups];
+    },
 
-  public set computedShowableActions(value: any) {
-    this.showableActions = value;
-  }
+    overriddenActions() {
+      return sortAndOverrideActionOrder(this.menuActions);
+    },
+  },
+  methods: {
+    handleMenuGroupToggle(group) {
+      if(typeof group === 'string') {
+        this.computedActiveMenuGroup = this.computedActiveMenuGroup ? undefined : group;
+      }
+    },
+    handleMenuGroupClose() {
+      this.computedActiveMenuGroup = undefined;
+    },
+    handleResize() {
+      const actionsLayoutRef = this.$refs[this.id];
+      this.availableWidthRef = actionsLayoutRef.offsetWidth;
 
-  public get computedHiddenActions() {
-    return this.hiddenActions;
-  }
+      // // Set timesMeasured to 0 to allow re-measuring
+      this.timesMeasured = 0;
+      this.measureActions();
+    },
+    handleActionsOffsetWidth(width) {
+      this.actionWidthsRef = [...this.actionWidthsRef, width];
+    },
+    measureActions() {
+      if (
+          this.actionWidthsRef.length === 0 ||
+          this.availableWidthRef === 0
+      ) {
+        return;
+      }
 
-  public set computedHiddenActions(value: any) {
-    this.hiddenActions = value;
-  }
+      const actionsAndGroups = [...this.actions, ...this.groups];
 
-  public get computedActiveMenuGroup() {
-    return this.activeMenuGroup;
-  }
+      if (actionsAndGroups.length === 1) {
+        this.showableActions = actionsAndGroups;
+        this.hiddenActions = [];
+        return;
+      }
 
-  public set computedActiveMenuGroup(value: any) {
-    this.activeMenuGroup = value;
-  }
+      let currentAvailableWidth = this.availableWidthRef;
+      let newShowableActions = [];
+      let newRolledUpActions = [];
 
-  public get menuActions() {
-    return [...this.actions, ...this.groups];
-  }
+      actionsAndGroups.forEach((action, index) => {
+        const canFitAction =
+            this.actionWidthsRef[index] +
+            0 + // menuGroupWidthRef.current
+            ACTION_SPACING +
+            this.lastMenuGroupWidth <=
+            currentAvailableWidth;
 
-  public get overriddenActions() {
-    return sortAndOverrideActionOrder(this.menuActions);
-  }
+        if (canFitAction) {
+          currentAvailableWidth -=
+              this.actionWidthsRef[index] + ACTION_SPACING * 2;
+          newShowableActions = [...newShowableActions, action];
+        } else {
+          currentAvailableWidth = 0;
+          // Find last group if it exists and always render it as a rolled up action below
+          if (action === this.lastMenuGroup) {
+            return;
+          }
+          newRolledUpActions = [...newRolledUpActions, action];
+        }
+      });
 
-  public handleMenuGroupToggle(group: string) {
-    this.computedActiveMenuGroup = this.computedActiveMenuGroup ? undefined : group;
-  }
+      this.showableActions = newShowableActions;
+      this.computedHiddenActions = newRolledUpActions;
 
-  public handleMenuGroupClose() {
-    this.computedActiveMenuGroup = undefined;
-  }
-
-  public mounted() {
+      this.timesMeasured += 1;
+      this.actionsAndGroupsLengthRef = actionsAndGroups.length;
+    }
+  },
+  mounted() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
-  }
-
-  public destroyed() {
+  },
+  destroyed() {
     window.removeEventListener('resize', this.handleResize);
-  }
-
-  public handleResize() {
-    const actionsLayoutRef = this.$refs[this.id] as HTMLElement;
-    this.availableWidthRef = actionsLayoutRef.offsetWidth;
-
-    // // Set timesMeasured to 0 to allow re-measuring
-    this.timesMeasured = 0;
-    this.measureActions();
-  }
-
-  public handleActionsOffsetWidth(width) {
-    this.actionWidthsRef = [...this.actionWidthsRef, width];
-  }
-
-  public measureActions() {
-    if (
-        this.actionWidthsRef.length === 0 ||
-        this.availableWidthRef === 0
-    ) {
-      return;
-    }
-
-    const actionsAndGroups = [...this.actions, ...this.groups];
-
-    if (actionsAndGroups.length === 1) {
-      this.showableActions = actionsAndGroups;
-      this.hiddenActions = [];
-      return;
-    }
-
-    let currentAvailableWidth = this.availableWidthRef;
-    let newShowableActions: MenuActionDescriptor[] = [];
-    let newRolledUpActions: (MenuActionDescriptor[] | MenuGroupDescriptor[]) = [];
-
-    actionsAndGroups.forEach((action, index) => {
-      const canFitAction =
-          this.actionWidthsRef[index] +
-          0 + // menuGroupWidthRef.current
-          ACTION_SPACING +
-          this.lastMenuGroupWidth <=
-          currentAvailableWidth;
-
-      if (canFitAction) {
-        currentAvailableWidth -=
-            this.actionWidthsRef[index] + ACTION_SPACING * 2;
-        newShowableActions = [...newShowableActions, action];
-      } else {
-        currentAvailableWidth = 0;
-        // Find last group if it exists and always render it as a rolled up action below
-        if (action === this.lastMenuGroup) {
-          return;
-        }
-        newRolledUpActions = [...newRolledUpActions, action];
-      }
-    });
-
-    this.showableActions = newShowableActions;
-    this.computedHiddenActions = newRolledUpActions;
-
-    this.timesMeasured += 1;
-    this.actionsAndGroupsLengthRef = actionsAndGroups.length;
-  }
+  },
 }
 </script>

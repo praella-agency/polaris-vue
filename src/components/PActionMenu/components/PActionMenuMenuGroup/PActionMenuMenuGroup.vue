@@ -8,40 +8,47 @@
     </PPopover>
 </template>
 
-<script lang="ts">
-import {Vue, Component, Prop} from 'vue-property-decorator';
-import {MenuGroupDescriptor, ActionListItemDescriptor} from '@/types';
+<script>
+import {MenuGroupDescriptor, ActionListItemDescriptor} from './../../../../types/types.js';
 import {PActionList} from '@/components/PActionList';
 import {PPopover} from '@/components/PPopover';
-import { PActionMenuMenuAction } from '@/components/PActionMenu/components/PActionMenuMenuAction';
+import { PActionMenuMenuAction } from './../../../../components/PActionMenu/components/PActionMenuMenuAction/index.js';
+import ArrayValidator from "./../../../../utilities/validators/ArrayValidator";
 
-export interface MenuGroupProps extends MenuGroupDescriptor {
-    accessibilityLabel?: string;
-    active?: boolean;
-    onOpen(title: string): void;
-    onClose(title: string): void;
-}
-
-@Component({
-    components: {
-        PPopover, PActionList, PActionMenuMenuAction,
+export default {
+  name: 'PActionMenuMenuGroup',
+  components: {
+    PPopover, PActionList, PActionMenuMenuAction,
+  },
+  props: {
+    active: {
+      type: Boolean
     },
-})
-export default class PActionMenuMenuGroup extends Vue {
-
-    @Prop(Boolean) public active!: boolean;
-    @Prop(Array) public actions!: ActionListItemDescriptor[];
-    @Prop(String) public title!: string;
-    @Prop({type: String, default: null}) public icon!: string;
-    @Prop(Function) public onAction!: any;
-    @Prop(Function) public getOffsetWidth!: any;
-
-    public handleClose() {
-        this.onAction(this.title);
+    title: {
+      type: String
+    },
+    icon: {
+      type: String,
+      default: null,
+    },
+    onAction: {
+      type: Function,
+    },
+    getOffsetWidth: {
+      type: Function,
+    },
+    actions: {
+      type: Array,
+      ...ArrayValidator('actions', ActionListItemDescriptor)
     }
-
-    public handleOpen() {
-        this.$emit('open', this.title);
+  },
+  methods: {
+    handleClose() {
+      this.onAction(this.title);
+    },
+    handleOpen() {
+      this.$emit('open', this.title);
     }
+  },
 }
 </script>

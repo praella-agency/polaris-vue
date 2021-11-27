@@ -65,11 +65,11 @@ import {
     LoadableAction,
     IconableAction,
 } from '@/types';
-import { hasGroupsWithActions } from '@/components/PActionMenu/utilities';
+import { hasGroupsWithActions } from '../../../../components/PActionMenu/utilities.js';
 import { PTextStyle } from './../../../../components/PTextStyle/index.js';
 import { PBreadcrumbs } from '@/components/PBreadcrumbs';
 import { PPagination, PPaginationDescriptor } from '@/components/PPagination';
-import { PActionMenu } from '@/components/PActionMenu';
+import { PActionMenu } from './../../../../components/PActionMenu/index.js';
 import { PButton } from '@/components/PButton';
 import { PPageHeaderTitle, PPageHeaderTitleProps } from '@/components/PPage/components/PPageHeaderTitle';
 import { PPopover } from '@/components/PPopover';

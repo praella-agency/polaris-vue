@@ -62,9 +62,19 @@ export const LinkAction = {
 
 export const BadgeAction = {
     badge: {
-        status: 'new',
-        content: String,
-    },
+        type: Object,
+        properties: {
+            status: {
+                type: String,
+                required: true,
+                expectedValues: ['new']
+            },
+            content: {
+                type: String,
+                required: true
+            },
+        },
+    }
 }
 
 export const BaseCallbackAction = {
@@ -148,13 +158,11 @@ export const MenuActionDescriptor = {
 
 export const MenuGroupDescriptor = {
     ...BadgeAction,
-    title: {
-        type: String,
-        required: true
-    },
+    title: String,
+    accessibilityLabel: String,
     actions: {
         type: Array,
-        properties: {...ActionListItemDescriptor}
+        properties: ActionListItemDescriptor
     },
     icon: IconableAction.icon,
     details: String,

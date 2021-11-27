@@ -56,7 +56,7 @@ import { PFilter } from './PFilter';
 import { PFilterItem } from './PFilter/components/PFilterItem';
 import { POptionList } from './../components/POptionList/index.js';
 import { PBreadcrumbs } from './PBreadcrumbs';
-import { PActionMenu } from './PActionMenu';
+import { PActionMenu } from './../components/PActionMenu/index.js';
 import { PPageActions } from './PPageActions';
 import { PMultiSelect } from './PMultiSelect';
 import { PDatePicker } from './PDatePicker';

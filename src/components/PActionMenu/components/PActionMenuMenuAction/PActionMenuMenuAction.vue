@@ -25,51 +25,73 @@
     </button>
 </template>
 
-<script lang="ts">
-    import {Vue, Component, Prop} from 'vue-property-decorator';
+<script>
     import {classNames} from '@/utilities/css';
-    import {ComplexAction, MenuActionDescriptor} from '@/types';
+    import {ComplexAction, MenuActionDescriptor} from './../../../../types/types.js';
     import {PIcon} from './../../../../components/PIcon/index.js';
     import {PUnstyledLink} from '@/components/PUnstyledLink';
 
-    export interface MenuActionProps extends ComplexAction {
-        disclosure?: boolean;
+    export const MenuActionProps = {
+      ...ComplexAction,
+        disclosure: Boolean,
     }
 
-    @Component({
-        components: {
-            PUnstyledLink, PIcon,
+    export default {
+      name: 'PActionMenuMenuAction',
+      components: {
+        PUnstyledLink, PIcon,
+      },
+      props: {
+        id: {
+          type: [String, Number],
+          default: `ActionMenuMenuAction${new Date().getUTCMilliseconds()}`,
         },
-    })
-    export default class PActionMenuMenuAction extends Vue {
-
-        @Prop({
-            type: [String, Number],
-            default: `ActionMenuMenuAction${new Date().getUTCMilliseconds()}`,
-        }) public id!: string | number;
-        @Prop(String) public content!: string;
-        @Prop(String) public url!: string;
-        @Prop(Boolean) public external!: boolean;
-        @Prop(String) public icon!: string;
-        @Prop(Boolean) public disclosure!: boolean;
-        @Prop(Boolean) public disabled!: boolean;
-        @Prop({type: Function, default: null}) public onAction!: void;
-        @Prop({type: Function, default: null}) public getOffsetWidth!: any;
-
-        public get menuActionClassNames() {
-
-            return classNames(
-                'Polaris-ActionMenu-MenuAction',
-                this.disabled && 'Polaris-ActionMenu-MenuAction--disabled',
-            );
+        content: {
+          type: String,
+        },
+        url: {
+          type: String,
+        },
+        external: {
+          type: Boolean,
+        },
+        icon: {
+          type: String,
+        },
+        disclosure: {
+          type: Boolean,
+        },
+        disabled: {
+          type: Boolean,
+        },
+        onAction: {
+          type: Function,
+          default: () => {
+            return 0
+          },
+        },
+        getOffsetWidth: {
+          type: Function,
+          default: () => {
+            return 0
+          },
+        },
+      },
+      computed: {
+        menuActionClassNames() {
+          return classNames(
+              'Polaris-ActionMenu-MenuAction',
+              this.disabled && 'Polaris-ActionMenu-MenuAction--disabled',
+          );
         }
-
-        public mounted() {
-          const actionsLayoutRef = this.$refs[this.id] as HTMLElement;
+      },
+      mounted() {
+          const actionsLayoutRef = this.$refs[this.id];
           if (typeof this.getOffsetWidth === 'function' && actionsLayoutRef) {
-            this.getOffsetWidth(actionsLayoutRef.offsetWidth);
+            if(actionsLayoutRef.offsetWidth) {
+              this.getOffsetWidth(actionsLayoutRef.offsetWidth);
+            }
           }
-
         }
     }
 </script>
