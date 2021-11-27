@@ -17,10 +17,10 @@
   </transition>
 </template>
 <script>
-import {PIcon} from './../../../components/PIcon/index.js';
-import Timer from './timer.js';
+import {PIcon} from '../../../components/PIcon';
+import Timer from './timer';
 import mitt from 'mitt';
-import {classNames} from '@/utilities/css';
+import {classNames} from '../../../utilities/css';
 
 const eventBus = mitt();
 

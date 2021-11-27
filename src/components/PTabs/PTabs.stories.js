@@ -1,4 +1,4 @@
-import { PTabs } from './index.js';
+import { PTabs } from './index';
 import { PCard } from '../PCard';
 import { PCardSection } from '../PCard/components/PCardSection';
 

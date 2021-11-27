@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import { PTooltipPositionedOverlay } from '../../../../components/PTooltip/components/PTooltipPositionedOverlay/index.js';
+    import { PTooltipPositionedOverlay } from '../../../../components/PTooltip/components/PTooltipPositionedOverlay';
 
     export default {
         name: 'PTooltipOverlay',

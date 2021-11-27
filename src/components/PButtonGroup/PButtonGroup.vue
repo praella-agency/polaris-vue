@@ -1,7 +1,7 @@
 <script>
     import { classNames } from '../../utilities/css';
     import ComponentHelpers from '../../ComponentHelpers';
-    import { PButtonGroupItem } from '../../components/PButtonGroup/components/PButtonGroupItem/index.js';
+    import { PButtonGroupItem } from '../../components/PButtonGroup/components/PButtonGroupItem';
 
     const Spacing = 'extraTight' | 'tight' | 'loose';
 

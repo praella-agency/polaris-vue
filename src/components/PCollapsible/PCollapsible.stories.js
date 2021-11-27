@@ -1,9 +1,9 @@
-import { PCollapsible } from './index.js';
+import { PCollapsible } from './index';
 import { PCard } from '../PCard';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PButton } from '../PButton';
-import { PTextContainer } from '../../components/PTextContainer/index.js';
+import { PTextContainer } from '../PTextContainer';
 import { PLink } from '../PLink';
 
 export default {

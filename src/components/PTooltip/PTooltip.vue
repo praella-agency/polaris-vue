@@ -36,7 +36,7 @@
 
 <script>
     import { classNames } from '../../utilities/css';
-    import { PTooltipOverlay } from '../../components/PTooltip/components/PTooltipOverlay/index.js';
+    import { PTooltipOverlay } from '../../components/PTooltip/components/PTooltipOverlay';
 
     export default {
         name: 'Tooltip',

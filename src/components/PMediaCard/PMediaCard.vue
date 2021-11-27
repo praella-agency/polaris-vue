@@ -64,15 +64,15 @@
 
 <script>
     import { classNames } from '../../utilities/css';
-    import { DestructableAction, DisableableAction, IconableAction, LoadableAction, Video } from '../../types/types';
+    import { DestructableAction, DisableableAction, IconableAction, LoadableAction, Video } from '../../types';
     import VuePlyr from '@hulkapps/vue-plyr';
-    import { PCard } from '../../components/PCard/index.js';
-    import { PStack } from '../../components/PStack/index.js';
-    import { PStackItem } from '../../components/PStack/components/PStackItem/index.js';
+    import { PCard } from '../../components/PCard';
+    import { PStack } from '../../components/PStack';
+    import { PStackItem } from '../../components/PStack/components/PStackItem';
     import { PHeading } from '../../components/PHeading';
     import { PImage } from '../../components/PImage';
-    import { PButtonGroup } from '../../components/PButtonGroup/index.js';
-    import { PButton } from '../../components/PButton/index.js';
+    import { PButtonGroup } from '../../components/PButtonGroup';
+    import { PButton } from '../../components/PButton';
     import StringValidator from '../../utilities/validators/StringValidator';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
 

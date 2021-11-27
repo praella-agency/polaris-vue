@@ -68,14 +68,14 @@
 </template>
 
 <script>
-  import { PButton } from '../../../../components/PButton/index.js';
+  import { PButton } from '../../../../components/PButton';
   import { PImage } from '../../../../components/PImage';
   import { PStack } from '../../../../components/PStack';
   import { PStackItem } from '../../../../components/PStack/components/PStackItem';
-  import { PModal } from '../../../../components/PModal/index.js';
+  import { PModal } from '../../../../components/PModal';
   import { getWidth } from '../context';
   import { classNames } from '../../../../utilities/css';
-  import { ThemeLogo } from '../../../../types/logo.js';
+  import { ThemeLogo } from '../../../../types/logo';
   import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
   const ContextualSaveBarAction = {

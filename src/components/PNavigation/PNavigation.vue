@@ -35,8 +35,8 @@
 </template>
 
 <script>
-    import { ThemeLogo, getWidth } from '../../types/logo.js';
-    import { PUnstyledLink } from '../../components/PUnstyledLink/index.js';
+    import { ThemeLogo, getWidth } from '../../types/logo';
+    import { PUnstyledLink } from '../../components/PUnstyledLink';
     import { PImage } from '../../components/PImage';
     import { PSection } from '../../components/PNavigation/components/PSection';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';

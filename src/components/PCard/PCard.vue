@@ -51,8 +51,8 @@
     import { PCardFooter } from '../../components/PCard/components/PCardFooter';
     import { PHeading } from '../../components/PHeading';
     import { PCaption } from '../../components/PCaption';
-    import { PButtonGroup } from '../../components/PButtonGroup/index.js';
-    import { PLink } from '../../components/PLink/index.js';
+    import { PButtonGroup } from '../../components/PButtonGroup';
+    import { PLink } from '../../components/PLink';
 
     /**
      * <br/>

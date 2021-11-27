@@ -25,8 +25,8 @@
 
 <script>
 import { classNames } from '../../../../utilities/css';
-import { PFormLayoutItem } from '../../../../components/PFormLayout/components/PFormLayoutItem/index.js';
-import { PFormLayoutGroupItemWrapper } from '../../../../components/PFormLayout/components/PFormLayoutGroupItemWrapper/index.js';
+import { PFormLayoutItem } from '../../../../components/PFormLayout/components/PFormLayoutItem';
+import { PFormLayoutGroupItemWrapper } from '../../../../components/PFormLayout/components/PFormLayoutGroupItemWrapper';
 export default {
   name: 'PFormLayoutGroup',
   components: {

@@ -1,4 +1,4 @@
-import { PMultiSelect } from './index.js';
+import { PMultiSelect } from './index';
 import { PBadge } from '../PBadge';
 
 export default {

@@ -1,5 +1,5 @@
-import { PList } from './index.js';
-import { PListItem } from './components/PListItem/index.js';
+import { PList } from './index';
+import { PListItem } from './components/PListItem';
 
 export default {
     title: 'Lists & Tables / List',

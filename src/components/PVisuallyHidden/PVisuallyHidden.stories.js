@@ -1,4 +1,4 @@
-import { PVisuallyHidden } from './index.js';
+import { PVisuallyHidden } from './index';
 
 export default {
     title: 'Titles & Text / Visually Hidden',

@@ -1,4 +1,4 @@
-import { POptionList } from './index.js';
+import { POptionList } from './index';
 
 export default {
     title: 'Lists & Tables / Option List',

@@ -1,10 +1,10 @@
-import { PFrame } from '../PFrame/index.js';
-import { PTopBar } from './index.js';
-import { PSearchField } from './components/PSearchField/index.js';
-import { PUserMenu } from './components/PUserMenu/index.js';
-import { PMenu } from './components/PMenu/index.js';
+import { PFrame } from '../PFrame/index';
+import { PTopBar } from './index';
+import { PSearchField } from './components/PSearchField';
+import { PUserMenu } from './components/PUserMenu';
+import { PMenu } from './components/PMenu';
 import { PIcon } from '../PIcon';
-import { PActionList } from '../PActionList/index.js';
+import { PActionList } from '../PActionList';
 import { PVisuallyHidden } from '../PVisuallyHidden';
 
 export default {

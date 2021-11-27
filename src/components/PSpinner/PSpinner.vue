@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import { classNames, variationName } from '@/utilities/css';
-import { encode as encodeSVG } from '@/utilities/svg';
+import { classNames, variationName } from '../../utilities/css';
+import { encode as encodeSVG } from '../../utilities/svg';
 import { spinnerLarge, spinnerSmall } from './images';
-import StringValidator from "./../../utilities/validators/StringValidator";
+import StringValidator from '../../utilities/validators/StringValidator';
 
 const Color = ['white', 'teal', 'inkLightest'];
 const Size = ['small', 'large'];

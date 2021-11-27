@@ -1,4 +1,4 @@
-import { PDropZone } from './index.js';
+import { PDropZone } from './index';
 import { PCard } from '../PCard';
 import { PCardHeader } from '../PCard/components/PCardHeader';
 import { PCardSection } from '../PCard/components/PCardSection';

@@ -1,4 +1,4 @@
-import { PFormLayout } from './index.js';
+import { PFormLayout } from './index';
 import { PTextField } from '../PTextField';
 
 export default {
@@ -28,4 +28,3 @@ const Template = (args, {argTypes}) => ({
 });
 
 export const Default = Template.bind({});
-Default.args = {};

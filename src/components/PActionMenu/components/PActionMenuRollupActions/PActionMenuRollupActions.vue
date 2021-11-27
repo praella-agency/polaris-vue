@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import {ActionListSection, ActionListItemDescriptor } from './../../../../types/types.js';
-import {PPopover} from '@/components/PPopover';
-import {PButton} from '@/components/PButton';
-import {PActionList} from '@/components/PActionList';
-import ArrayValidator from "./../../../../utilities/validators/ArrayValidator";
+import {ActionListSection, ActionListItemDescriptor } from '../../../../types';
+import {PPopover} from '../../../../components/PPopover';
+import {PButton} from '../../../../components/PButton';
+import {PActionList} from '../../../../components/PActionList';
+import ArrayValidator from '../../../../utilities/validators/ArrayValidator';
 
 export default {
   name: 'PActionMenuRollupActions',

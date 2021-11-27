@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import { PPositionedOverlay } from '@/components/PPopover/components/PPositionedOverlay/index.js';
+    import { PPositionedOverlay } from '../../../../components/PPopover/components/PPositionedOverlay';
 
     export default {
         name: 'PPopoverOverlay',

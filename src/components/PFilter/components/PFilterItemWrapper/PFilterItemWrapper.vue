@@ -1,6 +1,6 @@
 <script>
     import { classNames } from '../../../../utilities/css';
-    import ComponentHelpers from '../../../../ComponentHelpers.js';
+    import ComponentHelpers from '../../../../ComponentHelpers';
     import { PFilterItem } from '../../../../components/PFilter/components/PFilterItem';
 
     export default {

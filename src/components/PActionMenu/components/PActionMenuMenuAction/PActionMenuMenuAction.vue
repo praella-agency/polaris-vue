@@ -26,10 +26,10 @@
 </template>
 
 <script>
-    import {classNames} from '@/utilities/css';
-    import {ComplexAction, MenuActionDescriptor} from './../../../../types/types.js';
-    import {PIcon} from './../../../../components/PIcon/index.js';
-    import {PUnstyledLink} from '@/components/PUnstyledLink';
+    import {classNames} from '../../../../utilities/css';
+    import {ComplexAction, MenuActionDescriptor} from '../../../../types';
+    import {PIcon} from '../../../../components/PIcon';
+    import {PUnstyledLink} from '../../../../components/PUnstyledLink';
 
     export const MenuActionProps = {
       ...ComplexAction,

@@ -26,18 +26,13 @@
 
 <script>
   import { PIcon } from '../../../../components/PIcon';
-  import { PMenu } from '../../../../components/PTopBar/components/PMenu/index.js';
+  import { PMenu } from '../../../../components/PTopBar/components/PMenu';
   import { PMessageIndicator } from '../../../../components/PMessageIndicator';
-  import { PAvatar } from '../../../../components/PAvatar/index.js';
-
-  const IconSource = ['placeholder', String];
+  import { PAvatar } from '../../../../components/PAvatar';
 
   export const Action = {
     /** Source of the icon */
-    icon: {
-        type: String,
-        expectedValues: IconSource,
-    },
+    icon: String,
     /** A unique identifier for the action */
     id: String,
     /** Content the action displays */

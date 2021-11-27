@@ -43,7 +43,7 @@
 
 <script>
     import { classNames } from '../../utilities/css';
-    import { PPopoverOverlay } from '../../components/PPopover/components/PPopoverOverlay/index.js';
+    import { PPopoverOverlay } from '../../components/PPopover/components/PPopoverOverlay';
 
     /**
      * <br/>

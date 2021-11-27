@@ -34,7 +34,7 @@
 <script>
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
-    import { PChoice } from '../../components/PChoice/index.js';
+    import { PChoice } from '../../components/PChoice';
 
     /**
      * <br/>

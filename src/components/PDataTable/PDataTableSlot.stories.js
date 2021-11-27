@@ -1,12 +1,12 @@
 import { PDataTable } from './index';
 import { PDataTableRow } from './components/PDataTableRow';
 import { PDataTableCol } from './components/PDataTableCol';
-import { PPopover } from '../PPopover/index.js';
-import { PButton } from '../PButton/index.js';
-import { PLink } from '../PLink/index.js';
+import { PPopover } from '../PPopover';
+import { PButton } from '../PButton';
+import { PLink } from '../PLink';
 import { PBadge } from '../PBadge';
 import { PIcon } from '../PIcon';
-import { PToggle } from '../PToggle/index.js';
+import { PToggle } from '../PToggle';
 import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';
 import { PStack } from '../PStack';

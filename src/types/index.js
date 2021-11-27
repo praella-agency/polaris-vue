@@ -23,12 +23,11 @@ export const LoadableAction = {
 
 export const Color = ['base', 'subdued', 'critical', 'interactive', 'warning', 'highlight', 'success', 'primary'];
 
-export const IconSource = ['placeholder', String];
+// export const IconSource = ['placeholder', String];
 
 export const IconProps = {
     source: {
         type: String,
-        expectedValues: IconSource,
         required: true
     },
     color: {
@@ -96,10 +95,7 @@ export const DestructableAction = {
 // Note: Changed icon: IconProps.source type
 export const IconableAction = {
     ...Action,
-    icon: {
-        type: String,
-        expectedValues: IconSource,
-    }
+    icon: String,
 }
 
 

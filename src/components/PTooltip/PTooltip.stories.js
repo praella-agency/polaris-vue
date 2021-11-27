@@ -1,5 +1,5 @@
 import PTooltipMDX from './PTooltip.mdx';
-import { PTextStyle } from '../../components/PTextStyle/index.js';
+import { PTextStyle } from '../PTextStyle';
 
 export default {
     title: 'Overlays / Tooltip',

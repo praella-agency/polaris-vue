@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { PConnectedItem } from './../../components/PConnected/components/PConnectedItem/index.js';
+import { PConnectedItem } from '../../components/PConnected/components/PConnectedItem';
 
 export default {
   name: 'PConnected',

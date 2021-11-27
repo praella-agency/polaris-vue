@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import { classNames, variationName } from '@/utilities/css';
-import StringValidator from "./../../utilities/validators/StringValidator";
+import { classNames, variationName } from '../../utilities/css';
+import StringValidator from '../../utilities/validators/StringValidator';
 
 const Size = ['small', 'medium', 'large', 'extraLarge'];
 const HeadingTagName = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span'];

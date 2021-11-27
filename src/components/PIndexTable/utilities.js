@@ -1,4 +1,4 @@
-import { Action, ActionListSection, BadgeAction, DisableableAction, MenuGroupDescriptor } from '../../types/types.js';
+import { Action, ActionListSection, BadgeAction, DisableableAction, MenuGroupDescriptor } from '../../types';
 
 export const IndexTableHeading = {
     title: {

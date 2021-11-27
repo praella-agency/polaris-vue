@@ -22,8 +22,8 @@
 
 <script>
     import { classNames } from '../../utilities/css';
-    import { PButton } from '../../components/PButton/index.js';
-    import { PUnstyledLink } from '../../components/PUnstyledLink/index.js';
+    import { PButton } from '../../components/PButton';
+    import { PUnstyledLink } from '../../components/PUnstyledLink';
     import { PIcon } from '../../components/PIcon';
 
     /**

@@ -1,6 +1,6 @@
-import { PEmptyState } from './index.js';
+import { PEmptyState } from './index';
 import { PLink } from '../PLink';
-import { PTextContainer } from '../../components/PTextContainer/index.js';
+import { PTextContainer } from '../PTextContainer';
 
 export default {
     title: 'Structure / Empty State',

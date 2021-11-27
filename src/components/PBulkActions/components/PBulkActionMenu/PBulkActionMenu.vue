@@ -21,8 +21,8 @@
 </template>
 
 <script>
-    import { PPopover } from '../../../../components/PPopover/index.js';
-    import { PActionList } from '../../../../components/PActionList/index.js';
+    import { PPopover } from '../../../../components/PPopover';
+    import { PActionList } from '../../../../components/PActionList';
     import { PBulkActionButton } from '../../../../components/PBulkActions/components/PBulkActionButton';
 
     export default {

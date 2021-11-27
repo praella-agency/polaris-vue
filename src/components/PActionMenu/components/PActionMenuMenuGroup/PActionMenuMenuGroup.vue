@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import {MenuGroupDescriptor, ActionListItemDescriptor} from './../../../../types/types.js';
-import {PActionList} from '@/components/PActionList';
-import {PPopover} from '@/components/PPopover';
-import { PActionMenuMenuAction } from './../../../../components/PActionMenu/components/PActionMenuMenuAction/index.js';
-import ArrayValidator from "./../../../../utilities/validators/ArrayValidator";
+import {MenuGroupDescriptor, ActionListItemDescriptor} from '../../../../types';
+import {PActionList} from '../../../../components/PActionList';
+import {PPopover} from '../../../../components/PPopover';
+import { PActionMenuMenuAction } from '../../../../components/PActionMenu/components/PActionMenuMenuAction';
+import ArrayValidator from '../../../../utilities/validators/ArrayValidator';
 
 export default {
   name: 'PActionMenuMenuGroup',

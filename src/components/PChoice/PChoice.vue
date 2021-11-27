@@ -28,7 +28,7 @@
 
 <script>
 import { classNames } from '../../utilities/css';
-import {PFieldError} from '../../components/PFieldError/index.js';
+import {PFieldError} from '../../components/PFieldError';
 
 export default {
     name: 'PChoice',

@@ -1,4 +1,4 @@
-import { PBanner } from './index.js';
+import { PBanner } from './index';
 
 export default {
     title: 'Feedback indicators / Banner',

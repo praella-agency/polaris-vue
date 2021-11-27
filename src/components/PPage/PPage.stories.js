@@ -1,7 +1,7 @@
 import { PPage } from './index';
-import { PButton } from '../PButton/index.js';
+import { PButton } from '../PButton';
 import { PBadge } from '../PBadge';
-import { PAvatar } from '../PAvatar/index.js';
+import { PAvatar } from '../PAvatar';
 
 export default {
     title: 'Structure / Page ',

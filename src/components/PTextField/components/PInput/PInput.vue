@@ -153,6 +153,7 @@
             },
             value: {
                 type: [String, Number, Object, Array, Boolean, FileList],
+                default: null,
             },
             type: {
                 type: String,
@@ -414,7 +415,7 @@
     }
 
     .ql-toolbar.ql-snow > .ql-formats:not(:first-child):before {
-        content: " ";
+        content: "";
         height: calc(100% + 4px);
         width: 1px;
         background: #c4c4c4;

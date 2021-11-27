@@ -1,5 +1,5 @@
 import { PPage } from '../PPage';
-import { PButton } from '../PButton/index.js';
+import { PButton } from '../PButton';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import PLoadingMDX from './PLoading.mdx';

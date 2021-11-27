@@ -41,7 +41,7 @@
 <script>
     import { PInput } from '../../components/PTextField/components/PInput';
     import { PConnected } from '../../components/PConnected';
-    import { PFieldError } from '../../components/PFieldError/index.js';
+    import { PFieldError } from '../../components/PFieldError';
 
     /**
      * <br/>

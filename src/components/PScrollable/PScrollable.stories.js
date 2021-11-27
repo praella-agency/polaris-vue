@@ -1,4 +1,4 @@
-import { PScrollable } from './index.js';
+import { PScrollable } from './index';
 
 export default {
     title: 'Behavior / Scrollable',

@@ -11,7 +11,7 @@
 
 <script>
     import { PDisplayText } from '../../../../components/PDisplayText';
-    import { PModalCloseButton } from '../../../../components/PModal/components/PModalCloseButton/index.js';
+    import { PModalCloseButton } from '../../../../components/PModal/components/PModalCloseButton';
 
     export default {
         name: 'PModalHeader',

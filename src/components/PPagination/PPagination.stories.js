@@ -1,4 +1,4 @@
-import { PPagination } from './index.js';
+import { PPagination } from './index';
 
 export default {
     title: 'Navigation / Pagination',

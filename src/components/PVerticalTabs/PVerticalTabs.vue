@@ -27,7 +27,7 @@
 </template>
 
 <script>
-    import { PVerticalTabsPanel } from '../../components/PVerticalTabs/components/PVerticalTabsPanel/index.js';
+    import { PVerticalTabsPanel } from '../../components/PVerticalTabs/components/PVerticalTabsPanel';
     import { PVerticalTab } from '../../components/PVerticalTabs/components/PVerticalTab';
     import { TabDescriptor } from '../../types/tabs';
     import { classNames } from '../../utilities/css';

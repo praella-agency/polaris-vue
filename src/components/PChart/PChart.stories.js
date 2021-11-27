@@ -1,4 +1,4 @@
-import { PChart } from './index.js';
+import { PChart } from './index';
 
 export default {
     title: 'Data visualizations / Chart',

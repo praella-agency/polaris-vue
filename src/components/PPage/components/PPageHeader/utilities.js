@@ -5,7 +5,7 @@ import {
     DisableableAction,
     LoadableAction,
     IconableAction,
-} from '../../../../types/types';
+} from '../../../../types';
 import { PPageHeaderTitleProps } from '../../../../components/PPage/components/PPageHeaderTitle/utilities';
 import { PPaginationDescriptor } from '../../../../components/PPagination';
 

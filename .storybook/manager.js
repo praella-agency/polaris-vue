@@ -1,4 +1,4 @@
-import { addons } from "@storybook/addons";
+import { addons } from '@storybook/addons';
 import { create } from '@storybook/theming';
 import '!style-loader!css-loader!sass-loader!./styles/manager.scss';
 

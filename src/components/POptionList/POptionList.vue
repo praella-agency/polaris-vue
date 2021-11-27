@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import { POptionsListOption } from './../../components/POptionList/components/POptionsListOption/index.js';
-import ArrayValidator from "./../../utilities/validators/ArrayValidator";
+import { POptionsListOption } from '../../components/POptionList/components/POptionsListOption';
+import ArrayValidator from '../../utilities/validators/ArrayValidator';
 
 export const OptionDescriptor = {
     label: String,

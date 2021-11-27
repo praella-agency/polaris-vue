@@ -1,4 +1,4 @@
-import { PHeading } from './index.js';
+import { PHeading } from './index';
 
 export default {
     title: 'Titles & Text / Heading',

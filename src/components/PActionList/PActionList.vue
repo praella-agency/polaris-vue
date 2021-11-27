@@ -8,7 +8,7 @@
 
 <script>
 import { classNames} from '../../utilities/css';
-import { PActionListSection } from '../../components/PActionList/components/PActionListSection/index.js';
+import { PActionListSection } from '../../components/PActionList/components/PActionListSection';
 
 /**
  * <br/>

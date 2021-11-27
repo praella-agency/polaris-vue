@@ -90,7 +90,7 @@
 
 <script>
     import { classNames } from '../../../../utilities/css';
-    import { DisableableAction } from '../../../../types/types';
+    import { DisableableAction } from '../../../../types';
     import { PCheckbox } from '../../../../components/PCheckbox';
     import { PAvatar } from '../../../../components/PAvatar';
     import { PPopover } from '../../../../components/PPopover';

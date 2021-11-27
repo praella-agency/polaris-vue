@@ -17,8 +17,8 @@
 </template>
 
 <script>
-    import { classNames } from '@/utilities/css';
-    import { PIcon } from './../../../../components/PIcon/index.js';
+    import { classNames } from '../../../../utilities/css';
+    import { PIcon } from '../../../../components/PIcon';
 
     export default {
       name: 'POptionsListCheckbox',

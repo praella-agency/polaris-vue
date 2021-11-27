@@ -1,4 +1,4 @@
-import { PImage } from './index.js';
+import { PImage } from './index';
 
 export default {
     title: 'Images & Icons / Image',

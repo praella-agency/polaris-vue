@@ -36,13 +36,13 @@
 <script>
     import { PStack } from '../../../../../../components/PStack';
     import { PStackItem } from '../../../../../../components/PStack/components/PStackItem';
-    import { PButton } from '../../../../../../components/PButton/index.js';
+    import { PButton } from '../../../../../../components/PButton';
     import { PBadge } from '../../../../../../components/PBadge';
     import { PTextContainer } from '../../../../../../components/PTextContainer';
     import { PHeading } from '../../../../../../components/PHeading';
     import { PDisplayText } from '../../../../../../components/PDisplayText';
-    import { PLink } from '../../../../../../components/PLink/index.js';
-    import { MessageActionProps, MessageLinkProps, MessageBadgeProps } from '../../../../../../types/types.js';
+    import { PLink } from '../../../../../../components/PLink';
+    import { MessageActionProps, MessageLinkProps, MessageBadgeProps } from '../../../../../../types';
     import ObjectValidator from '../../../../../../utilities/validators/ObjectValidator';
 
     export default {

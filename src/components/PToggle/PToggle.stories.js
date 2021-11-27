@@ -1,4 +1,4 @@
-import { PToggle } from './index.js';
+import { PToggle } from './index';
 
 export default {
     title: 'Forms / Toggle',

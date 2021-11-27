@@ -39,12 +39,12 @@
 
 <script>
     import { classNames } from '../../../../utilities/css';
-    import { PActionList } from '../../../../components/PActionList/index.js';
-    import { PPopover } from '../../../../components/PPopover/index.js';
-    import { PMessage } from './components/PMessage/index.js';
+    import { PActionList } from '../../../../components/PActionList';
+    import { PPopover } from '../../../../components/PPopover';
+    import { PMessage } from './components/PMessage';
     import { PVisuallyHidden } from '../../../../components/PVisuallyHidden';
     import { PIcon } from '../../../../components/PIcon';
-    import { ActionListSection } from '../../../../types/types.js';
+    import { ActionListSection } from '../../../../types';
     import ArrayValidator from '../../../../utilities/validators/ArrayValidator';
 
     export default {

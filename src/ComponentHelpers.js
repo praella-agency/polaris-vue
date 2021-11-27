@@ -10,7 +10,7 @@ import {
     pathCase,
     sentenceCase,
     snakeCase,
-} from "change-case";
+} from 'change-case';
 
 class ComponentHelpers {
     constructor() {

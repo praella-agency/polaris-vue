@@ -611,19 +611,19 @@
 <script>
     import { classNames } from '../../utilities/css';
     import { PSpinner } from '../../components/PSpinner';
-    import { PButton } from '../../components/PButton/index.js';
+    import { PButton } from '../../components/PButton';
     import { PEmptySearchResult } from '../../components/PEmptySearchResult';
-    import { PStack } from '../../components/PStack/index.js';
-    import { PStackItem } from '../../components/PStack/components/PStackItem/index.js';
-    import { PCheckbox } from '../../components/PCheckbox/index.js';
+    import { PStack } from '../../components/PStack';
+    import { PStackItem } from '../../components/PStack/components/PStackItem';
+    import { PCheckbox } from '../../components/PCheckbox';
     import { PBadge } from '../../components/PBadge';
     import { BulkActionsProps, IndexTableHeading } from '../../components/PIndexTable/utilities';
     import { PBulkActions } from '../../components/PBulkActions';
     import { PIndexTableCell } from '../../components/PIndexTable/components/PIndexTableCell';
     import { PIndexTableRow } from '../../components/PIndexTable/components/PIndexTableRow';
     import { PTextStyle } from '../../components/PTextStyle';
-    import { PFilter } from '../../components/PFilter/index.js';
-    import { PPagination, PPaginationDescriptor } from '../../components/PPagination/index.js';
+    import { PFilter } from '../../components/PFilter';
+    import { PPagination, PPaginationDescriptor } from '../../components/PPagination';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
 
     const TableHeadingRect = {

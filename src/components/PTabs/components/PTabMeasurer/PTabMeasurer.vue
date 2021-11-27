@@ -15,7 +15,7 @@
 
 <script>
     import { PTab } from '../../../../components/PTabs/components/PTab';
-    import { TabDescriptor } from '../../../../types/tabs/index.js';
+    import { TabDescriptor } from '../../../../types/tabs';
     import { PEventListener } from '../../../../components/PEventListener';
 
     export default {

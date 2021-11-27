@@ -24,7 +24,7 @@
 
 <script>
     import { classNames } from '../../../../utilities/css';
-    import { PCheckbox } from '../../../../components/PCheckbox/index.js';
+    import { PCheckbox } from '../../../../components/PCheckbox';
     import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
     export default {

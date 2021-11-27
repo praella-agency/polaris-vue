@@ -1,14 +1,14 @@
 import { PFilter } from './index';
-import { PButton } from '../PButton/index.js';
-import { PPopover } from '../PPopover/index.js';
+import { PButton } from '../PButton';
+import { PPopover } from '../PPopover';
 import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';
 import { PCardSection } from '../PCard/components/PCardSection';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PTextField } from '../PTextField';
-import { PCheckbox } from '../PCheckbox/index.js';
-import { PChoiceList } from '../PChoiceList/index.js';
+import { PCheckbox } from '../PCheckbox';
+import { PChoiceList } from '../PChoiceList';
 
 export default {
     title: 'Lists & Tables / Filter',

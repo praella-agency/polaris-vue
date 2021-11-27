@@ -17,9 +17,9 @@
 
 <script>
 import {DeprecatedIcons} from './index';
-import * as Icon from '@/assets/shopify-polaris-icons/index';
-import { classNames, variationName } from '@/utilities/css';
-import { encode as encodeSVG } from '@/utilities/svg';
+import * as Icon from '../../assets/shopify-polaris-icons';
+import { classNames, variationName } from '../../utilities/css';
+import { encode as encodeSVG } from '../../utilities/svg';
 
 export default {
   name: 'PIcon',
@@ -87,9 +87,9 @@ export default {
     enhancedSource() {
       if (DeprecatedIcons.indexOf(this.source) > -1) {
         // tslint:disable-next-line:no-console
-        console.error('Deprecation Notice: You are using a deprecated icon `' + this.source + '`, please use new ' +
-            'instead of this. Deprecated icons will be removed in version 3.0.0. Refer this link' +
-            ' to get updated icons https://polaris-vue.hulkapps.com/?path=/story/images-icons-icon--icon');
+        console.error(this.source + '` this icon has been removed, please use new ' +
+            'instead of this. Refer this link to get updated icons ' +
+            'https://polaris-vue.hulkapps.com/?path=/story/images-icons-icon--icon');
       }
 
       const sourceIcon = Icon[this.source];

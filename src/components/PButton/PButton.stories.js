@@ -1,4 +1,4 @@
-import { PButton } from './index.js';
+import { PButton } from './index';
 
 export default {
     title: 'Actions / Button',

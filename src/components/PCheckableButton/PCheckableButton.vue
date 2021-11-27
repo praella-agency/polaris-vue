@@ -25,7 +25,7 @@
 
 <script>
     import { classNames } from '../../utilities/css';
-    import { PCheckbox } from '../../components/PCheckbox/index.js';
+    import { PCheckbox } from '../../components/PCheckbox';
 
     export default {
         name: 'PCheckableButton',

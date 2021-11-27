@@ -36,11 +36,11 @@
 
 <script>
     import { PSpinner } from '../../components/PSpinner';
-    import { PModalDialog } from '../../components/PModal/components/PModalDialog/index.js';
-    import { PModalHeader } from '../../components/PModal/components/PModalHeader/index.js';
-    import { PModalFooter } from '../../components/PModal/components/PModalFooter/index.js';
-    import { PModalSection } from '../../components/PModal/components/PModalSection/index.js';
-    import { PModalCloseButton } from '../../components/PModal/components/PModalCloseButton/index.js';
+    import { PModalDialog } from '../../components/PModal/components/PModalDialog';
+    import { PModalHeader } from '../../components/PModal/components/PModalHeader';
+    import { PModalFooter } from '../../components/PModal/components/PModalFooter';
+    import { PModalSection } from '../../components/PModal/components/PModalSection';
+    import { PModalCloseButton } from '../../components/PModal/components/PModalCloseButton';
 
     /**
      * <br/>

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import { PIcon } from '@/components/PIcon';
+    import { PIcon } from '../../components/PIcon';
 
     /**
      * <br/>

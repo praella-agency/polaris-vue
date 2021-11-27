@@ -118,11 +118,11 @@
     import { PStackItem } from '../../components/PStack/components/PStackItem';
     import { PCaption } from '../../components/PCaption';
     import { PDisplayText } from '../../components/PDisplayText';
-    import { PFileUpload } from '../../components/PDropZone/components/PFileUpload/index.js';
-    import { PDropZoneInput } from '../../components/PDropZone/components/PDropZoneInput/index.js';
+    import { PFileUpload } from '../../components/PDropZone/components/PFileUpload';
+    import { PDropZoneInput } from '../../components/PDropZone/components/PDropZoneInput';
     import { PLabelled } from '../../components/PLabelled';
     import { PThumbnail } from '../../components/PThumbnail';
-    import { Action } from '../../types/types.js';
+    import { Action } from '../../types';
     import { NoteMinor } from '../../assets/shopify-polaris-icons';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
     import {
@@ -130,7 +130,7 @@
         isServer,
         getDataTransferFiles,
         useToggle,
-    } from './context.js';
+    } from './context';
 
     const {
         value: focused,

@@ -26,11 +26,11 @@
 </template>
 
 <script>
-    import { PStack } from '@/components/PStack';
-    import { PStackItem } from '@/components/PStack/components/PStackItem';
-    import { PDisplayText } from './../../components/PDisplayText/index.js';
-    import { PTextStyle } from './../../components/PTextStyle/index.js';
-    import { PImage } from './../../components/PImage/index.js';
+    import { PStack } from '../../components/PStack';
+    import { PStackItem } from '../../components/PStack/components/PStackItem';
+    import { PDisplayText } from '../../components/PDisplayText';
+    import { PTextStyle } from '../../components/PTextStyle';
+    import { PImage } from '../../components/PImage';
 
     export default {
       name: 'PEmptySearchResult',

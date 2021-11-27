@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import {classNames} from '@/utilities/css';
-import {MenuActionDescriptor, MenuGroupDescriptor} from './../../types/types.js';
-import {PActionMenuRollupActions} from './../../components/PActionMenu/components/PActionMenuRollupActions/index.js';
-import {PActionMenuActions} from './../../components/PActionMenu/components/PActionMenuActions/index.js';
-import ArrayValidator from "./../../utilities/validators/ArrayValidator";
+import {classNames} from '../../utilities/css';
+import {MenuActionDescriptor, MenuGroupDescriptor} from '../../types';
+import {PActionMenuRollupActions} from '../../components/PActionMenu/components/PActionMenuRollupActions';
+import {PActionMenuActions} from '../../components/PActionMenu/components/PActionMenuActions';
+import ArrayValidator from '../../utilities/validators/ArrayValidator';
 
 export default {
   name: 'PActionMenu',

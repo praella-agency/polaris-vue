@@ -48,9 +48,9 @@
 </template>
 
 <script>
-  import { classNames } from '@/utilities/css';
-  import { PSkeletonBodyText } from './../../components/PSkeletonBodyText/index.js';
-  import { PSkeletonDisplayText } from '../../components/PSkeletonDisplayText/index.js';
+  import { classNames } from '../../utilities/css';
+  import { PSkeletonBodyText } from '../../components/PSkeletonBodyText';
+  import { PSkeletonDisplayText } from '../../components/PSkeletonDisplayText';
 
   /**
    * <br/>
@@ -101,7 +101,6 @@
        */
       secondaryActions: {
         type: Number,
-        default: false
       },
 
       /**
@@ -109,7 +108,7 @@
        */
       breadcrumbs: {
         type: Boolean,
-        default: false
+        default: false,
       },
     },
     computed: {

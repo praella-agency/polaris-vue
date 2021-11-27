@@ -25,8 +25,8 @@
 
 <script>
     import { PCard } from '../../components/PCard';
-    import { PButton } from '../../components/PButton/index.js';
-    import { PSettingAction } from '../../components/PSettingToggle/components/PSettingAction/index.js';
+    import { PButton } from '../../components/PButton';
+    import { PSettingAction } from '../../components/PSettingToggle/components/PSettingAction';
 
     const Action = {
         accessibilityLabel: String,

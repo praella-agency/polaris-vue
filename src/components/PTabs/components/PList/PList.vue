@@ -19,7 +19,7 @@
 
 <script>
     import { PItem } from '../../../../components/PTabs/components/PItem';
-    import { TabDescriptor } from '../../../../types/tabs/index.js';
+    import { TabDescriptor } from '../../../../types/tabs';
 
     export default {
         name: 'PList',

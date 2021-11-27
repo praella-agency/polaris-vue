@@ -1,6 +1,6 @@
 <script>
-    import { PFormLayoutItem } from '../../components/PFormLayout/components/PFormLayoutItem/index.js';
-    import { PFormLayoutGroup } from '../../components/PFormLayout/components/PFormLayoutGroup/index.js';
+    import { PFormLayoutItem } from '../../components/PFormLayout/components/PFormLayoutItem';
+    import { PFormLayoutGroup } from '../../components/PFormLayout/components/PFormLayoutGroup';
     import ComponentHelpers from '../../ComponentHelpers';
 
     /**

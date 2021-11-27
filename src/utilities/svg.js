@@ -2,7 +2,7 @@
 
 const symbols = /[\r\n%#()<>?\[\\\]^`{|}]/g;
 
-export function encode(data: string) {
+export function encode(data) {
   // Use single quotes instead of double to avoid encoding.
   data = data.replace(/"/g, '\'');
   data = data.replace(/>\s{1,}</g, '><');

@@ -1,8 +1,8 @@
-import { PModal } from './index.js';
-import { PFormLayout } from '../PFormLayout/index.js';
+import { PModal } from './index';
+import { PFormLayout } from '../PFormLayout';
 import { PTextField } from '../PTextField';
 import { PBanner } from '../PBanner';
-import { PButton } from '../PButton/index.js';
+import { PButton } from '../PButton';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 

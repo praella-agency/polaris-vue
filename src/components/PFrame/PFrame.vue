@@ -28,11 +28,8 @@
 </template>
 
 <script>
-    import { ContextualSaveBarProps } from './context';
-    import { ThemeLogo } from '../../types/logo.js';
     import { PIcon } from '../../components/PIcon';
     import { PFrameInner } from '../../components/PFrame/components/PFrameInner';
-    import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
     /**
      * <br/>

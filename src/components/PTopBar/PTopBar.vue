@@ -89,20 +89,20 @@
 
 <script>
     import { classNames } from '../../utilities/css';
-    import { ThemeLogo, getWidth } from '../../types/logo.js';
+    import { ThemeLogo, getWidth } from '../../types/logo';
     import { PIcon } from '../../components/PIcon';
-    import { PButton } from '../../components/PButton/index.js';
-    import { PUnstyledLink } from '../../components/PUnstyledLink/index.js';
+    import { PButton } from '../../components/PButton';
+    import { PUnstyledLink } from '../../components/PUnstyledLink';
     import { PImage } from '../../components/PImage';
     import { PTextField } from '../../components/PTextField';
-    import { PActionList } from '../../components/PActionList/index.js';
-    import { PPopover } from '../../components/PPopover/index.js';
+    import { PActionList } from '../../components/PActionList';
+    import { PPopover } from '../../components/PPopover';
     import { POptionList } from '../../components/POptionList';
-    import { PAvatar } from '../../components/PAvatar/index.js';
-    import { PSearch } from '../../components/PTopBar/components/PSearch/index.js';
-    import { PUserMenu } from '../../components/PTopBar/components/PUserMenu/index.js';
-    import { PMenu } from '../../components/PTopBar/components/PMenu/index.js';
-    import { PSearchField } from '../../components/PTopBar/components/PSearchField/index.js';
+    import { PAvatar } from '../../components/PAvatar';
+    import { PSearch } from '../../components/PTopBar/components/PSearch';
+    import { PUserMenu } from '../../components/PTopBar/components/PUserMenu';
+    import { PMenu } from '../../components/PTopBar/components/PMenu';
+    import { PSearchField } from '../../components/PTopBar/components/PSearchField';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
     const SearchResult = {

@@ -120,7 +120,7 @@
 <script>
 import { classNames } from '../../../../utilities/css';
 import { ToastProps } from '../../context';
-import { PContextualSaveBar } from '../../../../components/PFrame/components/PContextualSaveBar/index.js';
+import { PContextualSaveBar } from '../../../../components/PFrame/components/PContextualSaveBar';
 import { PEventListener } from '../../../../components/PEventListener';
 import { PIcon } from '../../../../components/PIcon';
 import { PBackdrop } from '../../../../components/PBackdrop';

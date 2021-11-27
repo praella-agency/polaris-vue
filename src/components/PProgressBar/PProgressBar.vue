@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import { classNames, variationName } from '@/utilities/css';
-import StringValidator from "./../../utilities/validators/StringValidator";
+import { classNames, variationName } from '../../utilities/css';
+import StringValidator from '../../utilities/validators/StringValidator';
 
 const Size = ['small', 'medium', 'large'];
 

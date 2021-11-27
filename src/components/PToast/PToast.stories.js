@@ -1,5 +1,5 @@
 import PToastMDX from './PToast.mdx';
-import {PButton} from "../PButton";
+import {PButton} from '../PButton';
 
 export default {
     title: 'Feedback indicators / Toast',

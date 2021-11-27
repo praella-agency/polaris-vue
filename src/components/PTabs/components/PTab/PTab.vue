@@ -8,12 +8,12 @@
             :class="className"
             @click="$emit('click', id, $event)"
         >
-      <span :class="tabTitleClassNames">
-            {{ content }}
-            <PBadge v-if="badge && Object.keys(badge).length > 0" v-bind="badge">
-                {{ badge.content }}
-            </PBadge>
-      </span>
+            <span :class="tabTitleClassNames">
+                {{ content }}
+                <PBadge v-if="badge && Object.keys(badge).length > 0" v-bind="badge">
+                    {{ badge.content }}
+                </PBadge>
+            </span>
         </button>
 
         <a
@@ -25,12 +25,12 @@
             :class="className"
             @click="$emit('click', id, $event)"
         >
-      <span :class="tabTitleClassNames">
-            {{ content }}
-            <PBadge v-if="badge && Object.keys(badge).length > 0" v-bind="badge">
-                {{ badge.content }}
-            </PBadge>
-      </span>
+            <span :class="tabTitleClassNames">
+                {{ content }}
+                <PBadge v-if="badge && Object.keys(badge).length > 0" v-bind="badge">
+                    {{ badge.content }}
+                </PBadge>
+            </span>
         </a>
 
         <router-link
@@ -42,12 +42,12 @@
             :to="to"
             @click.native="$emit('click', id, $event)"
         >
-      <span :class="tabTitleClassNames">
-            {{ content }}
-            <PBadge v-if="badge && Object.keys(badge).length > 0" v-bind="badge">
-                {{ badge.content }}
-            </PBadge>
-      </span>
+            <span :class="tabTitleClassNames">
+                {{ content }}
+                <PBadge v-if="badge && Object.keys(badge).length > 0" v-bind="badge">
+                    {{ badge.content }}
+                </PBadge>
+            </span>
         </router-link>
     </li>
 </template>
@@ -110,7 +110,7 @@
             className() {
                 return classNames(
                     'Polaris-Tabs__Tab',
-                    !this.to && this.selected && `Polaris-Tabs__Tab--selected`,
+                    this.selected && `Polaris-Tabs__Tab--selected`,
                 );
             },
             tabContainerClassNames() {

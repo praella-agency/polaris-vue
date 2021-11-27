@@ -1,4 +1,4 @@
-import {MenuActionDescriptor, MenuGroupDescriptor} from './../../types/types.js';
+import {MenuActionDescriptor, MenuGroupDescriptor} from '../../types';
 
 const MenuDescriptorWithIndex = {
     ...MenuActionDescriptor,

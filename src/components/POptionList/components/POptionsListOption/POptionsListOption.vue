@@ -19,8 +19,8 @@
 </template>
 
 <script>
-    import { classNames } from '@/utilities/css';
-    import { POptionsListCheckbox } from './../../../../components/POptionList/components/POptionsListCheckbox';
+    import { classNames } from '../../../../utilities/css';
+    import { POptionsListCheckbox } from '../../../../components/POptionList/components/POptionsListCheckbox';
 
     export default {
       name: 'POptionsListOption',

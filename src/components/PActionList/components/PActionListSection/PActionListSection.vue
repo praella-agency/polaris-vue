@@ -21,7 +21,7 @@
 <script>
     import { classNames } from '../../../../utilities/css';
     import { POptionalTag } from '../../../../components/POptionalTag';
-    import { PActionListItem } from '../../../../components/PActionList/components/PActionListItem/index.js';
+    import { PActionListItem } from '../../../../components/PActionList/components/PActionListItem';
     import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
     const SectionInterface = {

@@ -19,7 +19,7 @@
                             <PButton
                                 @click="handleToggle(key)"
                                 :aria-expanded="isOpen[key]"
-                                aria-controls="basic-collapsible"
+                                :aria-controls="`basic-collapsible-${key}`"
                                 plain
                             >
                                 {{ release['tag_name'] + ' - ' + release['name'] }}
@@ -30,7 +30,7 @@
                         </PStackItem>
                         <PStackItem>
                             <PCollapsible
-                                :open="isOpen[key]"
+                                :open="key <= 2 ? true : isOpen[key]"
                                 :id="`basic-collapsible-${key}`"
                                 :transition="{duration: '500ms', timingFunction: 'ease-in-out'}"
                                 :expandOnPrint="true"
@@ -99,10 +99,12 @@
                 return converter.makeHtml(text);
             },
             handleToggle(key) {
-                if (!this.isOpen[key] || this.isOpen[key] === false) {
-                    this.$set(this.isOpen, key, true);
-                } else {
-                    this.$set(this.isOpen, key, false);
+                if (key > 2) {
+                    if (!this.isOpen[key] || this.isOpen[key] === false) {
+                        this.$set(this.isOpen, key, true);
+                    } else {
+                        this.$set(this.isOpen, key, false);
+                    }
                 }
             },
             handleSearchResultsDismiss() {

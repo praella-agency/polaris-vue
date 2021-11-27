@@ -10,9 +10,9 @@
 </template>
 
 <script>
-    import { ComplexAction } from '../../../types/types';
-    import { PButton } from '../../../components/PButton/index.js';
-    import ObjectValidator from '../../../utilities/validators/ObjectValidator';
+    import { ComplexAction } from '../../../../types';
+    import { PButton } from '../../../../components/PButton';
+    import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
     export default {
         name: 'PButtonsFrom',

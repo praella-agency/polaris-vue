@@ -87,7 +87,7 @@
     import { PCaption } from '../../../../components/PCaption';
     import { PTextStyle } from '../../../../components/PTextStyle';
     import { PIcon } from '../../../../components/PIcon';
-    import { Context, createAllowMultipleKey, capitalize } from '../../../../components/PDropZone/context.js';
+    import { Context, createAllowMultipleKey, capitalize } from '../../../../components/PDropZone/context';
 
     export default {
         name: 'PFileUpload',

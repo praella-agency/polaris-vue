@@ -1,6 +1,6 @@
-import { PFrame } from './index.js';
-import { PTopBar } from '../PTopBar/index.js';
-import { PNavigation } from '../PNavigation/index.js';
+import { PFrame } from './index';
+import { PTopBar } from '../PTopBar';
+import { PNavigation } from '../PNavigation';
 import { PSkeletonPage } from '../PSkeletonPage';
 import { PLayout } from '../PLayout';
 import { PLayoutAnnotatedSection } from '../PLayout/components/PLayoutAnnotatedSection';
@@ -10,9 +10,9 @@ import { PTextContainer } from '../PTextContainer';
 import { PSkeletonDisplayText } from '../PSkeletonDisplayText';
 import { PSkeletonBodyText } from '../PSkeletonBodyText';
 import { PPage } from '../PPage';
-import { PFormLayout } from '../PFormLayout/index.js';
+import { PFormLayout } from '../PFormLayout';
 import { PTextField } from '../PTextField';
-import { PModal } from '../PModal/index.js';
+import { PModal } from '../PModal';
 
 export default {
     title: 'Structure / Frame',

@@ -40,7 +40,7 @@
 <script>
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
-    import { PFieldError } from '../../components/PFieldError/index.js';
+    import { PFieldError } from '../../components/PFieldError';
 
     const PLACEHOLDER_VALUE = '';
 

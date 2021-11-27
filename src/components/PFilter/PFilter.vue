@@ -42,9 +42,9 @@
 </template>
 
 <script>
-    import { PTextField } from '../../components/PTextField/index.js';
+    import { PTextField } from '../../components/PTextField';
     import { PIcon } from '../../components/PIcon';
-    import { PTag } from '../../components/PTag/index.js';
+    import { PTag } from '../../components/PTag';
     import { PFilterItemWrapper } from '../../components/PFilter/components/PFilterItemWrapper';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';

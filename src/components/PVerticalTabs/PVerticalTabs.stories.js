@@ -1,15 +1,15 @@
-import { PVerticalTabs } from './index.js';
+import { PVerticalTabs } from './index';
 import { PCard } from '../PCard';
 import { PCardHeader } from '../PCard/components/PCardHeader';
 import { PCardSection } from '../PCard/components/PCardSection';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PHeading } from '../PHeading';
-import { PButton } from '../PButton/index.js';
-import { PFooterHelp } from '../PFooterHelp/index.js';
-import { PLink } from '../PLink/index.js';
-import { PPopover } from '../PPopover/index.js';
-import { PActionList } from '../PActionList/index.js';
+import { PButton } from '../PButton';
+import { PFooterHelp } from '../PFooterHelp';
+import { PLink } from '../PLink';
+import { PPopover } from '../PPopover';
+import { PActionList } from '../PActionList';
 
 export default {
     title: 'Navigation / Vertical Tabs',

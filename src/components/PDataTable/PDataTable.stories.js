@@ -1,6 +1,6 @@
 import { PDataTable } from './index';
-import { PPopover } from '../PPopover/index.js';
-import { PButton } from '../PButton/index.js';
+import { PPopover } from '../PPopover';
+import { PButton } from '../PButton';
 import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';
 import argTypes from './args';

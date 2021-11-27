@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import {MenuActionDescriptor, MenuGroupDescriptor} from './../../../../types/types.js';
-import {sortAndOverrideActionOrder} from './../../../../components/PActionMenu/utilities.js';
-import { PActionMenuMenuGroup } from './../../../../components/PActionMenu/components/PActionMenuMenuGroup/index.js';
-import { PActionMenuMenuAction } from './../../../../components/PActionMenu/components/PActionMenuMenuAction/index.js';
-import ArrayValidator from "./../../../../utilities/validators/ArrayValidator";
+import {MenuActionDescriptor, MenuGroupDescriptor} from '../../../../types';
+import {sortAndOverrideActionOrder} from '../../../../components/PActionMenu/utilities';
+import { PActionMenuMenuGroup } from '../../../../components/PActionMenu/components/PActionMenuMenuGroup';
+import { PActionMenuMenuAction } from '../../../../components/PActionMenu/components/PActionMenuMenuAction';
+import ArrayValidator from '../../../../utilities/validators/ArrayValidator';
 
 const Props = {
   actions: {

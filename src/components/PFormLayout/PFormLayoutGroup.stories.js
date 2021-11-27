@@ -1,5 +1,5 @@
-import { PFormLayout } from './index.js';
-import { PFormLayoutGroup } from './components/PFormLayoutGroup/index.js';
+import { PFormLayout } from './index';
+import { PFormLayoutGroup } from './components/PFormLayoutGroup';
 import { PTextField } from '../PTextField';
 
 export default {
@@ -21,6 +21,11 @@ export default {
                 type: {
                     summary: null,
                 },
+            },
+        },
+        id: {
+            control: {
+                type: 'text',
             },
         },
     },

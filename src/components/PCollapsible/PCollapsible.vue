@@ -12,8 +12,8 @@
 </template>
 
 <script>
-  import { classNames } from '@/utilities/css';
-  import ObjectValidator from "./../../utilities/validators/ObjectValidator";
+  import { classNames } from '../../utilities/css';
+  import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
   const Transition = {
     /** Assign a transition duration to the collapsible animation. */

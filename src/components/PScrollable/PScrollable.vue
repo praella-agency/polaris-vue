@@ -11,7 +11,7 @@
 </template>
 
 <script>
-    import { classNames } from '@/utilities/css';
+    import { classNames } from '../../utilities/css';
 
     /**
      * <br/>

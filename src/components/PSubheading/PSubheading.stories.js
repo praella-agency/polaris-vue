@@ -1,4 +1,4 @@
-import { PSubheading } from './index.js';
+import { PSubheading } from './index';
 
 export default {
     title: 'Titles & Text / Subheading',

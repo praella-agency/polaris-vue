@@ -8,8 +8,8 @@
 </template>
 
 <script>
-  import { classNames } from '@/utilities/css';
-  import StringValidator from "./../../../../utilities/validators/StringValidator";
+  import { classNames } from '../../../../utilities/css';
+  import StringValidator from '../../../../utilities/validators/StringValidator';
 
   const Position = ['Left', 'Primary', 'Right'];
 

@@ -1,5 +1,5 @@
 import PToast from './components/PToast.vue';
-import Api from './components/api.js';
+import Api from './components/api';
 
 const Plugin = (Vue, options = {}) => {
     let methods = Api(Vue, options);

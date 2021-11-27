@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import { PButton } from '../../../../components/PButton/index.js';
+    import { PButton } from '../../../../components/PButton';
 
     export default {
         name: 'PBulkActionButton',

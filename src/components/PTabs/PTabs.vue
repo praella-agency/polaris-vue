@@ -135,15 +135,15 @@
 <script>
     import { classNames } from '../../utilities/css';
     import { PBadge } from '../../components/PBadge';
-    import { PPopover } from '../../components/PPopover/index.js';
-    import { PTab } from '../../components/PTabs/components/PTab/index.js';
-    import { PPanel } from '../../components/PTabs/components/PPanel/index.js';
-    import { PTabMeasurer } from './components/PTabMeasurer/index.js';
+    import { PPopover } from '../../components/PPopover';
+    import { PTab } from '../../components/PTabs/components/PTab';
+    import { PPanel } from '../../components/PTabs/components/PPanel';
+    import { PTabMeasurer } from './components/PTabMeasurer';
     import { PList } from '../../components/PTabs/components/PList';
     import { PIcon } from '../../components/PIcon';
 
-    import { TabDescriptor } from '../../types/tabs/index.js';
-    import { getVisibleAndHiddenTabIndices } from './utilities.js';
+    import { TabDescriptor } from '../../types/tabs';
+    import { getVisibleAndHiddenTabIndices } from './utilities';
 
     /**
      * <br/>

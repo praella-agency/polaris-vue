@@ -7,10 +7,10 @@
 </template>
 
 <script>
-    import { classNames, variationName } from '@/utilities/css';
-    import { PImage } from './../../components/PImage/index.js';
-    import { PIcon } from './../../components/PIcon/index.js';
-    import StringValidator from "./../../utilities/validators/StringValidator";
+    import { classNames, variationName } from '../../utilities/css';
+    import { PImage } from '../../components/PImage';
+    import { PIcon } from '../../components/PIcon';
+    import StringValidator from '../../utilities/validators/StringValidator';
 
     const Size = ['small', 'medium', 'large'];
 

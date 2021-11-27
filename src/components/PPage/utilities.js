@@ -3,7 +3,7 @@ import {
     DestructableAction,
     DisableableAction, IconableAction,
     LoadableAction,
-} from '../../types/types.js';
+} from '../../types';
 
 export const PPageProps = {
     ...PPageHeaderProps,
