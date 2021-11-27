@@ -48,18 +48,18 @@
   </PCard>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+<script>
 import { classNames } from '@/utilities/css';
-import { PImage } from '@/components/PImage';
-import { PStack } from '@/components/PStack/index.js';
-import { PStackItem } from '@/components/PStack/components/PStackItem/index.js';
-import { PDisplayText } from '@/components/PDisplayText';
-import { PTextContainer } from '@/components/PTextContainer';
-import { PCard } from '@/components/PCard/index.js';
-import { PCardSection } from '@/components/PCard/components/PCardSection/index.js';
-import { PButton } from '@/components/PButton/index.js';
-import { ComplexAction, DisableableAction, LoadableAction } from '@/types';
+import { PImage } from './../../components/PImage/index.js';
+import { PStack } from '@/components/PStack';
+import { PStackItem } from '@/components/PStack/components/PStackItem';
+import { PDisplayText } from './../../components/PDisplayText/index.js';
+import { PTextContainer } from './../../components/PTextContainer/index.js';
+import { PCard } from '@/components/PCard';
+import { PCardSection } from '@/components/PCard/components/PCardSection';
+import { PButton } from '@/components/PButton';
+import ObjectValidator from "./../../utilities/validators/ObjectValidator";
+import { ComplexAction, DisableableAction, LoadableAction } from "./../../types/types.js";
 
 /**
  * <br/>
@@ -68,64 +68,89 @@ import { ComplexAction, DisableableAction, LoadableAction } from '@/types';
  *  to provide explanation or guidance to help merchants progress. The empty state component is intended for use when a
  *  full page in the admin is empty, and not for individual elements or areas in the interface.</h4>
  */
-@Component({
+export default {
+  name: 'PEmptyState',
   components: {
     PImage, PCard, PCardSection, PTextContainer, PDisplayText, PStack, PStackItem, PButton,
   },
-})
-export default class PEmptyState extends Vue {
+  props: {
+    /**
+     * The empty state heading
+     */
+    heading: {
+      type: String,
+      default: null
+    },
 
-  /**
-   * The empty state heading
-   */
-  @Prop({type: String, default: null}) public heading!: string;
+    /**
+     * Whether or not the content should span the full width of its container
+     * @values true | false
+     */
+    fullWidth: {
+      type: Boolean,
+      default: false
+    },
 
-  /**
-   * Whether or not the content should span the full width of its container
-   * @values true | false
-   */
-  @Prop({type: Boolean, default: false}) public fullWidth!: boolean;
+    /**
+     * Whether or not to limit the image to the size of its container on large screens
+     * @values true | false
+     */
+    imageContained: {
+      type: Boolean,
+      default: false
+    },
 
-  /**
-   * Whether or not to limit the image to the size of its container on large screens
-   * @values true | false
-   */
-  @Prop({type: Boolean, default: false}) public imageContained!: boolean;
+    /**
+     * The path to the image to display.
+     * The image should have ~40px of white space above when empty state is used within a card,
+     * modal, or navigation component
+     */
+    image: {
+      type: String,
+      default: null
+    },
 
-  /**
-   * The path to the image to display.
-   * The image should have ~40px of white space above when empty state is used within a card,
-   * modal, or navigation component
-   */
-  @Prop({type: String, default: null}) public image!: string;
+    /**
+     * Primary action for empty state
+     */
+    primaryAction: {
+      type: Object,
+      default: () => ({}),
+      ...ObjectValidator('primaryAction', {
+        ...DisableableAction,
+        ...LoadableAction
+      })
+    },
 
-  /**
-   * Primary action for empty state
-   */
-  @Prop({type: Object, default: () => ({})}) public primaryAction!: DisableableAction & LoadableAction;
-
-  /**
-   * Secondary action for empty state
-   */
-  @Prop({type: Object, default: () => ({})}) public secondaryAction!: ComplexAction;
-
-  public get className() {
-    return classNames(
-        'Polaris-EmptyState',
-        'Polaris-EmptyState--withinContentContainer',
-        this.fullWidth && 'Polaris-EmptyState--fullWidth',
-        this.imageContained && 'Polaris-EmptyState--imageContained',
-    );
-  }
-
-  public get hasAction() {
-
-    return this.primaryAction || this.secondaryAction;
-  }
-
-  public styleClass(name?: string) {
-    const finalStyleClasses = ['one', 'two', 'three', 'four', 'five', 'six'];
-    return name ? finalStyleClasses[name.charCodeAt(0) % finalStyleClasses.length] : finalStyleClasses[0];
+    /**
+     * Secondary action for empty state
+     */
+    secondaryAction: {
+      type: Object,
+      default: () => ({}),
+      ...ObjectValidator('secondaryAction', ComplexAction)
+    }
+  },
+  computed: {
+    className() {
+      return classNames(
+          'Polaris-EmptyState',
+          'Polaris-EmptyState--withinContentContainer',
+          this.fullWidth && 'Polaris-EmptyState--fullWidth',
+          this.imageContained && 'Polaris-EmptyState--imageContained',
+      );
+    },
+    hasAction() {
+      return this.primaryAction || this.secondaryAction;
+    }
+  },
+  methods: {
+    styleClass(name) {
+      if(typeof name === 'string') {
+        const finalStyleClasses = ['one', 'two', 'three', 'four', 'five', 'six'];
+        return name ? finalStyleClasses[name.charCodeAt(0) % finalStyleClasses.length] : finalStyleClasses[0];
+      }
+    }
   }
 }
 </script>

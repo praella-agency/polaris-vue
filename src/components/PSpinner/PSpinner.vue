@@ -2,14 +2,14 @@
   <img :src="`data:image/svg+xml;utf8,${spinnerSVG}`" :class="className" alt="">
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+<script>
 import { classNames, variationName } from '@/utilities/css';
 import { encode as encodeSVG } from '@/utilities/svg';
 import { spinnerLarge, spinnerSmall } from './images';
+import StringValidator from "./../../utilities/validators/StringValidator";
 
-type Color = 'white' | 'teal' | 'inkLightest';
-type Size = 'small' | 'large';
+const Color = ['white', 'teal', 'inkLightest'];
+const Size = ['small', 'large'];
 
 const COLORS_FOR_LARGE_SPINNER = ['teal', 'inkLightest'];
 
@@ -20,32 +20,43 @@ const COLORS_FOR_LARGE_SPINNER = ['teal', 'inkLightest'];
  *  spinners should only be used for content that can’t be represented with skeleton loading components, like for data
  *  charts.</h4>
  */
-@Component
-export default class PSpinner extends Vue {
-  /**
-   * Color for spinner
-   * @values white | teal | inkLightest
-   */
-  @Prop({ type: String, default: 'teal' }) public color!: Color;
-  /**
-   * Size of spinner.
-   * @values small | large
-   */
-  @Prop({ type: String, default: 'large' }) public size!: Size;
+export default {
+  name: 'PSpinner',
+  props: {
+    /**
+     * Color for spinner
+     * @values white | teal | inkLightest
+     */
+    color: {
+      type: String,
+      default: 'teal',
+      ...StringValidator('color', Color)
+    },
+    /**
+     * Size of spinner.
+     * @values small | large
+     */
+    size: {
+      type: String,
+      default: 'large',
+      ...StringValidator('size', Size)
+    }
+  },
+  computed: {
+    className() {
+      return classNames(
+          'Polaris-Spinner',
+          this.color && `Polaris-Spinner--${variationName('color', this.color)}`,
+          this.size && `Polaris-Spinner--${variationName('size', this.size)}`,
+      );
+    },
+    spinnerSVG() {
+      const svg = this.size === 'large' ? spinnerLarge : spinnerSmall;
+      if(typeof svg === 'string') {
+        return encodeSVG(svg);
+      }
+    }
+  },
 
-  public type: string = '';
-
-  public get className() {
-    return classNames(
-      'Polaris-Spinner',
-      this.color && `Polaris-Spinner--${variationName('color', this.color)}`,
-      this.size && `Polaris-Spinner--${variationName('size', this.size)}`,
-    );
-  }
-
-  public get spinnerSVG() {
-    const svg: string = this.size === 'large' ? spinnerLarge : spinnerSmall;
-    return encodeSVG(svg);
-  }
 }
 </script>

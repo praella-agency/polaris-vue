@@ -1,10 +1,10 @@
-import { PCollapsible } from './index';
+import { PCollapsible } from './index.js';
 import { PCard } from '../PCard';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
-import { PButton } from '../PButton/index.js';
-import { PTextContainer } from '../PTextContainer';
-import { PLink } from '../PLink/index.js';
+import { PButton } from '../PButton';
+import { PTextContainer } from '../../components/PTextContainer/index.js';
+import { PLink } from '../PLink';
 
 export default {
     title: 'Behavior / Collapsible',
@@ -24,6 +24,9 @@ export default {
             },
         },
         id: {
+            control: {
+                type: 'text'
+            },
             table: {
                 type: {
                     summary: 'string | number',

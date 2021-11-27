@@ -17,7 +17,7 @@
   </transition>
 </template>
 <script>
-import {PIcon} from '@/components/PIcon';
+import {PIcon} from './../../../components/PIcon/index.js';
 import Timer from './timer.js';
 import mitt from 'mitt';
 import {classNames} from '@/utilities/css';
@@ -128,15 +128,47 @@ export default {
       timer: Timer,
     };
   },
-  beforeMount() {
-    this.setupContainer();
-  },
-  mounted() {
-    this.showNotice();
-    eventBus.on('toast-clear', this.dismiss);
-  },
-  beforeDestroy() {
-    eventBus.off('toast-clear', this.dismiss);
+  computed: {
+    className() {
+      return classNames(
+          this.error && 'Polaris-Frame-Toast--error',
+      );
+    },
+    positionClass() {
+      return classNames(
+          'Polaris-Frame-Toast--Position-' + this.position,
+      );
+    },
+    transition() {
+      switch (this.position) {
+        case Positions.TOP:
+        case Positions.TOP_RIGHT:
+        case Positions.TOP_LEFT:
+          return {
+            enter: 'Polaris-Frame-Toast-Fade-In-Down',
+            leave: 'Polaris-Frame-Toast-Fade-Out',
+          };
+        case Positions.BOTTOM:
+        case Positions.BOTTOM_RIGHT:
+        case Positions.BOTTOM_LEFT:
+          return {
+            enter: 'Polaris-Frame-Toast-Fade-In-Up',
+            leave: 'Polaris-Frame-Toast-Fade-Out',
+          };
+      }
+    },
+    correctParent() {
+      switch (this.position) {
+        case Positions.TOP:
+        case Positions.TOP_RIGHT:
+        case Positions.TOP_LEFT:
+          return this.parentTop;
+        case Positions.BOTTOM:
+        case Positions.BOTTOM_RIGHT:
+        case Positions.BOTTOM_LEFT:
+          return this.parentBottom;
+      }
+    },
   },
   methods: {
     setupContainer() {
@@ -209,47 +241,15 @@ export default {
       this.dismiss();
     },
   },
-  computed: {
-    className() {
-      return classNames(
-          this.error && 'Polaris-Frame-Toast--error',
-      );
-    },
-    positionClass() {
-      return classNames(
-          'Polaris-Frame-Toast--Position-' + this.position,
-      );
-    },
-    transition() {
-      switch (this.position) {
-        case Positions.TOP:
-        case Positions.TOP_RIGHT:
-        case Positions.TOP_LEFT:
-          return {
-            enter: 'Polaris-Frame-Toast-Fade-In-Down',
-            leave: 'Polaris-Frame-Toast-Fade-Out',
-          };
-        case Positions.BOTTOM:
-        case Positions.BOTTOM_RIGHT:
-        case Positions.BOTTOM_LEFT:
-          return {
-            enter: 'Polaris-Frame-Toast-Fade-In-Up',
-            leave: 'Polaris-Frame-Toast-Fade-Out',
-          };
-      }
-    },
-    correctParent() {
-      switch (this.position) {
-        case Positions.TOP:
-        case Positions.TOP_RIGHT:
-        case Positions.TOP_LEFT:
-          return this.parentTop;
-        case Positions.BOTTOM:
-        case Positions.BOTTOM_RIGHT:
-        case Positions.BOTTOM_LEFT:
-          return this.parentBottom;
-      }
-    },
+  beforeMount() {
+    this.setupContainer();
+  },
+  mounted() {
+    this.showNotice();
+    eventBus.on('toast-clear', this.dismiss);
+  },
+  beforeDestroy() {
+    eventBus.off('toast-clear', this.dismiss);
   },
 };
 </script>

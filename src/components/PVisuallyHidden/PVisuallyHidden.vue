@@ -5,8 +5,7 @@
   </span>
 </template>
 
-<script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+<script>
 
   /**
    * <br/>
@@ -14,12 +13,17 @@
    *  sans-serif;">Use when an element needs to be available to assistive technology (for example, a screen reader) but
    *  otherwise hidden.</h4>
    */
-  @Component
-  export default class PVisuallyHidden extends Vue {
-    /**
-     * Id for the element
-     */
-    @Prop({type: [String, Number], default: null}) public id!: string | number;
+  export default {
+    name: 'PVisuallyHidden',
+    props: {
+      /**
+       * Id for the element
+       */
+      id: {
+        type: [String, Number],
+        default: null
+      }
+    }
   }
 </script>
 

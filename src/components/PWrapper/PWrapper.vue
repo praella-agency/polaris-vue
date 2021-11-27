@@ -4,9 +4,9 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+<script>
 
-@Component
-export default class PWrapper extends Vue {}
+export default {
+  name: 'PWrapper'
+}
 </script>

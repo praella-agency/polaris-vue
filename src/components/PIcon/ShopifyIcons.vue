@@ -81,6 +81,18 @@ export default {
   components: {
     PIcon, PStack, PStackItem, PTopBar, PFrame, PHeading,
   },
+  props: {
+    color: {
+      type: String,
+      default: null,
+    },
+    backdrop: {
+      type: Boolean,
+    },
+    source: {
+      type: String,
+    },
+  },
   data() {
     return {
       id: '',
@@ -94,21 +106,9 @@ export default {
       search: '',
     };
   },
-  props: {
-    color: {
-      type: String,
-      default: null,
-    },
-    backdrop: {
-      type: Boolean,
-    },
-    source: {
-      type: String,
-    },
-  },
   methods: {
     searchIcon(value) {
-      if (value === '') {
+      if (!value) {
         this.difference.forEach((icon) => {
           if (icon.includes('Major')) {
               this.icons.major.push(icon);

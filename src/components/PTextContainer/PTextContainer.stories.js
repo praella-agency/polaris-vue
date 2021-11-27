@@ -1,5 +1,5 @@
-import { PTextContainer } from './index';
-import { PHeading } from '../PHeading';
+import { PTextContainer } from './index.js';
+import { PHeading } from '../../components/PHeading/index.js';
 
 export default {
     title: 'Titles & Text / Text Container',

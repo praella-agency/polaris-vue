@@ -2,8 +2,7 @@
     <img :alt="alt" :src="source" :class="className" />
 </template>
 
-<script lang="ts">
-    import { Component, Vue, Prop } from 'vue-property-decorator';
+<script>
     import { classNames } from '@/utilities/css';
 
     /**
@@ -12,28 +11,39 @@
      *  sans-serif;">Use image as a visual anchor and identifier for an object. They should be used along with text
      *  to provide context.</h4>
      */
-    @Component
-    export default class PImage extends Vue {
+    export default {
+        name: 'PImage',
+        props: {
+          /**
+           * Image source
+           */
+          source: {
+            type: String,
+            default: null
+          },
 
-        /**
-         * Image source
-         */
-        @Prop({type: String, default: null}) public source!: string;
+          /**
+           * Image alt
+           */
+          alt: {
+            type: String,
+            default: null
+          },
 
-        /**
-         * Image alt
-         */
-        @Prop({type: String, default: null}) public alt!: string;
-
-        /**
-         * Image class
-         */
-        @Prop({type: String, default: null}) public imgClass!: string;
-
-        public get className() {
+          /**
+           * Image class
+           */
+          imgClass: {
+            type: String,
+            default: null
+          }
+        },
+        computed: {
+          className() {
             return classNames(
                 this.imgClass,
             );
+          }
         }
     }
 </script>

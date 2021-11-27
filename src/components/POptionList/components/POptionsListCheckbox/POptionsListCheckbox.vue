@@ -16,30 +16,42 @@
     </div>
 </template>
 
-<script lang="ts">
-    import {Component, Vue, Prop} from 'vue-property-decorator';
+<script>
     import { classNames } from '@/utilities/css';
-    import { PIcon } from '@/components/PIcon';
+    import { PIcon } from './../../../../components/PIcon/index.js';
 
-    @Component({
-        components: {
-            PIcon,
+    export default {
+      name: 'POptionsListCheckbox',
+      components: {
+        PIcon,
+      },
+      props: {
+        id: {
+          type: [String, Number],
         },
-    })
-    export default class POptionsListCheckbox extends Vue {
-
-        @Prop(Boolean) public checked!: boolean;
-        @Prop(Boolean) public disabled!: boolean;
-        @Prop(Boolean) public active!: boolean;
-        @Prop([String, Number]) public id!: string | number;
-        @Prop(String) public name!: string;
-        @Prop(String) public value!: string;
-
-        public get className() {
-            return classNames(
-                'Polaris-OptionList-Checkbox',
-                this.active && 'Polaris-OptionList-Checkbox--active',
-            );
+        value: {
+          type: String,
+        },
+        name: {
+          type: String,
+        },
+        active: {
+          type: Boolean,
+        },
+        disabled: {
+          type: Boolean,
+        },
+        checked: {
+          type: Boolean,
+        },
+      },
+      computed: {
+        className() {
+          return classNames(
+              'Polaris-OptionList-Checkbox',
+              this.active && 'Polaris-OptionList-Checkbox--active',
+          );
         }
+      },
     }
 </script>

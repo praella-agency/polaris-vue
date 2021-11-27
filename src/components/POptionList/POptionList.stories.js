@@ -1,4 +1,4 @@
-import { POptionList } from './index';
+import { POptionList } from './index.js';
 
 export default {
     title: 'Lists & Tables / Option List',
@@ -38,6 +38,9 @@ export default {
             },
         },
         id: {
+            control: {
+                type: 'text'
+            },
             table: {
                 type: {
                     summary: 'string | number',

@@ -1,11 +1,11 @@
-import { PSkeletonPage } from './index';
+import { PSkeletonPage } from './index.js';
 import { PLayout } from '../PLayout'
 import { PLayoutSection } from '../PLayout/components/PLayoutSection'
 import { PCard } from '../PCard';
 import { PCardSection } from '../PCard/components/PCardSection';
-import { PSkeletonBodyText } from '../PSkeletonBodyText';
-import { PSkeletonDisplayText } from '../PSkeletonDisplayText';
-import { PTextContainer } from '../PTextContainer';
+import { PSkeletonBodyText } from '../../components/PSkeletonBodyText/index.js';
+import { PSkeletonDisplayText } from '../../components/PSkeletonDisplayText/index.js';
+import { PTextContainer } from '../../components/PTextContainer/index.js';
 
 export default {
     title: 'Feedback indicators / Skeleton Page',

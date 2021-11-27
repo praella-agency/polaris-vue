@@ -5,10 +5,10 @@
   </component>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+<script>
+import StringValidator from "./../../utilities/validators/StringValidator";
 
-type HeadingTagName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
+const HeadingTagName = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
 
 /**
  * <br/>
@@ -17,13 +17,18 @@ type HeadingTagName = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
  *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/structure-card--card">card components</a>
  *  generally use headings as their title.</h4>
  */
-@Component
-export default class PHeading extends Vue {
-
-  /**
-   * The element name to use for the heading
-   * @values h1, h2, h3, h4, h5, h6, p
-   */
-  @Prop({ type: String, default: 'h2' }) public element!: HeadingTagName;
+export default {
+  name: 'PHeading',
+  props: {
+    /**
+     * The element name to use for the heading
+     * @values h1, h2, h3, h4, h5, h6, p
+     */
+    element: {
+      type: String,
+      default: 'h2',
+     ...StringValidator('element', HeadingTagName)
+    }
+  },
 }
 </script>

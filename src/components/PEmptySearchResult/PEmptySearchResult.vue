@@ -25,23 +25,32 @@
     </PStack>
 </template>
 
-<script lang="ts">
-    import { Vue, Component, Prop } from 'vue-property-decorator';
-    import { PStack } from '@/components/PStack/index.js';
-    import { PStackItem } from '@/components/PStack/components/PStackItem/index.js';
-    import { PDisplayText } from '@/components/PDisplayText';
-    import { PTextStyle } from '@/components/PTextStyle';
-    import { PImage } from '@/components/PImage';
+<script>
+    import { PStack } from '@/components/PStack';
+    import { PStackItem } from '@/components/PStack/components/PStackItem';
+    import { PDisplayText } from './../../components/PDisplayText/index.js';
+    import { PTextStyle } from './../../components/PTextStyle/index.js';
+    import { PImage } from './../../components/PImage/index.js';
 
-    @Component({
+    export default {
+      name: 'PEmptySearchResult',
       components: {
         PStack, PStackItem, PDisplayText, PTextStyle, PImage,
       },
-    })
-    export default class PEmptySearchResult extends Vue {
-        @Prop({type: String, required: true}) public title!: string;
-        @Prop({type: String, default: null}) public description!: string;
-        @Prop({type: Boolean, default: false}) public withIllustration!: boolean;
+      props: {
+        title: {
+          type: String,
+          required: true
+        },
+        description: {
+          type: String,
+          default: null
+        },
+        withIllustration: {
+          type: Boolean,
+          default: false
+        },
+      },
     }
 </script>
 

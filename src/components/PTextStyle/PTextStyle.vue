@@ -5,22 +5,24 @@
   </component>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+<script>
 import { classNames, variationName } from '@/utilities/css';
+import StringValidator from "./../../utilities/validators/StringValidator";
 
-type Variation = 'positive' | 'negative' | 'strong' | 'subdued' | 'code';
+const Variation = ['positive', 'negative', 'strong', 'subdued', 'code'];
 
-enum VariationValue {
-  Positive = 'positive',
-  Negative = 'negative',
-  Strong = 'strong',
-  Subdued = 'subdued',
-  Code = 'code',
+const VariationValue = {
+  Positive: 'positive',
+  Negative: 'negative',
+  Strong: 'strong',
+  Subdued: 'subdued',
+  Code: 'code',
 }
 
-function variationElement(variation?: Variation) {
-  return variation === VariationValue.Code ? 'code' : 'span';
+function variationElement(variation) {
+  if(['positive', 'negative', 'strong', 'subdued', 'code', null].indexOf(variation) !== -1) {
+    return variation === VariationValue.Code ? 'code' : 'span';
+  }
 }
 
 /**
@@ -29,23 +31,31 @@ function variationElement(variation?: Variation) {
  *  sans-serif;">Text style enhances text with additional visual meaning. For example, using subdued text to
  *  de-emphasize it from its surrounding text.</h4>
  */
-@Component
-export default class PTextStyle extends Vue {
+export default {
+  name: 'PTextStyle',
+  props: {
+    /**
+     * Give text additional visual meaning
+     * @values positive | negative | strong | subdued | code
+     */
+    variation: {
+      type: String,
+      default: null,
+      ...StringValidator('variation', Variation)
+    },
+  },
+  computed: {
+    className() {
+      return classNames(
+          this.variation && `Polaris-TextStyle--${variationName('variation', this.variation)}`,
+      );
+    },
+    element() {
+      return variationElement(this.variation);
+    }
+  },
+  methods: {
 
-  /**
-   * Give text additional visual meaning
-   * @values positive | negative | strong | subdued | code
-   */
-  @Prop({type: String, default: null}) public variation!: Variation;
-
-  public get className() {
-    return classNames(
-        this.variation && `Polaris-TextStyle--${variationName('variation', this.variation)}`,
-    );
-  }
-
-  public get element() {
-    return variationElement(this.variation);
   }
 }
 </script>

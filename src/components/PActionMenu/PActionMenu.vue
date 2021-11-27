@@ -5,37 +5,50 @@
     </div>
 </template>
 
-<script lang="ts">
-import {Component, Vue, Prop} from 'vue-property-decorator';
+<script>
 import {classNames} from '@/utilities/css';
-import {ActionListSection, MenuActionDescriptor, MenuGroupDescriptor} from '@/types';
-import { PActionMenuRollupActions } from '@/components/PActionMenu/components/PActionMenuRollupActions';
-import { PActionMenuActions } from '@/components/PActionMenu/components/PActionMenuActions';
+import {MenuActionDescriptor, MenuGroupDescriptor} from './../../types/types.js';
+import {PActionMenuRollupActions} from './../../components/PActionMenu/components/PActionMenuRollupActions/index.js';
+import {PActionMenuActions} from './../../components/PActionMenu/components/PActionMenuActions/index.js';
+import ArrayValidator from "./../../utilities/validators/ArrayValidator";
 
-@Component({
-    components: {
-        PActionMenuActions, PActionMenuRollupActions,
+export default {
+  name: 'PActionMenu',
+  components: {
+    PActionMenuActions, PActionMenuRollupActions,
+  },
+  props: {
+    actions: {
+      type: Array,
+      ...ArrayValidator('actions', MenuActionDescriptor)
     },
-})
-export default class PActionMenu extends Vue {
-
-    @Prop(Array) public actions!: MenuActionDescriptor[];
-    @Prop(Array) public groups!: MenuGroupDescriptor[];
-    @Prop({type: Boolean, default: false}) public rollup!: boolean;
-
-    public get rollupSections() {
+    groups: {
+      type: Array,
+      ...ArrayValidator('groups', MenuGroupDescriptor)
+    },
+    rollup: {
+      type: Boolean,
+      default: false
+    },
+  },
+  computed: {
+    rollupSections() {
       return this.groups.map((group) => this.convertGroupToSection(group));
-    }
-
-    public convertGroupToSection({title, actions}: MenuGroupDescriptor): ActionListSection {
-      return {title, items: actions};
-    }
-
-    public get actionMenuClassNames() {
+    },
+    actionMenuClassNames() {
       return classNames(
           'Polaris-ActionMenu',
           this.rollup && 'Polaris-ActionMenu--rollup',
       );
     }
+  },
+  methods: {
+    convertGroupToSection(MenuGroupDescriptor) {
+      return {
+        title: MenuGroupDescriptor.title,
+        items: MenuGroupDescriptor.actions,
+      };
+    }
+  },
 }
 </script>

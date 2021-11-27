@@ -1,4 +1,4 @@
-import { PSkeletonDisplayText } from './index';
+import { PSkeletonDisplayText } from './index.js';
 
 export default {
     title: 'Feedback indicators / Skeleton Display Text',

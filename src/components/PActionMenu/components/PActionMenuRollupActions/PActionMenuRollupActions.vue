@@ -7,27 +7,37 @@
    </PPopover>
 </template>
 
-<script lang="ts">
-import {Component, Vue, Prop} from 'vue-property-decorator';
-import {ActionListSection, ActionListItemDescriptor } from '@/types';
-import {PPopover} from '@/components/PPopover/index.js';
-import {PButton} from '@/components/PButton/index.js';
-import {PActionList} from '@/components/PActionList/index.js';
+<script>
+import {ActionListSection, ActionListItemDescriptor } from './../../../../types/types.js';
+import {PPopover} from '@/components/PPopover';
+import {PButton} from '@/components/PButton';
+import {PActionList} from '@/components/PActionList';
+import ArrayValidator from "./../../../../utilities/validators/ArrayValidator";
 
-@Component({
-    components: {
-        PPopover, PButton, PActionList,
+export default {
+  name: 'PActionMenuRollupActions',
+  components: {
+    PPopover, PButton, PActionList,
+  },
+  props: {
+    items: {
+      type: Array,
+      ...ArrayValidator('items', ActionListItemDescriptor)
     },
-})
-export default class PActionMenuRollupActions extends Vue {
-
-    @Prop(Array) public items!: ActionListItemDescriptor[];
-    @Prop(Array) public sections!: ActionListSection[];
-
-    public rollupOpen = false;
-
-    public toggleRollupOpen() {
-        this.rollupOpen = !this.rollupOpen;
+    sections: {
+      type: Array,
+      ...ArrayValidator('sections', ActionListSection)
     }
+  },
+  data() {
+    return {
+      rollupOpen: false,
+    }
+  },
+  methods: {
+    toggleRollupOpen() {
+      this.rollupOpen = !this.rollupOpen;
+    }
+  }
 }
 </script>

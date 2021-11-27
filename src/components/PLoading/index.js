@@ -36,6 +36,12 @@ function install(Vue, options = {}) {
         autoFinish: true
     };
 
+    let instance = null;
+    document.addEventListener('DOMContentLoaded', () => {
+        let componentClass = Vue.extend(PLoading);
+        instance = new componentClass({});
+    });
+
     let Loading = {
         $vm: null,
         state: {
@@ -51,6 +57,12 @@ function install(Vue, options = {}) {
             if (!this.$vm) {
                 return;
             }
+
+            if (instance) {
+                instance.$mount();
+                document.body.prepend(instance.$el);
+            }
+
             if (!time) time = 3000;
             this.$vm.RADON_LOADING_BAR.percent = 0; // this.$vm.RADON_LOADING_BAR.percent
             this.$vm.RADON_LOADING_BAR.options.show = true;
@@ -89,6 +101,11 @@ function install(Vue, options = {}) {
                     }, 100);
                 })
             }, this.$vm.RADON_LOADING_BAR.options.transition.termination);
+
+            if (instance) {
+                document.body.removeChild(instance.$el);
+                instance.$destroy();
+            }
         },
         finish() {
             if (!this.$vm) return;
@@ -124,15 +141,6 @@ function install(Vue, options = {}) {
 
     Vue.$pLoading = Loading;
     Vue.prototype.$pLoading = Loading;
-
-    if (inBrowser && document.body) {
-        document.addEventListener('DOMContentLoaded', () => {
-            let componentClass = Vue.extend(PLoading);
-            let instance = new componentClass({});
-            instance.$mount();
-            document.body.prepend(instance.$el);
-        });
-    }
 }
 
 export default {
