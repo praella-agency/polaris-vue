@@ -7,25 +7,35 @@
   </div>
 </template>
 
-<script lang="tsx">
-  import { Component, Vue, Prop } from 'vue-property-decorator';
+<script>
   import { classNames } from '@/utilities/css';
+  import StringValidator from "./../../../../utilities/validators/StringValidator";
 
-  type Position = 'Left' | 'Primary' | 'Right';
+  const Position = ['Left', 'Primary', 'Right'];
 
-  @Component
-  export default class PConnectedItem extends Vue {
-    @Prop(String) public position!: Position;
-    @Prop(String) public children!: string;
-    @Prop(Boolean) public focused!: boolean;
-
-    public get className() {
-      return classNames(
-        'Polaris-Connected__Item',
-        this.focused && 'Polaris-Connected__Item--focused',
-        this.position === 'Primary' && 'Polaris-Connected__Item--primary',
-        this.position !== 'Primary' && 'Polaris-Connected__Item--connection',
-      );
+  export default {
+    name: 'PConnectedItem',
+    props: {
+      position: {
+        type: String,
+        ...StringValidator('position', Position)
+      },
+      children: {
+        type: String,
+      },
+      focused: {
+        type: Boolean,
+      },
+    },
+    computed: {
+      className() {
+        return classNames(
+            'Polaris-Connected__Item',
+            this.focused && 'Polaris-Connected__Item--focused',
+            this.position === 'Primary' && 'Polaris-Connected__Item--primary',
+            this.position !== 'Primary' && 'Polaris-Connected__Item--connection',
+        );
+      }
     }
   }
 </script>

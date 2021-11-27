@@ -21,18 +21,24 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { PConnectedItem } from '@/components/PConnected/components/PConnectedItem';
+<script>
+import { PConnectedItem } from './../../components/PConnected/components/PConnectedItem/index.js';
 
-@Component({
+export default {
+  name: 'PConnected',
   components: {
-      PConnectedItem,
+    PConnectedItem,
   },
-})
-export default class PConnected extends Vue {
-  @Prop(String) public left!: string;
-  @Prop(String) public right!: string;
-  @Prop(String) public children!: string;
+  props: {
+    left: {
+      type: String,
+    },
+    right: {
+      type: String,
+    },
+    children: {
+      type: String,
+    },
+  }
 }
 </script>

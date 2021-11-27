@@ -34,7 +34,7 @@ import { PSettingToggle } from './PSettingToggle';
 import { PColorPicker } from './PColorPicker';
 import { PTabs } from './PTabs';
 import { PRadioButton } from './PRadioButton';
-import { PConnected } from './PConnected';
+import { PConnected } from './../components/PConnected/index.js';
 import { PUnstyledLink } from './PUnstyledLink';
 import { PLink } from './PLink';
 import { PList } from './../components/PList/index.js';

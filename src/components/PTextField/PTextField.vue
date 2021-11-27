@@ -40,7 +40,7 @@
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import { PInput } from '@/components/PTextField/components/PInput';
-    import { PConnected } from '@/components/PConnected';
+    import { PConnected } from './../../components/PConnected/index.js';
     import { PFieldError } from '@/components/PFieldError';
 
     /**
