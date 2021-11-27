@@ -21,7 +21,9 @@ export const decorators = [(story) => ({
 
 export const parameters = {
   viewMode: 'docs',
-  actions: { disable: true },
+  actions: {
+    disable: true,
+  },
   controls: {
     matchers: {
       color: /(background|color|backgroundColor)$/i,
