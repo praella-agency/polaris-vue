@@ -613,7 +613,7 @@
     import { classNames } from '@/utilities/css';
     import { PSpinner } from './../../components/PSpinner/index.js';
     import { PButton } from '@/components/PButton';
-    import { PEmptySearchResult } from '@/components/PEmptySearchResult';
+    import { PEmptySearchResult } from './../../components/PEmptySearchResult/index.js';
     import { PStack } from '@/components/PStack';
     import { PStackItem } from '@/components/PStack/components/PStackItem';
     import { PCheckbox } from '@/components/PCheckbox';
