@@ -17,7 +17,7 @@
     import { Vue, Component, Prop } from 'vue-property-decorator';
     import { PTab } from '@/components/PTabs/components/PTab';
     import { TabDescriptor } from '@/types/tabs/';
-    import { PEventListener } from '@/components/PEventListener';
+    import { PEventListener } from './../../../../components/PEventListener/index.js';
 
     @Component({
         components: {

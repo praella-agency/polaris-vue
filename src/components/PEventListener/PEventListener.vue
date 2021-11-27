@@ -1,57 +1,64 @@
-<template>
-
-</template>
-
-<script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
-
-  interface BaseEventProps {
-    event: string;
-    capture?: boolean;
-    handler(event: Event): void;
+<script>
+  const BaseEventProps = {
+    event: {
+      type: String,
+      required: true
+    },
+    capture: Boolean,
+    handler: (event) => {
+      return 0;
+    },
   }
 
-  export interface EventListenerProps extends BaseEventProps {
-    passive?: boolean;
+  export const EventListenerProps = {
+    ...BaseEventProps,
+    passive: Boolean,
   }
 
-  @Component
-  export default class PEventListener extends Vue {
-    @Prop({type: String, required: true}) public event!: string;
-
-    @Prop({type: Boolean, default: false}) public capture!: boolean;
-
-    /* tslint:disable-next-line */
-    @Prop({type: Function, default: (event: Event):void => {}}) public handler!: any;
-
-    @Prop({type: Boolean, default: false}) public passive!: boolean;
-
-    public mounted() {
+  export default {
+    name: 'PEventListener',
+    props: {
+      event: {
+        type: String,
+        required: true
+      },
+      capture: {
+        type: Boolean,
+        default: false
+      },
+      /* tslint:disable-next-line */
+      handler: {
+        type: Function,
+        default: (event) => {}
+      },
+      passive: {
+        type: Boolean,
+        default: false
+      }
+    },
+    methods: {
+      attachListener() {
+        const {event, handler, capture, passive} = this.$props;
+        window.addEventListener(event, handler, {capture, passive});
+      },
+      detachListener(prevProps) {
+        const {event, handler, capture} = prevProps || this.$props;
+        window.removeEventListener(event, handler, capture);
+      },
+    },
+    render() {
+      return null;
+    },
+    mounted() {
       this.attachListener();
-    }
-
-    public updated({passive, ...detachProps}: EventListenerProps) {
+    },
+    updated({passive, ...detachProps}) {
       this.detachListener(detachProps);
       this.attachListener();
-    }
-
-    public destroyed() {
+    },
+    destroyed() {
       this.detachListener();
-    }
-
-    public render() {
-      return null;
-    }
-
-    private attachListener() {
-      const {event, handler, capture, passive} = this.$props;
-      window.addEventListener(event, handler, {capture, passive});
-    }
-
-    private detachListener(prevProps?: BaseEventProps) {
-      const {event, handler, capture} = prevProps || this.$props;
-      window.removeEventListener(event, handler, capture);
-    }
+    },
   }
 </script>
 
