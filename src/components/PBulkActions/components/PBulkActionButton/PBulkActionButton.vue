@@ -20,30 +20,49 @@
     </div>
 </template>
 
-<script lang="ts">
-    import { Vue, Component, Prop } from 'vue-property-decorator';
-    import { PButton } from '@/components/PButton/index.js';
+<script>
+    import { PButton } from '../../../../components/PButton/index.js';
 
-    @Component({
-      components: {
-        PButton,
-      },
-    })
-    export default class PBulkActionButton extends Vue {
-      @Prop({type: String}) public url!: string;
-      @Prop({type: Boolean, default: false}) public external!: boolean;
-      @Prop({type: String, default: null}) public content!: string;
-      @Prop({type: Boolean, default: false}) public disclosure!: boolean;
-      @Prop({type: String, default: null}) public accessibilityLabel!: string;
-      @Prop({type: Boolean, default: false}) public disabled!: boolean;
-      @Prop({type: Boolean, default: false}) public indicator!: boolean;
-
-      public mounted() {
-        if (this.$refs.bulkActionButton) {
-          const width = (this.$refs.bulkActionButton as HTMLDivElement).getBoundingClientRect().width;
-          this.$emit('handleMeasurement', width);
-        }
-      }
+    export default {
+        name: 'PBulkActionButton',
+        components: {
+            PButton,
+        },
+        props: {
+            url: {
+                type: String,
+            },
+            external: {
+                type: Boolean,
+                default: false,
+            },
+            content: {
+                type: String,
+                default: null,
+            },
+            disclosure: {
+                type: Boolean,
+                default: false,
+            },
+            accessibilityLabel: {
+                type: String,
+                default: null,
+            },
+            disabled: {
+                type: Boolean,
+                default: false,
+            },
+            indicator: {
+                type: Boolean,
+                default: false,
+            },
+        },
+        mounted() {
+            if (this.$refs.bulkActionButton) {
+                const width = (this.$refs.bulkActionButton).getBoundingClientRect().width;
+                this.$emit('handleMeasurement', width);
+            }
+        },
     }
 </script>
 

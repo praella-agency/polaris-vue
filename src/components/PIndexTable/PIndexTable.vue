@@ -608,27 +608,33 @@
     </div>
 </template>
 
-<script lang="ts">
-    import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator';
-    import { classNames } from '@/utilities/css';
-    import { PSpinner } from '@/components/PSpinner';
-    import { PButton } from '@/components/PButton/index.js';
-    import { PEmptySearchResult } from '@/components/PEmptySearchResult';
-    import { PStack } from '@/components/PStack/index.js';
-    import { PStackItem } from '@/components/PStack/components/PStackItem/index.js';
-    import { PCheckbox } from '@/components/PCheckbox/index.js';
-    import { PBadge } from '@/components/PBadge';
-    import { BulkActionsProps, IndexTableHeading } from '@/components/PIndexTable/utilities';
-    import { PBulkActions } from '@/components/PBulkActions';
-    import { PIndexTableCell } from '@/components/PIndexTable/components/PIndexTableCell';
-    import { PIndexTableRow } from '@/components/PIndexTable/components/PIndexTableRow';
-    import { PTextStyle } from '@/components/PTextStyle';
-    import { PFilter } from '@/components/PFilter/index.js';
-    import { PPagination, PPaginationDescriptor } from '@/components/PPagination/index.js';
+<script>
+    import { classNames } from '../../utilities/css';
+    import { PSpinner } from '../../components/PSpinner';
+    import { PButton } from '../../components/PButton/index.js';
+    import { PEmptySearchResult } from '../../components/PEmptySearchResult';
+    import { PStack } from '../../components/PStack/index.js';
+    import { PStackItem } from '../../components/PStack/components/PStackItem/index.js';
+    import { PCheckbox } from '../../components/PCheckbox/index.js';
+    import { PBadge } from '../../components/PBadge';
+    import { BulkActionsProps, IndexTableHeading } from '../../components/PIndexTable/utilities';
+    import { PBulkActions } from '../../components/PBulkActions';
+    import { PIndexTableCell } from '../../components/PIndexTable/components/PIndexTableCell';
+    import { PIndexTableRow } from '../../components/PIndexTable/components/PIndexTableRow';
+    import { PTextStyle } from '../../components/PTextStyle';
+    import { PFilter } from '../../components/PFilter/index.js';
+    import { PPagination, PPaginationDescriptor } from '../../components/PPagination/index.js';
+    import ArrayValidator from '../../utilities/validators/ArrayValidator';
 
-    interface TableHeadingRect {
-        offsetWidth: number;
-        offsetLeft: number;
+    const TableHeadingRect = {
+        offsetWidth: {
+            type: Number,
+            required: true,
+        },
+        offsetLeft: {
+            type: Number,
+            required: true,
+        },
     }
 
     /**
@@ -638,403 +644,285 @@
      *  job of an index table is to help merchants get an at-a-glance of the objects to perform actions or navigate to a
      *  full-page representation of it.</h4>
      */
-    @Component({
+    export default {
+        name: 'PIndexTable',
         components: {
             PBulkActions, PEmptySearchResult, PSpinner, PButton, PStack, PStackItem, PCheckbox, PBadge, PIndexTableRow,
             PIndexTableCell, PTextStyle, PFilter, PPagination,
         },
-    })
-    export default class PIndexTable extends Vue {
-        /**
-         * List of column headings
-         */
-        @Prop({type: Array, default: () => ([])}) public headings!: IndexTableHeading[];
+        props: {
+            /**
+             * List of column headings
+             */
+            headings: {
+                type: Array,
+                default: () => ([]),
+                ...ArrayValidator('headings', IndexTableHeading),
+            },
+            /**
+             * Lists of data points which map to table body rows
+             */
+            rows: {
+                type: Array,
+                default: () => ([]),
+            },
+            /**
+             * Bulk actions that will be given more prominence
+             */
+            promotedBulkActions: {
+                type: Array,
+                default: () => ([]),
+                ...ArrayValidator('promotedBulkActions', BulkActionsProps),
+            },
+            /**
+             * Actions available on the currently selected items
+             */
+            bulkActions: {
+                type: Array,
+                default: () => ([]),
+                ...ArrayValidator('bulkActions', {actions: BulkActionsProps['actions']}),
+            },
+            /**
+             * Name of the resource, such as customers or books.
+             * @values {plural: string, singular: string}
+             */
+            resourceName: {
+                type: Object,
+                default: () => ({}),
+            },
+            /**
+             * An index table with a sticky last column that stays visible on scroll
+             */
+            lastColumnSticky: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Selectable index table
+             */
+            selectable: {
+                type: Boolean,
+                default: true,
+            },
+            /**
+             * Switch mode to small screen
+             */
+            condensed: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Item list with a spinner while a background action is being performed
+             */
+            loading: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Whether or not there are more items than currently set on the items prop. Determines whether or not to set the
+             * paginatedSelectAllAction and paginatedSelectAllText props on the BulkActions component.
+             */
+            hasMoreItems: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Counts for the currently selected items
+             */
+            selectedItemsCount: {
+                type: [String, Number],
+                default: null,
+            },
+            /**
+             * Total number of items
+             */
+            itemCount: {
+                type: Number,
+                default: 0,
+            },
+            /**
+             * Clickable row
+             */
+            clickableRow: {
+                type: Boolean,
+                default: true,
+            },
+            // Filter <-- Start -->
+            /**
+             * Display search filter
+             */
+            hasFilter: {
+                type: Boolean,
+                default: false,
+            },
+            // Filter <-- End -->
 
-        /**
-         * Lists of data points which map to table body rows
-         */
-        @Prop({type: Array, default: () => ([])}) public rows!: [];
-
-        /**
-         * Bulk actions that will be given more prominence
-         */
-        @Prop({type: Array, default: () => ([])}) public promotedBulkActions!: BulkActionsProps[];
-
-        /**
-         * Actions available on the currently selected items
-         */
-        /* tslint:disable-next-line */
-        @Prop({type: Array, default: () => ([])}) public bulkActions!: BulkActionsProps['actions'][];
-
-        /**
-         * Name of the resource, such as customers or books.
-         * @values {plural: string, singular: string}
-         */
-        @Prop({type: Object, default: () => ({})}) public resourceName!: {
-            plural: string,
-            singular: string,
-        };
-
-        /**
-         * An index table with a sticky last column that stays visible on scroll
-         */
-        @Prop({type: Boolean, default: false}) public lastColumnSticky!: boolean;
-
-        /**
-         * Selectable index table
-         */
-        @Prop({type: Boolean, default: true}) public selectable!: boolean;
-
-        /**
-         * Switch mode to small screen
-         */
-        @Prop({type: Boolean, default: false}) public condensed!: boolean;
-
-        /**
-         * Item list with a spinner while a background action is being performed
-         */
-        @Prop({type: Boolean, default: false}) public loading!: boolean;
-
-        /**
-         * Whether or not there are more items than currently set on the items prop. Determines whether or not to set the
-         * paginatedSelectAllAction and paginatedSelectAllText props on the BulkActions component.
-         */
-        @Prop({type: Boolean, default: false}) public hasMoreItems!: boolean;
-
-        /**
-         * Counts for the currently selected items
-         */
-        @Prop({type: [ String, Number ], default: null}) public selectedItemsCount!: 'All' | number;
-
-        /**
-         * Total number of items
-         */
-        @Prop({type: Number, default: 0}) public itemCount!: number;
-
-        /**
-         * Clickable row
-         */
-        @Prop({type: Boolean, default: true}) public clickableRow!: boolean;
-
-        // Filter <-- Start -->
-        /**
-         * Display search filter
-         */
-        @Prop({type: Boolean, default: false}) public hasFilter!: boolean;
-        // Filter <-- End -->
-
-        // Pagination <-- Start -->
-        /**
-         * Pagination object
-         */
-        @Prop({type: Object, default: () => ({})}) public pagination!: PPaginationDescriptor;
-        // Pagination <-- End -->
-
-        @Ref() public tableHeadingRect!: TableHeadingRect[];
-
-        public bulkActionsSelectable = Boolean(this.promotedBulkActions.length > 0 || this.bulkActions.length > 0);
-        public isSmallScreenSelectable = false;
-        public selectMode = false;
-        public hasMoreLeftColumns = false;
-        public isSticky = false;
-
-        public selectedResources: any[] = [];
-        public selectedRowsCount: any = this.selectedResources.length;
-        public paginatedSelectAllText = '';
-
-        public togglePlus = '';
-        public paginatedSelectAction = this.hasMoreItems ? {
-            content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
-            onAction: this.handleSelectAllItemsInStore,
-        } : {};
-
-        public canScrollRight = true;
-        public tableInitialized = false;
-
-        @Watch('condensed')
-        public onCondensedChanged(value) {
-            this.isSmallScreenSelectable = false;
-            this.selectedResources = [];
-            this.selectedRowsCount = 0;
-            this.selectMode = false;
-            this.paginatedSelectAllText = '';
-        }
-
-        @Watch('selectedItemsCount')
-        public onSelectedItemsCountChanged(value) {
-            this.selectedResources = [];
-            this.selectedRowsCount = 0;
-            this.selectMode = true;
-
-            if (value <= 0) {
-                this.selectMode = false;
-                return;
-            }
-
-            if (value > this.itemCount) {
-                this.rows.map((row) => {
-                    this.selectedResources = [ ...this.selectedResources, row ];
-                });
-                this.selectedRowsCount = 'All';
-                this.emitSelection('multiple', this.selectMode, this.selectedResources);
-            } else {
-                for (let i = 0; i < value; i++) {
-                    this.selectedResources = [ ...this.selectedResources, this.rows[i] ];
-                }
-                this.selectedRowsCount = value;
-                this.emitSelection('single', this.selectMode, this.selectedResources);
-            }
-        }
-
-        public created() {
-            window.addEventListener('resize', this.isSmallScreen);
-            this.isSmallScreen();
-        }
-
-        public destroyed() {
-            window.removeEventListener('resize', this.isSmallScreen);
-        }
-
-        public isSmallScreen() {
-            return typeof window === 'undefined' ? false : window.innerWidth < 458;
-        }
-
-        public get tableClassName() {
-            return classNames(
-                'Polaris-IndexTable__Table',
-                this.hasMoreLeftColumns && 'Polaris-IndexTable__Table--scrolling',
-                this.selectMode && 'Polaris-IndexTable--disableTextSelection',
-                this.selectMode && this.shouldShowBulkActions && 'Polaris-IndexTable--selectMode',
-                !this.selectable && 'Table-unselectable',
-                this.lastColumnSticky && 'Polaris-IndexTable--tableStickyLast',
-                this.lastColumnSticky && this.canScrollRight && '',
-            );
-        }
-
-        public get stickyTableClassName() {
-            return classNames(
-                'Polaris-IndexTable__StickyTable',
-                this.condensed && 'Polaris-IndexTable__StickyTable--condensed',
-            );
-        }
-
-        public get stickyHeaderClassName() {
-            return classNames(
-                'Polaris-IndexTable__StickyTableHeader',
-                this.isSticky && 'Polaris-IndexTable__StickyTableHeader--isSticky',
-            );
-        }
-
-        public get bulkActionClassName() {
-            return classNames(
-                'Polaris-IndexTable__BulkActionsWrapper',
-                this.condensed && 'Polaris-IndexTable__StickyTableHeader--condensed',
-                this.isSticky && 'Polaris-IndexTable__StickyTableHeader--isSticky',
-            );
-        }
-
-        public get headerMarkupClassName() {
-            return classNames(
-                'Polaris-IndexTable__HeaderWrapper',
-            );
-        }
-
-        public get stickyColumnHeaderClassName() {
-            return classNames(
-                'Polaris-IndexTable__StickyTableColumnHeader',
-                this.hasMoreLeftColumns && 'Polaris-IndexTable__StickyTableColumnHeader--isScrolling',
-            );
-        }
-
-        public get shouldShowBulkActions() {
-            return (this.bulkActionsSelectable && this.selectedRowsCount) || this.isSmallScreenSelectable;
-        }
-
-        public get selectedItemsCountLabel() {
-            return this.selectedRowsCount === 'All' ? `${this.itemCount}` : this.selectedRowsCount;
-        }
-
-        public get stickyColumnHeaderStyle() {
-            return this.tableHeadingRect && this.tableHeadingRect.length > 0 ? {
-                minWidth: this.calculateFirstHeaderOffset(),
-            } : undefined;
-        }
-
-        public get hasBulkActions() {
-            return Boolean(this.promotedBulkActions && this.promotedBulkActions.length > 0) ||
-                (this.bulkActions && this.bulkActions.length > 0);
-        }
-
-        public get paginatedSelectAllAction() {
-            if (!this.selectable || !this.hasBulkActions || !this.hasMoreItems) {
-                return;
-            }
-
-            const actionText = this.selectedRowsCount === 'All'
-                ? 'Undo' : `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
-
-            this.paginatedSelectAction = {
-                content: actionText,
-                onAction: this.handleSelectAllItemsInStore,
-            };
-
-            return this.paginatedSelectAction;
-        }
-
-        public set paginatedSelectAllAction(value) {
-            this.$set(this, 'paginatedSelectAction', value);
-        }
-
-        public calculateFirstHeaderOffset() {
-            if (!this.selectable) {
-                return this.tableHeadingRect[0].offsetWidth;
-            }
-
-            return this.condensed
-                ? this.tableHeadingRect[0].offsetWidth
-                : this.tableHeadingRect[0].offsetWidth + this.tableHeadingRect[1].offsetWidth;
-        }
-
-        public handleTogglePage() {
-            if (this.selectedRowsCount === 0) {
-                this.rows.map((row) => {
-                    this.selectedResources = [ ...this.selectedResources, row ];
-                });
-                this.selectMode = true;
-                this.selectedRowsCount = this.selectedResources.length;
-                this.emitSelection('multiple', this.selectMode, this.selectedResources);
-                return;
-            } else if (this.selectedRowsCount !== this.itemCount) {
-                this.selectedRowsCount = 0;
-                this.selectedResources = [];
-                this.rows.map((row) => {
-                    this.selectedResources = [ ...this.selectedResources, row ];
-                });
-                this.selectMode = true;
-                this.selectedRowsCount = this.selectedResources.length;
-            } else {
-                this.selectedRowsCount = 0;
-                this.selectedResources = [];
-                this.selectMode = false;
-            }
-
-            this.emitSelection('multiple', this.selectMode, this.selectedResources);
-        }
-
-        /* tslint:disable-next-line */
-        public handleSelectModeToggle(val: boolean) {
-        }
-
-        public toggleIsSmallScreenSelectable() {
-            this.isSmallScreenSelectable = !this.isSmallScreenSelectable;
-        }
-
-        public handleSelectPage(checked: boolean) {
-            if (!this.shouldShowBulkActions) {
-                this.handleTogglePage();
-                return;
-            }
-
-            if (this.hasMoreItems) {
-                this.$set(this, 'paginatedSelectAllAction', {
+            // Pagination <-- Start -->
+            /**
+             * Pagination object
+             */
+            pagination: {
+                type: Object,
+                default: () => ({}),
+            },
+            // Pagination <-- End -->
+        },
+        data() {
+            return {
+                tableHeadingRect: [
+                    {
+                        offsetWidth: Number,
+                        offsetLeft: Number,
+                    },
+                    {
+                        offsetWidth: Number,
+                        offsetLeft: Number,
+                    },
+                ],
+                bulkActionsSelectable: Boolean(this.promotedBulkActions.length > 0 || this.bulkActions.length > 0),
+                isSmallScreenSelectable: false,
+                selectMode: false,
+                hasMoreLeftColumns: false,
+                isSticky: false,
+                selectedResources: [],
+                selectedRowsCount: this.selectedResources ? this.selectedResources.length : 0,
+                paginatedSelectAllText: '',
+                togglePlus: '',
+                paginatedSelectAction: this.hasMoreItems ? {
                     content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
                     onAction: this.handleSelectAllItemsInStore,
-                });
-            }
-            this.paginatedSelectAllText = '';
-            this.togglePlus = '';
-
-            /* tslint:disable-next-line */
-            if (checked['checked']) {
-                this.rows.map((row) => {
-                    this.selectedResources = [ ...this.selectedResources, row ];
-                });
-                this.selectedRowsCount = this.itemCount;
-            } else {
-                this.selectedResources = [];
-            }
-
-            /* tslint:disable-next-line */
-            this.selectMode = checked['checked'];
-            /* tslint:disable-next-line */
-            this.emitSelection('multiple', checked['checked'], this.selectedResources);
-        }
-
-        public headingStyle(position) {
-            return this.tableHeadingRect && this.tableHeadingRect.length > position
-                ? {
-                    minWidth: this.tableHeadingRect[position].offsetWidth,
+                } : {},
+                canScrollRight: true,
+                tableInitialized: false,
+            };
+        },
+        computed: {
+            tableClassName() {
+                return classNames(
+                    'Polaris-IndexTable__Table',
+                    this.hasMoreLeftColumns && 'Polaris-IndexTable__Table--scrolling',
+                    this.selectMode && 'Polaris-IndexTable--disableTextSelection',
+                    this.selectMode && this.shouldShowBulkActions && 'Polaris-IndexTable--selectMode',
+                    !this.selectable && 'Table-unselectable',
+                    this.lastColumnSticky && 'Polaris-IndexTable--tableStickyLast',
+                    this.lastColumnSticky && this.canScrollRight && '',
+                );
+            },
+            stickyTableClassName() {
+                return classNames(
+                    'Polaris-IndexTable__StickyTable',
+                    this.condensed && 'Polaris-IndexTable__StickyTable--condensed',
+                );
+            },
+            stickyHeaderClassName() {
+                return classNames(
+                    'Polaris-IndexTable__StickyTableHeader',
+                    this.isSticky && 'Polaris-IndexTable__StickyTableHeader--isSticky',
+                );
+            },
+            bulkActionClassName() {
+                return classNames(
+                    'Polaris-IndexTable__BulkActionsWrapper',
+                    this.condensed && 'Polaris-IndexTable__StickyTableHeader--condensed',
+                    this.isSticky && 'Polaris-IndexTable__StickyTableHeader--isSticky',
+                );
+            },
+            headerMarkupClassName() {
+                return classNames(
+                    'Polaris-IndexTable__HeaderWrapper',
+                );
+            },
+            stickyColumnHeaderClassName() {
+                return classNames(
+                    'Polaris-IndexTable__StickyTableColumnHeader',
+                    this.hasMoreLeftColumns && 'Polaris-IndexTable__StickyTableColumnHeader--isScrolling',
+                );
+            },
+            shouldShowBulkActions() {
+                return (this.bulkActionsSelectable && this.selectedRowsCount) || this.isSmallScreenSelectable;
+            },
+            selectedItemsCountLabel() {
+                return this.selectedRowsCount === 'All' ? `${this.itemCount}` : this.selectedRowsCount;
+            },
+            stickyColumnHeaderStyle() {
+                return this.tableHeadingRect && this.tableHeadingRect.length > 0 ? {
+                    minWidth: this.calculateFirstHeaderOffset(),
                 } : undefined;
-        }
+            },
+            hasBulkActions() {
+                return Boolean(this.promotedBulkActions && this.promotedBulkActions.length > 0) ||
+                    (this.bulkActions && this.bulkActions.length > 0);
+            },
+            paginatedSelectAllAction: {
+                get() {
+                    if (!this.selectable || !this.hasBulkActions || !this.hasMoreItems) {
+                        return;
+                    }
 
-        public stickyHeadingClassName(index) {
-            return classNames(
-                'Polaris-IndexTable__TableHeading',
-                index === 0 && 'Polaris-IndexTable-StickyTableHeading-second',
-                index === 0 && !this.selectable && 'unselectable',
-            );
-        }
+                    const actionText = this.selectedRowsCount === 'All'
+                        ? 'Undo' : `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
 
-        public headingContentClassName(heading, index) {
-            const isSecond = index === 0;
-            const isLast = index === this.headings.length - 1;
+                    this.paginatedSelectAction = {
+                        content: actionText,
+                        onAction: this.handleSelectAllItemsInStore,
+                    };
 
-            return classNames(
-                'Polaris-IndexTable__TableHeading',
-                isSecond && 'Polaris-IndexTable-TableHeading-second',
-                this.lastColumnSticky && isLast && !heading.hidden && 'Polaris-IndexTable__TableHeading--last',
-                !this.selectable && 'TableHeading-unselectable',
-            );
-        }
-
-        public stickyPositioningStyle(index) {
-            return this.selectable && index === 0 && this.tableHeadingRect && this.tableHeadingRect.length > 0
-                ? {left: this.tableHeadingRect[0].offsetWidth} : undefined;
-        }
-
-        public checkboxClassName(index) {
-            return classNames(
-                'Polaris-IndexTable__TableHeading',
-                index === 0 && 'Polaris-IndexTable__TableHeading--first',
-            );
-        }
-
-        public handleSelectAllItemsInStore() {
-            let actionText = '';
-            if (this.paginatedSelectAction.content === 'Undo') {
-                actionText = `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
-                this.paginatedSelectAllText = '';
-                this.togglePlus = '';
-            } else {
-                this.selectedResources = [];
-                this.selectedRowsCount = 0;
-                this.togglePlus = '+';
-                this.paginatedSelectAllText = `All ${this.itemCount}+ ${this.resourceName.plural} are selected.`;
-                actionText = 'Undo';
-                this.selectedRowsCount = 'All';
-                this.rows.map((row) => {
-                    this.selectedResources = [ ...this.selectedResources, row ];
-                });
+                    return this.paginatedSelectAction;
+                },
+                set(value) {
+                    this.$set(this, 'paginatedSelectAction', value);
+                },
             }
+        },
+        methods: {
+            isSmallScreen() {
+                return typeof window === 'undefined' ? false : window.innerWidth < 458;
+            },
+            calculateFirstHeaderOffset() {
+                if (!this.selectable) {
+                    return this.tableHeadingRect[0].offsetWidth;
+                }
 
-            this.emitSelection('multiple', true, this.selectedResources);
-            if (this.hasMoreItems) {
-                this.$set(this, 'paginatedSelectAllAction', {
-                    content: actionText,
-                    onAction: this.handleSelectAllItemsInStore,
-                });
-            }
-        }
+                return this.condensed
+                    ? this.tableHeadingRect[0].offsetWidth
+                    : this.tableHeadingRect[0].offsetWidth + this.tableHeadingRect[1].offsetWidth;
+            },
+            handleTogglePage() {
+                if (this.selectedRowsCount === 0) {
+                    this.rows.map((row) => {
+                        this.selectedResources = [...this.selectedResources, row];
+                    });
+                    this.selectMode = true;
+                    this.selectedRowsCount = this.selectedResources.length;
+                    this.emitSelection('multiple', this.selectMode, this.selectedResources);
+                    return;
+                } else if (this.selectedRowsCount !== this.itemCount) {
+                    this.selectedRowsCount = 0;
+                    this.selectedResources = [];
+                    this.rows.map((row) => {
+                        this.selectedResources = [...this.selectedResources, row];
+                    });
+                    this.selectMode = true;
+                    this.selectedRowsCount = this.selectedResources.length;
+                } else {
+                    this.selectedRowsCount = 0;
+                    this.selectedResources = [];
+                    this.selectMode = false;
+                }
 
-        public handleSelectionChange(selectionType, selected, id) {
-            this.selectMode = true;
+                this.emitSelection('multiple', this.selectMode, this.selectedResources);
+            },
+            handleSelectModeToggle(val) {
+            },
+            toggleIsSmallScreenSelectable() {
+                this.isSmallScreenSelectable = !this.isSmallScreenSelectable;
+            },
+            handleSelectPage(checked) {
+                if (!this.shouldShowBulkActions) {
+                    this.handleTogglePage();
+                    return;
+                }
 
-            /* tslint:disable-next-line */
-            const index = this.selectedResources.findIndex(x => x.id === id);
-            /* tslint:disable-next-line */
-            const rowId = this.rows.findIndex(x => x['id'] === id);
-
-            if (!selected) {
                 if (this.hasMoreItems) {
                     this.$set(this, 'paginatedSelectAllAction', {
                         content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
@@ -1043,23 +931,86 @@
                 }
                 this.paginatedSelectAllText = '';
                 this.togglePlus = '';
-                if (index > -1) {
-                    this.selectedResources.splice(index, 1);
-                }
-            } else {
-                if (this.condensed) {
-                    this.isSmallScreenSelectable = true;
-                }
-                this.selectedResources = [ ...this.selectedResources, this.rows[rowId] ];
-            }
 
-            if (this.selectedResources.length === this.itemCount) {
-                this.selectedRowsCount = this.itemCount;
-            } else if (this.selectedResources.length === 0) {
-                this.selectedRowsCount = 0;
-                this.selectMode = false;
-            } else {
-                if (this.selectedResources.length === 1) {
+                if (checked['checked']) {
+                    this.rows.map((row) => {
+                        this.selectedResources = [...this.selectedResources, row];
+                    });
+                    this.selectedRowsCount = this.itemCount;
+                } else {
+                    this.selectedResources = [];
+                }
+
+                this.selectMode = checked['checked'];
+                this.emitSelection('multiple', checked['checked'], this.selectedResources);
+            },
+            headingStyle(position) {
+                return this.tableHeadingRect && this.tableHeadingRect.length > position
+                    ? {
+                        minWidth: this.tableHeadingRect[position].offsetWidth,
+                    } : undefined;
+            },
+            stickyHeadingClassName(index) {
+                return classNames(
+                    'Polaris-IndexTable__TableHeading',
+                    index === 0 && 'Polaris-IndexTable-StickyTableHeading-second',
+                    index === 0 && !this.selectable && 'unselectable',
+                );
+            },
+            headingContentClassName(heading, index) {
+                const isSecond = index === 0;
+                const isLast = index === this.headings.length - 1;
+
+                return classNames(
+                    'Polaris-IndexTable__TableHeading',
+                    isSecond && 'Polaris-IndexTable-TableHeading-second',
+                    this.lastColumnSticky && isLast && !heading.hidden && 'Polaris-IndexTable__TableHeading--last',
+                    !this.selectable && 'TableHeading-unselectable',
+                );
+            },
+            stickyPositioningStyle(index) {
+                return this.selectable && index === 0 && this.tableHeadingRect && this.tableHeadingRect.length > 0
+                    ? {left: this.tableHeadingRect[0].offsetWidth} : undefined;
+            },
+            checkboxClassName(index) {
+                return classNames(
+                    'Polaris-IndexTable__TableHeading',
+                    index === 0 && 'Polaris-IndexTable__TableHeading--first',
+                );
+            },
+            handleSelectAllItemsInStore() {
+                let actionText = '';
+                if (this.paginatedSelectAction.content === 'Undo') {
+                    actionText = `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
+                    this.paginatedSelectAllText = '';
+                    this.togglePlus = '';
+                } else {
+                    this.selectedResources = [];
+                    this.selectedRowsCount = 0;
+                    this.togglePlus = '+';
+                    this.paginatedSelectAllText = `All ${this.itemCount}+ ${this.resourceName.plural} are selected.`;
+                    actionText = 'Undo';
+                    this.selectedRowsCount = 'All';
+                    this.rows.map((row) => {
+                        this.selectedResources = [...this.selectedResources, row];
+                    });
+                }
+
+                this.emitSelection('multiple', true, this.selectedResources);
+                if (this.hasMoreItems) {
+                    this.$set(this, 'paginatedSelectAllAction', {
+                        content: actionText,
+                        onAction: this.handleSelectAllItemsInStore,
+                    });
+                }
+            },
+            handleSelectionChange(selectionType, selected, id) {
+                this.selectMode = true;
+
+                const index = this.selectedResources.findIndex(x => x.id === id);
+                const rowId = this.rows.findIndex(x => x['id'] === id);
+
+                if (!selected) {
                     if (this.hasMoreItems) {
                         this.$set(this, 'paginatedSelectAllAction', {
                             content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
@@ -1068,46 +1019,107 @@
                     }
                     this.paginatedSelectAllText = '';
                     this.togglePlus = '';
+                    if (index > -1) {
+                        this.selectedResources.splice(index, 1);
+                    }
+                } else {
+                    if (this.condensed) {
+                        this.isSmallScreenSelectable = true;
+                    }
+                    this.selectedResources = [...this.selectedResources, this.rows[rowId]];
                 }
-                this.selectedRowsCount = this.selectedResources.length;
-            }
 
-            this.emitSelection(selectionType, selected, this.selectedResources);
-        }
+                if (this.selectedResources.length === this.itemCount) {
+                    this.selectedRowsCount = this.itemCount;
+                } else if (this.selectedResources.length === 0) {
+                    this.selectedRowsCount = 0;
+                    this.selectMode = false;
+                } else {
+                    if (this.selectedResources.length === 1) {
+                        if (this.hasMoreItems) {
+                            this.$set(this, 'paginatedSelectAllAction', {
+                                content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+                                onAction: this.handleSelectAllItemsInStore,
+                            });
+                        }
+                        this.paginatedSelectAllText = '';
+                        this.togglePlus = '';
+                    }
+                    this.selectedRowsCount = this.selectedResources.length;
+                }
 
-        public emitSelection(selectionType, toggleType, selectedResources) {
-            /**
-             * Triggers when selection is changed
-             */
-            this.$emit('selectionChange', selectionType, toggleType, selectedResources);
-        }
+                this.emitSelection(selectionType, selected, this.selectedResources);
+            },
+            emitSelection(selectionType, toggleType, selectedResources) {
+                /**
+                 * Triggers when selection is changed
+                 */
+                this.$emit('selectionChange', selectionType, toggleType, selectedResources);
+            },
+            handleNavigation(row) {
+                /**
+                 * Perform action on row click.
+                 * Triggers when clickableRow is disabled.
+                 */
+                this.$emit('navigation', row);
+            },
+            // Filter <-- Start -->
+            onRemoveFilter(tag) {
+                /**
+                 * Removes filter tag
+                 * @property {String} tag
+                 */
+                this.$emit('filter-removed', tag);
+            },
+            onFilterInputChanged(value) {
+                /**
+                 * Works on keypress
+                 * @property {String} input-value
+                 */
+                this.$emit('input-filter-changed', value);
+            },
+            // Filter <-- End -->
+        },
+        watch: {
+            condensed(value, oldValue) {
+                this.isSmallScreenSelectable = false;
+                this.selectedResources = [];
+                this.selectedRowsCount = 0;
+                this.selectMode = false;
+                this.paginatedSelectAllText = '';
+            },
+            selectedItemsCount(value, oldValue) {
+                this.selectedResources = [];
+                this.selectedRowsCount = 0;
+                this.selectMode = true;
 
-        public handleNavigation(row) {
-            /**
-             * Perform action on row click.
-             * Triggers when clickableRow is disabled.
-             */
-            this.$emit('navigation', row);
-        }
+                if (value <= 0) {
+                    this.selectMode = false;
+                    return;
+                }
 
-        // Filter <-- Start -->
-        public onRemoveFilter(tag) {
-            /**
-             * Removes filter tag
-             * @property {String} tag
-             */
-            this.$emit('filter-removed', tag);
-        }
-
-        public onFilterInputChanged(value) {
-            /**
-             * Works on keypress
-             * @property {String} input-value
-             */
-            this.$emit('input-filter-changed', value);
-        }
-
-        // Filter <-- End -->
+                if (value > this.itemCount) {
+                    this.rows.map((row) => {
+                        this.selectedResources = [...this.selectedResources, row];
+                    });
+                    this.selectedRowsCount = 'All';
+                    this.emitSelection('multiple', this.selectMode, this.selectedResources);
+                } else {
+                    for (let i = 0; i < value; i++) {
+                        this.selectedResources = [...this.selectedResources, this.rows[i]];
+                    }
+                    this.selectedRowsCount = value;
+                    this.emitSelection('single', this.selectMode, this.selectedResources);
+                }
+            },
+        },
+        created() {
+            window.addEventListener('resize', this.isSmallScreen);
+            this.isSmallScreen();
+        },
+        destroyed() {
+            window.removeEventListener('resize', this.isSmallScreen);
+        },
     }
 </script>
 

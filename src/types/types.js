@@ -29,11 +29,11 @@ export const IconProps = {
     source: {
         type: String,
         expectedValues: IconSource,
-        required: true,
+        required: true
     },
     color: {
         type: String,
-        expectedValues: Color,
+        expectedValues: Color
     },
     backdrop: Boolean,
     accessibilityLabel: String,
@@ -62,9 +62,19 @@ export const LinkAction = {
 
 export const BadgeAction = {
     badge: {
-        status: 'new',
-        content: String,
-    },
+        type: Object,
+        properties: {
+            status: {
+                type: String,
+                required: true,
+                expectedValues: ['new']
+            },
+            content: {
+                type: String,
+                required: true
+            },
+        },
+    }
 }
 
 export const BaseCallbackAction = {
@@ -83,9 +93,13 @@ export const DestructableAction = {
     destructive: Boolean,
 }
 
+// Note: Changed icon: IconProps.source type
 export const IconableAction = {
     ...Action,
-    icon: IconProps.source
+    icon: {
+        type: String,
+        expectedValues: IconSource,
+    }
 }
 
 
@@ -108,7 +122,7 @@ export const ActionListSection = {
     title: String,
     items: {
         type: Array,
-        properties: ActionListItemDescriptor
+        properties: {...ActionListItemDescriptor}
     },
 }
 
@@ -144,13 +158,11 @@ export const MenuActionDescriptor = {
 
 export const MenuGroupDescriptor = {
     ...BadgeAction,
-    title: {
-        type: String,
-        required: true
-    },
+    title: String,
+    accessibilityLabel: String,
     actions: {
         type: Array,
-        properties: {...ActionListItemDescriptor}
+        properties: ActionListItemDescriptor
     },
     icon: IconableAction.icon,
     details: String,

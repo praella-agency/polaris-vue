@@ -181,280 +181,289 @@
     </div>
 </template>
 
-<script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { BulkAction } from '@/components/PIndexTable/utilities';
-  import { PButtonGroup } from '@/components/PButtonGroup/index.js';
-  import { PCheckableButton } from '@/components/PCheckableButton/index.js';
-  import { PPopover } from '@/components/PPopover/index.js';
-  import { PActionList } from '@/components/PActionList/index.js';
-  import { PButton } from '@/components/PButton/index.js';
-  import { Action, ActionListSection, MenuGroupDescriptor } from '@/types';
-  import { PBulkActionMenu } from '@/components/PBulkActions/components/PBulkActionMenu';
-  import { PBulkActionButton } from '@/components/PBulkActions/components/PBulkActionButton';
-  import { classNames } from '@/utilities/css';
+<script>
+    import { classNames } from '../../utilities/css';
+    import { BulkAction } from '../../components/PIndexTable/utilities';
+    import { PButtonGroup } from '../../components/PButtonGroup';
+    import { PCheckableButton } from '../../components/PCheckableButton';
+    import { PPopover } from '../../components/PPopover';
+    import { PActionList } from '../../components/PActionList';
+    import { PButton } from '../../components/PButton';
+    import { Action, ActionListSection, MenuGroupDescriptor } from '../../types/types.js';
+    import { PBulkActionMenu } from '../../components/PBulkActions/components/PBulkActionMenu';
+    import { PBulkActionButton } from '../../components/PBulkActions/components/PBulkActionButton';
+    import ArrayValidator from '../../utilities/validators/ArrayValidator';
+    import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
-  @Component({
-    components: {
-      PCheckableButton, PButtonGroup, PPopover, PBulkActionButton, PActionList, PButton, PBulkActionMenu,
-    },
-  })
-  export default class PBulkActions extends Vue {
-    /**
-     * Visually hidden text for screen readers
-     */
-    @Prop({type: String, default: null}) public accessibilityLabel!: string;
+    export default {
+        name: 'PBulkActions',
+        components: {
+            PCheckableButton, PButtonGroup, PPopover, PBulkActionButton, PActionList, PButton, PBulkActionMenu,
+        },
+        props: {
+            /**
+             * Visually hidden text for screen readers
+             */
+            accessibilityLabel: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Whether to render the small screen BulkActions or not
+             */
+            smallScreen: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Label for the bulk actions
+             */
+            label: {
+                type: String,
+                default: null,
+            },
+            /**
+             * State of the bulk actions checkbox
+             */
+            selected: {
+                type: [Boolean, String],
+                default: false,
+            },
+            /**
+             * List is in a selectable state
+             */
+            selectMode: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Actions that will be given more prominence
+             */
+            promotedActions: {
+                type: Array,
+                default: () => ([]),
+                ...ArrayValidator('promotedActions', {
+                    ...BulkAction,
+                    ...MenuGroupDescriptor,
+                }),
+            },
+            /**
+             * List of actions
+             */
+            actions: {
+                type: Array,
+                default: () => ([]),
+                // ...ArrayValidator('actions', {
+                //     ...BulkAction,
+                //     ...ActionListSection,
+                // }),
+            },
+            /**
+             * Text to select all across pages
+             */
+            paginatedSelectAllText: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Action for selecting all across pages
+             */
+            paginatedSelectAllAction: {
+                type: Object,
+                default: () => ({}),
+                ...ObjectValidator('paginatedSelectAllAction', Action),
+            },
+            /**
+             * Disables bulk actions
+             */
+            disabled: {
+                type: Boolean,
+                default: false,
+            },
+            /**
+             * Indeterminate checkbox
+             */
+            indeterminate: {
+                type: Boolean,
+                default: false,
+            },
+        },
+        data() {
+            return {
+                measuring: false,
+                smallScreenPopoverVisible: false,
+                largeScreenPopoverVisible: false,
+                containerWidth: 0,
+                bulkActionsWidth: 0,
+                promotedActionsWidths: [],
+                addedMoreActionsWidthForMeasuring: 0,
+            };
+        },
+        computed: {
+            largeScreenGroupClassName() {
+                return classNames(
+                    'Polaris-BulkActions__Group',
+                    'Polaris-BulkActions__Group--largeScreen',
+                    this.measuring && 'Polaris-BulkActions__Group--measuring',
+                    this.selectMode && 'Polaris-BulkActions__Group--entered',
+                    !this.selectMode && 'Polaris-BulkActions__Group--exited',
+                );
+            },
+            smallScreenGroupClassName() {
+                return classNames(
+                    'Polaris-BulkActions__Group',
+                    'Polaris-BulkActions__Group--smallScreen',
+                );
+            },
+            hasActions() {
+                return Boolean(
+                    (this.promotedActions ? this.promotedActions.length > 0 : false) ||
+                    (this.actions ? this.actions.length > 0 : false),
+                );
+            },
+            activatorLabel() {
+                return !this.promotedActions || (this.promotedActions && this.numberOfPromotedActionsToRender() === 0
+                    && this.measuring) ? 'Actions' : 'More actions';
+            },
+            combinedActions() {
+                if (this.actionSections && this.rolledInPromotedActions.length > 0) {
+                    return [...this.rolledInPromotedActions, ...this.actionSections];
+                } else if (this.actionSections) {
+                    return this.actionSections;
+                } else if (this.rolledInPromotedActions.length > 0) {
+                    return [...this.rolledInPromotedActions];
+                }
+            },
+            promotedActionsMarkup() {
+                let actions = [];
+                [...this.promotedActions].slice(0, this.numberOfPromotedActionsToRender()).map((action) => {
+                    actions.push(action);
+                });
 
-    /**
-     * Whether to render the small screen BulkActions or not
-     */
-    @Prop({type: Boolean, default: false}) public smallScreen!: boolean;
+                return actions;
+            },
+            actionSections() {
+                if (!this.actions || (this.actions ? this.actions.length === 0 : false)) {
+                    return [];
+                }
 
-    /**
-     * Label for the bulk actions
-     */
-    @Prop({type: String, default: null}) public label!: string;
+                if (this.instanceOfBulkActionListSectionArray(this.actions)) {
+                    return this.actions;
+                }
 
-    /**
-     * State of the bulk actions checkbox
-     */
-    @Prop({type: [Boolean, String], default: false}) public selected!: boolean | 'indeterminate';
+                if (this.instanceOfBulkActionArray(this.actions)) {
+                    return [
+                        {
+                            items: this.actions,
+                        },
+                    ];
+                }
 
-    /**
-     * List is in a selectable state
-     */
-    @Prop({type: Boolean, default: false}) public selectMode!: boolean;
+                return [];
+            },
+            rolledInPromotedActions() {
+                let numberOfPromotedActionsToRender = this.numberOfPromotedActionsToRender();
 
-    /**
-     * Actions that will be given more prominence
-     */
-    /* tslint:disable-next-line */
-    @Prop({type: Array, default: () => ([])}) public promotedActions!: (BulkAction | MenuGroupDescriptor)[];
+                if (!this.promotedActions || this.promotedActions.length === 0 ||
+                    numberOfPromotedActionsToRender >= this.promotedActions.length) {
+                    return [];
+                }
 
-    /**
-     * List of actions
-     */
-    /* tslint:disable-next-line */
-    @Prop({type: Array, default: () => ([])}) public actions!: (BulkAction | ActionListSection)[];
+                let rolledInPromotedActions = this.promotedActions.map((action) => {
+                    if (this.instanceOfMenuGroupDescriptor(action)) {
+                        return {
+                            items: [...action.actions],
+                        };
+                    }
 
-    /**
-     * Text to select all across pages
-     */
-    @Prop({type: String, default: null}) public paginatedSelectAllText!: string;
+                    return {
+                        items: [action],
+                    };
+                });
 
-    /**
-     * Action for selecting all across pages
-     */
-    @Prop({type: Object, default: () => ({})}) public paginatedSelectAllAction!: Action;
+                return rolledInPromotedActions.slice(numberOfPromotedActionsToRender);
+            },
+        },
+        methods: {
+            isNewBadgeInBadgeActions() {
+                const actions = this.actionSections;
+                if (!actions) {
+                    return false;
+                }
 
-    /**
-     * Disables bulk actions
-     */
-    @Prop({type: Boolean, default: false}) public disabled!: boolean;
+                for (const action of actions) {
+                    for (const item of action['items']) {
+                        return item.badge ? (item.badge.status === 'new') : false;
+                    }
+                }
 
-    /**
-     * Indeterminate checkbox
-     */
-    @Prop({type: Boolean, default: false}) public indeterminate!: boolean;
+                return false;
+            },
+            clamp(number, min, max) {
+                if (number < min) {
+                    return min;
+                }
+                if (number > max) {
+                    return max;
+                }
+                return number;
+            },
+            numberOfPromotedActionsToRender() {
+                if (!this.promotedActions) {
+                    return 0;
+                }
 
-    public measuring = false;
-    public smallScreenPopoverVisible = false;
-    public largeScreenPopoverVisible = false;
-    public containerWidth = 0;
-    public bulkActionsWidth = 0;
-    public promotedActionsWidths: number[] = [];
-    public addedMoreActionsWidthForMeasuring = 0;
+                if (this.containerWidth >= this.bulkActionsWidth || this.measuring) {
+                    return this.promotedActions.length;
+                }
 
-    public get largeScreenGroupClassName() {
-      return classNames(
-        'Polaris-BulkActions__Group',
-        'Polaris-BulkActions__Group--largeScreen',
-        this.measuring && 'Polaris-BulkActions__Group--measuring',
-        this.selectMode && 'Polaris-BulkActions__Group--entered',
-        !this.selectMode && 'Polaris-BulkActions__Group--exited',
-      );
+                let sufficientSpace = false;
+                let counter = this.promotedActions.length - 1;
+                let totalWidth = 0;
+
+                while (!sufficientSpace && counter >= 0) {
+                    totalWidth += this.promotedActionsWidths[counter];
+                    let widthWithRemovedAction = this.bulkActionsWidth - totalWidth + this.addedMoreActionsWidthForMeasuring;
+
+                    if (this.containerWidth >= widthWithRemovedAction) {
+                        sufficientSpace = true;
+                    } else {
+                        counter--;
+                    }
+                }
+
+                return this.clamp(counter, 0, this.promotedActions.length);
+            },
+            toggleSmallScreenPopover() {
+                this.smallScreenPopoverVisible = !this.smallScreenPopoverVisible;
+            },
+            toggleLargeScreenPopover() {
+                this.largeScreenPopoverVisible = !this.largeScreenPopoverVisible;
+            },
+            instanceOfBulkActionListSectionArray(actions) {
+                let validList = this.actions.filter((action) => {
+                    return action.items;
+                });
+
+                return actions.length === validList.length;
+            },
+            instanceOfBulkActionArray(actions) {
+                let validList = this.actions.filter((action) => {
+                    return !action.items;
+                });
+
+                return actions.length === validList.length;
+            },
+            instanceOfMenuGroupDescriptor(action) {
+                return 'title' in action;
+            },
+            handleMeasurement(width) {
+                if (this.measuring) {
+                    this.promotedActionsWidths.push(width);
+                }
+            },
+        },
     }
-
-    public get smallScreenGroupClassName() {
-      return classNames(
-        'Polaris-BulkActions__Group',
-        'Polaris-BulkActions__Group--smallScreen',
-      );
-    }
-
-    public get hasActions() {
-      return Boolean(
-        (this.promotedActions ? this.promotedActions.length > 0 : false) ||
-        (this.actions ? this.actions.length > 0 : false),
-      );
-    }
-
-    public get activatorLabel() {
-      return !this.promotedActions || (this.promotedActions && this.numberOfPromotedActionsToRender() === 0
-            && this.measuring) ? 'Actions' : 'More actions';
-    }
-
-    public get combinedActions() {
-      if (this.actionSections && this.rolledInPromotedActions.length > 0) {
-        return [...this.rolledInPromotedActions, ...this.actionSections];
-      } else if (this.actionSections) {
-        return this.actionSections;
-      } else if (this.rolledInPromotedActions.length > 0) {
-        return [...this.rolledInPromotedActions];
-      }
-    }
-
-    public isNewBadgeInBadgeActions() {
-      const actions = this.actionSections;
-      if (!actions) {
-        return false;
-      }
-
-      for (const action of actions) {
-        /* tslint:disable-next-line */
-        for (const item of action['items']) {
-          return item.badge ? (item.badge.status === 'new') : false;
-        }
-      }
-
-      return false;
-    }
-
-    /* tslint:disable-next-line */
-    public clamp(number: number, min: number, max: number) {
-      if (number < min) {
-        return min;
-      }
-      if (number > max) {
-        return max;
-      }
-      return number;
-    }
-
-    public numberOfPromotedActionsToRender() {
-      if (!this.promotedActions) {
-        return 0;
-      }
-
-      if (this.containerWidth >= this.bulkActionsWidth || this.measuring) {
-        return this.promotedActions.length;
-      }
-
-      /* tslint:disable-next-line */
-      let sufficientSpace = false;
-      /* tslint:disable-next-line */
-      let counter = this.promotedActions.length - 1;
-      /* tslint:disable-next-line */
-      let totalWidth = 0;
-
-      while (!sufficientSpace && counter >= 0) {
-        totalWidth += this.promotedActionsWidths[counter];
-        /* tslint:disable-next-line */
-        let widthWithRemovedAction = this.bulkActionsWidth - totalWidth + this.addedMoreActionsWidthForMeasuring;
-
-        if (this.containerWidth >= widthWithRemovedAction) {
-          sufficientSpace = true;
-        } else {
-          counter--;
-        }
-      }
-
-      return this.clamp(counter, 0, this.promotedActions.length);
-    }
-
-    public get promotedActionsMarkup() {
-      /* tslint:disable-next-line */
-      let actions: (BulkAction | MenuGroupDescriptor)[] = [];
-      [...this.promotedActions].slice(0, this.numberOfPromotedActionsToRender()).map((action) => {
-        actions.push(action);
-      });
-
-      return actions;
-    }
-
-    public toggleSmallScreenPopover() {
-      this.smallScreenPopoverVisible = !this.smallScreenPopoverVisible;
-    }
-
-    public toggleLargeScreenPopover() {
-      this.largeScreenPopoverVisible = !this.largeScreenPopoverVisible;
-    }
-
-    /* tslint:disable-next-line */
-    public instanceOfBulkActionListSectionArray(actions: (BulkAction | ActionListSection)[]) {
-      /* tslint:disable-next-line */
-      let validList = this.actions.filter((action: any) => {
-        return action.items;
-      });
-
-      return actions.length === validList.length;
-    }
-
-    /* tslint:disable-next-line */
-    public instanceOfBulkActionArray(actions: (BulkAction | ActionListSection)[]) {
-      /* tslint:disable-next-line */
-      let validList = this.actions.filter((action: any) => {
-        return !action.items;
-      });
-
-      return actions.length === validList.length;
-    }
-
-    public get actionSections() {
-      if (!this.actions || (this.actions ? this.actions.length === 0 : false)) {
-        return [];
-      }
-
-      if (this.instanceOfBulkActionListSectionArray(this.actions)) {
-        return this.actions;
-      }
-
-      if (this.instanceOfBulkActionArray(this.actions)) {
-        return [
-          {
-            items: this.actions,
-          },
-        ];
-      }
-
-      return [];
-    }
-
-    public instanceOfMenuGroupDescriptor(action: MenuGroupDescriptor | BulkAction): action is MenuGroupDescriptor {
-      return 'title' in action;
-    }
-
-    public handleMeasurement = (width: number) => {
-      if (this.measuring) {
-        this.promotedActionsWidths.push(width);
-      }
-    }
-
-    public get rolledInPromotedActions() {
-      /* tslint:disable-next-line */
-      let numberOfPromotedActionsToRender = this.numberOfPromotedActionsToRender();
-
-      if (!this.promotedActions || this.promotedActions.length === 0 ||
-        numberOfPromotedActionsToRender >= this.promotedActions.length) {
-        return [];
-      }
-
-      /* tslint:disable-next-line */
-      let rolledInPromotedActions = this.promotedActions.map((action) => {
-        if (this.instanceOfMenuGroupDescriptor(action)) {
-          return {
-            items: [...action.actions],
-          };
-        }
-
-        return {
-          items: [action],
-        };
-      });
-
-      return rolledInPromotedActions.slice(numberOfPromotedActionsToRender);
-    }
-  }
 </script>
 
 <style scoped>

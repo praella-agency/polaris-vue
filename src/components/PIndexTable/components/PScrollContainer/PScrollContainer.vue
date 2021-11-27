@@ -8,34 +8,37 @@
     </div>
 </template>
 
-<script lang="ts">
-    import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
+<script>
+    export default {
+        name: 'PScrollContainer',
+        props: {
+            scrollableContainerRef: {
+                type: HTMLDivElement,
+            },
+        },
+        methods: {
+            handleScroll() {
+                if (!this.scrollableContainerRef) {
+                    return;
+                }
 
-    @Component({})
-    export default class PScrollContainer extends Vue {
-        @Prop() public scrollableContainerRef!: HTMLDivElement;
+                const availableScrollAmount = this.scrollableContainerRef.scrollWidth -
+                    this.scrollableContainerRef.offsetHeight;
+                const canScrollLeft = this.scrollableContainerRef.scrollLeft > 0;
+                const canScrollRight = this.scrollableContainerRef.scrollLeft < availableScrollAmount;
 
-        @Watch('scrollableContainerRef')
-        public onScrollableContainerRefChanged(value) {
-            if (!value) {
-                return;
-            }
+                this.$emit('onScroll', canScrollLeft, canScrollRight);
+            },
+        },
+        watch: {
+            scrollableContainerRef(value, oldValue) {
+                if (!value) {
+                    return;
+                }
 
-            this.scrollableContainerRef.dispatchEvent(new Event('scroll'));
-        }
-
-        public handleScroll() {
-            if (!this.scrollableContainerRef) {
-                return;
-            }
-
-            const availableScrollAmount = this.scrollableContainerRef.scrollWidth -
-                this.scrollableContainerRef.offsetHeight;
-            const canScrollLeft = this.scrollableContainerRef.scrollLeft > 0;
-            const canScrollRight = this.scrollableContainerRef.scrollLeft < availableScrollAmount;
-
-            this.$emit('onScroll', canScrollLeft, canScrollRight);
-        }
+                this.scrollableContainerRef.dispatchEvent(new Event('scroll'));
+            },
+        },
     }
 </script>
 

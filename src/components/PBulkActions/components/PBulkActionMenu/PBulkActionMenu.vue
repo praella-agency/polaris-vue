@@ -20,28 +20,41 @@
     </PPopover>
 </template>
 
-<script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { PPopover } from '@/components/PPopover/index.js';
-  import { PActionList } from '@/components/PActionList/index.js';
-  import { PBulkActionButton } from '@/components/PBulkActions/components/PBulkActionButton';
+<script>
+    import { PPopover } from '../../../../components/PPopover/index.js';
+    import { PActionList } from '../../../../components/PActionList/index.js';
+    import { PBulkActionButton } from '../../../../components/PBulkActions/components/PBulkActionButton';
 
-  @Component({
-    components: {
-      PBulkActionButton, PPopover, PActionList,
-    },
-  })
-  export default class PBulkActionMenu extends Vue {
-    @Prop({type: String, default: null}) public title!: string;
-    @Prop({type: Array, default: () => ([])}) public actions!: [];
-    @Prop({type: Boolean, default: false}) public isNewBadgeInBadgeActions!: boolean;
-
-    public isVisible = false;
-
-    public toggleMenuVisibility() {
-      this.isVisible = !this.isVisible;
+    export default {
+        name: 'PBulkActionMenu',
+        components: {
+            PBulkActionButton, PPopover, PActionList,
+        },
+        props: {
+            title: {
+                type: String,
+                default: null,
+            },
+            actions: {
+                type: Array,
+                default: () => ([]),
+            },
+            isNewBadgeInBadgeActions: {
+                type: Boolean,
+                default: false,
+            },
+        },
+        data() {
+            return {
+                isVisible: false,
+            };
+        },
+        methods: {
+            toggleMenuVisibility() {
+                this.isVisible = !this.isVisible;
+            },
+        },
     }
-  }
 </script>
 
 <style scoped>

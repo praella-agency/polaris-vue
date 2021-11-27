@@ -19,118 +19,137 @@
     </component>
 </template>
 
-<script lang="ts">
-  import { Vue, Component, Prop, Ref } from 'vue-property-decorator';
-  import { classNames, variationName } from '@/utilities/css';
-  import { PIndexTableCheckbox } from '@/components/PIndexTable/components/PIndexTableCheckbox/';
+<script>
+    import { classNames, variationName } from '../../../../utilities/css';
+    import { PIndexTableCheckbox } from '../../../../components/PIndexTable/components/PIndexTableCheckbox';
+    import StringValidator from '../../../../utilities/validators/StringValidator';
 
-  enum SelectionType {
-    All = 'all',
-    Page = 'page',
-    Multi = 'multi',
-    Single = 'single',
-  }
+    const SelectionType = {
+        All: 'all',
+        Page: 'page',
+        Multi: 'multi',
+        Single: 'single',
+    };
 
-  @Component({
-    components: {
-      PIndexTableCheckbox,
-    },
-  })
-  export default class PIndexTableRow extends Vue {
-    @Prop({type: [String, Number], required: true}) public id!: string | number;
+    export default {
+        name: 'PIndexTableRow',
+        components: {
+            PIndexTableCheckbox,
+        },
+        props: {
+            id: {
+                type: [String, Number],
+                required: true,
+            },
+            selected: {
+                type: Boolean,
+                default: false,
+            },
+            position: {
+                type: Number,
+                default: 0,
+            },
+            subdued: {
+                type: Boolean,
+                default: false,
+            },
+            status: {
+                type: String,
+                default: null,
+                ...StringValidator('status', ['success', 'subdued']),
+            },
+            selectable: {
+                type: Boolean,
+                default: true,
+            },
+            condensed: {
+                type: Boolean,
+                default: false,
+            },
+            selectMode: {
+                type: Boolean,
+                default: false,
+            },
+            clickable: {
+                type: Boolean,
+                default: true,
+            },
+        },
+        data() {
+            return {
+                isNavigating: false,
+                hovered: false,
+                primaryLinkElement: null,
+                tableRowRef: null,
+            };
+        },
+        computed: {
+            rowClassName() {
+                return classNames(
+                    'Polaris-IndexTable__TableRow',
+                    this.selectable && this.condensed && 'Polaris-IndexTable--condensedRow',
+                    this.selected && 'Polaris-IndexTable__TableRow--selected',
+                    this.subdued && 'Polaris-IndexTable__TableRow--subdued',
+                    this.hovered && 'Polaris-IndexTable__TableRow--hovered',
+                    this.status && 'Polaris-IndexTable--' + variationName('status', this.status),
+                    (!this.selectable || this.primaryLinkElement) && 'TableRow-unclickable',
+                );
+            },
+        },
+        methods: {
+            setHoverIn() {
+                this.hovered = true;
+            },
+            setHoverOut() {
+                this.hovered = false;
+            },
+            handleRowClick(event) {
+                if (!this.clickable) {
+                    this.$emit('navigation', this.id);
+                    return;
+                }
 
-    @Prop({type: Boolean, default: false}) public selected!: boolean;
+                if (this.selectable || this.primaryLinkElement) {
+                    event.preventDefault();
+                    event.stopPropagation();
 
-    @Prop({type: Number, default: 0}) public position!: number;
+                    if (this.primaryLinkElement && !this.selectMode) {
+                        this.isNavigating = true;
+                        const ctrlKey = event.ctrlKey;
+                        const metaKey = event.metaKey;
 
-    @Prop({type: Boolean, default: false}) public subdued!: boolean;
+                        this.$emit('navigation', this.id);
 
-    @Prop({type: String, default: null}) public status!: 'success' | 'subdued';
+                        if ((ctrlKey || metaKey) && this.primaryLinkElement instanceof HTMLAnchorElement) {
+                            this.isNavigating = false;
+                            window.open(this.primaryLinkElement.href, '_blank');
+                            return;
+                        }
 
-    @Prop({type: Boolean, default: true}) public selectable!: boolean;
+                        this.primaryLinkElement.dispatchEvent(new MouseEvent(event.type));
+                    } else {
+                        this.isNavigating = false;
+                        this.handleInteraction(event);
+                    }
+                }
+            },
+            handleInteraction(event) {
+                event.stopPropagation();
 
-    @Prop({type: Boolean, default: false}) public condensed!: boolean;
+                const selectionType = event.shiftKey ? SelectionType.Multi : SelectionType.Single;
 
-    @Prop({type: Boolean, default: false}) public selectMode!: boolean;
+                this.$emit('selectionChange', selectionType, !this.selected, this.id, this.position);
+            },
+            tableRowCallbackRef(node) {
+                this.tableRowRef = node;
+                const el = node.querySelector('[data-primary-link]');
 
-    @Prop({type: Boolean, default: true}) public clickable!: boolean;
-
-    @Ref() public primaryLinkElement!: HTMLAnchorElement;
-
-    @Ref() public tableRowRef!: HTMLTableRowElement & HTMLLIElement;
-
-    public isNavigating = false;
-
-    public hovered = false;
-
-    public get rowClassName() {
-      return classNames(
-        'Polaris-IndexTable__TableRow',
-        this.selectable && this.condensed && 'Polaris-IndexTable--condensedRow',
-        this.selected && 'Polaris-IndexTable__TableRow--selected',
-        this.subdued && 'Polaris-IndexTable__TableRow--subdued',
-        this.hovered && 'Polaris-IndexTable__TableRow--hovered',
-        this.status && 'Polaris-IndexTable--' + variationName('status', this.status),
-        (!this.selectable || this.primaryLinkElement) && 'TableRow-unclickable',
-      );
+                if (el) {
+                    this.primaryLinkElement = el;
+                }
+            },
+        },
     }
-
-    public setHoverIn() {
-      this.hovered = true;
-    }
-
-    public setHoverOut() {
-      this.hovered = false;
-    }
-
-    public handleRowClick(event: MouseEvent) {
-      if (!this.clickable) {
-        this.$emit('navigation', this.id);
-        return;
-      }
-
-      if (this.selectable || this.primaryLinkElement) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        if (this.primaryLinkElement && !this.selectMode) {
-          this.isNavigating = true;
-          const ctrlKey = event.ctrlKey;
-          const metaKey = event.metaKey;
-
-          this.$emit('navigation', this.id);
-
-          if ((ctrlKey || metaKey) && this.primaryLinkElement instanceof HTMLAnchorElement) {
-            this.isNavigating = false;
-            window.open(this.primaryLinkElement.href, '_blank');
-            return;
-          }
-
-          this.primaryLinkElement.dispatchEvent(new MouseEvent(event.type));
-        } else {
-          this.isNavigating = false;
-          this.handleInteraction(event);
-        }
-      }
-    }
-
-    public handleInteraction(event: MouseEvent) {
-      event.stopPropagation();
-
-      const selectionType = event.shiftKey ? SelectionType.Multi : SelectionType.Single;
-
-      this.$emit('selectionChange', selectionType, !this.selected, this.id, this.position);
-    }
-
-    public tableRowCallbackRef(node) {
-      this.tableRowRef = node;
-      const el = node.querySelector('[data-primary-link]');
-
-      if (el) {
-        this.primaryLinkElement = el;
-      }
-    }
-  }
 </script>
 
 <style scoped>
