@@ -1,11 +1,11 @@
 import Vue from 'vue'
-import {StringValidator} from './StringValidator';
-import {ArrayValidator} from './ArrayValidator';
+import { StringValidator } from './StringValidator';
+import { ArrayValidator } from './ArrayValidator';
 
 export const ObjectPropertyValidator = (name, object, objectInterface) => {
     let result = true;
     // Validate required keys of object.
-    for(let objectKey in objectInterface) {
+    for (let objectKey in objectInterface) {
         const objectType = objectInterface[objectKey];
         let isRequired = false;
         let valueType = [];
@@ -19,7 +19,7 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
             });
         }
 
-        if(typeof objectType === 'object' && !Array.isArray(objectType)) {
+        if (typeof objectType === 'object' && !Array.isArray(objectType)) {
             isRequired = objectType.required || false;
             if (objectType.type && !Array.isArray(objectType.type)) {
                 valueType = [objectType.type.name] || undefined;
@@ -91,16 +91,16 @@ export const ObjectValidator = (name, object, objectInterface, isRequired) => {
     } else {
         let isValidated = false;
 
-        if(objectInterface.type) {
+        if (objectInterface.type) {
             let objectInterfaceType = objectInterface.type;
-            if(!Array.isArray(objectInterface.type)) {
+            if (!Array.isArray(objectInterface.type)) {
                 objectInterfaceType = [objectInterfaceType];
             }
             objectInterfaceType.forEach(type => {
-                if(Array.isArray(type) && Array.isArray(object)) {
+                if (type.name === 'Array' && Array.isArray(object)) {
                     isValidated = true;
                 }
-                if(typeof object === type.name.toLowerCase()) {
+                if (typeof object === type.name.toLowerCase()) {
                     isValidated = true;
                 }
             });
