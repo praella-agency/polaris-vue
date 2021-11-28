@@ -18,7 +18,7 @@
     "component library"
   ],
   "license": "MIT",
-  "version": "2.4.3",
+  "version": "3.0.0",
   "scripts": {
     "prebuild": "rimraf ./dist",
     "build:scss": "sass src/scss/main.scss | node ./build/banner.js > dist/polaris-vue.css && cleancss --inline local -o dist/polaris-vue.min.css dist/polaris-vue.css",
@@ -31,10 +31,10 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook"
   },
-  "main": "dist/polaris-vue.ssr.js",
+  "main": "dist/polaris-vue.min.js",
   "browser": "dist/polaris-vue.esm.js",
   "module": "dist/polaris-vue.esm.js",
-  "unpkg": "dist/polaris-vue.min.js",
+  "unpkg": "dist/polaris-vue.ssr.js",
   "dependencies": {
     "@hulkapps/vue-plyr": "^7.0.5",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",

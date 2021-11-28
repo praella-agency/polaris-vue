@@ -12,8 +12,14 @@ You need [Vue.js](https://vuejs.org/) **version 2+**.
 
 ### 1. Install via npm
 
+####Using NPM
 ```bash
 npm i @hulkapps/polaris-vue
+```
+
+####Using Yarn
+```bash
+yarn add @hulkapps/polaris-vue
 ```
 
 ### 2. Import and use Polaris Vue
@@ -21,9 +27,14 @@ npm i @hulkapps/polaris-vue
 ```javascript
 import Vue from 'vue';
 import PolarisVue from '@hulkapps/polaris-vue';
-import '@hulkapps/polaris-vue/dist/polaris-vue.css';
-
+import '@hulkapps/polaris-vue/dist/polaris-vue.min.css';
 Vue.use(PolarisVue);
+```
+
+Other available builds
+```javascript
+'/dist/polaris-vue.ssr.js';
+'/dist/polaris-vue.esm.js';
 ```
 
 ## Contributing
