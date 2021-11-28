@@ -191,14 +191,18 @@
             };
         },
         computed: {
-            prefix() {
-                return `${this.resourceName.plural.toLowerCase()}`;
-            },
-            resource() {
-                const resourceName = this.resourceName;
-                return this.resourceName ? 'Filter ' + resourceName.plural.toLowerCase() :
-                    (this.resourceName ? 'Filter ' + resourceName.singular.toLowerCase() : '');
-            },
+          prefix() {
+            if(this.resourceName.plural) {
+              return `${this.resourceName.plural.toLowerCase()}`;
+            } else {
+              return this.resourceName.plural;
+            }
+          },
+          resource() {
+            const resourceName = this.resourceName;
+            return resourceName.plural ? 'Filter ' + resourceName.plural.toLowerCase() :
+                (resourceName.singular ? 'Filter ' + resourceName.singular.toLowerCase() : '');
+          },
         },
         methods: {
             handleQueryChange(queryValue) {

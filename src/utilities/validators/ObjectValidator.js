@@ -36,21 +36,21 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
                 switch (vType) {
                     case 'Object': {
                         if (objectType.properties) {
-                            result = ObjectValidator(name, object[`${objectKey}`], objectType.properties, isRequired);
+                            result = ObjectValidator(`${name}.${objectKey}`, object[`${objectKey}`], objectType.properties, isRequired);
                             isContinue = true;
                         }
                         break;
                     }
                     case 'Array': {
                         if (objectType.properties) {
-                            result = ArrayValidator(name, object[`${objectKey}`], objectType.properties, isRequired);
+                            result = ArrayValidator(`${name}.${objectKey}`, object[`${objectKey}`], objectType.properties, isRequired);
                             isContinue = true;
                         }
                         break;
                     }
                     case 'String': {
                         if (objectType.expectedValues) {
-                            result = StringValidator(name, object[`${objectKey}`], objectType.expectedValues, isRequired);
+                            result = StringValidator(`${name}.${objectKey}`, object[`${objectKey}`], objectType.expectedValues, isRequired);
                             isContinue = true;
                         }
                         break;
