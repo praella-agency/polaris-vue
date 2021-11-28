@@ -65,9 +65,7 @@ import { PChart } from './PChart';
 import { PEmptyState } from './PEmptyState';
 import { PFooterHelp } from './PFooterHelp';
 import { PDropZone } from './PDropZone';
-import PToast from './PToast';
 import { PChoiceList } from './PChoiceList';
-import PLoading from './PLoading';
 import { PFrame } from './PFrame';
 import { PTopBar } from './PTopBar';
 import { PContextualSaveBar } from './PFrame/components/PContextualSaveBar';
@@ -82,10 +80,9 @@ import { PDataTableRow } from './PDataTable/components/PDataTableRow';
 import { PDataTableCol } from './PDataTable/components/PDataTableCol';
 import { PIndexTable } from './PIndexTable';
 import { PScrollable } from './PScrollable';
-import { PTooltip } from './PTooltip';
 import { PVerticalTabs } from './PVerticalTabs';
 
-const Components = {
+export {
   PBadge,
   PBanner,
   PButton,
@@ -143,7 +140,6 @@ const Components = {
   PFooterHelp,
   PDropZone,
   PChoiceList,
-  PLoading,
   PFrame,
   PTopBar,
   PContextualSaveBar,
@@ -157,20 +153,5 @@ const Components = {
   PDataTableRow, PDataTableCol,
   PIndexTable,
   PScrollable,
-  PTooltip,
   PVerticalTabs,
 };
-
-const PolarisVue = {
-  install(Vue, options = {}) {
-    for (let componentKey in Components) {
-      Vue.component(componentKey, Components[componentKey]);
-    }
-
-    Vue.use(PToast);
-    Vue.use(PLoading);
-    Vue.use(PTooltip);
-  },
-};
-
-export default PolarisVue;
