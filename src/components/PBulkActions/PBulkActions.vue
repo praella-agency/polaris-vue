@@ -189,7 +189,7 @@
     import { PPopover } from '../../components/PPopover';
     import { PActionList } from '../../components/PActionList';
     import { PButton } from '../../components/PButton';
-    import { Action, ActionListSection, MenuGroupDescriptor } from '../../types';
+    import { Action, MenuGroupDescriptor } from '../../types';
     import { PBulkActionMenu } from '../../components/PBulkActions/components/PBulkActionMenu';
     import { PBulkActionButton } from '../../components/PBulkActions/components/PBulkActionButton';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';

@@ -44,12 +44,12 @@
                         <PStackItem v-if="hasAction">
                             <PButtonGroup>
                                 <div class="Polaris-MediaCard__PrimaryAction">
-                                    <PButton v-bind="primaryAction" @click="primaryAction.onAction">
+                                    <PButton v-if="Object.keys(primaryAction).length" v-bind="primaryAction" @click="primaryAction.onAction ? primaryAction.onAction : () => {}">
                                         {{ primaryAction.content }}
                                     </PButton>
                                 </div>
-                                <div class="Polaris-MediaCard__SecondaryAction" v-if="secondaryAction">
-                                    <PButton v-bind="secondaryAction" plain @click="secondaryAction.onAction">
+                                <div class="Polaris-MediaCard__SecondaryAction" v-if="Object.keys(secondaryAction).length">
+                                    <PButton v-bind="secondaryAction" plain @click="secondaryAction.onAction ? secondaryAction.onAction : () => {}">
                                         {{ secondaryAction.content }}
                                     </PButton>
                                 </div>
@@ -140,7 +140,7 @@
              */
             secondaryAction: {
                 type: Object,
-                default: () => ({})
+                default: () => ({}),
             },
             /**
              * Source of image.

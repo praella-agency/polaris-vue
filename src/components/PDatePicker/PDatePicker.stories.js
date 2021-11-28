@@ -64,7 +64,7 @@ const Template = (args, {argTypes}) => ({
     },
     data() {
         return {
-            data: null,
+            data: '',
         };
     },
     template: `

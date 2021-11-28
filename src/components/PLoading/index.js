@@ -65,13 +65,14 @@ function install(Vue, options = {}) {
 
             if (!time) time = 3000;
             this.$vm.RADON_LOADING_BAR.percent = 0; // this.$vm.RADON_LOADING_BAR.percent
+            this.$vm.RADON_LOADING_BAR.options.is_finished = false;
             this.$vm.RADON_LOADING_BAR.options.show = true;
             this.$vm.RADON_LOADING_BAR.options.canSuccess = true;
             this.state.cut = 10000 / Math.floor(time);
             clearInterval(this.state.timer);
             this.state.timer = setInterval(() => {
                 this.increase(this.state.cut * Math.random());
-                if (this.$vm.RADON_LOADING_BAR.percent > 95 && this.$vm.RADON_LOADING_BAR.options.autoFinish) {
+                if (this.$vm.RADON_LOADING_BAR.percent > 95 && this.$vm.RADON_LOADING_BAR.options.autoFinish && !this.$vm.RADON_LOADING_BAR.options.is_finished) {
                     this.finish();
                 }
             }, 100);
@@ -93,33 +94,26 @@ function install(Vue, options = {}) {
         hide() {
             clearInterval(this.state.timer);
             this.state.timer = null;
-            setTimeout(() => {
-                this.$vm.RADON_LOADING_BAR.options.show = false;
-                Vue.nextTick(() => {
-                    setTimeout(() => {
-                        this.$vm.RADON_LOADING_BAR.percent = 0;
-                    }, 100);
-                })
-            }, this.$vm.RADON_LOADING_BAR.options.transition.termination);
-
-            if (instance) {
-                document.body.removeChild(instance.$el);
-                instance.$destroy();
-            }
+            this.$vm.RADON_LOADING_BAR.options.show = false;
+            Vue.nextTick(() => {
+                this.$vm.RADON_LOADING_BAR.percent = 0;
+            })
         },
         finish() {
             if (!this.$vm) return;
             this.$vm.RADON_LOADING_BAR.percent = 99;
+            this.$vm.RADON_LOADING_BAR.options.is_finished = true;
             setTimeout(() => {
                 this.hide();
-            }, 3000);
+            }, 500);
         },
         fail() {
             this.$vm.RADON_LOADING_BAR.options.canSuccess = false;
             this.$vm.RADON_LOADING_BAR.percent = 99;
+            this.$vm.RADON_LOADING_BAR.options.is_finished = true;
             setTimeout(() => {
                 this.hide();
-            }, 3000);
+            }, 500);
         },
     }
 

@@ -15,6 +15,7 @@
             <multiselect
                 :id="id"
                 v-model="computedValue"
+                v-bind="$attrs"
                 :disabled="disabled"
                 aria-invalid="false"
                 :options="computedOptions"

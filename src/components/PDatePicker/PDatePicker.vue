@@ -96,7 +96,6 @@
 
 <script>
     import { classNames } from '../../utilities/css';
-    import DateRangePicker from 'vue2-daterange-picker';
     import dayjs from 'dayjs';
     import { PIcon } from '../../components/PIcon';
     import { PFieldError } from '../../components/PFieldError';
@@ -109,13 +108,11 @@
     import { PTextField } from '../../components/PTextField';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
-    const DateType = [Date, null, String];
+    const DateType = [Date, String];
 
     const DateRange = {
-        singleDatePicker: {
-            startDate: DateType,
-        },
-        rangeDatePicker: {
+        type: [Array, String, Object],
+        properties: {
             startDate: DateType,
             endDate: DateType,
         },
@@ -130,7 +127,8 @@
     export default {
         name: 'PDatePicker',
         components: {
-            DateRangePicker, PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField,
+            DateRangePicker: require('vue2-daterange-picker').default,
+            PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField,
         },
         props: {
             /**
@@ -319,8 +317,8 @@
              * This should be an object containing startDate and endDate.
              */
             dateRange: {
-                type: Object,
-                ...ObjectValidator('dateRange', {...DateRange}),
+                type: [String, Object],
+                ...ObjectValidator('dateRange', DateRange),
             },
             /**
              * Each calendar has separate navigation when this is false
@@ -356,11 +354,16 @@
                 type: String,
                 default: '-',
             },
+            /**
+             * Element Value
+             */
+            value: {
+                type: [String, Object],
+                ...ObjectValidator('value', DateRange),
+            },
         },
         data() {
             return {
-                content: (this.dateRange && Object.keys(this.dateRange).length > 0 && this.dateRange !== null &&
-                    this.dateRange !== undefined) ? this.dateRange : {startDate: null, endDate: null},
                 selectedRanges: null,
             };
         },
@@ -394,7 +397,25 @@
             },
             computedValue: {
                 get() {
-                    return this.content;
+                    if(this.value) {
+                        if(typeof this.value === 'string') {
+                            return {
+                                startDate: this.value,
+                                endDate: null,
+                            }
+                        }
+                        return this.value;
+                    }
+                    else if(this.dateRange) {
+                        if(typeof this.dateRange === 'string') {
+                            return {
+                                startDate: this.dateRange,
+                                endDate: null,
+                            }
+                        }
+                        return this.dateRange;
+                    }
+                    return {startDate: null, endDate: null};
                 },
                 set(dateRange) {
                     this.content = dateRange;
@@ -416,10 +437,19 @@
         },
         methods: {
             computedTextValue(picker) {
-                return !this.singleDatePicker ?
-                    ((picker.startDate !== null && picker.endDate !== null) ?
-                        (`${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}`) : this.placeholder) :
-                    (picker.startDate !== null ? this.formatDate(picker.startDate) : this.placeholder);
+                if(!this.singleDatePicker) {
+                    if(picker.startDate && picker.endDate) {
+                        return (`${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}`);
+                    } else {
+                        return this.placeholder;
+                    }
+                } else {
+                    if(picker.startDate) {
+                        return this.formatDate(picker.startDate);
+                    } else {
+                        return this.placeholder;
+                    }
+                }
             },
             updateValues(values) {
                 /**

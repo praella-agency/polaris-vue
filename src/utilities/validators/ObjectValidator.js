@@ -89,12 +89,29 @@ export const ObjectValidator = (name, object, objectInterface, isRequired) => {
         Vue.util.warn(`The "${name}" prop is missing.`, true)
         return false;
     } else {
-        if (typeof object !== 'object') {
+        let isValidated = false;
+
+        if(objectInterface.type) {
+            let objectInterfaceType = objectInterface.type;
+            if(!Array.isArray(objectInterface.type)) {
+                objectInterfaceType = [objectInterfaceType];
+            }
+            objectInterfaceType.forEach(type => {
+                if(Array.isArray(type) && Array.isArray(object)) {
+                    isValidated = true;
+                }
+                if(typeof object === type.name.toLowerCase()) {
+                    isValidated = true;
+                }
+            });
+        }
+
+        if (!isValidated && typeof object !== 'object') {
             Vue.util.warn(
                 `The "${name}" prop is invalid. Given value type: ${typeof object}. Expected value type: Object.`, true)
             return false;
         }
-        if (Object.keys(object).length) {
+        if (typeof object == 'object' && Object.keys(object).length) {
             return ObjectPropertyValidator(name, object, objectInterface);
         }
         return true;

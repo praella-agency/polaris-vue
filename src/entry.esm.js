@@ -1,4 +1,3 @@
-
 // Import vue components
 import * as components from './components';
 
