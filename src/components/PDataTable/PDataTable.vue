@@ -250,8 +250,6 @@
         },
     }
 
-    const TableData = [String, Number, Object, Array];
-    const ColumnContentType = ['text', 'numeric'];
     const SortDirection = ['ascending', 'descending', 'none'];
     const VerticalAlign = ['top', 'bottom', 'middle', 'baseline'];
 
@@ -288,7 +286,6 @@
             columnContentTypes: {
                 type: Array,
                 default: () => ([]),
-                ...ArrayValidator('columnContentTypes', ColumnContentType),
             },
             /**
              * The direction to sort the table rows on first click or keypress

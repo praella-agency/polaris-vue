@@ -27,7 +27,7 @@ import ArrayValidator from '../../utilities/validators/ArrayValidator';
 export const OptionDescriptor = {
     label: String,
     value: {
-      type: String,
+      type: [String, Number],
       required: true
     },
     disabled: Boolean,

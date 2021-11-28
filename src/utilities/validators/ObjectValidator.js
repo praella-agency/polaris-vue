@@ -21,9 +21,9 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
 
         if(typeof objectType === 'object' && !Array.isArray(objectType)) {
             isRequired = objectType.required || false;
-            if (!Array.isArray(objectType.type)) {
+            if (objectType.type && !Array.isArray(objectType.type)) {
                 valueType = [objectType.type.name] || undefined;
-            } else {
+            } else if (objectType.type) {
                 objectType.type.forEach((type) => {
                     valueType.push(type.name || undefined);
                 });
