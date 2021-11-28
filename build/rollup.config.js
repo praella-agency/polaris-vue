@@ -10,18 +10,19 @@ import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import scss from 'rollup-plugin-scss';
-import autoprefixer from "autoprefixer";
+import autoprefixer from 'autoprefixer';
+import cjs from 'rollup-plugin-commonjs';
 import minimist from 'minimist';
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs.readFileSync('./.browserslistrc')
-.toString()
-.split('\n')
-.filter((entry) => entry && entry.substring(0, 2) !== 'ie');
+    .toString()
+    .split('\n')
+    .filter((entry) => entry && entry.substring(0, 2) !== 'ie');
 
 // Extract babel preset-env config, to combine with esbrowserslist
 const babelPresetEnvConfig = require('../babel.config')
-.presets.filter((entry) => entry[0] === '@babel/preset-env')[0][1];
+    .presets.filter((entry) => entry[0] === '@babel/preset-env')[0][1];
 
 const argv = minimist(process.argv.slice(2));
 
@@ -113,7 +114,8 @@ if (!argv.format || argv.format === 'es') {
                     path.join(__dirname, '../../node_modules/'),
                     'node_modules/'
                 ]
-            })
+            }),
+            cjs()
         ],
     };
     buildFormats.push(esConfig);
@@ -150,20 +152,21 @@ if (!argv.format || argv.format === 'cjs') {
                     path.join(__dirname, '../../node_modules/'),
                     'node_modules/'
                 ]
-            })
+            }),
+            cjs()
         ],
     };
     buildFormats.push(umdConfig);
 }
 
-if (!argv.format || argv.format === 'iife') {
+if (!argv.format || argv.format === 'umd') {
     const unpkgConfig = {
         ...baseConfig,
         external,
         output: {
             compact: true,
             file: 'dist/polaris-vue.min.js',
-            format: 'iife',
+            format: 'umd',
             name: 'PolarisVue',
             exports: 'auto',
             globals,
@@ -186,7 +189,8 @@ if (!argv.format || argv.format === 'iife') {
                     path.join(__dirname, '../../node_modules/'),
                     'node_modules/'
                 ]
-            })
+            }),
+            cjs()
         ],
     };
     buildFormats.push(unpkgConfig);
