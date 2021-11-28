@@ -397,17 +397,16 @@
             },
             computedValue: {
                 get() {
-                    if(this.value) {
-                        if(typeof this.value === 'string') {
+                    if (this.value) {
+                        if (typeof this.value === 'string') {
                             return {
                                 startDate: this.value,
                                 endDate: null,
                             }
                         }
                         return this.value;
-                    }
-                    else if(this.dateRange) {
-                        if(typeof this.dateRange === 'string') {
+                    } else if (this.dateRange) {
+                        if (typeof this.dateRange === 'string') {
                             return {
                                 startDate: this.dateRange,
                                 endDate: null,
@@ -437,14 +436,14 @@
         },
         methods: {
             computedTextValue(picker) {
-                if(!this.singleDatePicker) {
-                    if(picker.startDate && picker.endDate) {
+                if (!this.singleDatePicker) {
+                    if (picker.startDate && picker.endDate) {
                         return (`${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}`);
                     } else {
                         return this.placeholder;
                     }
                 } else {
-                    if(picker.startDate) {
+                    if (picker.startDate) {
                         return this.formatDate(picker.startDate);
                     } else {
                         return this.placeholder;
