@@ -5,7 +5,7 @@ export const StringValidator = (name, value, expectedValues) => {
         if (expectedValues.includes(null)) {
             expectedValues.splice(expectedValues.indexOf(null), 1);
         }
-        Vue.util.warn(`The "${name}" prop is invalid. Given value: "${value}". Available options: "${expectedValues.join(', ')}".`, this)
+        Vue.util.warn(`The "${name}" prop is invalid. Given value: "${value}". Available options: "${expectedValues.join(', ')}".`, true)
         return false;
     }
     return true;

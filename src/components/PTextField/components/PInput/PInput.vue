@@ -128,9 +128,6 @@
     import { PSpinner } from '../../../../components/PTextField/components/PSpinner';
     import { PFieldResizer } from '../../../../components/PTextField/components/PFieldResizer';
     import { PIcon } from '../../../../components/PIcon';
-    import 'quill/dist/quill.core.css';
-    import 'quill/dist/quill.snow.css';
-    import 'quill/dist/quill.bubble.css';
     import { quillEditor } from 'vue-quill-editor';
     import StringValidator from '../../../../utilities/validators/StringValidator';
 

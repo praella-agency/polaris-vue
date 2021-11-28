@@ -85,8 +85,6 @@ import { PScrollable } from './PScrollable';
 import { PTooltip } from './PTooltip';
 import { PVerticalTabs } from './PVerticalTabs';
 
-import '../../scss/main.scss';
-
 const Components = {
   PBadge,
   PBanner,
