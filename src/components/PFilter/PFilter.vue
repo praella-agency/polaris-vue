@@ -107,7 +107,7 @@
                 ...ObjectValidator('resourceName', ResourceNameInterface),
             },
             /**
-             * Title or placeholder for the element. **Deprecated** ResourceTitle will be removed in version 3.0.0
+             * Title or placeholder for the element. **Deprecated** ResourceTitle will be removed in version 4.0.0
              */
             resourceTitle: {
                 type: String,
@@ -235,13 +235,13 @@
         mounted() {
             if (this.resourceTitle != null) {
                 // tslint:disable-next-line:no-console
-                console.error('Deprecation Notice: `resourceTitle` will be removed in version 3.0.0, use `resourceName` ' +
+                console.error('Deprecation Notice: `resourceTitle` will be removed in version 4.0.0, use `resourceName` ' +
                     'instead.');
             }
 
             if (this.inputFilter != null) {
                 // tslint:disable-next-line:no-console
-                console.error('Deprecation Notice: `inputFilter` will be removed in version 3.0.0, use `queryValue` instead.');
+                console.error('Deprecation Notice: `inputFilter` will be removed in version 4.0.0, use `queryValue` instead.');
             }
         }
     }

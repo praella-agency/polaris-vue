@@ -34,7 +34,7 @@
                                         @sort-changed="handleSortChange"
                                     />
 
-                                    <!-- @deprecated Remove in version 3.0.0 - START -->
+                                    <!-- @deprecated Remove in version 4.0.0 - START -->
                                     <PDataTableCell
                                         v-if="hasActions"
                                         header
@@ -44,7 +44,7 @@
                                         :firstColumn="false"
                                         :truncate="false"
                                         :verticalAlign="verticalAlign"/>
-                                    <!-- @deprecated Remove in version 3.0.0 - END -->
+                                    <!-- @deprecated Remove in version 4.0.0 - END -->
 
                                 </tr>
 
@@ -62,13 +62,13 @@
                                         :sortable="false"
                                     />
 
-                                    <!-- @deprecated Remove in version 3.0.0 - START -->
+                                    <!-- @deprecated Remove in version 4.0.0 - START -->
                                     <PDataTableCell
                                         total
                                         v-if="totals.length && hasActions"
                                         :totalInFooter="showTotalsInFooter"
                                         :verticalAlign="verticalAlign"/>
-                                    <!-- @deprecated Remove in version 3.0.0 - END -->
+                                    <!-- @deprecated Remove in version 4.0.0 - END -->
 
                                 </tr>
                             </template>
@@ -118,7 +118,7 @@
                                         </slot>
                                     </template>
                                 </template>
-                                <!-- @deprecated Remove in version 3.0.0 - START -->
+                                <!-- @deprecated Remove in version 4.0.0 - START -->
                                 <template v-else>
                                     <tr
                                         class="Polaris-DataTable__TableRow"
@@ -144,7 +144,7 @@
                                         />
                                     </tr>
                                 </template>
-                                <!-- @deprecated Remove in version 3.0.0 - END -->
+                                <!-- @deprecated Remove in version 4.0.0 - END -->
 
                             </slot>
                         </tbody>
@@ -164,13 +164,13 @@
                                 :sortable="false"
                             />
 
-                            <!-- @deprecated Remove in version 3.0.0 - START -->
+                            <!-- @deprecated Remove in version 4.0.0 - START -->
                             <PDataTableCell
                                 total
                                 v-if="totals.length && hasActions"
                                 :totalInFooter="showTotalsInFooter"
                                 :verticalAlign="verticalAlign"/>
-                            <!-- @deprecated Remove in version 3.0.0 - END -->
+                            <!-- @deprecated Remove in version 4.0.0 - END -->
                         </tr>
                     </tfoot>
                 </table>
@@ -413,7 +413,7 @@
             /**
              * Handle action events for the button.
              *
-             * **Deprecation:-** `actions` will be removed in version 3.0.0,
+             * **Deprecation:-** `actions` will be removed in version 4.0.0,
              * use `headings` with extra object.
              * @deprecated
              */
@@ -424,7 +424,7 @@
             /**
              * Data ids
              *
-             * **Deprecation:-** `ids` will be removed in version 3.0.0,
+             * **Deprecation:-** `ids` will be removed in version 4.0.0,
              * @deprecated
              */
             ids: {
@@ -434,7 +434,7 @@
             /**
              * Search Placeholder
              *
-             * **Deprecation:-** `searchPlaceholder` will be removed in version 3.0.0, use `resourceName` instead.
+             * **Deprecation:-** `searchPlaceholder` will be removed in version 4.0.0, use `resourceName` instead.
              * @deprecated
              */
             searchPlaceholder: {
@@ -502,18 +502,18 @@
             handleDeprecations() {
                 if (this.searchPlaceholder != null) {
                     // tslint:disable-next-line:no-console
-                    console.error('Deprecation Notice: `searchPlaceholder` will be removed in version 3.0.0, use `resourceName` instead. ' +
+                    console.error('Deprecation Notice: `searchPlaceholder` will be removed in version 4.0.0, use `resourceName` instead. ' +
                         'Please check resourceName syntax here: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-filter--filter');
                 }
                 if (this.actions.length > 0) {
                     // tslint:disable-next-line:no-console
-                    console.error('Deprecation Notice: `actions` will be removed in version 3.0.0, use `headings` with extra object. '
+                    console.error('Deprecation Notice: `actions` will be removed in version 4.0.0, use `headings` with extra object. '
                         + 'Please check new example of' +
                         ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--row-slot');
                 }
                 if (this.ids.length > 0) {
                     // tslint:disable-next-line:no-console
-                    console.error('Deprecation Notice: `ids` will be removed in version 3.0.0. ' +
+                    console.error('Deprecation Notice: `ids` will be removed in version 4.0.0. ' +
                         'Please check new example of' +
                         ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--row-slot');
                 }
