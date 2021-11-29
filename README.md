@@ -12,12 +12,12 @@ You need [Vue.js](https://vuejs.org/) **version 2+**.
 
 ### 1. Install via npm
 
-####Using NPM
+#### Using NPM
 ```bash
 npm i @hulkapps/polaris-vue
 ```
 
-####Using Yarn
+#### Using Yarn
 ```bash
 yarn add @hulkapps/polaris-vue
 ```
