@@ -58,6 +58,10 @@ function install(Vue, options = {}) {
                 return;
             }
 
+            if (!instance) {
+                let componentClass = Vue.extend(PLoading);
+                instance = new componentClass({});
+            }
             if (instance) {
                 instance.$mount();
                 document.body.prepend(instance.$el);
@@ -97,7 +101,11 @@ function install(Vue, options = {}) {
             this.$vm.RADON_LOADING_BAR.options.show = false;
             Vue.nextTick(() => {
                 this.$vm.RADON_LOADING_BAR.percent = 0;
-            })
+            });
+            if (instance && instance.$el) {
+                document.body.removeChild(instance.$el);
+                instance = null;
+            }
         },
         finish() {
             if (!this.$vm) return;

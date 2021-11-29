@@ -33,6 +33,7 @@ Vue.use(PolarisVue);
 
 Other available builds
 ```javascript
+'/dist/polaris-vue.min.js';
 '/dist/polaris-vue.ssr.js';
 '/dist/polaris-vue.esm.js';
 ```

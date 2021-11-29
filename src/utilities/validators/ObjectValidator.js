@@ -90,20 +90,34 @@ export const ObjectValidator = (name, object, objectInterface, isRequired) => {
         return false;
     } else {
         let isValidated = false;
-
-        if (objectInterface.type) {
-            let objectInterfaceType = objectInterface.type;
-            if (!Array.isArray(objectInterface.type)) {
-                objectInterfaceType = [objectInterfaceType];
+        if (objectInterface[`${name}`]) {
+            let valueType = [];
+            let objectInterfaceType = objectInterface[`${name}`];
+            if (!Array.isArray(objectInterfaceType)) {
+                if (typeof objectInterfaceType !== 'object') {
+                    valueType = [objectInterfaceType.name];
+                }
+            } else {
+                objectInterfaceType.forEach((type) => {
+                    valueType.push(type.name || undefined);
+                });
             }
-            objectInterfaceType.forEach(type => {
-                if (type.name === 'Array' && Array.isArray(object)) {
-                    isValidated = true;
+
+            if (typeof objectInterfaceType === 'object' && !Array.isArray(objectInterfaceType)) {
+                if (objectInterfaceType.type && !Array.isArray(objectInterfaceType.type)) {
+                    valueType = [objectInterfaceType.type.name] || undefined;
+                } else if (objectInterfaceType.type) {
+                    objectInterfaceType.type.forEach((type) => {
+                        valueType.push(type.name || undefined);
+                    });
                 }
-                if (typeof object === type.name.toLowerCase()) {
+            }
+            if (valueType.length > 1) {
+                if (valueType.includes((typeof (object)).charAt(0).toUpperCase() + (typeof (object)).slice(1))) {
                     isValidated = true;
+                    objectInterface = objectInterface[`${name}`].properties;
                 }
-            });
+            }
         }
 
         if (!isValidated && typeof object !== 'object') {

@@ -109,13 +109,20 @@
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
     const DateType = [Date, String];
-
     const DateRange = {
-        type: [Array, String, Object],
+        type: [String, Object],
         properties: {
             startDate: DateType,
             endDate: DateType,
         },
+    }
+
+    const DateRangeInterface = {
+        dateRange: DateRange,
+    }
+
+    const ValueInterface = {
+        value: DateRange,
     }
 
     /**
@@ -318,7 +325,7 @@
              */
             dateRange: {
                 type: [String, Object],
-                ...ObjectValidator('dateRange', DateRange),
+                ...ObjectValidator('dateRange', DateRangeInterface),
             },
             /**
              * Each calendar has separate navigation when this is false
@@ -359,7 +366,7 @@
              */
             value: {
                 type: [String, Object],
-                ...ObjectValidator('value', DateRange),
+                ...ObjectValidator('value', ValueInterface),
             },
         },
         data() {

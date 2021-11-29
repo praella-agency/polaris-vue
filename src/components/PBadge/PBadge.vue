@@ -14,8 +14,8 @@
     import { classNames, variationName } from '../../utilities/css';
     import StringValidator from '../../utilities/validators/StringValidator';
 
-    const Status = ['success', 'info', 'attention', 'warning', 'new', 'critical', null];
-    const Progress = ['incomplete', 'partiallyComplete', 'complete', null];
+    const Status = ['success', 'info', 'attention', 'warning', 'new', 'critical', null, ''];
+    const Progress = ['incomplete', 'partiallyComplete', 'complete', null, ''];
     const Size = ['small', 'medium'];
 
     const DEFAULT_SIZE = 'medium';

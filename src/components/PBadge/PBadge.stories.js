@@ -51,4 +51,3 @@ const Template = (args, { argTypes }) => ({
 });
 
 export const Badge = Template.bind({});
-

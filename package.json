@@ -18,7 +18,7 @@
     "component library"
   ],
   "license": "MIT",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "scripts": {
     "prebuild": "rimraf ./dist",
     "build:scss": "sass src/scss/main.scss | node ./build/banner.js > dist/polaris-vue.css && cleancss --inline local -o dist/polaris-vue.min.css dist/polaris-vue.css",
@@ -32,9 +32,6 @@
     "build-storybook": "build-storybook"
   },
   "main": "dist/polaris-vue.min.js",
-  "browser": "dist/polaris-vue.esm.js",
-  "module": "dist/polaris-vue.esm.js",
-  "unpkg": "dist/polaris-vue.ssr.js",
   "dependencies": {
     "@hulkapps/vue-plyr": "^7.0.5",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
@@ -49,7 +46,9 @@
     "vue-color": "^2.7.1",
     "vue-multiselect": "^2.1.6",
     "vue-quill-editor": "^3.0.6",
-    "vue2-daterange-picker": "^0.6.5"
+    "vue2-daterange-picker": "^0.6.5",
+    "vue": "^2.6.14",
+    "vue-router": "^3.5.1"
   },
   "files": [
     "dist/*",
@@ -98,8 +97,6 @@
     "rollup-plugin-vue": "^5.1.9",
     "sass-loader": "^8.0.0",
     "showdown": "^1.9.1",
-    "vue": "^2.6.14",
-    "vue-router": "^3.5.1",
     "vue-loader": "^15.9.7",
     "vue-template-compiler": "^2.6.14"
   },
