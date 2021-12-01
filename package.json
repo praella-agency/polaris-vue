@@ -42,13 +42,13 @@
     "dayjs": "^1.10.4",
     "mitt": "^3.0.0",
     "v-click-outside": "^3.0.1",
+    "vue": "^2.6.14",
     "vue-apexcharts": "^1.6.1",
     "vue-color": "^2.7.1",
     "vue-multiselect": "^2.1.6",
     "vue-quill-editor": "^3.0.6",
-    "vue2-daterange-picker": "^0.6.5",
-    "vue": "^2.6.14",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.1",
+    "vue2-daterange-picker": "^0.6.5"
   },
   "files": [
     "dist/*",
@@ -79,6 +79,8 @@
     "clean-css": "^5.2.2",
     "clean-css-cli": "4.3.0",
     "cross-env": "^7.0.3",
+    "eslint": "^8.3.0",
+    "eslint-webpack-plugin": "^3.1.1",
     "minimist": "^1.2.5",
     "node-sass": "^4.12.0",
     "postcss": "^8.0.0",

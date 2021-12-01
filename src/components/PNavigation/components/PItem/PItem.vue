@@ -19,11 +19,12 @@
                     <div v-if="icon" class="Polaris-Navigation__Icon">
                         <PIcon :source="icon"/>
                     </div>
-                    <span class="Polaris-Navigation__Text">{{ label }}<span v-if="hasNewChild"
-                                                                            class="Polaris-Navigation__Indicator">
-              <span class="Polaris-Indicator Polaris-Indicator--pulseIndicator"/>
-            </span>
-          </span>
+                    <span class="Polaris-Navigation__Text">
+                        {{ label }}
+                        <span v-if="hasNewChild" class="Polaris-Navigation__Indicator">
+                            <span class="Polaris-Indicator Polaris-Indicator--pulseIndicator"/>
+                        </span>
+                    </span>
                     <div v-if="this.new || this.badge || $slots.hasOwnProperty('badge')"
                          class="Polaris-Navigation__Badge">
                         <PBadge v-if="this.new" status="new" size="small">
@@ -87,7 +88,7 @@
         MatchUrl: 1,
         MatchPaths: 2,
         Excluded: 3,
-        NoMatch:4,
+        NoMatch: 4,
     };
 
     export default {
