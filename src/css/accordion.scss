@@ -1,0 +1,70 @@
+.Polaris-Accordion-Item {
+  background-color: #FFFF;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.Polaris-Accordion-Item:first-of-type {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.Polaris-Accordion-Item:last-of-type, .Polaris-Accordion-Title.collapsed {
+  border-bottom-right-radius: calc(.25rem - 1px);
+  border-bottom-left-radius: calc(.25rem - 1px);
+}
+
+.Polaris-Accordion-Title {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+  border: 0;
+  border-radius: 0;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, border-radius .15s ease;
+}
+
+.Polaris-Accordion-Title--collapsed {
+  background-color: #f1f8f5;
+}
+
+.Polaris-Accordion-Title--slot {
+  position: relative;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  border: 0;
+  border-radius: 0;
+  background-color: #fff;
+  overflow: hidden;
+  transition: .15s ease-in-out, .15s ease-in-out, .15s ease-in-out, box-shadow .15s ease-in-out, border-radius .15s ease;
+}
+
+.Polaris-Accordion-Title--collapsed--slot {
+  background-color: #f1f8f5;
+}
+
+.Polaris-Accordion-Title:first-of-type .Polaris-Accordion-Title {
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+}
+
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled), button:not(:disabled) {
+  cursor: pointer;
+}
+
+.Polaris-Accordion-Icon {
+  margin: unset !important;
+  float: right;
+}
+
+.Polaris-Accordion-Body {
+  padding: 1rem 1.25rem;
+}
