@@ -1,4 +1,6 @@
 import { PAccordion } from './index';
+import { PAccordionItem } from './components/PAccordionItem';
+import { PIcon } from '../PIcon';
 
 export default {
     title: 'Accordion',
@@ -8,11 +10,10 @@ export default {
 const Template = (args, { argTypes }) => ({
     props: Object.keys(argTypes),
     components: {
-        PAccordion,
+        PAccordion, PAccordionItem, PIcon,
     },
     data() {
         return {
-            isOpen: false,
             items: [
                 {
                     title: 'Accordion 1',
@@ -57,14 +58,53 @@ const Template = (args, { argTypes }) => ({
         };
     },
     template: `
+        <div>
+<!--        <PAccordion-->
+<!--            v-bind="$props"-->
+<!--            id="a"-->
+<!--        >-->
+<!--            <PAccordionItem-->
+<!--                v-for="(item, key) in items"-->
+<!--                :key="key"-->
+<!--                :id="'id' + key"-->
+<!--            >-->
+<!--                <template slot="title">-->
+<!--                    {{ item.title }}-->
+<!--                </template>-->
+<!--                <template slot="content">-->
+<!--                    {{ item.content }}-->
+<!--                </template>-->
+<!--            </PAccordionItem>-->
+<!--        </PAccordion>-->
         <PAccordion
             v-bind="$props"
             :accordions="items"
+            id="b"
+            :icon="{
+                open: {
+                    source: 'AddMajor',
+                    color: 'critical',
+                },
+                close: {
+                    source: 'CameraMajor',
+                    color: 'success',
+                },                
+            }"
         >
-            <div slot="title" style="background-color: red; width: 100%; margin: 1rem 2.25rem;">
-                <button>a</button>
-            </div>
+<!--            <PAccordionItem-->
+<!--                v-for="(item, key) in items"-->
+<!--                :key="key"-->
+<!--                :id="'key' + key"-->
+<!--            >-->
+<!--                <template slot="title">-->
+<!--                    {{ item.title }}-->
+<!--                </template>-->
+<!--                <template slot="content">-->
+<!--                    {{ item.content }}-->
+<!--                </template>-->
+<!--            </PAccordionItem>-->
         </PAccordion>
+        </div>
     `,
 });
 
