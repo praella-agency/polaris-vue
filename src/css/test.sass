@@ -1,0 +1,29 @@
+// Theme
+@import "settings/_dark.scss"
+@import "tools/_theme.scss"
+
+//// Theme
+//+theme(v-card) using ($material)
+//  background-color: map-get($material, 'cards')
+//  color: map-deep-get($material, 'text', 'primary')
+//
+//  > .v-card__text,
+//  > .v-card__subtitle
+//    color: map-deep-get($material, 'text', 'secondary')
+
+@mixin card-theme($material)
+  background-color: map-get($material, 'cards')
+  color: map-deep-get($material, 'text', 'primary')
+
+  .v-card__text
+    color: map-deep-get($material, 'text', 'secondary')
+
+  &.v-card--outlined
+    border: 1px solid map-get($material, 'dividers')
+
+
+.Polaris-Card.theme--dark
+  +card-theme($material-dark)
+
+.Polaris-Card.theme--light
+  +card-theme($material-light)
