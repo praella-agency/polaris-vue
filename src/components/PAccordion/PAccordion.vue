@@ -1,14 +1,15 @@
 <template>
     <div :id="id" class="Polaris-Accordion">
+        <!-- @slot Add Custom Accordion -->
         <slot>
             <PAccordionItem
                 v-for="(accordion, index) in accordions"
                 :key="index"
                 v-bind="accordion"
-                :id="`${id}-${index}`"
-                :open="visibility"
+                :id="`${index}`"
                 :showIcon="showIcon"
-                :icon="setIcon(`${id}-${index}`)"
+                :themeOptions="themeOptions"
+                :icon="setIcon(`${id}-${accordionItemIds[index]}`, index)"
             />
         </slot>
     </div>
@@ -29,85 +30,106 @@
             };
         },
         props: {
+            /**
+             * Unique Id for the accordion
+             */
             id: {
                 type: [String, Number],
                 required: true,
             },
+            /**
+             * Lists of accordions
+             */
             accordions: {
                 type: Array,
                 default: () => ([]),
             },
+            /**
+             * Custom animation
+             */
             animation: {
                 type: Object,
             },
+            /**
+             * Custom icon
+             */
             icon: {
                 type: [Object, String],
             },
+            /**
+             * Set default open values.
+             *
+             * **Note**:- Value should be index of accordion.
+             */
             open: {
                 type: [Array, Number],
             },
+            /**
+             * Allow multiple accordion to open
+             */
             multiple: {
                 type: Boolean,
                 default: false,
+            },
+            /**
+             * ThemeOptions
+             */
+            themeOptions: {
+                type: Object,
+                default: () => ({}),
             },
         },
         data() {
             return {
                 visibility: {},
                 showIcon: true,
+                accordionItemIds: [],
             };
         },
         methods: {
+            handleAccordionItemExpansion() {
+                if (this.open || this.open === 0) {
+                    if (Array.isArray(this.open)) {
+                        this.open.forEach((index) => {
+                            if (this.accordionItemIds[index] || this.accordionItemIds[index] === 0) {
+                                this.$set(this.visibility, `${this.id}-${this.accordionItemIds[index]}`, true);
+                            }
+                        });
+                    } else {
+                        this.$set(this.visibility, `${this.id}-${this.open}`, true);
+                    }
+                }
+            },
             handleToggle(index) {
                 if (!this.multiple) {
                     Object.keys(this.visibility).forEach((key) => {
-                        if (key !== index) {
+                        if (key.toString() !== index.toString()) {
                             this.$set(this.visibility, key, false);
                         }
                     });
                 }
                 this.$set(this.visibility, index, !this.visibility[index]);
             },
-            setIcon(index) {
+            setIcon(index, key) {
                 if (this.icon) {
                     if (typeof this.icon === 'object') {
                         if (this.visibility[index]) {
-                            if (this.icon.hasOwnProperty('open') && Object.keys(this.icon.open).length) {
-                                if (typeof this.icon.open === 'object') {
-                                    if (!this.icon.open.hasOwnProperty('source') && this.icon.open.hasOwnProperty('color')) {
-                                        return {
-                                            source: 'CaretUpMinor',
-                                            color: this.icon.open.color,
-                                        }
-                                    }
-                                    return this.icon.open;
-                                } else if (typeof this.icon.open === 'string') {
-                                    return {
-                                        source: this.icon.open,
-                                        color: '',
-                                    }
-                                }
-                            }
+                            return this.setOpenCloseIcon(this.icon, 'open', 'CaretUpMinor');
                         } else {
-                            if (this.icon.hasOwnProperty('close') && Object.keys(this.icon.close).length) {
-                                if (typeof this.icon.close === 'object') {
-                                    if (!this.icon.close.hasOwnProperty('source') && this.icon.close.hasOwnProperty('color')) {
-                                        return {
-                                            source: 'CaretDownMinor',
-                                            color: this.icon.close.color,
-                                        }
-                                    }
-                                    return this.icon.close;
-                                } else if (typeof this.icon.close === 'string') {
-                                    return {
-                                        source: this.icon.close,
-                                        color: '',
-                                    }
-                                }
-                            }
+                            return this.setOpenCloseIcon(this.icon, 'close', 'CaretDownMinor');
                         }
                     } else if (typeof this.icon === 'string') {
                         return this.icon;
+                    }
+                } else if (this.accordions[key].hasOwnProperty('icon')) {
+                    if (typeof this.accordions[key].icon === 'object') {
+                        if (this.visibility[index]) {
+                            return this.setOpenCloseIcon(this.accordions[key].icon, 'open', 'CaretUpMinor');
+                        } else {
+                            return this.setOpenCloseIcon(this.accordions[key].icon, 'close', 'CaretDownMinor');
+                        }
+                    } else if (typeof this.accordions[key].icon === 'string') {
+                        return this.accordions[key].icon;
                     }
                 }
 
@@ -116,28 +138,38 @@
                 }
                 return this.visibility[index] ? 'CaretUpMinor' : 'CaretDownMinor';
             },
+            setOpenCloseIcon(object, type, source) {
+                if (object.hasOwnProperty(type) && Object.keys(object[type]).length) {
+                    if (typeof object[type] === 'object') {
+                        if (!object[type].hasOwnProperty('source') && object[type].hasOwnProperty('color')) {
+                            return {
+                                source: source,
+                                color: object[type].color,
+                            }
+                        }
+                        return object[type];
+                    } else if (typeof object[type] === 'string') {
+                        return {
+                            source: object[type],
+                            color: '',
+                        }
+                    }
+                }
+            },
         },
         created() {
-            let indexes = [];
-            if (this.open) {
-                if (Array.isArray(this.open)) {
-                    indexes = this.open;
-                } else {
-                    indexes = [this.open];
-                }
-            }
-
             this.accordions.forEach((item, index) => {
-                if (indexes.includes(index)) {
-                    this.$set(this.visibility, `${this.id}-${index}`, true);
-                } else {
-                    this.$set(this.visibility, `${this.id}-${index}`, false);
-                }
-            });
-        },
-        mounted() {
+                this.accordionItemIds.push(index);
+            })
+            this.handleAccordionItemExpansion();
+
             this.$root.$on(`accordion-${this.id}-toggle`, (index) => {
                 this.handleToggle(index);
+            });
+            this.accordionItemIds = [];
+            this.$root.$on(`accordion-${this.id}-item`, (index) => {
+                this.accordionItemIds.push(index);
+                this.handleAccordionItemExpansion();
             });
         }
     }

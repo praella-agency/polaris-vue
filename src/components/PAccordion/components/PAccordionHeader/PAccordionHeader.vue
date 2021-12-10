@@ -3,6 +3,7 @@
         <button
             :id="`accordion-button${this['_uid']}`"
             :class="$slots.default ? slotClassName : className"
+            :style="style"
             @click="handleToggle(id)"
             type="button"
         >
@@ -23,8 +24,9 @@
     import { classNames } from '../../../../utilities/css';
     import { PHeading } from '../../../../components/PHeading';
     import { PIcon } from '../../../../components/PIcon';
+    import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
-    export default {
+   export default {
         name: 'PAccordionHeader',
         components: {
             PHeading, PIcon,
@@ -45,6 +47,14 @@
             open: {
                 type: Boolean,
             },
+            themeOptions: {
+                type: Object,
+            },
+        },
+        data() {
+            return {
+                themeOptionData: {},
+            };
         },
         computed: {
             className() {
@@ -58,6 +68,19 @@
                     'Polaris-Accordion-Title--slot',
                     this.open && 'Polaris-Accordion-Title--collapsed--slot',
                 );
+            },
+            style() {
+                let styles = {};
+                if (this.themeOptions.color) {
+                    styles.color = this.themeOptions.color;
+                }
+                if (!this.open && this.themeOptions.background) {
+                    styles.backgroundColor = this.themeOptions.background;
+                }
+                if (this.open && this.themeOptions.backgroundCollapsed) {
+                    styles.backgroundColor = this.themeOptions.backgroundCollapsed;
+                }
+                return styles;
             },
         },
         methods: {

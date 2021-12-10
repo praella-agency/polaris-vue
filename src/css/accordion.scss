@@ -1,3 +1,12 @@
+:root {
+  --title-color: #212529;
+  --header-background-color: #fff;
+  --header-background-collapsed-color: #f1f8f5;
+
+  --content-color: #212529;
+  --content-background-color: #fff;
+}
+
 .Polaris-Accordion-Item {
   background-color: #FFFF;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
@@ -21,16 +30,16 @@
   width: 100%;
   padding: 1rem 1.25rem;
   font-size: 1rem;
-  color: #212529;
+  color: var(--title-color);
   text-align: left;
-  background-color: #fff;
+  background-color: var(--header-background-color);
   border: 0;
   border-radius: 0;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, border-radius .15s ease;
 }
 
 .Polaris-Accordion-Title--collapsed {
-  background-color: #f1f8f5;
+  background-color: var(--header-background-collapsed-color);
 }
 
 .Polaris-Accordion-Title--slot {
@@ -40,13 +49,15 @@
   font-size: 1rem;
   border: 0;
   border-radius: 0;
-  background-color: #fff;
+  color: var(--title-color);
+  text-align: left;
+  background-color: var(--header-background-color);
   overflow: hidden;
   transition: .15s ease-in-out, .15s ease-in-out, .15s ease-in-out, box-shadow .15s ease-in-out, border-radius .15s ease;
 }
 
 .Polaris-Accordion-Title--collapsed--slot {
-  background-color: #f1f8f5;
+  background-color: var(--header-background-collapsed-color);
 }
 
 .Polaris-Accordion-Title:first-of-type .Polaris-Accordion-Title {
@@ -67,4 +78,6 @@
 
 .Polaris-Accordion-Body {
   padding: 1rem 1.25rem;
+  color: var(--content-color);
+  background-color: var(--content-background-color);
 }

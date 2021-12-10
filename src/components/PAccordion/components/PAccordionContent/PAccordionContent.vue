@@ -5,8 +5,8 @@
         :open="open"
         :transition="animation"
     >
-        <div :id="`accordion${id}`">
-            <div class="Polaris-Accordion-Body">
+        <div :id="`content${id}`">
+            <div class="Polaris-Accordion-Body" :style="style">
                 <slot>
                     {{ content }}
                 </slot>
@@ -38,9 +38,25 @@
                 type: Boolean,
             },
             content: {
-                type: String,
+                type: [String, Number],
+            },
+            themeOptions: {
+                type: Object,
             },
         },
+        computed: {
+            style() {
+                let styles = {};
+                if (this.themeOptions.color) {
+                    styles.color = this.themeOptions.color;
+                }
+                if (this.themeOptions.background) {
+                    styles.backgroundColor = this.themeOptions.background;
+                }
+
+                return styles;
+            },
+        }
     }
 </script>
 

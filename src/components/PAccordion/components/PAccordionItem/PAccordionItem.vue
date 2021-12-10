@@ -4,20 +4,25 @@
         aria-controls="basic-accordion"
     >
         <PAccordionHeader
-            :id="id"
+            :id="accordionItemId"
             :title="title"
-            :open="this.getVisibility[id]"
+            :open="this.getVisibility[accordionItemId]"
             :iconSource="iconSource"
             :showIcon="showIcon"
-            @toggle="handleToggle(id)"
+
+            :themeOptions="headerThemeOptions"
+
+            @toggle="handleToggle(accordionItemId)"
         >
             <slot name="title"/>
         </PAccordionHeader>
         <PAccordionContent
-            :id="id"
+            :id="accordionItemId"
             :content="content"
             :animation="animation"
-            :open="this.getVisibility[id]"
+            :open="this.getVisibility[accordionItemId]"
+
+            :themeOptions="contentThemeOptions"
         >
             <slot name="content"/>
         </PAccordionContent>
@@ -51,6 +56,24 @@
         },
     }
 
+    const ThemeOptions = {
+        header: {
+            type: Object,
+            properties: {
+                color: String,
+                background: String,
+                backgroundCollapsed: String,
+            },
+        },
+        content: {
+            type: Object,
+            properties: {
+                color: String,
+                background: String,
+            },
+        },
+    }
+
     export default {
         name: 'PAccordionItem',
         components: {
@@ -77,8 +100,30 @@
             showIcon: {
                 type: Boolean,
             },
+            themeOptions: {
+                type: Object,
+                ...ObjectValidator('themeOptions', ThemeOptions),
+            },
+        },
+        data() {
+            return {
+                themeOptionsData: {
+                    header: {
+                        color: '',
+                        background: '',
+                        backgroundCollapsed: ''
+                    },
+                    content: {
+                        color: '',
+                        background: '',
+                    },
+                },
+            };
         },
         computed: {
+            accordionItemId() {
+                return `${this.getAccordionId}-${this.id}`;
+            },
             iconSource() {
                 let source = '';
                 let color = '';
@@ -95,12 +140,67 @@
                     color: color,
                 }
             },
+            headerThemeOptions() {
+                let styleOptions = {
+                    color: '',
+                    background: '',
+                    backgroundCollapsed: '',
+                };
+                if (this.themeOptions && Object.keys(this.themeOptions).length) {
+                    if (this.themeOptions.header) {
+                        styleOptions = {
+                            color: '',
+                            background: '',
+                            backgroundCollapsed: '',
+                        };
+                        let header = this.themeOptions.header;
+                        if (header.color) {
+                            this.$set(styleOptions, 'color', header.color);
+                        }
+                        if (header.background) {
+                            this.$set(styleOptions, 'background', header.background);
+                        }
+                        if (header.backgroundCollapsed) {
+                            this.$set(styleOptions, 'backgroundCollapsed', header.backgroundCollapsed);
+                        }
+                    }
+                }
+
+                return styleOptions;
+            },
+            contentThemeOptions() {
+                let styleOptions = {
+                    color: '',
+                    background: '',
+                };
+                if (this.themeOptions && Object.keys(this.themeOptions).length) {
+                    if (this.themeOptions.content) {
+                        styleOptions = {
+                            color: '',
+                            background: '',
+                        };
+                        let content = this.themeOptions.content;
+                        if (content.color) {
+                            this.$set(styleOptions, 'color', content.color);
+                        }
+                        if (content.background) {
+                            this.$set(styleOptions, 'background', content.background);
+                        }
+                    }
+                }
+
+                return styleOptions;
+            },
         },
         methods: {
             handleToggle(index) {
                 this.$root.$emit(`accordion-${this.getAccordionId}-toggle`, index);
             },
         },
+        mounted() {
+            let id = (this.id || this.id === 0) ? this.id : this['_uid'];
+            this.$root.$emit(`accordion-${this.getAccordionId}-item`, id);
+        }
     }
 </script>
 
