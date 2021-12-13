@@ -1,4 +1,4 @@
-@import '../tools/_functions.sass';
+@import '../tools/_functions';
 
 $red: () !default;
 $red: map-deep-merge(
@@ -384,6 +384,14 @@ $grey: map-deep-merge(
   $grey
 );
 
+$dark: () !default;
+$dark: map-deep-merge(
+  (
+    'base': #1E1E1E
+  ),
+  $dark
+);
+
 $shades: () !default;
 $shades: map-deep-merge(
   (
@@ -416,6 +424,7 @@ $colors: map-deep-merge(
     'brown': $brown,
     'blue-grey': $blue-grey,
     'grey': $grey,
+    'dark': $dark,
     'shades': $shades
   ),
   $colors

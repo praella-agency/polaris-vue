@@ -1,0 +1,77 @@
+// Theme
+@import 'settings/theme';
+
+//Card
+@mixin card-theme($material) {
+  background-color: map-deep-get($material, 'background', 'theme');
+  color: map-deep-get($material, 'text', 'primary');
+
+  .Polaris-Card__Section--subdued {
+    background-color: map-deep-get($material, 'background', 'hovered');
+    color: map-deep-get($material, 'text', 'secondary');
+  }
+}
+
+.Polaris-Card.theme--dark {
+  @include card-theme($material-dark);
+}
+
+.Polaris-Card.theme--light {
+  @include card-theme($material-light);
+}
+
+//Resource List
+@mixin resource-list-theme($material) {
+  background-color: map-deep-get($material, 'background', 'theme');
+  color: map-deep-get($material, 'text', 'secondary');
+
+  .Polaris-ResourceItem:hover {
+    background-color: map-deep-get($material, 'background', 'hovered');
+    color: map-deep-get($material, 'text', 'primary');
+  }
+
+  .Polaris-ResourceList__HeaderWrapper {
+    background-color: map-deep-get($material, 'background', 'theme');
+    color: map-deep-get($material, 'text', 'primary');
+  }
+
+  .Polaris-Checkbox__Backdrop {
+    background-color: unset;
+  }
+
+  .Polaris-ResourceList-BulkActions__BulkActionButton {
+    .Polaris-Button {
+      background-color: inherit;
+      color: unset;
+    }
+
+    .Polaris-Button.Polaris-Button--plain {
+      color: #2C6ECB;
+    }
+
+    .Polaris-Button.Polaris-Button--plain:hover {
+      background-color: unset;
+      color: #1f5199;
+    }
+
+    .Polaris-Button:hover {
+      background-color: map-deep-get($material, 'background', 'hovered');
+      color: map-deep-get($material, 'text', 'primary');
+    }
+  }
+
+  .Polaris-ResourceList__SortWrapper {
+    .Polaris-Select__Backdrop {
+      background-color: map-deep-get($material, 'background', 'theme') !important;
+      color: map-deep-get($material, 'text', 'primary');
+    }
+  }
+}
+
+.Polaris-ResourceList__ResourceListWrapper.theme--dark {
+  @include resource-list-theme($material-dark);
+}
+
+.Polaris-ResourceList__ResourceListWrapper.theme--light {
+  @include resource-list-theme($material-light);
+}
