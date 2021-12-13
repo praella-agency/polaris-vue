@@ -23,7 +23,7 @@ export const Default = Template.bind({});
 
 Default.args = {
     multiple: false,
-    open: [1, 0],
+    open: 0,
     accordions: [
         {
             title: 'Accordion 1',

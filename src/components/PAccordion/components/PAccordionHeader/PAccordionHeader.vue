@@ -8,7 +8,9 @@
             type="button"
         >
             <slot>
-                <PHeading>{{ title }}</PHeading>
+                {{ title }}
+            </slot>
+            <slot name="actions">
                 <PIcon
                     v-if="showIcon"
                     class="Polaris-Accordion-Icon"
@@ -24,7 +26,6 @@
     import { classNames } from '../../../../utilities/css';
     import { PHeading } from '../../../../components/PHeading';
     import { PIcon } from '../../../../components/PIcon';
-    import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
    export default {
         name: 'PAccordionHeader',
