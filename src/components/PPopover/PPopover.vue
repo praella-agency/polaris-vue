@@ -1,11 +1,11 @@
 <template>
-    <div ref="container">
+    <div ref="container" v-click-outside="hidePopover">
         <!-- @slot Filter Activator content -->
         <slot name="activator" :activate="onActivate"></slot>
 
         <PPopoverOverlay
             :id="realId+'Overlay'"
-            :active="active"
+            :active="activeStatus"
             :activatorId="activatorId"
             :preferredPosition="preferredPosition"
             :preferredAlignment="preferredAlignment"
@@ -44,6 +44,7 @@
 <script>
     import { classNames } from '../../utilities/css';
     import { PPopoverOverlay } from '../../components/PPopover/components/PPopoverOverlay';
+    import vClickOutside from 'v-click-outside';
 
     /**
      * <br/>
@@ -56,6 +57,9 @@
         name: 'PPopover',
         components: {
             PPopoverOverlay,
+        },
+        directives: {
+          clickOutside: vClickOutside.directive,
         },
         props: {
             /**
@@ -156,6 +160,7 @@
         data() {
             return {
                 isAppended: false,
+                activeStatus: this.active,
                 container: HTMLElement,
             };
         },
@@ -199,7 +204,7 @@
                 const target = e.target;
                 const contentNode = this.$refs['content-' + this.id];
                 if ((contentNode != null && this.nodeContainsDescendant(contentNode, target)) ||
-                    this.nodeContainsDescendant(this.findActivator(), target) || !this.active) {
+                    this.nodeContainsDescendant(this.findActivator(), target) || !this.activeStatus) {
                     return;
                 }
                 /**
@@ -236,9 +241,13 @@
             onClose() {
                 this.$emit('close', 'Click');
             },
+            hidePopover() {
+                this.activeStatus = false;
+            }
         },
         watch: {
             active(value, oldValue) {
+                this.activeStatus = value;
                 if (value) {
                     const popoverOverlay = document.getElementById(this.realId + 'Overlay');
                     if (popoverOverlay) {
