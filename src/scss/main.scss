@@ -4,4 +4,10 @@
 @import './../../node_modules/vue2-daterange-picker/dist/vue2-daterange-picker';
 @import './../../node_modules/vue-multiselect/dist/vue-multiselect.min';
 
+//colors and theme
+@import '../css/functions';
+@import '../css/colors';
+@import '../css/theme';
+
+//Polaris-Vue components css
 @import '../css/polaris.scss';
