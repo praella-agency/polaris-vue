@@ -22,7 +22,6 @@ const Template = (args, { argTypes }) => ({
 export const Default = Template.bind({});
 
 Default.args = {
-    multiple: false,
     open: 0,
     accordions: [
         {

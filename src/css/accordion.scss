@@ -44,6 +44,8 @@
 }
 
 .Polaris-Accordion-Title--slot {
+  display: flex;
+  justify-content: space-between;
   position: relative;
   width: 100%;
   padding: 14px 24px;
@@ -76,6 +78,13 @@
 .Polaris-Accordion-Icon {
   margin: unset !important;
   margin-left: auto !important;
+  transition-property: transform;
+  transition-duration: .3s;
+  transition-timing-function: cubic-bezier(0, 0, .42, 1);
+}
+
+.Polaris-Accordion__IconFacingUp {
+  transform: rotate(180deg);
 }
 
 .Polaris-Accordion-Body {

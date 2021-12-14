@@ -10,14 +10,15 @@
             <slot>
                 {{ title }}
             </slot>
-            <slot name="actions">
-                <PIcon
-                    v-if="showIcon"
-                    class="Polaris-Accordion-Icon"
-                    :source="iconSource.source"
-                    :color="iconSource.color"
-                />
-            </slot>
+            <div :class="iconClassName">
+                <slot name="actions">
+                    <PIcon
+                        v-if="!hideIcon"
+                        :source="iconSource.source"
+                        :color="iconSource.color"
+                    />
+                </slot>
+            </div>
         </button>
     </h2>
 </template>
@@ -39,8 +40,9 @@
             title: {
                 type: [String, Number],
             },
-            showIcon: {
+            hideIcon: {
                 type: Boolean,
+                default: false,
             },
             iconSource: {
                 type: [Object, String],
@@ -51,6 +53,9 @@
             themeOptions: {
                 type: Object,
             },
+            disableIconRotate: {
+                type: Boolean,
+            }
         },
         data() {
             return {
@@ -68,6 +73,12 @@
                 return classNames(
                     'Polaris-Accordion-Title--slot',
                     this.open && 'Polaris-Accordion-Title--collapsed--slot',
+                );
+            },
+            iconClassName() {
+                return classNames(
+                    'Polaris-Accordion-Icon',
+                    !this.disableIconRotate && !this.open && 'Polaris-Accordion__IconFacingUp',
                 );
             },
             style() {

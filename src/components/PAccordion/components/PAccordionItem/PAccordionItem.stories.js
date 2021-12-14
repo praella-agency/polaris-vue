@@ -1,15 +1,18 @@
 import { PAccordionItem } from './index';
 import { PAccordion } from '../../../PAccordion';
+import { PIcon } from '../../../PIcon';
+import argTypes from './args';
 
 export default {
     title: 'Behavior / Accordion / Accordion Item',
     component: PAccordionItem,
+    argTypes,
 }
 
 const Template = (args, { argTypes }) => ({
     props: Object.keys(argTypes),
     components: {
-        PAccordion, PAccordionItem,
+        PAccordion, PAccordionItem, PIcon,
     },
     template: `
         <PAccordion
@@ -19,10 +22,14 @@ const Template = (args, { argTypes }) => ({
             <PAccordionItem
                 v-for="(item, key) in 3"
                 :key="key"
-                :id="key"
             >
                 <template slot="title">
                     Item {{ item }}
+                </template>
+                <template slot="actions">
+                    <PIcon
+                        source="AddMajor"
+                    />
                 </template>
                 <div slot="content">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 

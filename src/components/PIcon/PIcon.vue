@@ -71,7 +71,7 @@
             className() {
                 return classNames(
                     'Polaris-Icon',
-                    this.color && `Polaris-Icon--${variationName('color', this.color)}`,
+                    this.color && (typeof this.color === 'string') && `Polaris-Icon--${variationName('color', this.color)}`,
                     this.color && 'Polaris-Icon--applyColor',
                     this.backdrop && 'Polaris-Icon--hasBackdrop',
                 );

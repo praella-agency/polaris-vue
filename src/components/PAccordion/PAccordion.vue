@@ -6,10 +6,11 @@
                 v-for="(accordion, index) in accordions"
                 :key="index"
                 v-bind="accordion"
-                :id="`${index}`"
+                :id="index"
                 :showIcon="showIcon"
                 :themeOptions="themeOptions"
-                :icon="setIcon(`${id}-${accordionItemIds[index]}`, index)"
+                :icon="icon"
+                :disableIconRotate="disableIconRotate"
             />
         </slot>
     </div>
@@ -67,7 +68,7 @@
             /**
              * Allow multiple accordion to open
              */
-            multiple: {
+            allowMultiple: {
                 type: Boolean,
                 default: false,
             },
@@ -77,6 +78,13 @@
             themeOptions: {
                 type: Object,
                 default: () => ({}),
+            },
+            /**
+             * Disable Icon Rotation
+             */
+            disableIconRotate: {
+                type: Boolean,
+                default: false,
             },
         },
         data() {
@@ -101,7 +109,7 @@
                 }
             },
             handleToggle(index) {
-                if (!this.multiple) {
+                if (!this.allowMultiple) {
                     Object.keys(this.visibility).forEach((key) => {
                         if (key.toString() !== index.toString()) {
                             this.$set(this.visibility, key, false);
@@ -113,6 +121,7 @@
             setIcon(index, key) {
                 if (this.icon) {
                     if (typeof this.icon === 'object') {
+                        this.disableIconRotation = true;
                         if (this.visibility[index]) {
                             return this.setOpenCloseIcon(this.icon, 'open', 'CaretUpMinor');
                         } else {
@@ -123,6 +132,7 @@
                     }
                 } else if (this.accordions[key].hasOwnProperty('icon')) {
                     if (typeof this.accordions[key].icon === 'object') {
+                        this.disableIconRotation = true;
                         if (this.visibility[index]) {
                             return this.setOpenCloseIcon(this.accordions[key].icon, 'open', 'CaretUpMinor');
                         } else {
@@ -136,7 +146,7 @@
                 if (this.icon === null || this.icon === '') {
                     this.showIcon = false;
                 }
-                return this.visibility[index] ? 'CaretUpMinor' : 'CaretDownMinor';
+                return 'CaretUpMinor';
             },
             setOpenCloseIcon(object, type, source) {
                 if (object.hasOwnProperty(type) && Object.keys(object[type]).length) {
