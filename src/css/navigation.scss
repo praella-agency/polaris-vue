@@ -307,6 +307,11 @@
   display: block;
 }
 
+.Polaris-Navigation__Icon--span * {
+  display: block;
+  //color: black;
+}
+
 .Polaris-Navigation__ListItem {
   position: relative;
   display: flex;

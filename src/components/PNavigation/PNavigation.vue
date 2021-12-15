@@ -29,7 +29,11 @@
                 v-bind="item"
                 :location="location"
                 :onNavigationDismiss="onDismiss"
-            />
+            >
+                <template v-slot:icon="slotProps">
+                    <slot name="icon" :item="item"/>
+                </template>
+            </PSection>
         </div>
     </nav>
 </template>

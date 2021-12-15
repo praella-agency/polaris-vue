@@ -1,7 +1,7 @@
 <template>
     <ul :class="className">
         <li v-if="title" class="Polaris-Navigation__SectionHeading">
-            <span class="Polaris-Navigation__Text">{{title}}</span>
+            <span class="Polaris-Navigation__Text">{{ title }}</span>
             <button
                 v-if="Object.keys(action).length > 0"
                 type="button"
@@ -22,7 +22,11 @@
             v-bind="sectionItem"
             :location="location"
             :onNavigationDismiss="onNavigationDismiss"
-        />
+        >
+            <template v-slot:icon="slotProps">
+                <slot name="icon" :item="sectionItem"/>
+            </template>
+        </PItem>
         <li
             v-if="Object.keys(rollup).length > 0 && additionalItems.length > 0"
             class="Polaris-Navigation__RollupSection"
@@ -44,7 +48,11 @@
                         v-bind="additionalItem"
                         :location="location"
                         :onNavigationDismiss="onNavigationDismiss"
-                    />
+                    >
+                        <template v-slot:icon="slotProps">
+                            <slot name="icon" :item="additionalItem"/>
+                        </template>
+                    </PItem>
                 </ul>
             </PCollapsible>
             <div
@@ -60,9 +68,9 @@
                     :aria-controls="`AdditionalItems#${this['_uid']}`"
                     :testID="`ToggleViewAll`"
                 >
-          <span class="Polaris-Navigation__Icon">
-            <PIcon source="HorizontalDotsMinor"/>
-          </span>
+                    <span class="Polaris-Navigation__Icon">
+                        <PIcon source="HorizontalDotsMinor"/>
+                    </span>
                 </button>
             </div>
         </li>

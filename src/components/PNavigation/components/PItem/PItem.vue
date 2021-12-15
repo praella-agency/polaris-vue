@@ -17,7 +17,11 @@
             >
                 <template>
                     <div v-if="icon" class="Polaris-Navigation__Icon">
-                        <PIcon :source="icon"/>
+                        <span class="Polaris-Navigation__Icon--span">
+                            <slot name="icon" :item="itemValue">
+                                <PIcon :source="icon"/>
+                            </slot>
+                        </span>
                     </div>
                     <span class="Polaris-Navigation__Text">
                         {{ label }}
@@ -69,7 +73,11 @@
                     :label="subNavigationItem.label"
                     :matches="subNavigationItem === longestMatch"
                     @click="onNavigationDismiss ? onNavigationDismiss : {}"
-                />
+                >
+                    <template v-slot:icon="slotProps">
+                        <slot name="icon" :item="itemValue"/>
+                    </template>
+                </PItem>
             </PSecondary>
         </div>
     </li>
@@ -254,6 +262,20 @@
                     return this.secondaryNavigationId;
                 }
             },
+            itemValue() {
+                return {
+                    icon: this.icon,
+                    label: this.label,
+                    disabled: this.disabled,
+                    accessibilityLabel: this.accessibilityLabel,
+                    selected: this.selected,
+                    exactMatch: this.exactMatch,
+                    new: this.new,
+                    badge: this.badge,
+                    subNavigationItems: this.subNavigationItems,
+                    secondaryAction: this.secondaryAction
+                };
+            },
         },
         methods: {
             useMediaQuery() {
@@ -335,7 +357,7 @@
 
                 const matchesUrl = exactMatch ? this.safeEqual(location, url) : this.safeStartsWith(location, url);
                 return matchesUrl ? MatchState.MatchUrl : MatchState.NoMatch;
-            }
+            },
         },
         created() {
             window.addEventListener('resize', this.useMediaQuery);

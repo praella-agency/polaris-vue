@@ -1,4 +1,6 @@
 import { PNavigation } from './index';
+import { PIcon } from '../PIcon';
+import { PAvatar } from '../PAvatar';
 
 export default {
     title: 'Navigation / Navigation',
@@ -140,14 +142,19 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PNavigation,
+        PNavigation, PIcon, PAvatar,
     },
     template: `
       <PNavigation
           v-bind="$props"
           location="/"
           :on-dismiss="handleDismiss"
-      />`,
+      >
+        <template v-slot:icon="{item}">
+<!--            {{ item.items }}-->
+            <PAvatar initials="A" size="small" style="min-width: unset;"/>
+        </template>
+      </PNavigation>`,
     methods: {
         handleDismiss() {
             alert('On Navigation Dismiss');
