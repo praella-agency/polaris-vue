@@ -55,10 +55,10 @@ export default {
                 type: {
                     summary: null,
                 },
-            },
-            defaultValue: {
-                summary: '()',
-                detail: '(event)',
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
+                },
             },
         },
         click: {
@@ -66,10 +66,10 @@ export default {
                 type: {
                     summary: null,
                 },
-            },
-            defaultValue: {
-                summary: '()',
-                detail: '(event)',
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
+                },
             },
         },
         focus: {
@@ -77,10 +77,10 @@ export default {
                 type: {
                     summary: null,
                 },
-            },
-            defaultValue: {
-                summary: '()',
-                detail: '(event)',
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
+                },
             },
         },
     },
