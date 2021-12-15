@@ -95,7 +95,7 @@
                 default: false,
             },
             /**
-             * Selected radio butto
+             * Selected radio button.
              * @values true | false
              */
             checked: {

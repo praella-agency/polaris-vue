@@ -99,7 +99,7 @@
                 default: null,
             },
             /**
-             * Field name in the `options` array that should be used for the enable child rendering
+             * Field name in the `options` array that should be used to enable child rendering
              */
             renderChildrenField: {
                 type: String,

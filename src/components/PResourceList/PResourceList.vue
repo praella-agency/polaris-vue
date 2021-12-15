@@ -139,7 +139,7 @@
             },
             /**
              * Whether or not there are more items than currently set
-             * on the items prop
+             * on the items prop.
              * @values true | false
              */
             hasMore: {
@@ -164,7 +164,7 @@
                 required: true,
             },
             /**
-             * Boolean to show or hide the header
+             * Boolean to show or hide the header.
              * @value true | false
              */
             showHeader: {
@@ -172,7 +172,7 @@
                 default: true,
             },
             /**
-             * Boolean to show or hide the filters
+             * Boolean to show or hide the filters.
              * @value true | false
              */
             hideFilters: {
@@ -180,20 +180,20 @@
                 default: false,
             },
             /**
-             * Collection of sort options to choose from
+             * Collection of sort options to choose from.
              */
             sortOptions: {
                 type: [Array, String],
                 default: null,
             },
             /**
-             * Bulk actions that will be given more prominence
+             * Bulk actions that will be given more prominence.
              */
             promotedBulkActions: {
                 type: [Object, Array],
             },
             /**
-             * Actions available on the currently selected items
+             * Actions available on the currently selected items.
              */
             bulkActions: {
                 type: Array,

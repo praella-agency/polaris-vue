@@ -40,7 +40,7 @@ Other available builds
 
 ## Contributing
 
-If you notice any bugs, please create issues. Also, pull requests are welcome.
+If you notice any bugs, please create issue tickets. Also, pull requests are welcome.
 
 ## License
 

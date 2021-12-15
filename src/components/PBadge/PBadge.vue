@@ -50,7 +50,7 @@
           },
 
           /**
-           * Set Background color
+           * Set Background color.
            */
           background: {
             type: String,
@@ -58,7 +58,7 @@
           },
 
           /**
-           * Set font color
+           * Set font color.
            */
           color: {
             type: String,
@@ -66,7 +66,7 @@
           },
 
           /**
-           * Set size of badge
+           * Set size of badge.
            * @values small | medium
            */
           size: {
