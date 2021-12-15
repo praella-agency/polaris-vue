@@ -90,7 +90,7 @@
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
-     *  sans-serif;">Filters is a composite component that filters the items of a list or table.</h4>
+     *  sans-serif;">Filter is a composite component that filters the items of a list or table.</h4>
      */
     export default {
         name: 'PFilter',
