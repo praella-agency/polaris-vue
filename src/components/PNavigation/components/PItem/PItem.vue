@@ -16,11 +16,16 @@
                 :aria-controls="normalizeAriaAttributesForControls"
             >
                 <template>
-                    <div v-if="icon" class="Polaris-Navigation__Icon">
+                    <div v-if="icon" :class="$scopedSlots.icon() ? 'Polaris-Navigation__Icon--slot' : 'Polaris-Navigation__Icon'">
                         <span class="Polaris-Navigation__Icon--span">
                             <slot name="icon" :item="itemValue">
                                 <PIcon :source="icon"/>
                             </slot>
+                        </span>
+                    </div>
+                    <div v-if="!icon" class="Polaris-Navigation__Icon--slot">
+                        <span class="Polaris-Navigation__Icon--span">
+                            <slot name="icon" :item="itemValue"/>
                         </span>
                     </div>
                     <span class="Polaris-Navigation__Text">
@@ -75,7 +80,7 @@
                     @click="onNavigationDismiss ? onNavigationDismiss : {}"
                 >
                     <template v-slot:icon="slotProps">
-                        <slot name="icon" :item="itemValue"/>
+                        <slot name="icon" :item="slotProps.item"/>
                     </template>
                 </PItem>
             </PSecondary>

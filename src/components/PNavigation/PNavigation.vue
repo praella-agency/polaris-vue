@@ -31,7 +31,10 @@
                 :onNavigationDismiss="onDismiss"
             >
                 <template v-slot:icon="slotProps">
-                    <slot name="icon" :item="item"/>
+                    <!-- @slot Customize the icon part of navigation. This slot provides values.
+
+                     Access values with `slot-props` attribute. -->
+                    <slot name="icon" :item="slotProps.item"/>
                 </template>
             </PSection>
         </div>

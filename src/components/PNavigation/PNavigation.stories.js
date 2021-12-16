@@ -136,6 +136,13 @@ export default {
                 },
             },
         },
+        icon: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
     },
 }
 
@@ -149,12 +156,7 @@ const Template = (args, {argTypes}) => ({
           v-bind="$props"
           location="/"
           :on-dismiss="handleDismiss"
-      >
-        <template v-slot:icon="{item}">
-<!--            {{ item.items }}-->
-            <PAvatar initials="A" size="small" style="min-width: unset;"/>
-        </template>
-      </PNavigation>`,
+      />`,
     methods: {
         handleDismiss() {
             alert('On Navigation Dismiss');
