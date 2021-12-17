@@ -16,19 +16,20 @@ const Template = (args, { argTypes }) => ({
     },
     template: `
         <PAccordion
-            v-bind="$props"
             id="Polaris-Accordion"
         >
             <PAccordionItem
                 v-for="(item, key) in 3"
                 :key="key"
+                v-bind="$props"
             >
                 <template slot="title">
                     Item {{ item }}
                 </template>
                 <template slot="actions">
                     <PIcon
-                        source="AddMajor"
+                        source="CircleUpMajor"
+                        color="success"
                     />
                 </template>
                 <div slot="content">
@@ -43,4 +44,15 @@ const Template = (args, { argTypes }) => ({
 export const AccordionItem = Template.bind({});
 
 AccordionItem.args = {
+    themeOptions: {
+        header: {
+            color: '#0e1111',
+            background: '#f1f8f5',
+            backgroundCollapsed: '#d2e7d6'
+        },
+        content: {
+            color: '#0e1111',
+            background: '#e8f4ea',
+        }
+    }
 }

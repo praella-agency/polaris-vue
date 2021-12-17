@@ -57,11 +57,6 @@
                 type: Boolean,
             }
         },
-        data() {
-            return {
-                themeOptionData: {},
-            };
-        },
         computed: {
             className() {
                 return classNames(
