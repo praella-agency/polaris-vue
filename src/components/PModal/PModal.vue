@@ -2,7 +2,9 @@
     <div>
         <div v-if="open">
             <PModalDialog :large="large" :small="small" :limitHeight="limitHeight">
-                <PModalHeader v-if="title" @close="handleOnClick">{{ title }}</PModalHeader>
+                <PModalHeader v-if="title" @close="handleOnClick">
+                    {{ title }}
+                </PModalHeader>
                 <PModalCloseButton v-else :title="false" @click="$emit('close', $event)"/>
                 <div class="Polaris-Modal__BodyWrapper">
                     <iframe v-if="src" :name="iFrameName" :src="src" @load="handleIFrameLoad"

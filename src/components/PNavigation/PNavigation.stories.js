@@ -1,4 +1,6 @@
 import { PNavigation } from './index';
+import { PIcon } from '../PIcon';
+import { PAvatar } from '../PAvatar';
 
 export default {
     title: 'Navigation / Navigation',
@@ -134,13 +136,20 @@ export default {
                 },
             },
         },
+        icon: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
     },
 }
 
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PNavigation,
+        PNavigation, PIcon, PAvatar,
     },
     template: `
       <PNavigation

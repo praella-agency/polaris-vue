@@ -80,6 +80,12 @@ export default {
                 },
             },
         },
+        tabsPosition: {
+            options: ['left', 'right'],
+            control: {
+                type: 'select',
+            },
+        },
     },
 }
 

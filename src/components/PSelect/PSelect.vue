@@ -2,7 +2,14 @@
     <div :class="labelHidden && 'Polaris-Labelled--hidden'">
         <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel">
             <div class="Polaris-Label">
-                <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text" v-html="emptyLabel ? '&nbsp' : label"/>
+                <slot name="label">
+                    <label
+                        :id="`${id}Label`"
+                        :for="id"
+                        class="Polaris-Label__Text"
+                        v-html="emptyLabel ? '&nbsp' : label"
+                    />
+                </slot>
             </div>
         </div>
         <div :class="className">

@@ -14,11 +14,11 @@ import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
 const TagInterface = {
     value: {
-        type: String,
+        type: [String, Number],
         required: true,
     },
     key: {
-        type: String,
+        type: [String, Number],
         required: true,
     },
 };

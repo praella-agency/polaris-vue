@@ -14,7 +14,6 @@
      *  used only in a graph or as a timestamp for a list item. On Android and iOS, it can also be used as help text or
      *  as other kinds of secondary text for list items.</h4>
      */
-
     export default {
       name: 'PCaption',
       props: {

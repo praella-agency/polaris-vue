@@ -2,10 +2,9 @@
     <PChoice :label="label" :label-hidden="labelHidden" :help-text="helpText" :id="id">
         <!-- @slot Label content -->
         <slot slot="label" name="label"/>
-        <template v-if="$slots.helpText" slot="helpText">
-            <!-- @slot Help text content -->
-            <slot name="helpText"></slot>
-        </template>
+
+        <!-- @slot Help text content -->
+        <slot slot="helpText" name="helpText"/>
 
         <div class="Polaris-RadioButton">
             <input :id="id"

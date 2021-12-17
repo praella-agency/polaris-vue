@@ -6,15 +6,17 @@
             <div class="Polaris-ResourceList__CheckableButtonWrapper" v-if="selectable && !checked">
                 <PCheckableButton plain v-bind="$attrs" v-on="$listeners">{{ resourceHeaderTitle }}</PCheckableButton>
             </div>
-            <div class="Polaris-ResourceList__SortWrapper" v-if="(sortOptions && sortOptions.length > 0)">
-                <PSelect
-                    :inlineLabel="!smallView ? sortLabel : null"
-                    :labelHidden="smallView"
-                    :options="sortOptions"
-                    v-model="selectedOption"
-                    @change="handleSortChange"
-                />
-            </div>
+            <template v-if="!(checked || smallViewChecked)">
+                <div class="Polaris-ResourceList__SortWrapper" v-if="(sortOptions && sortOptions.length > 0)">
+                    <PSelect
+                        :inlineLabel="!smallView ? sortLabel : null"
+                        :labelHidden="smallView"
+                        :options="sortOptions"
+                        v-model="selectedOption"
+                        @change="handleSortChange"
+                    />
+                </div>
+            </template>
             <div v-if="isSelectable" class="Polaris-ResourceList__SelectButtonWrapper">
                 <PButton
                     icon="EnableSelectionMinor"

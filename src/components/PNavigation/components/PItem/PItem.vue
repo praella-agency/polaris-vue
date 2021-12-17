@@ -16,14 +16,24 @@
                 :aria-controls="normalizeAriaAttributesForControls"
             >
                 <template>
-                    <div v-if="icon" class="Polaris-Navigation__Icon">
-                        <PIcon :source="icon"/>
+                    <div v-if="icon" :class="$scopedSlots.icon() ? 'Polaris-Navigation__Icon--slot' : 'Polaris-Navigation__Icon'">
+                        <span class="Polaris-Navigation__Icon--span">
+                            <slot name="icon" :item="itemValue">
+                                <PIcon :source="icon"/>
+                            </slot>
+                        </span>
                     </div>
-                    <span class="Polaris-Navigation__Text">{{ label }}<span v-if="hasNewChild"
-                                                                            class="Polaris-Navigation__Indicator">
-              <span class="Polaris-Indicator Polaris-Indicator--pulseIndicator"/>
-            </span>
-          </span>
+                    <div v-if="!icon" class="Polaris-Navigation__Icon--slot">
+                        <span class="Polaris-Navigation__Icon--span">
+                            <slot name="icon" :item="itemValue"/>
+                        </span>
+                    </div>
+                    <span class="Polaris-Navigation__Text">
+                        {{ label }}
+                        <span v-if="hasNewChild" class="Polaris-Navigation__Indicator">
+                            <span class="Polaris-Indicator Polaris-Indicator--pulseIndicator"/>
+                        </span>
+                    </span>
                     <div v-if="this.new || this.badge || $slots.hasOwnProperty('badge')"
                          class="Polaris-Navigation__Badge">
                         <PBadge v-if="this.new" status="new" size="small">
@@ -68,7 +78,11 @@
                     :label="subNavigationItem.label"
                     :matches="subNavigationItem === longestMatch"
                     @click="onNavigationDismiss ? onNavigationDismiss : {}"
-                />
+                >
+                    <template v-slot:icon="slotProps">
+                        <slot name="icon" :item="slotProps.item"/>
+                    </template>
+                </PItem>
             </PSecondary>
         </div>
     </li>
@@ -87,7 +101,7 @@
         MatchUrl: 1,
         MatchPaths: 2,
         Excluded: 3,
-        NoMatch:4,
+        NoMatch: 4,
     };
 
     export default {
@@ -253,6 +267,20 @@
                     return this.secondaryNavigationId;
                 }
             },
+            itemValue() {
+                return {
+                    icon: this.icon,
+                    label: this.label,
+                    disabled: this.disabled,
+                    accessibilityLabel: this.accessibilityLabel,
+                    selected: this.selected,
+                    exactMatch: this.exactMatch,
+                    new: this.new,
+                    badge: this.badge,
+                    subNavigationItems: this.subNavigationItems,
+                    secondaryAction: this.secondaryAction
+                };
+            },
         },
         methods: {
             useMediaQuery() {
@@ -334,7 +362,7 @@
 
                 const matchesUrl = exactMatch ? this.safeEqual(location, url) : this.safeStartsWith(location, url);
                 return matchesUrl ? MatchState.MatchUrl : MatchState.NoMatch;
-            }
+            },
         },
         created() {
             window.addEventListener('resize', this.useMediaQuery);

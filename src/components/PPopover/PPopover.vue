@@ -5,7 +5,7 @@
 
         <PPopoverOverlay
             :id="realId+'Overlay'"
-            :active="active"
+            :active="activeStatus"
             :activatorId="activatorId"
             :preferredPosition="preferredPosition"
             :preferredAlignment="preferredAlignment"
@@ -156,6 +156,7 @@
         data() {
             return {
                 isAppended: false,
+                activeStatus: this.active,
                 container: HTMLElement,
             };
         },
@@ -199,7 +200,7 @@
                 const target = e.target;
                 const contentNode = this.$refs['content-' + this.id];
                 if ((contentNode != null && this.nodeContainsDescendant(contentNode, target)) ||
-                    this.nodeContainsDescendant(this.findActivator(), target) || !this.active) {
+                    this.nodeContainsDescendant(this.findActivator(), target) || !this.activeStatus) {
                     return;
                 }
                 /**
@@ -235,10 +236,11 @@
             },
             onClose() {
                 this.$emit('close', 'Click');
-            },
+            }
         },
         watch: {
             active(value, oldValue) {
+                this.activeStatus = value;
                 if (value) {
                     const popoverOverlay = document.getElementById(this.realId + 'Overlay');
                     if (popoverOverlay) {

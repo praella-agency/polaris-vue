@@ -206,7 +206,7 @@
                 tabsWidth: [],
                 visibleTabs: [],
                 hiddenTabs: [],
-                showDisclosure: [],
+                showDisclosure: false,
                 containerWidth: Infinity,
                 tabToFocus: -1,
             };

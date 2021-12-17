@@ -192,8 +192,7 @@
                 <PEmptyState
                     :heading="emptyStateTitle"
                     :image="emptyStateImage"
-                >
-                </PEmptyState>
+                />
             </slot>
         </div>
     </div>

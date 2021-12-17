@@ -21,7 +21,7 @@ const Template = (args, {argTypes}) => ({
             active: false,
             active2: false,
             selected: [],
-            status: ["Active"],
+            status: ['Active'],
         };
     },
     template: `
