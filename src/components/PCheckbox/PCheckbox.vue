@@ -3,10 +3,9 @@
              :disabled="disabled">
         <!-- @slot Content of a label -->
         <slot slot="label" name="label"/>
-        <template v-if="$slots.helpText" slot="helpText">
-            <!-- @slot Body of Help text -->
-            <slot name="helpText"></slot>
-        </template>
+
+        <!-- @slot Body of Help text -->
+        <slot slot="helpText" name="helpText"/>
 
         <div :class="wrapperClassName">
             <input :id="id"
