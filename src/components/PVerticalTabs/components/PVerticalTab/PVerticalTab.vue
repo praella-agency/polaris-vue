@@ -126,7 +126,7 @@
             },
             activeClass: {
                 type: String,
-                default: 'Polaris-Tabs__Tab--selected',
+                default: 'Polaris-VerticalTabs__TabElement--selected',
             },
             badge: {
                 type: Object,
@@ -136,18 +136,25 @@
                 type: Object,
                 default: () => ({}),
             },
+            tabsPosition: {
+                type: String,
+                default: 'left',
+            }
         },
         computed: {
             className() {
                 return classNames(
-                    'Polaris-VerticalTabs__Tab',
+                    this.tabsPosition === 'left' && 'Polaris-VerticalTabs__Tab',
+                    this.tabsPosition === 'right' && 'Polaris-VerticalTabs__Tab--Right',
                     this.selected && 'Polaris-VerticalTabs__Tab--selected',
                 );
             },
             elementClassName() {
                 return classNames(
-                    'Polaris-VerticalTabs__TabElement',
-                    this.selected && 'Polaris-VerticalTabs__TabElement--selected',
+                    this.tabsPosition === 'left' && 'Polaris-VerticalTabs__TabElement',
+                    this.tabsPosition === 'left' && this.selected && 'Polaris-VerticalTabs__TabElement--selected',
+                    this.tabsPosition === 'right' && 'Polaris-VerticalTabs__TabElement--Right',
+                    this.tabsPosition === 'right' && this.selected && 'Polaris-VerticalTabs__TabElement--Right--selected',
                 );
             },
             tabIndex() {

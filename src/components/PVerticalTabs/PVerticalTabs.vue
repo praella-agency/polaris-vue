@@ -1,13 +1,14 @@
 <template>
     <div>
         <div :class="className">
-            <ul role="tablist" class="Polaris-VerticalTabs">
+            <ul role="tablist" :class="tabsClassName">
                 <PVerticalTab
                     v-for="(tab, tabIndex) in tabs"
                     :key="`${tabIndex}-${tab.id}`"
                     v-bind="tab"
                     :selected="selected === tabIndex"
                     :active-class="activeClass"
+                    :tabs-position="tabsPosition"
                     @click="handleTabClick"
                 />
             </ul>
@@ -71,14 +72,23 @@
              */
             activeClass: {
                 type: String,
-                default: 'Polaris-VerticalTabs__TabElement--selected',
             },
+            tabsPosition: {
+                type: String,
+                default: 'left',
+            }
         },
         computed: {
             className() {
                 return classNames(
                     'Polaris-VerticalTabs__Wrapper',
                     this.navigation && 'Polaris-VerticalTabs__Navigation',
+                );
+            },
+            tabsClassName() {
+                return classNames(
+                    this.tabsPosition === 'left' && 'Polaris-VerticalTabs',
+                    this.tabsPosition === 'right' && 'Polaris-VerticalTabs__Right',
                 );
             },
         },
