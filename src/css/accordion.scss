@@ -1,0 +1,95 @@
+:root {
+  --title-color: #212529;
+  --header-background-color: #fff;
+  --header-background-collapsed-color: #f1f8f5;
+
+  --content-color: #212529;
+  --content-background-color: #fff;
+}
+
+.Polaris-Accordion-Item {
+  background-color: #FFFF;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.Polaris-Accordion-Item:first-of-type {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.Polaris-Accordion-Item:last-of-type, .Polaris-Accordion-Title.collapsed {
+  border-bottom-right-radius: calc(.25rem - 1px);
+  border-bottom-left-radius: calc(.25rem - 1px);
+}
+
+.Polaris-Accordion-Title {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 14px 24px;
+  min-height: 48px;
+  line-height: 1;
+  color: var(--title-color);
+  text-align: left;
+  background-color: var(--header-background-color);
+  border: 0;
+  border-radius: 0;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, border-radius .15s ease;
+}
+
+.Polaris-Accordion-Title--collapsed {
+  background-color: var(--header-background-collapsed-color);
+}
+
+.Polaris-Accordion-Title--slot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  padding: 14px 24px;
+  min-height: 48px;
+  line-height: 1;
+  border: 0;
+  border-radius: 0;
+  color: var(--title-color);
+  text-align: left;
+  background-color: var(--header-background-color);
+  overflow: hidden;
+  transition: .15s ease-in-out, .15s ease-in-out, .15s ease-in-out, box-shadow .15s ease-in-out, border-radius .15s ease;
+}
+
+.Polaris-Accordion-Title--collapsed--slot {
+  background-color: var(--header-background-collapsed-color);
+}
+
+.Polaris-Accordion-Title:first-of-type .Polaris-Accordion-Title {
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+}
+
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled), button:not(:disabled) {
+  cursor: pointer;
+}
+
+.Polaris-Accordion-Icon {
+  margin: unset !important;
+  margin-left: auto !important;
+  transition-property: transform;
+  transition-duration: .3s;
+  transition-timing-function: cubic-bezier(0, 0, .42, 1);
+}
+
+.Polaris-Accordion__IconFacingUp {
+  transform: rotate(180deg);
+}
+
+.Polaris-Accordion-Body {
+  padding: 1rem 1.25rem;
+  color: var(--content-color);
+  background-color: var(--content-background-color);
+}
