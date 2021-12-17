@@ -19,6 +19,13 @@
 <script>
     import { PAccordionItem } from '../../components/PAccordion/components/PAccordionItem';
 
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">The component is useful for reducing vertical space with large amounts of
+     *  information.
+     * </h4>
+     */
     export default {
         name: 'PAccordion',
         components: {
@@ -73,7 +80,7 @@
                 default: false,
             },
             /**
-             * ThemeOptions
+             * Theme Options
              */
             themeOptions: {
                 type: Object,

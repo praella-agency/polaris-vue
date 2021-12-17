@@ -42,6 +42,31 @@ export default {
             },
         },
     },
+    themeOptions: {
+        table: {
+            defaultValue: {
+                summary: '{}',
+                detail: `
+{
+    header: {
+        type: Object,
+        properties: {
+            color: String,
+            background: String,
+            backgroundCollapsed: String,
+        },
+    },
+    content: {
+        type: Object,
+        properties: {
+            color: String,
+            background: String,
+        },
+    },
+}`,
+            },
+        },
+    },
     actions: {
         table: {
             type: {

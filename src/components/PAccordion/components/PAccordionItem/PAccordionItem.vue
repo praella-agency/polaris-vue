@@ -84,6 +84,15 @@
         },
     }
 
+    /**
+     * <br/>
+     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
+     *  sans-serif;">The component is useful for reducing vertical space with large amounts of
+     *  information. This component is child component of
+     *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/behavior-accordion--default" target="_blank">
+     *      accordion</a>. Use this component for the customization of title and content.
+     * </h4>
+     */
     export default {
         name: 'PAccordionItem',
         components: {
@@ -129,7 +138,7 @@
                 type: Boolean,
             },
             /**
-             * ThemeOptions
+             * Theme Options
              */
             themeOptions: {
                 type: Object,
