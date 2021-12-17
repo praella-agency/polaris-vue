@@ -1,5 +1,5 @@
 <template>
-    <div ref="container" v-click-outside="hidePopover">
+    <div ref="container">
         <!-- @slot Filter Activator content -->
         <slot name="activator" :activate="onActivate"></slot>
 
@@ -44,7 +44,6 @@
 <script>
     import { classNames } from '../../utilities/css';
     import { PPopoverOverlay } from '../../components/PPopover/components/PPopoverOverlay';
-    import vClickOutside from 'v-click-outside';
 
     /**
      * <br/>
@@ -57,9 +56,6 @@
         name: 'PPopover',
         components: {
             PPopoverOverlay,
-        },
-        directives: {
-          clickOutside: vClickOutside.directive,
         },
         props: {
             /**
@@ -240,9 +236,6 @@
             },
             onClose() {
                 this.$emit('close', 'Click');
-            },
-            hidePopover() {
-                this.activeStatus = false;
             }
         },
         watch: {
