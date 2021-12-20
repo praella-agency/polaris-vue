@@ -81,6 +81,8 @@ import { PDataTableCol } from './PDataTable/components/PDataTableCol';
 import { PIndexTable } from './PIndexTable';
 import { PScrollable } from './PScrollable';
 import { PVerticalTabs } from './PVerticalTabs';
+import { PAccordion } from './PAccordion';
+import { PAccordionItem } from './PAccordion/components/PAccordionItem';
 
 export {
   PBadge,
@@ -154,4 +156,6 @@ export {
   PIndexTable,
   PScrollable,
   PVerticalTabs,
+  PAccordion,
+  PAccordionItem,
 };
