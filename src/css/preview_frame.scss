@@ -1,0 +1,350 @@
+:root {
+  --preview-frame_height-frame-header: 5.6rem;
+  --preview-frame_color-frame-surface-bg: rgba(255, 255, 255, 1);
+  --preview-frame_width-sidebar-desktop: 30rem;
+  --preview-frame_sidebar-action-offset: 0.4rem;
+  --preview-frame_nav-header-section-divider-offset: 1.6rem;
+  --preview-frame_static-panel-section-padding: 0;
+}
+
+.Polaris-PreviewFrame {
+  min-width: 0;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+        "header"
+        "main"
+        "children"
+        "primary-sidebar"
+        "secondary-sidebar"
+        "footer";
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  @media (min-width: 41.6875em) {
+    grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+    grid-template-areas:
+          "header header header"
+          "primary-sidebar main secondary-sidebar"
+          "primary-sidebar children secondary-sidebar"
+          "footer footer footer";
+  }
+}
+
+.Polaris-PreviewFrame__slimHeader {
+  --preview-frame_height-frame-header: 4.4rem;
+}
+
+.Polaris-PreviewFrame, .Polaris-GenericPreviewFrame {
+  background-color: $p-surface-hovered;
+}
+
+.Polaris-PreviewFrame__HeaderArea {
+  grid-area: header;
+  position: relative;
+  z-index: 50;
+  width: 100%;
+}
+
+.Polaris-PreviewFrame__SkipToAction {
+  z-index: 80;
+  position: fixed;
+  top: 1rem;
+  left: 0.8rem;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.Polaris-PreviewFrame__SkipAnchor {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.6rem;
+  min-width: 3.6rem;
+  margin: 0;
+  padding: 0.7rem 1.6rem;
+  background: $p-surface;
+  box-shadow: $p-button-drop-shadow;
+  border-radius: $p-border-radius-base;
+  color: $p-text;
+  border: 1px solid $p-border-neutral-subdued;
+  border-top-color: $p-border-subdued;
+  border-bottom-color: $p-border-shadow-subdued;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.Polaris-PreviewFrame__TopBar {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  height: var(--preview-frame_height-frame-header);
+  background-color: var(--preview-frame_color-frame-surface-bg);
+  border: 0;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(66, 71, 76, 0.45);
+}
+
+.Polaris-PreviewFrame__TopBar--slim {
+  --preview-frame_height-frame-header: 4.4rem;
+}
+
+.Polaris-PreviewFrame__LayoutGroup {
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  height: 100%;
+}
+
+.Polaris-PreviewFrame__LayoutGroup--shrink {
+  flex-shrink: 1;
+}
+
+.Polaris-PreviewFrame__LayoutGroup--paddedBoth {
+  padding-right: 1.6rem;
+  padding-left: 1.6rem;
+}
+
+.Polaris-PreviewFrame__LayoutGroup--paddedRight {
+  padding-right: 1.6rem;
+}
+
+.Polaris-PreviewFrame__LayoutGroup--grow {
+  flex-grow: 1;
+}
+
+.Polaris-PreviewFrame__LayoutGroup--center {
+  justify-content: center;
+}
+
+.Polaris-PreviewFrame__spacingBase > * + * {
+  margin-left: 1.6rem;
+}
+
+.Polaris-PreviewFrame__spacingTight > * + * {
+  margin-left: 0.8rem;
+}
+
+.Polaris-PreviewFrame__HeaderBlank {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: -0.2rem;
+  z-index: 10;
+}
+
+.Polaris-PreviewFrame aside {
+  display: block;
+}
+
+.Polaris-PreviewFrame__Sidebar {
+  @media (min-width: 41.6875em) {
+    grid-area: primary-sidebar;
+    z-index: 10;
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+.Polaris-PreviewFrame__Sidebar:not(.Polaris-PreviewFrame__Sidebar--secondary-second) {
+  @media (min-width: 41.6875em) {
+    border-right: 0.1rem solid $p-divider;
+  }
+}
+
+.Polaris-PreviewFrame__PanelArea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  @media (min-width: 41.6875em) {
+    width: var(--preview-frame_width-sidebar-desktop);
+  }
+}
+
+.Polaris-PreviewFrame__StaticPanel {
+  z-index: 20;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.Polaris-PreviewFrame__ChildrenWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--preview-frame_color-frame-surface-bg);
+}
+
+.Polaris-PreviewFrame__Layout {
+  --preview-frame_sidebar-action-offset: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+}
+
+.Polaris-PreviewFrame__layoutSpacingBase, .Polaris-PreviewFrame__layoutSpacingDefault, .Polaris-PreviewFrame__sectionSpacingBase {
+  --preview-frame_static-panel-layout-spacing: 1.6rem;
+}
+
+.Polaris-PreviewFrame__spaceAfter {
+  padding-bottom: var(--preview-frame_static-panel-layout-spacing);
+}
+
+.Polaris-PreviewFrame__fullHeight {
+  flex: 1 1 auto;
+}
+
+.Polaris-PreviewFrame__scrollable {
+  height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.Polaris-PreviewFrame__NavHeader {
+  border-bottom: 0.1rem solid $p-divider;
+}
+
+.Polaris-PreviewFrame__Section {
+  --preview-frame_nav-header-section-divider-offset: 0;
+  padding: 1.2rem;
+}
+
+.Polaris-PreviewFrame__Section:first-child {
+  padding-top: 1.6rem;
+}
+
+.Polaris-PreviewFrame__alignToNav {
+  padding-left: 2.8rem;
+}
+
+.Polaris-PreviewFrame__alignToNav, .Polaris-PreviewFrame__alignToNav + .Polaris-PreviewFrame__Section {
+  --preview-frame_nav-header-section-divider-offset: 1.6rem;
+}
+
+.Polaris-PreviewFrame__Section--header {
+  z-index: 2;
+  position: relative;
+  padding-top: var(--preview-frame_static-panel-layout-spacing);
+  width: 100%;
+}
+
+.Polaris-PreviewFrame__paddingNone {
+  --preview-frame_static-panel-section-padding: 0;
+}
+
+.Polaris-PreviewFrame__layoutSpacingExtraTight, .Polaris-PreviewFrame__sectionSpacingExtraTight {
+  --preview-frame_static-panel-layout-spacing: 0.4rem;
+}
+
+.Polaris-PreviewFrame__ChildrenWrapper--header {
+  padding-right: var(--preview-frame_static-panel-section-padding);
+  padding-left: var(--preview-frame_static-panel-section-padding);
+}
+
+.Polaris-PreviewFrame__sticky:last-child {
+  border-top: 0.1rem solid $p-divider;
+}
+
+.Polaris-PreviewFrame__layoutSpacingNone,
+.Polaris-PreviewFrame__sectionSpacingDefault:first-of-type,
+.Polaris-PreviewFrame__sectionSpacingDefault:only-child,
+.Polaris-PreviewFrame__layoutSpacingNone, {
+  --preview-frame_static-panel-layout-spacing: 0;
+}
+
+.Polaris-PreviewFrame__Footer {
+  display: block;
+  position: relative;
+}
+
+.Polaris-PreviewFrame__Footer--childrenWrapper {
+  position: relative;
+  z-index: 4;
+}
+
+.Polaris-PreviewFrame__Sidebar--secondary-first {
+  @media (min-width: 14.6875em) {
+    grid-area: primary-sidebar;
+    z-index: 10;
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+.Polaris-PreviewFrame__Sidebar--secondary-second {
+  @media (min-width: 14.6875em) {
+    grid-area: secondary-sidebar;
+    border-left: 0.1rem solid $p-divider;
+  }
+}
+
+.Polaris-PreviewFrame__MainArea {
+  min-width: 0;
+  max-width: 100%;
+  grid-area: main;
+  z-index: 40;
+  position: relative;
+  display: flex;
+
+  @media (min-width: 41.6875em) {
+    padding: 1.6rem;
+  }
+}
+
+.Polaris-PreviewFrame__Preview {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: center;
+  width: 100%;
+}
+
+.Polaris-PreviewFrame__HeaderWrapper {
+  flex: 0 0 auto;
+
+  @media (min-width: 41.6875em) {
+    margin-bottom: auto;
+  }
+}
+
+.Polaris-PreviewFrame__Main {
+  display: flex;
+  justify-content: center;
+  flex: 1 1;
+}
+
+.Polaris-PreviewFrame__Interior {
+  position: relative;
+  flex: 1 1 auto;
+  align-self: center;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100vh;
+  transition-property: max-width, max-height, transform;
+  transition-duration: $p-duration-1-5-0;
+  transition-timing-function: $p-ease;
+}
+
+.Polaris-PreviewFrame__ShopFrame {
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  background-color: $p-surface;
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+}
