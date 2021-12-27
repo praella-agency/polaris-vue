@@ -44,6 +44,7 @@ import { PThumbnail } from './PThumbnail';
 import { PAvatar } from './PAvatar';
 import { PModal } from './PModal';
 import { PInlineError } from './PInlineError';
+import { PFieldError } from './PFieldError';
 import { PPagination } from './PPagination';
 import { PCaption } from './PCaption';
 import { PProgressBar } from './PProgressBar';
@@ -122,6 +123,7 @@ export {
   PAvatar,
   PModal,
   PInlineError,
+  PFieldError,
   PPagination,
   PCaption,
   PProgressBar,

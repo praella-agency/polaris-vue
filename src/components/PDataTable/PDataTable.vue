@@ -176,7 +176,7 @@
                 </table>
             </div>
 
-            <div v-if="footerContent" class="Polaris-DataTable__Footer">
+            <div v-if="footerContent || $slots.footer" class="Polaris-DataTable__Footer">
                 <!-- @slot Add a custom Footer content -->
                 <slot name="footer">
                     {{ footerContent }}
