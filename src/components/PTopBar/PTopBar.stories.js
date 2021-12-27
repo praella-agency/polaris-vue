@@ -224,6 +224,13 @@ export default {
                 },
             },
         },
+        activatorContent: {
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+        },
         searchFieldChange: {
             table: {
                 defaultValue: {
