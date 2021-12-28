@@ -13,6 +13,8 @@ import { PConnected } from '../PConnected';
 import { PActionList } from '../PActionList';
 import { PHeading } from '../PHeading';
 import { POptionList } from '../POptionList';
+import { PTextContainer } from '../PTextContainer';
+import { PHorizontalDivider } from '../PHorizontalDivider';
 
 export default {
     title: 'Preview Frame',
@@ -30,7 +32,7 @@ const Template = (args, { argTypes }) => ({
     props: Object.keys(argTypes),
     components: {
         PPreviewFrame, PVerticalDivider, PIcon, PStack, PStackItem, PTextStyle, PBadge, PPopover, PButton, PTextField,
-        PCard, PConnected, PActionList, PHeading, POptionList,
+        PCard, PConnected, PActionList, PHeading, POptionList, PTextContainer, PHorizontalDivider,
     },
     data() {
         return {
@@ -40,16 +42,16 @@ const Template = (args, { argTypes }) => ({
     },
     template: `
         <PPreviewFrame
-            left-sidebar-title="Left Sidebar Title"
-            right-sidebar-title="Right Sidebar Title"
+            left-sidebar-title="Home page"
+            showRevertButtons
         >
-            <template slot="leftTopBar">
-                <PIcon source="LogOutMinor"/>
+            <template slot="topBar.left">
+                <PButton plainAction icon="ExitMajor"/>
                 <PVerticalDivider/>
                 <PTextStyle>Debut</PTextStyle>
                 <PBadge status="success" progress="complete" size="small">Live</PBadge>
             </template>
-            <template slot="centerTopBar">
+            <template slot="topBar.center">
                 <PPopover
                     id="PreviewFrameSearch"
                     :active="searchActive"
@@ -95,18 +97,8 @@ const Template = (args, { argTypes }) => ({
                     </template>
                 </PPopover>
             </template>
-            <template slot="rightTopBar">
-                <PButton icon="DesktopMajor"/>
-                <PVerticalDivider/>
-                <PButton icon="UndoMajor"/>
-                <PButton icon="RedoMajor"/>
-                <PVerticalDivider/>
-            </template>
-            <template slot="rightCorner">
+            <template slot="topBar.right">
                 <PButton primary>Save</PButton>    
-            </template>
-            <template slot="leftSidebarTitle">
-                <PHeading>Home Page</PHeading>
             </template>
             <template slot="leftSidebarContent">
                 <POptionList 
@@ -128,7 +120,25 @@ const Template = (args, { argTypes }) => ({
                 />
             </template>
             <template slot="leftSidebarFooter">
-                
+                <PActionList
+                    :items="[{
+                        content: 'Theme settings',
+                    }]"
+                />
+            </template>
+            <template slot="rightSidebarContent">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" 
+                     style="display: flex; justify-content: center; align-items: center; flex: 0 0 auto; width: 4.5rem; height: 4.5rem; fill: #5c5f62"
+                >
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20 18h4v3h-3v3h-3v-4a2 2 0 012-2zm7 3h5v-3h-5v3zm-3 18v1a1 1 0 01-1 1h-3a2 2 0 01-2-2v-4h3v3h2a1 1 0 011 1zm-6-7h3v-5h-3v5zm14.841.766c-.358.124-.655.38-.832.714l-1.426 2.695-1.607-7.369 6.533 3.029-2.668.931zm7.29-2.096l-12.634-5.858a1.5 1.5 0 00-2.096 1.681l3.126 14.326a1.5 1.5 0 002.791.382l3.067-5.797 5.609-1.957a1.502 1.502 0 00.137-2.777zM41 20v3a1 1 0 01-1 1h-1a1 1 0 01-1-1v-2h-3v-3h4a2 2 0 012 2zM14 8h24V5H14v3zM7 8h4V5H7v3zm34-3a3 3 0 00-3-3H7a3 3 0 00-3 3v31a3 3 0 003 3h6a1 1 0 001-1v-1a1 1 0 00-1-1H7V11h31v2a1 1 0 001 1h1a1 1 0 001-1V8h-.021c.01-1.235.021-3 .021-3z"></path>
+                </svg>
+                <PTextContainer spacing="tight">
+                    <PHeading>Customize your templates</PHeading>
+                    <PTextStyle>Select a section or block in the sidebar to start.</PTextStyle>
+                </PTextContainer>
+            </template>
+            <template>
+                <iframe src="https://polaris-vue.hulkapps.com" frameborder="0" style="height: 100%; min-width: 100%"></iframe>
             </template>
         </PPreviewFrame>
     `,

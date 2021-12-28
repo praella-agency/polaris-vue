@@ -5,7 +5,7 @@
             <div class="Polaris-PreviewFrame__Main">
                 <div :class="className">
                     <div class="Polaris-PreviewFrame__ShopFrame">
-                        <slot></slot>
+                        <slot/>
                     </div>
                 </div>
             </div>
@@ -21,6 +21,10 @@
         components: {
         },
         props: {
+            previewMode: {
+                type: String,
+                default: 'desktop',
+            },
         },
         data() {
             return {
@@ -30,6 +34,9 @@
             className() {
                 return classNames(
                     'Polaris-PreviewFrame__Interior',
+                    this.previewMode === 'desktop' && 'Polaris-PreviewFrame__modeDesktop',
+                    this.previewMode === 'mobile' && 'Polaris-PreviewFrame__modeMobile',
+                    this.previewMode === 'fullscreen' && 'Polaris-PreviewFrame__modeFullscreen',
                 );
             },
         },

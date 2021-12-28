@@ -144,10 +144,6 @@
   z-index: 10;
 }
 
-.Polaris-PreviewFrame aside {
-  display: block;
-}
-
 .Polaris-PreviewFrame__Sidebar {
   @media (min-width: 41.6875em) {
     grid-area: primary-sidebar;
@@ -161,6 +157,10 @@
   @media (min-width: 41.6875em) {
     border-right: 0.1rem solid $p-divider;
   }
+}
+
+.Polaris-PreviewFrame__Sidebar--hide {
+  display: none;
 }
 
 .Polaris-PreviewFrame__PanelArea {
@@ -204,13 +204,17 @@
   padding-bottom: var(--preview-frame_static-panel-layout-spacing);
 }
 
+.Polaris-PreviewFrame__spaceBefore {
+  padding-top: var(--preview-frame_static-panel-layout-spacing);
+}
+
 .Polaris-PreviewFrame__fullHeight {
   flex: 1 1 auto;
 }
 
 .Polaris-PreviewFrame__scrollable {
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -244,6 +248,10 @@
 
 .Polaris-PreviewFrame__paddingNone {
   --preview-frame_static-panel-section-padding: 0;
+}
+
+.Polaris-PreviewFrame__paddingBase {
+  --preview-frame_static-panel-section-padding: 1.6rem;
 }
 
 .Polaris-PreviewFrame__layoutSpacingExtraTight, .Polaris-PreviewFrame__sectionSpacingExtraTight {
@@ -347,4 +355,12 @@
   height: 100%;
   background-color: $p-surface;
   box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+}
+
+.Polaris-PreviewFrame__modeMobile {
+  max-width: 37.5rem;
+}
+
+.Polaris-PreviewFrame__modeFullscreen {
+  width: 100%;
 }

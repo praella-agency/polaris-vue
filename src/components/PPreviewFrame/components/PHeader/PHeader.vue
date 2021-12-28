@@ -8,27 +8,63 @@
         </div>
         <div :class="topBarClassName">
             <div :class="leftLayoutClassName">
-                <slot name="leftTopBar">
+                <slot name="topBar.left">
                     <PHeading>TopBar Left</PHeading>
                 </slot>
             </div>
 
             <template v-if="!slimHeader">
                 <div :class="centerLayoutClassName">
-                    <slot name="centerTopBar">
+                    <slot name="topBar.center">
                         <PHeading>TopBar Center</PHeading>
                     </slot>
                 </div>
 
                 <div :class="rightLayoutClassName">
                     <div :class="rightLayoutChildClassName">
-                        <slot name="rightTopBar">
-                            <PHeading>Right TopBar</PHeading>
-                        </slot>
+                        <PPopover
+                            id="change_preview"
+                            :active="isPreview"
+                            @close="() => {this.isPreview = false;}"
+                            preferred-alignment="left"
+                        >
+                            <PButton
+                                slot="activator"
+                                :icon="previewIcon"
+                                plainAction
+                                @click="() => {this.isPreview = !this.isPreview}"
+                            />
+                            <POptionList
+                                slot="content"
+                                :options="previewOptions"
+                                :selected="selectedOption"
+                                @change="handlePreviewClick"
+                            >
+                                <template v-slot:media="{item}">
+                                    <PIcon :source="item.icon"/>
+                                </template>
+                            </POptionList>
+                        </PPopover>
+                        <template v-if="showRevertButtons">
+                            <PVerticalDivider/>
+                            <PButton
+                                plainAction
+                                icon="UndoMajor"
+                                :disabled="undoActions.disabled"
+                                @click="undoActions.onAction"
+                            />
+                            <PButton
+                                plainAction
+                                icon="RedoMajor"
+                                :disabled="redoActions.disabled"
+                                @click="redoActions.onAction"
+                            />
+                        </template>
+                        <PVerticalDivider/>
                     </div>
 
                     <div :class="rightLayoutChildClassName">
-                        <slot name="rightCorner">
+                        <slot name="topBar.right">
                             <PHeading>Right Corner</PHeading>
                         </slot>
                     </div>
@@ -43,17 +79,76 @@
 <script>
     import { classNames } from '../../../../utilities/css';
     import { PHeading } from '../../../../components/PHeading';
+    import { PButton } from '../../../../components/PButton';
+    import { PPopover } from '../../../../components/PPopover';
+    import { POptionList } from '../../../../components/POptionList';
+    import { PIcon } from '../../../../components/PIcon';
+    import { PVerticalDivider } from '../../../../components/PVerticalDivider';
+    import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
+
+    const UndoActions = {
+        type: Object,
+        properties: {
+            disabled: Boolean,
+            onAction: Function,
+        },
+    };
+
+    const RedoActions = {
+        type: Object,
+        properties: {
+            disabled: Boolean,
+            onAction: Function,
+        },
+    };
 
     export default {
         name: 'PHeader',
         components: {
-            PHeading,
+            PHeading, PButton, PPopover, POptionList, PIcon, PVerticalDivider,
         },
         props: {
             slimHeader: {
                 type: Boolean,
                 default: false,
             },
+            showRevertButtons: {
+                type: Boolean,
+                default: false,
+            },
+            undoActions: {
+                type: Object,
+                default: () => ({}),
+                ...ObjectValidator('undoActions', UndoActions),
+            },
+            redoActions: {
+                type: Object,
+                default: () => ({}),
+                ...ObjectValidator('redoActions', RedoActions),
+            },
+        },
+        data() {
+            return {
+                isPreview: false,
+                selectedOption: ['desktop'],
+                previewOptions: [
+                    {
+                        label: 'Mobile',
+                        value: 'mobile',
+                        icon: 'MobileMajor'
+                    },
+                    {
+                        label: 'Desktop',
+                        value: 'desktop',
+                        icon: 'DesktopMajor'
+                    },
+                    {
+                        label: 'Fullscreen',
+                        value: 'fullscreen',
+                        icon: 'ViewportWideMajor'
+                    },
+                ],
+            };
         },
         computed: {
             topBarClassName() {
@@ -92,7 +187,19 @@
                     'Polaris-PreviewFrame__spacingTight',
                 );
             },
+            previewIcon() {
+                let index = this.previewOptions.findIndex((option) => {
+                    return option.value === this.selectedOption[0];
+                });
+                return this.previewOptions[index].icon;
+            },
         },
+        methods: {
+            handlePreviewClick(selected) {
+                this.selectedOption = selected;
+                this.$emit('previewChange', this.selectedOption);
+            }
+        }
     }
 </script>
 

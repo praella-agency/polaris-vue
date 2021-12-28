@@ -229,6 +229,13 @@
             value: {
                 type: String | Number | Array,
             },
+            /**
+             * Renders a button without border
+             */
+            plainAction: {
+                type: Boolean,
+                default: false,
+            },
         },
         computed: {
             className() {
@@ -241,6 +248,7 @@
                     this.isDisabled && 'Polaris-Button--disabled',
                     this.loading && 'Polaris-Button--loading',
                     this.plain && 'Polaris-Button--plain',
+                    this.plainAction && 'Polaris-Button--plainAction',
                     this.monochrome && 'Polaris-Button--monochrome',
                     this.fullWidth && 'Polaris-Button--fullWidth',
                     this.icon && this.hasNoChildren && 'Polaris-Button--iconOnly',

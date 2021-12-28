@@ -1,5 +1,5 @@
 <template>
-    <aside class="Polaris-PreviewFrame__Sidebar" aria-label="Polaris Preview Theme Sidebar">
+    <aside :class="className" aria-label="Polaris Preview Theme Sidebar">
         <div class="Polaris-PreviewFrame__PanelArea">
             <a id="Polaris-PreviewFrame-SkipTarget" tabindex="-1"></a>
             <div class="Polaris-PreviewFrame__StaticPanel" tabindex="-1" :aria-hidden="false">
@@ -13,7 +13,7 @@
                         <div v-if="leftSidebarTitle" class="Polaris-PreviewFrame__NavHeader">
                             <div class="Polaris-PreviewFrame__Section Polaris-PreviewFrame__alignToNav">
                                 <PHeading>
-                                    <slot name="leftSidebarTitle">
+                                    <slot name="sidebar.leftTitle">
                                         {{ leftSidebarTitle }}
                                     </slot>
                                 </PHeading>
@@ -26,15 +26,17 @@
                                     Polaris-PreviewFrame__paddingNone"
                         >
                             <div class="Polaris-PreviewFrame__ChildrenWrapper--header">
-                                <slot name="leftSidebarContent">
+                                <slot name="sidebar.content">
                                     <PHeading>Content</PHeading>
                                 </slot>
                             </div>
                         </section>
                     </div>
-                    <div class="Polaris-PreviewFrame__Layout
-                                    Polaris-PreviewFrame__layoutSpacingDefault
-                                    Polaris-PreviewFrame__sticky"
+                    <div
+                        v-if="$slots.leftSidebarFooter"
+                        class="Polaris-PreviewFrame__Layout
+                                Polaris-PreviewFrame__layoutSpacingDefault
+                                Polaris-PreviewFrame__sticky"
                     >
                         <section class="Polaris-PreviewFrame__Section--header
                                             Polaris-PreviewFrame__sectionSpacingDefault
@@ -42,7 +44,7 @@
                             <div class="Polaris-PreviewFrame__ChildrenWrapper--header">
                                 <div class="Polaris-PreviewFrame__Footer">
                                     <div class="Polaris-PreviewFrame__Footer--childrenWrapper">
-                                        <slot name="leftSidebarFooter">
+                                        <slot name="sidebar.footer">
                                             <PHeading>Footer</PHeading>
                                         </slot>
                                     </div>
@@ -58,6 +60,7 @@
 
 <script>
     import { PHeading } from '../../../../components/PHeading';
+    import { classNames } from '../../../../utilities/css';
 
     export default {
         name: 'PLeftSidebar',
@@ -69,12 +72,20 @@
                 type: String,
                 default: null,
             },
+            previewMode: {
+                type: String,
+                default: 'desktop',
+            },
         },
         data() {
             return {};
         },
         computed: {
             className() {
+                return classNames(
+                    'Polaris-PreviewFrame__Sidebar',
+                    this.previewMode === 'fullscreen' && 'Polaris-PreviewFrame__Sidebar--hide',
+                );
             },
         },
         methods: {},
