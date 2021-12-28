@@ -1,18 +1,27 @@
 <template>
     <ul class="Polaris-OptionList">
-        <li v-if="optionsExist" v-for="(normalizedOption, sectionIndex) in normalizedOptions" :key="normalizedOption.title ? normalizedOption.title : `noTitle-${sectionIndex}`">
+        <li
+            v-if="optionsExist"
+            v-for="(normalizedOption, sectionIndex) in normalizedOptions"
+            :key="normalizedOption.title ? normalizedOption.title : `noTitle-${sectionIndex}`"
+        >
             <p v-if="normalizedOption.title" class="Polaris-OptionList__Title">{{normalizedOption.title}}</p>
-            <ul :id="`${id}-${sectionIndex}`" class="Polaris-OptionList__Options">
+            <ul :id="`${optionListId}-${sectionIndex}`" class="Polaris-OptionList__Options">
                 <POptionsListOption
                     v-if="normalizedOption.options"
                     v-for="(option, optionIndex) in normalizedOption.options"
-                    :key="option.id ? option.id : `${id}-${sectionIndex}-${optionIndex}`"
-                    :id="option.id ? option.id : `${id}-${sectionIndex}-${optionIndex}`"
+                    :key="option.id ? option.id : `${optionListId}-${sectionIndex}-${optionIndex}`"
+                    :id="option.id ? option.id : `${optionListId}-${sectionIndex}-${optionIndex}`"
                     :section="sectionIndex"
                     :index="optionIndex"
                     :select="selected.includes(option.value)"
                     :allowMultiple="allowMultiple"
-                    @click="handleClick">
+                    @click="handleClick"
+                >
+                    <template v-slot:media="slotProps">
+                        <!-- @slot Media to display to the left of the option content -->
+                        <slot name="media" :item="option"/>
+                    </template>
                     {{option.label}}
                 </POptionsListOption>
             </ul>
@@ -119,8 +128,13 @@ export default {
     }
   },
   computed: {
+    optionListId() {
+        if (!this.id) {
+            return `Polaris-OptionList-${this['_uid']}`;
+        }
+        return this.id;
+    },
     normalizedOptions() {
-
       if (this.options == null) {
         return this.sections == null ? [] : [{options: [], title: this.title}, ...this.sections];
       }
@@ -158,7 +172,7 @@ export default {
     }
   },
   created() {
-    this.optionsExist = this.normalizedOptions.length > 0
+    this.optionsExist = this.normalizedOptions.length > 0;
   }
 }
 </script>
