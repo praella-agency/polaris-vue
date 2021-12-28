@@ -235,7 +235,7 @@ const Template = (args, {argTypes}) => ({
             <template slot="filter">
               <PPopover
                   id="resource_list_popover"
-                  @close="statusFilterActive = false"
+                  @close="() => {this.statusFilterActive = false;}"
                   :active="statusFilterActive"
                   full-width
                   preferredPosition="mostSpace"

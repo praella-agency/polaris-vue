@@ -109,7 +109,7 @@ const Template = (args, {argTypes}) => ({
                         id="popover_1"
                         :active="active"
                         preferred-alignment="right"
-                        @close="toggleRatingFilter"
+                        @close="() => {this.active = false;}"
                         full-width
                     >
                         <PButton slot="activator" @click="() => {this.active = !this.active}"
@@ -140,7 +140,7 @@ const Template = (args, {argTypes}) => ({
                         id="popover_2"
                         :active="active1"
                         preferred-alignment="right"
-                        @close="toggleRatingFilter1"
+                        @close="() => {this.active1 = false;}"
                         full-width
                     >
                         <PButton slot="activator" @click="() => {this.active1 = !this.active1}"

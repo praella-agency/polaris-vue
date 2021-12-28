@@ -133,7 +133,7 @@ const Template = (args, {argTypes}) => ({
           <PPopover
               id="popover_1"  
               :active="accountStatusPopover"
-              @close="toggleAccountStatus"
+              @close="() => {this.accountStatusPopover = false;}"
               full-width
           >
               <PButton
@@ -165,7 +165,7 @@ const Template = (args, {argTypes}) => ({
           </PPopover>
           <PPopover
               id="popover_2"
-              @close="togglePopoverActive"
+              @close="() => {this.popoverActive = false;}"
               :active="popoverActive"
               full-width
           >

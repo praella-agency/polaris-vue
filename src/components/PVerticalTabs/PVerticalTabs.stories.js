@@ -138,7 +138,7 @@ const Template = (args, { argTypes }) => ({
                     id="CardHeaderPopover"
                     :active="statusFilterActive"
                     preferredAlignment="right"
-                    @close="statusFilterActive = false"
+                    @close="() => {this.statusFilterActive = false}"
                 >
                     <PButton
                         slot="activator"
