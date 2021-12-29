@@ -99,8 +99,8 @@ const Template = (args, { argTypes }) => ({
         updateStatusFilter(selected) {
             this.selectedStatus = selected;
         },
-        handleClick(option) {
-            console.log('click', option);
+        handleClick(selected, option) {
+            console.log('click', selected, option);
         }
     },
 });

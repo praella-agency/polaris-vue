@@ -126,6 +126,7 @@ export default {
   data() {
     return {
       optionsExist: true,
+        selectedValue: null,
     }
   },
   computed: {
@@ -161,12 +162,14 @@ export default {
                     ...this.selected.slice(foundIndex + 1, this.selected.length),
                   ];
 
+          this.selectedValue = newSelection;
           this.$emit('change', newSelection);
           return;
         }
+        this.selectedValue = [selectedValue];
         /**
+         *
          * Method to handle change event
-         * @property {Default}
          */
         this.$emit('change', [selectedValue]);
       }
@@ -175,7 +178,7 @@ export default {
           /**
            * Method to handle click event. This event will provide the selected option.
            */
-          this.$emit('click', option)
+          this.$emit('click', this.selectedValue, option)
       }
   },
   created() {
