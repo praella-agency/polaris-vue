@@ -2,58 +2,25 @@
     <aside :class="className" aria-label="Polaris Preview Theme Sidebar">
         <div class="Polaris-PreviewFrame__PanelArea">
             <a id="Polaris-PreviewFrame-SkipTarget" tabindex="-1"></a>
-            <div class="Polaris-PreviewFrame__StaticPanel" tabindex="-1" :aria-hidden="false">
-                <div class="Polaris-PreviewFrame__ChildrenWrapper">
-                    <div class="Polaris-PreviewFrame__Layout
-                                Polaris-PreviewFrame__layoutSpacingDefault
-                                Polaris-PreviewFrame__spaceAfter
-                                Polaris-PreviewFrame__fullHeight
-                                Polaris-PreviewFrame__scrollable"
-                    >
-                        <div v-if="leftSidebarTitle" class="Polaris-PreviewFrame__NavHeader">
-                            <div class="Polaris-PreviewFrame__Section Polaris-PreviewFrame__alignToNav">
-                                <PHeading>
-                                    <slot name="sidebar.leftTitle">
-                                        {{ leftSidebarTitle }}
-                                    </slot>
-                                </PHeading>
-                            </div>
-                        </div>
-                        <!-- Section_1ozsc_41 -->
-                        <section
-                            class="Polaris-PreviewFrame__Section--header
-                                    Polaris-PreviewFrame__sectionSpacingExtraTight
-                                    Polaris-PreviewFrame__paddingNone"
-                        >
-                            <div class="Polaris-PreviewFrame__ChildrenWrapper--header">
-                                <slot name="sidebar.content">
-                                    <PHeading>Content</PHeading>
-                                </slot>
-                            </div>
-                        </section>
-                    </div>
-                    <div
-                        v-if="$slots.leftSidebarFooter"
-                        class="Polaris-PreviewFrame__Layout
-                                Polaris-PreviewFrame__layoutSpacingDefault
-                                Polaris-PreviewFrame__sticky"
-                    >
-                        <section class="Polaris-PreviewFrame__Section--header
-                                            Polaris-PreviewFrame__sectionSpacingDefault
-                                            Polaris-PreviewFrame__paddingNone">
-                            <div class="Polaris-PreviewFrame__ChildrenWrapper--header">
-                                <div class="Polaris-PreviewFrame__Footer">
-                                    <div class="Polaris-PreviewFrame__Footer--childrenWrapper">
-                                        <slot name="sidebar.footer">
-                                            <PHeading>Footer</PHeading>
-                                        </slot>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            </div>
+            <PLeftSidebarPanel
+                :responsiveRightSidebar="responsiveRightSidebar"
+                :openRightSidebar="openRightSidebar"
+                :leftSidebarTitle="leftSidebarTitle"
+            >
+                <slot slot="sidebar.left.title" name="sidebar.left.title"/>
+                <slot slot="sidebar.left.content" name="sidebar.left.content"/>
+                <slot slot="sidebar.left.footer" name="sidebar.left.footer"/>
+            </PLeftSidebarPanel>
+            <PRightSidebarPanel
+                v-if="responsiveRightSidebar && openRightSidebar"
+                :rightSidebarTitle="rightSidebarTitle"
+                :responsiveRightSidebar="responsiveRightSidebar"
+                @backClick="handleBackClick"
+            >
+                <slot slot="sidebar.right.title" name="sidebar.right.title"/>
+                <slot slot="sidebar.right.content" name="sidebar.right.content"/>
+                <slot slot="sidebar.right.footer" name="sidebar.right.footer"/>
+            </PRightSidebarPanel>
         </div>
     </aside>
 </template>
@@ -61,11 +28,13 @@
 <script>
     import { PHeading } from '../../../../components/PHeading';
     import { classNames } from '../../../../utilities/css';
+    import { PRightSidebarPanel } from '../PRightSidebar/components/PRightSidebarPanel';
+    import { PLeftSidebarPanel } from '../PLeftSidebar/components/PLeftSidebarPanel';
 
     export default {
         name: 'PLeftSidebar',
         components: {
-            PHeading,
+            PHeading, PRightSidebarPanel, PLeftSidebarPanel,
         },
         props: {
             leftSidebarTitle: {
@@ -76,9 +45,18 @@
                 type: String,
                 default: 'desktop',
             },
-        },
-        data() {
-            return {};
+            responsiveRightSidebar: {
+                type: Boolean,
+                default: false,
+            },
+            rightSidebarTitle: {
+                type: String,
+                default: null,
+            },
+            openRightSidebar: {
+                type: Boolean,
+                default: false,
+            },
         },
         computed: {
             className() {
@@ -88,7 +66,11 @@
                 );
             },
         },
-        methods: {},
+        methods: {
+            handleBackClick() {
+                this.$emit('backClick', false);
+            },
+        },
     }
 </script>
 

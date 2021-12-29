@@ -182,6 +182,12 @@
   height: 100%;
 }
 
+.Polaris-PreviewFrame__StaticPanel--suspend {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .Polaris-PreviewFrame__ChildrenWrapper {
   display: flex;
   flex-direction: column;
@@ -222,6 +228,36 @@
   border-bottom: 0.1rem solid $p-divider;
 }
 
+.Polaris-PreviewFrame__RightHeader {
+  --preview-frame_static-panel-header-padding-y: 0;
+  padding-top: var(--preview-frame_static-panel-header-padding-y);
+  padding-bottom: var(--preview-frame_static-panel-header-padding-y);
+}
+
+.Polaris-PreviewFrame__RightHeader--sticky {
+  --preview-frame_static-panel-header-padding-y: 1.6rem;
+}
+
+.Polaris-PreviewFrame__RightHeader--sticky, .Polaris-PreviewFrame__RightHeader--hasBack,
+.Polaris-PreviewFrame__RightHeader--sticky, .Polaris-PreviewFrame__RightHeader--close {
+  --preview-frame_static-panel-header-padding-y: 0.8rem;
+}
+
+.Polaris-PreviewFrame__RightHeader--BackActionWrapper {
+  margin-left: -0.8rem;
+  margin-right: 0.4rem;
+}
+
+.Polaris-PreviewFrame__RightTitleWrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+.Polaris-PreviewFrame__RightHeader--hasBack .Polaris-PreviewFrame__RightTitleWrapper {
+  grid-template-columns: auto 1fr;
+}
+
 .Polaris-PreviewFrame__Section {
   --preview-frame_nav-header-section-divider-offset: 0;
   padding: 1.2rem;
@@ -229,6 +265,19 @@
 
 .Polaris-PreviewFrame__Section:first-child {
   padding-top: 1.6rem;
+}
+
+.Polaris-PreviewFrame__Section--sticky {
+  z-index: 5;
+  position: sticky;
+}
+
+.Polaris-PreviewFrame__Section--sticky:first-child {
+  border-bottom: 0.1rem solid $p-divider;
+}
+
+.Polaris-PreviewFrame__Section--header.Polaris-PreviewFrame__Section--sticky {
+  top: 0;
 }
 
 .Polaris-PreviewFrame__alignToNav {

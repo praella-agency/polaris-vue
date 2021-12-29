@@ -15,6 +15,7 @@ import { PHeading } from '../PHeading';
 import { POptionList } from '../POptionList';
 import { PTextContainer } from '../PTextContainer';
 import { PHorizontalDivider } from '../PHorizontalDivider';
+import { PImage } from '../PImage';
 
 export default {
     title: 'Preview Frame',
@@ -32,26 +33,29 @@ const Template = (args, { argTypes }) => ({
     props: Object.keys(argTypes),
     components: {
         PPreviewFrame, PVerticalDivider, PIcon, PStack, PStackItem, PTextStyle, PBadge, PPopover, PButton, PTextField,
-        PCard, PConnected, PActionList, PHeading, POptionList, PTextContainer, PHorizontalDivider,
+        PCard, PConnected, PActionList, PHeading, POptionList, PTextContainer, PHorizontalDivider, PImage,
     },
     data() {
         return {
             searchActive: false,
             leftSideOptions: [],
+            openSidebar: false,
+            rightTitle: null,
         };
     },
     template: `
         <PPreviewFrame
-            left-sidebar-title="Home page"
-            showRevertButtons
+            v-bind="$props"
+            :openRightSidebar.sync="openSidebar"
+            :rightSidebarTitle="rightTitle || 'Side bar'"
         >
-            <template slot="topBar.left">
+            <template slot="header.left">
                 <PButton plainAction icon="ExitMajor"/>
                 <PVerticalDivider/>
                 <PTextStyle>Debut</PTextStyle>
                 <PBadge status="success" progress="complete" size="small">Live</PBadge>
             </template>
-            <template slot="topBar.center">
+            <template slot="header.center">
                 <PPopover
                     id="PreviewFrameSearch"
                     :active="searchActive"
@@ -97,10 +101,10 @@ const Template = (args, { argTypes }) => ({
                     </template>
                 </PPopover>
             </template>
-            <template slot="topBar.right">
+            <template slot="header.right">
                 <PButton primary>Save</PButton>    
             </template>
-            <template slot="leftSidebarContent">
+            <template slot="sidebar.left.content">
                 <POptionList 
                     :options="[{
                         value: 'header',
@@ -119,14 +123,14 @@ const Template = (args, { argTypes }) => ({
                     @change="updateLeftOptions"
                 />
             </template>
-            <template slot="leftSidebarFooter">
-                <PActionList
-                    :items="[{
-                        content: 'Theme settings',
-                    }]"
-                />
+            <template slot="sidebar.left.footer">
+                <div style="padding-top: 0.8rem; padding-bottom: 0.8rem;">
+                    <PButton plainAction>
+                        <PTextStyle variation="strong">Theme settings</PTextStyle>
+                    </PButton>
+                </div>
             </template>
-            <template slot="rightSidebarContent">
+            <template slot="sidebar.right.content">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" 
                      style="display: flex; justify-content: center; align-items: center; flex: 0 0 auto; width: 4.5rem; height: 4.5rem; fill: #5c5f62"
                 >
@@ -138,7 +142,10 @@ const Template = (args, { argTypes }) => ({
                 </PTextContainer>
             </template>
             <template>
-                <iframe src="https://polaris-vue.hulkapps.com" frameborder="0" style="height: 100%; min-width: 100%"></iframe>
+                <PImage
+                    source="https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg"
+                    style="height: 100%; width: 100%"
+                />
             </template>
         </PPreviewFrame>
     `,
@@ -148,8 +155,27 @@ const Template = (args, { argTypes }) => ({
         },
         updateLeftOptions(selected) {
             this.leftSideOptions = selected;
+            this.openSidebar = !this.openSidebar;
+            this.rightTitle = selected[0];
         },
     },
 });
 
 export const PreviewFrame = Template.bind({});
+
+PreviewFrame.args = {
+    leftSidebarTitle: 'Home page',
+    showUndoRedo: true,
+    showPreviewOptions: true,
+    undoActions: {
+        onAction: () => {
+            console.log('Undo Actions');
+        },
+    },
+    redoActions: {
+        disabled: true,
+        onAction: () => {
+            console.log('Redo Actions');
+        },
+    },
+}
