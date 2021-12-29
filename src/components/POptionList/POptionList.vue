@@ -17,6 +17,7 @@
                     :select="selected.includes(option.value)"
                     :allowMultiple="allowMultiple"
                     @click="handleClick"
+                    @selectedObject="handleSelectedObject(option)"
                 >
                     <template v-slot:media="slotProps">
                         <!-- @slot Media to display to the left of the option content -->
@@ -164,12 +165,18 @@ export default {
           return;
         }
         /**
-         * Method to handle click event
+         * Method to handle change event
          * @property {Default}
          */
         this.$emit('change', [selectedValue]);
       }
-    }
+    },
+      handleSelectedObject(option) {
+          /**
+           * Method to handle click event. This event will provide the selected option.
+           */
+          this.$emit('click', option)
+      }
   },
   created() {
     this.optionsExist = this.normalizedOptions.length > 0;

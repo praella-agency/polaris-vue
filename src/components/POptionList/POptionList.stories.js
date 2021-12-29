@@ -55,6 +55,14 @@ export default {
                 },
             },
         },
+        click: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(selectedOption)',
+                },
+            },
+        },
         media: {
             table: {
                 type: {
@@ -80,6 +88,7 @@ const Template = (args, { argTypes }) => ({
             v-bind="$props"
             :selected="selectedStatus"
             @change="updateStatusFilter"
+            @click="handleClick"
         >
             <template v-slot:media="{item}">
                 {{ item.icon }}
@@ -89,6 +98,9 @@ const Template = (args, { argTypes }) => ({
     methods: {
         updateStatusFilter(selected) {
             this.selectedStatus = selected;
+        },
+        handleClick(option) {
+            console.log('click', option);
         }
     },
 });

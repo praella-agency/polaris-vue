@@ -2,14 +2,14 @@
     <li :key="id" class="Polaris-OptionList-Option" tabindex="-1">
         <label v-if="allowMultiple" :class="multiSelectClassName">
             <div class="Polaris-OptionList-Option__Checkbox">
-                <POptionsListCheckbox :id="id" :value="value" :checked="select" :active="active" :disabled="disabled" @change="$emit('click', section, index)" />
+                <POptionsListCheckbox :id="id" :value="value" :checked="select" :active="active" :disabled="disabled" @change="handleEvent" />
             </div>
             <div v-if="$scopedSlots.media()" class="Polaris-OptionList-Option__Media">
                 <slot name="media"/>
             </div>
             <slot/>
         </label>
-        <button v-else :id="id" type="button" :class="singleSelectClassName" @click="$emit('click', section, index)" @focus="focused = !focused" @blur="focused = !focused">
+        <button v-else :id="id" type="button" :class="singleSelectClassName" @click="handleEvent" @focus="focused = !focused" @blur="focused = !focused">
             <div v-if="$scopedSlots.media()" class="Polaris-OptionList-Option__Media">
                 <slot name="media"/>
             </div>
@@ -77,5 +77,11 @@
           );
         }
       },
+        methods: {
+          handleEvent() {
+              this.$emit('click', this.section, this.index);
+              this.$emit('selectedObject');
+          }
+        }
     }
 </script>
