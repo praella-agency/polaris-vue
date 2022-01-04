@@ -18,8 +18,7 @@ export default {
   name: 'PSkeletonDisplayText',
   props: {
     /**
-     * Size of Skeleton
-     * @values small | medium | large | extraLarge
+     * Size of Skeleton.
      */
     size: {
       type: String,

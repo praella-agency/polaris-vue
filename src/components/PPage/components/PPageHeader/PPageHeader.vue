@@ -130,8 +130,7 @@ export default {
     data() {
         return {
             /**
-             * To Check that view collapsed or not
-             * @values true | false
+             * To Check that view collapsed or not.
              */
             isNavigationCollapsed: {
                 rollup: false,

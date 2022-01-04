@@ -44,7 +44,6 @@
         props: {
             /**
              * Remove the normal max-width on the page
-             * @values true | false
              */
             fullWidth: {
                 type: Boolean,
@@ -52,7 +51,6 @@
             },
             /**
              * Decreases the maximum layout width. Intended for single-column layouts
-             * @values true | false
              */
             narrowWidth: {
                 type: Boolean,

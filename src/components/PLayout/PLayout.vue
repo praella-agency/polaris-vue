@@ -31,7 +31,6 @@
         props: {
             /**
              * Automatically adds sections to layout.
-             * @values true | false
              */
             sectioned: {
                 type: Boolean,

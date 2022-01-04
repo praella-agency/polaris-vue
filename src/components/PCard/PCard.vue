@@ -84,7 +84,6 @@
             },
             /**
              * A less prominent card
-             * @values true | false
              */
             subdued: {
                 type: Boolean,
@@ -92,7 +91,6 @@
             },
             /**
              * Auto wrap content in section
-             * @values true | false
              */
             sectioned: {
                 type: Boolean,

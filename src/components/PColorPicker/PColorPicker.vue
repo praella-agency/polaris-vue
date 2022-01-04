@@ -54,7 +54,6 @@
             },
             /**
              * Hide/Show input
-             * @values true | false
              */
             showInput: {
                 type: Boolean,
@@ -84,8 +83,7 @@
             updateColor(color) {
                 /**
                  * Triggers when color is changed
-                 *
-                 * @property {string} color new color hex
+                 * @ignore
                  */
                 this.$emit('update:color', color.hex);
             },

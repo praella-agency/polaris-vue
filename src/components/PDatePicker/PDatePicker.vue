@@ -140,7 +140,6 @@
         props: {
             /**
              *  Show button as picker instead of input field
-             *  @values true | false
              */
             button: {
                 type: Boolean,
@@ -148,7 +147,6 @@
             },
             /**
              *  Which way the picker opens. Works without button attribute
-             *  @values left | center | right | inline
              */
             opens: {
                 type: String,
@@ -170,7 +168,6 @@
             },
             /**
              * Disabled state. If true picker do not popup on click.
-             *  @values true | false
              */
             disabled: {
                 type: Boolean,
@@ -178,7 +175,6 @@
             },
             /**
              * Whether to close the dropdown on "esc"
-             *  @values true | false
              */
             closeOnEsc: {
                 type: Boolean,
@@ -186,7 +182,6 @@
             },
             /**
              * Visually hide the label
-             *  @values true | false
              */
             labelHidden: {
                 type: Boolean,
@@ -208,7 +203,6 @@
             },
             /**
              * Empty Label for the element
-             *  @values true | false
              */
             emptyLabel: {
                 type: Boolean,
@@ -260,7 +254,6 @@
             },
             /**
              * Show the dropdown for time (hour/minute) selection below the calendars
-             *  @values true | false
              */
             timePicker: {
                 type: Boolean,
@@ -268,7 +261,6 @@
             },
             /**
              * Use 24h format for the time
-             *  @values true | false
              */
             timePicker24Hour: {
                 type: Boolean,
@@ -276,7 +268,6 @@
             },
             /**
              * Show the week numbers on the left side of the calendar
-             *  @values true | false
              */
             showWeekNumbers: {
                 type: Boolean,
@@ -284,7 +275,6 @@
             },
             /**
              * Show the dropdowns for month and year selection above the calendars
-             *  @values true | false
              */
             showDropdowns: {
                 type: Boolean,
@@ -427,12 +417,10 @@
                     this.content = dateRange;
                     /**
                      * Change date range
-                     * @property {Object} { startDate: DateType, endDate: DateType }
                      */
                     this.$emit('change', dateRange);
                     /**
                      * Emits when the input is triggered
-                     * @property {Object} { startDate: DateType, endDate: DateType }
                      */
                     this.$emit('input', dateRange);
                 }

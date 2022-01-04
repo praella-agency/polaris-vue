@@ -31,23 +31,20 @@
         },
         props: {
             /**
-             * Set it true of you need items in vertical
-             * @values true | false
+             * Set it true of you need items in vertical.
              */
             vertical: {
                 type: Boolean,
             },
             /**
-             * Set it true for Word-Wrap
-             * @values true | false
+             * Set it true for Word-Wrap.
              */
             wrap: {
                 type: Boolean,
                 default: true,
             },
             /**
-             * Space between two items -
-             * @values extraTight | tight | loose | extraLoose | none
+             * Space between two items.
              */
             spacing: {
                 type: String,
@@ -55,8 +52,7 @@
                 ...StringValidator('spacing', Spacing),
             },
             /**
-             * Distribution of free space among items
-             * @values equalSpacing | leading | trailing | center | fill | fillEvenly
+             * Distribution of free space among items.
              */
             distribution: {
                 type: String,
@@ -64,8 +60,7 @@
                 ...StringValidator('distribution', Distribution),
             },
             /**
-             * Alignment of items
-             * @values leading | trailing | center | fill | baseline
+             * Alignment of items.
              */
             alignment: {
                 type: String,

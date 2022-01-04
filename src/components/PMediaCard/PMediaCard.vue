@@ -106,7 +106,7 @@
                 default: null,
             },
             /**
-             * Body content
+             * Body content.
              */
             description: {
                 type: String,
@@ -121,7 +121,6 @@
             },
             /**
              * Size of the visual media in the card.
-             * @values small | medium
              */
             size: {
                 type: String,

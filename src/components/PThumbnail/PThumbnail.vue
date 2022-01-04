@@ -29,7 +29,6 @@
         props: {
           /**
            * Thumbnail Size.
-           * @values small | medium | large
            */
           size: {
             type: String,
@@ -39,7 +38,6 @@
 
           /**
            * Image source.
-           * @values URL | Path
            */
           source: {
             type: String,
@@ -47,8 +45,7 @@
           },
 
           /**
-           * Image alt
-           * @values text
+           * Image alt.
            */
           alt: {
             type: String,

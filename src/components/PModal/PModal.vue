@@ -59,7 +59,6 @@
         props: {
             /**
              * Set it true to make it large.
-             * @values true | false
              */
             large: {
                 type: Boolean,
@@ -67,7 +66,6 @@
             },
             /**
              * Set it true to limits modal height on large screens with scrolling.
-             * @values true | false
              */
             limitHeight: {
                 type: Boolean,
@@ -75,7 +73,6 @@
             },
             /**
              * Replaces modal content with a spinner while a background action is being performed.
-             * @values true | false
              */
             loading: {
                 type: Boolean,
@@ -83,7 +80,6 @@
             },
             /**
              * Whether the modal is open or not
-             * @values true | false
              */
             open: {
                 type: Boolean,
@@ -91,7 +87,6 @@
             },
             /**
              * Automatically adds sections to modal.
-             * @values true | false
              */
             sectioned: {
                 type: Boolean,
@@ -162,7 +157,6 @@
             handleOnClick($event) {
                 /**
                  * Method to handle on close event
-                 * @property {Event}
                  */
                 this.$emit('close', $event);
             },

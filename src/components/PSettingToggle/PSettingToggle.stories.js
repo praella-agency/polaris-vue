@@ -17,12 +17,6 @@ export default {
                 type: 'object',
                 readonly: true
             },
-            defaultValue: {
-                contentStatus: 'Deactivate',
-                onAction: () => {
-                    alert('Action Triggered!');
-                },
-            },
             table: {
                 defaultValue: {
                     summary: '{}',

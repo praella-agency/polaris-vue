@@ -19,16 +19,14 @@ export default {
     name: 'PStackItem',
     props: {
         /**
-         * Fill the available horizontal space in the stack with the item
-         * @values true | false
+         * Fill the available horizontal space in the stack with the item.
          */
         fill: {
             type: Boolean,
             default: false,
         },
         /**
-         * Width of Item
-         * @values Ex:- 100 | 100px
+         * Width of Item.
          */
         width: {
             type: [String, Number],

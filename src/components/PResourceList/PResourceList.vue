@@ -124,7 +124,6 @@
             /**
              * Renders a Select All button at the top
              * of the list and checkboxes in front of each list item.
-             * @values true | false
              */
             selectable: {
                 type: Boolean,
@@ -140,7 +139,6 @@
             /**
              * Whether or not there are more items than currently set
              * on the items prop.
-             * @values true | false
              */
             hasMore: {
                 type: Boolean,
@@ -149,7 +147,6 @@
             /**
              * Overlays item list with a spinner while a
              * background action is being performed.
-             * @values true | false
              */
             loading: {
                 type: Boolean,
@@ -157,7 +154,6 @@
             },
             /**
              * Name of the resource, such as customers or books.
-             * @values {plural: string, singular: string}
              */
             resourceName: {
                 type: Object,
@@ -165,7 +161,6 @@
             },
             /**
              * Boolean to show or hide the header.
-             * @value true | false
              */
             showHeader: {
                 type: Boolean,
@@ -173,7 +168,6 @@
             },
             /**
              * Boolean to show or hide the filters.
-             * @value true | false
              */
             hideFilters: {
                 type: Boolean,
@@ -253,8 +247,7 @@
                     this.selectedMore = items.selectedMore;
 
                     /**
-                     * Callback when selection is changed.
-                     * @property {Array} selectedItems
+                     * Callback when selection is changed
                      */
                     this.$emit('change', items);
                 },
@@ -298,14 +291,12 @@
             onRemoveFilter(tag) {
                 /**
                  * Calls when filter removes
-                 * @property {String} tag
                  */
                 this.$emit('filter-removed', tag);
             },
             onFilterInputChanged(value) {
                 /**
                  * Calls when filter is adding
-                 * @property {String} input-value
                  */
                 this.$emit('input-filter-changed', value);
             },

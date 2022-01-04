@@ -84,7 +84,6 @@ export default {
 
     /**
      * Whether or not the content should span the full width of its container
-     * @values true | false
      */
     fullWidth: {
       type: Boolean,
@@ -93,7 +92,6 @@ export default {
 
     /**
      * Whether or not to limit the image to the size of its container on large screens
-     * @values true | false
      */
     imageContained: {
       type: Boolean,

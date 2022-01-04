@@ -18,8 +18,7 @@ export default {
   name: 'PSkeletonThumbnail',
   props: {
     /**
-     * Size of Skeleton
-     * @values 'small' | 'medium' | 'large'
+     * Size of Skeleton.
      */
 
     size: {

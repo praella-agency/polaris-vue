@@ -67,7 +67,6 @@
             },
             /**
              * Show or hide the PPopover.
-             * @values true | false
              */
             active: {
                 type: Boolean,
@@ -75,15 +74,13 @@
             },
             /**
              * Preferred Position.
-             * @values below | above | mostSpace
              */
             preferredPosition: {
                 type: String,
                 default: 'below',
             },
             /**
-             * Preferred Alignment
-             * @values center | left | right
+             * Preferred Alignment.
              */
             preferredAlignment: {
                 type: String,
@@ -97,8 +94,7 @@
                 default: null,
             },
             /**
-             * Prevent auto focus on the activator
-             * @values true | false
+             * Prevent auto focus on the activator.
              */
             preventAutoFocus: {
                 type: Boolean,
@@ -106,7 +102,6 @@
             },
             /**
              * Automatically add wrap content in section.
-             * @values true | false
              */
             sectioned: {
                 type: Boolean,
@@ -114,7 +109,6 @@
             },
             /**
              * Allow PPopover to stretch to the full width of its activator.
-             * @values true | false
              */
             fullWidth: {
                 type: Boolean,
@@ -122,7 +116,6 @@
             },
             /**
              * Allow popover to stretch to fit content vertically.
-             * @values true | false
              */
             fullHeight: {
                 type: Boolean,
@@ -130,23 +123,20 @@
             },
             /**
              * Allow popover content to determine the overlay width and height.
-             * @values true | false
              */
             fluidContent: {
                 type: Boolean,
                 default: false,
             },
             /**
-             * Enable measure
-             * @values true | false
+             * Enable measure.
              */
             measuring: {
                 type: Boolean,
                 default: false,
             },
             /**
-             * Enable positioning
-             * @values true | false
+             * Enable positioning.
              */
             positioning: {
                 type: Boolean,
@@ -192,7 +182,6 @@
                 }
                 /**
                  * Close filter menu when EscapeKey is pressed
-                 * @property {Default}
                  */
                 this.$emit('close', 'EscapeKeypress');
             },
@@ -205,7 +194,6 @@
                 }
                 /**
                  * Close filter menu when page is clicked
-                 * @property {Event} click
                  */
                 this.$emit('close', 'Click');
             },

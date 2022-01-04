@@ -652,7 +652,7 @@
         },
         props: {
             /**
-             * List of column headings
+             * List of column headings.
              */
             headings: {
                 type: Array,
@@ -660,14 +660,14 @@
                 ...ArrayValidator('headings', IndexTableHeading),
             },
             /**
-             * Lists of data points which map to table body rows
+             * Lists of data points which map to table body rows.
              */
             rows: {
                 type: Array,
                 default: () => ([]),
             },
             /**
-             * Bulk actions that will be given more prominence
+             * Bulk actions that will be given more prominence.
              */
             promotedBulkActions: {
                 type: Array,
@@ -675,7 +675,7 @@
                 ...ArrayValidator('promotedBulkActions', BulkActionsProps),
             },
             /**
-             * Actions available on the currently selected items
+             * Actions available on the currently selected items.
              */
             bulkActions: {
                 type: Array,
@@ -684,35 +684,34 @@
             },
             /**
              * Name of the resource, such as customers or books.
-             * @values {plural: string, singular: string}
              */
             resourceName: {
                 type: Object,
                 default: () => ({}),
             },
             /**
-             * An index table with a sticky last column that stays visible on scroll
+             * An index table with a sticky last column that stays visible on scroll.
              */
             lastColumnSticky: {
                 type: Boolean,
                 default: false,
             },
             /**
-             * Selectable index table
+             * Selectable index table.
              */
             selectable: {
                 type: Boolean,
                 default: true,
             },
             /**
-             * Switch mode to small screen
+             * Switch mode to small screen.
              */
             condensed: {
                 type: Boolean,
                 default: false,
             },
             /**
-             * Item list with a spinner while a background action is being performed
+             * Item list with a spinner while a background action is being performed.
              */
             loading: {
                 type: Boolean,
@@ -727,21 +726,21 @@
                 default: false,
             },
             /**
-             * Counts for the currently selected items
+             * Counts for the currently selected items.
              */
             selectedItemsCount: {
                 type: [String, Number],
                 default: null,
             },
             /**
-             * Total number of items
+             * Total number of items.
              */
             itemCount: {
                 type: Number,
                 default: 0,
             },
             /**
-             * Clickable row
+             * Clickable row.
              */
             clickableRow: {
                 type: Boolean,
@@ -749,7 +748,7 @@
             },
             // Filter <-- Start -->
             /**
-             * Display search filter
+             * Display search filter.
              */
             hasFilter: {
                 type: Boolean,
@@ -759,7 +758,7 @@
 
             // Pagination <-- Start -->
             /**
-             * Pagination object
+             * Pagination object.
              */
             pagination: {
                 type: Object,
@@ -1067,14 +1066,12 @@
             onRemoveFilter(tag) {
                 /**
                  * Removes filter tag
-                 * @property {String} tag
                  */
                 this.$emit('filter-removed', tag);
             },
             onFilterInputChanged(value) {
                 /**
                  * Works on keypress
-                 * @property {String} input-value
                  */
                 this.$emit('input-filter-changed', value);
             },

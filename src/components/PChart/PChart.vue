@@ -55,7 +55,6 @@
             },
             /**
              * To get vertical view of chart.
-             * @values true | false
              */
             vertical: {
                 type: Boolean,

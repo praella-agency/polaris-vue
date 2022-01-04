@@ -31,7 +31,6 @@
         props: {
           /**
            * Set the color of the badge for the given status.
-           * @values info | success | warning | attention | critical | new
            */
           status: {
             type: String,
@@ -41,7 +40,6 @@
 
           /**
            * Render a pip showing the progress of a given task.
-           * @values incomplete | partiallyComplete | complete
            */
           progress: {
             type: String,
@@ -67,7 +65,6 @@
 
           /**
            * Set size of badge.
-           * @values small | medium
            */
           size: {
             type: String,

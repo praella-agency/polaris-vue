@@ -60,8 +60,6 @@ export default {
         onItemAction(action) {
             /**
              * Triggers when the item is selected/clicked
-             *
-             * @property {event} action that will be called on selection
              */
             this.$emit('item-action', action);
         },

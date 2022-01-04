@@ -73,7 +73,6 @@ export default {
   props: {
     /**
      * Add to allow multiple options.
-     * @values true | false
      */
     allowMultiple: {
       type: Boolean,

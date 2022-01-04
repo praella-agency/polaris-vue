@@ -355,8 +355,6 @@
             },
             // /**
             //  * Change size of the DropZone
-            //  * @originalValues extraLarge | large | medium | small
-            //  * @values extraLarge | large
             //  */
             // size: {
             //     type: String,

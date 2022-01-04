@@ -35,8 +35,7 @@ export default {
   name: 'PTextStyle',
   props: {
     /**
-     * Give text additional visual meaning
-     * @values positive | negative | strong | subdued | code
+     * Give text additional visual meaning.
      */
     variation: {
       type: String,

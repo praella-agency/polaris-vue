@@ -65,7 +65,6 @@
             },
             /**
              * Sets toggle state.
-             * @values true|false
              */
             enabled: {
                 type: Boolean,

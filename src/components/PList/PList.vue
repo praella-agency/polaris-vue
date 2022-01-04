@@ -22,7 +22,6 @@
       props: {
         /**
          * Type of list
-         * @values bullet | number
          */
         type: {
           type: String,

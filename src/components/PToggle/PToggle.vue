@@ -26,46 +26,41 @@
         name: 'PToggle',
         props: {
             /**
-             * Label of toggle
-             * @values Any String
+             * Label of toggle.
              */
             label: {
                 type: String,
                 default: null,
             },
             /**
-             * ID of toggle
+             * ID of toggle.
              */
             id: {
                 type: [String, Number],
                 default: `PolarisTextField${new Date().getUTCMilliseconds()}`,
             },
             /**
-             * propsClass of toggle
-             * @values true, false
+             * propsClass of toggle.
              */
             propsClass: {
                 type: String,
                 default: null,
             },
             /**
-             * Value of toggle
-             * @values Any String or boolean
+             * Value of toggle.
              */
             value: {
                 type: [String, Boolean, Number],
             },
             /**
-             * Set true for disable
-             * @values true | false
+             * Set true for disable.
              */
             disabled: {
                 type: Boolean,
                 default: false,
             },
             /**
-             * Defined if toggle enabled/disabled
-             * @values true | false
+             * Defined if toggle enabled/disabled.
              */
             checked: {
                 type: Boolean,
