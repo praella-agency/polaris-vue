@@ -1,3 +1,67 @@
+$surface: () !default;
+$surface: map-deep-merge(
+    (
+            'base': #f0f0f0,
+    ),
+    $surface
+);
+
+$on-surface: () !default;
+$on-surface: map-deep-merge(
+    (
+            'base': #111213,
+    ),
+    $on-surface
+);
+
+$primary: () !default;
+$primary: map-deep-merge(
+    (
+            'base': #008060,
+    ),
+    $primary
+);
+
+$secondary: () !default;
+$secondary: map-deep-merge(
+    (
+            'base': #cccccc,
+    ),
+    $secondary
+);
+
+$interactive: () !default;
+$interactive: map-deep-merge(
+    (
+            'base': #2e72d2,
+    ),
+    $interactive
+);
+
+$critical: () !default;
+$critical: map-deep-merge(
+    (
+            'base': #d82c0d,
+    ),
+    $critical
+);
+
+$warning: () !default;
+$warning: map-deep-merge(
+    (
+            'base': #ffc453,
+    ),
+    $warning
+);
+
+$highlight: () !default;
+$highlight: map-deep-merge(
+    (
+            'base': #5bcdda,
+    ),
+    $highlight
+);
+
 $red: () !default;
 $red: map-deep-merge(
     (
@@ -403,6 +467,14 @@ $shades: map-deep-merge(
 $colors: () !default;
 $colors: map-deep-merge(
     (
+            'surface': $surface,
+            'on-surface': $on-surface,
+            'primary': $primary,
+            'secondary': $secondary,
+            'interactive': $interactive,
+            'critical': $critical,
+            'warning': $warning,
+            'highlight': $highlight,
             'red': $red,
             'pink': $pink,
             'purple': $purple,
