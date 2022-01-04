@@ -84,6 +84,10 @@ import { PScrollable } from './PScrollable';
 import { PVerticalTabs } from './PVerticalTabs';
 import { PAccordion } from './PAccordion';
 import { PAccordionItem } from './PAccordion/components/PAccordionItem';
+import { PPreviewFrame } from './PPreviewFrame';
+import { PKeyboardKey } from './PKeyboardKey';
+import { PVerticalDivider } from './PVerticalDivider';
+import { PHorizontalDivider } from './PHorizontalDivider';
 
 export {
   PBadge,
@@ -160,4 +164,7 @@ export {
   PVerticalTabs,
   PAccordion,
   PAccordionItem,
+  PPreviewFrame,
+  PKeyboardKey,
+  PVerticalDivider, PHorizontalDivider,
 };
