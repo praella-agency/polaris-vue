@@ -70,9 +70,8 @@
                         v-if="Object.keys(secondaryMenu).length > 0"
                         v-bind="secondaryMenu"
                     >
-                        <slot name="activatorContent">
-                            <slot/>
-                        </slot>
+                        <!-- @slot Customize icon -->
+                        <slot slot="activatorContent" name="activatorContent"/>
                     </PMenu>
                 </slot>
             </div>

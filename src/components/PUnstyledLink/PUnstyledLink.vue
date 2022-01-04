@@ -26,7 +26,6 @@
         props: {
             /**
              * Set to for router link
-             * @values Internal route link
              */
             to: {
                 type: String | Object,
@@ -34,7 +33,6 @@
             },
             /**
              * Set url for URL
-             * @values Any external URL
              */
             url: {
                 type: String,
@@ -42,7 +40,6 @@
             },
             /**
              * Set true for open URL in new tab
-             * @values true | false
              */
             external: {
                 type: Boolean,

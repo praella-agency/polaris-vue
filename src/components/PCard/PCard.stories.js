@@ -187,13 +187,13 @@ const Template2 = (args, {argTypes}) => ({
                 id="CardHeaderPopover"
                 :active="statusFilterActive"
                 preferredAlignment="right"
-                @close="statusFilterActive = false"
+                @close="handlePopoverClose"
             >
               <PButton
                   slot="activator"
                   plain
                   :disclosure="statusFilterActive ? 'up' : 'down'"
-                  @click.stop="statusFilterActive = !statusFilterActive"
+                  @click="handlePopoverOpen"
               >
                 Status
               </PButton>
@@ -263,6 +263,12 @@ const Template2 = (args, {argTypes}) => ({
         },
         handlePrimaryButton() {
             alert('Export Report');
+        },
+        handlePopoverOpen() {
+            this.statusFilterActive = !this.statusFilterActive;
+        },
+        handlePopoverClose() {
+            this.statusFilterActive = false;
         },
     },
 });

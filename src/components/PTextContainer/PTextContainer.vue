@@ -22,7 +22,6 @@ export default {
   props: {
     /**
      * The amount of vertical spacing children will get between them.
-     * @values tight | loose
      */
     spacing: {
       type: String,

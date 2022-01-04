@@ -70,7 +70,6 @@
         props: {
             /**
              * Disable the PMultiSelect.
-             * @values true | false
              */
             disabled: {
                 type: Boolean,
@@ -121,7 +120,6 @@
             },
             /**
              * Disable the searchable options feature.
-             * @values true | false
              */
             searchable: {
                 type: Boolean,
@@ -129,7 +127,6 @@
             },
             /**
              * Taggable provides ability to add new user-input value on multiselect.
-             * @values true | false
              */
             taggable: {
                 type: Boolean,
@@ -158,7 +155,6 @@
             },
             /**
              * To allow multiple selections
-             * @values true | false
              */
             multiple: {
                 type: Boolean,
@@ -207,12 +203,10 @@
                     this.selected = value;
                     /**
                      * Callback when selection is changed
-                     * @property {event}
                      */
                     this.$emit('change', value);
                     /**
                      * Callback when input is triggered
-                     * @property {event}
                      */
                     this.$emit('input', value);
                 },

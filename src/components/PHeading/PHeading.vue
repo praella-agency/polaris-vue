@@ -22,7 +22,6 @@ export default {
   props: {
     /**
      * The element name to use for the heading
-     * @values h1, h2, h3, h4, h5, h6, p
      */
     element: {
       type: String,

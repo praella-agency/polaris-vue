@@ -33,7 +33,7 @@
                 <template v-slot:icon="slotProps">
                     <!-- @slot Customize the icon part of navigation. This slot provides values.
 
-                     Access values with `slot-props` attribute. -->
+Access values with `slot-props` attribute. -->
                     <slot name="icon" :item="slotProps.item"/>
                 </template>
             </PSection>

@@ -19,8 +19,7 @@ export default {
   name: 'PSubheading',
   props: {
     /**
-     * Element for heading
-     * @values h1 | h2 | h3 | h4 | h5 | h6 | p
+     * Element for heading.
      */
     element: {
       type: String,

@@ -36,8 +36,7 @@ export default {
     },
     props: {
         /**
-         * Tag object
-         * @values { value: 'Test', key: 'test'}
+         * Tag object.
          */
         tag: {
             type: Object,
@@ -45,8 +44,7 @@ export default {
             ...ObjectValidator('tag', TagInterface),
         },
         /**
-         * Set true if you want to make it removable
-         * @values true | false
+         * Set true if you want to make it removable.
          */
         removable: {
             type: Boolean,
@@ -65,7 +63,6 @@ export default {
         handleRemove() {
             /**
              * Method to remove tag
-             * @property tag-key
              */
             this.$emit('remove-tag', this.tag.key);
         },

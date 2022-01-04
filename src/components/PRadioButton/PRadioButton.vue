@@ -79,7 +79,6 @@
             },
             /**
              * Disable input.
-             * @values true | false
              */
             disabled: {
                 type: Boolean,
@@ -87,7 +86,6 @@
             },
             /**
              * Visually hide the label.
-             * @values true | false
              */
             labelHidden: {
                 type: Boolean,
@@ -95,7 +93,6 @@
             },
             /**
              * Selected radio button.
-             * @values true | false
              */
             checked: {
                 type: Boolean,

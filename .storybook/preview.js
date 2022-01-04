@@ -14,41 +14,43 @@ Vue.use(pLoading);
 Vue.use(PTooltip);
 
 export const decorators = [(story) => ({
-  components: {story},
-  template: '<story />',
-  router: new VueRouter()
+    components: {story},
+    template: '<story />',
+    router: new VueRouter()
 })];
 
 export const parameters = {
-  viewMode: 'docs',
-  actions: {
-    disable: true,
-  },
-  controls: {
-    matchers: {
-      color: /(background|color|backgroundColor)$/i,
-      date: /Date$/,
+    viewMode: 'docs',
+    actions: {
+        disable: true,
     },
-    sort: 'alpha',
-  },
-  options: {
-    showPanel: true,
-    storySort: {
-      method: "alphabetical",
-      order: [
-        "Introduction",
-        "Changelog",
-        "Actions",
-        "Structure",
-        "Forms",
-        "Images & Icons",
-        "Feedback indicators",
-        "Titles & Text",
-        "Behavior",
-        "Lists & Tables",
-        "Navigation",
-        "Overlays",
-      ]
-    }
-  },
+    controls: {
+        matchers: {
+            color: /(background|color|backgroundColor)$/i,
+            date: /Date$/,
+        },
+        sort: 'alpha',
+    },
+    options: {
+        showPanel: true,
+        panelPosition: "bottom",
+        storySort: {
+            method: "alphabetical",
+            order: [
+                "Introduction",
+                "Changelog",
+                "Actions",
+                "Structure",
+                "Forms",
+                "Images & Icons",
+                "Feedback indicators",
+                "Titles & Text",
+                "Behavior",
+                "Lists & Tables",
+                "Navigation",
+                "Overlays",
+                "Data visualizations",
+            ]
+        }
+    },
 }

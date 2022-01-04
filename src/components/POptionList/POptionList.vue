@@ -1,18 +1,30 @@
 <template>
     <ul class="Polaris-OptionList">
-        <li v-if="optionsExist" v-for="(normalizedOption, sectionIndex) in normalizedOptions" :key="normalizedOption.title ? normalizedOption.title : `noTitle-${sectionIndex}`">
+        <li
+            v-if="optionsExist"
+            v-for="(normalizedOption, sectionIndex) in normalizedOptions"
+            :key="normalizedOption.title ? normalizedOption.title : `noTitle-${sectionIndex}`"
+        >
             <p v-if="normalizedOption.title" class="Polaris-OptionList__Title">{{normalizedOption.title}}</p>
-            <ul :id="`${id}-${sectionIndex}`" class="Polaris-OptionList__Options">
+            <ul :id="`${optionListId}-${sectionIndex}`" class="Polaris-OptionList__Options">
                 <POptionsListOption
                     v-if="normalizedOption.options"
                     v-for="(option, optionIndex) in normalizedOption.options"
-                    :key="option.id ? option.id : `${id}-${sectionIndex}-${optionIndex}`"
-                    :id="option.id ? option.id : `${id}-${sectionIndex}-${optionIndex}`"
+                    :key="option.id ? option.id : `${optionListId}-${sectionIndex}-${optionIndex}`"
+                    :id="option.id ? option.id : `${optionListId}-${sectionIndex}-${optionIndex}`"
                     :section="sectionIndex"
                     :index="optionIndex"
                     :select="selected.includes(option.value)"
                     :allowMultiple="allowMultiple"
-                    @click="handleClick">
+                    @click="handleClick"
+                    @selectedObject="handleSelectedObject(option)"
+                >
+                    <template v-slot:media="slotProps">
+                        <!-- @slot Media to display to the left of the option content.
+
+Access values with `slot-props` attribute.-->
+                        <slot name="media" :item="option"/>
+                    </template>
                     {{option.label}}
                 </POptionsListOption>
             </ul>
@@ -63,7 +75,6 @@ export default {
   props: {
     /**
      * Add to allow multiple options.
-     * @values true | false
      */
     allowMultiple: {
       type: Boolean,
@@ -116,11 +127,17 @@ export default {
   data() {
     return {
       optionsExist: true,
+        selectedValue: null,
     }
   },
   computed: {
+    optionListId() {
+        if (!this.id) {
+            return `Polaris-OptionList-${this['_uid']}`;
+        }
+        return this.id;
+    },
     normalizedOptions() {
-
       if (this.options == null) {
         return this.sections == null ? [] : [{options: [], title: this.title}, ...this.sections];
       }
@@ -146,19 +163,27 @@ export default {
                     ...this.selected.slice(foundIndex + 1, this.selected.length),
                   ];
 
+          this.selectedValue = newSelection;
           this.$emit('change', newSelection);
           return;
         }
+        this.selectedValue = [selectedValue];
         /**
-         * Method to handle click event
-         * @property {Default}
+         *
+         * Method to handle change event
          */
         this.$emit('change', [selectedValue]);
       }
-    }
+    },
+      handleSelectedObject(option) {
+          /**
+           * Method to handle click event. This event will provide the selected option.
+           */
+          this.$emit('click', this.selectedValue, option)
+      }
   },
   created() {
-    this.optionsExist = this.normalizedOptions.length > 0
+    this.optionsExist = this.normalizedOptions.length > 0;
   }
 }
 </script>

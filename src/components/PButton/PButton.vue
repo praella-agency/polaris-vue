@@ -93,7 +93,6 @@
             },
             /**
              * Define aria-controls, aria-haspopup, aria-owns
-             * @values true | false
              */
             ariaProps: {
                 type: Boolean,
@@ -108,7 +107,6 @@
             },
             /**
              * Type of the button
-             * @values submit | reset | button
              */
             type: {
                 type: Type,
@@ -117,7 +115,6 @@
             /**
              * Provides extra visual weight and identifies
              * the primary action in a set of buttons
-             * @values true | false
              */
             primary: {
                 type: Boolean,
@@ -126,7 +123,6 @@
             /**
              * Gives the button a subtle alternative to the
              * default button styling, appropriate for certain backdrops
-             * @values true | false
              */
             outline: {
                 type: Boolean,
@@ -134,7 +130,6 @@
             },
             /**
              * Indicates a dangerous or potentially negative action
-             * @values true | false
              */
             destructive: {
                 type: Boolean,
@@ -142,7 +137,6 @@
             },
             /**
              * Indicates a dangerous or potentially negative text
-             * @values true | false
              */
             destructiveText: {
                 type: Boolean,
@@ -150,7 +144,6 @@
             },
             /**
              * Disables the button, disallowing merchant interaction
-             * @values true | false
              */
             disabled: {
                 type: Boolean,
@@ -158,7 +151,6 @@
             },
             /**
              * Replaces button text with a spinner while a background action is being performed
-             * @values true | false
              */
             loading: {
                 type: Boolean,
@@ -166,7 +158,6 @@
             },
             /**
              * Renders a button that looks like a link
-             * @values true | false
              */
             plain: {
                 type: Boolean,
@@ -177,7 +168,6 @@
              * (text, borders, icons) the same as the current text color.
              *
              * Also adds an underline to `plain` Buttons
-             * @values true | false
              */
             monochrome: {
                 type: Boolean,
@@ -185,7 +175,6 @@
             },
             /**
              * Allows the button to grow to the width of its container
-             * @values true | false
              */
             fullWidth: {
                 type: Boolean,
@@ -193,7 +182,6 @@
             },
             /**
              * Displays the button with a disclosure icon.
-             * @values up | down | true | false
              */
             disclosure: {
                 type: Boolean | String,
@@ -201,7 +189,6 @@
             },
             /**
              * Changes the size of the button, giving it more or less padding
-             * @values slim | medium | large
              */
             size: {
                 type: Size,
@@ -209,7 +196,6 @@
             },
             /**
              * Changes the inner text alignment of the button
-             * @values left | right | center
              */
             textAlign: {
                 type: TextAlign,
@@ -229,6 +215,13 @@
             value: {
                 type: String | Number | Array,
             },
+            /**
+             * Renders a button without border
+             */
+            plainAction: {
+                type: Boolean,
+                default: false,
+            },
         },
         computed: {
             className() {
@@ -241,6 +234,7 @@
                     this.isDisabled && 'Polaris-Button--disabled',
                     this.loading && 'Polaris-Button--loading',
                     this.plain && 'Polaris-Button--plain',
+                    this.plainAction && 'Polaris-Button--plainAction',
                     this.monochrome && 'Polaris-Button--monochrome',
                     this.fullWidth && 'Polaris-Button--fullWidth',
                     this.icon && this.hasNoChildren && 'Polaris-Button--iconOnly',

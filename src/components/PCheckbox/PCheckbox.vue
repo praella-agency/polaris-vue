@@ -78,7 +78,6 @@
             },
             /**
              * Visually hide the label
-             * @values true | false
              */
             labelHidden: {
                 type: Boolean,
@@ -86,7 +85,6 @@
             },
             /**
              * `indeterminate` shows a horizontal line in the checkbox
-             * @values true | false
              */
             indeterminate: {
                 type: Boolean,
@@ -94,7 +92,6 @@
             },
             /**
              * Checkbox is selected.
-             * @values true | false
              */
             checked: {
                 type: Boolean,
@@ -108,7 +105,6 @@
             },
             /**
              * Disable input
-             * @values true | false
              */
             disabled: {
                 type: Boolean,
@@ -143,9 +139,7 @@
             onChange(e) {
                 const target = e.target || e.srcElement;
                 /**
-                 * Change event.
-                 *
-                 * @property {Object} {check:true|false, value: `target value`}
+                 * Change event
                  */
                 this.$emit('change', {checked: target.checked, value: target.value});
             },

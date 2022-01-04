@@ -63,7 +63,7 @@ const Template = (args, { argTypes }) => ({
         <PPopover
             :active="statusFilterActive"
             v-bind="$props"
-            @change="toggleStatusFilter"
+            @close="() => {this.statusFilterActive = false}"
         >
           <PButton
               slot="activator"

@@ -76,7 +76,7 @@ const Template = (args, {argTypes}) => ({
                 id="popover_1"
                 :active="active"
                 preferred-alignment="right"
-                @close="toggleRatingFilter"
+                @close="() => {this.active = false;}"
                 full-width
             >
               <PButton slot="activator" @click="() => {this.active = !this.active}"
@@ -99,7 +99,7 @@ const Template = (args, {argTypes}) => ({
             <PPopover
                 id="popover_2"
                 :active="active2"
-                @close="toggleRatingFilter2"
+                @close="() => {this.active2 = false;}"
                 preferred-alignment="right"
             >
               <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">Status
@@ -456,7 +456,7 @@ const Template1 = (args, {argTypes}) => ({
                 id="popover_1"
                 :active="active"
                 preferred-alignment="right"
-                @close="toggleRatingFilter"
+                @close="() => {this.active = false;}"
                 full-width
             >
               <PButton slot="activator" @click="() => {this.active = !this.active}"
@@ -479,7 +479,7 @@ const Template1 = (args, {argTypes}) => ({
             <PPopover
                 id="popover_2"
                 :active="active2"
-                @close="toggleRatingFilter2"
+                @close="() => {this.active2 = false;}"
                 preferred-alignment="right"
             >
               <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">Status

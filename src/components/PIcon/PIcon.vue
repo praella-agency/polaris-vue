@@ -47,7 +47,6 @@
 
             /**
              * Show a backdrop behind the icon
-             * @values true | false
              */
             backdrop: {
                 type: Boolean,

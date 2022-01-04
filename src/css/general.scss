@@ -1326,19 +1326,17 @@
     height: 2.4rem;
     margin: 0 0.2rem 2px;
     padding: 0 0.4rem;
-    background-color: $keyboardkey-bgcolor;
-    box-shadow: $keyboardkey-box-shadow;
-    border-radius: $keyboardkey-border-radius;
-    font-family: -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Helvetica Neue, sans-serif;
-    font-size: $keyboardkey-font-size;
-    font-weight: $keyboardkey-font-weight;
-    line-height: $keyboardkey-line-height;
-    color: $keyboardkey-color;
+    background-color: $p-surface;
+    box-shadow: 0 0 0 1px $p-border-subdued, 0 2px 0 0 $p-surface, 0 2px 0 1px $p-border-subdued;
+    border-radius: $p-border-radius-base;
+    font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 2.4rem;
+    color: $p-text-subdued;
     text-align: center;
     min-width: 2.4rem;
     -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
 }
 
@@ -3354,4 +3352,19 @@ div.multiselect {
   .Polaris-TopBar-Search__Results {
     max-height: 60vh;
   }
+}
+
+/* Vertical Divider */
+.Polaris-VerticalDivider {
+    width: 0.1rem;
+    background-color: #c4cdd5;
+    height: 100%;
+}
+
+/* Horizontal Divider */
+.Polaris-HorizontalDivider {
+    height: 0.1rem;
+    display: block;
+    background-color: #c4cdd5;
+    width: 100%;
 }

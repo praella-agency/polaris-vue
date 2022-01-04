@@ -53,7 +53,6 @@
             },
             /**
              * Set to for router link
-             * @values Internal route link
              */
             to: {
                 type: [String, Object],
@@ -61,7 +60,6 @@
             },
             /**
              * Makes the link open in a new tab.
-             * @values true | false
              */
             external: {
                 type: Boolean,
@@ -69,7 +67,6 @@
             },
             /**
              * Makes the link color the same as the current text color and adds an underline.
-             * @values true | false
              */
             monochrome: {
                 type: Boolean,

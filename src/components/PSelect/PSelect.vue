@@ -79,7 +79,6 @@
             },
             /**
              * Disable input.
-             * @values true | false
              */
             disabled: {
                 type: Boolean,
@@ -87,7 +86,6 @@
             },
             /**
              * Visually hide the label.
-             * @values true | false
              */
             labelHidden: {
                 type: Boolean,
@@ -95,7 +93,6 @@
             },
             /**
              * Empty label.
-             * @values true | false
              */
             emptyLabel: {
                 type: Boolean,
@@ -164,8 +161,7 @@
                 default: null,
             },
             /**
-             * Show the label to the left of the value, inside the control
-             * @values true | false
+             * Show the label to the left of the value, inside the control.
              */
             inlineLabel: {
                 type: [Boolean, String],
@@ -213,12 +209,10 @@
                     this.selected = value;
                     /**
                      * Callback when selection is changed
-                     * @property {event}
                      */
                     this.$emit('change', value);
                     /**
                      * Callback when input is triggered
-                     * @property {event}
                      */
                     this.$emit('input', value);
                 },

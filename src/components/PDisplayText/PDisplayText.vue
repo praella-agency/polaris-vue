@@ -25,7 +25,6 @@ export default {
   props: {
     /**
      * Size of the text
-     * @values small | medium | large | extraLarge
      */
     size: {
       type: String,
@@ -35,7 +34,6 @@ export default {
 
     /**
      * Element of text
-     * @values h1...h6 | p | span
      */
     element: {
       type: String,

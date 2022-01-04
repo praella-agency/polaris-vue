@@ -15,9 +15,6 @@ export default {
                 type: {
                     summary: null,
                 },
-                defaultValue: {
-
-                },
             },
         },
     },

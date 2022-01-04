@@ -19,7 +19,6 @@
         props: {
             /**
              * Remove top left and right border radius
-             * @values true | false
              */
             segmented: {
                 type: Boolean,
@@ -27,7 +26,6 @@
             },
             /**
              * Buttons will stretch/shrink to occupy the full width
-             * @values true | false
              */
             fullWidth: {
                 type: Boolean,
@@ -35,7 +33,6 @@
             },
             /**
              * Remove top left and right border radius
-             * @values true | false
              */
             connectedTop: {
                 type: Boolean,
@@ -43,7 +40,6 @@
             },
             /**
              * Remove top left and right border radius
-             * @values loose, tight, extraTight
              */
             spacing: {
                 type: [String, Spacing],

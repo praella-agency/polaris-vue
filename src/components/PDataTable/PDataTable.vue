@@ -94,7 +94,7 @@
                                     <template v-for="row in rows">
                                         <!-- @slot Replace the default rendering of a row. This slot provides row values.
 
-                                        Access values with `slot-props` attribute -->
+Access values with `slot-props` attribute -->
                                         <slot name="item" :item="row">
                                             <tr class="Polaris-DataTable__TableRow">
                                                 <template v-for="(heading, hIndex) in headings">
@@ -109,7 +109,7 @@
                                                         <template v-slot:[`item.${heading.value}`]="slotProps">
                                                             <!-- @slot Customize a specific column. This slot provides row values.
 
-                                                            Access values with `slot-props` attribute. -->
+Access values with `slot-props` attribute. -->
                                                             <slot :name="`item.${heading.value}`" :item="row"/>
                                                         </template>
                                                     </PDataTableCellNew>
@@ -176,7 +176,7 @@
                 </table>
             </div>
 
-            <div v-if="footerContent" class="Polaris-DataTable__Footer">
+            <div v-if="footerContent || $slots.footer" class="Polaris-DataTable__Footer">
                 <!-- @slot Add a custom Footer content -->
                 <slot name="footer">
                     {{ footerContent }}
@@ -280,7 +280,6 @@
             /**
              * List of data types, which determines content alignment for each column. Data types are "text," which aligns left,
              * or "numeric," which aligns right.
-             * @values text | numeric
              */
             columnContentTypes: {
                 type: Array,
@@ -288,8 +287,7 @@
             },
             /**
              * The direction to sort the table rows on first click or keypress
-             * of a sortable column heading
-             * @values ascending | descending | none
+             * of a sortable column heading.
              */
             defaultSortDirection: {
                 type: String,
@@ -297,13 +295,13 @@
                 ...StringValidator('defaultSortDirection', SortDirection),
             },
             /**
-             * Content centered in the full width cell of the table footer row
+             * Content centered in the full width cell of the table footer row.
              */
             footerContent: {
                 type: [String, Number, Object, Array],
             },
             /**
-             * List of column headings
+             * List of column headings.
              */
             headings: {
                 type: Array,
@@ -311,14 +309,14 @@
                 ...ArrayValidator('headings', Headings),
             },
             /**
-             * Lists of data points which map to table body rows
+             * Lists of data points which map to table body rows.
              */
             rows: {
                 type: Array,
                 default: () => [[]],
             },
             /**
-             * Placement of totals row within table
+             * Placement of totals row within table.
              */
             showTotalsInFooter: {
                 type: Boolean,
@@ -333,7 +331,7 @@
                 default: () => ([]),
             },
             /**
-             * Custom totals row heading
+             * Custom totals row heading.
              */
             totalsName: {
                 type: Object,
@@ -341,14 +339,14 @@
                 ...ObjectValidator('totalsName', TotalsName),
             },
             /**
-             * Truncate content in first column instead of wrapping
+             * Truncate content in first column instead of wrapping.
              */
             truncate: {
                 type: Boolean,
                 default: false,
             },
             /**
-             * Vertical alignment of content in the cells
+             * Vertical alignment of content in the cells.
              */
             verticalAlign: {
                 type: String,
@@ -356,7 +354,7 @@
                 ...StringValidator('verticalAlign', VerticalAlign),
             },
             /**
-             * Callback fired on click or keypress of a sortable column heading
+             * Callback fired on click or keypress of a sortable column heading.
              */
             sort: {
                 type: Object,
@@ -364,28 +362,28 @@
                 ...ObjectValidator('sort', Sort),
             },
             /**
-             * Display only search filter
+             * Display only search filter.
              */
             hasFilter: {
                 type: Boolean,
                 default: false,
             },
             /**
-             * Data table has pagination
+             * Data table has pagination.
              */
             hasPagination: {
                 type: Boolean,
                 default: false,
             },
             /**
-             * Data table is loading
+             * Data table is loading.
              */
             loading: {
                 type: Boolean,
                 default: false,
             },
             /**
-             * Pagination object
+             * Pagination object.
              */
             pagination: {
                 type: Object,
@@ -477,21 +475,18 @@
             onRemoveFilter(tag) {
                 /**
                  * Removes filter tag
-                 * @property {String} tag
                  */
                 this.$emit('filter-removed', tag);
             },
             onFilterInputChanged(value) {
                 /**
                  * Works on keypress
-                 * @property {String} input-value
                  */
                 this.$emit('input-filter-changed', value);
             },
             handleSortChange(value, direction) {
                 /**
                  * Handle sorting on columns
-                 * @property {Object} {value: 'columnName', direction:'sortDirection'}
                  */
                 this.$emit('sort-changed', value, direction);
             },

@@ -176,8 +176,8 @@ const Template = (args, {argTypes}) => ({
     data() {
         return {
             defaultMarkup: {
-                emailFieldValue: 'dharma@jadedpixel.com',
-                nameFieldValue: 'Jaded Pixel',
+                emailFieldValue: 'dharma@hulkapps.com',
+                nameFieldValue: 'Hulkapps',
             },
             topBarMarkup: {
                 isUserMenuOpen: false,
@@ -198,15 +198,15 @@ const Template = (args, {argTypes}) => ({
             },
             mobileNavigationActive: false,
             toastActive: false,
-            nameFieldValue: 'Jaded Pixel',
-            emailFieldValue: 'dharma@jadedpixel.com',
-            storeName: 'Jaded Pixel',
+            nameFieldValue: 'Hulkapps',
+            emailFieldValue: 'dharma@hulkapps.com',
+            storeName: 'Hulkapps',
             logoMarkup: {
                 width: 124,
                 topBarSource:
-                    'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999',
+                    'https://cdn.shopify.com/s/files/1/1564/7647/files/hulk-apps-darken_c0448e92-587f-47a8-9473-5ea0023b5ffd.svg?v=1583731462',
                 url: 'javascript:void(0)',
-                accessibilityLabel: 'Jaded Pixel',
+                accessibilityLabel: 'Hulkapps',
             },
         };
     },
@@ -277,7 +277,7 @@ const Template = (args, {argTypes}) => ({
                   },
                   {
                       separator: true,
-                      title: 'Jaded Pixel App',
+                      title: 'Hulkapps App',
                       items: [
                           {
                               label: 'Dashboard',
@@ -285,7 +285,7 @@ const Template = (args, {argTypes}) => ({
                               onClick: toggleIsLoading,
                           },
                           {
-                              label: 'Jaded Pixel Orders',
+                              label: 'Hulkapps Orders',
                               icon: 'OrdersMajor',
                               onClick: toggleIsLoading,
                           },
@@ -317,7 +317,7 @@ const Template = (args, {argTypes}) => ({
             <a id="SkipToContentTarget" ref="skipToContentTarget" tabindex="-1"/>
             <PLayoutAnnotatedSection
                 title="Account details"
-                description="Jaded Pixel will use this as your account information."
+                description="Hulkapps will use this as your account information."
             >
               <PCard sectioned>
                 <PFormLayout>
@@ -425,9 +425,9 @@ Default.args = {
     logo: {
         width: 124,
         contextualSaveBarSource:
-            'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-gray.svg?6215648040070010999',
+            'https://cdn.shopify.com/s/files/1/1564/7647/files/hulk-apps-darken_c0448e92-587f-47a8-9473-5ea0023b5ffd.svg?v=1583731462',
         url: 'javascript:void(0)',
-        accessibilityLabel: 'Jaded Pixel',
+        accessibilityLabel: 'Hulkapps',
     },
 }
 
@@ -497,14 +497,14 @@ Default.parameters = {
           },
           {
               separator: true,
-              title: 'Jaded Pixel App',
+              title: 'Hulkapps App',
               items: [
                   {
                       label: 'Dashboard',
                       icon: 'HomeMajor',
                   },
                   {
-                      label: 'Jaded Pixel Orders',
+                      label: 'Hulkapps Orders',
                       icon: 'OrdersMajor',
                   },
               ],
@@ -518,9 +518,9 @@ Default.parameters = {
   logo="{
       width: 124,
       contextualSaveBarSource:
-        'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-gray.svg?6215648040070010999',
+        'https://cdn.shopify.com/s/files/1/1564/7647/files/hulk-apps-darken_c0448e92-587f-47a8-9473-5ea0023b5ffd.svg?v=1583731462',
       url: 'javascript:void(0)',
-      accessibilityLabel: 'Jaded Pixel',
+      accessibilityLabel: 'Hulkapps',
   }"
 >
     <PSkeletonPage v-if="navigationMarkup.isLoading">
@@ -540,7 +540,7 @@ Default.parameters = {
         <a id="SkipToContentTarget" ref="skipToContentTarget" tabindex="-1"/>
         <PLayoutAnnotatedSection
             title="Account details"
-            description="Jaded Pixel will use this as your account information."
+            description="Hulkapps will use this as your account information."
         >
           <PCard sectioned>
             <PFormLayout>
@@ -593,8 +593,8 @@ const Template1 = (args, {argTypes}) => ({
     data() {
         return {
             defaultMarkup: {
-                emailFieldValue: 'dharma@jadedpixel.com',
-                nameFieldValue: 'Jaded Pixel',
+                emailFieldValue: 'dharma@hulkapps.com',
+                nameFieldValue: 'Hulkapps',
             },
             topBarMarkup: {
                 isUserMenuOpen: false,
@@ -615,15 +615,15 @@ const Template1 = (args, {argTypes}) => ({
             },
             mobileNavigationActive: false,
             toastActive: false,
-            nameFieldValue: 'Jaded Pixel',
-            emailFieldValue: 'dharma@jadedpixel.com',
-            storeName: 'Jaded Pixel',
+            nameFieldValue: 'Hulkapps',
+            emailFieldValue: 'dharma@hulkapps.com',
+            storeName: 'Hulkapps',
             logoMarkup: {
                 width: 124,
                 topBarSource:
-                    'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-color.svg?6215648040070010999',
+                    'https://cdn.shopify.com/s/files/1/1564/7647/files/hulk-apps-darken_c0448e92-587f-47a8-9473-5ea0023b5ffd.svg?v=1583731462',
                 url: 'javascript:void(0)',
-                accessibilityLabel: 'Jaded Pixel',
+                accessibilityLabel: 'Hulkapps',
             },
         };
     },
@@ -695,7 +695,7 @@ const Template1 = (args, {argTypes}) => ({
                       },
                       {
                           separator: true,
-                          title: 'Jaded Pixel App',
+                          title: 'Hulkapps App',
                           items: [
                               {
                                   label: 'Dashboard',
@@ -703,7 +703,7 @@ const Template1 = (args, {argTypes}) => ({
                                   onClick: toggleIsLoading,
                               },
                               {
-                                  label: 'Jaded Pixel Orders',
+                                  label: 'Hulkapps Orders',
                                   icon: 'OrdersMajor',
                                   onClick: toggleIsLoading,
                               },
@@ -735,7 +735,7 @@ const Template1 = (args, {argTypes}) => ({
                 <a id="SkipToContentTarget" ref="skipToContentTarget" tabindex="-1"/>
                 <PLayoutAnnotatedSection
                     title="Account details"
-                    description="Jaded Pixel will use this as your account information."
+                    description="Hulkapps will use this as your account information."
                 >
                   <PCard sectioned>
                     <PFormLayout>
@@ -849,9 +849,9 @@ FrameWithAnOffset.args = {
     logo: {
         width: 124,
         contextualSaveBarSource:
-            'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-gray.svg?6215648040070010999',
+            'https://cdn.shopify.com/s/files/1/1564/7647/files/hulk-apps-darken_c0448e92-587f-47a8-9473-5ea0023b5ffd.svg?v=1583731462',
         url: 'javascript:void(0)',
-        accessibilityLabel: 'Jaded Pixel',
+        accessibilityLabel: 'Hulkapps',
     },
     frameOffset: '60px'
 }
@@ -923,14 +923,14 @@ FrameWithAnOffset.parameters = {
               },
               {
                   separator: true,
-                  title: 'Jaded Pixel App',
+                  title: 'Hulkapps App',
                   items: [
                       {
                           label: 'Dashboard',
                           icon: 'HomeMajor',
                       },
                       {
-                          label: 'Jaded Pixel Orders',
+                          label: 'Hulkapps Orders',
                           icon: 'OrdersMajor',
                       },
                   ],
@@ -944,9 +944,9 @@ FrameWithAnOffset.parameters = {
       logo="{
         width: 124,
         contextualSaveBarSource:
-          'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-gray.svg?6215648040070010999',
+          'https://cdn.shopify.com/s/files/1/1564/7647/files/hulk-apps-darken_c0448e92-587f-47a8-9473-5ea0023b5ffd.svg?v=1583731462',
         url: 'javascript:void(0)',
-        accessibilityLabel: 'Jaded Pixel',
+        accessibilityLabel: 'Hulkapps',
       }"
       frameOffset="60px"
   >
@@ -967,7 +967,7 @@ FrameWithAnOffset.parameters = {
         <a id="SkipToContentTarget" ref="skipToContentTarget" tabindex="-1"/>
         <PLayoutAnnotatedSection
             title="Account details"
-            description="Jaded Pixel will use this as your account information."
+            description="Hulkapps will use this as your account information."
         >
           <PCard sectioned>
             <PFormLayout>

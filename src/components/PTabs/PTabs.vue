@@ -157,43 +157,42 @@
         },
         props: {
             /**
-             * Lists of tabs
+             * Lists of tabs.
              */
             tabs: {
                 type: Array,
                 default: () => ([]),
             },
             /**
-             * Selected tab ID
+             * Selected tab ID.
              */
             selected: {
                 type: Number,
                 default: null,
             },
             /**
-             * Set true to enable navigation
-             * @values true | false
+             * Set true to enable navigation.
              */
             navigation: {
                 type: Boolean,
                 default: false,
             },
             /**
-             * Configure the active CSS class applied when the link is active
+             * Configure the active CSS class applied when the link is active.
              */
             activeClass: {
                 type: String,
                 default: 'Polaris-Tabs__Tab--selected',
             },
             /**
-             * Fit tabs to container
+             * Fit tabs to container.
              */
             fitted: {
                 type: Boolean,
                 default: false,
             },
             /**
-             * Text to replace disclosures horizontal dots
+             * Text to replace disclosures horizontal dots.
              */
             disclosureText: {
                 type: String,
@@ -285,7 +284,6 @@
                 const selectedIndex = this.tabs.indexOf(tab);
                 /**
                  * Method to handle tab click
-                 * @property {tabId, event}
                  */
                 this.$emit('select', selectedIndex, event);
                 this.$nextTick(() => {

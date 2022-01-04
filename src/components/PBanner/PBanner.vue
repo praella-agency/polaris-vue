@@ -72,7 +72,6 @@ export default {
 
     /**
      * Set the status of the banner
-     * @values success | info | warning | critical
      */
     status: {
       type: String,

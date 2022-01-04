@@ -34,21 +34,21 @@ export default {
   },
   props: {
     /**
-     * Form group Id
+     * Form group Id.
      */
     id: {
       type: [String, Number],
       default: `PolarisFormLayout${new Date().getUTCMilliseconds()}`,
     },
     /**
-     * Form group title
+     * Form group title.
      */
     title: {
       type: String,
       default: null,
     },
     /**
-     * Form group helpText
+     * Form group helpText.
      */
     helpText: {
       type: String,
@@ -56,7 +56,6 @@ export default {
     },
     /**
      * For very short inputs, the width of the inputs may be reduced in order to fit more fields in the row.
-     *  @values true | false
      */
     condensed: {
       type: Boolean,
@@ -64,7 +63,6 @@ export default {
     },
     /**
      * Use field groups to arrange multiple fields in a row.
-     *  @values true | false
      */
     grouped: {
       type: Boolean,

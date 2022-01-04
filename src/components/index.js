@@ -44,6 +44,7 @@ import { PThumbnail } from './PThumbnail';
 import { PAvatar } from './PAvatar';
 import { PModal } from './PModal';
 import { PInlineError } from './PInlineError';
+import { PFieldError } from './PFieldError';
 import { PPagination } from './PPagination';
 import { PCaption } from './PCaption';
 import { PProgressBar } from './PProgressBar';
@@ -83,6 +84,10 @@ import { PScrollable } from './PScrollable';
 import { PVerticalTabs } from './PVerticalTabs';
 import { PAccordion } from './PAccordion';
 import { PAccordionItem } from './PAccordion/components/PAccordionItem';
+import { PPreviewFrame } from './PPreviewFrame';
+import { PKeyboardKey } from './PKeyboardKey';
+import { PVerticalDivider } from './PVerticalDivider';
+import { PHorizontalDivider } from './PHorizontalDivider';
 
 export {
   PBadge,
@@ -122,6 +127,7 @@ export {
   PAvatar,
   PModal,
   PInlineError,
+  PFieldError,
   PPagination,
   PCaption,
   PProgressBar,
@@ -158,4 +164,7 @@ export {
   PVerticalTabs,
   PAccordion,
   PAccordionItem,
+  PPreviewFrame,
+  PKeyboardKey,
+  PVerticalDivider, PHorizontalDivider,
 };

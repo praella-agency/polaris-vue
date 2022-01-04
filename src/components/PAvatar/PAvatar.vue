@@ -37,7 +37,6 @@
         props: {
             /**
              * Size of avatar
-             * @values small | medium | large
              */
             size: {
                 type: String,
@@ -48,7 +47,6 @@
             },
             /**
              * Whether the avatar is for a customer
-             * @values true | false
              */
             customer: {
                 type: Boolean,

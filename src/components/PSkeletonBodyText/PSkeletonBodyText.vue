@@ -17,7 +17,6 @@ export default {
   props: {
     /**
      * Number of line of skeleton
-     * @values Any number
      */
     lines: {
       type: Number,

@@ -23,7 +23,7 @@ export default {
   name: 'PProgressBar',
   props: {
     /**
-     * The progression of certain tasks
+     * The progression of certain tasks.
      */
     progress: {
       type: Number,
@@ -31,8 +31,7 @@ export default {
     },
 
     /**
-     * Size of Progressbar
-     * @values small, medium, large
+     * Size of Progressbar.
      */
     size: {
       type: String,

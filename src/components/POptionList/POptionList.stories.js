@@ -51,7 +51,22 @@ export default {
             table: {
                 defaultValue: {
                     summary: '()',
-                    detail: '([selectedValue])',
+                    detail: '(selectedValue)',
+                },
+            },
+        },
+        click: {
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(selectedOption)',
+                },
+            },
+        },
+        media: {
+            table: {
+                type: {
+                    summary: null,
                 },
             },
         },
@@ -71,13 +86,21 @@ const Template = (args, { argTypes }) => ({
     template:`
         <POptionList 
             v-bind="$props"
-            slot="content"
             :selected="selectedStatus"
             @change="updateStatusFilter"
-        ></POptionList>`,
+            @click="handleClick"
+        >
+            <template v-slot:media="{item}">
+                {{ item.icon }}
+            </template>
+        </POptionList>
+    `,
     methods: {
         updateStatusFilter(selected) {
             this.selectedStatus = selected;
+        },
+        handleClick(selected, option) {
+            console.log('click', selected, option);
         }
     },
 });

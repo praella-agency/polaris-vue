@@ -13,7 +13,6 @@ export default {
     props: {
         /**
          * Set it true to make it secondary.
-         * @values true | false
          */
         secondary: {
             type: Boolean,
@@ -21,7 +20,6 @@ export default {
         },
         /**
          * Set it true to make it full width.
-         * @values true | false
          */
         fullWidth: {
             type: Boolean,
@@ -29,7 +27,6 @@ export default {
         },
         /**
          * Set it true to make it one half.
-         * @values true | false
          */
         oneHalf: {
             type: Boolean,
@@ -37,7 +34,6 @@ export default {
         },
         /**
          * Set it true to make it one third.
-         * @values true | false
          */
         oneThird: {
             type: Boolean,

@@ -99,7 +99,6 @@
             },
             /**
              * Text field is connected
-             * @values true | false
              */
             connected: {
                 type: Boolean,
@@ -114,7 +113,6 @@
             },
             /**
              * Visually hide the label
-             * @values true | false
              */
             labelHidden: {
                 type: Boolean,
@@ -122,7 +120,6 @@
             },
             /**
              * Visually hide the label
-             * @values true | false
              */
             emptyLabel: {
                 type: Boolean,
@@ -130,7 +127,6 @@
             },
             /**
              * Enable rich text editor
-             * @values true | false
              */
             richEditor: {
                 type: Boolean,
@@ -138,7 +134,6 @@
             },
             /**
              * Show a clear text button in the input
-             * @values true | false
              */
             clearable: {
                 type: Boolean,

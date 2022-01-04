@@ -24,8 +24,7 @@ export default {
   name: 'PSpinner',
   props: {
     /**
-     * Color for spinner
-     * @values white | teal | inkLightest
+     * Color for spinner.
      */
     color: {
       type: String,
@@ -34,7 +33,6 @@ export default {
     },
     /**
      * Size of spinner.
-     * @values small | large
      */
     size: {
       type: String,
