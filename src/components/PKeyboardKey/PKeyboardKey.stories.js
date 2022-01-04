@@ -1,8 +1,11 @@
 import { PKeyboardKey } from './index';
 
 export default {
-    title: 'Keyboard Key',
+    title: 'Images & Icons / Keyboard Key',
     component: PKeyboardKey,
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         default: {
             control: {
@@ -10,7 +13,7 @@ export default {
             },
             table: {
                 type: {
-                    summary: null,
+                    summary: 'string',
                 },
             },
         },

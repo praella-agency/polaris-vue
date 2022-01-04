@@ -19,7 +19,7 @@ import { PImage } from '../PImage';
 import PPreviewFrameMDX from './PPreviewFrame.mdx';
 
 export default {
-    title: 'Preview Frame',
+    title: 'Structure / Preview Frame',
     component: PPreviewFrame,
     parameters: {
         layout: 'fullscreen',
