@@ -20,7 +20,9 @@
                     @selectedObject="handleSelectedObject(option)"
                 >
                     <template v-slot:media="slotProps">
-                        <!-- @slot Media to display to the left of the option content -->
+                        <!-- @slot Media to display to the left of the option content.
+
+Access values with `slot-props` attribute.-->
                         <slot name="media" :item="option"/>
                     </template>
                     {{option.label}}

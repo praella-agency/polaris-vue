@@ -94,7 +94,7 @@
                                     <template v-for="row in rows">
                                         <!-- @slot Replace the default rendering of a row. This slot provides row values.
 
-                                        Access values with `slot-props` attribute -->
+Access values with `slot-props` attribute -->
                                         <slot name="item" :item="row">
                                             <tr class="Polaris-DataTable__TableRow">
                                                 <template v-for="(heading, hIndex) in headings">
@@ -109,7 +109,7 @@
                                                         <template v-slot:[`item.${heading.value}`]="slotProps">
                                                             <!-- @slot Customize a specific column. This slot provides row values.
 
-                                                            Access values with `slot-props` attribute. -->
+Access values with `slot-props` attribute. -->
                                                             <slot :name="`item.${heading.value}`" :item="row"/>
                                                         </template>
                                                     </PDataTableCellNew>

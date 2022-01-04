@@ -269,7 +269,7 @@
                                 <PIndexTableCell :lastChild="!!(lastColumnSticky && headings.length === key + 1)">
                                     <!-- @slot Customize a specific column. This slot provides row values.
 
-                                    Access values with `slot-props` attribute. -->
+Access values with `slot-props` attribute. -->
                                     <slot :name="`item.${heading.value}`" :item="row">
                                         {{ row[heading.value] }}
                                     </slot>
@@ -576,7 +576,7 @@
                                     <PIndexTableCell :lastChild="!!(lastColumnSticky && headings.length === key + 1)">
                                         <!-- @slot Customize a specific column. This slot provides row values.
 
-                                        Access values with `slot-props` attribute.-->
+Access values with `slot-props` attribute.-->
                                         <slot :name="`item.${heading.value}`" :item="row">
                                             {{ row[heading.value] }}
                                         </slot>
