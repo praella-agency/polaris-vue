@@ -141,3 +141,22 @@
     border-top: $card-border;
     padding: 2rem;
 }
+
+//Theme
+@mixin card-theme($material) {
+    background-color: map-deep-get($material, 'background', 'theme');
+    color: map-deep-get($material, 'text', 'primary');
+
+    .Polaris-Card__Section--subdued {
+        background-color: map-deep-get($material, 'background', 'hovered');
+        color: map-deep-get($material, 'text', 'secondary');
+    }
+}
+
+.Polaris-Card.theme--dark {
+    @include card-theme($material-dark);
+}
+
+.Polaris-Card.theme--light {
+    @include card-theme($material-light);
+}
