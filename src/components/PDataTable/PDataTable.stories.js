@@ -1,8 +1,6 @@
 import { PDataTable } from './index';
-import { PPopover } from '../PPopover';
-import { PButton } from '../PButton';
-import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';
+import { PPage } from '../PPage';
 import argTypes from './args';
 
 export default {
@@ -14,7 +12,7 @@ export default {
 const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PDataTable, PPopover, PButton, POptionList, PCard
+        PDataTable, PCard, PPage,
     },
     data() {
         return {
@@ -25,12 +23,14 @@ const Template = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PCard sectioned>
-        <PDataTable
-            v-bind="$props"
-            footer-content="Showing 3 of 3"
-        />
-      </PCard>`,
+        <PPage title="Sales by product">
+            <PCard>
+                <PDataTable
+                    v-bind="$props"
+                    footer-content="Showing 3 of 3"
+                />        
+            </PCard>
+        </PPage>`,
 });
 
 export const Default = Template.bind({});
