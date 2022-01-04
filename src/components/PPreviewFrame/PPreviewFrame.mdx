@@ -1,0 +1,221 @@
+<!--- PPreviewFrame.stories.mdx -->
+
+import { Meta, ArgsTable } from '@storybook/addon-docs';
+import PPreviewFrame from './PPreviewFrame.vue';
+
+<Meta component={PPreviewFrame}/>
+
+# Preview Frame
+
+**To browse a PreviewFrame story, visit the <a href="https://polaris-vue.hulkapps.com/?path=/story/preview-frame--preview-frame" target="_blank">PreviewFrame</a> preview.**
+
+**For better preview, visit the <a href="https://polaris-vue.hulkapps.com/iframe.html?id=preview-frame--preview-frame&args=&viewMode=story#/" target="_blank">PreviewFrame</a> preview.**
+
+```jsx
+<PPreviewFrame
+    leftSidebarTitle="HomePage"
+>
+    <template slot="header.left"></template>
+    <template slot="header.center"></template>
+    <template slot="header.right"></template>
+    <template slot="sidebar.left.content"></template>
+    <template slot="sidebar.left.footer"></template>
+    <template slot="sidebar.right.content"></template>
+    <template></template>
+</PPreviewFrame>
+```
+
+### Props
+<table style={{width: '100%', textAlign: 'center'}}>
+   <thead>
+      <tr>
+         <th><span>Name</span></th>
+         <th><span>Description</span></th>
+         <th><span>Object</span></th>
+         <th><span>Default</span></th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><span>leftSidebarTitle</span></td>
+         <td>
+            <div><span>Title for the left sidebar</span></div>
+            <div>
+               <div><code>string</code></div>
+            </div>
+         </td>
+         <td><span>-</span></td>
+         <td><span>-</span></td>
+      </tr>
+      <tr>
+         <td><span>openRightSidebar.sync</span></td>
+         <td>
+            <div>
+               <div>
+                  <span>Toggle preview of right sidebar when screen size collapsed.</span>
+                  <br />
+                  <span>Use this prop with ".sync" to get two way binding.</span>
+               </div>
+            </div>
+            <div>
+               <div><code>boolean</code></div>
+            </div>
+         </td>
+         <td><span>-</span></td>
+         <td>
+            <div><span>false</span></div>
+         </td>
+      </tr>
+      <tr>
+         <td><span>redoActions</span></td>
+         <td>
+            <div><span>Redo button actions</span></div>
+            <div>
+               <div><code>object</code></div>
+            </div>
+         </td>
+         <td>
+            {
+              '{disabled?: boolean, onAction(): void,}'
+            }
+         </td>
+         <td><span>-</span></td>
+      </tr>
+      <tr>
+         <td><span>rightSidebarTitle</span></td>
+         <td>
+            <div><span>Title for the right sidebar</span></div>
+            <div>
+               <div><code>string</code></div>
+            </div>
+         </td>
+         <td><span>-</span></td>
+         <td><span>-</span></td>
+      </tr>
+      <tr>
+         <td><span>showPreviewOptions</span></td>
+         <td>
+            <div><span>Adjust frame content preview</span></div>
+            <div>
+               <div><code>boolean</code></div>
+            </div>
+         </td>
+         <td><span>-</span></td>
+         <td>
+            <div><span>false</span></div>
+         </td>
+      </tr>
+      <tr>
+         <td><span>showUndoRedo</span></td>
+         <td>
+            <div><span>Displays Undo-Redo options for the header</span></div>
+            <div>
+               <div><code>boolean</code></div>
+            </div>
+         </td>
+         <td><span>-</span></td>
+         <td>
+            <div><span>false</span></div>
+         </td>
+      </tr>
+      <tr>
+         <td><span>undoActions</span></td>
+         <td>
+            <div><span>Undo button actions</span></div>
+            <div>
+               <div><code>object</code></div>
+            </div>
+         </td>
+         <td>
+            {
+              '{disabled?: boolean, onAction(): void,}'
+            }
+         </td>
+         <td><span>-</span></td>
+      </tr>
+  </tbody>
+</table>
+
+### Slots
+<table style={{width: '100%', textAlign: 'center'}}>
+    <thead>
+        <tr>
+            <th><span>Name</span></th>
+            <th><span>Description</span></th>
+            <th><span>Default</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><span>default</span></td>
+            <td>
+                <div><span>The content to display inside the preview frame</span></div>
+            </td>
+            <td><span>-</span></td>
+        </tr>
+        <tr>
+            <td><span>header.center</span></td>
+            <td>
+                <div><span>Add content or component to header center</span></div>
+            </td>
+            <td><span>-</span></td>
+        </tr>
+        <tr>
+            <td><span>header.left</span></td>
+            <td>
+                <div><span>Add content or component to header left side</span></div>
+            </td>
+            <td><span>-</span></td>
+        </tr>
+        <tr>
+            <td><span>header.right</span></td>
+            <td>
+                <div><span>Add content or component to header right side</span></div>
+            </td>
+            <td><span>-</span></td>
+        </tr>
+        <tr>
+            <td><span>sidebar.left.content</span></td>
+            <td>
+                <div><span>Add content or component to left sidebar content</span></div>
+            </td>
+            <td><span>-</span></td>
+        </tr>
+        <tr>
+            <td><span>sidebar.left.footer</span></td>
+            <td>
+                <div><span>Add content or component to left sidebar footer</span></div>
+            </td>
+            <td><span>-</span></td>
+        </tr>
+        <tr>
+            <td><span>sidebar.left.title</span></td>
+            <td>
+                <div><span>Add content or component to left sidebar title</span></div>
+            </td>
+            <td><span>-</span></td>
+        </tr>
+        <tr>
+            <td><span>sidebar.right.content</span></td>
+            <td>
+                <div><span>Add content or component to right sidebar content</span></div>
+            </td>
+            <td><span>-</span></td>
+        </tr>
+        <tr>
+            <td><span>sidebar.right.footer</span></td>
+            <td>
+                <div><span>Add content or component to right sidebar footer</span></div>
+            </td>
+            <td><span>-</span></td>
+        </tr>
+        <tr>
+            <td><span>sidebar.right.title</span></td>
+            <td>
+                <div><span>Add content or component to right sidebar title</span></div>
+            </td>
+            <td><span>-</span></td>
+        </tr>
+    </tbody>
+</table>
+

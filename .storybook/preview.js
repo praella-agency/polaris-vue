@@ -33,6 +33,7 @@ export const parameters = {
   },
   options: {
     showPanel: true,
+    panelPosition: 'bottom',
     storySort: {
       method: "alphabetical",
       order: [

@@ -5,7 +5,11 @@
             <div class="Polaris-PreviewFrame__Main">
                 <div :class="className">
                     <div class="Polaris-PreviewFrame__ShopFrame">
-                        <slot/>
+                        <div class="Polaris-PreviewFrame__Template">
+                            <div class="Polaris-PreviewFrame__Template--section">
+                                <slot/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

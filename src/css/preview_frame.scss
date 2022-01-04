@@ -312,6 +312,10 @@
   padding-left: var(--preview-frame_static-panel-section-padding);
 }
 
+.Polaris-PreviewFrame__sticky .Polaris-PreviewFrame__ChildrenWrapper--header {
+  background-color: $p-surface;
+}
+
 .Polaris-PreviewFrame__sticky:last-child {
   border-top: 0.1rem solid $p-divider;
 }
@@ -324,7 +328,6 @@
 }
 
 .Polaris-PreviewFrame__Footer {
-  display: block;
   position: relative;
 }
 
@@ -411,5 +414,19 @@
 }
 
 .Polaris-PreviewFrame__modeFullscreen {
+  width: 100%;
+}
+
+.Polaris-PreviewFrame__Template {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.Polaris-PreviewFrame__Template--section {
+  position: relative;
+  height: 100%;
   width: 100%;
 }

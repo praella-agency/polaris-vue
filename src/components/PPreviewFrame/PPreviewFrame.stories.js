@@ -16,6 +16,7 @@ import { POptionList } from '../POptionList';
 import { PTextContainer } from '../PTextContainer';
 import { PHorizontalDivider } from '../PHorizontalDivider';
 import { PImage } from '../PImage';
+import PPreviewFrameMDX from './PPreviewFrame.mdx';
 
 export default {
     title: 'Preview Frame',
@@ -23,8 +24,62 @@ export default {
     parameters: {
         layout: 'fullscreen',
         docs: {
-            inlineStories: false,
-            iframeHeight: 600,
+            page: PPreviewFrameMDX,
+        },
+    },
+    argTypes: {
+        openRightSidebar: {
+            name: 'openRightSidebar.sync'
+        },
+        default: {
+            control: {
+                type: null,
+            },
+        },
+        'header.left': {
+            control: {
+                type: null,
+            },
+        },
+        'header.center': {
+            control: {
+                type: null,
+            },
+        },
+        'header.right': {
+            control: {
+                type: null,
+            },
+        },
+        'sidebar.left.title': {
+            control: {
+                type: null,
+            },
+        },
+        'sidebar.left.content': {
+            control: {
+                type: null,
+            },
+        },
+        'sidebar.left.footer': {
+            control: {
+                type: null,
+            },
+        },
+        'sidebar.right.title': {
+            control: {
+                type: null,
+            },
+        },
+        'sidebar.right.content': {
+            control: {
+                type: null,
+            },
+        },
+        'sidebar.right.footer': {
+            control: {
+                type: null,
+            },
         },
     },
 }
@@ -108,7 +163,8 @@ const Template = (args, { argTypes }) => ({
                 <POptionList 
                     :options="[{
                         value: 'header',
-                        label: 'Header'
+                        label: 'Header',
+                        icon: 'HeaderMajor',
                     }]"
                     :sections="[{
                         title: '',
@@ -117,11 +173,87 @@ const Template = (args, { argTypes }) => ({
                                 value: 'image-with-text-overlay',
                                 label: 'Image with text overlay',
                             },
-                        ]
+                            {
+                                value: 'image-with-text',
+                                label: 'Image with text',
+                            },
+                            {
+                                value: 'text-columns-with-images',
+                                label: 'Text columns with images',
+                            },
+                            {
+                                value: 'featured-collection',
+                                label: 'Featured collection',
+                                icon: 'CollectionsMajor',
+                            },
+                            {
+                                value: 'image-with-text-overlay1',
+                                label: 'Image with text overlay',
+                            },
+                            {
+                                value: 'testimonials',
+                                label: 'Testimonials',
+                            },
+                            {
+                                value: 'gallery',
+                                label: 'Gallery',
+                            },
+                        ],
                     }]"
                     :selected="leftSideOptions"
-                    @change="updateLeftOptions"
-                />
+                    @click="updateLeftOptions"
+                >
+                    <template v-slot:media="{item}">
+                        <PIcon :source="item.icon ? item.icon : ''"/>
+                    </template>
+                </POptionList>
+                <POptionList 
+                    :options="[{
+                        value: 'footer',
+                        label: 'Footer',
+                        icon: 'FooterMajor',
+                    }]"
+                    :sections="[{
+                        title: '',
+                        options: [
+                            {
+                                value: 'image-with-text-overlay0',
+                                label: 'Image with text overlay',
+                            },
+                            {
+                                value: 'image-with-text0',
+                                label: 'Image with text',
+                            },
+                            {
+                                value: 'text-columns-with-images0',
+                                label: 'Text columns with images',
+                            },
+                            {
+                                value: 'featured-collection0',
+                                label: 'Featured collection',
+                                icon: 'FeaturedCollectionMajor',
+                            },
+                            {
+                                value: 'image-with-text-overlay10',
+                                label: 'Image with text overlay',
+                            },
+                            {
+                                value: 'testimonials0',
+                                label: 'Testimonials',
+                            },
+                            {
+                                value: 'gallery0',
+                                label: 'Gallery',
+                            },
+                        ],
+                    }]"
+                    :selected="leftSideOptions"
+                    @click="updateLeftOptions"
+                >
+                    <template v-slot:media="{item}">
+                        <PIcon :source="item.icon ? item.icon : ''"/>
+                    </template>
+                </POptionList>
             </template>
             <template slot="sidebar.left.footer">
                 <div style="padding-top: 0.8rem; padding-bottom: 0.8rem;">
@@ -143,8 +275,8 @@ const Template = (args, { argTypes }) => ({
             </template>
             <template>
                 <PImage
-                    source="https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg"
-                    style="height: 100%; width: 100%"
+                    source="https://hulkapps.nyc3.digitaloceanspaces.com/polaris-vue/placeholder.png"
+                    style="width: 100%; height: 100%;"
                 />
             </template>
         </PPreviewFrame>
@@ -153,10 +285,10 @@ const Template = (args, { argTypes }) => ({
         handleSearchClick() {
             this.searchActive = !this.searchActive;
         },
-        updateLeftOptions(selected) {
+        updateLeftOptions(selected, option) {
             this.leftSideOptions = selected;
             this.openSidebar = !this.openSidebar;
-            this.rightTitle = selected[0];
+            this.rightTitle = option.label;
         },
     },
 });

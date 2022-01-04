@@ -8,8 +8,11 @@
             :redoActions="redoActions"
             @previewChange="handlePreviewChange"
         >
+            <!-- @slot Add content or component to header left side -->
             <slot slot="header.left" name="header.left"/>
+            <!-- @slot Add content or component to header center -->
             <slot slot="header.center" name="header.center"/>
+            <!-- @slot Add content or component to header right side -->
             <slot slot="header.right" name="header.right"/>
         </PHeader>
         <PLeftSidebar
@@ -19,14 +22,20 @@
             :responsiveRightSidebar="responsiveRightSidebar"
             :rightSidebarTitle="rightSidebarTitle"
             :openRightSidebar="openRightSidebar"
-            @backClick="$emit('update:openRightSidebar', false)"
+            @backClick="handleClick"
         >
+            <!-- @slot Add content or component to left sidebar title -->
             <slot slot="sidebar.left.title" name="sidebar.left.title"/>
+            <!-- @slot Add content or component to left sidebar content -->
             <slot slot="sidebar.left.content" name="sidebar.left.content"/>
+            <!-- @slot Add content or component to left sidebar footer -->
             <slot slot="sidebar.left.footer" name="sidebar.left.footer"/>
 
+            <!-- @slot Add content or component to right sidebar title -->
             <slot slot="sidebar.right.title" name="sidebar.right.title"/>
+            <!-- @slot Add content or component to right sidebar content -->
             <slot slot="sidebar.right.content" name="sidebar.right.content"/>
+            <!-- @slot Add content or component to right sidebar footer -->
             <slot slot="sidebar.right.footer" name="sidebar.right.footer"/>
         </PLeftSidebar>
         <PRightSidebar
@@ -35,11 +44,15 @@
             :responsiveRightSidebar="responsiveRightSidebar"
             :previewMode="previewOption"
         >
+            <!-- @slot Add content or component to right sidebar title -->
             <slot slot="sidebar.right.title" name="sidebar.right.title"/>
+            <!-- @slot Add content or component to right sidebar content -->
             <slot slot="sidebar.right.content" name="sidebar.right.content"/>
+            <!-- @slot Add content or component to right sidebar footer -->
             <slot slot="sidebar.right.footer" name="sidebar.right.footer"/>
         </PRightSidebar>
         <PPreviewPanel :previewMode="previewOption">
+            <!-- @slot The content to display inside the preview frame -->
             <slot/>
         </PPreviewPanel>
     </div>
@@ -47,6 +60,7 @@
 
 <script>
     import { classNames } from '../../utilities/css';
+    import { PFrame } from '../PFrame';
     import { PHeader } from './components/PHeader';
     import { PLeftSidebar } from './components/PLeftSidebar';
     import { PRightSidebar } from './components/PRightSidebar';
@@ -56,31 +70,54 @@
     export default {
         name: 'PPreviewFrame',
         components: {
-            PHeader, PLeftSidebar, PRightSidebar, PPreviewPanel, PDisplayText,
+            PFrame, PHeader, PLeftSidebar, PRightSidebar, PPreviewPanel, PDisplayText,
         },
         props: {
+            /**
+             * Title for the left sidebar
+             */
             leftSidebarTitle: {
                 type: String,
                 default: null,
             },
+            /**
+             * Title for the right sidebar
+             */
             rightSidebarTitle: {
                 type: String,
                 default: null,
             },
+            /**
+             * Adjust frame content preview
+             */
             showPreviewOptions: {
                 type: Boolean,
                 default: false,
             },
+            /**
+             * Displays Undo-Redo options for the header
+             */
             showUndoRedo: {
                 type: Boolean,
                 default: false,
             },
+            /**
+             * Undo button actions
+             */
             undoActions: {
                 type: Object,
             },
+            /**
+             * Redo button actions
+             */
             redoActions: {
                 type: Object,
             },
+            /**
+             * Toggle preview of right sidebar when screen size collapsed.
+             *
+             * Use this prop with ".sync" to get two way binding.
+             */
             openRightSidebar: {
                 type: Boolean,
                 default: false,
@@ -110,6 +147,12 @@
             },
             handlePreviewChange(option) {
                 this.previewOption = option[0];
+            },
+            handleClick() {
+                /**
+                 * @ignore
+                 */
+                this.$emit('update:openRightSidebar', false)
             }
         },
         created() {
