@@ -8,16 +8,12 @@
         </div>
         <div :class="topBarClassName">
             <div :class="leftLayoutClassName">
-                <slot name="header.left">
-                    <PHeading>TopBar Left</PHeading>
-                </slot>
+                <slot name="header.left"/>
             </div>
 
             <template v-if="!slimHeader">
                 <div :class="centerLayoutClassName">
-                    <slot name="header.center">
-                        <PHeading>TopBar Center</PHeading>
-                    </slot>
+                    <slot name="header.center"/>
                 </div>
 
                 <div :class="rightLayoutClassName">
@@ -66,9 +62,7 @@
                     </div>
 
                     <div v-if="$slots['header.right']" :class="rightLayoutChildClassName">
-                        <slot name="header.right">
-                            <PHeading>Right Corner</PHeading>
-                        </slot>
+                        <slot name="header.right"/>
                     </div>
                 </div>
             </template>

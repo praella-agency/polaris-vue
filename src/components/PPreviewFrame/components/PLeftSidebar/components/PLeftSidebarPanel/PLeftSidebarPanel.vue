@@ -22,9 +22,7 @@
                                     Polaris-PreviewFrame__paddingNone"
                 >
                     <div class="Polaris-PreviewFrame__ChildrenWrapper--header">
-                        <slot name="sidebar.left.content">
-                            <PHeading>Content</PHeading>
-                        </slot>
+                        <slot name="sidebar.left.content"/>
                     </div>
                 </section>
             </div>
@@ -40,9 +38,7 @@
                     <div class="Polaris-PreviewFrame__ChildrenWrapper--header">
                         <div class="Polaris-PreviewFrame__Footer">
                             <div class="Polaris-PreviewFrame__Footer--childrenWrapper">
-                                <slot name="sidebar.left.footer">
-                                    <PHeading>Footer</PHeading>
-                                </slot>
+                                <slot name="sidebar.left.footer"/>
                             </div>
                         </div>
                     </div>
