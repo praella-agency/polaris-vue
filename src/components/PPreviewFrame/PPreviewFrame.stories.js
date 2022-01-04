@@ -27,6 +27,9 @@ export default {
         docs: {
             page: PPreviewFrameMDX,
         },
+        options: {
+            panelPosition: 'bottom',
+        }
     },
     argTypes: {
         openRightSidebar: {
