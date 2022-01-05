@@ -8,8 +8,14 @@ export default {
     title: 'Structure / Horizontal Divider',
     component: PHorizontalDivider,
     parameters: {
+        options: {
+            showPanel: false,
+        },
         controls: {
-            disabled: true,
+            disable: true,
+        },
+        actions: {
+            disable: true,
         },
     },
 }

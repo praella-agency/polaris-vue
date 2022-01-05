@@ -7,8 +7,15 @@ export default {
     title: 'Structure / Vertical Divider',
     component: PVerticalDivider,
     parameters: {
+        layout: 'centered',
+        options: {
+            showPanel: false,
+        },
         controls: {
-            disabled: true,
+            disable: true,
+        },
+        actions: {
+            disable: true,
         },
     },
 }
