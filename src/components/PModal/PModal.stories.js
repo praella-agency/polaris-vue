@@ -160,9 +160,6 @@ Modal.parameters = {
           <PTextField label="First Name" />
           <PTextField label="Last Name Name" />
           <PTextField label="Email" type="email" />
-          <PBanner title="Notice" status="critical" :action="{}">
-            We ensure complete privacy all of out customers
-          </PBanner>
         </PFormLayout>
       </PModal>
     </PStackItem>
