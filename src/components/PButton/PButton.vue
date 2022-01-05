@@ -110,7 +110,7 @@
              */
             type: {
                 type: Type,
-                default: null,
+                default: 'button',
             },
             /**
              * Provides extra visual weight and identifies
