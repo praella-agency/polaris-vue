@@ -14,7 +14,6 @@ export default {
             inlineStories: false,
             iframeHeight: 570,
         },
-        layout: 'centered',
     },
     argTypes: {
         primaryAction: {
@@ -89,17 +88,15 @@ const Template = (args, {argTypes}) => ({
     template: `
       <PStack>
           <PStackItem>
-              <PModal v-bind="$props"
-                      @close="closeModal"
-                      :open="this.is_active"
+              <PModal 
+                  v-bind="$props"
+                  @close="closeModal"
+                  :open="this.is_active"
               >
                   <PFormLayout>
                       <PTextField label="First Name"/>
                       <PTextField label="Last Name Name"/>
                       <PTextField label="Email" type="email"/>
-                      <PBanner status="critical" title="Notice">
-                          We ensure complete privacy all of out customers
-                      </PBanner>
                   </PFormLayout>
               </PModal>
           </PStackItem>
