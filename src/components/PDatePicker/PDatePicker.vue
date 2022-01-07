@@ -112,8 +112,14 @@
     const DateRange = {
         type: [String, Object],
         properties: {
-            startDate: DateType,
-            endDate: DateType,
+            startDate: {
+                type: DateType,
+                nullable: true,
+            },
+            endDate: {
+                type: DateType,
+                nullable: true,
+            },
         },
     }
 
@@ -394,22 +400,24 @@
             },
             computedValue: {
                 get() {
-                    if (this.value) {
-                        if (typeof this.value === 'string') {
+                    if (this.singleDatePicker) {
+                        if (this.value) {
                             return {
-                                startDate: this.value,
-                                endDate: null,
-                            }
-                        }
-                        return this.value;
-                    } else if (this.dateRange) {
-                        if (typeof this.dateRange === 'string') {
+                                startDate: typeof this.value === 'string' ? this.value : this.value.startDate,
+                                endDate: typeof this.value === 'string' ? this.value : this.value.startDate,
+                            };
+                        } else if (this.dateRange) {
                             return {
-                                startDate: this.dateRange,
-                                endDate: null,
-                            }
+                                startDate: typeof this.dateRange === 'string' ? this.dateRange : this.dateRange.startDate,
+                                endDate: typeof this.dateRange === 'string' ? this.dateRange : this.dateRange.startDate,
+                            };
                         }
-                        return this.dateRange;
+                    } else {
+                        if (this.value) {
+                            return this.value;
+                        } else if (this.dateRange) {
+                            return this.dateRange;
+                        }
                     }
                     return {startDate: null, endDate: null};
                 },

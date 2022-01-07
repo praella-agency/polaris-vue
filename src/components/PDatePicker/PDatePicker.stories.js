@@ -64,14 +64,22 @@ const Template = (args, {argTypes}) => ({
     },
     data() {
         return {
-            data: '',
+            data: {
+                startDate: null,
+                endDate: null,
+            },
         };
     },
     template: `
-      <PDatePicker
-          v-bind="$props"
-          v-model="data"
-      />`,
+        <div>
+
+        <PDatePicker
+            v-bind="$props"
+            v-model="data"
+        />
+        {{ data }}
+        </div>
+    `,
 });
 
 export const DatePicker = Template.bind({});
