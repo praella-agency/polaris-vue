@@ -33,6 +33,6 @@
 
 .Polaris-Label__RequiredIndicator::after {
   content: '*';
-  color: rgba(233, 128, 122, 1);
+  color: $p-critical;
   margin-left: 0.4rem;
 }

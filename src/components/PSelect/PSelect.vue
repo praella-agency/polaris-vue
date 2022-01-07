@@ -1,6 +1,6 @@
 <template>
     <div :class="labelHidden && 'Polaris-Labelled--hidden'">
-        <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel">
+        <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.label">
             <div class="Polaris-Label">
                 <slot name="label">
                     <label

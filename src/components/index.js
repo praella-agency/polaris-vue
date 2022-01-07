@@ -88,6 +88,7 @@ import { PPreviewFrame } from './PPreviewFrame';
 import { PKeyboardKey } from './PKeyboardKey';
 import { PVerticalDivider } from './PVerticalDivider';
 import { PHorizontalDivider } from './PHorizontalDivider';
+import { PLabel } from './PLabel';
 
 export {
   PBadge,
@@ -167,4 +168,5 @@ export {
   PPreviewFrame,
   PKeyboardKey,
   PVerticalDivider, PHorizontalDivider,
+  PLabel,
 };
