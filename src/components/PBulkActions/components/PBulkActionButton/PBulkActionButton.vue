@@ -6,6 +6,7 @@
         <PButton
             :external="external"
             :url="url"
+            :icon="icon"
             :aria-label="accessibilityLabel"
             @click="$emit('action')"
             :disabled="disabled"
@@ -55,6 +56,10 @@
             indicator: {
                 type: Boolean,
                 default: false,
+            },
+            icon: {
+                type: String,
+                default: null,
             },
         },
         mounted() {

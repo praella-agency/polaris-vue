@@ -10,6 +10,7 @@
             disclosure
             @action="toggleMenuVisibility"
             :content="title"
+            :icon="icon"
             :indicator="isNewBadgeInBadgeActions"
         />
         <PActionList
@@ -32,6 +33,10 @@
         },
         props: {
             title: {
+                type: String,
+                default: null,
+            },
+            icon: {
                 type: String,
                 default: null,
             },
