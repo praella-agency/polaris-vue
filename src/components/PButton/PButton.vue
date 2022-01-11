@@ -26,6 +26,7 @@
         :aria-haspopup="ariaProps"
         :aria-owns="ariaProps"
         :value="value"
+        :target="href ? (external ? '_blank' : '') : ''"
         :aria-label="ariaLabel"
         :disabled="isDisabled || loading"
         :role="loading ? 'alert' : undefined"
@@ -222,6 +223,13 @@
                 type: Boolean,
                 default: false,
             },
+            /**
+             * Forces url to open in a new tab
+             */
+            external: {
+                type: Boolean,
+                default: false,
+            }
         },
         computed: {
             className() {
