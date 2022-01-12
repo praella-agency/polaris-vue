@@ -1859,12 +1859,10 @@ $icon-color-base-before: rgba(228, 229, 231, 1);
 $icon-svg-color-apply-color: rgba(255, 255, 255, 1);
 
 /* Frame */
-$p-override-zero: 0;
-$p-override-loading-z-index: 514;
-$p-button-font-weight: 500;
 $global-ribbon-height: 0px;
 
 /* Common Variables */
+$p-action-critical: rgba(216, 44, 13, 1);
 $p-divider: rgba(225, 227, 229, 1);
 $p-border-radius-wide: 0.8rem;
 $p-surface-subdued: rgba(250, 251, 251, 1);
@@ -1901,3 +1899,18 @@ $p-text-disabled: rgba(140, 145, 150, 1);
 $p-choice-size: 2rem;
 $p-icon-disabled: rgba(186, 190, 195, 1);
 $p-critical: rgba(216, 44, 13, 1);
+$p-action-secondary-hovered: rgba(246, 246, 247, 1);
+$p-action-secondary-pressed: rgba(241, 242, 243, 1);
+$p-action-secondary-depressed: rgba(109, 113, 117, 1);
+$p-button-pressed-inner-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.15);
+$p-text-on-primary: rgba(255, 255, 255, 1);
+$p-border-depressed: rgba(87, 89, 89, 1);
+$p-override-zero: 0;
+$p-override-loading-z-index: 514;
+$p-button-font-weight: 500;
+$p-action-primary-hovered: rgba(0, 110, 82, 1);
+$p-action-primary-pressed: rgba(0, 94, 70, 1);
+$p-action-primary-depressed: rgba(0, 61, 44, 1);
+$p-button-inner-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+$p-text-on-critical: rgba(255, 255, 255, 1);
+$p-action-critical-hovered: rgba(188, 34, 0, 1);

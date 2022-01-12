@@ -1409,3 +1409,41 @@
 .Polaris-Button--plainAction {
   border: unset;
 }
+
+.Polaris-Button--hidden {
+  visibility: hidden;
+}
+
+.Polaris-Button__ConnectedDisclosureWrapper {
+  display: flex;
+}
+
+.Polaris-Button__ConnectedDisclosure {
+  z-index: 10;
+  margin-left: -0.1rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  height: 100%;
+}
+
+.Polaris-Button__ConnectedDisclosure.Polaris-Button--outline:not(:focus) {
+  border-left-color: rgba(99, 115, 129, 0);
+}
+
+.Polaris-Button__ConnectedDisclosure:focus, .Polaris-Button__ConnectedDisclosure:active {
+  z-index: 20;
+}
+
+.Polaris-Button__ConnectedDisclosure.Polaris-Button--primary, .Polaris-Button__ConnectedDisclosure.Polaris-Button--destructive {
+  margin-left: 0.1rem;
+}
+
+.Polaris-Button__ConnectedDisclosure.Polaris-Button--primary.Polaris-Button--outline, .Polaris-Button__ConnectedDisclosure.Polaris-Button--destructive.Polaris-Button--outline {
+  margin-left: 0;
+  border-left: 0;
+}
+
+.Polaris-Button__ConnectedDisclosure::after {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

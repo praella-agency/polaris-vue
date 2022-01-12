@@ -4,7 +4,7 @@ export default {
     title: 'Actions / Button',
     component: PButton,
     parameters: {
-        layout: 'centered',
+        // layout: 'centered',
     },
     argTypes: {
         disclosure: {

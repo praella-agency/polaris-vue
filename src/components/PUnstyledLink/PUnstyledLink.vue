@@ -5,6 +5,7 @@
         :to="to"
         :target="target"
         :rel="rel"
+        :download="download"
         v-bind="$attrs"
         v-on="$listeners"
     >
@@ -43,6 +44,14 @@
              */
             external: {
                 type: Boolean,
+                default: false,
+            },
+            /**
+             * Makes the browser download the url instead of opening it. Provides a hint for the downloaded filename
+             * if it is a string value
+             */
+            download: {
+                type: [Boolean, String],
                 default: false,
             },
         },
