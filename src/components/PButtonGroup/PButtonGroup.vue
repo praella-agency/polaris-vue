@@ -65,10 +65,11 @@
                         'data-buttongroup-full-width': this.fullWidth,
                         'data-buttongroup-connected-top': this.connectedTop,
                     },
-
                 },
-                ComponentHelpers.wrapNodesWithComponent(createElement,
-                    this.$slots.default || [], PButtonGroupItem),
+                ComponentHelpers.wrapNodesWithComponent(
+                    createElement,
+                    this.$slots.default || [], PButtonGroupItem
+                ),
             );
         },
     }

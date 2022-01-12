@@ -1,89 +1,74 @@
 <template>
-<!--    <div v-if="connectedDisclosure" class="Polaris-Button__ConnectedDisclosureWrapper">-->
-<!--        <PUnstyledButton-->
-<!--            :class="className"-->
-<!--        >-->
-<!--            <span class="Polaris-Button__Content">-->
-<!--                <span v-if="loading" class="Polaris-Button__Spinner">-->
-<!--                    <PSpinner size="small"/>-->
-<!--                </span>-->
-<!--                <span v-if="icon" :class="iconClassName">-->
-<!--                    <PIcon :source="loading ? 'placeholder' : icon"/>-->
-<!--                </span>-->
-<!--                <span v-if="!hasNoChildren" :class="childMarkupClassName" :key="disabled ? 'text-disabled' : 'text'">-->
-<!--                    &lt;!&ndash; @slot The content to display content inside the button &ndash;&gt;-->
-<!--                    <slot/>-->
-<!--                </span>-->
-<!--                <span v-if="disclosure" class="Polaris-Button__Icon">-->
-<!--                    <div :class="disclosureIconClassName">-->
-<!--                        <PIcon :source="loading ? 'placeholder' : 'CaretDownMinor'"/>-->
-<!--                    </div>-->
-<!--                </span>-->
-<!--            </span>-->
+    <div v-if="Object.keys(connectedDisclosure).length > 0" class="Polaris-Button__ConnectedDisclosureWrapper">
+        <PUnstyledButton
+            v-bind="$props"
+            :isConnectedDisclosure="Object.keys(connectedDisclosure).length > 0"
+            @click="handleClick"
+            @focus="handleFocus"
+            @blur="handleBlur"
+            @keydown="handleKeyDown"
+            @keypress="handleKeyPress"
+            @keyup="handleKeyUp"
+        >
+            <!-- @slot The content to display content inside the button -->
+            <slot/>
+        </PUnstyledButton>
 
-<!--            <PPopover-->
-<!--                id="disclosure-button"-->
-<!--                :active="disclosureActive"-->
-<!--                preferredAlignment="right"-->
-<!--                @close="() => {this.disclosureActive = false;}"-->
-<!--            >-->
-<!--                <button-->
-<!--                    slot="activator"-->
-<!--                    type="button"-->
-<!--                    :class="connectedDisclosureClassName"-->
-<!--                    :disabled="disabled"-->
-<!--                    :aria-label="accessibilityLabel"-->
-<!--                    :aria-describedby="ariaDescribedBy"-->
-<!--                    @click="toggleDisclosureActive"-->
-<!--                >-->
-<!--                    <span class="Polaris-Button__Icon">-->
-<!--                        <PIcon source="CaretDownMinor"/>-->
-<!--                    </span>-->
-<!--                </button>-->
-<!--                <PActionList-->
-<!--                    slot="content"-->
-<!--                    :items="Object.keys(connectedDisclosure).length ? connectedDisclosure.actions : []"-->
-<!--                />-->
-<!--            </PPopover>-->
-<!--        </PUnstyledButton>-->
-<!--    </div>-->
-<!--    <PUnstyledButton-->
-<!--        :class="className"-->
-<!--    >-->
-<!--            <span class="Polaris-Button__Content">-->
-<!--                <span v-if="loading" class="Polaris-Button__Spinner">-->
-<!--                    <PSpinner size="small"/>-->
-<!--                </span>-->
-<!--                <span v-if="icon" :class="iconClassName">-->
-<!--                    <PIcon :source="loading ? 'placeholder' : icon"/>-->
-<!--                </span>-->
-<!--                <span v-if="!hasNoChildren" :class="childMarkupClassName" :key="disabled ? 'text-disabled' : 'text'">-->
-<!--                    &lt;!&ndash; @slot The content to display content inside the button &ndash;&gt;-->
-<!--                    <slot/>-->
-<!--                </span>-->
-<!--                <span v-if="disclosure" class="Polaris-Button__Icon">-->
-<!--                    <div :class="disclosureIconClassName">-->
-<!--                        <PIcon :source="loading ? 'placeholder' : 'CaretDownMinor'"/>-->
-<!--                    </div>-->
-<!--                </span>-->
-<!--            </span>-->
-<!--    </PUnstyledButton>-->
+        <PPopover
+            id="disclosure-button"
+            :active="disclosureActive"
+            preferredAlignment="right"
+            @close="() => {this.disclosureActive = false;}"
+        >
+            <button
+                slot="activator"
+                type="button"
+                :class="connectedDisclosureClassName"
+                :disabled="disabled"
+                :aria-label="accessibilityLabel"
+                :aria-describedby="ariaDescribedBy"
+                @click="toggleDisclosureActive"
+            >
+                <span class="Polaris-Button__Icon">
+                    <div :class="disclosureIconClassName">
+                        <PIcon source="CaretDownMinor"/>
+                    </div>
+                </span>
+            </button>
+            <PActionList
+                slot="content"
+                :items="Object.keys(connectedDisclosure).length ? connectedDisclosure.actions : []"
+            />
+        </PPopover>
+    </div>
+    <PUnstyledButton
+        v-else
+        v-bind="$props"
+        :isConnectedDisclosure="Object.keys(connectedDisclosure).length > 0"
+        @click="handleClick"
+        @focus="handleFocus"
+        @blur="handleBlur"
+        @keydown="handleKeyDown"
+        @keypress="handleKeyPress"
+        @keyup="handleKeyUp"
+    >
+        <!-- @slot The content to display content inside the button -->
+        <slot/>
+    </PUnstyledButton>
 </template>
 
 <script>
     import { classNames, variationName } from '../../utilities/css';
     import { PIcon } from '../PIcon';
-    import { PSpinner } from '../PSpinner';
     import { PUnstyledButton } from './components/PUnstyledButton';
     import { PPopover } from '../PPopover';
     import { PActionList } from '../PActionList';
     import { ActionListItemDescriptor } from '../../types';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
-    import StringValidator from '../../utilities/validators/StringValidator';
 
     const Size = ['slim', 'medium', 'large'];
     const TextAlign = ['left', 'right', 'center', null];
-    const Type = ['submit', 'reset', 'button'];
+    const DEFAULT_SIZE = 'medium';
     const ConnectedDisclosure = {
         /**
          * Visually hidden label for the connected disclosure button
@@ -102,8 +87,6 @@
         },
     };
 
-    const DEFAULT_SIZE = 'medium';
-
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -114,7 +97,7 @@
     export default {
         name: 'PButton',
         components: {
-            PIcon, PSpinner, PUnstyledButton, PPopover, PActionList,
+            PIcon, PUnstyledButton, PPopover, PActionList,
         },
         props: {
             /**
@@ -312,7 +295,6 @@
             size: {
                 type: String,
                 default: 'medium',
-                ...StringValidator('size', Size),
             },
             /**
              * Changes the inner text alignment of the button
@@ -320,7 +302,6 @@
             textAlign: {
                 type: TextAlign,
                 default: null,
-                ...StringValidator('textAlign', TextAlign),
             },
             /**
              * VueRouter link | link object
@@ -334,13 +315,12 @@
             type: {
                 type: String,
                 default: 'button',
-                ...StringValidator('type', Type),
             },
             /**
              * Button content
              */
             value: {
-                type: String | Number | Array,
+                type: [String, Number, Array],
             },
         },
         data() {
@@ -349,24 +329,6 @@
             };
         },
         computed: {
-            className() {
-                return classNames(
-                    'Polaris-Button',
-                    this.primary && 'Polaris-Button--primary',
-                    this.outline && 'Polaris-Button--outline',
-                    this.destructive && 'Polaris-Button--destructive',
-                    this.destructiveText && 'Polaris-Button--destructiveText',
-                    this.isDisabled && 'Polaris-Button--disabled',
-                    this.loading && 'Polaris-Button--loading',
-                    this.plain && 'Polaris-Button--plain',
-                    this.plainAction && 'Polaris-Button--plainAction',
-                    this.monochrome && 'Polaris-Button--monochrome',
-                    this.fullWidth && 'Polaris-Button--fullWidth',
-                    this.icon && this.hasNoChildren && 'Polaris-Button--iconOnly',
-                    this.size && this.size !== DEFAULT_SIZE && `Polaris-Button--${variationName('size', this.size)}`,
-                    this.textAlign && `Polaris-Button--${variationName('textAlign', this.textAlign)}`,
-                );
-            },
             connectedDisclosureClassName() {
                 return classNames(
                     'Polaris-Button',
@@ -375,9 +337,9 @@
                     this.size && this.size !== DEFAULT_SIZE && `Polaris-Button--${variationName('size', this.size)}`,
                     this.textAlign && `Polaris-Button--${variationName('textAlign', this.textAlign)}`,
                     this.destructive && 'Polaris-Button--destructive',
-                    this.destructiveText && 'Polaris-Button--destructiveText',
+                    !this.destructive && this.destructiveText && 'Polaris-Button--destructiveText',
                     this.connectedDisclosure && this.connectedDisclosure.disabled && 'Polaris-Button--disabled',
-                    this.icon && this.hasNoChildren && 'Polaris-Button--iconOnly',
+                    'Polaris-Button--iconOnly',
                     'Polaris-Button__ConnectedDisclosure',
                     this.monochrome && 'Polaris-Button--monochrome',
                 );
@@ -385,35 +347,49 @@
             disclosureIconClassName() {
                 return classNames(
                     'Polaris-Button__DisclosureIcon',
-                    this.disclosure === 'up' && 'Polaris-Button__DisclosureIconFacingUp',
-                    this.loading && 'Polaris-Button__Hidden',
+                    this.disclosureActive && 'Polaris-Button__DisclosureIconFacingUp',
                 );
-            },
-            childMarkupClassName() {
-                return classNames(
-                    'Polaris-Button__Text',
-                    this.removeUnderline && 'Polaris-Button--removeUnderline',
-                );
-            },
-            iconClassName() {
-                return classNames(
-                    'Polaris-Button__Icon',
-                    this.loading && 'Polaris-Button--hidden'
-                );
-            },
-            isDisabled() {
-                return this.disabled || this.loading;
-            },
-            spinnerColor() {
-                return this.primary || this.destructive ? 'white' : 'inkLightest';
-            },
-            hasNoChildren() {
-                return (this.$slots.default || []).length === 0;
-            },
+            }
         },
         methods: {
             toggleDisclosureActive() {
                 this.disclosureActive = !this.disclosureActive;
+            },
+            handleClick() {
+                /**
+                 * Callback when clicked
+                 */
+                this.$emit('click', event);
+            },
+            handleFocus() {
+                /**
+                 * Callback when button becomes focussed
+                 */
+                this.$emit('focus', event);
+            },
+            handleBlur() {
+                /**
+                 * Callback when focus leaves button
+                 */
+                this.$emit('blur', event);
+            },
+            handleKeyDown() {
+                /**
+                 * Callback when a keydown event is registered on the button
+                 */
+                this.$emit('keydown', event);
+            },
+            handleKeyPress() {
+                /**
+                 * Callback when a keypress event is registered on the button
+                 */
+                this.$emit('keypress', event);
+            },
+            handleKeyUp() {
+                /**
+                 * Callback when a keyup event is registered on the button
+                 */
+                this.$emit('keyup', event);
             },
         },
     }

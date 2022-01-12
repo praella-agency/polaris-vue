@@ -188,11 +188,11 @@
 }
 
 .Polaris-Button--primary {
-  --p-button-color: $p-action-primary;
-  --p-button-text: $p-text-on-primary;
-  --p-button-color-hover: $p-action-primary-hovered;
-  --p-button-color-active: $p-action-primary-pressed;
-  --p-button-color-depressed: $p-action-primary-depressed;
+  --p-button-color: rgba(0, 128, 96, 1);
+  --p-button-text: rgba(255, 255, 255, 1);
+  --p-button-color-hover: rgba(0, 110, 82, 1);
+  --p-button-color-active: rgba(0, 94, 70, 1);
+  --p-button-color-depressed: rgba(0, 61, 44, 1);
   position: relative;
   background: var(--p-button-color);
   border-width: 0;
@@ -250,7 +250,7 @@
 }
 
 .Polaris-Button--primary.Polaris-Button--disabled {
-  background: $p-action-primary-disabled;
+  background: rgba(0, 128, 96, 1);
   color: $p-text-disabled;
   border-color: transparent;
   box-shadow: none;
@@ -261,11 +261,11 @@
 }
 
 .Polaris-Button--destructive {
-  --p-button-color: $p-action-critical;
-  --p-button-text: $p-text-on-critical;
-  --p-button-color-hover: $p-action-critical-hovered;
-  --p-button-color-active: $p-action-critical-pressed;
-  --p-button-color-depressed: $p-action-critical-depressed;
+  --p-button-color: rgba(216, 44, 13, 1);
+  --p-button-text: rgba(255, 255, 255, 1);
+  --p-button-color-hover: rgba(188, 34, 0, 1);
+  --p-button-color-active: rgba(162, 27, 0, 1);
+  --p-button-color-depressed: rgba(108, 15, 0, 1);
   position: relative;
   background: var(--p-button-color);
   border-width: 0;
@@ -323,7 +323,7 @@
 }
 
 .Polaris-Button--destructive.Polaris-Button--disabled {
-  background: $p-action-critical-disabled;
+  background: rgba(216, 44, 13, 1);
   color: $p-text-disabled;
   box-shadow: none;
   border-color: transparent;
@@ -331,6 +331,28 @@
 
 .Polaris-Button--destructive.Polaris-Button--disabled svg {
   fill: $p-icon-disabled;
+}
+
+.Polaris-Button--destructiveText {
+  color: rgba(216, 44, 13, 1);
+
+  &:hover {
+    color: rgba(216, 44, 13, 1);
+  }
+
+  svg {
+    fill: rgba(216, 44, 13, 1);
+  }
+}
+
+.Polaris-Button__DisclosureIcon {
+  transition-property: transform;
+  transition-duration: .3s;
+  transition-timing-function: cubic-bezier(0, 0, .42, 1);
+}
+
+.Polaris-Button__DisclosureIconFacingUp {
+  transform: rotate(-180deg);
 }
 
 .Polaris-Button--outline {
@@ -663,6 +685,28 @@
   border-radius: 3px;
 }
 
+.Polaris-Button--plainAction {
+  border: unset;
+  box-shadow: unset;
+  background: transparent;
+}
+
+.Polaris-Button--plainAction.Polaris-Button {
+  box-shadow: unset;
+}
+
+.Polaris-Button--plainAction.Polaris-Button--destructive {
+  border: unset;
+  background: transparent;
+  color: rgba(216, 44, 13, 1);
+}
+
+.Polaris-Button--plainAction.Polaris-Button--primary {
+  border: unset;
+  background: transparent;
+  color: rgba(0, 128, 96, 1);
+}
+
 .Polaris-Button--plain.Polaris-Button--fullWidth {
   margin-left: 0;
   margin-right: 0;
@@ -926,6 +970,10 @@
   border-left-color: rgba(99, 115, 129, 0);
 }
 
+.Polaris-Button__ConnectedDisclosureWrapper .Polaris-Button::after {
+  box-shadow: unset;
+}
+
 .Polaris-Button__ConnectedDisclosure:focus, .Polaris-Button__ConnectedDisclosure:active {
   z-index: 20;
 }
@@ -1004,6 +1052,10 @@
   flex-wrap: nowrap;
   margin-top: 0;
   margin-left: 0;
+}
+
+.Polaris-ButtonGroup--segmented .Polaris-Button::after {
+  box-shadow: unset;
 }
 
 .Polaris-ButtonGroup--segmented .Polaris-ButtonGroup__Item {

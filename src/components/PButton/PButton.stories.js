@@ -4,7 +4,7 @@ export default {
     title: 'Actions / Button',
     component: PButton,
     parameters: {
-        // layout: 'centered',
+        layout: 'centered',
     },
     argTypes: {
         disclosure: {
@@ -49,6 +49,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         blur: {
             table: {
@@ -59,6 +62,9 @@ export default {
                     summary: '()',
                     detail: '(event)',
                 },
+            },
+            control: {
+                type: null,
             },
         },
         click: {
@@ -71,6 +77,9 @@ export default {
                     detail: '(event)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         focus: {
             table: {
@@ -82,6 +91,51 @@ export default {
                     detail: '(event)',
                 },
             },
+            control: {
+                type: null,
+            },
+        },
+        keydown: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
+                },
+            },
+            control: {
+                type: null,
+            },
+        },
+        keypress: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
+                },
+            },
+            control: {
+                type: null,
+            },
+        },
+        keyup: {
+            table: {
+                type: {
+                    summary: null,
+                },
+                defaultValue: {
+                    summary: '()',
+                    detail: '(event)',
+                },
+            },
+            control: {
+                type: null,
+            },
         },
     },
 }
@@ -92,14 +146,52 @@ const Template = (args, {argTypes}) => ({
         PButton,
     },
     template: `
-      <PButton v-bind="$props" @click="handleButtonEvent('click')">
-        Button
-      </PButton>`,
+        <PButton v-bind="$props" @click="handleButtonEvent('click')">
+            Button
+        </PButton>`,
     methods: {
-      handleButtonEvent(event) {
-          alert('Triggered ' + event + ' event');
-      },
+        handleButtonEvent(event) {
+            console.log('Triggered ' + event + ' event');
+        },
     },
 });
 
-export const Button = Template.bind({});
+export const BaseButton = Template.bind({});
+
+const Template1 = (args, {argTypes}) => ({
+    props: Object.keys(argTypes),
+    components: {
+        PButton,
+    },
+    template: `
+        <PButton
+            v-bind="$props"
+            primary
+            :connectedDisclosure="{
+                accessibility: 'Other',
+                actions: [
+                    {
+                        content: 'Save as draft',
+                        onAction: handleAction
+                    },
+                    {
+                        content: 'Delete',
+                        onAction: handleAction
+                    },
+                ]
+            }"
+            @click="handleButtonEvent('click')"
+        >
+            Button
+        </PButton>`,
+    methods: {
+        handleButtonEvent(event) {
+            console.log('Triggered ' + event + ' event');
+        },
+        handleAction() {
+            console.log('Connected Disclosure triggered');
+        }
+    },
+});
+
+export const SplitButton = Template1.bind({});

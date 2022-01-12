@@ -11,6 +11,7 @@ import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
+import { PButtonGroup } from '../PButtonGroup';
 import argTypes from './args';
 
 export default {
@@ -23,105 +24,107 @@ const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
         PDataTable, PPopover, PButton, POptionList, PCard, PLink, PBadge, PToggle, PIcon, PStack, PStackItem,
-        PDataTableRow, PDataTableCol,
+        PDataTableRow, PDataTableCol, PButtonGroup,
     },
     data() {
         return {
-            active: false,
+            active1: false,
             active2: false,
             selected: [],
             status: ['Active'],
         };
     },
     template: `
-      <PCard sectioned>
-        <PDataTable
-            v-bind="$props"
-            @sort-changed="handleSortChange"
-            @input-filter-changed="handleSearch"
-        >
-
-          <template v-slot:item="{item}">
-            <PDataTableRow>
-              <PDataTableCol firstColumn>
-                <PLink :url="item.product_link">
-                  {{item.product}}
-                </PLink>
-              </PDataTableCol>
-              <PDataTableCol numeric>{{item.price}}</PDataTableCol>
-              <PDataTableCol numeric>
-                <PBadge :status="item.sku_status" :progress="item.sku_progress">
-                  {{item.sku}}
-                </PBadge>
-              </PDataTableCol>
-              <PDataTableCol numeric>{{item.qty}}</PDataTableCol>
-              <PDataTableCol>
-                <PToggle :checked="item.status"/>
-              </PDataTableCol>
-              <PDataTableCol>
-                <PStack>
-                  <PStackItem>
-                    <PIcon source="EditMinor" @click="editItem(item.product)"/>
-                  </PStackItem>
-                  <PStackItem>
-                    <PIcon source="DeleteMinor" color="critical" @click="deleteItem(item.product)"/>
-                  </PStackItem>
-                </PStack>
-              </PDataTableCol>
-            </PDataTableRow>
-          </template>
-
-          <template slot="filter">
-            <PPopover
-                id="popover_1"
-                :active="active"
-                preferred-alignment="right"
-                @close="() => {this.active = false;}"
-                full-width
+        <PCard sectioned>
+            <PDataTable
+                v-bind="$props"
+                @sort-changed="handleSortChange"
+                @input-filter-changed="handleSearch"
             >
-              <PButton slot="activator" @click="() => {this.active = !this.active}"
-                       :disclosure="active ? 'up' : 'down'">
-                Filter Options
-              </PButton>
-              <POptionList
-                  slot="content"
-                  allowMultiple
-                  :selected="selected"
-                  :options="[
-                          {label: 'Rating 1 with a long text', value: '1'},
-                          {label: 'Rating 2', value: '2'},
-                          {label: 'Rating 3', value: '3'},
-                          {label: 'Rating 4', value: '4'},
-                      ]"
-                  @change="updateRatingFilter"
-              ></POptionList>
-            </PPopover>
-            <PPopover
-                id="popover_2"
-                :active="active2"
-                @close="() => {this.active2 = false;}"
-                preferred-alignment="right"
-            >
-              <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">Status
-              </PButton>
-              <POptionList
-                  slot="content"
-                  allowMultiple
-                  :selected="status"
-                  :options="[
-                          {label: 'Active', value: 'Active'},
-                          {label: 'Pending', value: 'Pending'},
-                          {label: 'Deleted', value: 'Deleted'},
-                      ]"
-                  @change="updateStatusFilter"
-              ></POptionList>
-            </PPopover>
-          </template>
-        </PDataTable>
-      </PCard>`,
+                <template v-slot:item="{item}">
+                    <PDataTableRow>
+                        <PDataTableCol firstColumn>
+                            <PLink :url="item.product_link">
+                                {{item.product}}
+                            </PLink>
+                        </PDataTableCol>
+                        <PDataTableCol numeric>{{item.price}}</PDataTableCol>
+                        <PDataTableCol numeric>
+                            <PBadge :status="item.sku_status" :progress="item.sku_progress">
+                                {{item.sku}}
+                            </PBadge>
+                        </PDataTableCol>
+                        <PDataTableCol numeric>{{item.qty}}</PDataTableCol>
+                        <PDataTableCol>
+                            <PToggle :checked="item.status"/>
+                        </PDataTableCol>
+                        <PDataTableCol>
+                            <PStack>
+                                <PStackItem>
+                                    <PIcon source="EditMinor" @click="editItem(item.product)"/>
+                                </PStackItem>
+                                <PStackItem>
+                                    <PIcon source="DeleteMinor" color="critical" @click="deleteItem(item.product)"/>
+                                </PStackItem>
+                            </PStack>
+                        </PDataTableCol>
+                    </PDataTableRow>
+                </template>
+
+                <template slot="filter">
+                    <PButtonGroup segmented>
+                        <PPopover
+                            id="popover_1"
+                            :active="active1"
+                            preferred-alignment="right"
+                            @close="() => {this.active1 = false;}"
+                            full-width
+                        >
+                            <PButton slot="activator" @click="() => toggleRatingFilter"
+                                     :disclosure="active1 ? 'up' : 'down'">
+                                Filter Options {{ active1 }}
+                            </PButton>
+                            <POptionList
+                                slot="content"
+                                allowMultiple
+                                :selected="selected"
+                                :options="[
+                                    {label: 'Rating 1 with a long text', value: '1'},
+                                    {label: 'Rating 2', value: '2'},
+                                    {label: 'Rating 3', value: '3'},
+                                    {label: 'Rating 4', value: '4'},
+                                ]"
+                                @change="updateRatingFilter"
+                            ></POptionList>
+                        </PPopover>
+                        <PPopover
+                            id="popover_2"
+                            :active="active2"
+                            @close="() => {this.active2 = false;}"
+                            preferred-alignment="right"
+                        >
+                            <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">
+                                Status
+                            </PButton>
+                            <POptionList
+                                slot="content"
+                                allowMultiple
+                                :selected="status"
+                                :options="[
+                                {label: 'Active', value: 'Active'},
+                                {label: 'Pending', value: 'Pending'},
+                                {label: 'Deleted', value: 'Deleted'},
+                            ]"
+                                @change="updateStatusFilter"
+                            ></POptionList>
+                        </PPopover>
+                    </PButtonGroup>
+                </template>
+            </PDataTable>
+        </PCard>`,
     methods: {
         toggleRatingFilter() {
-            this.active = !this.active;
+            this.active1 = !this.active1;
         },
         toggleRatingFilter2() {
             this.active2 = !this.active2;
@@ -356,7 +359,7 @@ CustomisableRow.parameters = {
                 </PDataTableCol>
             </PDataTableRow>
         </template>
-        <template slot="filter">
+        <PButtonGroup slot="filter" segmented>
             <PPopover
                 id="popover_1"
                 :active="active"
@@ -399,7 +402,7 @@ CustomisableRow.parameters = {
                     ]"
                 />
             </PPopover>
-        </template>
+        </PButtonGroup>
     </PDataTable>
 </PCard>`
         }
@@ -410,6 +413,7 @@ const Template1 = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
         PDataTable, PPopover, PButton, POptionList, PCard, PLink, PBadge, PToggle, PIcon, PStack, PStackItem,
+        PButtonGroup
     },
     data() {
         return {
@@ -420,85 +424,85 @@ const Template1 = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PCard sectioned>
-        <PDataTable
-            v-bind="$props"
-            @sort-changed="handleSortChange"
-            @input-filter-changed="handleSearch"
-        >
-          
-          <template v-slot:item.product="{item}">
-            <PLink :url="item.product_link">
-              {{item.product}}
-            </PLink>
-          </template>
-          <template v-slot:item.sku="{item}">
-            <PBadge :status="item.sku_status" :progress="item.sku_progress">
-              {{item.sku}}
-            </PBadge>
-          </template>
-          <template v-slot:item.status="{item}">
-            <PToggle :checked="item.status"/>
-          </template>
-          <template v-slot:item.actions="{item}">
-            <PStack>
-              <PStackItem>
-                <PIcon source="EditMinor" @click="editItem(item.product)"/>
-              </PStackItem>
-              <PStackItem>
-                <PIcon source="DeleteMinor" color="critical" @click="deleteItem(item.product)"/>
-              </PStackItem>
-            </PStack>
-          </template>
+        <PCard sectioned>
+            <PDataTable
+                v-bind="$props"
+                @sort-changed="handleSortChange"
+                @input-filter-changed="handleSearch"
+            >
+                <template v-slot:item.product="{item}">
+                    <PLink :url="item.product_link">
+                        {{item.product}}
+                    </PLink>
+                </template>
+                <template v-slot:item.sku="{item}">
+                    <PBadge :status="item.sku_status" :progress="item.sku_progress">
+                        {{item.sku}}
+                    </PBadge>
+                </template>
+                <template v-slot:item.status="{item}">
+                    <PToggle :checked="item.status"/>
+                </template>
+                <template v-slot:item.actions="{item}">
+                    <PStack>
+                        <PStackItem>
+                            <PIcon source="EditMinor" @click="editItem(item.product)"/>
+                        </PStackItem>
+                        <PStackItem>
+                            <PIcon source="DeleteMinor" color="critical" @click="deleteItem(item.product)"/>
+                        </PStackItem>
+                    </PStack>
+                </template>
 
-          <template slot="filter">
-            <PPopover
-                id="popover_1"
-                :active="active"
-                preferred-alignment="right"
-                @close="() => {this.active = false;}"
-                full-width
-            >
-              <PButton slot="activator" @click="() => {this.active = !this.active}"
-                       :disclosure="active ? 'up' : 'down'">
-                Filter Options
-              </PButton>
-              <POptionList
-                  slot="content"
-                  allowMultiple
-                  :selected="selected"
-                  :options="[
-                      {label: 'Rating 1 with a long text', value: '1'},
-                      {label: 'Rating 2', value: '2'},
-                      {label: 'Rating 3', value: '3'},
-                      {label: 'Rating 4', value: '4'},
-                  ]"
-                  @change="updateRatingFilter"
-              ></POptionList>
-            </PPopover>
-            <PPopover
-                id="popover_2"
-                :active="active2"
-                @close="() => {this.active2 = false;}"
-                preferred-alignment="right"
-            >
-              <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">Status
-              </PButton>
-              <POptionList
-                  slot="content"
-                  allowMultiple
-                  :selected="status"
-                  :options="[
-                          {label: 'Active', value: 'Active'},
-                          {label: 'Pending', value: 'Pending'},
-                          {label: 'Deleted', value: 'Deleted'},
-                      ]"
-                  @change="updateStatusFilter"
-              ></POptionList>
-            </PPopover>
-          </template>
-        </PDataTable>
-      </PCard>`,
+                <PButtonGroup slot="filter" segmented>
+                    <PPopover
+                        id="popover_1"
+                        :active="active"
+                        preferred-alignment="right"
+                        @close="() => {this.active = false;}"
+                        full-width
+                    >
+                        <PButton slot="activator" @click="() => {this.active = !this.active}"
+                                 :disclosure="active ? 'up' : 'down'">
+                            Filter Options
+                        </PButton>
+                        <POptionList
+                            slot="content"
+                            allowMultiple
+                            :selected="selected"
+                            :options="[
+                                {label: 'Rating 1 with a long text', value: '1'},
+                                {label: 'Rating 2', value: '2'},
+                                {label: 'Rating 3', value: '3'},
+                                {label: 'Rating 4', value: '4'},
+                            ]"
+                            @change="updateRatingFilter"
+                        ></POptionList>
+                    </PPopover>
+                    <PPopover
+                        id="popover_2"
+                        :active="active2"
+                        @close="() => {this.active2 = false;}"
+                        preferred-alignment="right"
+                    >
+                        <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">
+                            Status
+                        </PButton>
+                        <POptionList
+                            slot="content"
+                            allowMultiple
+                            :selected="status"
+                            :options="[
+                                {label: 'Active', value: 'Active'},
+                                {label: 'Pending', value: 'Pending'},
+                                {label: 'Deleted', value: 'Deleted'},
+                            ]"
+                            @change="updateStatusFilter"
+                        ></POptionList>
+                    </PPopover>
+                </PButtonGroup>
+            </PDataTable>
+        </PCard>`,
     methods: {
         toggleRatingFilter() {
             this.active = !this.active;
@@ -731,7 +735,7 @@ CustomisableColumn.parameters = {
             </PStack>
         </template>
     
-        <template slot="filter">
+        <PButtonGroup slot="filter" segmented>
             <PPopover
                 id="popover_1"
                 :active="active"
@@ -774,7 +778,7 @@ CustomisableColumn.parameters = {
                     ]"
                 />
             </PPopover>
-        </template>
+        </PButtonGroup>
     </PDataTable>
 </PCard>`
         },

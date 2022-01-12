@@ -24,18 +24,42 @@
         @keyup="$emit('keyUp', $event)"
         @keypress="$emit('keyPress', $event)"
     >
-        <slot/>
+            <span class="Polaris-Button__Content">
+                <span v-if="loading" class="Polaris-Button__Spinner">
+                    <PSpinner size="small" :color="spinnerColor"/>
+                </span>
+                <span v-if="icon" :class="iconClassName">
+                    <PIcon :source="loading ? 'placeholder' : icon"/>
+                </span>
+                <span v-if="!hasNoChildren" :class="childMarkupClassName" :key="disabled ? 'text-disabled' : 'text'">
+                    <!-- @slot The content to display content inside the button -->
+                    <slot/>
+                </span>
+                <span v-if="disclosure" class="Polaris-Button__Icon">
+                    <div :class="disclosureIconClassName">
+                        <PIcon :source="loading ? 'placeholder' : 'CaretDownMinor'"/>
+                    </div>
+                </span>
+            </span>
     </component>
 </template>
 
 <script>
+    import { PIcon } from '../../../../components/PIcon';
+    import { PSpinner } from '../../../../components/PSpinner';
     import { PUnstyledLink } from '../../../../components/PUnstyledLink';
     import StringValidator from '../../../../utilities/validators/StringValidator';
+    import { classNames, variationName } from "../../../../utilities/css";
+
+    const Size = ['slim', 'medium', 'large'];
+    const TextAlign = ['left', 'right', 'center', null];
+    const Type = ['submit', 'reset', 'button'];
+    const DEFAULT_SIZE = 'medium';
 
     export default {
         name: 'PUnstyledButton',
         components: {
-            PUnstyledLink,
+            PIcon, PSpinner, PUnstyledLink,
         },
         props: {
             /**
@@ -72,10 +96,6 @@
             ariaProps: {
                 type: Boolean,
                 default: false,
-            },
-            className: {
-                type: String,
-                default: null,
             },
             /**
              * Indicates a dangerous or potentially negative action
@@ -141,6 +161,13 @@
             icon: {
                 type: String,
                 default: null,
+            },
+            /**
+             * Check if button is connected or not
+             */
+            isConnectedDisclosure: {
+                type: Boolean,
+                default: false,
             },
             /**
              * A unique identifier for the button
@@ -220,17 +247,17 @@
              * Changes the size of the button, giving it more or less padding
              */
             size: {
-                type: Size,
-                default: DEFAULT_SIZE,
-                // ...StringValidator('size', Size),
+                type: String,
+                default: 'medium',
+                ...StringValidator('size', Size),
             },
             /**
              * Changes the inner text alignment of the button
              */
             textAlign: {
-                type: TextAlign,
+                type: String,
                 default: null,
-                // ...StringValidator('textAlign', TextAlign),
+                ...StringValidator('textAlign', TextAlign),
             },
             /**
              * VueRouter link | link object
@@ -244,16 +271,66 @@
             type: {
                 type: String,
                 default: 'button',
-                // ...StringValidator('type', Type),
+                ...StringValidator('type', Type),
             },
             /**
              * Button content
              */
             value: {
-                type: String | Number | Array,
+                type: [String, Number, Array],
             },
         },
-
+        computed: {
+            className() {
+                return classNames(
+                    'Polaris-Button',
+                    this.primary && 'Polaris-Button--primary',
+                    this.outline && 'Polaris-Button--outline',
+                    this.destructive && 'Polaris-Button--destructive',
+                    !this.destructive && this.destructiveText && 'Polaris-Button--destructiveText',
+                    this.isDisabled && 'Polaris-Button--disabled',
+                    this.loading && 'Polaris-Button--loading',
+                    this.plain && 'Polaris-Button--plain',
+                    this.plainAction && 'Polaris-Button--plainAction',
+                    this.pressed && !this.disabled && !this.href && 'Polaris-Button--pressed',
+                    this.monochrome && 'Polaris-Button--monochrome',
+                    this.size && this.size !== DEFAULT_SIZE && `Polaris-Button--${variationName('size', this.size)}`,
+                    this.textAlign && `Polaris-Button--${variationName('textAlign', this.textAlign)}`,
+                    this.fullWidth && 'Polaris-Button--fullWidth',
+                    this.icon && this.hasNoChildren && 'Polaris-Button--iconOnly',
+                    this.isConnectedDisclosure && 'Polaris-Button--connectedDisclosure',
+                    this.monochrome && 'Polaris-Button--monochrome',
+                );
+            },
+            disclosureIconClassName() {
+                return classNames(
+                    'Polaris-Button__DisclosureIcon',
+                    this.disclosure === 'up' && 'Polaris-Button__DisclosureIconFacingUp',
+                    this.loading && 'Polaris-Button__Hidden',
+                );
+            },
+            childMarkupClassName() {
+                return classNames(
+                    'Polaris-Button__Text',
+                    this.removeUnderline && 'Polaris-Button--removeUnderline',
+                );
+            },
+            isDisabled() {
+                return this.disabled || this.loading;
+            },
+            hasNoChildren() {
+                return (this.$slots.default || []).length === 0;
+            },
+            spinnerColor() {
+                return this.primary || this.destructive ? 'white' : 'inkLightest';
+            },
+            iconClassName() {
+                return classNames(
+                    'Polaris-Button__Icon',
+                    this.loading && 'Polaris-Button--hidden'
+                );
+            },
+        },
     }
 </script>
 
