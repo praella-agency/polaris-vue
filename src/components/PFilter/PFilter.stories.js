@@ -141,7 +141,7 @@ const Template = (args, {argTypes}) => ({
                     <PButton
                         slot="activator"
                         :disclosure="accountStatusPopover ? 'up' : 'down'"
-                        @click.stop="toggleAccountStatus"
+                        @click="toggleAccountStatus"
                         :disabled="disabled"
                     >
                         Account Status
@@ -174,7 +174,7 @@ const Template = (args, {argTypes}) => ({
                     <PButton
                         slot="activator"
                         :disclosure="popoverActive ? 'up' : 'down'"
-                        @click.stop="togglePopoverActive"
+                        @click="togglePopoverActive"
                         :disabled="disabled"
                     >
                         Status

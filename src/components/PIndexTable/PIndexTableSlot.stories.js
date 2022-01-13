@@ -10,6 +10,7 @@ import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PRadioButton } from '../PRadioButton';
 import { PTextField } from '../PTextField';
+import { PButtonGroup } from '../PButtonGroup';
 import argTypes from './args';
 
 export default {
@@ -22,7 +23,7 @@ const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
         PIndexTable, PCard, PLink, PThumbnail, PPopover, PButton, POptionList, PBadge, PStack, PStackItem, PRadioButton,
-        PTextField,
+        PTextField, PButtonGroup,
     },
     data() {
         return {
@@ -82,7 +83,7 @@ const Template = (args, {argTypes}) => ({
                 <template v-slot:item.image="{item}">
                     <div style="height: 93px; display: block; padding: 15px 0 15px 0;">
                         <PThumbnail 
-                            source="https://burst.shopifycdn.com/photos/black-leather-choker-necklace_373x@2x.jpg"
+                            source="https://hulkapps.nyc3.digitaloceanspaces.com/polaris-vue/placeholder.png"
                             :alt="item.name"
                         />
                     </div>
@@ -104,7 +105,7 @@ const Template = (args, {argTypes}) => ({
                     </PBadge>
                 </template>
                 
-                <template slot="filterOptions">
+                <PButtonGroup slot="filterOptions" segmented>
                     <PPopover
                         id="popover_1"
                         :active="active"
@@ -112,7 +113,7 @@ const Template = (args, {argTypes}) => ({
                         @close="() => {this.active = false;}"
                         full-width
                     >
-                        <PButton slot="activator" @click="() => {this.active = !this.active}"
+                        <PButton slot="activator" @click="toggleRatingFilter"
                                  :disclosure="active ? 'up' : 'down'">
                             Product Vendor
                         </PButton>
@@ -130,7 +131,7 @@ const Template = (args, {argTypes}) => ({
                                     <PRadioButton id="demo-user" name="vendor" label="demo-user"/>
                                 </PStackItem>
                                 <PStackItem>
-                                    <PButton plain monochrome>Clear</PButton>
+                                    <PButton plain monochrome remove-underline>Clear</PButton>
                                 </PStackItem>
                             </PStack>
                         </PCard>
@@ -143,7 +144,7 @@ const Template = (args, {argTypes}) => ({
                         @close="() => {this.active1 = false;}"
                         full-width
                     >
-                        <PButton slot="activator" @click="() => {this.active1 = !this.active1}"
+                        <PButton slot="activator" @click="toggleRatingFilter1"
                                  :disclosure="active1 ? 'up' : 'down'">
                             Tagged With
                         </PButton>
@@ -159,12 +160,12 @@ const Template = (args, {argTypes}) => ({
                                     <PTextField id="tag" type="text" v-model="tag"/>
                                 </PStackItem>
                                 <PStackItem>
-                                    <PButton plain monochrome>Clear</PButton>
+                                    <PButton plain monochrome remove-underline>Clear</PButton>
                                 </PStackItem>
                             </PStack>
                         </PCard>
                     </PPopover>
-                </template>
+                </PButtonGroup>
 
                 <template slot="auxiliaryContainer">
                     <div style="padding-left: 8px;">
@@ -187,9 +188,11 @@ const Template = (args, {argTypes}) => ({
         },
         toggleRatingFilter() {
             this.active = !this.active;
+            this.active1 = false;
         },
         toggleRatingFilter1() {
             this.active1 = !this.active1;
+            this.active = false;
         },
     }
 });

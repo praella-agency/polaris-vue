@@ -24,23 +24,23 @@
         @keyup="$emit('keyUp', $event)"
         @keypress="$emit('keyPress', $event)"
     >
-            <span class="Polaris-Button__Content">
-                <span v-if="loading" class="Polaris-Button__Spinner">
-                    <PSpinner size="small" :color="spinnerColor"/>
-                </span>
-                <span v-if="icon" :class="iconClassName">
-                    <PIcon :source="loading ? 'placeholder' : icon"/>
-                </span>
-                <span v-if="!hasNoChildren" :class="childMarkupClassName" :key="disabled ? 'text-disabled' : 'text'">
-                    <!-- @slot The content to display content inside the button -->
-                    <slot/>
-                </span>
-                <span v-if="disclosure" class="Polaris-Button__Icon">
-                    <div :class="disclosureIconClassName">
-                        <PIcon :source="loading ? 'placeholder' : 'CaretDownMinor'"/>
-                    </div>
-                </span>
+        <span class="Polaris-Button__Content">
+            <span v-if="loading" class="Polaris-Button__Spinner">
+                <PSpinner size="small" :color="spinnerColor"/>
             </span>
+            <span v-if="icon" :class="iconClassName">
+                <PIcon :source="loading ? 'placeholder' : icon"/>
+            </span>
+            <span v-if="!hasNoChildren" :class="childMarkupClassName" :key="disabled ? 'text-disabled' : 'text'">
+                <!-- @slot The content to display content inside the button -->
+                <slot/>
+            </span>
+            <span v-if="disclosure" class="Polaris-Button__Icon">
+                <div :class="disclosureIconClassName">
+                    <PIcon :source="loading ? 'placeholder' : 'CaretDownMinor'"/>
+                </div>
+            </span>
+        </span>
     </component>
 </template>
 

@@ -71,63 +71,63 @@ const Template = (args, {argTypes}) => ({
                     </PDataTableRow>
                 </template>
 
-                <template slot="filter">
-                    <PButtonGroup segmented>
-                        <PPopover
-                            id="popover_1"
-                            :active="active1"
-                            preferred-alignment="right"
-                            @close="() => {this.active1 = false;}"
-                            full-width
-                        >
-                            <PButton slot="activator" @click="() => toggleRatingFilter"
-                                     :disclosure="active1 ? 'up' : 'down'">
-                                Filter Options {{ active1 }}
-                            </PButton>
-                            <POptionList
-                                slot="content"
-                                allowMultiple
-                                :selected="selected"
-                                :options="[
-                                    {label: 'Rating 1 with a long text', value: '1'},
-                                    {label: 'Rating 2', value: '2'},
-                                    {label: 'Rating 3', value: '3'},
-                                    {label: 'Rating 4', value: '4'},
-                                ]"
-                                @change="updateRatingFilter"
-                            ></POptionList>
-                        </PPopover>
-                        <PPopover
-                            id="popover_2"
-                            :active="active2"
-                            @close="() => {this.active2 = false;}"
-                            preferred-alignment="right"
-                        >
-                            <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">
-                                Status
-                            </PButton>
-                            <POptionList
-                                slot="content"
-                                allowMultiple
-                                :selected="status"
-                                :options="[
+                <PButtonGroup slot="filter" segmented>
+                    <PPopover
+                        id="popover_1"
+                        :active="active1"
+                        preferred-alignment="right"
+                        @close="() => {this.active1 = false;}"
+                        full-width
+                    >
+                        <PButton slot="activator" @click="toggleRatingFilter"
+                                 :disclosure="active1 ? 'up' : 'down'">
+                            Filter Options
+                        </PButton>
+                        <POptionList
+                            slot="content"
+                            allowMultiple
+                            :selected="selected"
+                            :options="[
+                                {label: 'Rating 1 with a long text', value: '1'},
+                                {label: 'Rating 2', value: '2'},
+                                {label: 'Rating 3', value: '3'},
+                                {label: 'Rating 4', value: '4'},
+                            ]"
+                            @change="updateRatingFilter"
+                        ></POptionList>
+                    </PPopover>
+                    <PPopover
+                        id="popover_2"
+                        :active="active2"
+                        @close="() => {this.active2 = false;}"
+                        preferred-alignment="right"
+                    >
+                        <PButton slot="activator" @click="toggleRatingFilter2" :disclosure="active2 ? 'up' : 'down'">
+                            Status
+                        </PButton>
+                        <POptionList
+                            slot="content"
+                            allowMultiple
+                            :selected="status"
+                            :options="[
                                 {label: 'Active', value: 'Active'},
                                 {label: 'Pending', value: 'Pending'},
                                 {label: 'Deleted', value: 'Deleted'},
                             ]"
-                                @change="updateStatusFilter"
-                            ></POptionList>
-                        </PPopover>
-                    </PButtonGroup>
-                </template>
+                            @change="updateStatusFilter"
+                        ></POptionList>
+                    </PPopover>
+                </PButtonGroup>
             </PDataTable>
         </PCard>`,
     methods: {
         toggleRatingFilter() {
             this.active1 = !this.active1;
+            this.active2 = false;
         },
         toggleRatingFilter2() {
             this.active2 = !this.active2;
+            this.active1 = false;
         },
         handleSearch(val) {
             alert('handle search ' + val);
@@ -462,7 +462,7 @@ const Template1 = (args, {argTypes}) => ({
                         @close="() => {this.active = false;}"
                         full-width
                     >
-                        <PButton slot="activator" @click="() => {this.active = !this.active}"
+                        <PButton slot="activator" @click="toggleRatingFilter"
                                  :disclosure="active ? 'up' : 'down'">
                             Filter Options
                         </PButton>
@@ -506,9 +506,11 @@ const Template1 = (args, {argTypes}) => ({
     methods: {
         toggleRatingFilter() {
             this.active = !this.active;
+            this.active2 = false;
         },
         toggleRatingFilter2() {
             this.active2 = !this.active2;
+            this.active = false;
         },
         handleSearch(val) {
             alert('handle search ' + val);

@@ -3,12 +3,12 @@
         <PUnstyledButton
             v-bind="$props"
             :isConnectedDisclosure="Object.keys(connectedDisclosure).length > 0"
-            @click="handleClick"
-            @focus="handleFocus"
-            @blur="handleBlur"
-            @keydown="handleKeyDown"
-            @keypress="handleKeyPress"
-            @keyup="handleKeyUp"
+            @click.stop="handleClick"
+            @focus.stop="handleFocus"
+            @blur.stop="handleBlur"
+            @keydown.stop="handleKeyDown"
+            @keypress.stop="handleKeyPress"
+            @keyup.stop="handleKeyUp"
         >
             <!-- @slot The content to display content inside the button -->
             <slot/>
@@ -45,12 +45,12 @@
         v-else
         v-bind="$props"
         :isConnectedDisclosure="Object.keys(connectedDisclosure).length > 0"
-        @click="handleClick"
-        @focus="handleFocus"
-        @blur="handleBlur"
-        @keydown="handleKeyDown"
-        @keypress="handleKeyPress"
-        @keyup="handleKeyUp"
+        @click.stop="handleClick"
+        @focus.stop="handleFocus"
+        @blur.stop="handleBlur"
+        @keydown.stop="handleKeyDown"
+        @keypress.stop="handleKeyPress"
+        @keyup.stop="handleKeyUp"
     >
         <!-- @slot The content to display content inside the button -->
         <slot/>
