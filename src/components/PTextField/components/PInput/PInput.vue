@@ -79,7 +79,7 @@
             :aria-invalid="hasError"
             @input="onInput"
         />
-        <label v-if="floatingLabel" class="Polaris-Floating--label" :for="id">
+        <label v-if="floatingLabel && (!richEditor && type !== 'file')" :class="floatingLabelClassName" :for="id">
             {{ label }}
         </label>
         <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" v-if="showSuffix">
@@ -277,6 +277,7 @@
                     'Polaris-TextField__Input',
                     this.inputClass,
                     this.align && `Polaris-TextField__Input Polaris-TextField__Input--align${this.textAlign}`,
+                    (this.floatingLabel && this.multiline) && 'Polaris-FloatingLabel__TextArea'
                 );
             },
             characterCountClassName() {
@@ -289,6 +290,12 @@
                 return classNames(
                     'Polaris-TextField__ClearButton',
                     this.multiline && 'Polaris-TextField__AlignFieldBottom ',
+                );
+            },
+            floatingLabelClassName() {
+                return classNames(
+                    'Polaris-Floating--label',
+                    this.showPrefix && 'Polaris-Floating--label__prefix'
                 );
             },
             characterCountText() {

@@ -120,7 +120,7 @@ const Template = (args, {argTypes}) => ({
     },
     data() {
         return {
-            formData: ''
+            formData: 'Hello There!'
         };
     },
     template: `
@@ -198,7 +198,7 @@ const Template3 = (args, {argTypes}) => ({
     },
     template: `
       <PTextField 
-          v-bind="$props" 
+          v-bind="$props"
           v-model="files" 
           @input="getFiles" 
       />`,
@@ -218,3 +218,24 @@ FileInput.args = {
     multiple: false,
     accept: 'image/png, image/jpeg',
 }
+
+const Template4 = (args, {argTypes}) => ({
+   props: Object.keys(argTypes),
+   components: {
+       PTextField,
+   },
+   data() {
+       return {
+           formData: '',
+       };
+   },
+   template: `
+       <PTextField
+            floating-label
+            label="Enter Text"
+            v-model="formData"
+       />
+   `
+});
+
+export const FloatingLabels = Template4.bind({});

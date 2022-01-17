@@ -1,9 +1,5 @@
 <template>
     <div :class="className">
-<!--        <input type="text" :id="id" placeholder="data" class="Polaris-TextField__Input">-->
-<!--        <label :for="id" class="Polaris-Floating&#45;&#45;label">-->
-<!--            {{ label }}-->
-<!--        </label>-->
         <div
             v-if="!floatingLabel && (label || emptyLabel || $slots.hasOwnProperty('label'))"
             class="Polaris-Labelled__LabelWrapper"
@@ -58,6 +54,7 @@
     import { PInput } from '../../components/PTextField/components/PInput';
     import { PConnected } from '../../components/PConnected';
     import { PFieldError } from '../../components/PFieldError';
+    import StringValidator from "../../utilities/validators/StringValidator";
 
     /**
      * <br/>
@@ -174,18 +171,24 @@
                 default: null,
             },
             /**
+             * Determine type of input
+             */
+            type: {
+                type: String,
+            },
+            /**
              * Create beautifully simple form labels that float over your input fields
              */
             floatingLabel: {
                 type: Boolean,
-                default: true,
+                default: false,
             }
         },
         computed: {
             className() {
                 return classNames(
                     this.computedLabelHidden && 'Polaris-Labelled--hidden',
-                    this.floatingLabel && 'Polaris-Floating',
+                    (this.floatingLabel && (!this.richEditor && this.type !== 'file')) && 'Polaris-Floating',
                 );
             },
             labelClassName() {
