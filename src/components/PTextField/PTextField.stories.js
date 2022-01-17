@@ -120,7 +120,7 @@ const Template = (args, {argTypes}) => ({
     },
     data() {
         return {
-            formData: 'Hello World!'
+            formData: ''
         };
     },
     template: `

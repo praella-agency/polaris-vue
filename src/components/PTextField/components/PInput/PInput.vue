@@ -15,24 +15,12 @@
             :disabled="disabled"
             :readonly="readOnly"
             :autofocus="autoFocus"
-            :placeholder="placeholder"
+            :placeholder="computedPlaceholder"
             :autocomplete="normalizeAutoComplete(autoComplete)"
             :aria-describedby="describedBy"
             :aria-labelledby="labelledBy"
             :aria-invalid="hasError"
         />
-        <!--    <ckeditor v-if="richEditor" :id="id" :editor="editor" :config="{}"-->
-        <!--              @input="onInput"-->
-        <!--              v-model="computedValue"-->
-        <!--              :disabled="disabled"-->
-        <!--              :readonly="readOnly"-->
-        <!--              :autofocus="autoFocus"-->
-        <!--              :placeholder="placeholder"-->
-        <!--              :autocomplete="normalizeAutoComplete(autoComplete)"-->
-        <!--              :aria-describedby="describedBy"-->
-        <!--              :aria-labelledby="labelledBy"-->
-        <!--              :aria-invalid="hasError"-->
-        <!--    ></ckeditor>-->
         <textarea v-else-if="multiline"
                   :name="name"
                   :class="inputClassName"
@@ -44,7 +32,7 @@
                   :minlength="minLength"
                   :maxlength="maxLength"
                   v-text="multiline?computedValue:''"
-                  :placeholder="placeholder"
+                  :placeholder="computedPlaceholder"
                   :autocomplete="normalizeAutoComplete(autoComplete)"
                   :style="{ height: (multiline && computedHeight) ? computedHeight+'px' : null,overflow: (multiline && computedHeight) ? 'hidden' : null }"
                   :aria-describedby="describedBy"
@@ -78,7 +66,7 @@
             :readonly="readOnly"
             :autofocus="autoFocus"
             :value="computedValue"
-            :placeholder="placeholder"
+            :placeholder="computedPlaceholder"
             :autocomplete="normalizeAutoComplete(autoComplete)"
             :min="min"
             :max="max"
@@ -91,6 +79,9 @@
             :aria-invalid="hasError"
             @input="onInput"
         />
+        <label v-if="floatingLabel" class="Polaris-Floating--label" :for="id">
+            {{ label }}
+        </label>
         <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" v-if="showSuffix">
             {{ suffix }}
             <slot v-if="$slots.suffix" name="suffix"></slot>
@@ -239,6 +230,12 @@
             accept: {
                 type: String,
             },
+            label: {
+                type: String,
+            },
+            floatingLabel: {
+                type: Boolean,
+            },
         },
         data() {
             return {
@@ -339,6 +336,9 @@
                     this.content = value;
                     this.$emit('input', value);
                 },
+            },
+            computedPlaceholder() {
+                return this.floatingLabel ? 'Enter input' : this.placeholder;
             }
         },
         methods: {

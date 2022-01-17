@@ -1,0 +1,63 @@
+.Polaris-Floating {
+  position: relative;
+}
+
+.Polaris-Floating--label {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 1rem .75rem;
+  pointer-events: none;
+  border: 1px solid transparent;
+  transform-origin: 0 0;
+  transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+}
+
+.Polaris-Floating .Polaris-TextField__Input:focus, .Polaris-Floating .Polaris-TextField__Input:not(:placeholder-shown) {
+  padding-top: 1.625rem;
+  padding-bottom: .625rem;
+}
+
+.Polaris-Floating .Polaris-TextField__Input {
+  padding: 1rem 0.75rem;
+  height: calc(3.5rem + 2px);
+  line-height: 1.25;
+}
+
+.Polaris-Floating .Polaris-TextField__Input:focus {
+  color: #212529;
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+}
+
+.Polaris-Floating .Polaris-TextField__Input {
+  padding: 1rem 0.75rem;
+  height: calc(3.5rem + 2px);
+  line-height: 1.25;
+}
+
+.Polaris-Floating .Polaris-TextField__Input::placeholder {
+  color: transparent;
+}
+
+.Polaris-TextField__Input::placeholder {
+  opacity: 1;
+}
+
+.Polaris-Floating .Polaris-TextField__Input:focus ~ .Polaris-Floating--label,
+.Polaris-Floating .Polaris-TextField__Input:not(:placeholder-shown) ~ .Polaris-Floating--label {
+  transform: scale(.85) translateY(-.5rem) translateX(.15rem);
+  opacity: 0.65;
+}
+
+.Polaris-Floating .Polaris-TextField__Input:placeholder-shown + .Polaris-Floating--label:before {
+  transform: translate3d(0, -2.2rem, 0) scale3d(1, 1, 1);
+}
+
+.Polaris-Floating--label:before,
+.Polaris-Floating .Polaris-TextField__Input:focus + .Polaris-Floating--label:before {
+  transform: translate3d(0, -3.12rem, 0) scale3d(0.82, 0.82, 1);
+}

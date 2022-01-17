@@ -1,7 +1,14 @@
 <template>
-    <div :class="labelHidden && 'Polaris-Labelled--hidden'">
-        <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.hasOwnProperty('label')"
-             :class="labelClass">
+    <div :class="className">
+<!--        <input type="text" :id="id" placeholder="data" class="Polaris-TextField__Input">-->
+<!--        <label :for="id" class="Polaris-Floating&#45;&#45;label">-->
+<!--            {{ label }}-->
+<!--        </label>-->
+        <div
+            v-if="!floatingLabel && (label || emptyLabel || $slots.hasOwnProperty('label'))"
+            class="Polaris-Labelled__LabelWrapper"
+            :class="labelClass"
+        >
             <!-- @slot Field label -->
             <slot name="label">
                 <div class="Polaris-Label">
@@ -29,7 +36,15 @@
             </PInput>
         </PConnected>
 
-        <PInput v-else v-bind="[$attrs,$props]" v-on="$listeners" :hasError="!!error" :id="id">
+        <PInput
+            v-else
+            v-bind="[$attrs,$props]"
+            v-on="$listeners"
+            :hasError="!!error"
+            :id="id"
+            :floatingLabel="floatingLabel"
+            :label="label"
+        >
             <slot name="prefix" slot="prefix"></slot>
             <slot name="suffix" slot="suffix"></slot>
         </PInput>
@@ -39,6 +54,7 @@
 </template>
 
 <script>
+    import { classNames } from '../../utilities/css';
     import { PInput } from '../../components/PTextField/components/PInput';
     import { PConnected } from '../../components/PConnected';
     import { PFieldError } from '../../components/PFieldError';
@@ -157,6 +173,29 @@
                 type: String,
                 default: null,
             },
+            /**
+             * Create beautifully simple form labels that float over your input fields
+             */
+            floatingLabel: {
+                type: Boolean,
+                default: true,
+            }
+        },
+        computed: {
+            className() {
+                return classNames(
+                    this.computedLabelHidden && 'Polaris-Labelled--hidden',
+                    this.floatingLabel && 'Polaris-Floating',
+                );
+            },
+            labelClassName() {
+                return classNames(
+                    !this.floatingLabel && `Polaris-Labelled__LabelWrapper`,
+                );
+            },
+            computedLabelHidden() {
+                return this.floatingLabel || this.labelHidden;
+            }
         },
         methods: {
             handleInput(value) {
