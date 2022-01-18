@@ -99,7 +99,7 @@
             <span class="Polaris-VisuallyHidden">Clear</span>
             <PIcon source="CircleCancelMinor" color="inkLightest"></PIcon>
         </button>
-        <div class="Polaris-TextField__Backdrop" v-if="!richEditor"></div>
+        <div v-if="!floatingLabel && !richEditor" class="Polaris-TextField__Backdrop"></div>
 
         <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
 
@@ -274,7 +274,7 @@
             },
             inputClassName() {
                 return classNames(
-                    'Polaris-TextField__Input',
+                    this.floatingLabel ? 'Polaris-FloatingLabels__Input' : 'Polaris-TextField__Input',
                     this.inputClass,
                     this.align && `Polaris-TextField__Input Polaris-TextField__Input--align${this.textAlign}`,
                     (this.floatingLabel && this.multiline) && 'Polaris-FloatingLabel__TextArea'
@@ -295,6 +295,7 @@
             floatingLabelClassName() {
                 return classNames(
                     'Polaris-Floating--label',
+                    'Polaris-Floating--label--visible',
                     this.showPrefix && 'Polaris-Floating--label__prefix'
                 );
             },

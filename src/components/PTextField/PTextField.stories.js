@@ -232,7 +232,7 @@ const Template4 = (args, {argTypes}) => ({
    template: `
        <PTextField
             floating-label
-            label="Enter Text"
+            label="Last name"
             v-model="formData"
        />
    `

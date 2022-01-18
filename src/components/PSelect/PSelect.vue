@@ -1,6 +1,6 @@
 <template>
-    <div :class="labelHidden && 'Polaris-Labelled--hidden'">
-        <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.label">
+    <div :class="(floatingLabel || labelHidden) && 'Polaris-Labelled--hidden'">
+        <div class="Polaris-Labelled__LabelWrapper" v-if="!floatingLabel && (label || emptyLabel || $slots.label)">
             <div class="Polaris-Label">
                 <slot name="label">
                     <label
@@ -17,7 +17,7 @@
                 :id="id"
                 :name="name"
                 v-model="computedValue"
-                class="Polaris-Select__Input"
+                :class="selectClassName"
                 :disabled="disabled"
                 aria-invalid="false"
             >
@@ -31,6 +31,9 @@
                     {{ option[textField] }}
                 </option>
             </select>
+            <label v-if="floatingLabel" :for="id" class="Polaris-Floating--label">
+
+            </label>
             <div class="Polaris-Select__Content" aria-hidden="true" :aria-disabled="disabled">
                 <span v-if="inlineLabel" class="Polaris-Select__InlineLabel">{{ inlineLabel }}</span>
                 <span class="Polaris-Select__SelectedOption">{{ selectedOption }}</span>
@@ -167,6 +170,13 @@
                 type: [Boolean, String],
                 default: false,
             },
+            /**
+             * Create beautifully simple form labels that float over your input fields
+             */
+            floatingLabel: {
+                type: Boolean,
+                default: true,
+            }
         },
         data() {
             return {
@@ -179,7 +189,13 @@
                     'Polaris-Select',
                     this.disabled && 'Polaris-Select--disabled',
                     this.error && 'Polaris-Select--error',
+                    this.floatingLabel && 'Polaris-Floating'
                 );
+            },
+            selectClassName() {
+                return classNames(
+                    'Polaris-Select__Input',
+                )
             },
             computedOptions() {
                 const options = [];
