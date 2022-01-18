@@ -99,7 +99,7 @@
             <span class="Polaris-VisuallyHidden">Clear</span>
             <PIcon source="CircleCancelMinor" color="inkLightest"></PIcon>
         </button>
-        <div v-if="!floatingLabel && !richEditor" class="Polaris-TextField__Backdrop"></div>
+        <div v-if="!richEditor" class="Polaris-TextField__Backdrop"></div>
 
         <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
 

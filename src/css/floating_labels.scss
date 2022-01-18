@@ -1,117 +1,79 @@
 .Polaris-Floating {
   position: relative;
-}
 
-.Polaris-Floating .Polaris-Floating--label {
-  -webkit-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-}
+  .Polaris-Floating--label {
+    -webkit-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    -webkit-font-smoothing: subpixel-antialiased;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 0 1rem;
+    z-index: 11;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 11px 0 10px;
+    display: none;
+    opacity: 0.6;
+    cursor: text;
+    user-select: none;
+  }
 
-.Polaris-Floating .Polaris-Floating--label {
-  font-size: 14px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-  line-height: 18.2px;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
-  -webkit-font-smoothing: subpixel-antialiased;
-  font-weight: normal;
-  position: absolute;
-  top: 5px;
-  width: 100%;
-  margin-top: 0.56rem;
-  margin-left: 1px;
-  padding: 0 1rem;
-  z-index: 11;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-transform: translateY(3px);
-  transform: translateY(3px);
-  pointer-events: none;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #737373;
-}
+  .Polaris-Floating--label--visible {
+    display: block;
+  }
 
-.Polaris-Floating--label {
-  text-align: left;
-  font-weight: 500;
-  margin: 0.5em 0;
-  display: none;
-}
+  .Polaris-Floating--label__prefix {
+    left: 40px;
+  }
 
-.Polaris-Floating--label--visible {
-  display: block;
-}
+  .Polaris-FloatingLabels__Input {
+    border: $textfield-backdrop-border;
+    border-radius: $p-border-radius-base;
+    display: block;
+    width: 100%;
+    padding: 13px 11px;
+    line-height: 18.2px;
+    -webkit-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    color: $textfield-color;
+    font-size: $textfield-font-size;
+    font-weight: $textfield-font-weight;
+    z-index: 11;
+    &:focus-visible {
+      outline: none;
+    }
+    &:focus~.Polaris-TextField__Backdrop {
+      &:after {
+        box-shadow: 0 0 0 .2rem $theme-shadow-color;
+        outline: .1rem solid transparent;
+      }
+    }
 
-.Polaris-Floating--label__prefix {
-  left: 40px;
-}
+  }
 
-.Polaris-FloatingLabels__Input {
-  border: 1px transparent solid;
-  background-clip: padding-box;
-  border-radius: 5px;
-  display: block;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 100%;
-  padding: 1.3rem 1.1rem;
-  word-break: normal;
-  line-height: 18.2px;
-}
+  .Polaris-FloatingLabels__Input:not(:placeholder-shown),
+  .Polaris-FloatingLabels__Input:focus {
+    padding: 21px 11px 5px;
+  }
 
-.Polaris-Floating .Polaris-FloatingLabels__Input {
-  background-color: white;
-  color: #333333;
-  border-color: #d9d9d9;
-  padding-top: 2.1rem;
-  padding-bottom: 0.5rem;
-}
+  .Polaris-FloatingLabels__Input::placeholder {
+    color: transparent;
+    opacity: 0;
+  }
 
-.Polaris-Floating .Polaris-FloatingLabels__Input {
-  -webkit-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-}
+  .Polaris-FloatingLabels__Input:not(:placeholder-shown) + .Polaris-Floating--label,
+  .Polaris-FloatingLabels__Input:focus + .Polaris-Floating--label {
+    font-size: 0.83em;
+    margin-top: 5px;
+    margin-bottom: 0;
+    padding: 0 11px;
+    line-height: 18.2px;
+  }
 
-.Polaris-Floating .Polaris-FloatingLabels__Input:focus {
-  -webkit-transform: none;
-  transform: none;
-  opacity: 1;
-}
+  .Polaris-FloatingLabel__TextArea {
+    top: unset !important;
+  }
 
-.Polaris-Floating .Polaris-FloatingLabels__Input:focus {
-  color: #212529;
-}
-
-.Polaris-Floating .Polaris-FloatingLabels__Input::placeholder {
-  color: transparent;
-  opacity: 1;
-}
-
-.Polaris-FloatingLabels__Input:not(:placeholder-shown) + .Polaris-Floating--label,
-.Polaris-FloatingLabels__Input:focus + .Polaris-Floating--label {
-  -webkit-transform: none;
-  transform: none;
-  opacity: 1;
-  font-size: 0.8571428571em;
-  margin-top: 0.4285714286em;
-  padding: 0 0.9166666667em;
-  top: 2px;
-  line-height: 18.2px;
-}
-
-.Polaris-Floating .Polaris-FloatingLabels__Input:focus .Polaris-Floating--label {
-  -webkit-transform: none;
-  transform: none;
-  opacity: 1;
-}
-
-.Polaris-FloatingLabel__TextArea {
-  top: unset !important;
 }
