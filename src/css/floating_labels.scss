@@ -95,4 +95,34 @@
     min-height: 46.2px;
     flex: 1 1;
   }
+
+  .Polaris-FloatingLabels__Input--select {
+    background-color: #ffffff;
+    border: 0.1rem solid #c9cccf;
+    box-shadow: 0 0 0 -0.2rem #2C6ECB;
+    white-space: nowrap;
+    appearance: none;
+  }
+
+  .Polaris-Floating--label--select {
+    pointer-events: none;
+  }
+
+  .Polaris-FloatingLabels__Input--select {
+    padding: 21px 8px 5px !important;
+  }
+
+  .Polaris-FloatingField__Caret {
+    border-left: 1px rgba(179,179,179,0.5) solid;
+    display: block;
+    width: 2.1428571429em;
+    height: 43%;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    -webkit-transform: translate(0%, -50%);
+    transform: translate(0%, -50%);
+    z-index: 11;
+  }
 }

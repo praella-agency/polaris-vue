@@ -31,15 +31,18 @@
                     {{ option[textField] }}
                 </option>
             </select>
-            <label v-if="floatingLabel" :for="id" class="Polaris-Floating--label">
-
+            <label v-if="floatingLabel" :for="id" class="Polaris-Floating--label Polaris-Floating--label--select Polaris-Floating--label--visible">
+                {{ label }}
             </label>
-            <div class="Polaris-Select__Content" aria-hidden="true" :aria-disabled="disabled">
+            <div v-if="!floatingLabel" class="Polaris-Select__Content" aria-hidden="true" :aria-disabled="disabled">
                 <span v-if="inlineLabel" class="Polaris-Select__InlineLabel">{{ inlineLabel }}</span>
                 <span class="Polaris-Select__SelectedOption">{{ selectedOption }}</span>
                 <span class="Polaris-Select__Icon">
-          <PIcon source="SelectMinor"/>
-        </span>
+                    <PIcon source="SelectMinor"/>
+                </span>
+            </div>
+            <div v-else class="Polaris-FloatingField__Caret">
+                <PIcon source="CaretDownMinor"/>
             </div>
             <div class="Polaris-Select__Backdrop"></div>
         </div>
@@ -175,7 +178,7 @@
              */
             floatingLabel: {
                 type: Boolean,
-                default: true,
+                default: false,
             }
         },
         data() {
@@ -194,7 +197,9 @@
             },
             selectClassName() {
                 return classNames(
-                    'Polaris-Select__Input',
+                    this.floatingLabel
+                        ? 'Polaris-FloatingLabels__Input Polaris-FloatingLabels__Input--select'
+                        : 'Polaris-Select__Input',
                 )
             },
             computedOptions() {
@@ -207,7 +212,6 @@
                     });
                 }
                 this.options.map((value) => {
-
                     if (typeof value === 'object') {
                         options.push(value);
                     } else {

@@ -1,6 +1,6 @@
 <template>
-    <div class="">
-        <div class="Polaris-Labelled__LabelWrapper">
+    <div>
+        <div v-if="floatingLabel" class="Polaris-Labelled__LabelWrapper">
             <div class="Polaris-Label">
                 <slot name="label">
                     <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text">
@@ -167,6 +167,13 @@
                 type: [String, Number],
                 default: `PolarisMultiSelect${(new Date()).getTime()}`,
             },
+            /**
+             * Create beautifully simple form labels that float over your input fields
+             */
+            floatingLabel: {
+                type: Boolean,
+                default: false,
+            }
         },
         data() {
             return {
