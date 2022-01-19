@@ -410,7 +410,6 @@
                 }
             },
             handleExpandingResize(e) {
-                console.log(e)
                 this.computedHeight = (e < this.minHeight) ? this.minHeight : e;
             },
             normalizeAutoComplete(autoComplete) {
