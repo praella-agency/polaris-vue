@@ -595,7 +595,7 @@ $textfield-disabled-backdrop-box-shadow: none;
 $textfield-disabled-svg-fill: $theme-resource-list-disabled-color;
 
 $textfield-backdrop-bgcolor: $theme-default-button-color;
-$textfield-backdrop-border: 1px solid $theme-btn-default-top-border-color;
+$textfield-backdrop-border: 1px solid rgba(201, 204, 207, 1);
 $textfield-backdrop-border-radius: 4px;
 
 $textfield-backdrop-after-border: inset 0 1px 0 0 rgba(99,115,129,.05);
@@ -1935,3 +1935,4 @@ $p-interactive-critical-hovered: rgba(205, 41, 12, 1);
 $p-interactive-critical-pressed: rgba(103, 15, 3, 1);
 $p-icon-hovered: rgba(26, 28, 29, 1);
 $p-icon-pressed: rgba(68, 71, 74, 1);
+$p-border-shadow: rgba(174, 180, 185, 1);

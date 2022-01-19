@@ -124,10 +124,10 @@ const Template = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PTextField 
-          v-bind="$props" 
-          v-model="formData"
-      />`,
+        <PTextField
+            v-bind="$props"
+            v-model="formData"
+        />`,
 });
 
 export const TextField = Template.bind({});
@@ -147,9 +147,9 @@ const Template1 = (args, {argTypes}) => ({
         PTextField, PButton, PIcon,
     },
     template: `
-      <PTextField v-bind="$props">
-        <PIcon source="EmailMajor" slot="prefix" />
-      </PTextField>`,
+        <PTextField v-bind="$props">
+            <PIcon source="EmailMajor" slot="prefix"/>
+        </PTextField>`,
 });
 
 export const IconPrefix = Template1.bind({});
@@ -171,10 +171,10 @@ const Template2 = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PTextField v-bind="$props">
-          <PButton slot="connectedRight">Submit</PButton>
-          <PSelect v-model="selectedOption" :options="['%','$']" slot="connectedLeft" />
-      </PTextField>`,
+        <PTextField v-bind="$props">
+            <PButton slot="connectedRight">Submit</PButton>
+            <PSelect v-model="selectedOption" :options="['%','$']" slot="connectedLeft"/>
+        </PTextField>`,
 });
 
 export const ConnectedTextField = Template2.bind({});
@@ -197,11 +197,11 @@ const Template3 = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PTextField 
-          v-bind="$props"
-          v-model="files" 
-          @input="getFiles" 
-      />`,
+        <PTextField
+            v-bind="$props"
+            v-model="files"
+            @input="getFiles"
+        />`,
     methods: {
         getFiles() {
             console.log(this.files)
@@ -220,22 +220,22 @@ FileInput.args = {
 }
 
 const Template4 = (args, {argTypes}) => ({
-   props: Object.keys(argTypes),
-   components: {
-       PTextField,
-   },
-   data() {
-       return {
-           formData: '',
-       };
-   },
-   template: `
-       <PTextField
+    props: Object.keys(argTypes),
+    components: {
+        PTextField,
+    },
+    data() {
+        return {
+            formData: '',
+        };
+    },
+    template: `
+        <PTextField
             floating-label
             label="Last name"
             v-model="formData"
-       />
-   `
+        />
+    `
 });
 
 export const FloatingLabels = Template4.bind({});

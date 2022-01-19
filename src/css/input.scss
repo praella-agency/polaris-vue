@@ -171,7 +171,7 @@
 	background-color: $textfield-backdrop-bgcolor;
 	border: $textfield-backdrop-border;
 	border-radius: $textfield-backdrop-border-radius;
-	border-top-color: #aeb4b9;
+	border-top-color: $p-border-shadow;
 	pointer-events: none;
 	&:after {
 		content: "";

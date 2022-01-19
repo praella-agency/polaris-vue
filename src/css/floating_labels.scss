@@ -25,10 +25,12 @@
   }
 
   .Polaris-Floating--label__prefix {
+    border-radius: 0 0.4rem 0.4rem 0;
     left: 40px;
   }
 
   .Polaris-FloatingLabels__Input {
+    position: relative;
     border: $textfield-backdrop-border;
     border-radius: $p-border-radius-base;
     display: block;
@@ -38,19 +40,36 @@
     -webkit-transition: all 0.2s ease-out;
     transition: all 0.2s ease-out;
     color: $textfield-color;
-    font-size: $textfield-font-size;
+    font-size: 1.4rem;
     font-weight: $textfield-font-weight;
     z-index: 11;
+
     &:focus-visible {
       outline: none;
     }
-    &:focus~.Polaris-TextField__Backdrop {
+
+    &:focus ~ .Polaris-TextField__Backdrop {
       &:after {
         box-shadow: 0 0 0 .2rem $theme-shadow-color;
         outline: .1rem solid transparent;
       }
     }
+  }
 
+  .Polaris-FloatingLabels__Input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  .Polaris-FloatingLabels__Input--prefix {
+    border-radius: 0 0.4rem 0.4rem 0;
+    border-left: none;
+  }
+
+  .Polaris-FloatingLabels__Input--number {
+    border-radius: 0.4rem 0 0 0.4rem;
+    border-right: none;
   }
 
   .Polaris-FloatingLabels__Input:not(:placeholder-shown),
@@ -73,7 +92,7 @@
   }
 
   .Polaris-FloatingLabel__TextArea {
-    top: unset !important;
+    min-height: 46.2px;
+    flex: 1 1;
   }
-
 }

@@ -2,7 +2,7 @@
     <div :class="className" v-show="showInput">
         <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
             {{ prefix }}
-            <slot v-if="$slots.prefix" name="prefix"></slot>
+            <slot v-if="$slots.prefix" name="prefix"/>
         </div>
         <quill-editor
             v-if="richEditor"
@@ -21,25 +21,26 @@
             :aria-labelledby="labelledBy"
             :aria-invalid="hasError"
         />
-        <textarea v-else-if="multiline"
-                  :name="name"
-                  :class="inputClassName"
-                  :id="id"
-                  :disabled="disabled"
-                  :readonly="readOnly"
-                  :autofocus="autoFocus"
-                  :value="computedValue"
-                  :minlength="minLength"
-                  :maxlength="maxLength"
-                  v-text="multiline?computedValue:''"
-                  :placeholder="computedPlaceholder"
-                  :autocomplete="normalizeAutoComplete(autoComplete)"
-                  :style="{ height: (multiline && computedHeight) ? computedHeight+'px' : null,overflow: (multiline && computedHeight) ? 'hidden' : null }"
-                  :aria-describedby="describedBy"
-                  :aria-labelledby="labelledBy"
-                  :aria-invalid="hasError"
-                  @input="onInput"
-        ></textarea>
+        <textarea
+            v-else-if="multiline"
+            :name="name"
+            :class="inputClassName"
+            :id="id"
+            :disabled="disabled"
+            :readonly="readOnly"
+            :autofocus="autoFocus"
+            :value="computedValue"
+            :minlength="minLength"
+            :maxlength="maxLength"
+            v-text="multiline?computedValue:''"
+            :placeholder="computedPlaceholder"
+            :autocomplete="normalizeAutoComplete(autoComplete)"
+            :style="computedStyle"
+            :aria-describedby="describedBy"
+            :aria-labelledby="labelledBy"
+            :aria-invalid="hasError"
+            @input="onInput"
+        />
         <input
             v-else-if="type === 'file'"
             ref="input"
@@ -48,7 +49,7 @@
             :id="id"
             :disabled="disabled"
             :readonly="readOnly"
-            :type="inputType"
+            type="file"
             :multiple="multiple"
             :accept="accept"
             :aria-describedby="describedBy"
@@ -79,7 +80,11 @@
             :aria-invalid="hasError"
             @input="onInput"
         />
-        <label v-if="floatingLabel && (!richEditor && type !== 'file')" :class="floatingLabelClassName" :for="id">
+        <label
+            v-if="floatingLabel && (!richEditor && type !== 'file')"
+           :class="floatingLabelClassName"
+            :for="id"
+        >
             {{ label }}
         </label>
         <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" v-if="showSuffix">
@@ -97,7 +102,7 @@
 
         <button type="button" :class="clearButtonClassName" v-if="computedValue && clearable" @click="onClear">
             <span class="Polaris-VisuallyHidden">Clear</span>
-            <PIcon source="CircleCancelMinor" color="inkLightest"></PIcon>
+            <PIcon source="CircleCancelMinor" color="base"></PIcon>
         </button>
         <div v-if="!richEditor" class="Polaris-TextField__Backdrop"></div>
 
@@ -154,7 +159,7 @@
                 type: String,
             },
             multiline: {
-                type: Boolean,
+                type: [Boolean, Number],
             },
             richEditor: {
                 type: Boolean,
@@ -277,7 +282,9 @@
                     this.floatingLabel ? 'Polaris-FloatingLabels__Input' : 'Polaris-TextField__Input',
                     this.inputClass,
                     this.align && `Polaris-TextField__Input Polaris-TextField__Input--align${this.textAlign}`,
-                    (this.floatingLabel && this.multiline) && 'Polaris-FloatingLabel__TextArea'
+                    (this.floatingLabel && this.multiline) && 'Polaris-FloatingLabel__TextArea',
+                    this.showPrefix && 'Polaris-FloatingLabels__Input--prefix',
+                    (this.showCharacterCount || this.type === 'number') && 'Polaris-FloatingLabels__Input--number'
                 );
             },
             characterCountClassName() {
@@ -338,12 +345,24 @@
             },
             computedValue: {
                 get() {
+                    if (this.type === 'number')
+                        return Number(this.content);
                     return this.content;
                 },
                 set(value) {
-                    this.content = value;
-                    this.$emit('input', value);
+                    if (this.type === 'number')
+                        this.content = Number(value);
+                    else
+                        this.content = value;
+
+                    this.$emit('input', this.type === 'number' ?  Number(value) : value);
                 },
+            },
+            computedStyle() {
+                return {
+                    height: (this.multiline && this.computedHeight) ? this.computedHeight + 'px' : null,
+                    overflow: (this.multiline && this.computedHeight) ? 'hidden' : null
+                };
             },
             computedPlaceholder() {
                 return this.floatingLabel ? 'Enter input' : this.placeholder;
@@ -365,6 +384,10 @@
             },
             handleNumberChange(steps) {
                 const numericValue = this.computedValue ? parseFloat(this.computedValue) : 0;
+
+                // Returns the length of decimal places in a number
+                const dpl = (num) => (num.toString().split('.')[1] || []).length;
+
                 if (isNaN(numericValue) || this.disabled) {
                     return;
                 }
@@ -373,12 +396,21 @@
                 const max = this.max || +Infinity;
                 const step = this.step || 1;
 
-                const newValue = Math.min(max, Math.max(min, numericValue + (steps * step)));
+                // Making sure the new value has the same length of decimal places as the
+                // step / value has.
+                const decimalPlaces = Math.max(dpl(numericValue), dpl(step));
+
+                const newValue = Math.min(
+                    Number(max),
+                    Math.max(numericValue + steps * step,Number(min))
+                );
+
                 if (!isNaN(newValue)) {
-                    this.computedValue = newValue;
+                    this.computedValue = newValue.toFixed(decimalPlaces);
                 }
             },
             handleExpandingResize(e) {
+                console.log(e)
                 this.computedHeight = (e < this.minHeight) ? this.minHeight : e;
             },
             normalizeAutoComplete(autoComplete) {
