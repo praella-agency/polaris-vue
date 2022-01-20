@@ -8,6 +8,7 @@
             :labelHidden="labelHidden"
             :helpText="helpText"
         >
+            <slot name="label" slot="label"/>
             <div class="Polaris-RangeSlider-DualThumb__Wrapper">
                 <div v-if="prefix || $slots.prefix" class="Polaris-RangeSlider-DualThumb__Prefix">
                     <slot name="prefix">
@@ -25,8 +26,8 @@
                         :id="idLower"
                         :class="thumbLowerClassName"
                         :style="{
-                        left: `${this.leftPositionThumbLower}px`,
-                     }"
+                            left: `${this.leftPositionThumbLower}px`,
+                        }"
                         role="slider"
                         :aria-disabled="disabled"
                         :aria-valuemin="min"
@@ -40,7 +41,7 @@
                         tabindex="0"
                         @keydown="handleKeyPressLower"
                         @mousedown="handleMouseDownThumbLower"
-                        @touchStart="handleTouchStartThumbLower"
+                        @touchstart="handleTouchStartThumbLower"
                         ref="thumbLower"
                     ></div>
                     <output
@@ -48,8 +49,8 @@
                         :for="idLower"
                         class="Polaris-RangeSlider-DualThumb__Output Polaris-RangeSlider-DualThumb__OutputLower"
                         :style="{
-                        left: `${leftPositionThumbLower}px`
-                    }"
+                            left: `${leftPositionThumbLower}px`
+                        }"
                     >
                         <div class="Polaris-RangeSlider-DualThumb__OutputBubble">
                             <span class="Polaris-RangeSlider-DualThumb__OutputText">
@@ -61,8 +62,8 @@
                         :id="idUpper"
                         :class="thumbUpperClassName"
                         :style="{
-                        left: `${leftPositionThumbUpper}px`
-                    }"
+                            left: `${leftPositionThumbUpper}px`
+                        }"
                         role="slider"
                         :aria-disabled="disabled"
                         :aria-valuemin="min"
@@ -76,7 +77,7 @@
                         tabindex="0"
                         @keydown="handleKeyPressUpper"
                         @mousedown="handleMouseDownThumbUpper"
-                        @touchStart="handleTouchStartThumbUpper"
+                        @touchstart="handleTouchStartThumbUpper"
                         ref="thumbUpper"
                     ></div>
                     <output
@@ -84,8 +85,8 @@
                         :for="idUpper"
                         class="Polaris-RangeSlider-DualThumb__Output Polaris-RangeSlider-DualThumb__OutputUpper"
                         :style="{
-                        left: `${leftPositionThumbUpper}px`
-                    }"
+                            left: `${leftPositionThumbUpper}px`
+                        }"
                     >
                         <div class="Polaris-RangeSlider-DualThumb__OutputBubble">
                             <span class="Polaris-RangeSlider-DualThumb__OutputText">
@@ -213,14 +214,10 @@
         },
         data() {
             return {
-                newValue: this.sanitizeValue(
-                    this.value, this.min, this.max, this.step
-                ),
                 trackWidth: 0,
                 trackLeft: 0,
                 controlLower: 0,
                 controlUpper: 1,
-                range: this.max - this.min,
                 idLower: this.id,
                 idUpper: `${this.id}Upper`,
                 describedBy: [],
@@ -254,6 +251,12 @@
                     [`--Polaris-RangeSlider-progress-upper`]: `${this.leftPositionThumbUpper}px`,
                 };
             },
+            newValue() {
+                return this.sanitizeValue(this.value, this.min, this.max, this.step);
+            },
+            range() {
+                return this.max - this.min;
+            },
             minValuePosition() {
                 return (this.min / this.range) * this.trackWidth;
             },
@@ -280,11 +283,11 @@
             },
         },
         methods: {
-            sanitizeValue(dirtyValue, min, max, step, control = this.controlUpper) {
-                let upperValue = this.inBoundsUpper(this.roundedToStep(this.value[1]));
-                let lowerValue = this.inBoundsLower(this.roundedToStep(this.value[0]));
-                const maxLowerValue = upperValue - this.step;
-                const minUpperValue = lowerValue + this.step;
+            sanitizeValue(value, min, max, step, control = this.controlUpper) {
+                let upperValue = this.inBoundsUpper(this.roundedToStep(value[1], step), min, max, step);
+                let lowerValue = this.inBoundsLower(this.roundedToStep(value[0], step), min, max, step);
+                const maxLowerValue = upperValue - step;
+                const minUpperValue = lowerValue + step;
 
                 if (control === this.controlUpper && lowerValue > maxLowerValue) {
                     lowerValue = maxLowerValue;
@@ -294,30 +297,30 @@
 
                 return [lowerValue, upperValue];
             },
-            inBoundsUpper(value) {
-                const lowerMin = this.min + this.step;
+            inBoundsUpper(value, min, max, step) {
+                const lowerMin = min + step;
 
                 if (value < lowerMin) {
                     return lowerMin;
-                } else if (value > this.max) {
-                    return this.max;
+                } else if (value > max) {
+                    return max;
                 } else {
                     return value;
                 }
             },
-            inBoundsLower(value) {
-                const upperMax = this.max - this.step;
+            inBoundsLower(value, min, max, step) {
+                const upperMax = max - step;
 
-                if (value < this.min) {
-                    return this.min;
+                if (value < min) {
+                    return min;
                 } else if (value > upperMax) {
                     return upperMax;
                 } else {
                     return value;
                 }
             },
-            roundedToStep(value) {
-                return Math.round(value / this.step) * this.step;
+            roundedToStep(value, step) {
+                return Math.round(value / step) * step;
             },
             handleMouseDownTrack(event) {
                 if (event.button !== 0 || this.disabled)
@@ -366,14 +369,7 @@
 
                 const sanitizedValue = this.sanitizeValue(dirtyValue, min, max, step, control);
                 if (sanitizedValue !== value) {
-                    this.$emit('change', value, this.id)
-                    // this.newValue = this.dispatchValue;
-                    // this.setState(
-                    //     {
-                    //         value: sanitizedValue,
-                    //     },
-                    //     this.dispatchValue,
-                    // );
+                    this.$emit('change', value, this.id);
                 }
             },
             registerMouseMoveHandler(event) {
@@ -475,11 +471,35 @@
                 this.registerTouchMoveHandler(this.handleTouchMoveThumbUpper);
                 event.stopPropagation();
             },
+            handleTouchStartTrack(event) {
+                if (this.disabled) return;
+                event.preventDefault();
+                const clickXPosition = this.actualXPosition(event.touches[0].clientX);
+                const value = this.newValue;
+                const distanceFromLowerThumb = Math.abs(value[0] - clickXPosition);
+                const distanceFromUpperThumb = Math.abs(value[1] - clickXPosition);
+
+                if (distanceFromLowerThumb <= distanceFromUpperThumb) {
+                    this.setValue([clickXPosition, value[1]], this.controlUpper);
+                    this.registerTouchMoveHandler(this.handleTouchMoveThumbLower);
+
+                    if (this.$refs.thumbLower != null) {
+                        this.$refs.thumbLower.focus();
+                    }
+                } else {
+                    this.setValue([value[0], clickXPosition], Control.Lower);
+                    this.registerTouchMoveHandler(this.handleTouchMoveThumbUpper);
+
+                    if (this.$refs.thumbUpper != null) {
+                        this.$refs.thumbUpper.focus();
+                    }
+                }
+            },
             setTrackPosition() {
-                if (this.track) {
+                if (this.$refs.track) {
                     const thumbSize = 16;
 
-                    const {width, left} = this.track.getBoundingClientRect();
+                    const {width, left} = this.$refs.track.getBoundingClientRect();
                     const adjustedTrackWidth = width - thumbSize;
                     const adjustedTrackLeft = left + thumbSize / 2;
 
@@ -491,6 +511,25 @@
                 }
             }
         },
+        mounted() {
+            this.setTrackPosition();
+
+            if (this.$refs.trackWrapper != null) {
+                this.$refs.trackWrapper.addEventListener(
+                    'touchstart',
+                    this.handleTouchStartTrack,
+                    {passive: false},
+                );
+            }
+        },
+        destroyed() {
+            if (this.$refs.trackWrapper != null) {
+                this.$refs.trackWrapper.removeEventListener(
+                    'touchstart',
+                    this.handleTouchStartTrack,
+                );
+            }
+        }
     }
 </script>
 

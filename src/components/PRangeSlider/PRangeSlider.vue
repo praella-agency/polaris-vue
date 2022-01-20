@@ -6,6 +6,7 @@
         @focus="handleFocus"
         @blur="handleBlur"
     >
+        <slot name="label" slot="label"/>
         <slot name="prefix" slot="prefix"/>
         <slot name="suffix" slot="suffix"/>
     </PDualThumb>
@@ -16,6 +17,7 @@
         @focus="handleFocus"
         @blur="handleBlur"
     >
+        <slot name="label" slot="label"/>
         <slot name="prefix" slot="prefix"/>
         <slot name="suffix" slot="suffix"/>
     </PSingleThumb>

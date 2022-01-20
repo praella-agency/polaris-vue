@@ -7,7 +7,9 @@
                 :hidden="false"
                 v-bind="$attrs"
             >
-                {{ label }}
+                <slot name="label">
+                    {{ label }}
+                </slot>
             </PLabel>
             <div
                 v-if="action"

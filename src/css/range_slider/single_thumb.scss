@@ -176,9 +176,9 @@
   transform: translateY($p-range-slider-thumb-size-base/5) scale(0.4);
 }
 
-.Polaris-RangeSlider-SingleThumb__Input::-webkit-slider-thumb {
-  margin-top: -($p-range-slider-thumb-size-base)-(0.4rem)/2;
-}
+//.Polaris-RangeSlider-SingleThumb__Input::-webkit-slider-thumb {
+//  margin-top: (-1.6rem) - (0.4rem) / 2;
+//}
 
 .Polaris-RangeSlider-SingleThumb__Input:active::-ms-thumb {
   transform: scale(1.5);
