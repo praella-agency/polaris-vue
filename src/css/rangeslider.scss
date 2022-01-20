@@ -24,29 +24,29 @@
   z-index: 1;
   width: 100%;
   height: 0.4rem;
-  border-radius: var(--p-range-slider-thumb-size-base);
-  --unselected-range: var(--p-override-transparent);
-  --selected-range: var(--p-interactive);
+  border-radius: $p-range-slider-thumb-size-base;
+  --unselected-range: transparent;
+  --selected-range: rgba(44, 110, 203, 1);
   --gradient-colors: var(--unselected-range) 0%, var(--unselected-range) var(--Polaris-RangeSlider-progress-lower), var(--selected-range) var(--Polaris-RangeSlider-progress-lower), var(--selected-range) var(--Polaris-RangeSlider-progress-upper), var(--unselected-range) var(--Polaris-RangeSlider-progress-upper), var(--unselected-range) 100%;
-  background-image: linear-gradient(to right, var(--gradient-colors));
+  background-image: linear-gradient(to right, var(--unselected-range) 0%, var(--unselected-range) var(--Polaris-RangeSlider-progress-lower), var(--selected-range) var(--Polaris-RangeSlider-progress-lower), var(--selected-range) var(--Polaris-RangeSlider-progress-upper), var(--unselected-range) var(--Polaris-RangeSlider-progress-upper), var(--unselected-range) 100%);
 }
 
 .Polaris-RangeSlider-DualThumb--error {
   .Polaris-RangeSlider-DualThumb__Track {
-    --selected-range: var(--p-action-critical);
+    --selected-range: rgba(216, 44, 13, 1);
     --gradient-colors: var(--unselected-range) 0%, var(--unselected-range) var(--Polaris-RangeSlider-progress-lower), var(--selected-range) var(--Polaris-RangeSlider-progress-lower), var(--selected-range) var(--Polaris-RangeSlider-progress-upper), var(--unselected-range) var(--Polaris-RangeSlider-progress-upper), var(--unselected-range) 100%;
-    background-image: linear-gradient(to right, var(--gradient-colors));
+    background-image: linear-gradient(to right, var(--unselected-range) 0%, var(--unselected-range) var(--Polaris-RangeSlider-progress-lower), var(--selected-range) var(--Polaris-RangeSlider-progress-lower), var(--selected-range) var(--Polaris-RangeSlider-progress-upper), var(--unselected-range) var(--Polaris-RangeSlider-progress-upper), var(--unselected-range) 100%);
   }
 
   .Polaris-RangeSlider-DualThumb__Thumbs {
-    border-color: var(--p-action-critical);
-    background: linear-gradient(var(--p-action-critical), var(--p-action-critical));
+    border-color: $p-action-critical;
+    background: linear-gradient($p-action-critical, $p-action-critical);
   }
 }
 
 .Polaris-RangeSlider-DualThumb--disabled {
   .Polaris-RangeSlider-DualThumb__Track {
-    background: var(--p-border-disabled) none;
+    background: $p-border-disabled none;
   }
 }
 
@@ -55,10 +55,10 @@
   position: absolute;
   height: 0.4rem;
   width: 100%;
-  background-image: linear-gradient(to right, var(--p-border), var(--p-border) 50%, transparent 50%, transparent 100%);
+  background-image: linear-gradient(to right, $p-border, $p-border 50%, transparent 50%, transparent 100%);
   background-size: 0.4rem 0.4rem;
-  border-radius: var(--p-border-radius-base);
-  border-right: var(--p-border-radius-base) var(--p-border) solid;
+  border-radius: $p-border-radius-base;
+  border-right: $p-border-radius-base $p-border solid;
 }
 
 .Polaris-RangeSlider-DualThumb__Thumbs {
@@ -66,14 +66,14 @@
   position: absolute;
   z-index: 10;
   padding: 0;
-  width: var(--p-range-slider-thumb-size-base);
-  height: var(--p-range-slider-thumb-size-base);
+  width: $p-range-slider-thumb-size-base;
+  height: $p-range-slider-thumb-size-base;
   border-radius: 50%;
-  border: 0.1rem solid var(--p-interactive);
-  background: linear-gradient(var(--p-interactive), var(--p-interactive));
+  border: 0.1rem solid $p-interactive;
+  background: linear-gradient($p-interactive, $p-interactive);
   -webkit-tap-highlight-color: transparent;
-  cursor: -webkit-grab;
-  transition: transform var(--p-duration-1-5-0) var(--p-ease);
+  cursor: inherit;
+  transition: transform $p-duration-1-5-0 $p-ease;
 
   &::after {
     content: '';
@@ -85,19 +85,19 @@
     left: -0.2rem;
     display: block;
     pointer-events: none;
-    box-shadow: 0 0 0 -0.2rem var(--p-focused);
-    transition: box-shadow 100ms var(--p-ease);
-    border-radius: calc(var(--p-border-radius-wide) + 0.1rem);
+    box-shadow: 0 0 0 -0.2rem $p-focused;
+    transition: box-shadow 100ms $p-ease;
+    border-radius: calc(0.4rem + 0.1rem);
   }
 
   &:active {
-    transform: scale(var(--p-range-slider-thumb-scale));
+    transform: scale($p-range-slider-thumb-scale);
 
     + {
       .Polaris-RangeSlider-DualThumb__Output {
         opacity: 1;
         visibility: visible;
-        bottom: calc(var(--p-range-slider-thumb-size-active) + var(--p-range-slider-thumb-size-active) - var(--p-range-slider-thumb-size-base));
+        bottom: calc(2.4rem + 2.4rem - 1.6rem);
 
         .Polaris-RangeSlider-DualThumb__OutputBubble {
           transform: translateY(-1.6rem);
@@ -110,13 +110,13 @@
     outline: 0;
 
     &::after {
-      box-shadow: 0 0 0 0.2rem var(--p-focused);
+      box-shadow: 0 0 0 0.2rem $p-focused;
       outline: 0.1rem solid transparent;
     }
 
     + {
       .Polaris-RangeSlider-DualThumb__Output {
-        opacity: var(--p-override-zero);
+        opacity: $p-override-zero;
 
         .Polaris-RangeSlider-DualThumb__OutputBubble {
           transform: translateY(-1.6rem);
@@ -128,7 +128,7 @@
   &:hover {
     + {
       .Polaris-RangeSlider-DualThumb__Output {
-        opacity: var(--p-override-zero);
+        opacity: $p-override-zero;
 
         .Polaris-RangeSlider-DualThumb__OutputBubble {
           transform: translateY(-1.6rem);
@@ -140,8 +140,8 @@
 
 .Polaris-RangeSlider-DualThumb__Thumbs.Polaris-RangeSlider-DualThumb--disabled {
   cursor: not-allowed;
-  border-color: var(--p-border-disabled);
-  background: var(--p-border-disabled);
+  border-color: $p-border-disabled;
+  background: $p-border-disabled;
 }
 
 .Polaris-RangeSlider-DualThumb__Prefix {
@@ -157,14 +157,14 @@
 .Polaris-RangeSlider-DualThumb__Output {
   position: absolute;
   z-index: 20;
-  bottom: var(--p-range-slider-thumb-size-active);
+  bottom: $p-range-slider-thumb-size-active;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition-property: opacity, visibility, bottom;
-  transition-duration: var(--p-duration-1-5-0);
-  transition-timing-function: var(--p-ease);
-  transform: translateX(calc(-50% + var(--p-range-slider-thumb-size-base) / 2));
+  transition-duration: $p-duration-1-5-0;
+  transition-timing-function: $p-ease;
+  transform: translateX(calc(-50% + 1.6rem / 2));
 }
 
 .Polaris-RangeSlider-DualThumb__OutputBubble {
@@ -173,12 +173,12 @@
   padding: 0 0.8rem;
   min-width: 3.2rem;
   height: 3.2rem;
-  background-color: var(--p-surface);
-  box-shadow: var(--p-popover-shadow);
+  background-color: $p-surface;
+  box-shadow: $p-popover-shadow;
   border-radius: 3px;
   transition-property: transform;
-  transition-duration: var(--p-duration-1-5-0);
-  transition-timing-function: var(--p-ease);
+  transition-duration: $p-duration-1-5-0;
+  transition-timing-function: $p-ease;
 }
 
 .Polaris-RangeSlider-DualThumb__OutputText {
@@ -190,7 +190,7 @@
   flex: 1 1 auto;
   margin: auto;
   text-align: center;
-  color: var(--p-text);
+  color: $p-text;
 }
 
 .Polaris-RangeSlider-SingleThumb {
@@ -207,7 +207,7 @@
   display: flex;
   align-items: center;
   flex: 1 1 auto;
-  height: var(--p-range-slider-thumb-size-base);
+  height: $p-range-slider-thumb-size-base;
 
   input {
     padding: 1.2rem 0;
@@ -220,10 +220,10 @@
     position: absolute;
     height: 0.4rem;
     width: 100%;
-    background-image: linear-gradient(to right, var(--p-border), var(--p-border) 50%, transparent 50%, transparent 100%);
+    background-image: linear-gradient(to right, $p-border, $p-border 50%, transparent 50%, transparent 100%);
     background-size: 0.4rem 0.4rem;
-    border-radius: var(--p-border-radius-base);
-    border-right: var(--p-border-radius-base) var(--p-border) solid;
+    border-radius: $p-border-radius-base;
+    border-right: $p-border-radius-base $p-border solid;
   }
 }
 
@@ -237,37 +237,37 @@
       outline: 0.1rem solid transparent;
       cursor: auto;
       background-image: none;
-      background-color: var(--p-border-disabled);
+      background-color: $p-border-disabled;
     }
 
     &::-moz-range-track {
       cursor: auto;
       background-image: none;
-      background-color: var(--p-border-disabled);
+      background-color: $p-border-disabled;
     }
 
     &::-webkit-slider-runnable-track {
       cursor: auto;
       background-image: none;
-      background-color: var(--p-border-disabled);
+      background-color: $p-border-disabled;
     }
 
     &::-ms-thumb {
       cursor: not-allowed;
-      border-color: var(--p-border-disabled);
-      background: var(--p-border-disabled);
+      border-color: $p-border-disabled;
+      background: $p-border-disabled;
     }
 
     &::-moz-range-thumb {
       cursor: not-allowed;
-      border-color: var(--p-border-disabled);
-      background: var(--p-border-disabled);
+      border-color: $p-border-disabled;
+      background: $p-border-disabled;
     }
 
     &::-webkit-slider-thumb {
       cursor: not-allowed;
-      border-color: var(--p-border-disabled);
-      background: var(--p-border-disabled);
+      border-color: $p-border-disabled;
+      background: $p-border-disabled;
     }
   }
 }
@@ -283,8 +283,8 @@
 }
 
 .Polaris-RangeSlider-SingleThumb__Input {
-  --progress-lower: var(--p-interactive);
-  --progress-upper: var(--p-override-transparent);
+  --progress-lower: rgba(44, 110, 203, 1);
+  --progress-upper: transparent;
   --gradient-colors: var(--progress-lower, transparent) 0%, var(--progress-lower, transparent) var(--Polaris-RangeSlider-progress, 0%), var(--progress-upper, transparent) var(--Polaris-RangeSlider-progress, 100%), var(--progress-upper, transparent) 100%;
   margin: 0;
   padding: 0;
@@ -305,23 +305,23 @@
     outline: 0.1rem solid transparent;
 
     &::-ms-thumb {
-      border-color: var(--p-surface);
-      box-shadow: 0 0 0 0.2rem var(--p-focused);
+      border-color: $p-surface;
+      box-shadow: 0 0 0 0.2rem $p-focused;
     }
 
     &::-moz-range-thumb {
-      border-color: var(--p-surface);
-      box-shadow: 0 0 0 0.2rem var(--p-focused);
+      border-color: $p-surface;
+      box-shadow: 0 0 0 0.2rem $p-focused;
     }
 
     &::-webkit-slider-thumb {
-      border-color: var(--p-surface);
-      box-shadow: 0 0 0 0.2rem var(--p-focused);
+      border-color: $p-surface;
+      box-shadow: 0 0 0 0.2rem $p-focused;
     }
 
     + {
       .Polaris-RangeSlider-SingleThumb__Output {
-        opacity: var(--p-override-zero);
+        opacity: $p-override-zero;
 
         .Polaris-RangeSlider-SingleThumb__OutputBubble {
           transform: translateY(-1.6rem);
@@ -339,7 +339,7 @@
     cursor: pointer;
     width: 100%;
     height: 0.4rem;
-    background-image: linear-gradient(to right, var(--gradient-colors));
+    background-image: linear-gradient(to right, var(--progress-lower, transparent) 0%, var(--progress-lower, transparent) var(--Polaris-RangeSlider-progress, 0%), var(--progress-upper, transparent) var(--Polaris-RangeSlider-progress, 100%), var(--progress-upper, transparent) 100%);
     border: none;
     border-radius: 0.4rem;
   }
@@ -348,7 +348,7 @@
     cursor: pointer;
     width: 100%;
     height: 0.4rem;
-    background-image: linear-gradient(to right, var(--gradient-colors));
+    background-image: linear-gradient(to right, var(--progress-lower, transparent) 0%, var(--progress-lower, transparent) var(--Polaris-RangeSlider-progress, 0%), var(--progress-upper, transparent) var(--Polaris-RangeSlider-progress, 100%), var(--progress-upper, transparent) 100%);
     border: none;
     border-radius: 0.4rem;
   }
@@ -357,99 +357,98 @@
     cursor: pointer;
     width: 100%;
     height: 0.4rem;
-    background-image: linear-gradient(to right, var(--gradient-colors));
+    background-image: linear-gradient(to right, var(--progress-lower, transparent) 0%, var(--progress-lower, transparent) var(--Polaris-RangeSlider-progress, 0%), var(--progress-upper, transparent) var(--Polaris-RangeSlider-progress, 100%), var(--progress-upper, transparent) 100%);
     border: none;
     border-radius: 0.4rem;
   }
 
   &::-ms-thumb {
-    cursor: -webkit-grab;
-    width: var(--p-range-slider-thumb-size-base);
-    height: var(--p-range-slider-thumb-size-base);
+    cursor: inherit;
+    width: $p-range-slider-thumb-size-base;
+    height: $p-range-slider-thumb-size-base;
     border: 1px solid transparent;
     border-radius: 50%;
-    background: linear-gradient(var(--p-interactive), var(--p-interactive));
-    box-shadow: 0 0 0 0 var(--p-focused);
+    background: linear-gradient($p-interactive, $p-interactive);
+    box-shadow: 0 0 0 0 $p-focused;
     appearance: none;
-    -ms-transition: box-shadow 100ms var(--p-ease);
-    transition: box-shadow 100ms var(--p-ease);
+    -ms-transition: box-shadow 100ms $p-ease;
+    transition: box-shadow 100ms $p-ease;
     -ms-transition-property: border-color, box-shadow, transform;
     transition-property: border-color, box-shadow, transform;
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-    margin-top: calc(-1 * (var(--p-range-slider-thumb-size-base) - 0.4rem) / 2);
+    margin-top: calc(-1 * (1.6rem - 0.4rem) / 2);
     margin-top: 0;
-    transform: translateY(var(--p-range-slider-thumb-size-base)/5) scale(0.4);
+    transform: translateY($p-range-slider-thumb-size-base/5) scale(0.4);
 
     &:hover {
-      background: linear-gradient(var(--p-interactive), var(--p-interactive));
+      background: linear-gradient($p-interactive, $p-interactive);
     }
   }
 
   &::-moz-range-thumb {
-    cursor: -webkit-grab;
-    width: var(--p-range-slider-thumb-size-base);
-    height: var(--p-range-slider-thumb-size-base);
+    cursor: inherit;
+    width: $p-range-slider-thumb-size-base;
+    height: $p-range-slider-thumb-size-base;
     border: 1px solid transparent;
     border-radius: 50%;
-    background: linear-gradient(var(--p-interactive), var(--p-interactive));
-    box-shadow: 0 0 0 0 var(--p-focused);
+    background: linear-gradient($p-interactive, $p-interactive);
+    box-shadow: 0 0 0 0 $p-focused;
     appearance: none;
-    -moz-transition: box-shadow 100ms var(--p-ease);
-    transition: box-shadow 100ms var(--p-ease);
+    -moz-transition: box-shadow 100ms $p-ease;
+    transition: box-shadow 100ms $p-ease;
     -moz-transition-property: border-color, box-shadow, transform;
     transition-property: border-color, box-shadow, transform;
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-    margin-top: calc(-1 * (var(--p-range-slider-thumb-size-base) - 0.4rem) / 2);
-
+    margin-top: calc(-1 * (1.6rem - 0.4rem) / 2);
     &:hover {
-      background: linear-gradient(var(--p-interactive), var(--p-interactive));
+      background: linear-gradient($p-interactive, $p-interactive);
     }
   }
 
   &::-webkit-slider-thumb {
-    cursor: -webkit-grab;
-    width: var(--p-range-slider-thumb-size-base);
-    height: var(--p-range-slider-thumb-size-base);
+    cursor: inherit;
+    width: $p-range-slider-thumb-size-base;
+    height: $p-range-slider-thumb-size-base;
     border: 1px solid transparent;
     border-radius: 50%;
-    background: linear-gradient(var(--p-interactive), var(--p-interactive));
-    box-shadow: 0 0 0 0 var(--p-focused);
+    background: linear-gradient($p-interactive, $p-interactive);
+    box-shadow: 0 0 0 0 $p-focused;
     -webkit-appearance: none;
     appearance: none;
-    -webkit-transition: box-shadow 100ms var(--p-ease);
-    transition: box-shadow 100ms var(--p-ease);
+    -webkit-transition: box-shadow 100ms $p-ease;
+    transition: box-shadow 100ms $p-ease;
     -webkit-transition-property: border-color, box-shadow, transform;
     transition-property: border-color, box-shadow, transform;
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-    margin-top: calc(-1 * (var(--p-range-slider-thumb-size-base) - 0.4rem) / 2);
-    margin-top: -var(--p-range-slider-thumb-size-base)-0.4rem/2;
+    margin-top: calc(-1 * (1.6rem - 0.4rem) / 2);
+    margin-top: -($p-range-slider-thumb-size-base)-0.4rem/2;
 
     &:hover {
-      background: linear-gradient(var(--p-interactive), var(--p-interactive));
+      background: linear-gradient($p-interactive, $p-interactive);
     }
   }
 
   &:active {
     &::-ms-thumb {
-      transform: scale(var(--p-range-slider-thumb-scale));
+      transform: scale($p-range-slider-thumb-scale);
     }
 
     &::-moz-range-thumb {
-      transform: scale(var(--p-range-slider-thumb-scale));
+      transform: scale($p-range-slider-thumb-scale);
     }
 
     &::-webkit-slider-thumb {
-      transform: scale(var(--p-range-slider-thumb-scale));
+      transform: scale($p-range-slider-thumb-scale);
     }
 
     + {
       .Polaris-RangeSlider-SingleThumb__Output {
         opacity: 1;
         visibility: visible;
-        bottom: calc(var(--p-range-slider-thumb-size-base) + var(--p-range-slider-thumb-size-active) - var(--p-range-slider-thumb-size-base));
+        bottom: calc(1.6rem + 2.4rem - 1.6rem);
 
         .Polaris-RangeSlider-SingleThumb__OutputBubble {
           transform: translateY(-1.6rem);
@@ -461,7 +460,7 @@
   &:hover {
     + {
       .Polaris-RangeSlider-SingleThumb__Output {
-        opacity: var(--p-override-zero);
+        opacity: $p-override-zero;
 
         .Polaris-RangeSlider-SingleThumb__OutputBubble {
           transform: translateY(-1.6rem);
@@ -473,34 +472,34 @@
 
 .Polaris-RangeSlider-SingleThumb--error {
   .Polaris-RangeSlider-SingleThumb__Input {
-    --progress-lower: var(--p-action-critical);
+    --progress-lower: rgba(216, 44, 13, 1);
 
     &::-ms-track {
       outline: 0.1rem solid transparent;
-      background-color: var(--p-override-none);
+      background-color: $p-override-none;
     }
 
     &::-moz-range-track {
-      background-color: var(--p-override-none);
+      background-color: $p-override-none;
     }
 
     &::-webkit-slider-runnable-track {
-      background-color: var(--p-override-none);
+      background-color: $p-override-none;
     }
 
     &::-ms-thumb {
-      border-color: var(--p-action-critical);
-      background: var(--p-action-critical);
+      border-color: $p-action-critical;
+      background: $p-action-critical;
     }
 
     &::-moz-range-thumb {
-      border-color: var(--p-action-critical);
-      background: var(--p-action-critical);
+      border-color: $p-action-critical;
+      background: $p-action-critical;
     }
 
     &::-webkit-slider-thumb {
-      border-color: var(--p-action-critical);
-      background: var(--p-action-critical);
+      border-color: $p-action-critical;
+      background: $p-action-critical;
     }
   }
 }
@@ -508,9 +507,9 @@
 .Polaris-RangeSlider-SingleThumb__Output {
   position: absolute;
   z-index: 20;
-  bottom: var(--p-range-slider-thumb-size-base);
+  bottom: $p-range-slider-thumb-size-base;
   left: var(--Polaris-RangeSlider-progress);
-  transform: translateX(calc(-50% + var(--Polaris-RangeSlider-output-factor) * var(--p-range-slider-thumb-size-base)));
+  transform: translateX(calc(-50% + var(--Polaris-RangeSlider-output-factor) * 1.6rem));
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -522,11 +521,11 @@
 .Polaris-RangeSlider-SingleThumb__OutputBubble {
   position: relative;
   display: flex;
-  box-shadow: var(--p-popover-shadow);
+  box-shadow: $p-popover-shadow;
   padding: 0 0.8rem;
   min-width: 3.2rem;
   height: 3.2rem;
-  background-color: var(--p-surface);
+  background-color: $p-surface;
   border-radius: 3px;
   transition-property: transform;
   transition-duration: 200ms;
@@ -543,7 +542,7 @@
   flex: 1 1 auto;
   margin: auto;
   text-align: center;
-  color: var(--p-text);
+  color: $p-text;
 }
 
 @media (max-width: 48.0625em) and (min-width: 46.5em) {

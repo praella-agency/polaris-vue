@@ -1,6 +1,24 @@
 <template>
-    <PDualThumb v-if="isDualThumb" v-bind="$props"/>
-    <PSingleThumb v-else v-bind="$props"/>
+    <PDualThumb
+        v-if="isDualThumb"
+        v-bind="$props"
+        @change="handleChange"
+        @focus="handleFocus"
+        @blur="handleBlur"
+    >
+        <slot name="prefix" slot="prefix"/>
+        <slot name="suffix" slot="suffix"/>
+    </PDualThumb>
+    <PSingleThumb
+        v-else
+        v-bind="$props"
+        @change="handleChange"
+        @focus="handleFocus"
+        @blur="handleBlur"
+    >
+        <slot name="prefix" slot="prefix"/>
+        <slot name="suffix" slot="suffix"/>
+    </PSingleThumb>
 </template>
 
 <script>
@@ -28,7 +46,7 @@
             labelAction: {
                 type: Object,
                 default: () => ({}),
-                ...ObjectValidator('action', Action),
+                // ...ObjectValidator('labelAction', Action),
             },
             /**
              * Visually hide the label
@@ -41,7 +59,7 @@
              * ID for range input
              */
             id: {
-                type: String,
+                type: [String, Number],
                 default: null,
             },
             /**
@@ -114,7 +132,18 @@
             isDualThumb() {
                 return Array.isArray(this.value);
             }
-        }
+        },
+        methods: {
+            handleChange(value, id) {
+                this.$emit('change', value, id);
+            },
+            handleFocus(event) {
+                this.$emit('focus', event);
+            },
+            handleBlur(event) {
+                this.$emit('blur', event);
+            },
+        },
     }
 </script>
 

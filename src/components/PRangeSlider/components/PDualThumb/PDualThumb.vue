@@ -1,61 +1,120 @@
 <template>
-    <PLabelled
-        :id="id"
-        :label="label"
-        :error="error"
-        :action="labelAction"
-        :labelHidden="labelHidden"
-        :helpText="helpText"
-    >
-        <div class="Polaris-RangeSlider-DualThumb__Wrapper">
-            <div v-if="prefix || $slots.prefix" class="Polaris-RangeSlider-DualThumb__Prefix">
-                <slot name="prefix">
-                    {{ prefix }}
-                </slot>
-            </div>
-            <div
-                :class="trackWrapperClassName"
-                @mousedown="handleMouseDownTrack"
-                ref="trackWrapper"
-            >
-                <div class="Polaris-RangeSlider-DualThumb__Track" :style="cssVars"></div>
-                <div class="Polaris-RangeSlider-DualThumb--trackDashed"></div>
+    <div>
+        <PLabelled
+            :id="id"
+            :label="label"
+            :error="error"
+            :action="labelAction"
+            :labelHidden="labelHidden"
+            :helpText="helpText"
+        >
+            <div class="Polaris-RangeSlider-DualThumb__Wrapper">
+                <div v-if="prefix || $slots.prefix" class="Polaris-RangeSlider-DualThumb__Prefix">
+                    <slot name="prefix">
+                        {{ prefix }}
+                    </slot>
+                </div>
                 <div
-                    :id="idLower"
-                    :class="thumbLowerClassName"
-                    :style="{
+                    :class="trackWrapperClassName"
+                    @mousedown="handleMouseDownTrack"
+                    ref="trackWrapper"
+                >
+                    <div class="Polaris-RangeSlider-DualThumb__Track" :style="cssVars" ref="track"></div>
+                    <div class="Polaris-RangeSlider-DualThumb--trackDashed"></div>
+                    <div
+                        :id="idLower"
+                        :class="thumbLowerClassName"
+                        :style="{
                         left: `${this.leftPositionThumbLower}px`,
                      }"
-                    role="slider"
-                    :aria-disabled="disabled"
-                    :aria-valuemin="min"
-                    :aria-valuemax="max"
-                    :aria-valuenow="newValue[0]"
-                    :aria-invalid="Boolean(error) || $slots.error"
-                    :aria-describedby="ariaDescribedBy"
-                    :aria-labelledby="`${id}Label`"
-                    @focus="$emit('focus', event)"
-                    @blur="$emit('blue', event)"
-                    tabindex="0"
-                    @keydown="handleKeyPressLower"
-                    @mousedown="handleMouseDownThumbLower"
-                    @touchStart="handleTouchStartThumbLower"
-                    ref="thumbLower"
-                ></div>
+                        role="slider"
+                        :aria-disabled="disabled"
+                        :aria-valuemin="min"
+                        :aria-valuemax="max"
+                        :aria-valuenow="newValue[0]"
+                        :aria-invalid="Boolean(error) || $slots.error"
+                        :aria-describedby="ariaDescribedBy"
+                        :aria-labelledby="`${id}Label`"
+                        @focus="$emit('focus', $event)"
+                        @blur="$emit('blue', $event)"
+                        tabindex="0"
+                        @keydown="handleKeyPressLower"
+                        @mousedown="handleMouseDownThumbLower"
+                        @touchStart="handleTouchStartThumbLower"
+                        ref="thumbLower"
+                    ></div>
+                    <output
+                        v-if="!disabled && output"
+                        :for="idLower"
+                        class="Polaris-RangeSlider-DualThumb__Output Polaris-RangeSlider-DualThumb__OutputLower"
+                        :style="{
+                        left: `${leftPositionThumbLower}px`
+                    }"
+                    >
+                        <div class="Polaris-RangeSlider-DualThumb__OutputBubble">
+                            <span class="Polaris-RangeSlider-DualThumb__OutputText">
+                                {{ newValue[0] }}
+                            </span>
+                        </div>
+                    </output>
+                    <div
+                        :id="idUpper"
+                        :class="thumbUpperClassName"
+                        :style="{
+                        left: `${leftPositionThumbUpper}px`
+                    }"
+                        role="slider"
+                        :aria-disabled="disabled"
+                        :aria-valuemin="min"
+                        :aria-valuemax="max"
+                        :aria-valuenow="newValue[1]"
+                        :aria-invalid="Boolean(error) || $slots.error"
+                        :aria-describedby="ariaDescribedBy"
+                        :aria-labelledby="`${id}Label`"
+                        @focus="$emit('focus', $event)"
+                        @blur="$emit('blue', $event)"
+                        tabindex="0"
+                        @keydown="handleKeyPressUpper"
+                        @mousedown="handleMouseDownThumbUpper"
+                        @touchStart="handleTouchStartThumbUpper"
+                        ref="thumbUpper"
+                    ></div>
+                    <output
+                        v-if="!disabled && output"
+                        :for="idUpper"
+                        class="Polaris-RangeSlider-DualThumb__Output Polaris-RangeSlider-DualThumb__OutputUpper"
+                        :style="{
+                        left: `${leftPositionThumbUpper}px`
+                    }"
+                    >
+                        <div class="Polaris-RangeSlider-DualThumb__OutputBubble">
+                            <span class="Polaris-RangeSlider-DualThumb__OutputText">
+                                {{ newValue[1] }}
+                            </span>
+                        </div>
+                    </output>
+                </div>
+                <div v-if="suffix || $slots.suffix" class="Polaris-RangeSlider-DualThumb__Suffix">
+                    <slot name="suffix">
+                        {{ suffix }}
+                    </slot>
+                </div>
             </div>
-        </div>
-    </PLabelled>
+        </PLabelled>
+        <PEventListener event="resize" :handler="this.setTrackPosition"/>
+    </div>
 </template>
 
 <script>
     import { classNames } from '../../../../utilities/css';
     import { Key } from '../../../../types/keys';
     import { PLabelled } from '../../../../components/PLabelled';
+    import { PEventListener } from '../../../../components/PEventListener';
 
     export default {
         name: 'PDualThumb',
         components: {
-            PLabelled,
+            PLabelled, PEventListener,
         },
         props: {
             /**
@@ -83,7 +142,7 @@
              * ID for range input
              */
             id: {
-                type: String,
+                type: [String, Number],
                 default: null,
             },
             /**
@@ -236,21 +295,21 @@
                 return [lowerValue, upperValue];
             },
             inBoundsUpper(value) {
-                const lowerMin = min + this.step;
+                const lowerMin = this.min + this.step;
 
                 if (value < lowerMin) {
                     return lowerMin;
-                } else if (value > max) {
-                    return max;
+                } else if (value > this.max) {
+                    return this.max;
                 } else {
                     return value;
                 }
             },
             inBoundsLower(value) {
-                const upperMax = max - this.step;
+                const upperMax = this.max - this.step;
 
-                if (value < min) {
-                    return min;
+                if (value < this.min) {
+                    return this.min;
                 } else if (value > upperMax) {
                     return upperMax;
                 } else {
@@ -288,9 +347,10 @@
                 }
             },
             actualXPosition(dirtyXPosition) {
-                if (this.$refs.track.current) {
+                if (this.$refs.track) {
                     const {min, max} = this.$props;
-                    const {trackLeft, trackWidth} = this.state;
+                    const trackLeft = this.trackLeft;
+                    const trackWidth = this.trackWidth;
 
                     const relativeX = dirtyXPosition - trackLeft;
                     const percentageOfTrack = relativeX / trackWidth;
@@ -301,7 +361,7 @@
                 }
             },
             setValue(dirtyValue, control) {
-                const { min, max, step } = this.$props;
+                const {min, max, step} = this.$props;
                 const value = this.newValue;
 
                 const sanitizedValue = this.sanitizeValue(dirtyValue, min, max, step, control);
@@ -350,6 +410,11 @@
                 const valueUpper = this.newValue[1];
                 this.setValue([this.actualXPosition(event.touches[0].clientX), valueUpper], this.controlUpper);
             },
+            handleTouchMoveThumbUpper(event) {
+                event.preventDefault();
+                const valueLower = this.newValue[0];
+                this.setValue([valueLower, this.actualXPosition(event.touches[0].clientX)], this.controlLower);
+            },
             handleKeyPressLower(event) {
                 if (this.disabled) return;
                 const incrementValueLower = this.incrementValueLower;
@@ -379,8 +444,53 @@
                 if (this.disabled) return;
                 this.registerTouchMoveHandler(this.handleTouchMoveThumbLower);
                 event.stopPropagation();
+            },
+            handleKeyPressUpper(event) {
+                if (this.disabled) return;
+                const incrementValueUpper = this.incrementValueUpper;
+                const decrementValueUpper = this.decrementValueUpper;
+
+                const handlerMap = {
+                    [Key.UpArrow]: incrementValueUpper,
+                    [Key.RightArrow]: incrementValueUpper,
+                    [Key.DownArrow]: decrementValueUpper,
+                    [Key.LeftArrow]: decrementValueUpper,
+                };
+
+                const handler = handlerMap[event.keyCode];
+
+                if (handler != null) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    handler();
+                }
+            },
+            handleMouseDownThumbUpper(event) {
+                if (event.button !== 0 || this.disabled) return;
+                this.registerMouseMoveHandler(this.handleMouseMoveThumbUpper);
+                event.stopPropagation();
+            },
+            handleTouchStartThumbUpper(event) {
+                if (this.disabled) return;
+                this.registerTouchMoveHandler(this.handleTouchMoveThumbUpper);
+                event.stopPropagation();
+            },
+            setTrackPosition() {
+                if (this.track) {
+                    const thumbSize = 16;
+
+                    const {width, left} = this.track.getBoundingClientRect();
+                    const adjustedTrackWidth = width - thumbSize;
+                    const adjustedTrackLeft = left + thumbSize / 2;
+
+                    const range = this.max - this.min;
+                    const minValuePosition = (this.min / range) * adjustedTrackWidth;
+
+                    this.trackWidth = adjustedTrackWidth;
+                    this.trackLeft = adjustedTrackLeft - minValuePosition;
+                }
             }
-        }
+        },
     }
 </script>
 
