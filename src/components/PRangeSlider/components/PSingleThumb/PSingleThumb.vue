@@ -163,7 +163,6 @@
         },
         data() {
             return {
-                clampedValue: this.clamp(this.value, this.min, this.max),
                 describedBy: [],
             };
         },
@@ -184,6 +183,9 @@
                     [`--Polaris-RangeSlider-output-factor`]: `${this.outputFactor}`,
                 }
             },
+            clampedValue() {
+                return this.clamp(this.value, this.min, this.max);
+            },
             sliderProgress() {
                 return ((this.clampedValue - this.min) * 100) / (this.max - this.min);
             },
@@ -196,7 +198,6 @@
         },
         methods: {
             handleChange(event) {
-                console.log(event, parseFloat(event.target.value))
                 this.$emit('change', parseFloat(event.target.value), this.id);
             },
             clamp(number, min, max) {

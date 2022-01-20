@@ -73,18 +73,21 @@
              */
             min: {
                 type: Number,
+                default: 0,
             },
             /**
              * Maximum possible value for range input
              */
             max: {
                 type: Number,
+                default: 100,
             },
             /**
              * Increment value for range input changes
              */
             step: {
                 type: Number,
+                default: 1,
             },
             /**
              * Provide a tooltip while sliding, indicating the current value

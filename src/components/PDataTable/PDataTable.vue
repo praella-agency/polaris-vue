@@ -500,13 +500,13 @@ Access values with `slot-props` attribute. -->
                     // tslint:disable-next-line:no-console
                     console.error('Deprecation Notice: `actions` will be removed in version 4.0.0, use `headings` with extra object. '
                         + 'Please check new example of' +
-                        ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--row-slot');
+                        ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--customisable-row');
                 }
                 if (this.ids.length > 0) {
                     // tslint:disable-next-line:no-console
                     console.error('Deprecation Notice: `ids` will be removed in version 4.0.0. ' +
                         'Please check new example of' +
-                        ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--row-slot');
+                        ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--customisable-row');
                 }
             },
         },

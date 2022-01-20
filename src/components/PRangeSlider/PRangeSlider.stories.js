@@ -1,4 +1,5 @@
 import { PRangeSlider } from './index';
+import { PCard } from '../PCard';
 
 export default {
     title: 'Range Slider',
@@ -8,7 +9,7 @@ export default {
 const Template = (args, { argTypes }) => ({
     props: Object.keys(argTypes),
     components: {
-        PRangeSlider,
+        PRangeSlider, PCard,
     },
     data() {
         return {
@@ -16,12 +17,15 @@ const Template = (args, { argTypes }) => ({
         };
     },
     template: `
-        <PRangeSlider
-            v-bind="$props"
-            :value="rangeValue"
-            @change="handleChange"
-        >
-        </PRangeSlider>`,
+        <PCard sectioned title="Background color">
+            <PRangeSlider
+                v-bind="$props"
+                :value="rangeValue"
+                @change="handleChange"
+            >
+            </PRangeSlider>
+        </PCard>
+    `,
     methods: {
         handleChange(value, id) {
             this.rangeValue = value;
@@ -34,7 +38,6 @@ export const SingleRangeSlider = Template.bind({});
 SingleRangeSlider.args = {
     output: true,
     label: 'Opacity percentage',
-    prefix: '$',
     id: 'Single Slider'
 }
 
