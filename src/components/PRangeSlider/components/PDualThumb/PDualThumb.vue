@@ -9,6 +9,7 @@
             :helpText="helpText"
         >
             <slot name="label" slot="label"/>
+            <slot name="helpText" slot="helpText"/>
             <div class="Polaris-RangeSlider-DualThumb__Wrapper">
                 <div v-if="prefix || $slots.prefix" class="Polaris-RangeSlider-DualThumb__Prefix">
                     <slot name="prefix">
@@ -369,7 +370,7 @@
 
                 const sanitizedValue = this.sanitizeValue(dirtyValue, min, max, step, control);
                 if (sanitizedValue !== value) {
-                    this.$emit('change', value, this.id);
+                    this.$emit('change', sanitizedValue, this.id);
                 }
             },
             registerMouseMoveHandler(event) {

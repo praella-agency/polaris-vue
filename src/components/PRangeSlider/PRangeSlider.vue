@@ -7,6 +7,7 @@
         @blur="handleBlur"
     >
         <slot name="label" slot="label"/>
+        <slot name="helpText" slot="helpText"/>
         <slot name="prefix" slot="prefix"/>
         <slot name="suffix" slot="suffix"/>
     </PDualThumb>
@@ -18,6 +19,7 @@
         @blur="handleBlur"
     >
         <slot name="label" slot="label"/>
+        <slot name="helpText" slot="helpText"/>
         <slot name="prefix" slot="prefix"/>
         <slot name="suffix" slot="suffix"/>
     </PSingleThumb>
@@ -27,7 +29,7 @@
     import { Action } from '../../types';
     import { PDualThumb } from './components/PDualThumb';
     import { PSingleThumb } from './components/PSingleThumb';
-    import { ObjectValidator } from '../../utilities/validators/ObjectValidator';
+    import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
     export default {
         name: 'PRangeSlider',
@@ -48,7 +50,7 @@
             labelAction: {
                 type: Object,
                 default: () => ({}),
-                // ...ObjectValidator('labelAction', Action),
+                ...ObjectValidator('labelAction', Action),
             },
             /**
              * Visually hide the label
@@ -62,7 +64,7 @@
              */
             id: {
                 type: [String, Number],
-                default: null,
+                default: `PolarisRangeSlider-${new Date().getUTCMilliseconds()}`,
             },
             /**
              * Initial value for range input
@@ -140,12 +142,25 @@
         },
         methods: {
             handleChange(value, id) {
+                /**
+                 * Callback when the range input is changed
+                 */
                 this.$emit('change', value, id);
+                /**
+                 * @ignore
+                 */
+                this.$emit('input', value);
             },
             handleFocus(event) {
+                /**
+                 * Callback when the range input is focused
+                 */
                 this.$emit('focus', event);
             },
             handleBlur(event) {
+                /**
+                 * Callback when focus is removed
+                 */
                 this.$emit('blur', event);
             },
         },

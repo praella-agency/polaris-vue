@@ -7,6 +7,8 @@
         :labelHidden="labelHidden"
         :helpText="helpText"
     >
+        <slot name="label" slot="label"/>
+        <slot name="helpText" slot="helpText"/>
         <div
             :class="className"
             :style="cssVars"

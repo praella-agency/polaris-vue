@@ -7,6 +7,108 @@ import { PTextField } from '../PTextField';
 export default {
     title: 'Range Slider',
     component: PRangeSlider,
+    argTypes: {
+        helpText: {
+            description: `**Props**: Additional text to aid in use.
+                \n**Slots**: Customize HelpText.`,
+            control: {
+                type: null,
+            },
+            table: {
+                category: 'Props | Slots',
+                type: {
+                    summary: null,
+                },
+            }
+        },
+        label: {
+            description: `**Props**: Label for the range input.
+                \n**Slots**: Customize Label.`,
+            control: {
+                type: null,
+            },
+            table: {
+                category: 'Props | Slots',
+                type: {
+                    summary: null,
+                },
+            }
+        },
+        prefix: {
+            description: `**Props**: Element to display before the input.
+                \n**Slots**: Customize Prefix.`,
+            control: {
+                type: null,
+            },
+            table: {
+                category: 'Props | Slots',
+                type: {
+                    summary: null,
+                },
+            }
+        },
+        suffix: {
+            description: `**Props**: Element to display after the input.
+                \n**Slots**: Customize Suffix.`,
+            control: {
+                type: null,
+            },
+            table: {
+                category: 'Props | Slots',
+                type: {
+                    summary: null,
+                },
+            }
+        },
+        labelAction: {
+            table: {
+                defaultValue: {
+                    summary: '{}',
+                    detail: `{
+    id: String,
+    content: String,
+    accessibilityLabel: String,
+    url: String,
+    external: Boolean,
+    onAction: Function
+}`,
+                },
+            },
+        },
+        blur: {
+            control: {
+                type: null,
+            },
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: `(event)`,
+                },
+            },
+        },
+        change: {
+            control: {
+                type: null,
+            },
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: `(value, id)`,
+                },
+            },
+        },
+        focus: {
+            control: {
+                type: null,
+            },
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: `(event)`,
+                },
+            },
+        },
+    },
 }
 
 const Template = (args, { argTypes }) => ({
@@ -23,17 +125,11 @@ const Template = (args, { argTypes }) => ({
         <PCard sectioned title="Background color">
             <PRangeSlider
                 v-bind="$props"
-                :value="rangeValue"
-                @change="handleChange"
-            >
-            </PRangeSlider>
+                v-model="rangeValue"
+            ></PRangeSlider>
+            {{ rangeValue }}
         </PCard>
     `,
-    methods: {
-        handleChange(value, id) {
-            this.rangeValue = value;
-        }
-    }
 });
 
 export const SingleRangeSlider = Template.bind({});
@@ -52,95 +148,42 @@ const Template1 = (args, { argTypes }) => ({
     data() {
         return {
             rangeValue: [900, 1000],
-            intermediateTextFieldValue: [900, 1000],
         };
     },
     template: `
         <PCard sectioned title="Minimum requirements">
-            <div @keydown="handleEnterKeyPress">
+            <div>
                 <PRangeSlider
                     v-bind="$props"
-                    :value="rangeValue"
-                    @change="handleChange"
-                >
-                </PRangeSlider>
+                    v-model="rangeValue"
+                ></PRangeSlider>
                 <PStack distribution="equalSpacing" spacing="extraLoose">
                     <PStackItem>
                         <PTextField
                             label="Min money spent"
                             type="number"
-                            v-model="lowerTextFieldValue"
+                            v-model="rangeValue[0]"
                             prefix="$"
                             :min="0"
-                            :max="2000"
+                            :max="rangeValue[1]"
                             :step="10"
-                            @input="handleLowerTextFieldChange"
-                            @blur="handleLowerTextFieldBlur"
                         ></PTextField>
                     </PStackItem>
                     <PStackItem>
                         <PTextField
                             label="Max money spent"
                             type="number"
-                            v-model="upperTextFieldValue"
+                            v-model="rangeValue[1]"
                             prefix="$"
-                            :min="0"
+                            :min="rangeValue[0]"
                             :max="2000"
                             :step="10"
-                            @input="handleUpperTextFieldChange"
-                            @blur="handleUpperTextFieldBlur"
                         ></PTextField>
                     </PStackItem>
                 </PStack>
             </div>
         </PCard>
     `,
-    computed: {
-        lowerTextFieldValue() {
-            return this.intermediateTextFieldValue[0] === this.rangeValue[0]
-                ? this.rangeValue[0]
-                : this.intermediateTextFieldValue[0];
-        },
-        upperTextFieldValue() {
-            return this.intermediateTextFieldValue[1] === this.rangeValue[1]
-                ? this.rangeValue[1]
-                : this.intermediateTextFieldValue[1];
-        },
-    },
-    methods: {
-        handleEnterKeyPress(event) {
-            const newValue = this.intermediateTextFieldValue;
-            const oldValue = this.rangeValue;
-
-            if (event.keyCode === 13 && newValue !== oldValue) {
-                this.rangeValue = newValue;
-            }
-        },
-        handleChange(value, id) {
-            this.rangeValue = value;
-            this.intermediateTextFieldValue = value;
-        },
-        handleLowerTextFieldChange(value) {
-            const upperValue = this.rangeValue[1];
-            this.intermediateTextFieldValue = [parseInt(value, 10), upperValue];
-        },
-        handleUpperTextFieldChange(value) {
-            const lowerValue = this.rangeValue[0];
-            this.intermediateTextFieldValue = [lowerValue, parseInt(value, 10)];
-        },
-        handleLowerTextFieldBlur() {
-            const upperValue = this.rangeValue[1];
-            const value = this.intermediateTextFieldValue[0];
-
-            this.rangeValue = [parseInt(value, 10), upperValue];
-        },
-        handleUpperTextFieldBlur() {
-            const lowerValue = this.rangeValue[0];
-            const value = this.intermediateTextFieldValue[1];
-
-            this.rangeValue = [lowerValue, parseInt(value, 10)];
-        },
-    }
 });
 
 export const DualRangeSlider = Template1.bind({});

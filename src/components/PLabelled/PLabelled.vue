@@ -35,7 +35,9 @@
             class="Polaris-Labelled__HelpText"
             :id="helpTextID"
         >
-            {{ helpText }}
+            <slot name="helpText">
+                {{ helpText }}
+            </slot>
         </div>
     </div>
 </template>
