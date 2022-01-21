@@ -75,6 +75,9 @@
   .Polaris-FloatingLabels__Input:not(:placeholder-shown),
   .Polaris-FloatingLabels__Input:focus {
     padding: 21px 11px 5px;
+    &.Polaris-FloatingLabels__Input--select {
+      padding: 21px 8px 5px;
+    }
   }
 
   .Polaris-FloatingLabels__Input::placeholder {
@@ -108,10 +111,6 @@
     pointer-events: none;
   }
 
-  .Polaris-FloatingLabels__Input--select {
-    padding: 21px 8px 5px !important;
-  }
-
   .Polaris-FloatingField__Caret {
     border-left: 1px rgba(179,179,179,0.5) solid;
     display: block;
@@ -125,4 +124,84 @@
     transform: translate(0%, -50%);
     z-index: 11;
   }
+}
+
+
+
+.Polaris-Select-Floating-Label {
+  position: relative;
+}
+
+.Polaris-Select-Floating-Label .multiselect,
+.Polaris-Select-Floating-Label .multiselect .multiselect__tags {
+  min-height: 46.19px;
+}
+
+.Polaris-Select-Floating-Label .multiselect .multiselect__select {
+  top: 5px;min-height: 41.19px;
+}
+
+.Polaris-Select-Floating-Label .Polaris-Labelled__LabelWrapper {
+  position: absolute;
+  z-index: 51;
+  margin: 11px 0 10px;
+  padding: 0 1rem;
+  line-height: 24px;
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.Polaris-Select-Floating-Label .multiselect.multiselect--active .multiselect__input {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0 .8rem 0 1.2rem;
+}
+
+.Polaris-Select-Floating-Label .multiselect .multiselect__tags {
+  position: relative;
+}
+
+.Polaris-Select-Floating-Label.Polaris-Select--Active .Polaris-Labelled__LabelWrapper,
+.Polaris-Select-Floating-Label.Polaris-Select-Has-Value .Polaris-Labelled__LabelWrapper {
+  font-size: 0.83em;
+  margin-top: 5px;
+  margin-bottom: 0;
+  padding: 0 11px;
+  line-height: 18.2px;
+}
+
+.Polaris-Select-Floating-Label.Polaris-Select--Active .multiselect.multiselect--active .multiselect__input,
+.Polaris-Select-Floating-Label.Polaris-Select-Has-Value .multiselect.multiselect--active .multiselect__input {
+  padding: 21px 11px 5px;
+  line-height: 18.2px;
+}
+
+.Polaris-Select-Floating-Label div.multiselect .multiselect__tags-wrap {
+  margin: 18px 0 0;
+}
+
+.Polaris-Tag.Polaris-Tag--small {
+  min-height: 1.2rem;
+}
+
+.Polaris-Tag.Polaris-Tag--small .Polaris-Tag__Button {
+  width: 1.2rem;
+  height: 2rem;
+  margin-left: 0.2rem;
+  padding-right: 0.15rem;
+}
+
+.Polaris-Tag.Polaris-Tag--small .Polaris-Tag__Button .Polaris-Icon .Polaris-Icon__Svg {
+  max-width: 12px;
+}
+
+.Polaris-Tag.Polaris-Tag--small .Polaris-Tag__Button .Polaris-Icon {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.Polaris-Tag.Polaris-Tag--small .Polaris-Tag__TagText {
+  font-size: 11px;
 }

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="parentClassName">
         <div class="Polaris-Labelled__LabelWrapper">
             <div class="Polaris-Label">
                 <slot name="label">
@@ -22,7 +22,7 @@
                 aria-invalid="false"
                 :options="computedOptions"
                 :track-by="valueField"
-                :placeholder="placeholder"
+                :placeholder="!floatingLabel ? placeholder : null"
                 :searchable="searchable"
                 :multiple="multiple"
                 :taggable="taggable"
@@ -30,6 +30,8 @@
                 :clear-on-select="false"
                 :preserve-search="true"
                 :label="textField"
+                @open="handleOpen"
+                @close="handleClose"
                 @tag="addTag"
                 @search-change="(query) => {$emit('searchChange', query)}"
             >
@@ -42,7 +44,7 @@
                 <template v-slot:selection="{values, search, remove, isOpen}">
                     <div class="multiselect__tags-wrap" v-show="values && values.length > 0">
                         <template v-for="(option, index) of values" @mousedown.prevent>
-                            <PTag :tag='{"value":option[textField], "key":option[valueField]}' removable
+                            <PTag :class="{'Polaris-Tag--small' : floatingLabel}" :tag='{"value":option[textField], "key":option[valueField]}' removable
                                   @remove-tag="remove(option)"/>
                         </template>
                     </div>
@@ -178,9 +180,17 @@
         data() {
             return {
                 selected: this.value,
+                dropdownOpen: false,
             };
         },
         computed: {
+            parentClassName() {
+                return classNames(
+                    this.floatingLabel && 'Polaris-Select-Floating-Label',
+                    this.hasValue && 'Polaris-Select-Has-Value',
+                    this.dropdownOpen && 'Polaris-Select--Active',
+                );
+            },
             className() {
                 return classNames(
                     'Polaris-Select',
@@ -202,6 +212,13 @@
                 });
                 return options;
             },
+          hasValue() {
+            if (this.multiple) {
+              return this.selected && this.selected.length > 0;
+            } else {
+              return !!this.selected;
+            }
+          },
             computedValue: {
                 get() {
                     return this.selected;
@@ -236,6 +253,12 @@
                 this.options.push(tag);
                 this.$emit('change', this.selected);
             },
+          handleOpen() {
+              this.dropdownOpen = true;
+          },
+          handleClose() {
+            this.dropdownOpen = false;
+          },
         },
         watch: {
             value(value) {
