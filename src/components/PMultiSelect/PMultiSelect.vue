@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="floatingLabel" class="Polaris-Labelled__LabelWrapper">
+        <div class="Polaris-Labelled__LabelWrapper">
             <div class="Polaris-Label">
                 <slot name="label">
                     <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text">
