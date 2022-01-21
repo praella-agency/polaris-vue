@@ -373,23 +373,23 @@
                 }
             },
             registerMouseMoveHandler(event) {
-                document.addEventListener('mousemove', event.handler);
+                document.addEventListener('mousemove', event);
                 document.addEventListener(
                     'mouseup',
                     () => {
-                        document.removeEventListener('mousemove', event.handler);
+                        document.removeEventListener('mousemove', event);
                     },
                     {once: true},
                 );
             },
             registerTouchMoveHandler(event) {
                 const removeHandler = () => {
-                    document.removeEventListener('touchmove', event.handler);
+                    document.removeEventListener('touchmove', event);
                     document.removeEventListener('touchend', removeHandler);
                     document.removeEventListener('touchcancel', removeHandler);
                 };
 
-                document.addEventListener('touchmove', event.handler, {passive: false});
+                document.addEventListener('touchmove', event, {passive: false});
                 document.addEventListener('touchend', removeHandler, {once: true});
                 document.addEventListener('touchcancel', removeHandler, {once: true});
             },
