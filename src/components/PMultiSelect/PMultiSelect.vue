@@ -44,8 +44,15 @@
                 <template v-slot:selection="{values, search, remove, isOpen}">
                     <div class="multiselect__tags-wrap" v-show="values && values.length > 0">
                         <template v-for="(option, index) of values" @mousedown.prevent>
-                            <PTag :class="{'Polaris-Tag--small' : floatingLabel}" :tag='{"value":option[textField], "key":option[valueField]}' removable
-                                  @remove-tag="remove(option)"/>
+                            <PTag
+                                :tag="{
+                                    'value': option[textField],
+                                    'key': option[valueField]
+                                }"
+                                removable
+                                :size="floatingLabel ? 'small' : ''"
+                                @remove-tag="remove(option)"
+                            />
                         </template>
                     </div>
                     <template slot="limit"></template>
@@ -212,13 +219,13 @@
                 });
                 return options;
             },
-          hasValue() {
-            if (this.multiple) {
-              return this.selected && this.selected.length > 0;
-            } else {
-              return !!this.selected;
-            }
-          },
+            hasValue() {
+                if (this.multiple) {
+                    return this.selected && this.selected.length > 0;
+                } else {
+                    return !!this.selected;
+                }
+            },
             computedValue: {
                 get() {
                     return this.selected;
@@ -253,12 +260,12 @@
                 this.options.push(tag);
                 this.$emit('change', this.selected);
             },
-          handleOpen() {
-              this.dropdownOpen = true;
-          },
-          handleClose() {
-            this.dropdownOpen = false;
-          },
+            handleOpen() {
+                this.dropdownOpen = true;
+            },
+            handleClose() {
+                this.dropdownOpen = false;
+            },
         },
         watch: {
             value(value) {

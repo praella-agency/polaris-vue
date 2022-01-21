@@ -227,11 +227,15 @@ const Template4 = (args, {argTypes}) => ({
     },
     template: `
         <PTextField
-            floating-label
-            label="Last name"
+            v-bind="$props"
             v-model="formData"
         />
     `
 });
 
 export const FloatingLabels = Template4.bind({});
+
+FloatingLabels.args = {
+    floatingLabel: true,
+    label: 'Sort By'
+}

@@ -1,0 +1,97 @@
+.Polaris-Tag {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  min-height: 2.8rem;
+  padding: 0 .8rem;
+  background-color: $tag-bgcolor;
+  border-radius: $tag-border-radius;
+  color: $tag-color;
+
+  .Polaris-Tag__TagText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &.Polaris-Tag--removable {
+    padding-right: 0;
+  }
+}
+
+.Polaris-Tag.Polaris-Tag--disabled {
+  transition: none;
+  background: $tag-disabled-bgcolor;
+  color: $tag-disabled-color;
+
+  svg {
+    fill: $tag-disabled-svg-fill;
+  }
+}
+
+.Polaris-Tag__Button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  background: $tag-btn-bgcolor;
+  border: $tag-btn-border;
+  font-size: $tag-btn-font-size;
+  line-height: $tag-btn-line-height;
+  cursor: pointer;
+  display: block;
+  height: 2.8rem;
+  width: 2.8rem;
+  margin-left: 0.4rem;
+  border-radius: $tag-btn-border-radius;
+  position: relative;
+  svg {
+    fill: $tag-btn-svg-fill;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    background: $tag-btn-active-bgcolor;
+  }
+
+  &:hover {
+    background: $tag-btn-hover-bgcolor;
+    outline: 0.1rem solid transparent;
+
+  }
+
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
+
+    svg {
+      fill: $tag-btn-disabled-svg-fill;
+    }
+  }
+}
+
+.Polaris-Tag.Polaris-Tag--small {
+  min-height: 1.2rem;
+}
+
+.Polaris-Tag.Polaris-Tag--small .Polaris-Tag__Button {
+  width: 1.2rem;
+  height: 2rem;
+  margin-left: 0.2rem;
+  padding-right: 0.15rem;
+}
+
+.Polaris-Tag.Polaris-Tag--small .Polaris-Tag__Button .Polaris-Icon .Polaris-Icon__Svg {
+  max-width: 12px;
+}
+
+.Polaris-Tag.Polaris-Tag--small .Polaris-Tag__Button .Polaris-Icon {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.Polaris-Tag.Polaris-Tag--small .Polaris-Tag__TagText {
+  font-size: 11px;
+}
