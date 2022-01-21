@@ -16,10 +16,13 @@ export default {
                 },
             },
         },
-        id: {
+        label: {
+            description: `**Props**: Label for the select.
+             \n**Slots**: Customize label.`,
             table: {
+                category: 'Props | Slots',
                 type: {
-                    summary: 'string | number',
+                    summary: null,
                 },
             },
         },

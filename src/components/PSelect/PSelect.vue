@@ -32,7 +32,9 @@
                 </option>
             </select>
             <label v-if="floatingLabel" :for="id" class="Polaris-Floating--label Polaris-Floating--label--select Polaris-Floating--label--visible">
-                {{ label }}
+                <slot name="label">
+                    {{ label }}
+                </slot>
             </label>
             <div v-if="!floatingLabel" class="Polaris-Select__Content" aria-hidden="true" :aria-disabled="disabled">
                 <span v-if="inlineLabel" class="Polaris-Select__InlineLabel">{{ inlineLabel }}</span>

@@ -38,16 +38,6 @@ export default {
                 },
             },
         },
-        label: {
-            control: {
-                type: 'text',
-            },
-            table: {
-                type: {
-                    summary: 'string',
-                },
-            },
-        },
         input: {
             table: {
                 type: {
@@ -89,10 +79,16 @@ export default {
             },
             description: 'Indicates whether or not the character count should be displayed',
         },
-        id: {
+        label: {
+            description: `**Props**: Label for the select.
+             \n**Slots**: Customize label.`,
+            control: {
+                type: 'text',
+            },
             table: {
+                category: 'Props | Slots',
                 type: {
-                    summary: 'string | number',
+                    summary: null,
                 },
             },
         },

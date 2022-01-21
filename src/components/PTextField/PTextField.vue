@@ -42,6 +42,7 @@
             :label="label"
         >
             <slot name="prefix" slot="prefix"></slot>
+            <slot name="label" slot="label"></slot>
             <slot name="suffix" slot="suffix"></slot>
         </PInput>
         <div class="Polaris-Labelled__HelpText" v-if="helpText">{{ helpText }}</div>

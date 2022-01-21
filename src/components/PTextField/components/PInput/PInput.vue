@@ -85,7 +85,9 @@
            :class="floatingLabelClassName"
             :for="id"
         >
-            {{ label }}
+            <slot name="label">
+                {{ label }}
+            </slot>
         </label>
         <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" v-if="showSuffix">
             {{ suffix }}
