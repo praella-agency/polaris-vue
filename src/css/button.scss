@@ -425,6 +425,13 @@
   color: $p-interactive-critical;
 }
 
+.Polaris-Button--outline.Polaris-Button--primary {
+  background: transparent;
+  border: 0.1rem solid rgba(0, 128, 96, 1);
+  box-shadow: none;
+  color: rgba(0, 128, 96, 1);
+}
+
 .Polaris-Button--outline.Polaris-Button--destructive svg {
   fill: $p-icon-critical;
 }
