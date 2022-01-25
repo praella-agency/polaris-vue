@@ -26,7 +26,7 @@
 
   .Polaris-Floating--label__prefix {
     border-radius: 0 0.4rem 0.4rem 0;
-    left: 40px;
+    left: 28px;
   }
 
   .Polaris-Floating--label__suffix {
@@ -126,6 +126,36 @@
     transform: translate(0%, -50%);
     z-index: 11;
   }
+
+  .Polaris-TextField--disabled {
+    .Polaris-FloatingLabels__Input {
+      color: #919eab;
+    }
+  }
+
+  .Polaris-TextField {
+    >.Polaris-FloatingLabels__Input~.Polaris-TextField__Backdrop {
+      background-color: #FFFFFF;
+    }
+  }
+
+  .Polaris-TextField--error {
+    .Polaris-FloatingLabels__Input--error {
+      background-color: $textfield-error-input-backdrop-bgcolor;
+      border-color: $textfield-error-input-backdrop-border-color;
+      &:after {
+        border-color: $textfield-error-input-backdrop-after-border-color;
+      }
+    }
+
+    >.Polaris-FloatingLabels__Input~.Polaris-TextField__Backdrop {
+      background-color: $textfield-error-input-backdrop-bgcolor;
+      border-color: $textfield-error-input-backdrop-border-color;
+      &:after {
+        border-color: $textfield-error-input-backdrop-after-border-color;
+      }
+    }
+  }
 }
 
 
@@ -218,28 +248,4 @@
 
 .Polaris-Select--Active .Polaris-FloatingLabels__Input--select {
   padding: 21px 9px 5px 9px;
-}
-
-.Polaris-Floating .Polaris-TextField {
-  >.Polaris-FloatingLabels__Input~.Polaris-TextField__Backdrop {
-    background-color: #FFFFFF;
-  }
-}
-
-.Polaris-Floating .Polaris-TextField--error {
-  .Polaris-FloatingLabels__Input--error {
-    background-color: $textfield-error-input-backdrop-bgcolor;
-    border-color: $textfield-error-input-backdrop-border-color;
-    &:after {
-      border-color: $textfield-error-input-backdrop-after-border-color;
-    }
-  }
-
-  >.Polaris-FloatingLabels__Input~.Polaris-TextField__Backdrop {
-    background-color: $textfield-error-input-backdrop-bgcolor;
-    border-color: $textfield-error-input-backdrop-border-color;
-    &:after {
-      border-color: $textfield-error-input-backdrop-after-border-color;
-    }
-  }
 }

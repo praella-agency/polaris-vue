@@ -34,7 +34,7 @@
 
         <PInput
             v-else
-            v-bind="[$attrs,$props]"
+            v-bind="[$attrs, $props]"
             v-on="$listeners"
             :hasError="!!error"
             :id="id"
@@ -186,7 +186,13 @@
             floatingLabel: {
                 type: Boolean,
                 default: false,
-            }
+            },
+            /**
+             * Disable editing of the input
+             */
+            readOnly: {
+                type: Boolean,
+            },
         },
         computed: {
             className() {
