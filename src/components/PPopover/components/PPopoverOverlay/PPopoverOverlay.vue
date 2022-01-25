@@ -59,5 +59,8 @@
                 this.$emit('scrollout');
             }
         },
+        beforeDestroy() {
+            this.$emit('close');
+        }
     }
 </script>
