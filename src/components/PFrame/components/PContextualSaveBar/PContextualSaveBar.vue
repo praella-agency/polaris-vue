@@ -4,7 +4,7 @@
       <slot name="contextControl"/>
     </div>
     <div
-        v-if="!alignContentFlush || !$slots.hasOwnProperty('contextControl')"
+        v-if="Object.keys(logo).length && !alignContentFlush && !$slots.hasOwnProperty('contextControl')"
         class="Polaris-Frame-ContextualSaveBar__LogoContainer"
         :style="width"
     >
