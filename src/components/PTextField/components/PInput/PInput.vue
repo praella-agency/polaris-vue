@@ -285,7 +285,8 @@
                     this.inputClass,
                     this.align && `Polaris-TextField__Input Polaris-TextField__Input--align${this.textAlign}`,
                     (this.floatingLabel && this.multiline) && 'Polaris-FloatingLabel__TextArea',
-                    this.showPrefix && 'Polaris-FloatingLabels__Input--prefix',
+                    (this.floatingLabel && this.showPrefix) && 'Polaris-FloatingLabels__Input--prefix',
+                    (this.floatingLabel && this.showSuffix) && 'Polaris-FloatingLabels__Input--suffix',
                     (this.showCharacterCount || this.type === 'number') && 'Polaris-FloatingLabels__Input--number'
                 );
             },
@@ -305,7 +306,8 @@
                 return classNames(
                     'Polaris-Floating--label',
                     'Polaris-Floating--label--visible',
-                    this.showPrefix && 'Polaris-Floating--label__prefix'
+                    this.showPrefix && 'Polaris-Floating--label__prefix',
+                    this.showSuffix && 'Polaris-Floating--label__suffix',
                 );
             },
             characterCountText() {

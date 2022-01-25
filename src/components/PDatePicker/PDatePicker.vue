@@ -1,6 +1,6 @@
 <template>
     <div :class="labelHidden && 'Polaris-Labelled--hidden'">
-        <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.hasOwnProperty('label')"
+        <div class="Polaris-Labelled__LabelWrapper" v-if="!floatingLabel && (label || emptyLabel || $slots.hasOwnProperty('label'))"
              :class="labelClass">
             <!-- @slot Display label for the element -->
             <slot name="label">
@@ -44,18 +44,19 @@
                 </PStack>
             </template>
             <template v-slot:input="picker" style="min-width: 100%">
-                <PTextField v-if="!button" readOnly aria-readonly="true" :value="computedTextValue(picker)"
+                <PTextField v-if="!button" floating-label readOnly aria-readonly="true" :value="computedTextValue(picker)"
                             style="min-width:100%" labelHidden>
-                    <template slot="suffix">
-                        <PStack slot="suffix">
-                            <PStackItem>
-                                <PIcon source="CalendarMajor"/>
-                            </PStackItem>
-                            <PStackItem v-if="clearable">
-                                <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
-                            </PStackItem>
-                        </PStack>
-                    </template>
+                    <slot slot="label" name="label">
+                        {{ label }}
+                    </slot>
+                    <PStack slot="suffix">
+                        <PStackItem>
+                            <PIcon source="CalendarMajor"/>
+                        </PStackItem>
+                        <PStackItem v-if="clearable">
+                            <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
+                        </PStackItem>
+                    </PStack>
                     <template v-if="showPrefix" slot="prefix">
                         {{ prefix }}
                     </template>
@@ -364,6 +365,13 @@
                 type: [String, Object],
                 ...ObjectValidator('value', ValueInterface),
             },
+            /**
+             * Create beautifully simple form labels that float over your input fields
+             */
+            floatingLabel: {
+                type: Boolean,
+                default: false,
+            }
         },
         data() {
             return {
@@ -443,13 +451,13 @@
                     if (picker.startDate && picker.endDate) {
                         return (`${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}`);
                     } else {
-                        return this.placeholder;
+                        return !this.floatingLabel ? this.placeholder : null;
                     }
                 } else {
                     if (picker.startDate) {
                         return this.formatDate(picker.startDate);
                     } else {
-                        return this.placeholder;
+                        return !this.floatingLabel ? this.placeholder : null;
                     }
                 }
             },
