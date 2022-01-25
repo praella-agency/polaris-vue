@@ -133,119 +133,156 @@
     }
   }
 
-  .Polaris-TextField {
-    >.Polaris-FloatingLabels__Input~.Polaris-TextField__Backdrop {
-      background-color: #FFFFFF;
-    }
-  }
-
   .Polaris-TextField--error {
     .Polaris-FloatingLabels__Input--error {
       background-color: $textfield-error-input-backdrop-bgcolor;
       border-color: $textfield-error-input-backdrop-border-color;
+
       &:after {
         border-color: $textfield-error-input-backdrop-after-border-color;
       }
     }
 
-    >.Polaris-FloatingLabels__Input~.Polaris-TextField__Backdrop {
+    > .Polaris-FloatingLabels__Input ~ .Polaris-TextField__Backdrop {
       background-color: $textfield-error-input-backdrop-bgcolor;
       border-color: $textfield-error-input-backdrop-border-color;
+
       &:after {
         border-color: $textfield-error-input-backdrop-after-border-color;
       }
     }
   }
-}
 
+  .Polaris-TextField--readOnly {
+    .Polaris-FloatingLabels__Input {
+      background-color: #f9fafb;
+    }
+  }
+}
 
 .Polaris-Select-Floating-Label {
   position: relative;
+
+  .Polaris-FloatingLabels__Input--select {
+    position: relative;
+    border-radius: $p-border-radius-base;
+    display: block;
+    width: 100%;
+    padding: 13px 11px;
+    line-height: 18.2px;
+    -webkit-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    color: $textfield-color;
+    font-size: 1.4rem;
+    font-weight: $textfield-font-weight;
+    z-index: 11;
+    background-color: #ffffff;
+    border: 0.1rem solid #c9cccf;
+    box-shadow: 0 0 0 -0.2rem #2C6ECB;
+    white-space: nowrap;
+    appearance: none;
+  }
+
+  .multiselect,
+  .multiselect .multiselect__tags {
+    min-height: 46.2px;
+  }
+
+  .multiselect .multiselect__select {
+    top: 5px;
+    min-height: 41.2px;
+    z-index: 11;
+  }
+
+  .Polaris-Labelled__LabelWrapper {
+    position: absolute;
+    z-index: 51;
+    margin: 11px 0 10px;
+    padding: 0 1rem;
+    line-height: 24px;
+    -webkit-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+
+  .multiselect.multiselect--active .multiselect__input {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 .8rem 0 1.2rem;
+  }
+
+  .multiselect .multiselect__tags {
+    position: relative;
+  }
+
+  div.multiselect .multiselect__tags-wrap {
+    margin: 18px 0 0;
+  }
 }
 
-.Polaris-Select-Floating-Label .multiselect,
-.Polaris-Select-Floating-Label .multiselect .multiselect__tags {
-  min-height: 46.19px;
+.Polaris-Select-Floating-Label.Polaris-Select--Active {
+  .Polaris-Labelled__LabelWrapper {
+    font-size: 0.83em;
+    margin-top: 5px;
+    margin-bottom: 0;
+    padding: 0 11px;
+    line-height: 18.2px;
+  }
+
+  .multiselect__input {
+    line-height: 18.2px;
+    min-height: 18px;
+    margin: 21px 0 0;
+  }
+
+  .multiselect.multiselect--active {
+    .multiselect__input {
+      padding: 21px 11px 5px;
+      line-height: 18.2px;
+    }
+  }
+
+  .multiselect__input {
+    line-height: 18.2px;
+    min-height: 18px;
+    margin: 21px 0 0;
+  }
 }
 
-.Polaris-Select-Floating-Label .multiselect .multiselect__select {
-  top: 5px;
-  min-height: 41.19px;
+.Polaris-Select-Floating-Label.Polaris-Select-Has-Value {
+  .Polaris-Labelled__LabelWrapper {
+    font-size: 0.83em;
+    margin-top: 5px;
+    margin-bottom: 0;
+    padding: 0 11px;
+    line-height: 18.2px;
+  }
+
+  .multiselect.multiselect--active {
+    .multiselect__input {
+      padding: 21px 11px 5px;
+      line-height: 18.2px;
+    }
+  }
 }
 
-.Polaris-Select-Floating-Label .Polaris-Labelled__LabelWrapper {
-  position: absolute;
-  z-index: 51;
-  margin: 11px 0 10px;
-  padding: 0 1rem;
-  line-height: 24px;
-  -webkit-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-  -webkit-font-smoothing: subpixel-antialiased;
+.Polaris-Select--Active {
+  .Polaris-FloatingLabels__Input--select {
+    padding: 21px 9px 5px 9px;
+  }
 }
 
-.Polaris-Select-Floating-Label .multiselect.multiselect--active .multiselect__input {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: 0 .8rem 0 1.2rem;
-}
+.vue-daterange-picker {
+  .Polaris-Floating {
+    .Polaris-TextField--readOnly {
+      .Polaris-FloatingLabels__Input {
+        background-color: revert;
+      }
+    }
 
-.Polaris-Select-Floating-Label .multiselect .multiselect__tags {
-  position: relative;
-}
-
-.Polaris-Select-Floating-Label.Polaris-Select--Active .Polaris-Labelled__LabelWrapper,
-.Polaris-Select-Floating-Label.Polaris-Select-Has-Value .Polaris-Labelled__LabelWrapper {
-  font-size: 0.83em;
-  margin-top: 5px;
-  margin-bottom: 0;
-  padding: 0 11px;
-  line-height: 18.2px;
-}
-
-.Polaris-Select-Floating-Label.Polaris-Select--Active .multiselect__input {
-  line-height: 18.2px;
-  min-height: 18px;
-  margin: 21px 0 0;
-}
-
-.Polaris-Select-Floating-Label.Polaris-Select--Active .multiselect.multiselect--active .multiselect__input,
-.Polaris-Select-Floating-Label.Polaris-Select-Has-Value .multiselect.multiselect--active .multiselect__input {
-  padding: 21px 11px 5px;
-  line-height: 18.2px;
-}
-
-.Polaris-Select-Floating-Label div.multiselect .multiselect__tags-wrap {
-  margin: 18px 0 0;
-}
-
-.Polaris-FloatingLabels__Input--select {
-  position: relative;
-  border: $textfield-backdrop-border;
-  border-radius: $p-border-radius-base;
-  display: block;
-  width: 100%;
-  padding: 13px 11px;
-  line-height: 18.2px;
-  -webkit-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-  color: $textfield-color;
-  font-size: 1.4rem;
-  font-weight: $textfield-font-weight;
-  z-index: 11;
-  background-color: #ffffff;
-  border: 0.1rem solid #c9cccf;
-  box-shadow: 0 0 0 -0.2rem #2C6ECB;
-  white-space: nowrap;
-  appearance: none;
-}
-
-.Polaris-FloatingLabels__Input--select::after {
-  box-shadow: 0 0 0 0.2rem #458fff;
-  outline: 0.1rem solid transparent;
-}
-
-.Polaris-Select--Active .Polaris-FloatingLabels__Input--select {
-  padding: 21px 9px 5px 9px;
+    .Polaris-TextField__Backdrop {
+        background-color: #FFFFFF;
+    }
+  }
 }

@@ -36,8 +36,11 @@
                 @search-change="(query) => {$emit('searchChange', query)}"
             >
                 <template slot="caret">
-                    <div class="multiselect__select">
+                    <div v-if="!floatingLabel" class="multiselect__select">
                         <PIcon source="SelectMinor"/>
+                    </div>
+                    <div v-else class="multiselect__select">
+                        <PIcon source="CaretDownMinor"/>
                     </div>
                 </template>
 
