@@ -75,9 +75,6 @@
   .Polaris-FloatingLabels__Input:not(:placeholder-shown),
   .Polaris-FloatingLabels__Input:focus {
     padding: 21px 11px 5px;
-    &.Polaris-FloatingLabels__Input--select {
-      padding: 21px 8px 5px;
-    }
   }
 
   .Polaris-FloatingLabels__Input::placeholder {
@@ -97,14 +94,6 @@
   .Polaris-FloatingLabel__TextArea {
     min-height: 46.2px;
     flex: 1 1;
-  }
-
-  .Polaris-FloatingLabels__Input--select {
-    background-color: #ffffff;
-    border: 0.1rem solid #c9cccf;
-    box-shadow: 0 0 0 -0.2rem #2C6ECB;
-    white-space: nowrap;
-    appearance: none;
   }
 
   .Polaris-Floating--label--select {
@@ -187,3 +176,29 @@
 .Polaris-Select-Floating-Label div.multiselect .multiselect__tags-wrap {
   margin: 18px 0 0;
 }
+
+.Polaris-FloatingLabels__Input--select {
+  position: relative;
+  border: $textfield-backdrop-border;
+  border-radius: $p-border-radius-base;
+  display: block;
+  width: 100%;
+  padding: 13px 11px;
+  line-height: 18.2px;
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  color: $textfield-color;
+  font-size: 1.4rem;
+  font-weight: $textfield-font-weight;
+  z-index: 11;
+  background-color: #ffffff;
+  border: 0.1rem solid #c9cccf;
+  box-shadow: 0 0 0 -0.2rem #2C6ECB;
+  white-space: nowrap;
+  appearance: none;
+}
+
+.Polaris-Select--Active .Polaris-FloatingLabels__Input--select {
+  padding: 21px 9px 5px 9px;
+}
+

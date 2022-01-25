@@ -84,5 +84,4 @@ Select.args = {
         {label: 'Last name A–Z', value: 'lastNameAlpha', hidden: true},
         {label: 'Last name Z–A', value: 'lastNameReverseAlpha'},
     ],
-    placeholder: 'Select Option',
 }

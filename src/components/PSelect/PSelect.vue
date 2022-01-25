@@ -1,6 +1,6 @@
 <template>
-    <div :class="(floatingLabel || labelHidden) && 'Polaris-Labelled--hidden'">
-        <div class="Polaris-Labelled__LabelWrapper" v-if="!floatingLabel && (label || emptyLabel || $slots.label)">
+    <div :class="parentClassName">
+        <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.label">
             <div class="Polaris-Label">
                 <slot name="label">
                     <label
@@ -31,11 +31,6 @@
                     {{ option[textField] }}
                 </option>
             </select>
-            <label v-if="floatingLabel" :for="id" class="Polaris-Floating--label Polaris-Floating--label--select Polaris-Floating--label--visible">
-                <slot name="label">
-                    {{ label }}
-                </slot>
-            </label>
             <div v-if="!floatingLabel" class="Polaris-Select__Content" aria-hidden="true" :aria-disabled="disabled">
                 <span v-if="inlineLabel" class="Polaris-Select__InlineLabel">{{ inlineLabel }}</span>
                 <span class="Polaris-Select__SelectedOption">{{ selectedOption }}</span>
@@ -46,7 +41,7 @@
             <div v-else class="Polaris-FloatingField__Caret">
                 <PIcon source="CaretDownMinor"/>
             </div>
-            <div class="Polaris-Select__Backdrop"></div>
+            <div v-if="!floatingLabel" class="Polaris-Select__Backdrop"></div>
         </div>
         <PFieldError v-if="error" :error="error"/>
     </div>
@@ -189,6 +184,13 @@
             };
         },
         computed: {
+            parentClassName() {
+                return classNames(
+                    this.floatingLabel && 'Polaris-Select-Floating-Label',
+                    this.selected && 'Polaris-Select--Active',
+                    this.labelHidden && 'Polaris-Labelled--hidden',
+                );
+            },
             className() {
                 return classNames(
                     'Polaris-Select',
@@ -200,13 +202,13 @@
             selectClassName() {
                 return classNames(
                     this.floatingLabel
-                        ? 'Polaris-FloatingLabels__Input Polaris-FloatingLabels__Input--select'
+                        ? 'Polaris-FloatingLabels__Input--select'
                         : 'Polaris-Select__Input',
-                )
+                );
             },
             computedOptions() {
                 const options = [];
-                if (this.placeholder) {
+                if (this.placeholder && !this.floatingLabel) {
                     options.push({
                         [this.textField]: this.placeholder,
                         [this.valueField]: PLACEHOLDER_VALUE,
