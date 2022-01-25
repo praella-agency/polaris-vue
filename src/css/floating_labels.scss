@@ -76,6 +76,10 @@
     border-right: none;
   }
 
+  .Polaris-FloatingLabels__Input--prefix.Polaris-FloatingLabels__Input--suffix {
+    border-radius: 0;
+  }
+
   .Polaris-FloatingLabels__Input--number {
     border-radius: 0.4rem 0 0 0.4rem;
     border-right: none;
@@ -216,3 +220,26 @@
   padding: 21px 9px 5px 9px;
 }
 
+.Polaris-Floating .Polaris-TextField {
+  >.Polaris-FloatingLabels__Input~.Polaris-TextField__Backdrop {
+    background-color: #FFFFFF;
+  }
+}
+
+.Polaris-Floating .Polaris-TextField--error {
+  .Polaris-FloatingLabels__Input--error {
+    background-color: $textfield-error-input-backdrop-bgcolor;
+    border-color: $textfield-error-input-backdrop-border-color;
+    &:after {
+      border-color: $textfield-error-input-backdrop-after-border-color;
+    }
+  }
+
+  >.Polaris-FloatingLabels__Input~.Polaris-TextField__Backdrop {
+    background-color: $textfield-error-input-backdrop-bgcolor;
+    border-color: $textfield-error-input-backdrop-border-color;
+    &:after {
+      border-color: $textfield-error-input-backdrop-after-border-color;
+    }
+  }
+}

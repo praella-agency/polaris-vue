@@ -44,8 +44,19 @@
                 </PStack>
             </template>
             <template v-slot:input="picker" style="min-width: 100%">
-                <PTextField v-if="!button" floating-label readOnly aria-readonly="true" :value="computedTextValue(picker)"
-                            style="min-width:100%" labelHidden>
+                <PTextField
+                    v-if="!button"
+                    :floating-label="floatingLabel"
+                    readOnly
+                    aria-readonly="true"
+                    :value="computedTextValue(picker)"
+                    labelHidden
+                    :error="hasError"
+                    style="min-width:100%"
+                >
+                    <template slot="error">
+                        <PVisuallyHidden>{{ error }}</PVisuallyHidden>
+                    </template>
                     <slot slot="label" name="label">
                         {{ label }}
                     </slot>
@@ -91,7 +102,7 @@
                 {{ helpText }}
             </slot>
         </div>
-        <PFieldError v-if="error" :error="error"/>
+        <PFieldError v-if="hasError" :error="error"/>
     </div>
 </template>
 
@@ -107,6 +118,7 @@
     import { PCard } from '../../components/PCard';
     import { PSelect } from '../../components/PSelect';
     import { PTextField } from '../../components/PTextField';
+    import { PVisuallyHidden } from '../PVisuallyHidden';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
     const DateType = [Date, String];
@@ -142,7 +154,7 @@
         name: 'PDatePicker',
         components: {
             DateRangePicker: require('vue2-daterange-picker').default,
-            PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField,
+            PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField, PVisuallyHidden,
         },
         props: {
             /**

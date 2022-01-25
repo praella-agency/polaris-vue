@@ -92,11 +92,27 @@ export default {
                 },
             },
         },
+        error: {
+            description: `**Props**: Text field has error.
+             \n**Slots**: Customize Error.`,
+            control: {
+                type: 'text',
+            },
+            table: {
+                category: 'Props | Slots',
+                type: {
+                    summary: null,
+                },
+            },
+        },
         connectedLeft: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
         connectedRight: {
@@ -104,6 +120,9 @@ export default {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },
@@ -144,7 +163,7 @@ const Template1 = (args, {argTypes}) => ({
     },
     template: `
         <PTextField v-bind="$props">
-            <PIcon source="EmailMajor" slot="prefix"/>
+            <PIcon source="EmailMajor" slot="suffix"/>
         </PTextField>`,
 });
 

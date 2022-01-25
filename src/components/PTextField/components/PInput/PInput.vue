@@ -287,7 +287,8 @@
                     (this.floatingLabel && this.multiline) && 'Polaris-FloatingLabel__TextArea',
                     (this.floatingLabel && this.showPrefix) && 'Polaris-FloatingLabels__Input--prefix',
                     (this.floatingLabel && this.showSuffix) && 'Polaris-FloatingLabels__Input--suffix',
-                    (this.showCharacterCount || this.type === 'number') && 'Polaris-FloatingLabels__Input--number'
+                    (this.showCharacterCount || this.type === 'number') && 'Polaris-FloatingLabels__Input--number',
+                    (this.floatingLabel && this.hasError) && 'Polaris-FloatingLabels__Input--error',
                 );
             },
             characterCountClassName() {

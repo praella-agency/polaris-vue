@@ -46,7 +46,10 @@
             <slot name="suffix" slot="suffix"></slot>
         </PInput>
         <div class="Polaris-Labelled__HelpText" v-if="helpText">{{ helpText }}</div>
-        <PFieldError v-if="error" :error="error"/>
+        <!-- @slot Customize Error -->
+        <slot name="error">
+            <PFieldError v-if="error" :error="error"/>
+        </slot>
     </div>
 </template>
 

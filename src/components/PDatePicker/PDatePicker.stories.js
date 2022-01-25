@@ -81,4 +81,5 @@ DatePicker.args = {
     id: "pDatePicker",
     singleDatePicker: true,
     placeholder: "Select Date",
+    label: "Date Picker",
 }
