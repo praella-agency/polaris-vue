@@ -4,6 +4,7 @@
             {{ prefix }}
             <slot v-if="$slots.prefix" name="prefix"/>
         </div>
+      <div style="width: 100%">
         <quill-editor
             v-if="richEditor"
             :id="id"
@@ -89,6 +90,7 @@
                 {{ label }}
             </slot>
         </label>
+      </div>
         <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" v-if="showSuffix">
             {{ suffix }}
             <slot v-if="$slots.suffix" name="suffix"></slot>
