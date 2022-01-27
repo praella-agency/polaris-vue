@@ -251,14 +251,11 @@
                 editorConfig: {
                     modules: {
                         toolbar: [
-                            [{header: [1, 2, 3, 4, 5, 6, false]}],
-
-                            ['bold', 'italic', 'underline', 'strike', 'link'],
+                            [{header: [1, 2, 3, 4, 5, 6, false]}, 'blockquote'],
+                            ['bold', 'italic', 'underline', { 'color': [] }, { 'background': [] }],
                             [{align: []}],
-                            ['blockquote', 'code-block'],
-                            [{list: 'ordered'}, {list: 'bullet'}],
-                            [{indent: '-1'}, {indent: '+1'}],
-                            ['image', 'video'],
+                            ['link', 'image', 'video'],
+                            [{list: 'ordered'}, {list: 'bullet'}, {indent: '-1'}, {indent: '+1'}, 'clean'],
                         ],
                         syntax: {
                             highlight: text => text,
