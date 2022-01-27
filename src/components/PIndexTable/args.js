@@ -6,6 +6,7 @@ export default {
                 detail: `[{
     content: string,
     onAction: void,
+    icon: string,
 }]`,
             },
         },
@@ -30,6 +31,10 @@ export default {
                 detail: `[{
     content: string,
     onAction: void,
+    icon: {
+        source: string,
+        color: string,
+    },
 }]`,
             },
         },

@@ -6,13 +6,24 @@
         <PButton
             :external="external"
             :url="url"
-            :icon="icon"
             :aria-label="accessibilityLabel"
             @click="$emit('action')"
             :disabled="disabled"
             :disclosure="disclosure"
         >
-            {{ content }}
+            <template v-if="Object.keys(icon).length">
+                <PStack alignment="center">
+                    <PStackItem>
+                        <PIcon :source="icon.source" :color="icon.color"/>
+                    </PStackItem>
+                    <PStackItem style="margin-left: 0.8rem;">
+                        {{content}}
+                    </PStackItem>
+                </PStack>
+            </template>
+            <template v-else>
+                {{ content }}
+            </template>
         </PButton>
         <span
             v-if="indicator"
@@ -23,11 +34,14 @@
 
 <script>
     import { PButton } from '../../../../components/PButton';
+    import { PIcon } from '../../../../components/PIcon';
+    import { PStack } from '../../../../components/PStack';
+    import { PStackItem } from '../../../../components/PStack/components/PStackItem';
 
     export default {
         name: 'PBulkActionButton',
         components: {
-            PButton,
+            PButton, PIcon, PStack, PStackItem,
         },
         props: {
             url: {
@@ -58,8 +72,8 @@
                 default: false,
             },
             icon: {
-                type: String,
-                default: null,
+                type: Object,
+                default: () => ({}),
             },
         },
         mounted() {

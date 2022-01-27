@@ -95,7 +95,7 @@ export const DestructableAction = {
 // Note: Changed icon: IconProps.source type
 export const IconableAction = {
     ...Action,
-    icon: String,
+    icon: [String, Object],
 }
 
 

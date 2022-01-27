@@ -27,6 +27,12 @@ export default {
                     detail: `{
     /** Content the action displays */
     content?: string,
+    /** Accessibility Label */
+    accessibilityLabel?: string,
+    /** Icon support */
+    icon?: string,
+    /** Disable element */
+    disabled?: boolean,
     /** Callback when an action takes place */
     onAction?(): void,
 }`,

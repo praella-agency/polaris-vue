@@ -37,8 +37,8 @@
                 default: null,
             },
             icon: {
-                type: String,
-                default: null,
+                type: Object,
+                default: () => ({}),
             },
             actions: {
                 type: Array,
