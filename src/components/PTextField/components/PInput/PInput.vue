@@ -4,93 +4,93 @@
             {{ prefix }}
             <slot v-if="$slots.prefix" name="prefix"/>
         </div>
-      <div style="width: 100%">
-        <quill-editor
-            v-if="richEditor"
-            :id="id"
-            class="editor"
-            ref="myTextEditor"
-            v-model="computedValue"
-            :options="editorConfig"
-            @input="onInput"
-            :disabled="disabled"
-            :readonly="readOnly"
-            :autofocus="autoFocus"
-            :placeholder="computedPlaceholder"
-            :autocomplete="normalizeAutoComplete(autoComplete)"
-            :aria-describedby="describedBy"
-            :aria-labelledby="labelledBy"
-            :aria-invalid="hasError"
-        />
-        <textarea
-            v-else-if="multiline"
-            :name="name"
-            :class="inputClassName"
-            :id="id"
-            :disabled="disabled"
-            :readonly="readOnly"
-            :autofocus="autoFocus"
-            :value="computedValue"
-            :minlength="minLength"
-            :maxlength="maxLength"
-            v-text="multiline?computedValue:''"
-            :placeholder="computedPlaceholder"
-            :autocomplete="normalizeAutoComplete(autoComplete)"
-            :style="computedStyle"
-            :aria-describedby="describedBy"
-            :aria-labelledby="labelledBy"
-            :aria-invalid="hasError"
-            @input="onInput"
-        />
-        <input
-            v-else-if="type === 'file'"
-            ref="input"
-            :name="name"
-            :class="inputClassName"
-            :id="id"
-            :disabled="disabled"
-            :readonly="readOnly"
-            type="file"
-            :multiple="multiple"
-            :accept="accept"
-            :aria-describedby="describedBy"
-            :aria-labelledby="labelledBy"
-            :aria-invalid="hasError"
-            @change="onInput"
-        />
-        <input
-            v-else
-            ref="input"
-            :name="name"
-            :class="inputClassName"
-            :id="id"
-            :disabled="disabled"
-            :readonly="readOnly"
-            :autofocus="autoFocus"
-            :value="computedValue"
-            :placeholder="computedPlaceholder"
-            :autocomplete="normalizeAutoComplete(autoComplete)"
-            :min="min"
-            :max="max"
-            :step="step"
-            :minlength="minLength"
-            :maxlength="maxLength"
-            :type="inputType"
-            :aria-describedby="describedBy"
-            :aria-labelledby="labelledBy"
-            :aria-invalid="hasError"
-            @input="onInput"
-        />
-        <label
-            v-if="floatingLabel && (!richEditor && type !== 'file')"
-           :class="floatingLabelClassName"
-            :for="id"
-        >
-            <slot name="label">
-                {{ label }}
-            </slot>
-        </label>
-      </div>
+        <div style="width: 100%">
+            <quill-editor
+                v-if="richEditor"
+                :id="id"
+                class="editor"
+                ref="myTextEditor"
+                v-model="computedValue"
+                :options="editorConfig"
+                @input="onInput"
+                :disabled="disabled"
+                :readonly="readOnly"
+                :autofocus="autoFocus"
+                :placeholder="computedPlaceholder"
+                :autocomplete="normalizeAutoComplete(autoComplete)"
+                :aria-describedby="describedBy"
+                :aria-labelledby="labelledBy"
+                :aria-invalid="hasError"
+            />
+            <textarea
+                v-else-if="multiline"
+                :name="name"
+                :class="inputClassName"
+                :id="id"
+                :disabled="disabled"
+                :readonly="readOnly"
+                :autofocus="autoFocus"
+                :value="computedValue"
+                :minlength="minLength"
+                :maxlength="maxLength"
+                v-text="multiline?computedValue:''"
+                :placeholder="computedPlaceholder"
+                :autocomplete="normalizeAutoComplete(autoComplete)"
+                :style="computedStyle"
+                :aria-describedby="describedBy"
+                :aria-labelledby="labelledBy"
+                :aria-invalid="hasError"
+                @input="onInput"
+            />
+            <input
+                v-else-if="type === 'file'"
+                ref="input"
+                :name="name"
+                :class="inputClassName"
+                :id="id"
+                :disabled="disabled"
+                :readonly="readOnly"
+                type="file"
+                :multiple="multiple"
+                :accept="accept"
+                :aria-describedby="describedBy"
+                :aria-labelledby="labelledBy"
+                :aria-invalid="hasError"
+                @change="onInput"
+            />
+            <input
+                v-else
+                ref="input"
+                :name="name"
+                :class="inputClassName"
+                :id="id"
+                :disabled="disabled"
+                :readonly="readOnly"
+                :autofocus="autoFocus"
+                :value="computedValue"
+                :placeholder="computedPlaceholder"
+                :autocomplete="normalizeAutoComplete(autoComplete)"
+                :min="min"
+                :max="max"
+                :step="step"
+                :minlength="minLength"
+                :maxlength="maxLength"
+                :type="inputType"
+                :aria-describedby="describedBy"
+                :aria-labelledby="labelledBy"
+                :aria-invalid="hasError"
+                @input="onInput"
+            />
+            <label
+                v-if="floatingLabel && (!richEditor && type !== 'file')"
+                :class="floatingLabelClassName"
+                :for="id"
+            >
+                <slot name="label">
+                    {{ label }}
+                </slot>
+            </label>
+        </div>
         <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" v-if="showSuffix">
             {{ suffix }}
             <slot v-if="$slots.suffix" name="suffix"></slot>
@@ -255,9 +255,9 @@
                         toolbar: [
                             [{header: [1, 2, 3, 4, 5, 6, false]}, 'blockquote'],
                             ['bold', 'italic', 'underline', { 'color': [] }, { 'background': [] }],
-                            [{align: []}],
+                            [{ align: [] }],
                             ['link', 'image', 'video'],
-                            [{list: 'ordered'}, {list: 'bullet'}, {indent: '-1'}, {indent: '+1'}, 'clean'],
+                            [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }, 'clean'],
                         ],
                         syntax: {
                             highlight: text => text,
@@ -359,7 +359,7 @@
                     else
                         this.content = value;
 
-                    this.$emit('input', this.type === 'number' ?  Number(value) : value);
+                    this.$emit('input', this.type === 'number' ? Number(value) : value);
                 },
             },
             computedStyle() {
@@ -406,7 +406,7 @@
 
                 const newValue = Math.min(
                     Number(max),
-                    Math.max(numericValue + steps * step,Number(min))
+                    Math.max(numericValue + steps * step, Number(min))
                 );
 
                 if (!isNaN(newValue)) {

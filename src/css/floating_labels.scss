@@ -26,7 +26,6 @@
 
   .Polaris-Floating--label__prefix {
     border-radius: 0 0.4rem 0.4rem 0;
-    //left: 40px;
   }
 
   .Polaris-Floating--label__suffix {
@@ -221,7 +220,7 @@
 }
 
 .Polaris-Floating .Polaris-TextField {
-  >.Polaris-FloatingLabels__Input~.Polaris-TextField__Backdrop {
+  > .Polaris-FloatingLabels__Input ~ .Polaris-TextField__Backdrop {
     background-color: #FFFFFF;
   }
 }
@@ -230,14 +229,16 @@
   .Polaris-FloatingLabels__Input--error {
     background-color: $textfield-error-input-backdrop-bgcolor;
     border-color: $textfield-error-input-backdrop-border-color;
+
     &:after {
       border-color: $textfield-error-input-backdrop-after-border-color;
     }
   }
 
-  >.Polaris-FloatingLabels__Input~.Polaris-TextField__Backdrop {
+  > .Polaris-FloatingLabels__Input ~ .Polaris-TextField__Backdrop {
     background-color: $textfield-error-input-backdrop-bgcolor;
     border-color: $textfield-error-input-backdrop-border-color;
+
     &:after {
       border-color: $textfield-error-input-backdrop-after-border-color;
     }
