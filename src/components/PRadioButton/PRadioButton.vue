@@ -75,7 +75,7 @@
              * Value for the form input.
              */
             value: {
-                type: [String, Boolean],
+                type: [String, Number, Object, Array, Boolean],
             },
             /**
              * Disable input.
@@ -112,11 +112,18 @@
             onChange(e) {
                 const target = e.target || e.srcElement;
 
+                let value = null;
+                if (typeof this.value === 'number') {
+                    value = Number(target.value);
+                } else {
+                    value = target.value;
+                }
+
                 /**
                  * Callback when radio button is triggered.
                  * @param e
                  */
-                this.$emit('change', {checked: target.checked, value: target.value});
+                this.$emit('change', {checked: target.checked, value: value});
             },
             onFocus() {
                 /**
