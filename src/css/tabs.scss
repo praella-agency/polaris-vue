@@ -58,8 +58,8 @@
   justify-content: center;
   width: 100%;
   min-width: 100%;
-  margin-top: 1px;
-  margin-bottom: -1px;
+  margin-top: 0.1rem;
+  margin-bottom: -0.1rem;
   padding: 0.8rem 0.4rem;
   outline: none;
   text-align: center;
@@ -110,7 +110,7 @@
 }
 
 .Polaris-Tabs__Tab:focus:not(:active) .Polaris-Tabs__Title::after {
-  box-shadow: 0 0 0 0.2rem $p-focused;
+  //box-shadow: 0 0 0 0.2rem $p-focused;
   outline: 0.1rem solid transparent;
 }
 
@@ -155,7 +155,7 @@
   left: -0.1rem;
   display: block;
   pointer-events: none;
-  box-shadow: 0 0 0 -0.1rem $p-focused;
+  //box-shadow: 0 0 0 -0.1rem $p-focused;
   transition: box-shadow 100ms $p-ease;
   border-radius: calc(0.4rem + 0.1rem);
 }
@@ -234,7 +234,7 @@
   left: -0.1rem;
   display: block;
   pointer-events: none;
-  box-shadow: 0 0 0 -0.1rem $p-focused;
+  //box-shadow: 0 0 0 -0.1rem $p-focused;
   transition: box-shadow 100ms $p-ease;
   border-radius: calc(0.4rem + 0.1rem);
 }
@@ -252,7 +252,7 @@
 }
 
 .Polaris-Tabs__Item:focus:not(:active)::after {
-  box-shadow: 0 0 0 0.2rem $p-focused;
+  //box-shadow: 0 0 0 0.2rem $p-focused;
   outline: 0.1rem solid transparent;
 }
 
@@ -271,7 +271,7 @@
   cursor: pointer;
   border: none;
   outline: none;
-  margin: 1px 1px -1px 0;
+  margin: 0.1rem 0.1rem -0.1rem 0;
 }
 
 .Polaris-Tabs__DisclosureActivator::after {
@@ -284,7 +284,7 @@
   left: -0.1rem;
   display: block;
   pointer-events: none;
-  box-shadow: 0 0 0 -0.1rem $p-focused;
+  //box-shadow: 0 0 0 -0.1rem $p-focused;
   transition: box-shadow 100ms $p-ease;
   border-radius: calc(0.4rem + 0.1rem);
 }
@@ -294,7 +294,7 @@
 }
 
 .Polaris-Tabs__DisclosureActivator:focus .Polaris-Tabs__Title::after {
-  box-shadow: 0 0 0 0.2rem $p-focused;
+  //box-shadow: 0 0 0 0.2rem $p-focused;
   outline: 0.1rem solid transparent;
 }
 
