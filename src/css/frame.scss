@@ -153,6 +153,7 @@
 
 :root {
   --p-frame-offset: 0px;
+  --frame-position: 'fixed';
 }
 
 .Polaris-Frame {
@@ -176,7 +177,7 @@
 }
 
 .Polaris-Frame__Navigation {
-  position: fixed;
+  position: var(--frame-position);
   z-index: 516;
   top: 0;
   left: 0;
@@ -317,7 +318,7 @@
 }
 
 .Polaris-Frame__TopBar {
-  position: fixed;
+  position: var(--frame-position);
   z-index: 512;
   top: 0;
   left: 0;
@@ -339,7 +340,7 @@
 }
 
 .Polaris-Frame__ContextualSaveBar {
-  position: fixed;
+  position: var(--frame-position);
   z-index: 513;
   top: 0;
   left: 0;
@@ -448,7 +449,7 @@
 }
 
 .Polaris-Frame__Skip {
-  position: fixed;
+  position: var(--frame-position);
   z-index: 517;
   top: 1rem;
   left: calc(0.8rem + var(--p-frame-offset));

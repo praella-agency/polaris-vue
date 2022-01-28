@@ -7,6 +7,7 @@
         :topBar="topBar"
         :frameOffset="frameOffset"
         :navigation="navigation"
+        :positioning="positioning"
     >
         <template slot="topBar">
             <!-- @slot Accepts a top bar component that will be rendered at the top-most portion of an application frame -->
@@ -97,6 +98,13 @@
             frameOffset: {
                 type: String,
                 default: '0px',
+            },
+            /**
+             * Set the frame position with it's internal components
+             */
+            positioning: {
+                type: String,
+                default: 'fixed',
             },
         },
     }

@@ -184,6 +184,13 @@ export default {
             type: String,
             default: '0px',
         },
+        /**
+         * Set the frame position with it's internal components
+         */
+        positioning: {
+          type: String,
+          default: 'fixed',
+        },
     },
     data() {
         return {
@@ -311,6 +318,7 @@ export default {
     },
     mounted() {
         document.getElementById('PFrame').style.setProperty('--p-frame-offset', this.frameOffset);
+        document.getElementById('PFrame').style.setProperty('--frame-position', this.positioning);
         this.handleResize();
         if (this.$slots.hasOwnProperty('globalRibbon')) {
             return;
