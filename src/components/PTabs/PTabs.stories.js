@@ -1,14 +1,18 @@
 import { PTabs } from './index';
 import { PCard } from '../PCard';
+import { PCardSection } from '../PCard/components/PCardSection';
 import { PFrame } from '../PFrame';
-import { PPage } from '../PPage';
+import { PSkeletonPage } from '../PSkeletonPage';
 import { PLayout } from '../PLayout';
 import { PLayoutAnnotatedSection } from '../PLayout/components/PLayoutAnnotatedSection';
+import { PLayoutSection } from '../PLayout/components/PLayoutSection';
+import { PTextContainer } from '../PTextContainer';
+import { PSkeletonDisplayText } from '../PSkeletonDisplayText';
+import { PSkeletonBodyText } from '../PSkeletonBodyText';
+import { PPage } from '../PPage';
 import { PFormLayout } from '../PFormLayout';
 import { PTextField } from '../PTextField';
 import { PModal } from '../PModal';
-import { PCardSection } from '../PCard/components/PCardSection';
-
 export default {
     title: 'Navigation / Tabs',
     component: PTabs,
@@ -71,10 +75,11 @@ export default {
     },
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
-        PTabs, PCard, PCardSection, PFrame, PPage, PLayout, PLayoutAnnotatedSection, PTextField, PModal, PFormLayout
+        PTabs, PCard, PCardSection, PFrame, PPage, PLayout, PLayoutAnnotatedSection, PTextField, PModal, PFormLayout,
+        PSkeletonPage, PLayoutSection, PTextContainer, PSkeletonDisplayText, PSkeletonBodyText
     },
     data() {
         return {
@@ -83,7 +88,7 @@ const Template = (args, { argTypes }) => ({
                 {
                     id: 'all-customers-1',
                     content: 'All',
-                    to: '/all-customers-1',
+                    // to: '/all-customers-1',
                     external: false,
                     badge: {
                         content: '10+',
@@ -93,17 +98,17 @@ const Template = (args, { argTypes }) => ({
                 {
                     id: 'accepts-marketing-1',
                     content: 'Accepts marketing',
-                    to: '/accepts-marketing-content-1',
+                    // to: '/accepts-marketing-content-1',
                 },
                 {
                     id: 'repeat-customers-1',
                     content: 'Repeat customers',
-                    to: '/repeat-customers-content-1',
+                    // to: '/repeat-customers-content-1',
                 },
                 {
                     id: 'prospects-1',
                     content: 'Prospects',
-                    to: '/prospects-1',
+                    // to: '/prospects-1',
                 },
             ],
 
@@ -145,11 +150,10 @@ const Template = (args, { argTypes }) => ({
     template: `
         <PCard>
             <PTabs v-bind="$props" :tabs="items" @select="selectMenu" :selected="selectedTab">
-<!--                <PCardSection :title="(selectedTab !== null) ? items[selectedTab].content : ''">-->
-<!--                    <p>Tab {{ selectedTab }} selected</p>-->
-<!--                </PCardSection>-->
+                <!--                <PCardSection :title="(selectedTab !== null) ? items[selectedTab].content : ''">-->
+                <!--                    <p>Tab {{ selectedTab }} selected</p>-->
+                <!--                </PCardSection>-->
                 <PFrame
-                    positioning="absolute"
                     :showMobileNavigation="mobileNavigationActive"
                     :onNavigationDismiss="handleMobileNavigationToggle"
                     :contextualSaveBar="{
@@ -238,18 +242,20 @@ const Template = (args, { argTypes }) => ({
           }"
                     v-bind="$props"
                 >
-                    <PSkeletonPage v-if="navigationMarkup.isLoading">
-                        <PLayout>
-                            <PLayoutSection>
-                                <PCard sectioned>
-                                    <PTextContainer>
-                                        <PSkeletonDisplayText size="small"/>
-                                        <PSkeletonBodyText :lines="9"/>
-                                    </PTextContainer>
-                                </PCard>
-                            </PLayoutSection>
-                        </PLayout>
-                    </PSkeletonPage>
+                    <PPage v-if="navigationMarkup.isLoading">
+                        <PSkeletonPage>
+                            <PLayout>
+                                <PLayoutSection>
+                                    <PCard sectioned>
+                                        <PTextContainer>
+                                            <PSkeletonDisplayText size="small"/>
+                                            <PSkeletonBodyText :lines="9"/>
+                                        </PTextContainer>
+                                    </PCard>
+                                </PLayoutSection>
+                            </PLayout>
+                        </PSkeletonPage>
+                    </PPage>                        
                     <PPage v-else title="Account">
                         <PLayout>
                             <a id="SkipToContentTarget" ref="skipToContentTarget" tabindex="-1"/>
