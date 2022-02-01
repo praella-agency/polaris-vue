@@ -587,10 +587,10 @@
 .Polaris-Frame__TopBar {
   position: relative;
 }
-//
-//.Polaris-Frame--hasTopBar {
-//  padding-top: unset;
-//}
+
+.Polaris-Frame--hasTopBar {
+  padding-top: unset;
+}
 
 .Polaris-Frame__NavigationDisplay {
   position: absolute;
@@ -608,18 +608,18 @@
 .Polaris-Frame--hasTopBar .Polaris-Frame__Main {
   padding-top: unset;
 }
-//
-//@media (max-width: 768px) {
-//  .Polaris-Backdrop {
-//    position: absolute;
-//  }
-//
-//  .Polaris-Frame__NavigationDisplay {
-//    position: unset;
-//    height: unset;
-//  }
-//
-//  .Polaris-Frame__Navigation {
-//    position: absolute;
-//  }
-//}
+
+@media (max-width: 768px) {
+  .Polaris-Backdrop {
+    position: absolute;
+  }
+
+  .Polaris-Frame__NavigationDisplay {
+    position: unset;
+    height: unset;
+  }
+
+  .Polaris-Frame__Navigation {
+    position: absolute;
+  }
+}
