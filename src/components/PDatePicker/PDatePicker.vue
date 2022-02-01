@@ -71,7 +71,7 @@
                     </PStack>
                 </PButton>
             </template>
-            <template slot="footer" slot-scope="data" class="slot">
+            <template v-if="!autoApply" slot="footer" slot-scope="data" class="slot">
                 <PStack distribution="equalSpacing" alignment="center">
                     <PStackItem>
                         <PButton @click="data.clickCancel" v-if="!data.in_selection">Cancel</PButton>
