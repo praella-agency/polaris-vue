@@ -27,7 +27,6 @@
 @import 'layout';
 @import 'pagination';
 @import 'keyframes';
-@import 'rangeslider';
 @import 'resourcelist';
 @import 'tabs';
 @import 'general';
@@ -50,3 +49,5 @@
 @import 'preview_frame';
 @import 'tag';
 @import 'floating_labels';
+@import './range_slider/single_thumb';
+@import './range_slider/dual_thumb';

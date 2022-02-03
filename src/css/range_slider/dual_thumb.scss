@@ -1,0 +1,194 @@
+.Polaris-RangeSlider-DualThumb__Wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.Polaris-RangeSlider-DualThumb__TrackWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 2.8rem;
+  cursor: pointer;
+}
+
+.Polaris-RangeSlider-DualThumb__TrackWrapper.Polaris-RangeSlider-DualThumb--disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.Polaris-RangeSlider-DualThumb__Track {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 0.4rem;
+  border-radius: $p-range-slider-thumb-size-base;
+  --unselected-range: transparent;
+  --selected-range: rgba(44, 110, 203, 1);
+  --gradient-colors: var(--unselected-range) 0%,
+  var(--unselected-range) var(--Polaris-RangeSlider-progress-lower),
+  var(--selected-range) var(--Polaris-RangeSlider-progress-lower),
+  var(--selected-range) var(--Polaris-RangeSlider-progress-upper),
+  var(--unselected-range) var(--Polaris-RangeSlider-progress-upper),
+  var(--unselected-range) 100%;
+  background-image: linear-gradient(to right, var(--gradient-colors));
+}
+
+.Polaris-RangeSlider-DualThumb--error .Polaris-RangeSlider-DualThumb__Track {
+  --selected-range: rgba(216, 44, 13, 1);
+  --gradient-colors: var(--unselected-range) 0%,
+  var(--unselected-range) var(--Polaris-RangeSlider-progress-lower),
+  var(--selected-range) var(--Polaris-RangeSlider-progress-lower),
+  var(--selected-range) var(--Polaris-RangeSlider-progress-upper),
+  var(--unselected-range) var(--Polaris-RangeSlider-progress-upper),
+  var(--unselected-range) 100%;
+  background-image: linear-gradient(to right, var(--gradient-colors));
+}
+
+.Polaris-RangeSlider-DualThumb--disabled .Polaris-RangeSlider-DualThumb__Track {
+  background: $p-border-disabled none;
+}
+
+.Polaris-RangeSlider-DualThumb--trackDashed {
+  content: '';
+  position: absolute;
+  height: 0.4rem;
+  width: 100%;
+  background-image: linear-gradient(to right, $p-border, $p-border 50%, transparent 50%, transparent 100%);
+  background-size: 0.4rem 0.4rem;
+  border-radius: $p-border-radius-base;
+  border-right: $p-border-radius-base $p-border solid;
+}
+
+.Polaris-RangeSlider-DualThumb__Thumbs {
+  position: relative;
+  position: absolute;
+  z-index: 10;
+  padding: 0;
+  width: $p-range-slider-thumb-size-base;
+  height: $p-range-slider-thumb-size-base;
+  border-radius: 50%;
+  border: 0.1rem solid $p-interactive;
+  background: linear-gradient($p-interactive, $p-interactive);
+  -webkit-tap-highlight-color: transparent;
+  cursor: -webkit-grab;
+  transition: transform $p-duration-1-5-0 $p-ease;
+}
+
+.Polaris-RangeSlider-DualThumb__Thumbs::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: -0.2rem;
+  right: -0.2rem;
+  bottom: -0.2rem;
+  left: -0.2rem;
+  display: block;
+  pointer-events: none;
+  box-shadow: 0 0 0 -0.2rem $p-focused;
+  transition: box-shadow 100ms $p-ease;
+  border-radius: calc(0.4rem + 0.1rem);
+}
+
+.Polaris-RangeSlider-DualThumb__Thumbs.Polaris-RangeSlider-DualThumb--disabled {
+  cursor: not-allowed;
+  border-color: $p-border-disabled;
+  background: $p-border-disabled;
+}
+
+.Polaris-RangeSlider-DualThumb__Thumbs:active {
+  transform: scale(1.5);
+}
+
+.Polaris-RangeSlider-DualThumb__Thumbs:focus {
+  outline: 0;
+}
+
+.Polaris-RangeSlider-DualThumb__Thumbs:focus::after {
+  box-shadow: 0 0 0 0.2rem $p-focused;
+  outline: 0.1rem solid transparent;
+}
+
+.Polaris-RangeSlider-DualThumb--error .Polaris-RangeSlider-DualThumb__Thumbs {
+  border-color: $p-action-critical;
+  background: linear-gradient($p-action-critical, $p-action-critical);
+}
+
+.Polaris-RangeSlider-DualThumb__Prefix {
+  flex: 0 0 auto;
+  margin-right: 0.8rem;
+}
+
+.Polaris-RangeSlider-DualThumb__Suffix {
+  flex: 0 0 auto;
+  margin-left: 0.8rem;
+}
+
+.Polaris-RangeSlider-DualThumb__Output {
+  position: absolute;
+  z-index: 20;
+  bottom: $p-range-slider-thumb-size-active;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition-property: opacity, visibility, bottom;
+  transition-duration: $p-duration-1-5-0;
+  transition-timing-function: $p-ease;
+  transform: translateX(calc(-50% + 1.6rem / 2));
+}
+
+.Polaris-RangeSlider-DualThumb__Thumbs:active + .Polaris-RangeSlider-DualThumb__Output {
+  opacity: 1;
+  visibility: visible;
+  bottom: calc(2.4rem + 2.4rem - 1.6rem);
+}
+
+.Polaris-RangeSlider-DualThumb__OutputBubble {
+  position: relative;
+  display: flex;
+  padding: 0 0.8rem;
+  min-width: 3.2rem;
+  height: 3.2rem;
+  background-color: $p-surface;
+  box-shadow: $p-popover-shadow;
+  border-radius: 0.3rem;
+  transition-property: transform;
+  transition-duration: $p-duration-1-5-0;
+  transition-timing-function: $p-ease;
+}
+
+.Polaris-RangeSlider-DualThumb__Thumbs:hover + .Polaris-RangeSlider-DualThumb__Output .Polaris-RangeSlider-DualThumb__OutputBubble, .Polaris-RangeSlider-DualThumb__Thumbs:active + .Polaris-RangeSlider-DualThumb__Output .Polaris-RangeSlider-DualThumb__OutputBubble, .Polaris-RangeSlider-DualThumb__Thumbs:focus + .Polaris-RangeSlider-DualThumb__Output .Polaris-RangeSlider-DualThumb__OutputBubble {
+  transform: translateY(-1.6rem);
+}
+
+@media (max-width: 48.0625em) and (min-width: 46.5em), (min-width: 61.5em) {
+  [data-has-navigation] .Polaris-RangeSlider-DualThumb__Thumbs:hover + .Polaris-RangeSlider-DualThumb__Output .Polaris-RangeSlider-DualThumb__OutputBubble, [data-has-navigation] .Polaris-RangeSlider-DualThumb__Thumbs:active + .Polaris-RangeSlider-DualThumb__Output .Polaris-RangeSlider-DualThumb__OutputBubble, [data-has-navigation] .Polaris-RangeSlider-DualThumb__Thumbs:focus + .Polaris-RangeSlider-DualThumb__Output .Polaris-RangeSlider-DualThumb__OutputBubble {
+    transform: translateY(-0.8rem);
+  }
+}
+
+@media (min-width: 46.5em) {
+  .Polaris-RangeSlider-DualThumb__Thumbs:hover + .Polaris-RangeSlider-DualThumb__Output .Polaris-RangeSlider-DualThumb__OutputBubble, .Polaris-RangeSlider-DualThumb__Thumbs:active + .Polaris-RangeSlider-DualThumb__Output .Polaris-RangeSlider-DualThumb__OutputBubble, .Polaris-RangeSlider-DualThumb__Thumbs:focus + .Polaris-RangeSlider-DualThumb__Output .Polaris-RangeSlider-DualThumb__OutputBubble {
+    transform: translateY(-0.8rem);
+  }
+}
+
+.Polaris-RangeSlider-DualThumb__OutputText {
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.6rem;
+  text-transform: uppercase;
+  display: block;
+  flex: 1 1 auto;
+  margin: auto;
+  text-align: center;
+  color: $p-text;
+}
+
+@media (min-width: 40em) {
+  .Polaris-RangeSlider-DualThumb__OutputText {
+    font-size: 1.2rem;
+  }
+}
