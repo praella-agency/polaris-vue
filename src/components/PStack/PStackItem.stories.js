@@ -11,6 +11,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         width: {
             control: 'text',

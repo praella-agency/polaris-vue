@@ -57,6 +57,9 @@ export default {
                     detail: '(event)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         default: {
             table: {
@@ -64,12 +67,18 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         footer: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

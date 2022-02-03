@@ -26,12 +26,18 @@ export default {
                 summary: null,
             },
         },
+        control: {
+            type: null,
+        },
     },
     auxiliaryContainer: {
         table: {
             type: {
                 summary: null,
             },
+        },
+        control: {
+            type: null,
         },
     },
     body: {
@@ -40,12 +46,18 @@ export default {
                 summary: null,
             },
         },
+        control: {
+            type: null,
+        },
     },
     emptyState: {
         table: {
             type: {
                 summary: null,
             },
+        },
+        control: {
+            type: null,
         },
     },
     filter: {
@@ -54,12 +66,18 @@ export default {
                 summary: null,
             },
         },
+        control: {
+            type: null,
+        },
     },
     footer: {
         table: {
             type: {
                 summary: null,
             },
+        },
+        control: {
+            type: null,
         },
     },
     head: {
@@ -68,6 +86,9 @@ export default {
                 summary: null,
             },
         },
+        control: {
+            type: null,
+        },
     },
     item: {
         table: {
@@ -75,12 +96,18 @@ export default {
                 summary: null,
             },
         },
+        control: {
+            type: null,
+        },
     },
     tbody: {
         table: {
             type: {
                 summary: null,
             },
+        },
+        control: {
+            type: null,
         },
     },
     actions: {
@@ -229,6 +256,9 @@ type: "numeric"
                 detail: '(tag)',
             },
         },
+        control: {
+            type: null,
+        },
     },
     'input-filter-changed': {
         table: {
@@ -237,6 +267,9 @@ type: "numeric"
                 detail: '(value)',
             },
         },
+        control: {
+            type: null,
+        },
     },
     'sort-changed': {
         table: {
@@ -244,6 +277,9 @@ type: "numeric"
                 summary: '()',
                 detail: '(value, direction)',
             },
+        },
+        control: {
+            type: null,
         },
     },
 };

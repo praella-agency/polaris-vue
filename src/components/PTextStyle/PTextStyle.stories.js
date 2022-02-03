@@ -13,6 +13,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         variation: {
             options: ['positive', 'negative', 'strong', 'subdued', 'code', null],

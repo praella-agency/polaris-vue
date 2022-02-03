@@ -48,6 +48,9 @@ export default {
                     detail: '(value)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         disabled: {
             type: {

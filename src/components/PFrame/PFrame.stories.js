@@ -130,6 +130,9 @@ export default {
                     detail: `Check Navigation Component props.`,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         topBar: {
             description: `**Props**: 
@@ -146,6 +149,9 @@ export default {
                     detail: `Check TopBar Component props.`,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         default: {
             table: {
@@ -153,12 +159,18 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         globalRibbon: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

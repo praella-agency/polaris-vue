@@ -13,6 +13,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         element: {
             options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'],

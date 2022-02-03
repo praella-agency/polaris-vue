@@ -33,6 +33,9 @@ export default {
                     detail: '(value)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         input: {
             table: {
@@ -40,6 +43,9 @@ export default {
                     summary: '()',
                     detail: '(value)',
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

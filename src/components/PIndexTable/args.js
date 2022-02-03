@@ -102,12 +102,18 @@ export default {
                 summary: null,
             },
         },
+        control: {
+            type: null,
+        },
     },
     auxiliaryContainer: {
         table: {
             type: {
                 summary: null,
             },
+        },
+        control: {
+            type: null,
         },
     },
     emptyState: {
@@ -116,12 +122,18 @@ export default {
                 summary: null,
             },
         },
+        control: {
+            type: null,
+        },
     },
     sort: {
         table: {
             type: {
                 summary: null,
             },
+        },
+        control: {
+            type: null,
         },
     },
     default: {
@@ -130,6 +142,9 @@ export default {
             type: {
                 summary: null,
             },
+        },
+        control: {
+            type: null,
         },
     },
     // events
@@ -140,6 +155,9 @@ export default {
                 detail: '(selectionType, toggleType, selectedResources)',
             },
         },
+        control: {
+            type: null,
+        },
     },
     'filter-removed': {
         table: {
@@ -147,6 +165,9 @@ export default {
                 summary: '()',
                 detail: '(tag)',
             },
+        },
+        control: {
+            type: null,
         },
     },
     'input-filter-changed': {
@@ -156,6 +177,9 @@ export default {
                 detail: '(value)',
             },
         },
+        control: {
+            type: null,
+        },
     },
     navigation: {
         table: {
@@ -163,6 +187,9 @@ export default {
                 summary: '()',
                 detail: '(row)',
             },
+        },
+        control: {
+            type: null,
         },
     },
 }

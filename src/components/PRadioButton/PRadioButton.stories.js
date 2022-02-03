@@ -37,16 +37,20 @@ export default {
             table: {
                 defaultValue: {
                     summary: '()',
-                    detail: '()',
                 },
+            },
+            control: {
+                type: null,
             },
         },
         focus: {
             table: {
                 defaultValue: {
                     summary: '()',
-                    detail: '()',
                 },
+            },
+            control: {
+                type: null,
             },
         },
         change: {
@@ -55,6 +59,9 @@ export default {
                     summary: '()',
                     detail: '({checked: target.checked, value: target.value})',
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

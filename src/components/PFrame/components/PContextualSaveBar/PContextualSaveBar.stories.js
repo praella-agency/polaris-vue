@@ -69,6 +69,11 @@ export default {
                 },
             },
         },
+        contextControl: {
+            control: {
+                type: null,
+            },
+        },
     },
 }
 

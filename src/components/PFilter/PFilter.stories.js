@@ -21,6 +21,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         resourceName: {
             table: {
@@ -40,12 +43,18 @@ export default {
                     detail: `(queryValue) => {}`,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         auxiliaryContainer: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
         filters: {
@@ -78,12 +87,18 @@ export default {
                     summary: 'void',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         queryClear: {
             table: {
                 defaultValue: {
                     summary: 'void',
                 },
+            },
+            control: {
+                type: null,
             },
         },
         queryClearAll: {
@@ -92,12 +107,18 @@ export default {
                     summary: 'void',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         queryFocus: {
             table: {
                 defaultValue: {
                     summary: 'void',
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

@@ -13,6 +13,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         primaryAction: {
             type: {
@@ -40,6 +43,9 @@ export default {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
         actionGroups: {
@@ -135,12 +141,18 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         titleMetadata: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

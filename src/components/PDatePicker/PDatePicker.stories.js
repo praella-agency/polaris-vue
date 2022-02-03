@@ -46,12 +46,35 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: 'text',
+            },
         },
         id: {
             table: {
                 type: {
                     summary: 'string | number',
                 },
+            },
+        },
+        change: {
+            control: {
+                type: null,
+            },
+        },
+        checkOpen: {
+            control: {
+                type: null,
+            },
+        },
+        input: {
+            control: {
+                type: null,
+            },
+        },
+        updateValues: {
+            control: {
+                type: null,
             },
         },
     },

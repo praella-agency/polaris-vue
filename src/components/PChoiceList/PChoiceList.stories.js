@@ -32,6 +32,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         change: {
             table: {
@@ -39,6 +42,9 @@ export default {
                     summary: '()',
                     detail: '(choice, checked, selected[], allowMultiple)',
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

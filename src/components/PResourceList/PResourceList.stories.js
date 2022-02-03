@@ -34,6 +34,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         bulkActions: {
             table: {
@@ -88,6 +91,9 @@ export default {
                     detail: '(items)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         'filter-removed': {
             table: {
@@ -95,6 +101,9 @@ export default {
                     summary: '()',
                     detail: '(tag)',
                 },
+            },
+            control: {
+                type: null,
             },
         },
         'input-filter-changed': {
@@ -104,6 +113,9 @@ export default {
                     detail: '(value)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         'select-mode': {
             table: {
@@ -112,6 +124,9 @@ export default {
                     detail: '(selectionMode)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         emptySearchState: {
             table: {
@@ -119,12 +134,18 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         filter: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

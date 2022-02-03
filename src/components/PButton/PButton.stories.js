@@ -195,3 +195,10 @@ const Template1 = (args, {argTypes}) => ({
 });
 
 export const SplitButton = Template1.bind({});
+
+SplitButton.parameters = {
+    docs: {
+        inlineStories: false,
+        iframeHeight: 500,
+    },
+}

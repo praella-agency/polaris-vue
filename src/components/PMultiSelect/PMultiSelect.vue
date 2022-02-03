@@ -2,6 +2,7 @@
     <div :class="parentClassName">
         <div class="Polaris-Labelled__LabelWrapper">
             <div class="Polaris-Label">
+                <!-- @slot Display label for an element -->
                 <slot name="label">
                     <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text">
                         {{ label }}

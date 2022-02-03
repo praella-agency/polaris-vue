@@ -32,6 +32,9 @@ export default {
                     detail: '({checked: target.checked, value: target.value})',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         value: {
             control: {

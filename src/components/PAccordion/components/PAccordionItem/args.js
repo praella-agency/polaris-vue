@@ -73,6 +73,9 @@ export default {
                 summary: null,
             },
         },
+        control: {
+            type: null,
+        },
     },
     content: {
         table: {
@@ -80,12 +83,18 @@ export default {
                 summary: null,
             },
         },
+        control: {
+            type: null,
+        },
     },
     title: {
         table: {
             type: {
                 summary: null,
             },
+        },
+        control: {
+            type: null,
         },
     },
 }

@@ -31,6 +31,21 @@ export default {
                 },
             },
         },
+        blur: {
+            control: {
+                type: null,
+            },
+        },
+        change: {
+            control: {
+                type: null,
+            },
+        },
+        focus: {
+            control: {
+                type: null,
+            },
+        },
     },
 }
 

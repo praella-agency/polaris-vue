@@ -5,7 +5,7 @@ import { PStackItem } from '../PStack/components/PStackItem';
 import { PTextField } from '../PTextField';
 
 export default {
-    title: 'Range Slider',
+    title: 'Forms / Range Slider',
     component: PRangeSlider,
     argTypes: {
         helpText: {

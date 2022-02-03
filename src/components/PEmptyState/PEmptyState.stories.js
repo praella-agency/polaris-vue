@@ -12,6 +12,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         image: {
             control: {
@@ -65,12 +68,18 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         footer: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },
