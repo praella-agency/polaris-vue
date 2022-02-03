@@ -3368,3 +3368,9 @@ div.multiselect {
     background-color: #c4cdd5;
     width: 100%;
 }
+
+/* ColorPicker */
+.Polaris-ColorPicker--disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}

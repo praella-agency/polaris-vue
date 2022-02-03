@@ -39,6 +39,9 @@ export default {
                 },
             },
         },
+        active: {
+            name: 'active.sync',
+        },
     },
 }
 
