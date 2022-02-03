@@ -1,31 +1,37 @@
 <template>
     <div class="Polaris-TextField__Spinner" aria-hidden="true" @click="onClick">
-        <div role="button" class="Polaris-TextField__Segment" tabindex="-1"
-             @click="handleStep(1)">
+        <div
+            role="button"
+            class="Polaris-TextField__Segment"
+            tabindex="-1"
+            @click="handleStep(1)"
+            @mousedown="handleMouseDown(handleStep(1))"
+        >
             <div class="Polaris-TextField__SpinnerIcon">
-          <span class="Polaris-Icon">
-            <svg viewBox="0 0 20 20" class="Polaris-Icon__Svg" focusable="false" aria-hidden="true">
-              <path d="M15 12l-5-5-5 5z"></path>
-            </svg>
-          </span>
+                <PIcon source="CaretUpMinor"/>
             </div>
         </div>
-        <div role="button" class="Polaris-TextField__Segment" tabindex="-1"
-             @click="handleStep(-1)">
+        <div
+            role="button"
+            class="Polaris-TextField__Segment"
+            tabindex="-1"
+            @click="handleStep(-1)"
+        >
             <div class="Polaris-TextField__SpinnerIcon">
-          <span class="Polaris-Icon">
-            <svg viewBox="0 0 20 20" class="Polaris-Icon__Svg" focusable="false" aria-hidden="true">
-              <path d="M5 8l5 5 5-5z" fill-rule="evenodd"></path>
-            </svg>
-          </span>
+                <PIcon source="CaretDownMinor"/>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import { PIcon } from '../../../../components/PIcon';
+
     export default {
         name: 'PSpinner',
+        components: {
+            PIcon,
+        },
         methods: {
             onClick() {
                 this.$emit('click');
@@ -33,6 +39,13 @@
             handleStep(value) {
                 this.$emit('change', value);
             },
+            handleMouseDown(onChange) {
+                return (event) => {
+                    if (event.button !== 0)
+                        return;
+                    this.$emit('mouseDown', onChange)
+                }
+            }
         },
     }
 </script>

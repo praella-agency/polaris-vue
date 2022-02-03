@@ -1,7 +1,13 @@
 <template>
     <span :class="className">
         <span :title="tag.value" class="Polaris-Tag__TagText">{{tag.value}}</span>
-        <button type="button" v-if="removable" :aria-label="`Remove ${tag.value}`" class="Polaris-Tag__Button" @click="handleRemove">
+        <button
+            v-if="removable"
+            type="button"
+            class="Polaris-Tag__Button"
+            :aria-label="`Remove ${tag.value}`"
+            @click="handleRemove"
+        >
             <PIcon source="CancelSmallMinor" />
         </button>
     </span>
@@ -11,6 +17,7 @@
 import { classNames } from '../../utilities/css';
 import { PIcon } from '../../components/PIcon';
 import ObjectValidator from '../../utilities/validators/ObjectValidator';
+import StringValidator from "../../utilities/validators/StringValidator";
 
 const TagInterface = {
     value: {
@@ -22,6 +29,8 @@ const TagInterface = {
         required: true,
     },
 };
+
+const Size = ['small', 'medium', null, ''];
 
 /**
  * <br/>
@@ -50,12 +59,21 @@ export default {
             type: Boolean,
             default: false,
         },
+        /**
+         * Changes the size of the tag
+         */
+        size: {
+            type: String,
+            default: 'medium',
+            ...StringValidator('size', Size),
+        },
     },
     computed: {
         className() {
             return classNames(
                 'Polaris-Tag',
                 this.removable && `Polaris-Tag--removable`,
+                this.size === 'small' && 'Polaris-Tag--small',
             );
         },
     },

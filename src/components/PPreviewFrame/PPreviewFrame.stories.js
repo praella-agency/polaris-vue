@@ -122,7 +122,7 @@ const Template = (args, { argTypes }) => ({
                 >
                     <PButton 
                         slot="activator"
-                        full-width 
+                        full-width
                         :disclosure="searchActive ? 'up' : 'down'"
                         @click="handleSearchClick"
                     >

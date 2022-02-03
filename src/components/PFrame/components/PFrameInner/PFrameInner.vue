@@ -32,6 +32,7 @@
     </div>
     <div
         v-if="$slots.hasOwnProperty('navigation') || Object.keys(navigation).length > 0"
+        class="Polaris-Frame__NavigationDisplay"
     >
       <transition
           enter-class="Polaris-Frame__Navigation--enter"
@@ -72,9 +73,7 @@
         </div>
       </transition>
     </div>
-    <div
-        :class="contextualSaveBarClassName"
-    >
+    <div :class="contextualSaveBarClassName">
       <PContextualSaveBar
           v-if="contextualSaveBar.active"
           :alignContentFlush="contextualSaveBar.alignContentFlush"
@@ -100,9 +99,7 @@
         :id="APP_FRAME_MAIN"
         :data-has-global-ribbon="Boolean($slots.hasOwnProperty('globalRibbon'))"
     >
-      <div
-          class="Polaris-Frame__Content"
-      >
+      <div class="Polaris-Frame__Content">
         <slot/>
       </div>
     </main>
@@ -183,6 +180,13 @@ export default {
         frameOffset: {
             type: String,
             default: '0px',
+        },
+        /**
+         * Set the frame position with it's internal components
+         */
+        positioning: {
+          type: String,
+          default: 'fixed',
         },
     },
     data() {

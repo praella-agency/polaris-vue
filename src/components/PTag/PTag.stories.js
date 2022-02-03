@@ -25,6 +25,9 @@ export default {
                     detail: '(key)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
     },
 }

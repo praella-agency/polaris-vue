@@ -19,6 +19,17 @@ export default {
                 },
             },
         },
+        change: {
+            control: {
+                type: null,
+            },
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(color)',
+                },
+            },
+        },
     },
 }
 
@@ -38,6 +49,7 @@ const Template = (args, { argTypes }) => ({
           <PColorPicker
               :color.sync="colorAttr"
               v-bind = "$props"
+              @change="handleChange"
           />
         </PStackItem>
         <PStackItem>
@@ -46,6 +58,11 @@ const Template = (args, { argTypes }) => ({
           </PBadge>
         </PStackItem>
       </PStack>`,
+    methods: {
+        handleChange(color) {
+            console.log(color);
+        },
+    },
 });
 
 export const ColorPicker = Template.bind({});

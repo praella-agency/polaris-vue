@@ -38,16 +38,6 @@ export default {
                 },
             },
         },
-        label: {
-            control: {
-                type: 'text',
-            },
-            table: {
-                type: {
-                    summary: 'string',
-                },
-            },
-        },
         input: {
             table: {
                 type: {
@@ -57,6 +47,9 @@ export default {
                     summary: '()',
                     detail: '(value)',
                 },
+            },
+            control: {
+                type: null,
             },
         },
         disabled: {
@@ -89,10 +82,29 @@ export default {
             },
             description: 'Indicates whether or not the character count should be displayed',
         },
-        id: {
+        label: {
+            description: `**Props**: Label for the select.
+             \n**Slots**: Customize label.`,
+            control: {
+                type: 'text',
+            },
             table: {
+                category: 'Props | Slots',
                 type: {
-                    summary: 'string | number',
+                    summary: null,
+                },
+            },
+        },
+        error: {
+            description: `**Props**: Text field has error.
+             \n**Slots**: Customize Error.`,
+            control: {
+                type: 'text',
+            },
+            table: {
+                category: 'Props | Slots',
+                type: {
+                    summary: null,
                 },
             },
         },
@@ -102,12 +114,18 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         connectedRight: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },
@@ -120,14 +138,14 @@ const Template = (args, {argTypes}) => ({
     },
     data() {
         return {
-            formData: 'Hello World!'
+            formData: 'Hello There!'
         };
     },
     template: `
-      <PTextField 
-          v-bind="$props" 
-          v-model="formData"
-      />`,
+        <PTextField
+            v-bind="$props"
+            v-model="formData"
+        />`,
 });
 
 export const TextField = Template.bind({});
@@ -147,9 +165,9 @@ const Template1 = (args, {argTypes}) => ({
         PTextField, PButton, PIcon,
     },
     template: `
-      <PTextField v-bind="$props">
-        <PIcon source="EmailMajor" slot="prefix" />
-      </PTextField>`,
+        <PTextField v-bind="$props">
+            <PIcon source="EmailMajor" slot="suffix"/>
+        </PTextField>`,
 });
 
 export const IconPrefix = Template1.bind({});
@@ -171,10 +189,10 @@ const Template2 = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PTextField v-bind="$props">
-          <PButton slot="connectedRight">Submit</PButton>
-          <PSelect v-model="selectedOption" :options="['%','$']" slot="connectedLeft" />
-      </PTextField>`,
+        <PTextField v-bind="$props">
+            <PButton slot="connectedRight">Submit</PButton>
+            <PSelect v-model="selectedOption" :options="['%','$']" slot="connectedLeft"/>
+        </PTextField>`,
 });
 
 export const ConnectedTextField = Template2.bind({});
@@ -197,11 +215,11 @@ const Template3 = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PTextField 
-          v-bind="$props" 
-          v-model="files" 
-          @input="getFiles" 
-      />`,
+        <PTextField
+            v-bind="$props"
+            v-model="files"
+            @input="getFiles"
+        />`,
     methods: {
         getFiles() {
             console.log(this.files)
@@ -217,4 +235,29 @@ FileInput.args = {
     type: 'file',
     multiple: false,
     accept: 'image/png, image/jpeg',
+}
+
+const Template4 = (args, {argTypes}) => ({
+    props: Object.keys(argTypes),
+    components: {
+        PTextField,
+    },
+    data() {
+        return {
+            formData: '',
+        };
+    },
+    template: `
+        <PTextField
+            v-bind="$props"
+            v-model="formData"
+        />
+    `
+});
+
+export const FloatingLabels = Template4.bind({});
+
+FloatingLabels.args = {
+    floatingLabel: true,
+    label: 'Sort By'
 }

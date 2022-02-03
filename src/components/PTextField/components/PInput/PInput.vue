@@ -2,95 +2,95 @@
     <div :class="className" v-show="showInput">
         <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
             {{ prefix }}
-            <slot v-if="$slots.prefix" name="prefix"></slot>
+            <slot v-if="$slots.prefix" name="prefix"/>
         </div>
-        <quill-editor
-            v-if="richEditor"
-            :id="id"
-            class="editor"
-            ref="myTextEditor"
-            v-model="computedValue"
-            :options="editorConfig"
-            @input="onInput"
-            :disabled="disabled"
-            :readonly="readOnly"
-            :autofocus="autoFocus"
-            :placeholder="placeholder"
-            :autocomplete="normalizeAutoComplete(autoComplete)"
-            :aria-describedby="describedBy"
-            :aria-labelledby="labelledBy"
-            :aria-invalid="hasError"
-        />
-        <!--    <ckeditor v-if="richEditor" :id="id" :editor="editor" :config="{}"-->
-        <!--              @input="onInput"-->
-        <!--              v-model="computedValue"-->
-        <!--              :disabled="disabled"-->
-        <!--              :readonly="readOnly"-->
-        <!--              :autofocus="autoFocus"-->
-        <!--              :placeholder="placeholder"-->
-        <!--              :autocomplete="normalizeAutoComplete(autoComplete)"-->
-        <!--              :aria-describedby="describedBy"-->
-        <!--              :aria-labelledby="labelledBy"-->
-        <!--              :aria-invalid="hasError"-->
-        <!--    ></ckeditor>-->
-        <textarea v-else-if="multiline"
-                  :name="name"
-                  :class="inputClassName"
-                  :id="id"
-                  :disabled="disabled"
-                  :readonly="readOnly"
-                  :autofocus="autoFocus"
-                  :value="computedValue"
-                  :minlength="minLength"
-                  :maxlength="maxLength"
-                  v-text="multiline?computedValue:''"
-                  :placeholder="placeholder"
-                  :autocomplete="normalizeAutoComplete(autoComplete)"
-                  :style="{ height: (multiline && computedHeight) ? computedHeight+'px' : null,overflow: (multiline && computedHeight) ? 'hidden' : null }"
-                  :aria-describedby="describedBy"
-                  :aria-labelledby="labelledBy"
-                  :aria-invalid="hasError"
-                  @input="onInput"
-        ></textarea>
-        <input
-            v-else-if="type === 'file'"
-            ref="input"
-            :name="name"
-            :class="inputClassName"
-            :id="id"
-            :disabled="disabled"
-            :readonly="readOnly"
-            :type="inputType"
-            :multiple="multiple"
-            :accept="accept"
-            :aria-describedby="describedBy"
-            :aria-labelledby="labelledBy"
-            :aria-invalid="hasError"
-            @change="onInput"
-        />
-        <input
-            v-else
-            ref="input"
-            :name="name"
-            :class="inputClassName"
-            :id="id"
-            :disabled="disabled"
-            :readonly="readOnly"
-            :autofocus="autoFocus"
-            :value="computedValue"
-            :placeholder="placeholder"
-            :autocomplete="normalizeAutoComplete(autoComplete)"
-            :min="min"
-            :max="max"
-            :step="step"
-            :minlength="minLength"
-            :maxlength="maxLength"
-            :type="inputType"
-            :aria-describedby="describedBy"
-            :aria-labelledby="labelledBy"
-            :aria-invalid="hasError"
-            @input="onInput"
-        />
+        <div style="width: 100%">
+            <quill-editor
+                v-if="richEditor"
+                :id="id"
+                class="editor"
+                ref="myTextEditor"
+                v-model="computedValue"
+                :options="editorConfig"
+                @input="onInput"
+                :disabled="disabled"
+                :readonly="readOnly"
+                :autofocus="autoFocus"
+                :placeholder="computedPlaceholder"
+                :autocomplete="normalizeAutoComplete(autoComplete)"
+                :aria-describedby="describedBy"
+                :aria-labelledby="labelledBy"
+                :aria-invalid="hasError"
+            />
+            <textarea
+                v-else-if="multiline"
+                :name="name"
+                :class="inputClassName"
+                :id="id"
+                :disabled="disabled"
+                :readonly="readOnly"
+                :autofocus="autoFocus"
+                :value="computedValue"
+                :minlength="minLength"
+                :maxlength="maxLength"
+                v-text="multiline?computedValue:''"
+                :placeholder="computedPlaceholder"
+                :autocomplete="normalizeAutoComplete(autoComplete)"
+                :style="computedStyle"
+                :aria-describedby="describedBy"
+                :aria-labelledby="labelledBy"
+                :aria-invalid="hasError"
+                @input="onInput"
+            />
+            <input
+                v-else-if="type === 'file'"
+                ref="input"
+                :name="name"
+                :class="inputClassName"
+                :id="id"
+                :disabled="disabled"
+                :readonly="readOnly"
+                type="file"
+                :multiple="multiple"
+                :accept="accept"
+                :aria-describedby="describedBy"
+                :aria-labelledby="labelledBy"
+                :aria-invalid="hasError"
+                @change="onInput"
+            />
+            <input
+                v-else
+                ref="input"
+                :name="name"
+                :class="inputClassName"
+                :id="id"
+                :disabled="disabled"
+                :readonly="readOnly"
+                :autofocus="autoFocus"
+                :value="computedValue"
+                :placeholder="computedPlaceholder"
+                :autocomplete="normalizeAutoComplete(autoComplete)"
+                :min="min"
+                :max="max"
+                :step="step"
+                :minlength="minLength"
+                :maxlength="maxLength"
+                :type="inputType"
+                :aria-describedby="describedBy"
+                :aria-labelledby="labelledBy"
+                :aria-invalid="hasError"
+                @input="onInput"
+            />
+            <label
+                v-if="floatingLabel && (!richEditor && type !== 'file')"
+                :class="floatingLabelClassName"
+                :for="id"
+            >
+                <slot name="label">
+                    {{ label }}
+                </slot>
+            </label>
+        </div>
         <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" v-if="showSuffix">
             {{ suffix }}
             <slot v-if="$slots.suffix" name="suffix"></slot>
@@ -106,9 +106,9 @@
 
         <button type="button" :class="clearButtonClassName" v-if="computedValue && clearable" @click="onClear">
             <span class="Polaris-VisuallyHidden">Clear</span>
-            <PIcon source="CircleCancelMinor" color="inkLightest"></PIcon>
+            <PIcon source="CircleCancelMinor" color="base"></PIcon>
         </button>
-        <div class="Polaris-TextField__Backdrop" v-if="!richEditor"></div>
+        <div v-if="!richEditor" class="Polaris-TextField__Backdrop"></div>
 
         <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
 
@@ -163,7 +163,7 @@
                 type: String,
             },
             multiline: {
-                type: Boolean,
+                type: [Boolean, Number],
             },
             richEditor: {
                 type: Boolean,
@@ -239,6 +239,12 @@
             accept: {
                 type: String,
             },
+            label: {
+                type: String,
+            },
+            floatingLabel: {
+                type: Boolean,
+            },
         },
         data() {
             return {
@@ -247,14 +253,11 @@
                 editorConfig: {
                     modules: {
                         toolbar: [
-                            [{header: [1, 2, 3, 4, 5, 6, false]}],
-
-                            ['bold', 'italic', 'underline', 'strike', 'link'],
-                            [{align: []}],
-                            ['blockquote', 'code-block'],
-                            [{list: 'ordered'}, {list: 'bullet'}],
-                            [{indent: '-1'}, {indent: '+1'}],
-                            ['image', 'video'],
+                            [{header: [1, 2, 3, 4, 5, 6, false]}, 'blockquote'],
+                            ['bold', 'italic', 'underline', { 'color': [] }, { 'background': [] }],
+                            [{ align: [] }],
+                            ['link', 'image', 'video'],
+                            [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }, 'clean'],
                         ],
                         syntax: {
                             highlight: text => text,
@@ -277,9 +280,14 @@
             },
             inputClassName() {
                 return classNames(
-                    'Polaris-TextField__Input',
+                    this.floatingLabel ? 'Polaris-FloatingLabels__Input' : 'Polaris-TextField__Input',
                     this.inputClass,
                     this.align && `Polaris-TextField__Input Polaris-TextField__Input--align${this.textAlign}`,
+                    (this.floatingLabel && this.multiline) && 'Polaris-FloatingLabel__TextArea',
+                    (this.floatingLabel && this.showPrefix) && 'Polaris-FloatingLabels__Input--prefix',
+                    (this.floatingLabel && this.showSuffix) && 'Polaris-FloatingLabels__Input--suffix',
+                    (this.showCharacterCount || this.type === 'number') && 'Polaris-FloatingLabels__Input--number',
+                    (this.floatingLabel && this.hasError) && 'Polaris-FloatingLabels__Input--error',
                 );
             },
             characterCountClassName() {
@@ -292,6 +300,14 @@
                 return classNames(
                     'Polaris-TextField__ClearButton',
                     this.multiline && 'Polaris-TextField__AlignFieldBottom ',
+                );
+            },
+            floatingLabelClassName() {
+                return classNames(
+                    'Polaris-Floating--label',
+                    'Polaris-Floating--label--visible',
+                    this.showPrefix && 'Polaris-Floating--label__prefix',
+                    this.showSuffix && 'Polaris-Floating--label__suffix',
                 );
             },
             characterCountText() {
@@ -333,12 +349,27 @@
             },
             computedValue: {
                 get() {
+                    if (this.type === 'number')
+                        return Number(this.content);
                     return this.content;
                 },
                 set(value) {
-                    this.content = value;
-                    this.$emit('input', value);
+                    if (this.type === 'number')
+                        this.content = Number(value);
+                    else
+                        this.content = value;
+
+                    this.$emit('input', this.type === 'number' ? Number(value) : value);
                 },
+            },
+            computedStyle() {
+                return {
+                    height: (this.multiline && this.computedHeight) ? this.computedHeight + 'px' : null,
+                    overflow: (this.multiline && this.computedHeight) ? 'hidden' : null
+                };
+            },
+            computedPlaceholder() {
+                return this.floatingLabel ? 'Enter input' : this.placeholder;
             }
         },
         methods: {
@@ -357,6 +388,10 @@
             },
             handleNumberChange(steps) {
                 const numericValue = this.computedValue ? parseFloat(this.computedValue) : 0;
+
+                // Returns the length of decimal places in a number
+                const dpl = (num) => (num.toString().split('.')[1] || []).length;
+
                 if (isNaN(numericValue) || this.disabled) {
                     return;
                 }
@@ -365,9 +400,17 @@
                 const max = this.max || +Infinity;
                 const step = this.step || 1;
 
-                const newValue = Math.min(max, Math.max(min, numericValue + (steps * step)));
+                // Making sure the new value has the same length of decimal places as the
+                // step / value has.
+                const decimalPlaces = Math.max(dpl(numericValue), dpl(step));
+
+                const newValue = Math.min(
+                    Number(max),
+                    Math.max(numericValue + steps * step, Number(min))
+                );
+
                 if (!isNaN(newValue)) {
-                    this.computedValue = newValue;
+                    this.computedValue = newValue.toFixed(decimalPlaces);
                 }
             },
             handleExpandingResize(e) {

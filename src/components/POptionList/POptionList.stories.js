@@ -54,6 +54,9 @@ export default {
                     detail: '(selectedValue)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         click: {
             table: {
@@ -62,12 +65,18 @@ export default {
                     detail: '(selectedOption)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         media: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

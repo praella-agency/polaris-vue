@@ -1,7 +1,7 @@
 <template>
     <div class="color-picker-field" v-click-outside="hidePicker">
         <div :class="propsClass">
-            <span @click="togglePicker()" class="picker " :style="'background-color:'+color"></span>
+            <span @click="togglePicker()" :class="className" :style="'background-color:'+color"></span>
             <PTextField v-model="color" type="text" :label="label" :show-input="showInput" class="picker"
                         labelClass="mb-0"></PTextField>
         </div>
@@ -15,6 +15,7 @@
     import { Chrome } from 'vue-color';
     import { PTextField } from '../../components/PTextField/';
     import vClickOutside from 'v-click-outside';
+    import { classNames } from "../../utilities/css";
 
     /**
      * <br/>
@@ -73,11 +74,26 @@
                 type: String,
                 default: '#FFFF',
             },
+            /**
+             * Disabled field
+             */
+            disabled: {
+                type: Boolean,
+                default: false,
+            },
         },
         data() {
             return {
                 showPicker: false,
             };
+        },
+        computed: {
+            className() {
+                return classNames(
+                    'picker',
+                    this.disabled && 'Polaris-ColorPicker--disabled',
+                );
+            },
         },
         methods: {
             updateColor(color) {
@@ -86,6 +102,10 @@
                  * @ignore
                  */
                 this.$emit('update:color', color.hex);
+                /**
+                 * Triggers when color is changed
+                 */
+                this.$emit('change', color);
             },
             togglePicker() {
                 this.showPicker = !this.showPicker;

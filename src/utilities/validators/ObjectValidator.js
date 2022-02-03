@@ -8,6 +8,7 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
     for (let objectKey in objectInterface) {
         const objectType = objectInterface[objectKey];
         let isRequired = false;
+        let isNullable = false;
         let valueType = [];
         if (!Array.isArray(objectType)) {
             if (typeof objectType !== 'object') {
@@ -21,6 +22,7 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
 
         if (typeof objectType === 'object' && !Array.isArray(objectType)) {
             isRequired = objectType.required || false;
+            isNullable = objectType.nullable || false;
             if (objectType.type && !Array.isArray(objectType.type)) {
                 valueType = [objectType.type.name] || undefined;
             } else if (objectType.type) {
@@ -32,31 +34,41 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
 
         if (valueType && object.hasOwnProperty(objectKey)) {
             let isContinue = false;
-            valueType.forEach(vType => {
-                switch (vType) {
-                    case 'Object': {
-                        if (objectType.properties) {
-                            result = ObjectValidator(`${name}.${objectKey}`, object[`${objectKey}`], objectType.properties, isRequired);
-                            isContinue = true;
+            if (isNullable) {
+                isContinue = true;
+            } else {
+                valueType.forEach(vType => {
+                    switch (vType) {
+                        case 'Object': {
+                            if (objectType.properties) {
+                                result = ObjectValidator(`${name}.${objectKey}`, object[`${objectKey}`], objectType.properties, isRequired, isNullable);
+                                isContinue = true;
+                            }
+                            break;
                         }
-                        break;
-                    }
-                    case 'Array': {
-                        if (objectType.properties) {
-                            result = ArrayValidator(`${name}.${objectKey}`, object[`${objectKey}`], objectType.properties, isRequired);
-                            isContinue = true;
+                        case 'Array': {
+                            if (objectType.properties) {
+                                result = ArrayValidator(`${name}.${objectKey}`, object[`${objectKey}`], objectType.properties, isRequired, isNullable);
+                                isContinue = true;
+                            }
+                            break;
                         }
-                        break;
-                    }
-                    case 'String': {
-                        if (objectType.expectedValues) {
-                            result = StringValidator(`${name}.${objectKey}`, object[`${objectKey}`], objectType.expectedValues, isRequired);
-                            isContinue = true;
+                        case 'String': {
+                            if (objectType.expectedValues) {
+                                result = StringValidator(`${name}.${objectKey}`, object[`${objectKey}`], objectType.expectedValues);
+                                isContinue = true;
+                            }
+                            break;
                         }
-                        break;
+                        case 'Date': {
+                            if (object[`${objectKey}`] instanceof Date) {
+                                isContinue = true;
+                            }
+                            break;
+                        }
                     }
-                }
-            })
+                });
+            }
             if (isContinue) {
                 continue;
             }
@@ -132,10 +144,10 @@ export const ObjectValidator = (name, object, objectInterface, isRequired) => {
     }
 }
 
-export default (name, objectInterface, isRequired = false) => {
+export default (name, objectInterface, isRequired = false, isNullable = false) => {
     return {
         validator: object => {
-            return ObjectValidator(name, object, objectInterface, isRequired);
+            return ObjectValidator(name, object, objectInterface, isRequired, isNullable);
         }
     }
 }

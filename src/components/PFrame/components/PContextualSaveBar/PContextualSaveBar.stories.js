@@ -69,6 +69,11 @@ export default {
                 },
             },
         },
+        contextControl: {
+            control: {
+                type: null,
+            },
+        },
     },
 }
 
@@ -108,6 +113,6 @@ ContextualSaveBar.args = {
     logo: {
         width: 124,
         contextualSaveBarSource:
-            'https://cdn.shopify.com/s/files/1/0446/6937/files/jaded-pixel-logo-gray.svg?6215648040070010999',
+            'https://cdn.shopify.com/s/files/1/1564/7647/files/hulk-apps-darken_c0448e92-587f-47a8-9473-5ea0023b5ffd.svg?v=1583731462',
     },
 }

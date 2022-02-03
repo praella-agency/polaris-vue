@@ -10,6 +10,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         scrolledToBottom: {
             table: {
@@ -20,6 +23,9 @@ export default {
                     summary: '()',
                     detail: '()',
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

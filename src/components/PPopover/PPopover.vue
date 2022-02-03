@@ -223,6 +223,8 @@
                 this.$emit('close', 'FocusOut');
             },
             onClose() {
+                /** @ignore */
+                this.$emit('update:active', false);
                 this.$emit('close', 'Click');
             }
         },

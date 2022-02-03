@@ -41,6 +41,9 @@ export default {
                     detail: '(action)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
     },
 }

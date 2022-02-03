@@ -14,6 +14,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         spacing: {
             options: ['extraTight', 'tight', 'loose', 'extraLoose', 'none', null],

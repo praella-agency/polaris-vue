@@ -1,5 +1,6 @@
 import { PFilter } from './index';
 import { PButton } from '../PButton';
+import { PButtonGroup } from '../PButtonGroup';
 import { PPopover } from '../PPopover';
 import { POptionList } from '../POptionList';
 import { PCard } from '../PCard';
@@ -20,6 +21,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         resourceName: {
             table: {
@@ -39,12 +43,18 @@ export default {
                     detail: `(queryValue) => {}`,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         auxiliaryContainer: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
         filters: {
@@ -77,12 +87,18 @@ export default {
                     summary: 'void',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         queryClear: {
             table: {
                 defaultValue: {
                     summary: 'void',
                 },
+            },
+            control: {
+                type: null,
             },
         },
         queryClearAll: {
@@ -91,12 +107,18 @@ export default {
                     summary: 'void',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         queryFocus: {
             table: {
                 defaultValue: {
                     summary: 'void',
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },
@@ -106,7 +128,7 @@ const Template = (args, {argTypes}) => ({
     props: Object.keys(argTypes),
     components: {
         PFilter, PButton, PPopover, POptionList, PCard, PCardSection, PStack, PStackItem, PTextField, PCheckbox,
-        PChoiceList,
+        PChoiceList, PButtonGroup,
     },
     data() {
         return {
@@ -124,85 +146,87 @@ const Template = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PFilter 
-          v-bind="$props" 
-          @remove-tag="onRemoveFilter" 
-          @queryChange="onFilterQueryChange"
-          :appliedFilters="appliedFilter"
-      >
-          <PPopover
-              id="popover_1"  
-              :active="accountStatusPopover"
-              @close="() => {this.accountStatusPopover = false;}"
-              full-width
-          >
-              <PButton
-                      slot="activator"
-                      :disclosure="accountStatusPopover ? 'up' : 'down'"
-                      @click.stop="toggleAccountStatus"
-                      :disabled="disabled"
-              >
-                  Account Status
-              </PButton>
-              <PCard slot="content" @change="updateStatusFilter" sectioned>
-                  <PChoiceList
-                      title="Account Status"
-                      titleHidden
-                      :options="[
+        <PFilter
+            v-bind="$props"
+            @remove-tag="onRemoveFilter"
+            @queryChange="onFilterQueryChange"
+            :appliedFilters="appliedFilter"
+        >
+            <PButtonGroup segmented>
+                <PPopover
+                    id="popover_1"
+                    :active="accountStatusPopover"
+                    @close="() => {this.accountStatusPopover = false;}"
+                    full-width
+                >
+                    <PButton
+                        slot="activator"
+                        :disclosure="accountStatusPopover ? 'up' : 'down'"
+                        @click="toggleAccountStatus"
+                        :disabled="disabled"
+                    >
+                        Account Status
+                    </PButton>
+                    <PCard slot="content" @change="updateStatusFilter" sectioned>
+                        <PChoiceList
+                            title="Account Status"
+                            titleHidden
+                            :options="[
                           {label: 'Enabled', value: 'enabled'},
                           {label: 'Not invited', value: 'not invited'},
                           {label: 'Invited', value: 'invited'},
                           {label: 'Declined', value: 'declined'},
                       ]"
-                      textField="label"
-                      valueField="value"
-                      allowMultiple
-                      :selected="accountStatus || []"
-                      @change="handleTag"
-                  >
-                  </PChoiceList>
-              </PCard>
-          </PPopover>
-          <PPopover
-              id="popover_2"
-              @close="() => {this.popoverActive = false;}"
-              :active="popoverActive"
-              full-width
-          >
-              <PButton
-                      slot="activator"
-                      :disclosure="popoverActive ? 'up' : 'down'"
-                      @click.stop="togglePopoverActive"
-                      :disabled="disabled"
-              >
-                  Status
-              </PButton>
-              <PCard slot="content" @change="updateStatusFilter">
-                  <PCardSection>
-                      <PStack vertical spacing="tight">
-                          <PStackItem>
-                              <PTextField
-                                      label="Tagged with"
-                                      v-model="taggedValue"
-                                      labelHidden
-                              />
-                          </PStackItem>
-                          <PStackItem>
-                              <PButton plain @click="removeTag">
-                                  Clear
-                              </PButton>
-                          </PStackItem>
-                      </PStack>
-                  </PCardSection>
-              </PCard>
-          </PPopover>
-          <PButton :disabled="disabled">Submit</PButton>
-          <template slot="auxiliaryContainer">
-              <div style="padding-left: 8px;">
-                  <PButton disabled>Save</PButton>
-              </div>
-          </template>
-      </PFilter>`,
+                            textField="label"
+                            valueField="value"
+                            allowMultiple
+                            :selected="accountStatus || []"
+                            @change="handleTag"
+                        >
+                        </PChoiceList>
+                    </PCard>
+                </PPopover>
+                <PPopover
+                    id="popover_2"
+                    @close="() => {this.popoverActive = false;}"
+                    :active="popoverActive"
+                    full-width
+                >
+                    <PButton
+                        slot="activator"
+                        :disclosure="popoverActive ? 'up' : 'down'"
+                        @click="togglePopoverActive"
+                        :disabled="disabled"
+                    >
+                        Status
+                    </PButton>
+                    <PCard slot="content" @change="updateStatusFilter">
+                        <PCardSection>
+                            <PStack vertical spacing="tight">
+                                <PStackItem>
+                                    <PTextField
+                                        label="Tagged with"
+                                        v-model="taggedValue"
+                                        labelHidden
+                                    />
+                                </PStackItem>
+                                <PStackItem>
+                                    <PButton plain @click="removeTag">
+                                        Clear
+                                    </PButton>
+                                </PStackItem>
+                            </PStack>
+                        </PCardSection>
+                    </PCard>
+                </PPopover>
+                <PButton :disabled="disabled">Submit</PButton>
+            </PButtonGroup>
+            <template slot="auxiliaryContainer">
+                <div style="padding-left: 8px;">
+                    <PButton disabled>Save</PButton>
+                </div>
+            </template>
+        </PFilter>`,
     methods: {
         onRemoveFilter() {
             alert("Removed");
@@ -224,7 +248,8 @@ const Template = (args, {argTypes}) => ({
                         {
                             value: this.disambiguateLabel(key, value),
                             key: 'tag_' + this.taggedValue,
-                            remove: () => {},
+                            remove: () => {
+                            },
                         },
                     )
                 }

@@ -31,12 +31,31 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         content: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
+            },
+        },
+        active: {
+            name: 'active.sync',
+        },
+        activate: {
+            control: {
+                type: null,
+            },
+        },
+        close: {
+            control: {
+                type: null,
             },
         },
     },

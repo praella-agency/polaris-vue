@@ -109,6 +109,9 @@ export default {
 }`,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         searchField: {
             description: `**Props**: Accepts a search field component that is made available as a <code>TextField</code> 
@@ -134,6 +137,9 @@ export default {
     focused?: boolean;
 }`,
                 },
+            },
+            control: {
+                type: null,
             },
         },
         searchResult: {
@@ -166,6 +172,9 @@ export default {
     }],
 }`,
                 },
+            },
+            control: {
+                type: null,
             },
         },
         userMenu: {
@@ -216,6 +225,9 @@ export default {
 }`,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         contextControl: {
             table: {
@@ -223,12 +235,18 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         activatorContent: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
         searchFieldChange: {
@@ -238,12 +256,18 @@ export default {
                     detail: '(value)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         searchResultsDismiss: {
             table: {
                 defaultValue: {
                     summary: 'void',
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

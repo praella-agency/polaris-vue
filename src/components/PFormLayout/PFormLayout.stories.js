@@ -12,6 +12,17 @@ export default {
                 },
             },
         },
+        default: {
+            description: 'The content to display inside the layout',
+            table: {
+                type: {
+                    summary: null,
+                },
+            },
+            control: {
+                type: null,
+            },
+        }
     }
 }
 

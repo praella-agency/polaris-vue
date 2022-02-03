@@ -10,6 +10,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         status: {
             options: ['success', 'info', 'warning', 'critical', null],
@@ -56,6 +59,9 @@ export default {
                     summary: '()',
                     detail: '(event)',
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

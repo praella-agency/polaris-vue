@@ -7,7 +7,9 @@
                 :hidden="false"
                 v-bind="$attrs"
             >
-                {{ label }}
+                <slot name="label">
+                    {{ label }}
+                </slot>
             </PLabel>
             <div
                 v-if="action"
@@ -33,7 +35,9 @@
             class="Polaris-Labelled__HelpText"
             :id="helpTextID"
         >
-            {{ helpText }}
+            <slot name="helpText">
+                {{ helpText }}
+            </slot>
         </div>
     </div>
 </template>

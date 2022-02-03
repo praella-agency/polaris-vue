@@ -1005,83 +1005,6 @@
 }
 /*=================== Polaris-ExceptionList =======================*/
 
-/*=================== Polaris-Tag =======================*/
-.Polaris-Tag {
-    display: inline-flex;
-    max-width: 100%;
-    align-items: center;
-    min-height: 2.8rem;
-    padding: 0 .8rem;
-    background-color: $tag-bgcolor;
-    border-radius: $tag-border-radius;
-    color: $tag-color;
-
-    .Polaris-Tag__TagText {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    &.Polaris-Tag--removable {
-        padding-right: 0;
-    }
-}
-
-.Polaris-Tag.Polaris-Tag--disabled {
-    transition: none;
-    background: $tag-disabled-bgcolor;
-    color: $tag-disabled-color;
-
-    svg {
-        fill: $tag-disabled-svg-fill;
-    }
-}
-
-.Polaris-Tag__Button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    padding: 0;
-    background: $tag-btn-bgcolor;
-    border: $tag-btn-border;
-    font-size: $tag-btn-font-size;
-    line-height: $tag-btn-line-height;
-    cursor: pointer;
-    display: block;
-    height: 2.8rem;
-    width: 2.8rem;
-    margin-left: 0.4rem;
-    border-radius: $tag-btn-border-radius;
-    position: relative;
-    svg {
-        fill: $tag-btn-svg-fill;
-    }
-
-    &:focus {
-        outline: none;
-    }
-
-    &:active {
-        background: $tag-btn-active-bgcolor;
-    }
-
-    &:hover {
-        background: $tag-btn-hover-bgcolor;
-        outline: 0.1rem solid transparent;
-
-    }
-
-    &:disabled {
-        cursor: default;
-        pointer-events: none;
-
-        svg {
-            fill: $tag-btn-disabled-svg-fill;
-        }
-    }
-}
-
-/*=================== Polaris-Tag =======================*/
-
 /*=================== Polaris-Sheet =======================*/
 
 .Polaris-Sheet {
@@ -3367,4 +3290,10 @@ div.multiselect {
     display: block;
     background-color: #c4cdd5;
     width: 100%;
+}
+
+/* ColorPicker */
+.Polaris-ColorPicker--disabled {
+    pointer-events: none;
+    opacity: 0.4;
 }

@@ -40,11 +40,17 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         files: {
             table: {
                 type: {
                     summary: 'array',
+                },
+                defaultValue: {
+                    summary: '[]',
                 },
             },
         },
@@ -57,7 +63,7 @@ export default {
         },
         handleOnDrop: {
             control: {
-                type: 'none',
+                type: null,
             },
             table: {
                 type: {
@@ -71,7 +77,7 @@ export default {
         },
         handleOnDropAccepted: {
             control: {
-                type: 'none',
+                type: null,
             },
             table: {
                 type: {
@@ -85,7 +91,7 @@ export default {
         },
         handleOnDropRejected: {
             control: {
-                type: 'none',
+                type: null,
             },
             table: {
                 type: {
@@ -99,7 +105,7 @@ export default {
         },
         handleOnFileDialogClose: {
             control: {
-                type: 'none',
+                type: null,
             },
             table: {
                 type: {
@@ -113,7 +119,7 @@ export default {
         },
         handleOnDragOver: {
             control: {
-                type: 'none',
+                type: null,
             },
             table: {
                 type: {
@@ -127,7 +133,7 @@ export default {
         },
         handleOnDragLeave: {
             control: {
-                type: 'none',
+                type: null,
             },
             table: {
                 type: {
@@ -141,7 +147,7 @@ export default {
         },
         handleOnDragEnter: {
             control: {
-                type: 'none',
+                type: null,
             },
             table: {
                 type: {
@@ -154,6 +160,9 @@ export default {
             },
         },
         blur: {
+            control: {
+                type: null,
+            },
             table: {
                 type: {
                     summary: null,
@@ -165,6 +174,9 @@ export default {
             },
         },
         focus: {
+            control: {
+                type: null,
+            },
             table: {
                 type: {
                     summary: null,

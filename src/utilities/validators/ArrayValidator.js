@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { ObjectValidator } from './ObjectValidator';
 
-export const ArrayValidator = (name, arrayOfValues, objectInterface, isRequired) => {
+export const ArrayValidator = (name, arrayOfValues, objectInterface, isRequired, isNullable) => {
     let result = true;
     if (!Array.isArray(arrayOfValues)) {
         Vue.util.warn(
@@ -9,16 +9,16 @@ export const ArrayValidator = (name, arrayOfValues, objectInterface, isRequired)
         return false;
     }
     arrayOfValues.forEach(function (object) {
-        result = ObjectValidator(name, object, objectInterface, isRequired);
+        result = ObjectValidator(name, object, objectInterface, isRequired, isNullable);
     });
 
     return result;
 }
 
-export default (name, objectInterface, isRequired = false) => {
+export default (name, objectInterface, isRequired = false, isNullable = false) => {
     return {
         validator: arrayOfValues => {
-            return ArrayValidator(name, arrayOfValues, objectInterface, isRequired);
+            return ArrayValidator(name, arrayOfValues, objectInterface, isRequired, isNullable);
         }
     }
 }

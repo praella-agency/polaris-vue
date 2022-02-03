@@ -20,6 +20,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         tabs: {
             table: {
@@ -59,6 +62,9 @@ export default {
                     summary: '()',
                     detail: '(selectedIndex, event)',
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

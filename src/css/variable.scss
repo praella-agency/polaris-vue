@@ -595,7 +595,7 @@ $textfield-disabled-backdrop-box-shadow: none;
 $textfield-disabled-svg-fill: $theme-resource-list-disabled-color;
 
 $textfield-backdrop-bgcolor: $theme-default-button-color;
-$textfield-backdrop-border: 1px solid $theme-btn-default-top-border-color;
+$textfield-backdrop-border: 1px solid rgba(201, 204, 207, 1);
 $textfield-backdrop-border-radius: 4px;
 
 $textfield-backdrop-after-border: inset 0 1px 0 0 rgba(99,115,129,.05);
@@ -1859,12 +1859,10 @@ $icon-color-base-before: rgba(228, 229, 231, 1);
 $icon-svg-color-apply-color: rgba(255, 255, 255, 1);
 
 /* Frame */
-$p-override-zero: 0;
-$p-override-loading-z-index: 514;
-$p-button-font-weight: 500;
 $global-ribbon-height: 0px;
 
 /* Common Variables */
+$p-action-critical: rgba(216, 44, 13, 1);
 $p-divider: rgba(225, 227, 229, 1);
 $p-border-radius-wide: 0.8rem;
 $p-surface-subdued: rgba(250, 251, 251, 1);
@@ -1900,3 +1898,60 @@ $p-surface-disabled: rgba(250, 251, 251, 1);
 $p-text-disabled: rgba(140, 145, 150, 1);
 $p-choice-size: 2rem;
 $p-icon-disabled: rgba(186, 190, 195, 1);
+$p-critical: rgba(216, 44, 13, 1);
+$p-action-secondary-hovered: rgba(246, 246, 247, 1);
+$p-action-secondary-pressed: rgba(241, 242, 243, 1);
+$p-action-secondary-depressed: rgba(109, 113, 117, 1);
+$p-button-pressed-inner-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.15);
+$p-text-on-primary: rgba(255, 255, 255, 1);
+$p-border-depressed: rgba(87, 89, 89, 1);
+$p-override-zero: 0;
+$p-override-loading-z-index: 514;
+$p-override-transparent: transparent;
+$p-override-none: none;
+$p-button-font-weight: 500;
+$p-action-primary-hovered: rgba(0, 110, 82, 1);
+$p-action-primary-pressed: rgba(0, 94, 70, 1);
+$p-action-primary-depressed: rgba(0, 61, 44, 1);
+$p-button-inner-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+$p-text-on-critical: rgba(255, 255, 255, 1);
+$p-action-critical-hovered: rgba(188, 34, 0, 1);
+$p-icon-on-primary: rgba(255, 255, 255, 1);
+$p-action-primary-disabled: rgba(241, 241, 241, 1);
+$p-action-critical-pressed: rgba(162, 27, 0, 1);
+$p-action-critical-depressed: rgba(108, 15, 0, 1);
+$p-icon-on-critical: rgba(255, 255, 255, 1);
+$p-action-critical-disabled: rgba(241, 241, 241, 1);
+$p-surface-pressed: rgba(241, 242, 243, 1);
+$p-border-critical: rgba(253, 87, 73, 1);
+$p-interactive-critical: rgba(216, 44, 13, 1);
+$p-icon-critical: rgba(215, 44, 13, 1);
+$p-surface-critical-subdued: rgba(255, 244, 244, 1);
+$p-border-critical-disabled: rgba(255, 167, 163, 1);
+$p-interactive-critical-disabled: rgba(253, 147, 141, 1);
+$p-icon-subdued: rgba(140, 145, 150, 1);
+$p-interactive: rgba(44, 110, 203, 1);
+$p-interactive-hovered: rgba(31, 81, 153, 1);
+$p-interactive-pressed: rgba(16, 50, 98, 1);
+$p-interactive-critical-hovered: rgba(205, 41, 12, 1);
+$p-interactive-critical-pressed: rgba(103, 15, 3, 1);
+$p-icon-hovered: rgba(26, 28, 29, 1);
+$p-icon-pressed: rgba(68, 71, 74, 1);
+$p-border-shadow: rgba(174, 180, 185, 1);
+$p-surface-neutral: rgba(228, 229, 231, 1);
+$p-icon-success: rgba(0, 127, 95, 1);
+$p-surface-success: rgba(174, 233, 209, 1);
+$p-icon-highlight: rgba(0, 160, 172, 1);
+$p-surface-highlight: rgba(164, 232, 242, 1);
+$p-icon-warning: rgba(185, 137, 0, 1);
+$p-surface-warning: rgba(255, 215, 157, 1);
+$p-surface-critical: rgba(254, 211, 209, 1);
+$p-popover-shadow: -1px 0px 20px rgba(23, 24, 24, 0.05), 0px 1px 5px rgba(0, 0, 0, 0.15);
+
+// Range Slider
+$p-range-slider-thumb-size-base: 1.6rem;
+$p-range-slider-thumb-size-active: 2.4rem;
+$p-range-slider-thumb-scale: 1.5;
+
+// Badge
+$p-badge-font-weight: 400;

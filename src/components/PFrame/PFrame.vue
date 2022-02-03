@@ -98,6 +98,13 @@
                 type: String,
                 default: '0px',
             },
+            // /**
+            //  * Set the frame position with it's internal components
+            //  */
+            // positioning: {
+            //     type: String,
+            //     default: 'fixed',
+            // },
         },
     }
 </script>

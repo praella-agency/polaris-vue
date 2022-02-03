@@ -17,6 +17,12 @@ export default {
                 },
             },
         },
+        default: {
+            description: 'Button components',
+            control: {
+                type: null,
+            },
+        }
     },
 }
 

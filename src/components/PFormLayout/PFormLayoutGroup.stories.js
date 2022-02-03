@@ -22,6 +22,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         id: {
             control: {

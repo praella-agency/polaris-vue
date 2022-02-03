@@ -46,12 +46,35 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: 'text',
+            },
         },
         id: {
             table: {
                 type: {
                     summary: 'string | number',
                 },
+            },
+        },
+        change: {
+            control: {
+                type: null,
+            },
+        },
+        checkOpen: {
+            control: {
+                type: null,
+            },
+        },
+        input: {
+            control: {
+                type: null,
+            },
+        },
+        updateValues: {
+            control: {
+                type: null,
             },
         },
     },
@@ -64,14 +87,15 @@ const Template = (args, {argTypes}) => ({
     },
     data() {
         return {
-            data: '',
+            data: null,
         };
     },
     template: `
-      <PDatePicker
-          v-bind="$props"
-          v-model="data"
-      />`,
+        <PDatePicker
+            v-bind="$props"
+            v-model="data"
+        />
+    `,
 });
 
 export const DatePicker = Template.bind({});
@@ -80,4 +104,5 @@ DatePicker.args = {
     id: "pDatePicker",
     singleDatePicker: true,
     placeholder: "Select Date",
+    label: "Date Picker",
 }

@@ -16,6 +16,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         primaryAction: {
             table: {

@@ -1,6 +1,6 @@
 <template>
     <div :class="labelHidden && 'Polaris-Labelled--hidden'">
-        <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.hasOwnProperty('label')"
+        <div class="Polaris-Labelled__LabelWrapper" v-if="!floatingLabel && (label || emptyLabel || $slots.hasOwnProperty('label'))"
              :class="labelClass">
             <!-- @slot Display label for the element -->
             <slot name="label">
@@ -44,18 +44,30 @@
                 </PStack>
             </template>
             <template v-slot:input="picker" style="min-width: 100%">
-                <PTextField v-if="!button" readOnly aria-readonly="true" :value="computedTextValue(picker)"
-                            style="min-width:100%" labelHidden>
-                    <template slot="suffix">
-                        <PStack slot="suffix">
-                            <PStackItem>
-                                <PIcon source="CalendarMajor"/>
-                            </PStackItem>
-                            <PStackItem v-if="clearable">
-                                <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
-                            </PStackItem>
-                        </PStack>
+                <PTextField
+                    v-if="!button"
+                    :floating-label="floatingLabel"
+                    readOnly
+                    aria-readonly="true"
+                    :value="computedTextValue(picker)"
+                    labelHidden
+                    :error="hasError"
+                    style="min-width:100%"
+                >
+                    <template slot="error">
+                        <PVisuallyHidden>{{ error }}</PVisuallyHidden>
                     </template>
+                    <slot slot="label" name="label">
+                        {{ label }}
+                    </slot>
+                    <PStack slot="suffix">
+                        <PStackItem>
+                            <PIcon source="CalendarMajor"/>
+                        </PStackItem>
+                        <PStackItem v-if="clearable">
+                            <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
+                        </PStackItem>
+                    </PStack>
                     <template v-if="showPrefix" slot="prefix">
                         {{ prefix }}
                     </template>
@@ -71,7 +83,7 @@
                     </PStack>
                 </PButton>
             </template>
-            <template slot="footer" slot-scope="data" class="slot">
+            <template v-if="!autoApply" slot="footer" slot-scope="data" class="slot">
                 <PStack distribution="equalSpacing" alignment="center">
                     <PStackItem>
                         <PButton @click="data.clickCancel" v-if="!data.in_selection">Cancel</PButton>
@@ -90,7 +102,7 @@
                 {{ helpText }}
             </slot>
         </div>
-        <PFieldError v-if="error" :error="error"/>
+        <PFieldError v-if="hasError" :error="error"/>
     </div>
 </template>
 
@@ -106,14 +118,21 @@
     import { PCard } from '../../components/PCard';
     import { PSelect } from '../../components/PSelect';
     import { PTextField } from '../../components/PTextField';
+    import { PVisuallyHidden } from '../PVisuallyHidden';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
     const DateType = [Date, String];
     const DateRange = {
         type: [String, Object],
         properties: {
-            startDate: DateType,
-            endDate: DateType,
+            startDate: {
+                type: DateType,
+                nullable: true,
+            },
+            endDate: {
+                type: DateType,
+                nullable: true,
+            },
         },
     }
 
@@ -135,7 +154,7 @@
         name: 'PDatePicker',
         components: {
             DateRangePicker: require('vue2-daterange-picker').default,
-            PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField,
+            PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField, PVisuallyHidden,
         },
         props: {
             /**
@@ -358,6 +377,13 @@
                 type: [String, Object],
                 ...ObjectValidator('value', ValueInterface),
             },
+            /**
+             * Create beautifully simple form labels that float over your input fields
+             */
+            floatingLabel: {
+                type: Boolean,
+                default: false,
+            }
         },
         data() {
             return {
@@ -394,22 +420,24 @@
             },
             computedValue: {
                 get() {
-                    if (this.value) {
-                        if (typeof this.value === 'string') {
+                    if (this.singleDatePicker) {
+                        if (this.value) {
                             return {
-                                startDate: this.value,
-                                endDate: null,
-                            }
-                        }
-                        return this.value;
-                    } else if (this.dateRange) {
-                        if (typeof this.dateRange === 'string') {
+                                startDate: typeof this.value === 'string' ? this.value : this.value.startDate,
+                                endDate: typeof this.value === 'string' ? this.value : this.value.startDate,
+                            };
+                        } else if (this.dateRange) {
                             return {
-                                startDate: this.dateRange,
-                                endDate: null,
-                            }
+                                startDate: typeof this.dateRange === 'string' ? this.dateRange : this.dateRange.startDate,
+                                endDate: typeof this.dateRange === 'string' ? this.dateRange : this.dateRange.startDate,
+                            };
                         }
-                        return this.dateRange;
+                    } else {
+                        if (this.value) {
+                            return this.value;
+                        } else if (this.dateRange) {
+                            return this.dateRange;
+                        }
                     }
                     return {startDate: null, endDate: null};
                 },
@@ -435,13 +463,13 @@
                     if (picker.startDate && picker.endDate) {
                         return (`${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}`);
                     } else {
-                        return this.placeholder;
+                        return !this.floatingLabel ? this.placeholder : null;
                     }
                 } else {
                     if (picker.startDate) {
                         return this.formatDate(picker.startDate);
                     } else {
-                        return this.placeholder;
+                        return !this.floatingLabel ? this.placeholder : null;
                     }
                 }
             },

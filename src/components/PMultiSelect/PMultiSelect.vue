@@ -1,7 +1,8 @@
 <template>
-    <div class="">
+    <div :class="parentClassName">
         <div class="Polaris-Labelled__LabelWrapper">
             <div class="Polaris-Label">
+                <!-- @slot Display label for an element -->
                 <slot name="label">
                     <label :id="`${id}Label`" :for="id" class="Polaris-Label__Text">
                         {{ label }}
@@ -22,7 +23,7 @@
                 aria-invalid="false"
                 :options="computedOptions"
                 :track-by="valueField"
-                :placeholder="placeholder"
+                :placeholder="!floatingLabel ? placeholder : null"
                 :searchable="searchable"
                 :multiple="multiple"
                 :taggable="taggable"
@@ -30,20 +31,32 @@
                 :clear-on-select="false"
                 :preserve-search="true"
                 :label="textField"
+                @open="handleOpen"
+                @close="handleClose"
                 @tag="addTag"
                 @search-change="(query) => {$emit('searchChange', query)}"
             >
                 <template slot="caret">
-                    <div class="multiselect__select">
+                    <div v-if="!floatingLabel" class="multiselect__select">
                         <PIcon source="SelectMinor"/>
+                    </div>
+                    <div v-else class="multiselect__select">
+                        <PIcon source="CaretDownMinor"/>
                     </div>
                 </template>
 
                 <template v-slot:selection="{values, search, remove, isOpen}">
                     <div class="multiselect__tags-wrap" v-show="values && values.length > 0">
                         <template v-for="(option, index) of values" @mousedown.prevent>
-                            <PTag :tag='{"value":option[textField], "key":option[valueField]}' removable
-                                  @remove-tag="remove(option)"/>
+                            <PTag
+                                :tag="{
+                                    'value': option[textField],
+                                    'key': option[valueField]
+                                }"
+                                removable
+                                :size="floatingLabel ? 'small' : ''"
+                                @remove-tag="remove(option)"
+                            />
                         </template>
                     </div>
                     <template slot="limit"></template>
@@ -167,13 +180,28 @@
                 type: [String, Number],
                 default: `PolarisMultiSelect${(new Date()).getTime()}`,
             },
+            /**
+             * Create beautifully simple form labels that float over your input fields
+             */
+            floatingLabel: {
+                type: Boolean,
+                default: false,
+            }
         },
         data() {
             return {
                 selected: this.value,
+                dropdownOpen: false,
             };
         },
         computed: {
+            parentClassName() {
+                return classNames(
+                    this.floatingLabel && 'Polaris-Select-Floating-Label',
+                    this.hasValue && 'Polaris-Select-Has-Value',
+                    this.dropdownOpen && 'Polaris-Select--Active',
+                );
+            },
             className() {
                 return classNames(
                     'Polaris-Select',
@@ -194,6 +222,13 @@
                     }
                 });
                 return options;
+            },
+            hasValue() {
+                if (this.multiple) {
+                    return this.selected && this.selected.length > 0;
+                } else {
+                    return !!this.selected;
+                }
             },
             computedValue: {
                 get() {
@@ -228,6 +263,12 @@
                 }
                 this.options.push(tag);
                 this.$emit('change', this.selected);
+            },
+            handleOpen() {
+                this.dropdownOpen = true;
+            },
+            handleClose() {
+                this.dropdownOpen = false;
             },
         },
         watch: {

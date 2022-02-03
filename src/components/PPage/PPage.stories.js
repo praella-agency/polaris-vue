@@ -13,6 +13,9 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         primaryAction: {
             type: {
@@ -27,6 +30,12 @@ export default {
                     detail: `{
     /** Content the action displays */
     content?: string,
+    /** Accessibility Label */
+    accessibilityLabel?: string,
+    /** Icon support */
+    icon?: string,
+    /** Disable element */
+    disabled?: boolean,
     /** Callback when an action takes place */
     onAction?(): void,
 }`,
@@ -34,6 +43,9 @@ export default {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
         actionGroups: {
@@ -129,12 +141,18 @@ export default {
                     summary: null,
                 },
             },
+            control: {
+                type: null,
+            },
         },
         titleMetadata: {
             table: {
                 type: {
                     summary: null,
                 },
+            },
+            control: {
+                type: null,
             },
         },
     },

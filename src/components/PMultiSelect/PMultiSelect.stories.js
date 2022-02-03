@@ -33,6 +33,9 @@ export default {
                     detail: '(value)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         input: {
             table: {
@@ -43,6 +46,9 @@ export default {
                     summary: '()',
                     detail: '(value)',
                 },
+            },
+            control: {
+                type: null,
             },
         },
         searchChange: {
@@ -55,11 +61,21 @@ export default {
                     detail: '(query)',
                 },
             },
+            control: {
+                type: null,
+            },
         },
         value: {
             table: {
                 defaultValue: {
                     summary: '[]',
+                },
+            },
+        },
+        label: {
+            table: {
+                type: {
+                    summary: null,
                 },
             },
         },
