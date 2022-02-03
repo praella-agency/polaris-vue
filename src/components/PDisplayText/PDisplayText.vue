@@ -1,7 +1,10 @@
 <template>
-  <component :is="element" :class="className">
+  <span v-if="element === 'span'">
+    <slot />
+  </span>
+  <component v-else :is="element" :class="className">
     <!-- @slot Content to display -->
-    <slot/>
+    <slot />
   </component>
 </template>
 
