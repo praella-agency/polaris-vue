@@ -1,5 +1,5 @@
 <template>
-    <div :class="labelHidden && 'Polaris-Labelled--hidden'">
+    <div :class="parentClassName">
         <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.label">
             <div class="Polaris-Label">
                 <slot name="label">
@@ -17,7 +17,7 @@
                 :id="id"
                 :name="name"
                 v-model="computedValue"
-                class="Polaris-Select__Input"
+                :class="selectClassName"
                 :disabled="disabled"
                 aria-invalid="false"
             >
@@ -31,14 +31,17 @@
                     {{ option[textField] }}
                 </option>
             </select>
-            <div class="Polaris-Select__Content" aria-hidden="true" :aria-disabled="disabled">
+            <div v-if="!floatingLabel" class="Polaris-Select__Content" aria-hidden="true" :aria-disabled="disabled">
                 <span v-if="inlineLabel" class="Polaris-Select__InlineLabel">{{ inlineLabel }}</span>
                 <span class="Polaris-Select__SelectedOption">{{ selectedOption }}</span>
                 <span class="Polaris-Select__Icon">
-          <PIcon source="SelectMinor"/>
-        </span>
+                    <PIcon source="SelectMinor"/>
+                </span>
             </div>
-            <div class="Polaris-Select__Backdrop"></div>
+            <div v-else class="Polaris-FloatingField__Caret">
+                <PIcon source="CaretDownMinor"/>
+            </div>
+            <div v-if="!floatingLabel" class="Polaris-Select__Backdrop"></div>
         </div>
         <PFieldError v-if="error" :error="error"/>
     </div>
@@ -167,6 +170,13 @@
                 type: [Boolean, String],
                 default: false,
             },
+            /**
+             * Create beautifully simple form labels that float over your input fields
+             */
+            floatingLabel: {
+                type: Boolean,
+                default: false,
+            }
         },
         data() {
             return {
@@ -174,16 +184,31 @@
             };
         },
         computed: {
+            parentClassName() {
+                return classNames(
+                    this.floatingLabel && 'Polaris-Select-Floating-Label',
+                    this.selected && 'Polaris-Select--Active',
+                    this.labelHidden && 'Polaris-Labelled--hidden',
+                );
+            },
             className() {
                 return classNames(
                     'Polaris-Select',
                     this.disabled && 'Polaris-Select--disabled',
                     this.error && 'Polaris-Select--error',
+                    this.floatingLabel && 'Polaris-Floating'
+                );
+            },
+            selectClassName() {
+                return classNames(
+                    this.floatingLabel
+                        ? 'Polaris-FloatingLabels__Input--select'
+                        : 'Polaris-Select__Input',
                 );
             },
             computedOptions() {
                 const options = [];
-                if (this.placeholder) {
+                if (this.placeholder && !this.floatingLabel) {
                     options.push({
                         [this.textField]: this.placeholder,
                         [this.valueField]: PLACEHOLDER_VALUE,
@@ -191,7 +216,6 @@
                     });
                 }
                 this.options.map((value) => {
-
                     if (typeof value === 'object') {
                         options.push(value);
                     } else {

@@ -16,10 +16,13 @@ export default {
                 },
             },
         },
-        id: {
+        label: {
+            description: `**Props**: Label for the select.
+             \n**Slots**: Customize label.`,
             table: {
+                category: 'Props | Slots',
                 type: {
-                    summary: 'string | number',
+                    summary: null,
                 },
             },
         },
@@ -49,7 +52,7 @@ const Template = (args, { argTypes }) => ({
     },
     data() {
         return {
-            selectedOption: null,
+            selectedOption: '',
         };
     },
     template: `
@@ -58,7 +61,7 @@ const Template = (args, { argTypes }) => ({
               v-model="selectedOption"
               v-bind="$props"
               @change="changeEvent"
-          ></PSelect>
+          />
           <br />
           <p v-if="selectedOption">Selected Value: <PBadge>{{selectedOption}}</PBadge></p>
         </div>`,
@@ -81,5 +84,4 @@ Select.args = {
         {label: 'Last name A–Z', value: 'lastNameAlpha', hidden: true},
         {label: 'Last name Z–A', value: 'lastNameReverseAlpha'},
     ],
-    placeholder: "Select",
 }
