@@ -1,49 +1,54 @@
 <template>
     <div ref="container">
+        <portal-target v-if="preferredPosition === 'above'" :name="preferredPosition"/>
         <!-- @slot Filter Activator content -->
         <slot name="activator" :activate="onActivate"></slot>
 
-        <PPopoverOverlay
-            :id="realId+'Overlay'"
-            :active="activeStatus"
-            :activatorId="activatorId"
-            :preferredPosition="preferredPosition"
-            :preferredAlignment="preferredAlignment"
-            :fullWidth="fullWidth"
-            @close="onClose">
-            <template v-slot:overlay="props">
-                <div :class="className" :ref="`content-${id}`">
-                    <div v-if="!props.data.measuring"
-                         :style="{ left: props.data.tipPosition+'px' }"
-                         class="Polaris-Popover__Tip">
-                    </div>
-                    <div class="Polaris-Popover__FocusTracker"
-                         @focus="handleFocusFirstItem"
-                         tabindex="0">
-                    </div>
-                    <div class="Polaris-Popover__Wrapper">
-                        <div :class="contentClassName">
-                            <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical"
-                                 data-polaris-scrollable="true">
-                                <!-- @slot Popover Overlay content -->
-                                <slot name="content"></slot>
+        <portal :to="preferredPosition">
+            <PPopoverOverlay
+                :id="realId+'Overlay'"
+                :active="activeStatus"
+                :activatorId="activatorId"
+                :preferredPosition="preferredPosition"
+                :preferredAlignment="preferredAlignment"
+                :fullWidth="fullWidth"
+                @close="onClose">
+                <template v-slot:overlay="props">
+                    <div :class="className" :ref="`content-${id}`">
+                        <div v-if="!props.data.measuring"
+                             :style="{ left: props.data.tipPosition+'px' }"
+                             class="Polaris-Popover__Tip">
+                        </div>
+                        <div class="Polaris-Popover__FocusTracker"
+                             @focus="handleFocusFirstItem"
+                             tabindex="0">
+                        </div>
+                        <div class="Polaris-Popover__Wrapper">
+                            <div :class="contentClassName">
+                                <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical"
+                                     data-polaris-scrollable="true">
+                                    <!-- @slot Popover Overlay content -->
+                                    <slot name="content"></slot>
+                                </div>
                             </div>
                         </div>
+                        <div class="Polaris-Popover__FocusTracker"
+                             @focus="handleFocusLastItem"
+                             tabindex="0">
+                        </div>
                     </div>
-                    <div class="Polaris-Popover__FocusTracker"
-                         @focus="handleFocusLastItem"
-                         tabindex="0">
-                    </div>
-                </div>
-            </template>
-        </PPopoverOverlay>
+                </template>
+            </PPopoverOverlay>
+        </portal>
+
+        <portal-target v-if="preferredPosition === 'below'" :name="preferredPosition"/>
     </div>
 </template>
-
 
 <script>
     import { classNames } from '../../utilities/css';
     import { PPopoverOverlay } from '../../components/PPopover/components/PPopoverOverlay';
+    import { Portal, PortalTarget } from 'portal-vue';
 
     /**
      * <br/>
@@ -55,7 +60,7 @@
     export default {
         name: 'PPopover',
         components: {
-            PPopoverOverlay,
+            PPopoverOverlay, Portal, PortalTarget,
         },
         props: {
             /**
