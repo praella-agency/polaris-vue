@@ -10,6 +10,7 @@
         @blur="$emit('blur', $event)"
 
         :url="href"
+        :to="to"
         :external="external"
         :download="download"
 
@@ -21,7 +22,7 @@
         :aria-describedby="ariaDescribedBy"
         :aria-pressed="pressed"
         @keydown="$emit('keyDown', $event)"
-        @keyup="$emit('keyUp', $event)"
+        @keyup="$emit('keyup', $event)"
         @keypress="$emit('keyPress', $event)"
     >
         <span class="Polaris-Button__Content">
