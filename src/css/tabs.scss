@@ -7,7 +7,7 @@
 }
 
 .Polaris-Tabs__Wrapper {
-  border-bottom: 0.1rem solid $p-divider;
+  border-bottom: 0.1rem solid rgba(202, 204, 207, 1);
   padding: 0 0.8rem;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .Polaris-Tabs__Tab:hover .Polaris-Tabs__Title::before {
-  background-color: $p-border-hovered;
+  background-color: $p-action-primary;
 }
 
 .Polaris-Tabs__Tab:active .Polaris-Tabs__Title {
@@ -106,7 +106,7 @@
 
 .Polaris-Tabs__Tab:focus .Polaris-Tabs__Title {
   font-weight: 400;
-  color: $p-text;
+  color: $p-success;
 }
 
 .Polaris-Tabs__Tab:focus:not(:active) .Polaris-Tabs__Title::after {
@@ -129,7 +129,7 @@
 
 .Polaris-Tabs__Tab--selected .Polaris-Tabs__Title {
   outline: 0.3rem solid transparent;
-  color: $p-text;
+  color: $p-success;
 }
 
 .Polaris-Tabs__Tab--selected .Polaris-Tabs__Title::before {
@@ -143,6 +143,10 @@
   padding: 0.8rem 1.6rem;
   min-width: 5rem;
   color: $p-text-subdued;
+}
+
+a:visited > .Polaris-Tabs__Title {
+  color: inherit;
 }
 
 .Polaris-Tabs__Title::after {
