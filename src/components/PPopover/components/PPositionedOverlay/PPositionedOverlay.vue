@@ -3,7 +3,7 @@
         :id="id"
         class="Polaris-PositionedOverlay"
         :style="containerStyle"
-        v-if="active"
+        v-show="active"
         ref="overlay">
         <slot
             name="overlay"

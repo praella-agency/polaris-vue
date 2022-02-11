@@ -1,54 +1,49 @@
 <template>
-    <div ref="container">
-        <portal-target v-if="preferredPosition === 'above'" :name="preferredPosition"/>
+    <div ref="container" id="popover-container">
         <!-- @slot Filter Activator content -->
         <slot name="activator" :activate="onActivate"></slot>
 
-        <portal :to="preferredPosition">
-            <PPopoverOverlay
-                :id="realId+'Overlay'"
-                :active="activeStatus"
-                :activatorId="activatorId"
-                :preferredPosition="preferredPosition"
-                :preferredAlignment="preferredAlignment"
-                :fullWidth="fullWidth"
-                @close="onClose">
-                <template v-slot:overlay="props">
-                    <div :class="className" :ref="`content-${id}`">
-                        <div v-if="!props.data.measuring"
-                             :style="{ left: props.data.tipPosition+'px' }"
-                             class="Polaris-Popover__Tip">
-                        </div>
-                        <div class="Polaris-Popover__FocusTracker"
-                             @focus="handleFocusFirstItem"
-                             tabindex="0">
-                        </div>
-                        <div class="Polaris-Popover__Wrapper">
-                            <div :class="contentClassName">
-                                <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical"
-                                     data-polaris-scrollable="true">
-                                    <!-- @slot Popover Overlay content -->
-                                    <slot name="content"></slot>
-                                </div>
+        <PPopoverOverlay
+            :id="realId+'Overlay'"
+            :active="activeStatus"
+            :activatorId="activatorId"
+            :preferredPosition="preferredPosition"
+            :preferredAlignment="preferredAlignment"
+            :fullWidth="fullWidth"
+            @close="onClose">
+            <template v-slot:overlay="props">
+                <div :class="className" :ref="`content-${id}`">
+                    <div v-if="!props.data.measuring"
+                         :style="{ left: props.data.tipPosition+'px' }"
+                         class="Polaris-Popover__Tip">
+                    </div>
+                    <div class="Polaris-Popover__FocusTracker"
+                         @focus="handleFocusFirstItem"
+                         tabindex="0">
+                    </div>
+                    <div class="Polaris-Popover__Wrapper">
+                        <div :class="contentClassName">
+                            <div class="Polaris-Popover__Pane Polaris-Scrollable Polaris-Scrollable--vertical"
+                                 data-polaris-scrollable="true">
+                                <!-- @slot Popover Overlay content -->
+                                <slot name="content"></slot>
                             </div>
                         </div>
-                        <div class="Polaris-Popover__FocusTracker"
-                             @focus="handleFocusLastItem"
-                             tabindex="0">
-                        </div>
                     </div>
-                </template>
-            </PPopoverOverlay>
-        </portal>
-
-        <portal-target v-if="preferredPosition === 'below'" :name="preferredPosition"/>
+                    <div class="Polaris-Popover__FocusTracker"
+                         @focus="handleFocusLastItem"
+                         tabindex="0">
+                    </div>
+                </div>
+            </template>
+        </PPopoverOverlay>
     </div>
 </template>
+
 
 <script>
     import { classNames } from '../../utilities/css';
     import { PPopoverOverlay } from '../../components/PPopover/components/PPopoverOverlay';
-    import { Portal, PortalTarget } from 'portal-vue';
 
     /**
      * <br/>
@@ -60,7 +55,7 @@
     export default {
         name: 'PPopover',
         components: {
-            PPopoverOverlay, Portal, PortalTarget,
+            PPopoverOverlay,
         },
         props: {
             /**
@@ -189,6 +184,8 @@
                  * Close filter menu when EscapeKey is pressed
                  */
                 this.$emit('close', 'EscapeKeypress');
+                /** @ignore */
+                this.$emit('update:active', false);
             },
             handlePageClick(e) {
                 const target = e.target;
@@ -201,6 +198,8 @@
                  * Close filter menu when page is clicked
                  */
                 this.$emit('close', 'Click');
+                /** @ignore */
+                this.$emit('update:active', false);
             },
             nodeContainsDescendant(haystack, needle) {
                 if (haystack === needle) {
@@ -223,14 +222,33 @@
             },
             handleFocusFirstItem() {
                 this.$emit('close', 'FocusOut');
+                /** @ignore */
+                this.$emit('update:active', false);
             },
             handleFocusLastItem() {
                 this.$emit('close', 'FocusOut');
-            },
-            onClose() {
                 /** @ignore */
                 this.$emit('update:active', false);
+            },
+            onClose(event) {
                 this.$emit('close', 'Click');
+                /** @ignore */
+                this.$emit('update:active', false);
+                if (event && event.target) {
+                    const target = event.target;
+                    const contentNode = this.$refs['content-' + this.id];
+                    if (!this.findActivator()) {
+                        const popoverOverlay = document.getElementById(this.realId + 'Overlay');
+                        if (popoverOverlay) {
+                            popoverOverlay.remove();
+                        }
+                    } else {
+                        if ((contentNode != null && this.nodeContainsDescendant(contentNode, target)) ||
+                            this.nodeContainsDescendant(this.findActivator(), target) || !this.active) {
+                            return;
+                        }
+                    }
+                }
             }
         },
         watch: {
@@ -253,9 +271,8 @@
         },
         mounted() {
             if (this.$refs.container['firstElementChild'] !== null) {
-                this.$refs.container['firstElementChild'].id = this.activatorId;
+                document.getElementById('popover-container').setAttribute('id', this.activatorId);
             }
-
             window.addEventListener('click', this.handlePageClick);
             window.addEventListener('touchstart', this.handlePageClick);
             document.addEventListener('keyup', this.handleKeyPress);

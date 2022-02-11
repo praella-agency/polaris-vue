@@ -78,6 +78,8 @@ const Template = (args, { argTypes }) => ({
             @dismiss="handleDismissAction"
         >
             Add weights to show accurate rates at checkout and when buying shipping
+            labels in Shopify.Add weights to show accurate rates at checkout and when buying shipping
+            labels in Shopify.Add weights to show accurate rates at checkout and when buying shipping
             labels in Shopify.
         </PBanner>`,
     methods: {
@@ -90,12 +92,4 @@ const Template = (args, { argTypes }) => ({
 export const Banner = Template.bind({});
 
 Banner.args = {
-    title: 'Some of your product variants are missing weights',
-    action: {
-        content: 'Edit variant weights',
-        onAction: () => {
-            alert('Edit variant weights');
-        },
-        disabled: false,
-    },
 }
