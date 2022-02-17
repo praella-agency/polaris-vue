@@ -29,7 +29,10 @@
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "vitebook:dev": "vitebook dev",
+    "vitebook:build": "vitebook build",
+    "vitebook:preview": "vitebook preview"
   },
   "main": "dist/polaris-vue.min.js",
   "dependencies": {
@@ -74,8 +77,14 @@
     "@storybook/cli": "6.5.0-alpha.5",
     "@storybook/theming": "6.5.0-alpha.5",
     "@storybook/vue": "6.5.0-alpha.5",
+    "@vitebook/client": "^0.22.0",
+    "@vitebook/core": "^0.22.0",
+    "@vitebook/theme-default": "^0.22.0",
+    "@vitebook/vue": "^0.22.0",
+    "@vitejs/plugin-vue": "^2.0.0",
     "@vue/cli-plugin-babel": "^4.5.13",
     "@vue/cli-plugin-typescript": "^4.0.0",
+    "@vue/compiler-sfc": "^3.2.26",
     "autoprefixer": "^9.7.8",
     "babel-loader": "^8.2.2",
     "clean-css": "^5.2.2",
@@ -101,6 +110,8 @@
     "rollup-plugin-vue": "^5.1.9",
     "sass-loader": "^8.0.0",
     "showdown": "^1.9.1",
+    "svelte": "^3.43.1",
+    "vite": "^2.7.0",
     "vue-loader": "^15.9.7",
     "vue-template-compiler": "^2.6.14"
   },

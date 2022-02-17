@@ -19,3 +19,9 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+.DS_STORE
+.cache
+.temp
+node_modules/
+dist/
