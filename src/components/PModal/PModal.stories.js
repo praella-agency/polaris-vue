@@ -81,6 +81,16 @@ export default {
                 type: null,
             },
         },
+        title: {
+            description: `**Props**: The content for the title of modal.
+                \n**Slots**: Customize title.`,
+            table: {
+                category: 'Props | Slots',
+                type: {
+                    summary: null,
+                },
+            },
+        }
     },
 }
 
