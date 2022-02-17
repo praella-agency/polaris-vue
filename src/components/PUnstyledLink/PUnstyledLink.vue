@@ -29,7 +29,7 @@
              * Set to for router link
              */
             to: {
-                type: String | Object,
+                type: [String, Object],
                 default: null,
             },
             /**

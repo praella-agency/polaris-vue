@@ -2,8 +2,10 @@
     <div>
         <div v-if="open">
             <PModalDialog :large="large" :small="small" :limitHeight="limitHeight">
-                <PModalHeader v-if="title" @close="handleOnClick">
-                    {{ title }}
+                <PModalHeader v-if="title || $slots.title" @close="handleOnClick">
+                    <slot name="title">
+                        {{ title }}
+                    </slot>
                 </PModalHeader>
                 <PModalCloseButton v-else :title="false" @click="$emit('close', $event)"/>
                 <div class="Polaris-Modal__BodyWrapper">

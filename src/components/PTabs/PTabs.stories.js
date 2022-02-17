@@ -108,13 +108,14 @@ const Template = (args, { argTypes }) => ({
         };
     },
     template: `
-        <PCard>
+<!--        <PCard>-->
             <PTabs v-bind="$props" :tabs="items" @select="selectMenu" :selected="selectedTab">
                 <PCardSection :title="(selectedTab !== null) ? items[selectedTab].content : ''">
                     <p>Tab {{ selectedTab }} selected</p>
                 </PCardSection>
             </PTabs>
-        </PCard>`,
+<!--        </PCard>-->
+    `,
     methods: {
         selectMenu(menuIndex) {
             this.selectedTab = menuIndex;

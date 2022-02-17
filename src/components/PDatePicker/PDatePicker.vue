@@ -72,16 +72,21 @@
                         {{ prefix }}
                     </template>
                 </PTextField>
-                <PButton icon="CalendarMajor" v-else>
-                    <PStack>
-                        <PStackItem style="padding: 2px 0;">
-                            {{ computedTextValue(picker) }}
-                        </PStackItem>
-                        <PStackItem v-if="clearable">
-                            <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
-                        </PStackItem>
-                    </PStack>
-                </PButton>
+                <button class="Polaris-Button" v-else>
+                    <span class="Polaris-Button__Icon">
+                        <PIcon source="CalendarMajor"/>
+                    </span>
+                    <span class="Polaris-Button__Text">
+                        <PStack>
+                            <PStackItem style="padding: 2px 0;">
+                                {{ computedTextValue(picker) }}
+                            </PStackItem>
+                            <PStackItem v-if="clearable">
+                                <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
+                            </PStackItem>
+                        </PStack>
+                    </span>
+                </button>
             </template>
             <template v-if="!autoApply" slot="footer" slot-scope="data" class="slot">
                 <PStack distribution="equalSpacing" alignment="center">

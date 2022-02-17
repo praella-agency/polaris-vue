@@ -41,6 +41,7 @@
     "core-js": "^3.3.2",
     "dayjs": "^1.10.4",
     "mitt": "^3.0.0",
+    "portal-vue": "^2.1.7",
     "v-click-outside": "^3.0.1",
     "vue": "^2.6.14",
     "vue-apexcharts": "^1.6.1",
