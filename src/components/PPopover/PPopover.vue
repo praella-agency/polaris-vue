@@ -1,5 +1,5 @@
 <template>
-    <div ref="container">
+    <div ref="container" :id="activatorId">
         <!-- @slot Filter Activator content -->
         <slot name="activator" :activate="onActivate"></slot>
 
@@ -184,6 +184,8 @@
                  * Close filter menu when EscapeKey is pressed
                  */
                 this.$emit('close', 'EscapeKeypress');
+                /** @ignore */
+                this.$emit('update:active', false);
             },
             handlePageClick(e) {
                 const target = e.target;
@@ -196,6 +198,8 @@
                  * Close filter menu when page is clicked
                  */
                 this.$emit('close', 'Click');
+                /** @ignore */
+                this.$emit('update:active', false);
             },
             nodeContainsDescendant(haystack, needle) {
                 if (haystack === needle) {
@@ -218,14 +222,33 @@
             },
             handleFocusFirstItem() {
                 this.$emit('close', 'FocusOut');
+                /** @ignore */
+                this.$emit('update:active', false);
             },
             handleFocusLastItem() {
                 this.$emit('close', 'FocusOut');
-            },
-            onClose() {
                 /** @ignore */
                 this.$emit('update:active', false);
+            },
+            onClose(event) {
                 this.$emit('close', 'Click');
+                /** @ignore */
+                this.$emit('update:active', false);
+                if (event && event.target) {
+                    const target = event.target;
+                    const contentNode = this.$refs['content-' + this.id];
+                    if (!this.findActivator()) {
+                        const popoverOverlay = document.getElementById(this.realId + 'Overlay');
+                        if (popoverOverlay) {
+                            popoverOverlay.remove();
+                        }
+                    } else {
+                        if ((contentNode != null && this.nodeContainsDescendant(contentNode, target)) ||
+                            this.nodeContainsDescendant(this.findActivator(), target) || !this.active) {
+                            return;
+                        }
+                    }
+                }
             }
         },
         watch: {
@@ -247,10 +270,9 @@
             }
         },
         mounted() {
-            if (this.$refs.container['firstElementChild'] !== null) {
-                this.$refs.container['firstElementChild'].id = this.activatorId;
-            }
-
+            // if (this.$refs.container['firstElementChild'] !== null) {
+            //     document.getElementById('popover-container').setAttribute('id', this.activatorId);
+            // }
             window.addEventListener('click', this.handlePageClick);
             window.addEventListener('touchstart', this.handlePageClick);
             document.addEventListener('keyup', this.handleKeyPress);
