@@ -18,7 +18,7 @@
     "component library"
   ],
   "license": "MIT",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "scripts": {
     "prebuild": "rimraf ./dist",
     "build:scss": "sass src/scss/main.scss | node ./build/banner.js > dist/polaris-vue.css && cleancss --inline local -o dist/polaris-vue.min.css dist/polaris-vue.css",
