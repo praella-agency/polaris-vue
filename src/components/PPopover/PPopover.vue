@@ -1,5 +1,5 @@
 <template>
-    <div ref="container" id="popover-container">
+    <div ref="container" :id="activatorId">
         <!-- @slot Filter Activator content -->
         <slot name="activator" :activate="onActivate"></slot>
 
@@ -270,9 +270,9 @@
             }
         },
         mounted() {
-            if (this.$refs.container['firstElementChild'] !== null) {
-                document.getElementById('popover-container').setAttribute('id', this.activatorId);
-            }
+            // if (this.$refs.container['firstElementChild'] !== null) {
+            //     document.getElementById('popover-container').setAttribute('id', this.activatorId);
+            // }
             window.addEventListener('click', this.handlePageClick);
             window.addEventListener('touchstart', this.handlePageClick);
             document.addEventListener('keyup', this.handleKeyPress);
