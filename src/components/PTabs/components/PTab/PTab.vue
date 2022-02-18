@@ -121,6 +121,7 @@
             tabTitleClassNames() {
                 return classNames(
                     'Polaris-Tabs__Title',
+                    this.selected && 'Polaris-Tab__Tab--selected-title',
                 );
             },
             tabIndex() {
