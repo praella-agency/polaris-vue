@@ -3,9 +3,9 @@ import { vuePlugin } from '@vitebook/vue/node';
 import { defaultThemePlugin } from '@vitebook/theme-default/node';
 
 export default defineConfig({
-  include: ['src/**/*.story.vue'],
+  include: ['src/components/**/*.story.vue'],
   plugins: [
-    vuePlugin({ appFile: 'App.vue' }),
+    vuePlugin({ appFile: 'App.vue' }),  
     clientPlugin(),
     defaultThemePlugin(),
   ],
