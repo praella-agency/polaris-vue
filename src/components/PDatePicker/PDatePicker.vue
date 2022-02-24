@@ -82,7 +82,7 @@
                                 {{ computedTextValue(picker) }}
                             </PStackItem>
                             <PStackItem v-if="clearable">
-                                <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
+                                <PIcon source="CircleCancelMinor" @click="handleCancelClick"/>
                             </PStackItem>
                         </PStack>
                     </span>
@@ -311,18 +311,18 @@
             ranges: {
                 type: [Boolean, Object],
                 default: () => {
-                    const today = new Date();
+                    let today = new Date();
                     today.setHours(0, 0, 0, 0);
 
-                    const yesterday = dayjs().add(-1, 'day').toDate();
+                    let yesterday = dayjs().add(-1, 'day').toDate();
 
                     return {
                         'Today': [today, today],
                         'Yesterday': [yesterday, yesterday],
-                        'This week': [dayjs().startOf('week').add(1, 'day').toDate(), dayjs().endOf('week').toDate()],
-                        'This month': [dayjs().startOf('month').add(1, 'day').toDate(), dayjs().endOf('month').toDate()],
-                        'This year': [dayjs().startOf('year').add(1, 'day').toDate(), dayjs().endOf('year').toDate()],
-                        'Last month': [dayjs().subtract(1, 'month').startOf('month').add(1, 'day').toDate(),
+                        'This week': [dayjs().startOf('week').toDate(), dayjs().endOf('week').toDate()],
+                        'This month': [dayjs().startOf('month').toDate(), dayjs().endOf('month').toDate()],
+                        'This year': [dayjs().startOf('year').toDate(), dayjs().endOf('year').toDate()],
+                        'Last month': [dayjs().subtract(1, 'month').startOf('month').toDate(),
                             dayjs().subtract(1, 'month').endOf('month').toDate()],
                     };
                 },
