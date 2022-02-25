@@ -1,23 +1,18 @@
 'use strict'
 import PLoading from './PLoading.vue';
-
 function assign(target, source) { // eslint-disable-line no-unused-vars
     for (let index = 1, key, src; index < arguments.length; ++index) {
         src = arguments[index];
-
         for (key in src) {
             if (Object.prototype.hasOwnProperty.call(src, key)) {
                 target[key] = src[key];
             }
         }
     }
-
     return target;
 }
-
 function install(Vue, options = {}) {
     const inBrowser = typeof window !== 'undefined';
-
     const DEFAULT_OPTION = {
         canSuccess: true,
         show: false,
@@ -35,15 +30,14 @@ function install(Vue, options = {}) {
         inverse: false,
         autoFinish: true
     };
-
     let instance = null;
     document.addEventListener('DOMContentLoaded', () => {
         let componentClass = Vue.extend(PLoading);
         instance = new componentClass({});
     });
-
     let Loading = {
         $vm: null,
+        element: null,
         state: {
             tFailColor: '',
             tColor: '',
@@ -57,16 +51,15 @@ function install(Vue, options = {}) {
             if (!this.$vm) {
                 return;
             }
-
             if (!instance) {
                 let componentClass = Vue.extend(PLoading);
                 instance = new componentClass({});
             }
             if (instance) {
                 instance.$mount();
-                document.body.prepend(instance.$el);
+                self.element = instance.$el;
+                document.body.prepend(element);
             }
-
             if (!time) time = 3000;
             this.$vm.RADON_LOADING_BAR.percent = 0; // this.$vm.RADON_LOADING_BAR.percent
             this.$vm.RADON_LOADING_BAR.options.is_finished = false;
@@ -102,9 +95,10 @@ function install(Vue, options = {}) {
             Vue.nextTick(() => {
                 this.$vm.RADON_LOADING_BAR.percent = 0;
             });
-            if (instance && instance.$el) {
-                document.body.removeChild(instance.$el);
+            if(self.element) {
+                document.body.removeChild(self.element);
                 instance = null;
+                self.element = null;
             }
         },
         finish() {
@@ -124,9 +118,7 @@ function install(Vue, options = {}) {
             }, 500);
         },
     }
-
     const loadingOptions = assign(DEFAULT_OPTION, options);
-
     const PLoadingEventBus = new Vue({
         data: {
             RADON_LOADING_BAR: {
@@ -135,16 +127,13 @@ function install(Vue, options = {}) {
             }
         }
     });
-
     if (inBrowser) {
         window.PLoadingEventBus = PLoadingEventBus;
         Loading.init(PLoadingEventBus);
     }
-
     Vue.$pLoading = Loading;
     Vue.prototype.$pLoading = Loading;
 }
-
 export default {
     install
 }
