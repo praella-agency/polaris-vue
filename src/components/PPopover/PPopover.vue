@@ -180,12 +180,14 @@
                 if (e.keyCode !== 27) {
                     return;
                 }
-                /**
-                 * Close filter menu when EscapeKey is pressed
-                 */
-                this.$emit('close', 'EscapeKeypress');
-                /** @ignore */
-                this.$emit('update:active', false);
+                if (this.active) {
+                    /** @ignore */
+                    this.$emit('update:active', false);
+                    /**
+                     * Close filter menu when EscapeKey is pressed
+                     */
+                    this.$emit('close', 'EscapeKeypress');
+                }
             },
             handlePageClick(e) {
                 const target = e.target;
@@ -194,12 +196,14 @@
                     this.nodeContainsDescendant(this.findActivator(), target) || !this.activeStatus) {
                     return;
                 }
-                /**
-                 * Close filter menu when page is clicked
-                 */
-                this.$emit('close', 'Click');
-                /** @ignore */
-                this.$emit('update:active', false);
+                if (this.active) {
+                    /**
+                     * Close filter menu when page is clicked
+                     */
+                    this.$emit('close', 'Click');
+                    /** @ignore */
+                    this.$emit('update:active', false);
+                }
             },
             nodeContainsDescendant(haystack, needle) {
                 if (haystack === needle) {
