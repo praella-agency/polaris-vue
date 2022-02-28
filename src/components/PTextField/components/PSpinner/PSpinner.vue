@@ -5,7 +5,6 @@
             class="Polaris-TextField__Segment"
             tabindex="-1"
             @click="handleStep(1)"
-            @mousedown="handleMouseDown(handleStep(1))"
         >
             <div class="Polaris-TextField__SpinnerIcon">
                 <PIcon source="CaretUpMinor"/>
@@ -39,13 +38,6 @@
             handleStep(value) {
                 this.$emit('change', value);
             },
-            handleMouseDown(onChange) {
-                return (event) => {
-                    if (event.button !== 0)
-                        return;
-                    this.$emit('mouseDown', onChange)
-                }
-            }
         },
     }
 </script>
