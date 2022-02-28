@@ -90,6 +90,7 @@
                     {{ label }}
                 </slot>
             </label>
+            <div v-if="!richEditor" class="Polaris-TextField__Backdrop"></div>
         </div>
         <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" v-if="showSuffix">
             {{ suffix }}
@@ -108,7 +109,6 @@
             <span class="Polaris-VisuallyHidden">Clear</span>
             <PIcon source="CircleCancelMinor" color="base"></PIcon>
         </button>
-        <div v-if="!richEditor" class="Polaris-TextField__Backdrop"></div>
 
         <PSpinner @change="handleNumberChange" v-if="type === 'number'"></PSpinner>
 

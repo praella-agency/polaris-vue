@@ -32,8 +32,8 @@
                     >
                         <PPopover
                             :id="this['_uid']"
-                            :active="smallScreenPopoverVisible"
-                            @close="toggleSmallScreenPopover()"
+                            :active.sync="smallScreenPopoverVisible"
+                            @close="() => { this.smallScreenPopoverVisible = false; }"
                         >
                             <PBulkActionButton
                                 slot="activator"
@@ -126,8 +126,8 @@
                         >
                             <PPopover
                                 :id="this['_uid']"
-                                :active="largeScreenPopoverVisible"
-                                @close="toggleLargeScreenPopover()"
+                                :active.sync="largeScreenPopoverVisible"
+                                @close="() => { this.largeScreenPopoverVisible = false; }"
                             >
                                 <PBulkActionButton
                                     slot="activator"
@@ -462,6 +462,11 @@
                     this.promotedActionsWidths.push(width);
                 }
             },
+        },
+        beforeDestroy() {
+            if (document.getElementById('PolarisPopover'+this['_uid']+'Overlay')) {
+                document.getElementById('PolarisPopover' + this['_uid'] + 'Overlay').remove();
+            }
         },
     }
 </script>

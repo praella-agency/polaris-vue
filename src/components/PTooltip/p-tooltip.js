@@ -14,6 +14,7 @@ function tooltipBind(event, binding, togglePop, elementId) {
     }
 
     let targetEl = event.target;
+    targetEl.style.display = 'block';
     if (targetEl.offsetWidth <= targetEl.scrollWidth) {
         if (!elementId) {
             targetEl.id = 'tooltip' + (new Date()).getTime();

@@ -1,8 +1,8 @@
 <template>
     <PPopover
         :id="this['_uid']"
-        :active="isVisible"
-        @close="toggleMenuVisibility"
+        :active.sync="isVisible"
+        @close="handleItemAction"
         preferInputActivator
     >
         <PBulkActionButton
@@ -16,7 +16,7 @@
         <PActionList
             slot="content"
             :items="actions"
-            @item-action="toggleMenuVisibility"
+            @item-action="handleItemAction"
         />
     </PPopover>
 </template>
@@ -58,6 +58,14 @@
             toggleMenuVisibility() {
                 this.isVisible = !this.isVisible;
             },
+            handleItemAction() {
+                this.isVisible = false;
+            }
+        },
+        beforeDestroy() {
+            if (document.getElementById('PolarisPopover' + this['_uid'] + 'Overlay')) {
+                document.getElementById('PolarisPopover' + this['_uid'] + 'Overlay').remove();
+            }
         },
     }
 </script>
