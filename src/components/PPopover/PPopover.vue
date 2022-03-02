@@ -274,19 +274,14 @@
             }
         },
         mounted() {
-            // if (this.$refs.container['firstElementChild'] !== null) {
-            //     document.getElementById('popover-container').setAttribute('id', this.activatorId);
-            // }
             window.addEventListener('click', this.handlePageClick);
             window.addEventListener('touchstart', this.handlePageClick);
             document.addEventListener('keyup', this.handleKeyPress);
         },
         beforeDestroy() {
-            if (this.isAppended) {
-                const popoverOverlay = document.getElementById(this.realId + 'Overlay');
-                if (popoverOverlay) {
-                    popoverOverlay.remove();
-                }
+            const overlay = document.getElementById(this.realId + 'Overlay');
+            if (overlay) {
+                overlay.remove();
             }
         },
         destroyed() {
