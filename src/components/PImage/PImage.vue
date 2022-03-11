@@ -1,5 +1,5 @@
 <template>
-    <img :alt="alt" :src="source" :class="className" />
+    <img :alt="alt" :src="source" :class="className"/>
 </template>
 
 <script>
@@ -14,36 +14,36 @@
     export default {
         name: 'PImage',
         props: {
-          /**
-           * Image source
-           */
-          source: {
-            type: String,
-            default: null
-          },
+            /**
+             * Image source
+             */
+            source: {
+                type: String,
+                default: null
+            },
 
-          /**
-           * Image alt
-           */
-          alt: {
-            type: String,
-            default: null
-          },
+            /**
+             * Image alt
+             */
+            alt: {
+                type: String,
+                default: null
+            },
 
-          /**
-           * Image class
-           */
-          imgClass: {
-            type: String,
-            default: null
-          }
+            /**
+             * Image class
+             */
+            imgClass: {
+                type: String,
+                default: null
+            }
         },
         computed: {
-          className() {
-            return classNames(
-                this.imgClass,
-            );
-          }
+            className() {
+                return classNames(
+                    this.imgClass,
+                );
+            }
         }
     }
 </script>

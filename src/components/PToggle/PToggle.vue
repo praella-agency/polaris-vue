@@ -15,7 +15,6 @@
 </template>
 
 <script>
-
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -67,6 +66,7 @@
                 default: false,
             },
         },
+        emits: ['change'],
         methods: {
             onChange(e) {
                 const target = e.target || e.srcElement;
