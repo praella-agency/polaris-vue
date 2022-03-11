@@ -61,6 +61,7 @@
                 default: null
             }
         },
+        emits: ['click'],
         data() {
             return {
                 clickable: {}
@@ -111,11 +112,11 @@
             }
         },
         mounted() {
-            if (this.$listeners.click) {
-                this.clickable = {
-                    cursor: 'pointer',
-                };
-            }
+            // if (this.$listeners.click) {
+            //     this.clickable = {
+            //         cursor: 'pointer',
+            //     };
+            // }
         }
     }
 </script>

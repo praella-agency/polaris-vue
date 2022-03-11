@@ -21,7 +21,7 @@
         :aria-expanded="ariaExpanded"
         :aria-describedby="ariaDescribedBy"
         :aria-pressed="pressed"
-        @keydown="$emit('keyDown', $event)"
+        @keydown="$emit('keydown', $event)"
         @keyup="$emit('keyup', $event)"
         @keypress="$emit('keyPress', $event)"
     >
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+    import utils from '../../../../utilities';
     import { PIcon } from '../../../../components/PIcon';
     import { PSpinner } from '../../../../components/PSpinner';
     import { PUnstyledLink } from '../../../../components/PUnstyledLink';
@@ -281,6 +282,7 @@
                 type: [String, Number, Array],
             },
         },
+        emits: ['click', 'focus', 'blur', 'keydown', 'keyup', 'keyPress'],
         computed: {
             className() {
                 return classNames(
@@ -320,7 +322,8 @@
                 return this.disabled || this.loading;
             },
             hasNoChildren() {
-                return (this.$slots.default || []).length === 0;
+                let slots = utils.isVue3 ? this.$slots.default() : this.$slots.default;
+                return (slots || []).length === 0;
             },
             spinnerColor() {
                 return this.primary || this.destructive ? 'white' : 'inkLightest';

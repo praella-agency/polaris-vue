@@ -20,25 +20,27 @@
             preferredAlignment="right"
             @close="() => {this.disclosureActive = false;}"
         >
-            <button
-                slot="activator"
-                type="button"
-                :class="connectedDisclosureClassName"
-                :disabled="disabled"
-                :aria-label="accessibilityLabel"
-                :aria-describedby="ariaDescribedBy"
-                @click="toggleDisclosureActive"
-            >
-                <span class="Polaris-Button__Icon">
-                    <div :class="disclosureIconClassName">
-                        <PIcon source="CaretDownMinor"/>
-                    </div>
-                </span>
-            </button>
-            <PActionList
-                slot="content"
-                :items="Object.keys(connectedDisclosure).length ? connectedDisclosure.actions : []"
-            />
+            <template v-slot:activator>
+                <button
+                    type="button"
+                    :class="connectedDisclosureClassName"
+                    :disabled="disabled"
+                    :aria-label="accessibilityLabel"
+                    :aria-describedby="ariaDescribedBy"
+                    @click="toggleDisclosureActive"
+                >
+                    <span class="Polaris-Button__Icon">
+                        <div :class="disclosureIconClassName">
+                            <PIcon source="CaretDownMinor"/>
+                        </div>
+                    </span>
+                </button>
+            </template>
+            <template v-slot:content>
+                <PActionList
+                    :items="Object.keys(connectedDisclosure).length ? connectedDisclosure.actions : []"
+                />
+            </template>
         </PPopover>
     </div>
     <PUnstyledButton
@@ -323,6 +325,7 @@
                 type: [String, Number, Array],
             },
         },
+        emits: ['click', 'focus', 'blur', 'keydown', 'keyup', 'keyPress'],
         data() {
             return {
                 disclosureActive: false,

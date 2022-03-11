@@ -48,14 +48,16 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
     components: {
         PActionList,
     },
+    setup() {
+        return { args };
+    },
     template: `
         <PActionList 
-            v-bind="$props"
+            v-bind="args"
         ></PActionList>`,
 });
 

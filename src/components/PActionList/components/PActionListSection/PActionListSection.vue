@@ -44,6 +44,7 @@
                 type: Boolean,
             },
         },
+        emits: ['item-action'],
         computed: {
             className() {
                 return classNames(
