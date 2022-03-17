@@ -9,8 +9,7 @@
         @scrollout="handleScrollOut"
     >
         <template
-            slot="overlay"
-            slot-scope="props"
+            v-slot:overlay="props"
         >
             <slot
                 name="overlay"
