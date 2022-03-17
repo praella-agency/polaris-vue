@@ -53,8 +53,5 @@ export default {
       return variationElement(this.variation);
     }
   },
-  methods: {
-
-  }
 }
 </script>

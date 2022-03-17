@@ -1,11 +1,16 @@
-import Vue from 'vue'
+import utils from '../';
+import * as Vue from 'vue';
 
 export const StringValidator = (name, value, expectedValues) => {
     if (expectedValues.indexOf(value) === -1) {
         if (expectedValues.includes(null)) {
             expectedValues.splice(expectedValues.indexOf(null), 1);
         }
-        Vue.util.warn(`The "${name}" prop is invalid. Given value: "${value}". Available options: "${expectedValues.join(', ')}".`, true)
+        if (utils.isVue3) {
+            Vue.warn(`The "${name}" prop is invalid. Given value: "${value}". Available options: "${expectedValues.join(', ')}".`);
+        } else {
+            Vue.default.util.warn(`The "${name}" prop is invalid. Given value: "${value}". Available options: "${expectedValues.join(', ')}".`);
+        }
         return false;
     }
     return true;

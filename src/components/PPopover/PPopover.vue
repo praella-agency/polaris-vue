@@ -147,7 +147,6 @@
         emits: ['click', 'keyup', 'close', 'update:active', 'activate'],
         data() {
             return {
-                isAppended: false,
                 activeStatus: this.active,
                 container: HTMLElement,
             };

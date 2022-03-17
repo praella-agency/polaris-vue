@@ -7,5 +7,6 @@ export default {
     isVue2,
     beforeDestroy: isVue2 ? 'beforeDestroy' : 'beforeUnmount',
     destroyed: isVue2 ? 'destroyed' : 'unmounted',
-    // warning: isVue2 ? 'Vue.util.warn' : 'Vue.warn',
+    bind: isVue2 ? 'bind' : 'beforeMount',
+    unbind: isVue2 ? 'unbind' : 'unmounted'
 }
