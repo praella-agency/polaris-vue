@@ -5,18 +5,17 @@
             <slot v-if="$slots.prefix" name="prefix"/>
         </div>
         <div style="width: 100%">
-            <quill-editor
+            <ckeditor
                 v-if="richEditor"
                 :id="id"
-                class="editor"
-                ref="myTextEditor"
-                v-model="computedValue"
-                :options="editorConfig"
+                :editor="editor"
+                :config="{}"
                 @input="onInput"
+                v-model="computedValue"
                 :disabled="disabled"
                 :readonly="readOnly"
                 :autofocus="autoFocus"
-                :placeholder="computedPlaceholder"
+                :placeholder="placeholder"
                 :autocomplete="normalizeAutoComplete(autoComplete)"
                 :aria-describedby="describedBy"
                 :aria-labelledby="labelledBy"
@@ -128,7 +127,9 @@
     import { PSpinner } from '../../../../components/PTextField/components/PSpinner';
     import { PFieldResizer } from '../../../../components/PTextField/components/PFieldResizer';
     import { PIcon } from '../../../../components/PIcon';
-    import { quillEditor } from 'vue-quill-editor';
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+    import CKEditor from '@ckeditor/ckeditor5-vue2';
+
     import StringValidator from '../../../../utilities/validators/StringValidator';
 
     const Type = [
@@ -141,7 +142,7 @@
     export default {
         name: 'PInput',
         components: {
-            PFieldResizer, PSpinner, PIcon, quillEditor,
+            PFieldResizer, PSpinner, PIcon, ckeditor: CKEditor.component
         },
         props: {
             id: {
@@ -250,20 +251,7 @@
             return {
                 content: this.value !== null ? this.value : '',
                 height: this.minHeight,
-                editorConfig: {
-                    modules: {
-                        toolbar: [
-                            [{header: [1, 2, 3, 4, 5, 6, false]}, 'blockquote'],
-                            ['bold', 'italic', 'underline', { 'color': [] }, { 'background': [] }],
-                            [{ align: [] }],
-                            ['link', 'image', 'video'],
-                            [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }, 'clean'],
-                        ],
-                        syntax: {
-                            highlight: text => text,
-                        },
-                    },
-                },
+                editor: ClassicEditor,
                 characterCountLabel: this.maxLength || 'characterCountLabel',
                 characterCount: this.value && this.value.length,
             };
