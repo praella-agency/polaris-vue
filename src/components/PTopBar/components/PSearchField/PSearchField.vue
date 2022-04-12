@@ -79,6 +79,7 @@
                 default: false,
             },
         },
+        emits: ['input', 'change', 'cancel', 'focus'],
         data() {
             return {
                 forceActive: false,

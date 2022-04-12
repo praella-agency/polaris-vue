@@ -275,8 +275,8 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PTopBar, PSearchField, PUserMenu, PIcon, PActionList, PMenu, PVisuallyHidden, PFrame,
     },
@@ -289,89 +289,86 @@ const Template = (args) => ({
         };
     },
     template: `
-      <PFrame>
-        <PTopBar
-            slot="topBar"
-            v-bind="args"
-            :searchResultsVisible="isSearchActive"
-            @searchResultsDismiss="handleSearchResultsDismiss"
-            @searchFieldChange="handleSearchChange"
-            :onNavigationToggle="handleNavigationToggle"
-            :userMenu="{
-                id: 'Polaris-UserMenu',
-                actions: [
-                    {
-                        items: [
+                <PTopBar
+                    v-bind="args"
+                    :searchResultsVisible="isSearchActive"
+                    @searchResultsDismiss="handleSearchResultsDismiss"
+                    @searchFieldChange="handleSearchChange"
+                    :onNavigationToggle="handleNavigationToggle"
+                    :userMenu="{
+                        id: 'Polaris-UserMenu',
+                        actions: [
                             {
-                                content: 'Back to Shopify',
-                                icon: 'ArrowLeftMinor',
+                                items: [
+                                    {
+                                        content: 'Back to Shopify',
+                                        icon: 'ArrowLeftMinor',
+                                    }
+                                ],
+                            },
+                            {
+                                items: [
+                                    {
+                                        content: 'Community forums',
+                                    }
+                                ],
                             }
                         ],
-                    },
-                    {
-                        items: [
+                        name: 'Dharma',
+                        detail: 'Hulkapps',
+                        initials: 'D',
+                        open: isUserMenuOpen,
+                        onToggle: toggleIsUserMenuOpen,
+                        message: {
+                            title: 'Shopify Production',
+                            description: 'New message',
+                            action: {
+                                content: 'Action',
+                                onClick: handleMessageActionClick,
+                            },
+                            link: {
+                                to: 'javascript:void(0);',
+                                content: 'Link',
+                                external: true,
+                            },
+                            badge: {
+                                content: 'Badge',
+                                status: 'warning',
+                            },
+                        },
+                    }"
+                    :secondaryMenu="{
+                        id: 'Polaris-Menu',
+                        open: isSecondaryMenuOpen,
+                        onOpen: toggleIsSecondaryMenuOpen,
+                        onClose: toggleIsSecondaryMenuOpen,
+                        actions: [
                             {
-                                content: 'Community forums',
-                            }
-                        ],
-                    }
-                ],
-                name: 'Dharma',
-                detail: 'Hulkapps',
-                initials: 'D',
-                open: isUserMenuOpen,
-                onToggle: toggleIsUserMenuOpen,
-                message: {
-                    title: 'Shopify Production',
-                    description: 'New message',
-                    action: {
-                        content: 'Action',
-                        onClick: handleMessageActionClick,
-                    },
-                    link: {
-                        to: 'javascript:void(0);',
-                        content: 'Link',
-                        external: true,
-                    },
-                    badge: {
-                        content: 'Badge',
-                        status: 'warning',
-                    },
-                },
-            }"
-            :secondaryMenu="{
-                id: 'Polaris-Menu',
-                open: isSecondaryMenuOpen,
-                onOpen: toggleIsSecondaryMenuOpen,
-                onClose: toggleIsSecondaryMenuOpen,
-                actions: [
-                    {
-                        items: [
-                            {
-                              content: 'Community forums'
+                                items: [
+                                    {
+                                      content: 'Community forums'
+                                    },
+                                ],
                             },
                         ],
-                    },
-                ],
-                icon: 'QuestionMarkMajor',
-            }"
-            :searchField="{
-                value: searchValue,
-                placeholder: 'Search',
-                showFocusBorder: true,
-            }"
-            :searchResult="{
-                items: [
-                    {
-                      content: 'Shopify help center',
-                    },
-                    {
-                      content: 'Community forums',
-                    },
-                ],
-            }"
-        />
-      </PFrame>`,
+                        icon: 'QuestionMarkMajor',
+                    }"
+                            :searchField="{
+                        value: searchValue,
+                        placeholder: 'Search',
+                        showFocusBorder: true,
+                    }"
+                    :searchResult="{
+                        items: [
+                            {
+                              content: 'Shopify help center',
+                            },
+                            {
+                              content: 'Community forums',
+                            },
+                        ],
+                    }"
+                />`,
     methods: {
         handleSearchResultsDismiss() {
             this.isSearchActive = false;
@@ -390,8 +387,8 @@ const Template = (args) => ({
             console.log('Message Action Clicked!');
         },
         handleSearchChange(value) {
-              this.searchValue = value;
-              this.isSearchActive = value.length > 0;
+            this.searchValue = value;
+            this.isSearchActive = value.length > 0;
         },
     },
 });
