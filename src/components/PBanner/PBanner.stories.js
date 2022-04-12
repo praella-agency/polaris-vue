@@ -69,13 +69,13 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PBanner,
     },
     template: `
-        <PBanner 
+        <PBanner
             v-bind="args"
             @dismiss="handleDismissAction"
         >
@@ -93,5 +93,4 @@ const Template = (args) => ({
 
 export const Banner = Template.bind({});
 
-Banner.args = {
-}
+Banner.args = {}

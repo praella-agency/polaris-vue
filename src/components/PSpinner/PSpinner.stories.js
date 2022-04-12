@@ -24,13 +24,13 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PSpinner,
     },
     template: `
-        <PSpinner 
+        <PSpinner
             v-bind="args"
         ></PSpinner>`,
 });

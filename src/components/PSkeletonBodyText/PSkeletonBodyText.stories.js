@@ -7,15 +7,15 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PSkeletonBodyText
     },
     template: `
-      <PSkeletonBodyText
-          v-bind="args"
-      />`,
+        <PSkeletonBodyText
+            v-bind="args"
+        />`,
 });
 
 export const SkeletonBodyText = Template.bind({});

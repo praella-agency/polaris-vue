@@ -26,58 +26,58 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PSkeletonPage, PLayout, PLayoutSection, PCard, PCardSection, PSkeletonBodyText, PSkeletonDisplayText,
         PTextContainer,
     },
     template: `
-      <PSkeletonPage v-bind="args">
-        <PLayout>
-          <PLayoutSection>
-            <PCard sectioned>
-              <PSkeletonBodyText/>
-            </PCard>
-            <PCard sectioned>
-              <PTextContainer>
-                <PSkeletonDisplayText size="small"/>
-                <PSkeletonBodyText/>
-              </PTextContainer>
-            </PCard>
-            <PCard sectioned>
-              <PTextContainer>
-                <PSkeletonDisplayText size="small"/>
-                <PSkeletonBodyText/>
-              </PTextContainer>
-            </PCard>
-          </PLayoutSection>
-          <PLayoutSection secondary>
-            <PCard>
-              <PCardSection>
-                <PTextContainer>
-                  <PSkeletonDisplayText size="small"/>
-                  <PSkeletonBodyText :lines="2"/>
-                </PTextContainer>
-              </PCardSection>
-              <PCardSection>
-                <PSkeletonBodyText :lines="1"/>
-              </PCardSection>
-            </PCard>
-            <PCard subdued>
-              <PCardSection>
-                <PTextContainer>
-                  <PSkeletonDisplayText size="small"/>
-                  <PSkeletonBodyText :lines="2"/>
-                </PTextContainer>
-              </PCardSection>
-              <PCardSection>
-                <PSkeletonBodyText :lines="2"/>
-              </PCardSection>
-            </PCard>
-          </PLayoutSection>
-        </PLayout>
-      </PSkeletonPage>`,
+        <PSkeletonPage v-bind="args">
+            <PLayout>
+                <PLayoutSection>
+                    <PCard sectioned>
+                        <PSkeletonBodyText/>
+                    </PCard>
+                    <PCard sectioned>
+                        <PTextContainer>
+                            <PSkeletonDisplayText size="small"/>
+                            <PSkeletonBodyText/>
+                        </PTextContainer>
+                    </PCard>
+                    <PCard sectioned>
+                        <PTextContainer>
+                            <PSkeletonDisplayText size="small"/>
+                            <PSkeletonBodyText/>
+                        </PTextContainer>
+                    </PCard>
+                </PLayoutSection>
+                <PLayoutSection secondary>
+                    <PCard>
+                        <PCardSection>
+                            <PTextContainer>
+                                <PSkeletonDisplayText size="small"/>
+                                <PSkeletonBodyText :lines="2"/>
+                            </PTextContainer>
+                        </PCardSection>
+                        <PCardSection>
+                            <PSkeletonBodyText :lines="1"/>
+                        </PCardSection>
+                    </PCard>
+                    <PCard subdued>
+                        <PCardSection>
+                            <PTextContainer>
+                                <PSkeletonDisplayText size="small"/>
+                                <PSkeletonBodyText :lines="2"/>
+                            </PTextContainer>
+                        </PCardSection>
+                        <PCardSection>
+                            <PSkeletonBodyText :lines="2"/>
+                        </PCardSection>
+                    </PCard>
+                </PLayoutSection>
+            </PLayout>
+        </PSkeletonPage>`,
 });
 
 export const SkeletonPage = Template.bind({});

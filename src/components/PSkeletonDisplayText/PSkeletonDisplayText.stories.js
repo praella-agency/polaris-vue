@@ -15,15 +15,15 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PSkeletonDisplayText,
     },
     template: `
-      <PSkeletonDisplayText
-          v-bind="args"
-      />`,
+        <PSkeletonDisplayText
+            v-bind="args"
+        />`,
 });
 
 export const SkeletonDisplayText = Template.bind({});

@@ -15,15 +15,15 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PProgressBar,
     },
     template: `
-      <PProgressBar
-          v-bind="args"
-      />`,
+        <PProgressBar
+            v-bind="args"
+        />`,
 });
 
 export const ProgressBar = Template.bind({});

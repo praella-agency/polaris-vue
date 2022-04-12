@@ -15,15 +15,15 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PSkeletonThumbnail,
     },
     template: `
-      <PSkeletonThumbnail
-          v-bind="args"
-      />`,
+        <PSkeletonThumbnail
+            v-bind="args"
+        />`,
 });
 
 export const SkeletonThumbnail = Template.bind({});
