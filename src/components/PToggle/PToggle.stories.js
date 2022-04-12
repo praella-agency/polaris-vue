@@ -46,10 +46,13 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
-    components: {PToggle},
-    template: '<PToggle v-bind="args"/>'
+        return {args};
+    },
+    components: {
+        PToggle,
+    },
+    template: `
+        <PToggle v-bind="args"/>`,
 });
 
 export const Toggle = Template.bind({});

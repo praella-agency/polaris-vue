@@ -9,8 +9,9 @@
           @slot Label
           @type String
         -->
-        <slot v-if="$slots.label" name="label"/>
-        <template v-else>{{ label }}</template>
+        <slot name="label">
+            {{ label }}
+        </slot>
     </div>
 </template>
 
