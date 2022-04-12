@@ -34,13 +34,13 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PTag,
     },
     template: `
-        <PTag 
+        <PTag
             v-bind="args"
         ></PTag>`,
 });
