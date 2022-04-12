@@ -1,5 +1,5 @@
 <template>
-    <span style="visibility: hidden"/>
+    <span v-if="utils.isVue3" style="visibility: hidden"/>
     <div :class="className" v-show="showInput">
         <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
             {{ prefix }}
@@ -124,6 +124,7 @@
 </template>
 
 <script>
+    import utils from '../../../../utilities';
     import { classNames } from '../../../../utilities/css';
     import { PSpinner } from '../../../../components/PTextField/components/PSpinner';
     import { PFieldResizer } from '../../../../components/PTextField/components/PFieldResizer';
@@ -154,7 +155,7 @@
             },
             type: {
                 type: String,
-                // ...StringValidator('type', Type),
+                ...StringValidator('type', Type),
             },
             align: {
                 type: String,
@@ -246,6 +247,7 @@
                 type: Boolean,
             },
         },
+        emits: ['input'],
         data() {
             return {
                 content: this.value !== null ? this.value : '',
@@ -268,7 +270,6 @@
                 characterCount: this.value && this.value.length,
             };
         },
-        emits: ['input'],
         computed: {
             className() {
                 return classNames(
@@ -371,6 +372,9 @@
             },
             computedPlaceholder() {
                 return this.floatingLabel ? 'Enter input' : this.placeholder;
+            },
+            utils() {
+                return utils;
             }
         },
         methods: {
