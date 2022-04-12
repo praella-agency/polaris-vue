@@ -23,26 +23,26 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PStack, PStackItem,
     },
     template: `
-      <PStack>
-          <PStackItem
-              v-bind = "$props"
-          >
-            Item 1
-          </PStackItem>
-          <PStackItem
-              v-bind = "$props"
-              :fill= "false"
-              :width = "0"
-          >
-            Item 2
-          </PStackItem>
-      </PStack>`,
+        <PStack>
+            <PStackItem
+                v-bind="args"
+            >
+                Item 1
+            </PStackItem>
+            <PStackItem
+                v-bind="args"
+                :fill="false"
+                :width="0"
+            >
+                Item 2
+            </PStackItem>
+        </PStack>`,
 });
 
 export const StackItem = Template.bind({});
