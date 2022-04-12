@@ -7,8 +7,12 @@
         :labelHidden="labelHidden"
         :helpText="helpText"
     >
-        <slot name="label" slot="label"/>
-        <slot name="helpText" slot="helpText"/>
+        <template #label>
+            <slot name="label"/>
+        </template>
+        <template #helpText>
+            <slot name="helpText"/>
+        </template>
         <div
             :class="className"
             :style="cssVars"
@@ -163,6 +167,7 @@
                 default: null,
             },
         },
+        emits: ['change', 'focus', 'blur'],
         data() {
             return {
                 describedBy: [],

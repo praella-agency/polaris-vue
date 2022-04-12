@@ -6,10 +6,18 @@
         @focus="handleFocus"
         @blur="handleBlur"
     >
-        <slot name="label" slot="label"/>
-        <slot name="helpText" slot="helpText"/>
-        <slot name="prefix" slot="prefix"/>
-        <slot name="suffix" slot="suffix"/>
+        <template #label>
+            <slot name="label"/>
+        </template>
+        <template #helpText>
+            <slot name="helpText"/>
+        </template>
+        <template #prefix>
+            <slot name="prefix"/>
+        </template>
+        <template #suffix>
+            <slot name="suffix"/>
+        </template>
     </PDualThumb>
     <PSingleThumb
         v-else
@@ -18,10 +26,18 @@
         @focus="handleFocus"
         @blur="handleBlur"
     >
-        <slot name="label" slot="label"/>
-        <slot name="helpText" slot="helpText"/>
-        <slot name="prefix" slot="prefix"/>
-        <slot name="suffix" slot="suffix"/>
+        <template #label>
+            <slot name="label"/>
+        </template>
+        <template #helpText>
+            <slot name="helpText"/>
+        </template>
+        <template #prefix>
+            <slot name="prefix"/>
+        </template>
+        <template #suffix>
+            <slot name="suffix"/>
+        </template>
     </PSingleThumb>
 </template>
 
@@ -135,6 +151,7 @@
                 default: null,
             },
         },
+        emits: ['change', 'update:value', 'focus', 'blur'],
         computed: {
             isDualThumb() {
                 return Array.isArray(this.value);
@@ -149,7 +166,7 @@
                 /**
                  * @ignore
                  */
-                this.$emit('input', value);
+                this.$emit('update:value', value);
             },
             handleFocus(event) {
                 /**

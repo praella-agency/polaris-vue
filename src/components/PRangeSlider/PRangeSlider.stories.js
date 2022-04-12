@@ -113,8 +113,8 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PRangeSlider, PCard,
     },
@@ -127,7 +127,7 @@ const Template = (args) => ({
         <PCard sectioned title="Background color">
             <PRangeSlider
                 v-bind="args"
-                v-model="rangeValue"
+                v-model:value="rangeValue"
             ></PRangeSlider>
             {{ rangeValue }}
         </PCard>
@@ -144,8 +144,8 @@ SingleRangeSlider.args = {
 
 const Template1 = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PRangeSlider, PCard, PStack, PStackItem, PTextField,
     },
@@ -159,14 +159,14 @@ const Template1 = (args) => ({
             <div>
                 <PRangeSlider
                     v-bind="args"
-                    v-model="rangeValue"
+                    v-model:value="rangeValue"
                 ></PRangeSlider>
                 <PStack distribution="equalSpacing" spacing="extraLoose">
                     <PStackItem>
                         <PTextField
                             label="Min money spent"
                             type="number"
-                            v-model="rangeValue[0]"
+                            v-model:value="rangeValue[0]"
                             prefix="$"
                             :min="0"
                             :max="rangeValue[1]"
@@ -177,7 +177,7 @@ const Template1 = (args) => ({
                         <PTextField
                             label="Max money spent"
                             type="number"
-                            v-model="rangeValue[1]"
+                            v-model:value="rangeValue[1]"
                             prefix="$"
                             :min="rangeValue[0]"
                             :max="2000"

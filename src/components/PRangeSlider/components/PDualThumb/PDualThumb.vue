@@ -8,8 +8,12 @@
             :labelHidden="labelHidden"
             :helpText="helpText"
         >
-            <slot name="label" slot="label"/>
-            <slot name="helpText" slot="helpText"/>
+            <template #label>
+                <slot name="label"/>
+            </template>
+            <template #helpText>
+                <slot name="helpText"/>
+            </template>
             <div class="Polaris-RangeSlider-DualThumb__Wrapper">
                 <div v-if="prefix || $slots.prefix" class="Polaris-RangeSlider-DualThumb__Prefix">
                     <slot name="prefix">
@@ -38,7 +42,7 @@
                         :aria-describedby="ariaDescribedBy"
                         :aria-labelledby="`${id}Label`"
                         @focus="$emit('focus', $event)"
-                        @blur="$emit('blue', $event)"
+                        @blur="$emit('blur', $event)"
                         tabindex="0"
                         @keydown="handleKeyPressLower"
                         @mousedown="handleMouseDownThumbLower"
@@ -74,7 +78,7 @@
                         :aria-describedby="ariaDescribedBy"
                         :aria-labelledby="`${id}Label`"
                         @focus="$emit('focus', $event)"
-                        @blur="$emit('blue', $event)"
+                        @blur="$emit('blur', $event)"
                         tabindex="0"
                         @keydown="handleKeyPressUpper"
                         @mousedown="handleMouseDownThumbUpper"
@@ -108,6 +112,7 @@
 </template>
 
 <script>
+    import utils from '../../../../utilities';
     import { classNames } from '../../../../utilities/css';
     import { Key } from '../../../../types/keys';
     import { PLabelled } from '../../../../components/PLabelled';
@@ -213,6 +218,7 @@
                 default: null,
             },
         },
+        emits: ['change', 'focus', 'blur'],
         data() {
             return {
                 trackWidth: 0,
@@ -523,7 +529,7 @@
                 );
             }
         },
-        destroyed() {
+        [utils.destroyed]() {
             if (this.$refs.trackWrapper != null) {
                 this.$refs.trackWrapper.removeEventListener(
                     'touchstart',
