@@ -148,6 +148,7 @@
                 default: false,
             },
         },
+        emits: ['change'],
         data() {
             return {
                 renderChildren: {},

@@ -52,24 +52,22 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PChoiceList, PTextField,
     },
     data() {
         return {
             selectedData: ["hidden"],
-            data: null,
         };
     },
     template: `
         <PChoiceList
             v-bind="args"
             :selected="selectedData"
-            v-model="data"
         >
-            <PTextField />
+            <PTextField/>
         </PChoiceList>`,
 });
 
@@ -78,7 +76,11 @@ export const ChoiceList = Template.bind({});
 ChoiceList.args = {
     options: [
         {label: 'Hidden', value: 'hidden', disable: false, error: true},
-        {label: 'Optional', value: 'optional', helpText: 'Reduces the number of fields required to check out. The billing address can still be edited.'},
+        {
+            label: 'Optional',
+            value: 'optional',
+            helpText: 'Reduces the number of fields required to check out. The billing address can still be edited.'
+        },
         {label: 'Required', value: 'required'},
     ],
     textField: 'label',
