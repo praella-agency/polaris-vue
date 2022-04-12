@@ -20,6 +20,7 @@
 
 
 <script>
+    import utils from '../../../../utilities';
 
     export default {
         name: 'PTooltipPositionedOverlay',
@@ -279,7 +280,7 @@
         updated() {
             this.overlay = this.$refs.overlay;
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('resize', this.handleMeasurement);
             window.removeEventListener('scroll', this.handleMeasurement);
         },

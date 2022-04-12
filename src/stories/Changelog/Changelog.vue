@@ -1,16 +1,16 @@
 <template>
-    <PFrame>
-        <PTopBar
-            slot="topBar"
-            :searchField="{
-                value: search,
-                placeholder: 'Search',
-                showFocusBorder: true,
-          }"
-            :searchResultsVisible="false"
-            @searchFieldChange="searchRelease"
-            @searchResultsDismiss="handleSearchResultsDismiss"
-        />
+<!--    <PFrame>-->
+<!--        <PTopBar-->
+<!--            slot="topBar"-->
+<!--            :searchField="{-->
+<!--                value: search,-->
+<!--                placeholder: 'Search',-->
+<!--                showFocusBorder: true,-->
+<!--          }"-->
+<!--            :searchResultsVisible="false"-->
+<!--            @searchFieldChange="searchRelease"-->
+<!--            @searchResultsDismiss="handleSearchResultsDismiss"-->
+<!--        />-->
         <PStack vertical>
             <PStackItem v-for="(release, key) in releases" :key="key">
                 <PCard sectioned>
@@ -44,12 +44,12 @@
                 </PCard>
             </PStackItem>
         </PStack>
-    </PFrame>
+<!--    </PFrame>-->
 </template>
 
 <script>
-    import { PFrame } from '../../components/PFrame';
-    import { PTopBar } from '../../components/PTopBar';
+    // import { PFrame } from '../../components/PFrame';
+    // import { PTopBar } from '../../components/PTopBar';
     import { PDisplayText } from '../../components/PDisplayText';
     import { PLayout } from '../../components/PLayout';
     import { PStack } from '../../components/PStack';
@@ -79,7 +79,7 @@
         },
         components: {
             PDisplayText, PLayout, PStack, PStackItem, PList, PListItem, PLink, PCard, PCardHeader, PCardSection,
-            PHeading, PTextContainer, PCollapsible, PButton, PFrame, PTopBar,
+            PHeading, PTextContainer, PCollapsible, PButton,
         },
         filters: {
             trimContent(content) {
