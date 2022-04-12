@@ -146,7 +146,7 @@ const Template = (args) => ({
     template: `
         <PTextField
             v-bind="args"
-            v-model="formData"
+            v-model:value="formData"
         />`,
 });
 
@@ -170,7 +170,9 @@ const Template1 = (args) => ({
     },
     template: `
         <PTextField v-bind="args">
-            <PIcon source="EmailMajor" slot="suffix"/>
+            <template #suffix>
+                <PIcon source="EmailMajor"/>
+            </template>
         </PTextField>`,
 });
 
@@ -180,6 +182,7 @@ IconPrefix.args = {
     type: 'email',
     id: 'input_field',
     label: 'User email',
+    placeholder: 'Enter email',
 }
 
 const Template2 = (args) => ({
@@ -196,8 +199,12 @@ const Template2 = (args) => ({
     },
     template: `
         <PTextField v-bind="args">
-            <PButton slot="connectedRight">Submit</PButton>
-            <PSelect v-model="selectedOption" :options="['%','$']" slot="connectedLeft"/>
+            <template #connectedRight>
+                <PButton>Submit</PButton>
+            </template>
+            <template #connectedLeft>
+                <PSelect v-model:value="selectedOption" :options="['%','$']"/>
+            </template>
         </PTextField>`,
 });
 
@@ -225,7 +232,7 @@ const Template3 = (args) => ({
     template: `
         <PTextField
             v-bind="args"
-            v-model="files"
+            v-model:value="files"
             @input="getFiles"
         />`,
     methods: {

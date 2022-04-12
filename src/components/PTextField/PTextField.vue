@@ -1,7 +1,7 @@
 <template>
     <div :class="className">
         <div
-            v-if="!floatingLabel && (label || emptyLabel || $slots.hasOwnProperty('label'))"
+            v-if="!floatingLabel && (label || emptyLabel || $slots.label)"
             class="Polaris-Labelled__LabelWrapper"
             :class="labelClass"
         >
@@ -14,21 +14,50 @@
         </div>
 
         <PConnected v-if="connected">
-            <template v-if="$slots.hasOwnProperty('connectedLeft')" slot="left">
+            <template #left v-if="$slots.connectedLeft">
                 <!-- @slot An element connected to the left of the input -->
-                <slot name="connectedLeft">{{ connectedLeft }}</slot>
+                <slot name="connectedLeft">
+                    {{ connectedLeft }}
+                </slot>
             </template>
 
-            <template slot="right" v-if="$slots.hasOwnProperty('connectedRight')">
+            <template #right v-if="$slots.connectedRight">
                 <!-- @slot An element connected to the right of the input -->
-                <slot name="connectedRight">{{ connectedRight }}</slot>
+                <slot name="connectedRight">
+                    {{ connectedRight }}
+                </slot>
             </template>
 
-            <PInput v-bind="[$attrs, $props]" v-on="$listeners" :hasError="!!error" :id="id">
-                <!-- @slot Field prefix -->
-                <slot name="prefix" slot="prefix"></slot>
-                <!-- @slot Field suffix -->
-                <slot name="suffix" slot="suffix"></slot>
+            <PInput
+                v-bind="$attrs"
+                v-on="$listeners"
+                :hasError="!!error"
+                :id="id"
+                :floatingLabel="floatingLabel"
+                :label="label"
+                :labelClass="labelClass"
+                :helpText="helpText"
+                :connectedLeft="connectedLeft"
+                :connected="connected"
+                :error="error"
+                :labelHidden="labelHidden"
+                :emptyLabel="emptyLabel"
+                :richEditor="richEditor"
+                :clearable="clearable"
+                :multiple="multiple"
+                :accept="accept"
+                :type="type"
+                :readOnly="readOnly"
+                @input="handleInput"
+            >
+                <template #prefix v-if="this.$attrs.prefix || this.$slots.prefix">
+                    <!-- @slot Field prefix -->
+                    <slot name="prefix"></slot>
+                </template>
+                <template #suffix v-if="this.$attrs.suffix || this.$slots.suffix">
+                    <!-- @slot Field suffix -->
+                    <slot name="suffix"></slot>
+                </template>
             </PInput>
         </PConnected>
 
@@ -53,12 +82,21 @@
             :accept="accept"
             :type="type"
             :readOnly="readOnly"
+            @input="handleInput"
         >
-            <slot name="prefix" slot="prefix"></slot>
-            <slot name="label" slot="label"></slot>
-            <slot name="suffix" slot="suffix"></slot>
+            <template #prefix v-if="this.$attrs.prefix || this.$slots.prefix">
+                <slot name="prefix"></slot>
+            </template>
+            <template #label>
+                <slot name="label"></slot>
+            </template>
+            <template #suffix v-if="this.$attrs.suffix || this.$slots.suffix">
+                <slot name="suffix"></slot>
+            </template>
         </PInput>
-        <div class="Polaris-Labelled__HelpText" v-if="helpText">{{ helpText }}</div>
+        <div class="Polaris-Labelled__HelpText" v-if="helpText">
+            {{ helpText }}
+        </div>
         <!-- @slot Customize Error -->
         <slot name="error">
             <PFieldError v-if="error" :error="error"/>
@@ -206,6 +244,7 @@
                 type: Boolean,
             },
         },
+        emits: ['input', 'update:value'],
         computed: {
             className() {
                 return classNames(
@@ -228,8 +267,13 @@
                  * Get inserted data
                  */
                 this.$emit('input', value);
+                /**
+                 * Get inserted data
+                 * @ignore
+                 */
+                this.$emit('update:value', value);
             },
-        },
+        }
     }
 </script>
 
