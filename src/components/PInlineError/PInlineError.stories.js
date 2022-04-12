@@ -16,15 +16,15 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PInlineError,
     },
     template: `
-      <PInlineError
-          v-bind="args"
-      />`,
+        <PInlineError
+            v-bind="args"
+        />`,
 });
 
 export const InlineError = Template.bind({});
