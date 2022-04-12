@@ -7,18 +7,19 @@
         <slot slot="helpText" name="helpText"/>
 
         <div class="Polaris-RadioButton">
-            <input :id="id"
-                   :name="name"
-                   :value="value"
-                   type="radio"
-                   :checked="checked"
-                   :disabled="disabled"
-                   class="Polaris-RadioButton__Input"
-                   @change="onChange"
-                   @focus="onFocus"
-                   @blur="onBlur"
-                   :aria-describedby="helpText ? id+'HelpText' : ''">
-
+            <input
+                :id="id"
+                :name="name"
+                :value="value"
+                type="radio"
+                :checked="checked"
+                :disabled="disabled"
+                class="Polaris-RadioButton__Input"
+                @change="onChange"
+                @focus="onFocus"
+                @blur="onBlur"
+                :aria-describedby="helpText ? id+'HelpText' : ''"
+            >
             <div class="Polaris-RadioButton__Backdrop"></div>
             <div class="Polaris-RadioButton__Icon"></div>
         </div>
@@ -99,6 +100,7 @@
                 default: false,
             },
         },
+        emits: ['change', 'focus', 'blur'],
         computed: {
             className() {
                 return classNames(
