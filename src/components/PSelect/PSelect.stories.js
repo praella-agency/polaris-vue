@@ -53,8 +53,8 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PSelect, PBadge
     },
@@ -65,13 +65,15 @@ const Template = (args) => ({
     },
     template: `
         <div>
-          <PSelect
-              v-model="selectedOption"
-              v-bind="args"
-              @change="changeEvent"
-          />
-          <br />
-          <p v-if="selectedOption">Selected Value: <PBadge>{{selectedOption}}</PBadge></p>
+            <PSelect
+                v-model:value="selectedOption"
+                v-bind="args"
+                @change="changeEvent"
+            />
+            <br/>
+            <p v-if="selectedOption">Selected Value:
+                <PBadge>{{selectedOption}}</PBadge>
+            </p>
         </div>`,
     methods: {
         changeEvent(value) {

@@ -178,6 +178,7 @@
                 default: false,
             }
         },
+        emits: ['change', 'update:value'],
         data() {
             return {
                 selected: this.value,
@@ -237,8 +238,9 @@
                     this.$emit('change', value);
                     /**
                      * Callback when input is triggered
+                     * @ignore
                      */
-                    this.$emit('input', value);
+                    this.$emit('update:value', value);
                 },
             },
             selectedOption() {
