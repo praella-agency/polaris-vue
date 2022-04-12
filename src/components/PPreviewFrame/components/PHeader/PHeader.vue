@@ -25,22 +25,24 @@
                                 @close="() => {this.isPreview = false;}"
                                 preferred-alignment="left"
                             >
-                                <PButton
-                                    slot="activator"
-                                    :icon="previewIcon"
-                                    plainAction
-                                    @click="() => {this.isPreview = !this.isPreview}"
-                                />
-                                <POptionList
-                                    slot="content"
-                                    :options="previewOptions"
-                                    :selected="selectedOption"
-                                    @click="handlePreviewClick"
-                                >
-                                    <template v-slot:media="{item}">
-                                        <PIcon :source="item.icon"/>
-                                    </template>
-                                </POptionList>
+                                <template #activator>
+                                    <PButton
+                                        :icon="previewIcon"
+                                        plainAction
+                                        @click="() => {this.isPreview = !this.isPreview}"
+                                    />
+                                </template>
+                                <template #content>
+                                    <POptionList
+                                        :options="previewOptions"
+                                        :selected="selectedOption"
+                                        @click="handlePreviewClick"
+                                    >
+                                        <template v-slot:media="{item}">
+                                            <PIcon :source="item.icon"/>
+                                        </template>
+                                    </POptionList>
+                                </template>
                             </PPopover>
                             <PVerticalDivider/>
                         </template>
@@ -121,6 +123,7 @@
                 ...ObjectValidator('redoActions', RedoActions),
             },
         },
+        emits: ['previewChange'],
         data() {
             return {
                 isPreview: false,

@@ -6,9 +6,15 @@
                 :rightSidebarTitle="rightSidebarTitle"
                 :responsiveRightSidebar="responsiveRightSidebar"
             >
-                <slot slot="sidebar.right.title" name="sidebar.right.title"/>
-                <slot slot="sidebar.right.content" name="sidebar.right.content"/>
-                <slot slot="sidebar.right.footer" name="sidebar.right.footer"/>
+                <template #sidebar.right.title>
+                    <slot name="sidebar.right.title"/>
+                </template>
+                <template #sidebar.right.content>
+                    <slot name="sidebar.right.content"/>
+                </template>
+                <template #sidebar.right.footer>
+                    <slot name="sidebar.right.footer"/>
+                </template>
             </PRightSidebarPanel>
         </div>
     </div>
@@ -37,9 +43,6 @@
                 default: false,
             },
         },
-        data() {
-            return {};
-        },
         computed: {
             className() {
                 return classNames(
@@ -49,7 +52,6 @@
                 );
             },
         },
-        methods: {},
     }
 </script>
 

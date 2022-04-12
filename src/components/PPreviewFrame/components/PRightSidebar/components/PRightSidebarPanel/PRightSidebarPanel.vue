@@ -10,7 +10,8 @@
                     <div class="Polaris-PreviewFrame__ChildrenWrapper--header">
                         <div :class="rightHeaderClassName">
                             <div class="Polaris-PreviewFrame__RightTitleWrapper">
-                                <div v-if="responsiveRightSidebar" class="Polaris-PreviewFrame__RightHeader--BackActionWrapper">
+                                <div v-if="responsiveRightSidebar"
+                                     class="Polaris-PreviewFrame__RightHeader--BackActionWrapper">
                                     <PButton
                                         plainAction
                                         type="button"
@@ -79,6 +80,7 @@
                 default: false,
             },
         },
+        emits: ['backClick'],
         computed: {
             className() {
                 return classNames(

@@ -7,9 +7,15 @@
                 :openRightSidebar="openRightSidebar"
                 :leftSidebarTitle="leftSidebarTitle"
             >
-                <slot slot="sidebar.left.title" name="sidebar.left.title"/>
-                <slot slot="sidebar.left.content" name="sidebar.left.content"/>
-                <slot slot="sidebar.left.footer" name="sidebar.left.footer"/>
+                <template #sidebar.left.title>
+                    <slot name="sidebar.left.title"/>
+                </template>
+                <template #sidebar.left.content>
+                    <slot name="sidebar.left.content"/>
+                </template>
+                <template #sidebar.left.footer>
+                    <slot name="sidebar.left.footer"/>
+                </template>
             </PLeftSidebarPanel>
             <PRightSidebarPanel
                 v-if="responsiveRightSidebar && openRightSidebar"
@@ -17,9 +23,15 @@
                 :responsiveRightSidebar="responsiveRightSidebar"
                 @backClick="handleBackClick"
             >
-                <slot slot="sidebar.right.title" name="sidebar.right.title"/>
-                <slot slot="sidebar.right.content" name="sidebar.right.content"/>
-                <slot slot="sidebar.right.footer" name="sidebar.right.footer"/>
+                <template #sidebar.right.title>
+                    <slot name="sidebar.right.title"/>
+                </template>
+                <template #sidebar.right.content>
+                    <slot name="sidebar.right.content"/>
+                </template>
+                <template #sidebar.right.footer>
+                    <slot name="sidebar.right.footer"/>
+                </template>
             </PRightSidebarPanel>
         </div>
     </aside>
@@ -58,6 +70,7 @@
                 default: false,
             },
         },
+        emits: ['backClick'],
         computed: {
             className() {
                 return classNames(

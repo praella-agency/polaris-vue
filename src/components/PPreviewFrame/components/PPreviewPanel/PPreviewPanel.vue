@@ -22,17 +22,11 @@
 
     export default {
         name: 'PPreviewPanel',
-        components: {
-        },
         props: {
             previewMode: {
                 type: String,
                 default: 'desktop',
             },
-        },
-        data() {
-            return {
-            };
         },
         computed: {
             className() {
@@ -43,8 +37,6 @@
                     this.previewMode === 'fullscreen' && 'Polaris-PreviewFrame__modeFullscreen',
                 );
             },
-        },
-        methods: {
         },
     }
 </script>

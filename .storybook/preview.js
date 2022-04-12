@@ -1,6 +1,7 @@
 import '!style-loader!css-loader!sass-loader!../src/scss/main.scss';
 import '!style-loader!css-loader!sass-loader!./styles/docs.scss';
 // import Vue from 'vue';
+import { app } from '@storybook/vue3';
 import VueRouter from 'storybook-vue3-router'
 // import PToast from '../src/components/PToast';
 // import pLoading from '../src/components/PLoading';

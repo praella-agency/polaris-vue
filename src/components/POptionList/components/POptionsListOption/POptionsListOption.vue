@@ -4,13 +4,13 @@
             <div class="Polaris-OptionList-Option__Checkbox">
                 <POptionsListCheckbox :id="id" :value="value" :checked="select" :active="active" :disabled="disabled" @change="handleEvent" />
             </div>
-            <div v-if="$scopedSlots.media()" class="Polaris-OptionList-Option__Media">
+            <div v-if="$slots.media()" class="Polaris-OptionList-Option__Media">
                 <slot name="media"/>
             </div>
             <slot/>
         </label>
         <button v-else :id="id" type="button" :class="singleSelectClassName" @click="handleEvent" @focus="focused = !focused" @blur="focused = !focused">
-            <div v-if="$scopedSlots.media()" class="Polaris-OptionList-Option__Media">
+            <div v-if="$slots.media()" class="Polaris-OptionList-Option__Media">
                 <slot name="media"/>
             </div>
             <slot/>
