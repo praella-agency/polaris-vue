@@ -35,8 +35,8 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PColorPicker, PBadge, PStack, PStackItem,
     },
@@ -46,20 +46,20 @@ const Template = (args) => ({
         };
     },
     template: `
-      <PStack vertical>
-        <PStackItem>
-          <PColorPicker
-              :color.sync="colorAttr"
-              v-bind = "$props"
-              @change="handleChange"
-          />
-        </PStackItem>
-        <PStackItem>
-          <PBadge :color="colorAttr">
-            {{ colorAttr }}
-          </PBadge>
-        </PStackItem>
-      </PStack>`,
+        <PStack vertical>
+            <PStackItem>
+                <PColorPicker
+                    :color.sync="colorAttr"
+                    v-bind="args"
+                    @change="handleChange"
+                />
+            </PStackItem>
+            <PStackItem>
+                <PBadge :color="colorAttr">
+                    {{ colorAttr }}
+                </PBadge>
+            </PStackItem>
+        </PStack>`,
     methods: {
         handleChange(color) {
             console.log(color);

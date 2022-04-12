@@ -6,16 +6,23 @@
                         labelClass="mb-0"></PTextField>
         </div>
         <div class="picker-wrapper">
-            <Chrome v-show="showPicker" :value="color" @input="updateColor"></Chrome>
+            <template v-if="utils.isVue3">
+                <Chrome v-show="showPicker" v-model="color"></Chrome>
+            </template>
+            <template v-else>
+                <ChromePicker v-show="showPicker" v-model="color"></ChromePicker>
+            </template>
         </div>
     </div>
 </template>
 
 <script>
-    import { Chrome } from 'vue-color';
+    import utils from '../../utilities';
+    import { Chrome } from '@ckpack/vue-color';
+    import ChromePicker from 'vue-color';
+    import { classNames } from "../../utilities/css";
     import { PTextField } from '../../components/PTextField/';
     import vClickOutside from 'v-click-outside';
-    import { classNames } from "../../utilities/css";
 
     /**
      * <br/>
@@ -26,7 +33,7 @@
     export default {
         name: 'PColorPicker',
         components: {
-            PTextField, Chrome,
+            PTextField, Chrome, ChromePicker,
         },
         directives: {
             clickOutside: vClickOutside.directive,
@@ -82,6 +89,7 @@
                 default: false,
             },
         },
+        emits: ['change', 'update:color'],
         data() {
             return {
                 showPicker: false,
@@ -94,6 +102,9 @@
                     this.disabled && 'Polaris-ColorPicker--disabled',
                 );
             },
+            utils() {
+                return utils;
+            }
         },
         methods: {
             updateColor(color) {

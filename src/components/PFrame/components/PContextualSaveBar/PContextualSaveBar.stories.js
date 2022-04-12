@@ -27,7 +27,7 @@ export default {
     /** Whether to show a modal confirming the discard action */
     discardConfirmationModal?: boolean;
 }`,
-               },
+                },
             },
         },
         logo: {
@@ -79,13 +79,12 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PContextualSaveBar, PFrame,
     },
     template: `
-      <PFrame>
         <PContextualSaveBar
             v-bind="args"
             :saveAction="{
@@ -96,8 +95,7 @@ const Template = (args) => ({
             :discardAction="{
               onAction: handleDiscardAction,
             }"
-        />
-      </PFrame>`,
+        />`,
     methods: {
         handleSaveAction() {
             console.log('add form submit logic');
@@ -117,4 +115,5 @@ ContextualSaveBar.args = {
         contextualSaveBarSource:
             'https://cdn.shopify.com/s/files/1/1564/7647/files/hulk-apps-darken_c0448e92-587f-47a8-9473-5ea0023b5ffd.svg?v=1583731462',
     },
+    alignContentFlush: true,
 }

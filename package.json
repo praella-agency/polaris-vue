@@ -33,6 +33,7 @@
   },
   "main": "dist/polaris-vue.min.js",
   "dependencies": {
+    "@ckpack/vue-color": "^1.1.8",
     "@hulkapps/vue-plyr": "^7.0.5",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "@vue/babel-preset-jsx": "^1.1.1",
@@ -45,7 +46,7 @@
     "v-click-outside": "^3.0.1",
     "vue": "^3.0.0",
     "vue-apexcharts": "^1.6.1",
-    "vue-color": "^2.7.1",
+    "vue-color": "^2.8.1",
     "vue-multiselect": "^2.1.6",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.5.1",
