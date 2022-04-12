@@ -85,21 +85,23 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PEmptyState, PLink, PTextContainer,
     },
     template: `
-      <PEmptyState
-          v-bind="$props"
-      >
-          <p slot="footer">
-            If you don’t want to add a transfer, you can import your inventory from
-            <PLink url="javascript:void(0);" monochrome>settings.</PLink>
-          </p>
-          <p>Track and receive your incoming inventory from suppliers.</p>
-      </PEmptyState>`,
+        <PEmptyState
+            v-bind="args"
+        >
+            <template v-slot:footer>
+                If you don’t want to add a transfer, you can import your inventory from
+                <PLink url="javascript:void(0);" monochrome>settings.</PLink>
+            </template>
+            <p>Track and receive your incoming inventory from suppliers.</p>
+        </PEmptyState>`,
 });
 
 export const EmptyState = Template.bind({});

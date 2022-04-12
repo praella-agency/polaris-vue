@@ -131,8 +131,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PTextField,
     },
@@ -143,7 +145,7 @@ const Template = (args, {argTypes}) => ({
     },
     template: `
         <PTextField
-            v-bind="$props"
+            v-bind="args"
             v-model="formData"
         />`,
 });
@@ -159,13 +161,15 @@ TextField.args = {
     minHeight: 0,
 }
 
-const Template1 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template1 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PTextField, PButton, PIcon,
     },
     template: `
-        <PTextField v-bind="$props">
+        <PTextField v-bind="args">
             <PIcon source="EmailMajor" slot="suffix"/>
         </PTextField>`,
 });
@@ -178,8 +182,10 @@ IconPrefix.args = {
     label: 'User email',
 }
 
-const Template2 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template2 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PTextField, PButton, PSelect,
     },
@@ -189,7 +195,7 @@ const Template2 = (args, {argTypes}) => ({
         };
     },
     template: `
-        <PTextField v-bind="$props">
+        <PTextField v-bind="args">
             <PButton slot="connectedRight">Submit</PButton>
             <PSelect v-model="selectedOption" :options="['%','$']" slot="connectedLeft"/>
         </PTextField>`,
@@ -204,8 +210,10 @@ ConnectedTextField.args = {
     type: 'number',
 }
 
-const Template3 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template3 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PTextField, PButton, PSelect,
     },
@@ -216,7 +224,7 @@ const Template3 = (args, {argTypes}) => ({
     },
     template: `
         <PTextField
-            v-bind="$props"
+            v-bind="args"
             v-model="files"
             @input="getFiles"
         />`,
@@ -237,8 +245,10 @@ FileInput.args = {
     accept: 'image/png, image/jpeg',
 }
 
-const Template4 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template4 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PTextField,
     },
@@ -249,7 +259,7 @@ const Template4 = (args, {argTypes}) => ({
     },
     template: `
         <PTextField
-            v-bind="$props"
+            v-bind="args"
             v-model="formData"
         />
     `

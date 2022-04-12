@@ -33,14 +33,16 @@ export default {
     },
 }
 
-const Template1 = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template1 = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         ShopifyIcons,
     },
     template: `
         <shopify-icons 
-            v-bind="$props"
+            v-bind="args"
         />`,
 });
 

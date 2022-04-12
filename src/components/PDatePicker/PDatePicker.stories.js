@@ -80,8 +80,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PDatePicker
     },
@@ -92,7 +94,7 @@ const Template = (args, {argTypes}) => ({
     },
     template: `
         <PDatePicker
-            v-bind="$props"
+            v-bind="args"
             v-model="data"
         />
     `,

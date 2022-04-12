@@ -15,63 +15,61 @@
                     <thead ref="thead">
                         <!-- @slot Add a custom Header content -->
                         <slot name="head">
-                            <template>
-                                <tr>
-                                    <PDataTableCellNew
-                                        v-for="(heading, hIndex) in headings"
-                                        :key="`heading-cell-${hIndex}`"
-                                        header
-                                        :content="heading.content"
-                                        :value="heading.value"
-                                        :width="heading.width"
-                                        :sort="sort"
-                                        :sortable="heading.sortable"
-                                        :default-sort-direction="defaultSortDirection"
-                                        :content-type="heading.type ? heading.type : columnContentTypes[hIndex]"
-                                        :first-column="hIndex === 0"
-                                        :truncate="truncate"
-                                        :verticalAlign="verticalAlign"
-                                        @sort-changed="handleSortChange"
-                                    />
+                            <tr>
+                                <PDataTableCellNew
+                                    v-for="(heading, hIndex) in headings"
+                                    :key="`heading-cell-${hIndex}`"
+                                    header
+                                    :content="heading.content"
+                                    :value="heading.value"
+                                    :width="heading.width"
+                                    :sort="sort"
+                                    :sortable="heading.sortable"
+                                    :default-sort-direction="defaultSortDirection"
+                                    :content-type="heading.type ? heading.type : columnContentTypes[hIndex]"
+                                    :first-column="hIndex === 0"
+                                    :truncate="truncate"
+                                    :verticalAlign="verticalAlign"
+                                    @sort-changed="handleSortChange"
+                                />
 
-                                    <!-- @deprecated Remove in version 4.0.0 - START -->
-                                    <PDataTableCell
-                                        v-if="hasActions"
-                                        header
-                                        content="Actions"
-                                        :sortable="false"
-                                        contentType="text"
-                                        :firstColumn="false"
-                                        :truncate="false"
-                                        :verticalAlign="verticalAlign"/>
-                                    <!-- @deprecated Remove in version 4.0.0 - END -->
+                                <!-- @deprecated Remove in version 4.0.0 - START -->
+                                <PDataTableCell
+                                    v-if="hasActions"
+                                    header
+                                    content="Actions"
+                                    :sortable="false"
+                                    contentType="text"
+                                    :firstColumn="false"
+                                    :truncate="false"
+                                    :verticalAlign="verticalAlign"/>
+                                <!-- @deprecated Remove in version 4.0.0 - END -->
 
-                                </tr>
+                            </tr>
 
 
-                                <tr v-if="!showTotalsInFooter">
-                                    <PDataTableCellNew
-                                        v-for="(total, index) in totals"
-                                        :key="`total-cell-${index}`"
-                                        total
-                                        :value="index === 0 ? totalsRowHeading : total"
-                                        :content-type="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
-                                        :first-column="index === 0"
-                                        :truncate="truncate"
-                                        :vertical-align="verticalAlign"
-                                        :sortable="false"
-                                    />
+                            <tr v-if="!showTotalsInFooter">
+                                <PDataTableCellNew
+                                    v-for="(total, index) in totals"
+                                    :key="`total-cell-${index}`"
+                                    total
+                                    :value="index === 0 ? totalsRowHeading : total"
+                                    :content-type="total !== '' && index > 0 ? 'numeric': columnContentTypes[index]"
+                                    :first-column="index === 0"
+                                    :truncate="truncate"
+                                    :vertical-align="verticalAlign"
+                                    :sortable="false"
+                                />
 
-                                    <!-- @deprecated Remove in version 4.0.0 - START -->
-                                    <PDataTableCell
-                                        total
-                                        v-if="totals.length && hasActions"
-                                        :totalInFooter="showTotalsInFooter"
-                                        :verticalAlign="verticalAlign"/>
-                                    <!-- @deprecated Remove in version 4.0.0 - END -->
+                                <!-- @deprecated Remove in version 4.0.0 - START -->
+                                <PDataTableCell
+                                    total
+                                    v-if="totals.length && hasActions"
+                                    :totalInFooter="showTotalsInFooter"
+                                    :verticalAlign="verticalAlign"/>
+                                <!-- @deprecated Remove in version 4.0.0 - END -->
 
-                                </tr>
-                            </template>
+                            </tr>
                         </slot>
                     </thead>
 

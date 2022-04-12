@@ -99,6 +99,7 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
     import { PFilter } from '../../components/PFilter';
@@ -253,7 +254,7 @@
                 },
             },
             itemsExist() {
-                return this.$slots.default;
+                return utils.isVue3 ? this.$slots.default() : this.$slots.default;
             },
             showEmptyState() {
                 return this.$slots.emptyState && !this.itemsExist && !this.loading;
@@ -264,16 +265,30 @@
         },
         methods: {
             count() {
-                if (typeof this.$scopedSlots !== 'undefined'
-                    && typeof this.$scopedSlots.default === 'function'
-                    && this.$scopedSlots.default({})) {
-                    const slots = this.$scopedSlots.default({});
-                    return slots ? slots.filter((vNode) => vNode.tag !== undefined).length : 0;
-                }
-                if (this.$slots.default) {
-                    return this.$slots.default.filter((vNode) => {
-                        return vNode.tag !== undefined;
-                    }).length;
+                if (utils.isVue3) {
+                    if (typeof this.$slots !== 'undefined'
+                        && typeof this.$slots.default() === 'function'
+                        && this.$slots.default({})) {
+                        const slots = this.$slots.default({});
+                        return slots ? slots.filter((vNode) => vNode.tag !== undefined).length : 0;
+                    }
+                    if (this.$slots.default()) {
+                        return this.$slots.default().filter((vNode) => {
+                            return vNode.tag !== undefined;
+                        }).length;
+                    }
+                } else {
+                    if (typeof this.$scopedSlots !== 'undefined'
+                        && typeof this.$scopedSlots.default === 'function'
+                        && this.$scopedSlots.default({})) {
+                        const slots = this.$scopedSlots.default({});
+                        return slots ? slots.filter((vNode) => vNode.tag !== undefined).length : 0;
+                    }
+                    if (this.$slots.default) {
+                        return this.$slots.default.filter((vNode) => {
+                            return vNode.tag !== undefined;
+                        }).length;
+                    }
                 }
 
                 return 0;

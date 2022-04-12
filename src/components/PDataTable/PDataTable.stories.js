@@ -9,8 +9,10 @@ export default {
     argTypes
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PDataTable, PCard, PPage,
     },
@@ -26,7 +28,7 @@ const Template = (args, {argTypes}) => ({
         <PPage title="Sales by product">
             <PCard>
                 <PDataTable
-                    v-bind="$props"
+                    v-bind="args"
                     footer-content="Showing 3 of 3"
                 />        
             </PCard>

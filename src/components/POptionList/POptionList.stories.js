@@ -82,8 +82,10 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         POptionList,
     },
@@ -94,7 +96,7 @@ const Template = (args, { argTypes }) => ({
     },
     template:`
         <POptionList 
-            v-bind="$props"
+            v-bind="args"
             :selected="selectedStatus"
             @change="updateStatusFilter"
             @click="handleClick"

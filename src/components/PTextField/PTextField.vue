@@ -34,12 +34,25 @@
 
         <PInput
             v-else
-            v-bind="[$attrs, $props]"
+            v-bind="$attrs"
             v-on="$listeners"
             :hasError="!!error"
             :id="id"
             :floatingLabel="floatingLabel"
             :label="label"
+            :labelClass="labelClass"
+            :helpText="helpText"
+            :connectedLeft="connectedLeft"
+            :connected="connected"
+            :error="error"
+            :labelHidden="labelHidden"
+            :emptyLabel="emptyLabel"
+            :richEditor="richEditor"
+            :clearable="clearable"
+            :multiple="multiple"
+            :accept="accept"
+            :type="type"
+            :readOnly="readOnly"
         >
             <slot name="prefix" slot="prefix"></slot>
             <slot name="label" slot="label"></slot>
@@ -58,7 +71,6 @@
     import { PInput } from '../../components/PTextField/components/PInput';
     import { PConnected } from '../../components/PConnected';
     import { PFieldError } from '../../components/PFieldError';
-    import StringValidator from "../../utilities/validators/StringValidator";
 
     /**
      * <br/>
@@ -208,7 +220,7 @@
             },
             computedLabelHidden() {
                 return this.floatingLabel || this.labelHidden;
-            }
+            },
         },
         methods: {
             handleInput(value) {

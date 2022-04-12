@@ -111,8 +111,10 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PRangeSlider, PCard,
     },
@@ -124,7 +126,7 @@ const Template = (args, { argTypes }) => ({
     template: `
         <PCard sectioned title="Background color">
             <PRangeSlider
-                v-bind="$props"
+                v-bind="args"
                 v-model="rangeValue"
             ></PRangeSlider>
             {{ rangeValue }}
@@ -140,8 +142,10 @@ SingleRangeSlider.args = {
     id: 'Single Slider'
 }
 
-const Template1 = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template1 = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PRangeSlider, PCard, PStack, PStackItem, PTextField,
     },
@@ -154,7 +158,7 @@ const Template1 = (args, { argTypes }) => ({
         <PCard sectioned title="Minimum requirements">
             <div>
                 <PRangeSlider
-                    v-bind="$props"
+                    v-bind="args"
                     v-model="rangeValue"
                 ></PRangeSlider>
                 <PStack distribution="equalSpacing" spacing="extraLoose">

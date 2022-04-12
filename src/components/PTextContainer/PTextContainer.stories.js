@@ -30,13 +30,15 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PTextContainer, PHeading,
     },
     template: `
-      <PTextContainer v-bind="$props">
+      <PTextContainer v-bind="args">
           <PHeading>
             Sample Heading
           </PHeading>

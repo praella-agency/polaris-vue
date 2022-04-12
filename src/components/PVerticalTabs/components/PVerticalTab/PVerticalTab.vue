@@ -139,8 +139,9 @@
             tabsPosition: {
                 type: String,
                 default: 'left',
-            }
+            },
         },
+        emits: ['click'],
         computed: {
             className() {
                 return classNames(

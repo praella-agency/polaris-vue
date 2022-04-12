@@ -94,8 +94,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PModal, PFormLayout, PTextField, PBanner, PButton, PStack, PStackItem,
     },
@@ -108,7 +110,7 @@ const Template = (args, {argTypes}) => ({
       <PStack>
           <PStackItem>
               <PModal 
-                  v-bind="$props"
+                  v-bind="args"
                   @close="closeModal"
                   :open="this.is_active"
               >

@@ -273,8 +273,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PTopBar, PSearchField, PUserMenu, PIcon, PActionList, PMenu, PVisuallyHidden, PFrame,
     },
@@ -290,7 +292,7 @@ const Template = (args, {argTypes}) => ({
       <PFrame>
         <PTopBar
             slot="topBar"
-            v-bind="$props"
+            v-bind="args"
             :searchResultsVisible="isSearchActive"
             @searchResultsDismiss="handleSearchResultsDismiss"
             @searchFieldChange="handleSearchChange"

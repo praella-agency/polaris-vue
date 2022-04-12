@@ -88,8 +88,10 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PPreviewFrame, PVerticalDivider, PIcon, PStack, PStackItem, PTextStyle, PBadge, PPopover, PButton, PTextField,
         PCard, PConnected, PActionList, PHeading, POptionList, PTextContainer, PHorizontalDivider, PImage, PKeyboardKey,
@@ -104,7 +106,7 @@ const Template = (args, { argTypes }) => ({
     },
     template: `
         <PPreviewFrame
-            v-bind="$props"
+            v-bind="args"
             :openRightSidebar.sync="openSidebar"
             :rightSidebarTitle="rightTitle || 'Side bar'"
         >

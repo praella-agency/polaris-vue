@@ -51,8 +51,10 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PSelect, PBadge
     },
@@ -65,7 +67,7 @@ const Template = (args, { argTypes }) => ({
         <div>
           <PSelect
               v-model="selectedOption"
-              v-bind="$props"
+              v-bind="args"
               @change="changeEvent"
           />
           <br />

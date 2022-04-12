@@ -16,13 +16,15 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PAvatar,
     },
     template: `
-        <PAvatar v-bind="$props"></PAvatar>`,
+        <PAvatar v-bind="args"></PAvatar>`,
 });
 
 export const Avatar = Template.bind({});

@@ -9,8 +9,10 @@ export default {
     argTypes,
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PAccordion, PAccordionItem, PIcon,
     },
@@ -21,7 +23,7 @@ const Template = (args, { argTypes }) => ({
             <PAccordionItem
                 v-for="(item, key) in 3"
                 :key="key"
-                v-bind="$props"
+                v-bind="args"
             >
                 <template slot="title">
                     Item {{ item }}

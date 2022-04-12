@@ -140,13 +140,15 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PButton,
     },
     template: `
-        <PButton v-bind="$props" @click="handleButtonEvent('click')">
+        <PButton v-bind="args" @click="handleButtonEvent('click')">
             Button
         </PButton>`,
     methods: {
@@ -158,14 +160,16 @@ const Template = (args, {argTypes}) => ({
 
 export const BaseButton = Template.bind({});
 
-const Template1 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template1 = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PButton,
     },
     template: `
         <PButton
-            v-bind="$props"
+            v-bind="args"
             primary
             :connectedDisclosure="{
                 accessibility: 'Other',

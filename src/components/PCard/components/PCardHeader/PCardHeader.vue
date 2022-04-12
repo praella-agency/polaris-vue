@@ -39,6 +39,7 @@
 </template>
 
 <script>
+    import utils from '../../../../utilities';
     import { PStack } from '../../../../components/PStack';
     import { PStackItem } from '../../../../components/PStack/components/PStackItem';
     import { PHeading } from '../../../../components/PHeading';
@@ -65,5 +66,10 @@
                 default: null,
             },
         },
+        computed: {
+            util() {
+                return utils;
+            },
+        }
     }
 </script>

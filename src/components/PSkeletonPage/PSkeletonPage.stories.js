@@ -24,14 +24,16 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PSkeletonPage, PLayout, PLayoutSection, PCard, PCardSection, PSkeletonBodyText, PSkeletonDisplayText,
         PTextContainer,
     },
     template: `
-      <PSkeletonPage v-bind="$props">
+      <PSkeletonPage v-bind="args">
         <PLayout>
           <PLayoutSection>
             <PCard sectioned>

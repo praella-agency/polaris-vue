@@ -49,14 +49,16 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PCheckbox,
     },
     template: `
         <PCheckbox 
-            v-bind="$props" 
+            v-bind="args" 
             @change="handleChange"
         >
         </PCheckbox>`,

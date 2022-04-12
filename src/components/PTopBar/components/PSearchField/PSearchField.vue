@@ -1,10 +1,5 @@
 <template>
     <div :class="className">
-    <span class="Polaris-VisuallyHidden">
-      <label :for="`SearchField${this['_uid']}`">
-        Search
-      </label>
-    </span>
         <input
             :id="`SearchField${this['_uid']}`"
             class="Polaris-TopBar-SearchField__Input"
@@ -19,8 +14,8 @@
             @keydown="preventDefault"
         />
         <span class="Polaris-TopBar-SearchField__Icon">
-        <PIcon source="SearchMinor"/>
-    </span>
+            <PIcon source="SearchMinor"/>
+        </span>
         <button
             v-if="inputValue !== ''"
             type="button"

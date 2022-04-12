@@ -1,9 +1,46 @@
 <script>
+    import { h } from 'vue';
+    import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
     import ComponentHelpers from '../../ComponentHelpers';
     import { PButtonGroupItem } from '../../components/PButtonGroup/components/PButtonGroupItem';
 
     const Spacing = 'extraTight' | 'tight' | 'loose';
+
+    let render = {};
+    if (utils.isVue3) {
+        render = function render() {
+            return h('div', {
+                    class: this.className,
+                    attrs: {
+                        'data-buttongroup-segmented': this.segmented,
+                        'data-buttongroup-full-width': this.fullWidth,
+                        'data-buttongroup-connected-top': this.connectedTop,
+                    },
+                },
+                ComponentHelpers.wrapNodesWithComponent(
+                    h,
+                    this.$slots.default() || [], PButtonGroupItem
+                ),
+            );
+        }
+    } else {
+        render = function render(createElement) {
+            return createElement('div', {
+                    class: this.className,
+                    attrs: {
+                        'data-buttongroup-segmented': this.segmented,
+                        'data-buttongroup-full-width': this.fullWidth,
+                        'data-buttongroup-connected-top': this.connectedTop,
+                    },
+                },
+                ComponentHelpers.wrapNodesWithComponent(
+                    createElement,
+                    this.$slots.default || [], PButtonGroupItem
+                ),
+            );
+        }
+    }
 
     /**
      * <br/>
@@ -57,20 +94,6 @@
                 );
             },
         },
-        render(createElement) {
-            return createElement('div', {
-                    class: this.className,
-                    attrs: {
-                        'data-buttongroup-segmented': this.segmented,
-                        'data-buttongroup-full-width': this.fullWidth,
-                        'data-buttongroup-connected-top': this.connectedTop,
-                    },
-                },
-                ComponentHelpers.wrapNodesWithComponent(
-                    createElement,
-                    this.$slots.default || [], PButtonGroupItem
-                ),
-            );
-        },
+        render,
     }
 </script>

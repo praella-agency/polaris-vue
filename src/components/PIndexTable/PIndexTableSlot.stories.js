@@ -19,8 +19,10 @@ export default {
     argTypes: argTypes,
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PIndexTable, PCard, PLink, PThumbnail, PPopover, PButton, POptionList, PBadge, PStack, PStackItem, PRadioButton,
         PTextField, PButtonGroup,
@@ -68,7 +70,7 @@ const Template = (args, {argTypes}) => ({
     template: `
         <PCard sectioned>
             <PIndexTable
-                v-bind="$props"
+                v-bind="args"
                 :rows="customers"
                 :itemCount="customers.length"
                 :appliedFilters="[

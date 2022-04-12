@@ -145,6 +145,7 @@
                 default: () => ({}),
             },
         },
+        emits: ['sort-changed'],
         computed: {
             className() {
                 return classNames(

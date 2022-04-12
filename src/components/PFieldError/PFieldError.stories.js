@@ -5,13 +5,15 @@ export default {
     component: PFieldError,
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PFieldError,
     },
     template: `
-        <PFieldError v-bind="$props"></PFieldError>`,
+        <PFieldError v-bind="args"></PFieldError>`,
 });
 
 export const FieldError = Template.bind({});

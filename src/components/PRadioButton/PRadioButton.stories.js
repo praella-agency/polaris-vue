@@ -67,8 +67,10 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PRadioButton, PStack, PStackItem,
     },
@@ -76,7 +78,7 @@ const Template = (args, { argTypes }) => ({
       <PStack vertical>
         <PStackItem>
             <PRadioButton
-                v-bind="$props"
+                v-bind="args"
             ></PRadioButton>
         </PStackItem>
         <PStackItem>
@@ -84,7 +86,7 @@ const Template = (args, { argTypes }) => ({
                 id="optional"
                 label="Accounts are optional"
                 help-text="Customers will be able to check out with a customer account or as a guest."
-                v-bind="$props"
+                v-bind="args"
             ></PRadioButton>
         </PStackItem>
       </PStack>`,

@@ -44,10 +44,12 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {PToggle},
-    template: '<PToggle v-bind="$props"/>'
+    template: '<PToggle v-bind="args"/>'
 });
 
 export const Toggle = Template.bind({});

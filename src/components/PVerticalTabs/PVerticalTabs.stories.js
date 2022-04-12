@@ -95,8 +95,10 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PCard, PCardSection, PVerticalTabs, PStack, PStackItem, PHeading, PButton, PFooterHelp, PLink, PCardHeader,
         PPopover, PActionList,
@@ -167,7 +169,7 @@ const Template = (args, { argTypes }) => ({
                     />
                 </PPopover>
             </PCardHeader>
-            <PVerticalTabs v-bind="$props" :tabs="items" @select="selectMenu" :selected="selectedTab">
+            <PVerticalTabs v-bind="args" :tabs="items" @select="selectMenu" :selected="selectedTab">
                 <PStack v-if="selectedTab === 0">
                     <PStackItem width="60%">
                         <PStack vertical>
@@ -295,7 +297,7 @@ VerticalTabs.parameters = {
             />
         </PPopover>
     </PCardHeader>
-    <PVerticalTabs v-bind="$props" :tabs="items" :selected="selectedTab">
+    <PVerticalTabs v-bind="args" :tabs="items" :selected="selectedTab">
         <PStack v-if="selectedTab === 0">
             <PStackItem width="60%">
                 <PStack vertical>

@@ -71,7 +71,7 @@ export default {
                 },
                 defaultValue: {
                     summary: '()',
-                    detail:`(files: File[], acceptedFiles: File[], rejectedFiles: File[]): void => {}`,
+                    detail: `(files: File[], acceptedFiles: File[], rejectedFiles: File[]): void => {}`,
                 },
             },
         },
@@ -85,7 +85,7 @@ export default {
                 },
                 defaultValue: {
                     summary: '()',
-                    detail:`(acceptedFiles: File[]): void => {}`,
+                    detail: `(acceptedFiles: File[]): void => {}`,
                 },
             },
         },
@@ -99,7 +99,7 @@ export default {
                 },
                 defaultValue: {
                     summary: '()',
-                    detail:`(rejectedFiles: File[]): void => {}`,
+                    detail: `(rejectedFiles: File[]): void => {}`,
                 },
             },
         },
@@ -113,7 +113,7 @@ export default {
                 },
                 defaultValue: {
                     summary: '()',
-                    detail:`(): void => {}`,
+                    detail: `(): void => {}`,
                 },
             },
         },
@@ -127,7 +127,7 @@ export default {
                 },
                 defaultValue: {
                     summary: '()',
-                    detail:`(): void => {}`,
+                    detail: `(): void => {}`,
                 },
             },
         },
@@ -141,7 +141,7 @@ export default {
                 },
                 defaultValue: {
                     summary: '()',
-                    detail:`(): void => {}`,
+                    detail: `(): void => {}`,
                 },
             },
         },
@@ -155,7 +155,7 @@ export default {
                 },
                 defaultValue: {
                     summary: '()',
-                    detail:`(): void => {}`,
+                    detail: `(): void => {}`,
                 },
             },
         },
@@ -190,8 +190,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PDropZone
     },
@@ -204,7 +206,7 @@ const Template = (args, {argTypes}) => ({
         <PDropZone
             :handleOnDrop="handleDropZoneDrop"
             :files="images"
-            v-bind="$props"
+            v-bind="args"
         />`,
     methods: {
         handleDropZoneDrop(files, acceptedFiles, rejectedFiles) {
@@ -218,11 +220,13 @@ const Template = (args, {argTypes}) => ({
 export const DropZone = Template.bind({});
 
 DropZone.args = {
-    type:"image"
+    type: "image"
 }
 
-const Template1 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template1 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PCard, PCardHeader, PCardSection, PDropZone
     },
@@ -243,11 +247,11 @@ const Template1 = (args, {argTypes}) => ({
             />
             <PCardSection>
                 <PDropZone
-                        :files="images"
-                        :openFileDialog="openFilesDialog"
-                        :handleOnDrop="handleDropZoneDrop"
-                        :handleOnFileDialogClose="toggleCloseFileDialog"
-                        v-bind="$props"
+                    :files="images"
+                    :openFileDialog="openFilesDialog"
+                    :handleOnDrop="handleDropZoneDrop"
+                    :handleOnFileDialogClose="toggleCloseFileDialog"
+                    v-bind="args"
                 />
             </PCardSection>
         </PCard>`,

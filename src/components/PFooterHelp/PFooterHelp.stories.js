@@ -38,14 +38,16 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PFooterHelp, PLink,
     },
     template: `
       <PFooterHelp
-          v-bind="$props"
+          v-bind="args"
       >
           Learn more about
           <PLink 

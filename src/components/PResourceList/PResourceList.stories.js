@@ -151,8 +151,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PResourceList, PCard, PPopover, PButton, PResourceListItem, PBadge, PPagination, PButtonGroup,
         PCardSection, PCardHeader, PStack, PStackItem, PTextField, PAvatar, PTextStyle
@@ -245,7 +247,7 @@ const Template = (args, {argTypes}) => ({
                 :selected="selectedItems"
                 :resourceName="resourceName"
                 :loading="loading"
-                v-bind="$props"
+                v-bind="args"
                 :appliedFilters="[
                 { value: 'Tagged with ' + this.taggedValue, key: 'tag_' + this.taggedValue},
               ]"
@@ -293,7 +295,7 @@ const Template = (args, {argTypes}) => ({
                         Save
                     </PButton>
                 </PButtonGroup>
-                <template v-bind="{selectable}">
+                <div v-bind="{selectable}">
                     <PResourceListItem
                         v-for="(item, key) in items"
                         :key="key"
@@ -325,7 +327,7 @@ const Template = (args, {argTypes}) => ({
                             </div>
                         </div>
                     </PResourceListItem>
-                </template>
+                </div>
             </PResourceList>
             <PCardSection>
                 <PStack v-if="pagination.hasPrevious || pagination.hasNext" distribution="center">

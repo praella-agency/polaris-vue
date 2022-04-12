@@ -26,14 +26,16 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PSubheading,
     },
     template: `
       <PSubheading 
-          v-bind="$props"
+          v-bind="args"
       > 
         Sample Sub Heading 
       </PSubheading>`,

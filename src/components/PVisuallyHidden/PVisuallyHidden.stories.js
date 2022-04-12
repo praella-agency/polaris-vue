@@ -27,7 +27,7 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
+const Template = (args) => ({
     props: Object.keys(args),
     components: {
         PVisuallyHidden,
@@ -37,7 +37,7 @@ const Template = (args, {argTypes}) => ({
         <thead>
         <tr>
           <th scope="col">
-            <PVisuallyHidden v-bind="$props">Line item</PVisuallyHidden>
+            <PVisuallyHidden v-bind="args">Line item</PVisuallyHidden>
           </th>
           <th scope="col">
             <PVisuallyHidden>Value</PVisuallyHidden>

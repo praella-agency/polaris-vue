@@ -23,19 +23,21 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PLayout, PCard, PLayoutSection
     },
     template: `
-      <PLayout v-bind="$props">
-        <PLayoutSection>
-          <PCard sectioned :actions=[]>
-            View a summary of your online store’s performance
-          </PCard>
-        </PLayoutSection>
-      </PLayout>`,
+        <PLayout v-bind="args">
+            <PLayoutSection>
+                <PCard sectioned :actions=[]>
+                    View a summary of your online store’s performance
+                </PCard>
+            </PLayoutSection>
+        </PLayout>`,
 });
 
 export const Layout = Template.bind({});
@@ -44,100 +46,108 @@ Layout.args = {
     sectioned: true,
 }
 
-const Template1 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template1 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
-       PLayout, PLayoutSection, PCard,
+        PLayout, PLayoutSection, PCard,
     },
     template: `
-      <PLayout v-bind="$props">
-          <PLayoutSection>
-            <PCard sectioned title="Order details" :actions=[]>
-              View a summary of your order.
-            </PCard>
-          </PLayoutSection>
-          <PLayoutSection secondary>
-            <PCard sectioned title="Tags" :actions=[]>
-              Add tags to your order.
-            </PCard>
-          </PLayoutSection>
-      </PLayout>`,
+        <PLayout v-bind="args">
+            <PLayoutSection>
+                <PCard sectioned title="Order details" :actions=[]>
+                    View a summary of your order.
+                </PCard>
+            </PLayoutSection>
+            <PLayoutSection secondary>
+                <PCard sectioned title="Tags" :actions=[]>
+                    Add tags to your order.
+                </PCard>
+            </PLayoutSection>
+        </PLayout>`,
 });
 
 export const TwoColumnWithPrimaryAndSecondaryWidth = Template1.bind({});
 
-const Template2 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template2 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
-       PLayout, PLayoutSection, PCard,
+        PLayout, PLayoutSection, PCard,
     },
     template: `
-      <PLayout v-bind="$props">
-          <PLayoutSection one-half>
-            <PCard sectioned title="Order details" :actions=[]>
-              View a summary of your order.
-            </PCard>
-          </PLayoutSection>
-          <PLayoutSection one-half>
-            <PCard sectioned title="Tags" :actions=[]>
-              Add tags to your order.
-            </PCard>
-          </PLayoutSection>
-      </PLayout>`,
+        <PLayout v-bind="args">
+            <PLayoutSection one-half>
+                <PCard sectioned title="Order details" :actions=[]>
+                    View a summary of your order.
+                </PCard>
+            </PLayoutSection>
+            <PLayoutSection one-half>
+                <PCard sectioned title="Tags" :actions=[]>
+                    Add tags to your order.
+                </PCard>
+            </PLayoutSection>
+        </PLayout>`,
 });
 
 export const TwoColumnsWithEqualWidth = Template2.bind({});
 
-const Template3 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template3 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
-       PLayout, PLayoutSection, PCard,
+        PLayout, PLayoutSection, PCard,
     },
     template: `
-      <PLayout v-bind="$props">
-          <PLayoutSection oneThird>
-            <PCard sectioned title="Order details" :actions=[]>
-              View a summary of your order.
-            </PCard>
-          </PLayoutSection>
-          <PLayoutSection oneThird>
-            <PCard sectioned title="Variant" :actions=[]>
-              Add Variant
-            </PCard>
-          </PLayoutSection>
-          <PLayoutSection oneThird>
-            <PCard sectioned title="Tags" :actions=[]>
-              Add tags to your order.
-            </PCard>
-          </PLayoutSection>
-      </PLayout>`,
+        <PLayout v-bind="args">
+            <PLayoutSection oneThird>
+                <PCard sectioned title="Order details" :actions=[]>
+                    View a summary of your order.
+                </PCard>
+            </PLayoutSection>
+            <PLayoutSection oneThird>
+                <PCard sectioned title="Variant" :actions=[]>
+                    Add Variant
+                </PCard>
+            </PLayoutSection>
+            <PLayoutSection oneThird>
+                <PCard sectioned title="Tags" :actions=[]>
+                    Add tags to your order.
+                </PCard>
+            </PLayoutSection>
+        </PLayout>`,
 });
 
 export const ThreeColumnsWithEqualWidth = Template3.bind({});
 
-const Template4 = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template4 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PLayout, PLayoutSection, PBanner, PLayoutAnnotatedSection, PCard, PFormLayout, PTextField
     },
     template: `
-        <PLayout v-bind="$props">
-          <PLayoutSection>
-            <PBanner title="Order archived" :action="{}" @dismiss="handleDismissAction">
-              <p>This order was archived on March 7, 2017 at 3:12pm EDT.</p>        
-            </PBanner>
-          </PLayoutSection>
-          <PLayoutAnnotatedSection 
-              title="Store details" 
-              description="Shopify and your customers will use this information to contact you."
-          >
-            <PCard sectioned :actions=[]>
-              <PFormLayout>
-                <PTextField label="Store name"></PTextField>
-                <PTextField type="email" label="Account email"></PTextField>
-              </PFormLayout>
-            </PCard>  
-          </PLayoutAnnotatedSection>
+        <PLayout v-bind="args">
+            <PLayoutSection>
+                <PBanner title="Order archived" :action="{}" @dismiss="handleDismissAction">
+                    <p>This order was archived on March 7, 2017 at 3:12pm EDT.</p>
+                </PBanner>
+            </PLayoutSection>
+            <PLayoutAnnotatedSection
+                title="Store details"
+                description="Shopify and your customers will use this information to contact you."
+            >
+                <PCard sectioned :actions=[]>
+                    <PFormLayout>
+                        <PTextField label="Store name"></PTextField>
+                        <PTextField type="email" label="Account email"></PTextField>
+                    </PFormLayout>
+                </PCard>
+            </PLayoutAnnotatedSection>
         </PLayout>`,
     methods: {
         handleDismissAction() {

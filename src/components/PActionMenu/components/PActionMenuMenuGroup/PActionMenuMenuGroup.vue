@@ -1,7 +1,11 @@
 <template>
-    <PPopover :id="`Popover${this['_uid']}`" :active="Boolean(active)" preferredAlignment="left" hideOnPrint @close="handleClose">
-        <PActionMenuMenuAction slot="activator" disclosure :content="title" :getOffsetWidth="getOffsetWidth" :icon="icon" :onAction="handleOpen" />
-        <PActionList slot="content" :items="actions" @item-action="handleClose" />
+    <PPopover :id="`Popover${new Date().getUTCMilliseconds()}`" :active="Boolean(active)" preferredAlignment="left" hideOnPrint @close="handleClose">
+        <template #activator>
+            <PActionMenuMenuAction disclosure :content="title" :getOffsetWidth="getOffsetWidth" :icon="icon" :onAction="handleOpen" />
+        </template>
+        <template #content>actionsLayoutRef
+            <PActionList :items="actions" @item-action="handleClose" />
+        </template>
         <div v-if="$slots.details" class="">
             <slot name="details" />
         </div>

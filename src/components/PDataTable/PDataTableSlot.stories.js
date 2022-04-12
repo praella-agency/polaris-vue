@@ -20,8 +20,10 @@ export default {
     argTypes
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PDataTable, PPopover, PButton, POptionList, PCard, PLink, PBadge, PToggle, PIcon, PStack, PStackItem,
         PDataTableRow, PDataTableCol, PButtonGroup,
@@ -37,7 +39,7 @@ const Template = (args, {argTypes}) => ({
     template: `
         <PCard sectioned>
             <PDataTable
-                v-bind="$props"
+                v-bind="args"
                 @sort-changed="handleSortChange"
                 @input-filter-changed="handleSearch"
             >
@@ -409,8 +411,10 @@ CustomisableRow.parameters = {
     }
 }
 
-const Template1 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template1 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PDataTable, PPopover, PButton, POptionList, PCard, PLink, PBadge, PToggle, PIcon, PStack, PStackItem,
         PButtonGroup
@@ -426,7 +430,7 @@ const Template1 = (args, {argTypes}) => ({
     template: `
         <PCard sectioned>
             <PDataTable
-                v-bind="$props"
+                v-bind="args"
                 @sort-changed="handleSortChange"
                 @input-filter-changed="handleSearch"
             >

@@ -67,14 +67,16 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PBanner,
     },
     template: `
         <PBanner 
-            v-bind="$props"
+            v-bind="args"
             @dismiss="handleDismissAction"
         >
             Add weights to show accurate rates at checkout and when buying shipping

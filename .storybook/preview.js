@@ -1,8 +1,7 @@
 import '!style-loader!css-loader!sass-loader!../src/scss/main.scss';
 import '!style-loader!css-loader!sass-loader!./styles/docs.scss';
-import Vue from 'vue';
-import { app } from '@storybook/vue3';
-// import VueRouter from 'vue-router';
+// import Vue from 'vue';
+import VueRouter from 'storybook-vue3-router'
 // import PToast from '../src/components/PToast';
 // import pLoading from '../src/components/PLoading';
 import { directives } from '../src/components/PTooltip';
@@ -19,7 +18,7 @@ app.directive('p-tooltip', directives(app));
 export const decorators = [(story) => ({
     components: {story},
     template: '<story />',
-    // router: new VueRouter()
+    router: new VueRouter()
 })];
 
 export const parameters = {

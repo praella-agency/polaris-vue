@@ -152,14 +152,16 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PNavigation, PIcon, PAvatar,
     },
     template: `
       <PNavigation
-          v-bind="$props"
+          v-bind="args"
           location="/"
           :on-dismiss="handleDismiss"
       />`,

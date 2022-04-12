@@ -29,14 +29,16 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PTextStyle,
     },
     template: `
         <PTextStyle
-            v-bind="$props"
+            v-bind="args"
         >
             No supplier listed
         </PTextStyle>`,

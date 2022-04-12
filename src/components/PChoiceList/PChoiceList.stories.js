@@ -50,8 +50,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PChoiceList, PTextField,
     },
@@ -63,7 +65,7 @@ const Template = (args, {argTypes}) => ({
     },
     template: `
         <PChoiceList
-            v-bind="$props"
+            v-bind="args"
             :selected="selectedData"
             v-model="data"
         >

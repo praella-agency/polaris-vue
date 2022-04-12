@@ -34,14 +34,16 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PFormLayout, PFormLayoutGroup, PTextField,
     },
     template: `
       <PFormLayout>
-      <PFormLayoutGroup v-bind="$props">
+      <PFormLayoutGroup v-bind="args">
         <PTextField type='currency' label="Price" align="right" suffix="$"/>
         <PTextField type='number' label="Minimum order"/>
         <PTextField type='number' label="Maximum order"/>

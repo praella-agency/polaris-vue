@@ -3,9 +3,9 @@
         :aria-sort="sortLabel">
         <template v-if="sortable">
             <button :class="headerClassName" @click="handleSortChange">
-        <span class="Polaris-DataTable__Icon">
-          <PIcon :source="source"/>
-        </span>
+                <span class="Polaris-DataTable__Icon">
+                    <PIcon :source="source"/>
+                </span>
                 {{ content }}
             </button>
         </template>
@@ -101,6 +101,7 @@
                 type: String,
             },
         },
+        emits: ['sort-changed'],
         computed: {
             className() {
                 return classNames(

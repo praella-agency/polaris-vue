@@ -31,14 +31,16 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PScrollable,
     },
     template: `
         <PScrollable 
-            v-bind="$props"
+            v-bind="args"
             style="height: 100px"
         >
             <p>

@@ -1,4 +1,5 @@
 <template>
+    <span style="visibility: hidden"/>
     <div :class="className" v-show="showInput">
         <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
             {{ prefix }}
@@ -122,7 +123,6 @@
     </div>
 </template>
 
-
 <script>
     import { classNames } from '../../../../utilities/css';
     import { PSpinner } from '../../../../components/PTextField/components/PSpinner';
@@ -154,7 +154,7 @@
             },
             type: {
                 type: String,
-                ...StringValidator('type', Type),
+                // ...StringValidator('type', Type),
             },
             align: {
                 type: String,
@@ -254,10 +254,10 @@
                     modules: {
                         toolbar: [
                             [{header: [1, 2, 3, 4, 5, 6, false]}, 'blockquote'],
-                            ['bold', 'italic', 'underline', { 'color': [] }, { 'background': [] }],
-                            [{ align: [] }],
+                            ['bold', 'italic', 'underline', {'color': []}, {'background': []}],
+                            [{align: []}],
                             ['link', 'image', 'video'],
-                            [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }, 'clean'],
+                            [{list: 'ordered'}, {list: 'bullet'}, {indent: '-1'}, {indent: '+1'}, 'clean'],
                         ],
                         syntax: {
                             highlight: text => text,
@@ -268,6 +268,7 @@
                 characterCount: this.value && this.value.length,
             };
         },
+        emits: ['input'],
         computed: {
             className() {
                 return classNames(

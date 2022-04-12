@@ -70,8 +70,10 @@ export default {
     },
 };
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PTabs, PCard, PCardSection,
     },
@@ -109,7 +111,7 @@ const Template = (args, { argTypes }) => ({
     },
     template: `
 <!--        <PCard>-->
-            <PTabs v-bind="$props" :tabs="items" @select="selectMenu" :selected="selectedTab">
+            <PTabs v-bind="args" :tabs="items" @select="selectMenu" :selected="selectedTab">
                 <PCardSection :title="(selectedTab !== null) ? items[selectedTab].content : ''">
                     <p>Tab {{ selectedTab }} selected</p>
                 </PCardSection>

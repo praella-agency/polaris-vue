@@ -24,7 +24,7 @@
             :onNavigationDismiss="onNavigationDismiss"
         >
             <template v-slot:icon="slotProps">
-                <slot name="icon" :item="slotProps.item"/>
+<!--                <slot name="icon" :item="slotProps.item"/>-->
             </template>
         </PItem>
         <li

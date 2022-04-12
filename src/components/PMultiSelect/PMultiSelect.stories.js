@@ -82,8 +82,10 @@ export default {
     },
 };
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PMultiSelect,PBadge
     },
@@ -96,7 +98,7 @@ const Template = (args, {argTypes}) => ({
     template: `
       <div>
       <PMultiSelect
-          v-bind="$props"
+          v-bind="args"
           v-model="selectedValue"
           @searchChange="search"
       />

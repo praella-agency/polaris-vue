@@ -158,19 +158,25 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PPage, PButton, PBadge, PAvatar
     },
     template: `
-      <PPage
-          v-bind="$props"
-      >
-          <PBadge slot="titleMetadata" status="success">Paid</PBadge>
-          <PAvatar initials="HA" slot="additionalNavigation"></PAvatar>
-          Page Content
-      </PPage>`,
+        <PPage
+            v-bind="args"
+        >
+            <template #titleMetadata>
+                <PBadge status="success">Paid</PBadge>
+            </template>
+            <template #additionalNavigation>
+                <PAvatar initials="HA"></PAvatar>
+            </template>
+            Page Content
+        </PPage>`,
 });
 
 export const Page = Template.bind({});
@@ -189,7 +195,7 @@ Page.args = {
             content: 'View on your store',
             onAction: () => {
                 alert('View on your store');
-        },
+            },
         },
     ],
     actionGroups: [

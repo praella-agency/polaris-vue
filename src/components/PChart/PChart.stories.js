@@ -23,14 +23,16 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PChart,
     },
     template: `
       <PChart
-          v-bind="$props"
+          v-bind="args"
       />`,
 });
 
@@ -57,14 +59,16 @@ Chart.args = {
     },
 }
 
-const Template1 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template1 = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PChart,
     },
     template: `
       <PChart
-          v-bind="$props"
+          v-bind="args"
       />`,
 });
 

@@ -46,8 +46,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PCollapsible, PCard, PStack, PStackItem, PButton, PTextContainer, PLink
     },

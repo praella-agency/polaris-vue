@@ -68,11 +68,11 @@ class ComponentHelpers {
     wrapNodesWithComponent(createElement, nodes, component, ignoredComponents = []) {
         let children = [];
         for (let node of nodes) {
-            if (!node.tag && !node.text.trim()) {
+            if (!node.tag) {
                 continue;
             }
 
-            var added = false;
+            let added = false;
             if (this.isNodeOfComponent(node, component)) {
                 added = true;
                 children.push(node);

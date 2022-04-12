@@ -61,8 +61,10 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PPopover, PButton, POptionList
     },
@@ -81,7 +83,7 @@ const Template = (args, { argTypes }) => ({
     template: `
         <PPopover
             :active="statusFilterActive"
-            v-bind="$props"
+            v-bind="args"
             @close="() => {this.statusFilterActive = false}"
         >
           <PButton

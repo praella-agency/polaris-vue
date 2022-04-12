@@ -382,6 +382,7 @@
                 default: `or drop files to upload`,
             },
         },
+        emits: ['focus', 'blur'],
         data() {
             return {
                 dragTargets: [],

@@ -78,6 +78,7 @@
                 default: 'left',
             }
         },
+        emits: ['select'],
         computed: {
             className() {
                 return classNames(

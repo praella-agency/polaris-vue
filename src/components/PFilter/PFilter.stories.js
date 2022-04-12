@@ -124,8 +124,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PFilter, PButton, PPopover, POptionList, PCard, PCardSection, PStack, PStackItem, PTextField, PCheckbox,
         PChoiceList, PButtonGroup,
@@ -147,7 +149,7 @@ const Template = (args, {argTypes}) => ({
     },
     template: `
         <PFilter
-            v-bind="$props"
+            v-bind="args"
             @remove-tag="onRemoveFilter"
             @queryChange="onFilterQueryChange"
             :appliedFilters="appliedFilter"

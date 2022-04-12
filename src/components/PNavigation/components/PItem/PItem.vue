@@ -16,7 +16,7 @@
                 :aria-controls="normalizeAriaAttributesForControls"
             >
                 <template>
-                    <div v-if="icon" :class="$scopedSlots.icon() ? 'Polaris-Navigation__Icon--slot' : 'Polaris-Navigation__Icon'">
+                    <div v-if="icon" :class="$slots.icon() ? 'Polaris-Navigation__Icon--slot' : 'Polaris-Navigation__Icon'">
                         <span class="Polaris-Navigation__Icon--span">
                             <slot name="icon" :item="itemValue">
                                 <PIcon :source="icon"/>

@@ -1,7 +1,7 @@
 <template>
     <div class="Polaris-SettingAction">
         <div class="Polaris-SettingAction__Setting">
-            <slot name="children"></slot>
+            <slot/>
         </div>
         <div v-if="$slots.action || action" class="Polaris-SettingAction__Action">
             <slot name="action">

@@ -77,15 +77,17 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PContextualSaveBar, PFrame,
     },
     template: `
       <PFrame>
         <PContextualSaveBar
-            v-bind="$props"
+            v-bind="args"
             :saveAction="{
               onAction: handleSaveAction,
               loading: false,
