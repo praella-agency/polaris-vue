@@ -1,12 +1,11 @@
 <template>
-    <PFrame>
+<!--    <PFrame>-->
         <PTopBar
-            slot="topBar"
             :searchField="{
                 value: search,
                 placeholder: 'Search',
                 showFocusBorder: true,
-          }"
+            }"
             :searchResultsVisible="false"
             @searchFieldChange="searchIcon"
             @searchResultsDismiss="handleSearchResultsDismiss"
@@ -63,7 +62,7 @@
                 </PStackItem>
             </PStack>
         </div>
-    </PFrame>
+<!--    </PFrame>-->
 </template>
 
 <script>

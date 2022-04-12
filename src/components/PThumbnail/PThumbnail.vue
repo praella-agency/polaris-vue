@@ -1,7 +1,7 @@
 <template>
     <span :class="className">
         <PImage v-if="!isSvg(source)" v-bind="$attrs" :source="source" :alt="alt"
-                class="Polaris-Thumbnail__Image" />
+                class="Polaris-Thumbnail__Image"/>
         <PIcon v-else :alt="alt" :source="source"/>
     </span>
 </template>
@@ -27,45 +27,45 @@
             PImage, PIcon,
         },
         props: {
-          /**
-           * Thumbnail Size.
-           */
-          size: {
-            type: String,
-            default: 'medium',
-            ...StringValidator('size', Size)
-          },
+            /**
+             * Thumbnail Size.
+             */
+            size: {
+                type: String,
+                default: 'medium',
+                ...StringValidator('size', Size)
+            },
 
-          /**
-           * Image source.
-           */
-          source: {
-            type: String,
-            default: null
-          },
+            /**
+             * Image source.
+             */
+            source: {
+                type: String,
+                default: null
+            },
 
-          /**
-           * Image alt.
-           */
-          alt: {
-            type: String,
-            default: null
-          }
+            /**
+             * Image alt.
+             */
+            alt: {
+                type: String,
+                default: null
+            }
         },
         computed: {
-          className() {
-            return classNames(
-                'Polaris-Thumbnail',
-                this.size && `Polaris-Thumbnail--${variationName('size', this.size)}`,
-            );
-          }
+            className() {
+                return classNames(
+                    'Polaris-Thumbnail',
+                    this.size && `Polaris-Thumbnail--${variationName('size', this.size)}`,
+                );
+            }
         },
         methods: {
-          isSvg(source) {
-            const isSVG = new RegExp(/(<svg)([^<]*|[^>]*)/);
+            isSvg(source) {
+                const isSVG = new RegExp(/(<svg)([^<]*|[^>]*)/);
 
-            return isSVG.test(source);
-          }
+                return isSVG.test(source);
+            }
         }
     }
 </script>

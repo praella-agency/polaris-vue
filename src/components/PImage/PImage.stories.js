@@ -18,12 +18,13 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PImage,
     },
-    template: `<PImage v-bind="args"/>`
+    template: `
+        <PImage v-bind="args"/>`
 });
 
 export const Image = Template.bind({});

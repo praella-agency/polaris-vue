@@ -49,7 +49,7 @@ const Template = (args) => ({
         PBadge,
     },
     setup() {
-        return { args };
+        return {args};
     },
     template: `
         <PBadge v-bind="args">Default Badge</PBadge>`,
