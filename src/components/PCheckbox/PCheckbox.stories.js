@@ -51,14 +51,14 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PCheckbox,
     },
     template: `
-        <PCheckbox 
-            v-bind="args" 
+        <PCheckbox
+            v-bind="args"
             @change="handleChange"
         >
         </PCheckbox>`,

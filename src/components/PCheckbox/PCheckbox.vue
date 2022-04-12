@@ -118,6 +118,7 @@
                 default: null,
             },
         },
+        emits: ['change', 'focus', 'blur'],
         computed: {
             wrapperClassName() {
                 return classNames(

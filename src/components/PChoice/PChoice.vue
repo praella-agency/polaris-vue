@@ -81,6 +81,7 @@
                 type: [String, Boolean],
             },
         },
+        emits: ['click'],
         computed: {
             className() {
                 return classNames(
