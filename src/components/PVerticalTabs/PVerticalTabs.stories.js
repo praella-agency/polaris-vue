@@ -141,33 +141,36 @@ const Template = (args) => ({
                 title="Moving along nicely."
                 style="margin-bottom: 20px;"
             >
-                <PPopover
-                    slot="children"
-                    id="CardHeaderPopover"
-                    :active="statusFilterActive"
-                    preferredAlignment="right"
-                    @close="() => {this.statusFilterActive = false}"
-                >
-                    <PButton
-                        slot="activator"
-                        plain
-                        icon="HorizontalDotsMinor"
-                        @click.stop="statusFilterActive = !statusFilterActive"
-                    />
-                    <PActionList 
-                        slot="content"
-                        :items="[
-                            {
-                                content: 'Dismiss',
-                                icon: 'CancelSmallMinor',
-                            },
-                            {
-                                content: 'Give feedback',
-                                icon: 'ChatMajor',
-                            },
-                      ]"
-                    />
-                </PPopover>
+                <template #children>
+                    <PPopover
+                        id="CardHeaderPopover"
+                        :active="statusFilterActive"
+                        preferredAlignment="right"
+                        @close="() => {this.statusFilterActive = false}"
+                    >
+                        <template #activator>
+                            <PButton
+                                plain
+                                icon="HorizontalDotsMinor"
+                                @click.stop="statusFilterActive = !statusFilterActive"
+                            />
+                        </template>
+                        <template #content>
+                            <PActionList
+                                :items="[
+                                {
+                                    content: 'Dismiss',
+                                    icon: 'CancelSmallMinor',
+                                },
+                                {
+                                    content: 'Give feedback',
+                                    icon: 'ChatMajor',
+                                },
+                            ]"
+                            />
+                        </template>
+                    </PPopover>
+                </template>
             </PCardHeader>
             <PVerticalTabs v-bind="args" :tabs="items" @select="selectMenu" :selected="selectedTab">
                 <PStack v-if="selectedTab === 0">
