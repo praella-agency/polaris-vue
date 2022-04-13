@@ -19,6 +19,7 @@
                 default: true,
             },
         },
+        emits: ['click'],
         computed: {
             className() {
                 return classNames(
