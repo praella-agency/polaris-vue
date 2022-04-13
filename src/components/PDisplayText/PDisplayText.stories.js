@@ -34,17 +34,17 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PDisplayText,
     },
     template: `
-      <PDisplayText
-          v-bind="args"
-      >
-        Default Example Usage
-      </PDisplayText>`,
+        <PDisplayText
+            v-bind="args"
+        >
+            Default Example Usage
+        </PDisplayText>`,
 });
 
 export const DisplayText = Template.bind({});

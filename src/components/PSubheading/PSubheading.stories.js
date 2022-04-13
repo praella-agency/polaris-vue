@@ -28,17 +28,17 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PSubheading,
     },
     template: `
-      <PSubheading 
-          v-bind="args"
-      > 
-        Sample Sub Heading 
-      </PSubheading>`,
+        <PSubheading
+            v-bind="args"
+        >
+            Sample Sub Heading
+        </PSubheading>`,
 });
 
 export const Subheading = Template.bind({});

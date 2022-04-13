@@ -6,7 +6,6 @@
 </template>
 
 <script>
-
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -15,15 +14,15 @@
      *  as other kinds of secondary text for list items.</h4>
      */
     export default {
-      name: 'PCaption',
-      props: {
-        /**
-         * Id for the element
-         */
-        id: {
-          type: [String, Number],
-          default: null
-        }
-      },
+        name: 'PCaption',
+        props: {
+            /**
+             * Id for the element
+             */
+            id: {
+                type: [String, Number],
+                default: null
+            }
+        },
     }
 </script>
