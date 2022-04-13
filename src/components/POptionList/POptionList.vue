@@ -180,7 +180,7 @@ Access values with `slot-props` attribute.-->
                 /**
                  * Method to handle click event. This event will provide the selected option.
                  */
-                this.$emit('click', this.selectedValue, option)
+                this.$emit('click', JSON.parse(JSON.stringify(this.selectedValue)), option)
             }
         },
         created() {

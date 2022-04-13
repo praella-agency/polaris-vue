@@ -1,4 +1,5 @@
 import { POptionList } from './index';
+import { PIcon } from '../PIcon';
 
 export default {
     title: 'Lists & Tables / Option List',
@@ -84,25 +85,27 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
-        POptionList,
+        POptionList, PIcon,
     },
     data() {
         return {
             selectedStatus: [],
         };
     },
-    template:`
-        <POptionList 
+    template: `
+        <POptionList
             v-bind="args"
             :selected="selectedStatus"
             @change="updateStatusFilter"
             @click="handleClick"
         >
             <template v-slot:media="{item}">
-                {{ item.icon }}
+                <template v-if="item.icon">
+                    <PIcon :source="item.icon"/>
+                </template>
             </template>
         </POptionList>
     `,

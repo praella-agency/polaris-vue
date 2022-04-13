@@ -8,10 +8,10 @@
             :checked="checked"
             :disabled="disabled"
             class="Polaris-OptionList-Checkbox__Input"
-            @change="$emit('change', $event)" />
+            @change="$emit('change', $event)"/>
         <div class="Polaris-OptionList-Checkbox__Backdrop"></div>
         <div class="Polaris-OptionList-Checkbox__Icon">
-            <PIcon source="TickSmallMinor" />
+            <PIcon source="TickSmallMinor"/>
         </div>
     </div>
 </template>
@@ -21,37 +21,38 @@
     import { PIcon } from '../../../../components/PIcon';
 
     export default {
-      name: 'POptionsListCheckbox',
-      components: {
-        PIcon,
-      },
-      props: {
-        id: {
-          type: [String, Number],
+        name: 'POptionsListCheckbox',
+        components: {
+            PIcon,
         },
-        value: {
-          type: String,
+        props: {
+            id: {
+                type: [String, Number],
+            },
+            value: {
+                type: String,
+            },
+            name: {
+                type: String,
+            },
+            active: {
+                type: Boolean,
+            },
+            disabled: {
+                type: Boolean,
+            },
+            checked: {
+                type: Boolean,
+            },
         },
-        name: {
-          type: String,
+        emits: ['change'],
+        computed: {
+            className() {
+                return classNames(
+                    'Polaris-OptionList-Checkbox',
+                    this.active && 'Polaris-OptionList-Checkbox--active',
+                );
+            }
         },
-        active: {
-          type: Boolean,
-        },
-        disabled: {
-          type: Boolean,
-        },
-        checked: {
-          type: Boolean,
-        },
-      },
-      computed: {
-        className() {
-          return classNames(
-              'Polaris-OptionList-Checkbox',
-              this.active && 'Polaris-OptionList-Checkbox--active',
-          );
-        }
-      },
     }
 </script>
