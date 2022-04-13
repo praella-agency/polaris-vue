@@ -40,22 +40,22 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PFooterHelp, PLink,
     },
     template: `
-      <PFooterHelp
-          v-bind="args"
-      >
-          Learn more about
-          <PLink 
-              url="javascript:void(0);"
-          >
-            fulfilling orders
-          </PLink>
-      </PFooterHelp>`,
+        <PFooterHelp
+            v-bind="args"
+        >
+            Learn more about
+            <PLink
+                url="javascript:void(0);"
+            >
+                fulfilling orders
+            </PLink>
+        </PFooterHelp>`,
 });
 
 export const FooterHelp = Template.bind({});
