@@ -22,15 +22,17 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PUnstyledLink,
     },
     template: `
         <PUnstyledLink
             v-bind="args"
-        >HulkApps</PUnstyledLink>`,
+        >
+            HulkApps
+        </PUnstyledLink>`,
 });
 
 export const UnstyledLink = Template.bind({});

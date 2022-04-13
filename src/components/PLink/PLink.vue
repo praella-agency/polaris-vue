@@ -1,6 +1,6 @@
 <template>
     <PUnstyledLink v-if="url || to" :id="id" :to="to" :url="url" :external="external" :class="className"
-                   v-on="$listeners" data-polaris-unstyled="true">
+                   v-on="listeners" data-polaris-unstyled="true">
         <!-- @slot The content to display inside the link -->
         <slot/>
         <span v-if="isStringSlot" class="Polaris-Link__IconLockup">
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
     import { PButton } from '../../components/PButton';
     import { PUnstyledLink } from '../../components/PUnstyledLink';
@@ -81,10 +82,15 @@
                 );
             },
             isStringSlot() {
-
-                const slots = (this.$slots.default || []);
-                return this.external && slots.length === 1 && slots[0].text;
+                return this.external;
             },
         },
+        methods: {
+            listeners() {
+                if (utils.isVue2) {
+                    this.$listeners;
+                }
+            }
+        }
     }
 </script>

@@ -29,13 +29,13 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PLink,
     },
     template: `
-      <PLink v-bind="args">Click here</PLink>`,
+        <PLink v-bind="args">Click here</PLink>`,
 });
 
 export const Link = Template.bind({});
