@@ -33,13 +33,13 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PScrollable,
     },
     template: `
-        <PScrollable 
+        <PScrollable
             v-bind="args"
             style="height: 100px"
         >

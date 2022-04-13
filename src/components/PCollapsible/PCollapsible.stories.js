@@ -35,9 +35,9 @@ export default {
         },
         default: {
             table: {
-                 type: {
-                     summary: null,
-                 },
+                type: {
+                    summary: null,
+                },
             },
             control: {
                 type: null,
@@ -48,8 +48,8 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PCollapsible, PCard, PStack, PStackItem, PButton, PTextContainer, PLink
     },
@@ -59,38 +59,38 @@ const Template = (args) => ({
         };
     },
     template: `
-      <div style="height: 200px;">
-        <PCard sectioned>
-          <PStack vertical>
-            <PStackItem>
-              <PButton
-                  @click="handleToggle"
-                  :aria-expanded="isOpen"
-                  aria-controls="basic-collapsible"
-              >
-                Toggle
-              </PButton>
-            </PStackItem>
-            <PStackItem>
-              <PCollapsible
-                  :open="isOpen"
-                  id="basic-collapsible"
-                  :transition="{duration: '500ms', timingFunction: 'ease-in-out'}"
-                  :expandOnPrint="true"
-              >
-                <PTextContainer>
-                  <p>
-                    Your mailing list lets you contact customers or visitors who
-                    have shown an interest in your store. Reach out to them with
-                    exclusive offers or updates about your products.
-                  </p>
-                  <PLink url="javascript:void(0)">Test link</PLink>
-                </PTextContainer>
-              </PCollapsible>
-            </PStackItem>
-          </PStack>
-        </PCard>
-      </div>`,
+        <div style="height: 200px;">
+            <PCard sectioned>
+                <PStack vertical>
+                    <PStackItem>
+                        <PButton
+                            @click="handleToggle"
+                            :aria-expanded="isOpen"
+                            aria-controls="basic-collapsible"
+                        >
+                            Toggle
+                        </PButton>
+                    </PStackItem>
+                    <PStackItem>
+                        <PCollapsible
+                            :open="isOpen"
+                            id="basic-collapsible"
+                            :transition="{duration: '500ms', timingFunction: 'ease-in-out'}"
+                            :expandOnPrint="true"
+                        >
+                            <PTextContainer>
+                                <p>
+                                    Your mailing list lets you contact customers or visitors who
+                                    have shown an interest in your store. Reach out to them with
+                                    exclusive offers or updates about your products.
+                                </p>
+                                <PLink url="javascript:void(0)">Test link</PLink>
+                            </PTextContainer>
+                        </PCollapsible>
+                    </PStackItem>
+                </PStack>
+            </PCard>
+        </div>`,
     methods: {
         handleToggle() {
             this.isOpen = !this.isOpen;
