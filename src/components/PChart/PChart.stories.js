@@ -25,15 +25,15 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PChart,
     },
     template: `
-      <PChart
-          v-bind="args"
-      />`,
+        <PChart
+            v-bind="args"
+        />`,
 });
 
 export const Chart = Template.bind({});
@@ -61,15 +61,15 @@ Chart.args = {
 
 const Template1 = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PChart,
     },
     template: `
-      <PChart
-          v-bind="args"
-      />`,
+        <PChart
+            v-bind="args"
+        />`,
 });
 
 export const GroupedChart = Template1.bind({});

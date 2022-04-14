@@ -6,21 +6,15 @@
                         labelClass="mb-0"></PTextField>
         </div>
         <div class="picker-wrapper">
-            <template v-if="utils.isVue3">
-                <Chrome v-show="showPicker" v-model="color"></Chrome>
-            </template>
-            <template v-else>
-                <ChromePicker v-show="showPicker" v-model="color"></ChromePicker>
-            </template>
+            <Chrome v-if="utils.isVue3" v-show="showPicker" v-model="computedColor"/>
+            <Chrome v-else-if="utils.isVue2" v-show="showPicker" :value="color" @input="updateColor"/>
         </div>
     </div>
 </template>
 
 <script>
     import utils from '../../utilities';
-    import { Chrome } from '@ckpack/vue-color';
-    import ChromePicker from 'vue-color';
-    import { classNames } from "../../utilities/css";
+    import { classNames } from '../../utilities/css';
     import { PTextField } from '../../components/PTextField/';
     import vClickOutside from 'v-click-outside';
 
@@ -33,7 +27,7 @@
     export default {
         name: 'PColorPicker',
         components: {
-            PTextField, Chrome, ChromePicker,
+            PTextField, Chrome: utils.Chrome,
         },
         directives: {
             clickOutside: vClickOutside.directive,
@@ -102,12 +96,29 @@
                     this.disabled && 'Polaris-ColorPicker--disabled',
                 );
             },
+            computedColor: {
+                get() {
+                    return this.color;
+                },
+                set(value) {
+                    /**
+                     * Triggers when color is changed
+                     * @ignore
+                     */
+                    this.$emit('update:color', value ? value.hex : value);
+                    /**
+                     * Triggers when color is changed
+                     */
+                    this.$emit('change', value);
+                }
+            },
             utils() {
                 return utils;
             }
         },
         methods: {
             updateColor(color) {
+                console.log(color)
                 /**
                  * Triggers when color is changed
                  * @ignore

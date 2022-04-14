@@ -84,10 +84,10 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
-        PMultiSelect,PBadge
+        PMultiSelect, PBadge
     },
     data() {
         return {
@@ -96,17 +96,21 @@ const Template = (args) => ({
         }
     },
     template: `
-      <div>
-      <PMultiSelect
-          v-bind="args"
-          v-model="selectedValue"
-          @searchChange="search"
-      />
-      <br />
-      <p v-if="selectedValue">Selected Value: <PBadge>{{selectedValue}}</PBadge></p>
-      <br />
-      <p v-if="searchValue">Search Value: <PBadge>{{searchValue}}</PBadge></p>
-      </div>`,
+        <div>
+            <PMultiSelect
+                v-bind="args"
+                v-model="selectedValue"
+                @searchChange="search"
+            />
+            <br/>
+            <p v-if="selectedValue">Selected Value:
+                <PBadge>{{selectedValue}}</PBadge>
+            </p>
+            <br/>
+            <p v-if="searchValue">Search Value:
+                <PBadge>{{searchValue}}</PBadge>
+            </p>
+        </div>`,
     methods: {
         search(query) {
             this.searchValue = query;

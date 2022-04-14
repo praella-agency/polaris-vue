@@ -11,8 +11,8 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { PCard } from '../../components/PCard';
-    import VueApexCharts from 'vue-apexcharts';
 
     /**
      * <br/>
@@ -22,7 +22,7 @@
     export default {
         name: 'PChart',
         components: {
-            VueApexCharts, PCard,
+            VueApexCharts: utils.VueApexCharts, PCard,
         },
         props: {
             /**
@@ -85,6 +85,7 @@
                 default: () => ({}),
             },
         },
+        emits: ['chartObject'],
         data() {
             return {
                 options: this.chartObject(),

@@ -69,6 +69,7 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
     import { PTag } from '../../components/PTag';
@@ -78,7 +79,7 @@
         name: 'PMultiSelect',
         components: {
             PIcon, PTag, PFieldError,
-            Multiselect: require('vue-multiselect').default,
+            Multiselect: utils.Multiselect,
         },
         props: {
             /**
@@ -188,6 +189,7 @@
                 default: false,
             }
         },
+        emits: ['change', 'input', 'searchChange'],
         data() {
             return {
                 selected: this.value,

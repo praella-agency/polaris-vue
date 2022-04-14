@@ -49,7 +49,7 @@ const Template = (args) => ({
         <PStack vertical>
             <PStackItem>
                 <PColorPicker
-                    :color.sync="colorAttr"
+                    v-model:color="colorAttr"
                     v-bind="args"
                     @change="handleChange"
                 />
