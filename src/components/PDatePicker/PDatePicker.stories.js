@@ -82,8 +82,8 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PDatePicker
     },

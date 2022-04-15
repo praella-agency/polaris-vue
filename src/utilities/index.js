@@ -11,7 +11,7 @@ export default {
     unbind: isVue2 ? 'unbind' : 'unmounted',
     Chrome: isVue2 ? require('vue-color').Chrome : require('@ckpack/vue-color').Chrome,
     VueApexCharts: isVue2 ? require('vue-apexcharts').default : require('vue3-apexcharts').default,
-    // DateRangePicker: isVue2 ? require('vue2-daterange-picker').default : require('@hnquang/vue3-daterange-picker')
+    DateRangePicker: isVue2 ? require('vue2-daterange-picker').default : require('vue3-daterange-picker').default,
     Multiselect: isVue2 ? require('vue-multiselect').default : require('@suadelabs/vue3-multiselect').default,
     ckeditor: isVue2 ? require('@ckeditor/ckeditor5-vue2').component : require('@ckeditor/ckeditor5-vue').component,
 }

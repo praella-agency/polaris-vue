@@ -28,6 +28,7 @@
             :closeOnEsc="closeOnEsc"
             :localeData="localeData"
             :ranges="computedRanges"
+            :date-range="computedValue"
             v-bind="$attrs"
             v-model="computedValue"
             @update="updateValues"
@@ -55,13 +56,15 @@
                     :error="hasError"
                     style="min-width:100%"
                 >
-                    <template slot="error">
+                    <template #error>
                         <PVisuallyHidden>{{ error }}</PVisuallyHidden>
                     </template>
-                    <slot slot="label" name="label">
-                        {{ label }}
-                    </slot>
-                    <PStack slot="suffix">
+                    <template #label>
+                        <slot name="label">
+                            {{ label }}
+                        </slot>
+                    </template>
+                    <PStack #suffix>
                         <PStackItem>
                             <PIcon source="CalendarMajor"/>
                         </PStackItem>
@@ -69,7 +72,7 @@
                             <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
                         </PStackItem>
                     </PStack>
-                    <template v-if="showPrefix" slot="prefix">
+                    <template #prefix v-if="showPrefix">
                         {{ prefix }}
                     </template>
                 </PTextField>
@@ -89,15 +92,13 @@
                     </span>
                 </button>
             </template>
-            <template v-if="!autoApply" slot="footer" slot-scope="data" class="slot">
+            <template v-slot:footer="data" v-if="!autoApply" class="slot">
                 <PStack distribution="equalSpacing" alignment="center">
                     <PStackItem>
                         <PButton @click="data.clickCancel" v-if="!data.in_selection">Cancel</PButton>
                     </PStackItem>
                     <PStackItem>
-                        <PButtonGroup>
-                            <PButton primary @click="data.clickApply" v-if="!data.in_selection">Apply</PButton>
-                        </PButtonGroup>
+                        <PButton primary @click="data.clickApply" v-if="!data.in_selection">Apply</PButton>
                     </PStackItem>
                 </PStack>
             </template>
@@ -113,6 +114,7 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
     import dayjs from 'dayjs';
     import { PIcon } from '../../components/PIcon';
@@ -159,7 +161,7 @@
     export default {
         name: 'PDatePicker',
         components: {
-            DateRangePicker: require('vue2-daterange-picker').default,
+            DateRangePicker: utils.DateRangePicker,
             PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField, PVisuallyHidden,
         },
         props: {
@@ -391,6 +393,7 @@
                 default: false,
             }
         },
+        emits: ['change', 'input', 'checkOpen', 'updateValues'],
         data() {
             return {
                 selectedRanges: null,
