@@ -1,6 +1,6 @@
 import PToast from './PToast';
-import mitt from 'mitt';
-const eventBus = mitt();
+import eventBus from '../helper/event-bus';
+import ComponentHelpers from '../../../ComponentHelpers';
 
 const Api = (Vue, globalOptions = {}) => {
     return {
@@ -14,10 +14,7 @@ const Api = (Vue, globalOptions = {}) => {
 
             const propsData = Object.assign({}, defaultOptions, globalOptions, options);
 
-            return new (Vue.extend(PToast))({
-                el: document.createElement('div'),
-                propsData
-            })
+            return ComponentHelpers.createComponent(PToast, propsData, document.body, 'v-toast--pending');
         },
         clear() {
             eventBus.emit('toast-clear')

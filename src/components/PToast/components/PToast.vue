@@ -21,7 +21,7 @@ import {PIcon} from '../../../components/PIcon';
 import Timer from './timer';
 import mitt from 'mitt';
 import {classNames} from '../../../utilities/css';
-
+import utils from "../../../utilities";
 const eventBus = mitt();
 
 const Positions = Object.freeze({
@@ -220,7 +220,8 @@ export default {
       // Timeout for the animation complete before destroying
       setTimeout(() => {
         this.onDismiss.apply(null, arguments);
-        this.$destroy();
+        // this.$`utils.destroyed`;
+        // this.$destroy();
         removeElement(this.$el);
       }, 150);
     },
@@ -241,14 +242,14 @@ export default {
       this.dismiss();
     },
   },
-  beforeMount() {
+  [utils.bind]() {
     this.setupContainer();
   },
   mounted() {
     this.showNotice();
     eventBus.on('toast-clear', this.dismiss);
   },
-  beforeDestroy() {
+  [utils.beforeDestroy]() {
     eventBus.off('toast-clear', this.dismiss);
   },
 };

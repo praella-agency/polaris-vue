@@ -11,6 +11,8 @@ import {
     sentenceCase,
     snakeCase,
 } from 'change-case';
+import utils from './utilities';
+const vue = require('vue');
 
 class ComponentHelpers {
     constructor() {
@@ -96,6 +98,23 @@ class ComponentHelpers {
     uuid() {
         return '_' + Math.random().toString(36).substr(2, 9);
     };
+
+    createComponent(component, props, parentContainer, className, slots = {}) {
+        if (utils.isVue2) {
+            return new (vue.extend(component))({
+                el: document.createElement('div'),
+                props
+            })
+        } else {
+            const vNode = vue.h(component, props, slots);
+            const container = document.createElement('div');
+            container.classList.add(className);
+            parentContainer.appendChild(container);
+            vue.render(vNode, container);
+
+            return vNode.component;
+        }
+    }
 }
 
 

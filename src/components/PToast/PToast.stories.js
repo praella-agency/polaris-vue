@@ -41,14 +41,14 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return { args };
+    },
     components: {
         PButton,
     },
     template: `
       <div>
-        <PButton @click="showToast($props)">Toast</PButton>
+        <PButton @click="showToast(args)">Toast</PButton>
       </div>`,
     methods: {
         showToast(props) {

@@ -3,16 +3,16 @@ import '!style-loader!css-loader!sass-loader!./styles/docs.scss';
 // import Vue from 'vue';
 import { app } from '@storybook/vue3';
 import VueRouter from 'storybook-vue3-router'
-// import PToast from '../src/components/PToast';
-// import pLoading from '../src/components/PLoading';
+import PToast from '../src/components/PToast';
+// import PLoading from '../src/components/PLoading';
 import { directives } from '../src/components/PTooltip';
 import PTooltip from '../src/components/PTooltip/PTooltip.vue';
 
 // Vue.use(VueRouter);
 // Vue.component('router-link', Vue.component('RouterLink'));
 
-// Vue.use(PToast);
-// Vue.use(pLoading);
+app.use(PToast);
+// app.use(PLoading);
 app.component('PTooltip', PTooltip);
 app.directive('p-tooltip', directives(app));
 
