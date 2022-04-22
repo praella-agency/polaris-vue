@@ -299,7 +299,6 @@
                 this.$emit('handle-selection-mode', selectMode);
             },
             handleToggleAll(value) {
-                console.log('value', value)
                 this.$emit('toggle-all', value);
             }
         },

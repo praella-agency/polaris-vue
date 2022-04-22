@@ -343,11 +343,8 @@ const Template = (args) => ({
         </PCard>`,
     methods: {
         toggleSelected(item) {
-            console.log(JSON.parse(JSON.stringify(item)))
             this.selectedItems = item.selected ? this.items.map(book => book.id) : [];
             this.selectedAllItems = item.selectedAll;
-            console.log(JSON.parse(JSON.stringify(this.selectedItems)),
-                JSON.parse(JSON.stringify(this.selectedAllItems)));
         },
         updateSelected(id, checked) {
             if (checked) this.selectedItems.push(id);

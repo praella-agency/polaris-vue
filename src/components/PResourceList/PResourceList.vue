@@ -275,9 +275,15 @@
                         return slots ? slots.filter((vNode) => vNode.tag !== undefined).length : 0;
                     }
                     if (this.$slots.default()) {
-                        return this.$slots.default().filter((vNode) => {
-                            return vNode.tag !== undefined;
-                        }).length;
+                        let count = 0;
+                        this.$slots.default().forEach((node) => {
+                            node?.children.forEach(vNode => {
+                                if (vNode.type && vNode.type.name === 'PResourceListItem') {
+                                  count++;
+                                }
+                            });
+                        });
+                      return count;
                     }
                 } else {
                     if (typeof this.$scopedSlots !== 'undefined'
@@ -296,7 +302,6 @@
                 return 0;
             },
             onToggledAll(checked) {
-                console.log('checked', checked)
                 if (checked) {
                     this.computedValue = {selectedAll: false, selectedMore: false};
                 } else {
