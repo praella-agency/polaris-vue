@@ -41,16 +41,16 @@
                             v-if="!smallView && (promotedBulkActions.length > 0 || Object.keys(promotedBulkActions).length > 0)"
                             :actions="promotedBulkActions"
                         />
-                        <template v-if="smallView">
                             <PBulkActionButtonWrapper
-                                v-if="promotedBulkActions.length > 0 || Object.keys(promotedBulkActions).length > 0 ||
-                                        bulkActions.length > 0"
+                                v-if="smallView && (promotedBulkActions.length > 0 || Object.keys(promotedBulkActions).length > 0 ||
+                                        bulkActions.length > 0)"
                             >
                                 <PPopover
                                     :id="popOverID"
                                     :active="bulkActionsShown"
                                     :fullWidth="false"
-                                    @close="bulkActionsShown = false">
+                                    @close="bulkActionsShown = false"
+                                >
                                     <template #activator>
                                         <PButton
                                             :disclosure="bulkActionsShown ? 'up' : 'down'"
@@ -67,16 +67,14 @@
                                     </template>
                                 </PPopover>
                             </PBulkActionButtonWrapper>
-                            <PBulkActionButtonWrapper>
+                            <PBulkActionButtonWrapper v-if="smallView">
                                 <PButton
                                     @click="cancelSelectMode(false)"
                                 >
                                     Cancel
                                 </PButton>
                             </PBulkActionButtonWrapper>
-                        </template>
-                        <template v-else>
-                            <PBulkActionButtonWrapper v-if="bulkActions.length > 0">
+                            <PBulkActionButtonWrapper v-else-if="bulkActions.length > 0">
                                 <PPopover
                                     :id="popOverID"
                                     :active="bulkActionsShown"
@@ -96,7 +94,6 @@
                                     </template>
                                 </PPopover>
                             </PBulkActionButtonWrapper>
-                        </template>
                     </PButtonGroup>
                 </div>
                 <div class="Polaris-ResourceList-BulkActions__PaginatedSelectAll"
