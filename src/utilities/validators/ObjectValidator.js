@@ -1,5 +1,5 @@
 import utils from '../';
-import * as Vue from 'vue';
+const Vue = require('vue');
 import { StringValidator } from './StringValidator';
 import { ArrayValidator } from './ArrayValidator';
 

@@ -95,12 +95,12 @@
                 type: [String, Array, Number],
             },
         },
+        emits: ['toggle-all'],
         computed: {
             className() {
                 return classNames(
                     'Polaris-ResourceList-CheckableButton',
-                    this.checked && 'Polaris-ResourceList-CheckableButton__CheckableButton--selected',
-                    this.checked && 'Polaris-ResourceList-CheckableButton__CheckableButton--selectMode',
+                    this.checked && 'Polaris-ResourceList-CheckableButton__CheckableButton--selected Polaris-ResourceList-CheckableButton__CheckableButton--selectMode',
                     this.primary && 'Polaris-ResourceList-CheckableButton__CheckableButton--primary',
                     this.outline && 'Polaris-ResourceList-CheckableButton__CheckableButton--outline',
                     this.destructive && 'Polaris-ResourceList-CheckableButton__CheckableButton--destructive',

@@ -1,5 +1,5 @@
 import utils from '../';
-import * as Vue from 'vue';
+const Vue = require('vue');
 import { ObjectValidator } from './ObjectValidator';
 
 export const ArrayValidator = (name, arrayOfValues, objectInterface, isRequired, isNullable) => {

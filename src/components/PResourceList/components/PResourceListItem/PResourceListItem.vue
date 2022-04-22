@@ -72,14 +72,17 @@
                         preferredAlignment="right"
                         @close="handlePopoverClick"
                     >
-                        <PButton
-                            slot="activator"
-                            accessibilityLabel="Actions"
-                            @click.stop="handlePopoverClick"
-                            plain
-                            icon="HorizontalDotsMinor"
-                        />
-                        <PActionList slot="content" :items="shortcutActions"/>
+                        <template #activator>
+                            <PButton
+                                accessibilityLabel="Actions"
+                                @click.stop="handlePopoverClick"
+                                plain
+                                icon="HorizontalDotsMinor"
+                            />
+                        </template>
+                        <template #content>
+                            <PActionList :items="shortcutActions"/>
+                        </template>
                     </PPopover>
                 </div>
             </div>
@@ -241,6 +244,7 @@
                 default: null,
             },
         },
+        emits: ['change'],
         data() {
             return {
                 actionMenuVisible: false,

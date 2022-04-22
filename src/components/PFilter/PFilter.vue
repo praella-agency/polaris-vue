@@ -21,10 +21,12 @@
                             :disabled="disabled"
                             v-on="$listeners"
                         >
-                            <PIcon source="SearchMinor" slot="prefix"/>
+                            <template #prefix>
+                                <PIcon source="SearchMinor"/>
+                            </template>
                         </PTextField>
                     </PFilterItemWrapper>
-                    <PFilterItemWrapper v-if="$slots.hasOwnProperty('default')" position="right">
+                    <PFilterItemWrapper v-if="$slots.default" position="right">
                         <!-- @slot The content to display inline with the controls -->
                         <slot/>
                     </PFilterItemWrapper>
@@ -185,6 +187,7 @@
                 default: false,
             },
         },
+        emits: ['queryChange', 'queryClear', 'queryClearAll', 'queryBlur', 'queryFocus'],
         data() {
             return {
                 appliedFiltersCount: this.appliedFilters ? this.appliedFilters.length : 0,

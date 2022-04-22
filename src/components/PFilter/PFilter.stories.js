@@ -126,8 +126,8 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PFilter, PButton, PPopover, POptionList, PCard, PCardSection, PStack, PStackItem, PTextField, PCheckbox,
         PChoiceList, PButtonGroup,
@@ -161,32 +161,35 @@ const Template = (args) => ({
                     @close="() => {this.accountStatusPopover = false;}"
                     full-width
                 >
-                    <PButton
-                        slot="activator"
-                        :disclosure="accountStatusPopover ? 'up' : 'down'"
-                        @click="toggleAccountStatus"
-                        :disabled="disabled"
-                    >
-                        Account Status
-                    </PButton>
-                    <PCard slot="content" @change="updateStatusFilter" sectioned>
-                        <PChoiceList
-                            title="Account Status"
-                            titleHidden
-                            :options="[
-                          {label: 'Enabled', value: 'enabled'},
-                          {label: 'Not invited', value: 'not invited'},
-                          {label: 'Invited', value: 'invited'},
-                          {label: 'Declined', value: 'declined'},
-                      ]"
-                            textField="label"
-                            valueField="value"
-                            allowMultiple
-                            :selected="accountStatus || []"
-                            @change="handleTag"
+                    <template #activator>
+                        <PButton
+                            :disclosure="accountStatusPopover ? 'up' : 'down'"
+                            @click="toggleAccountStatus"
+                            :disabled="disabled"
                         >
-                        </PChoiceList>
-                    </PCard>
+                            Account Status
+                        </PButton>
+                    </template>
+                    <template #content>
+                        <PCard @change="updateStatusFilter" sectioned>
+                            <PChoiceList
+                                title="Account Status"
+                                titleHidden
+                                :options="[
+                                    {label: 'Enabled', value: 'enabled'},
+                                    {label: 'Not invited', value: 'not invited'},
+                                    {label: 'Invited', value: 'invited'},
+                                    {label: 'Declined', value: 'declined'},
+                                ]"
+                                textField="label"
+                                valueField="value"
+                                allowMultiple
+                                :selected="accountStatus || []"
+                                @change="handleTag"
+                            >
+                            </PChoiceList>
+                        </PCard>
+                    </template>
                 </PPopover>
                 <PPopover
                     id="popover_2"
@@ -194,36 +197,39 @@ const Template = (args) => ({
                     :active="popoverActive"
                     full-width
                 >
-                    <PButton
-                        slot="activator"
-                        :disclosure="popoverActive ? 'up' : 'down'"
-                        @click="togglePopoverActive"
-                        :disabled="disabled"
-                    >
-                        Status
-                    </PButton>
-                    <PCard slot="content" @change="updateStatusFilter">
-                        <PCardSection>
-                            <PStack vertical spacing="tight">
-                                <PStackItem>
-                                    <PTextField
-                                        label="Tagged with"
-                                        v-model="taggedValue"
-                                        labelHidden
-                                    />
-                                </PStackItem>
-                                <PStackItem>
-                                    <PButton plain @click="removeTag">
-                                        Clear
-                                    </PButton>
-                                </PStackItem>
-                            </PStack>
-                        </PCardSection>
-                    </PCard>
+                    <template #activator>
+                        <PButton
+                            :disclosure="popoverActive ? 'up' : 'down'"
+                            @click="togglePopoverActive"
+                            :disabled="disabled"
+                        >
+                            Status
+                        </PButton>
+                    </template>
+                    <template #content>
+                        <PCard @change="updateStatusFilter">
+                            <PCardSection>
+                                <PStack vertical spacing="tight">
+                                    <PStackItem>
+                                        <PTextField
+                                            label="Tagged with"
+                                            v-model="taggedValue"
+                                            labelHidden
+                                        />
+                                    </PStackItem>
+                                    <PStackItem>
+                                        <PButton plain @click="removeTag">
+                                            Clear
+                                        </PButton>
+                                    </PStackItem>
+                                </PStack>
+                            </PCardSection>
+                        </PCard>
+                    </template>
                 </PPopover>
                 <PButton :disabled="disabled">Submit</PButton>
             </PButtonGroup>
-            <template slot="auxiliaryContainer">
+            <template #auxiliaryContainer>
                 <div style="padding-left: 8px;">
                     <PButton disabled>Save</PButton>
                 </div>

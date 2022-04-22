@@ -1,5 +1,5 @@
 import utils from '../';
-import * as Vue from 'vue';
+const Vue = require('vue');
 
 export const StringValidator = (name, value, expectedValues) => {
     if (expectedValues.indexOf(value) === -1) {

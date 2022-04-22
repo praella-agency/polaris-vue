@@ -2,11 +2,12 @@
     <div :class="className">
         <div class="Polaris-ResourceList__FiltersWrapper" v-if="!hideFilters">
             <PFilter
-                v-if="$slots.hasOwnProperty('filter')"
+                v-if="$slots.filter"
                 v-bind="$attrs"
                 :resourceName="resourceName"
                 @remove-tag="onRemoveFilter"
-                @input="onFilterInputChanged">
+                @input="onFilterInputChanged"
+            >
                 <!-- @slot Filter content -->
                 <slot name="filter"/>
             </PFilter>
@@ -31,14 +32,14 @@
                 :count="count()"
                 :hasMore="hasMore"
                 :loading="loading"
-                v-on="$listeners"
+                v-on="listeners"
                 @toggle-all="onToggledAll($event)"
                 @toggle-select-more="onSelectMore"
                 @handle-selection-mode="handleSelectMode"
             />
         </div>
         <ul
-            v-if="$slots.hasOwnProperty('default')"
+            v-if="$slots.default"
             :class="resourceListClassName"
             ref="listRef"
             aria-live="polite"
@@ -194,6 +195,7 @@
                 type: Array,
             },
         },
+        emits: ['change', 'filter-removed', 'input-filter-changed', 'select-mode'],
         data() {
             return {
                 selectedItems: this.selectable && this.selected ? this.selected : [],
@@ -294,6 +296,7 @@
                 return 0;
             },
             onToggledAll(checked) {
+                console.log('checked', checked)
                 if (checked) {
                     this.computedValue = {selectedAll: false, selectedMore: false};
                 } else {
@@ -321,6 +324,11 @@
                  * Calls when selection is changed and component is responsive
                  */
                 this.$emit('select-mode', this.toggleSelectMode);
+            },
+            listeners() {
+                if (utils.isVue2) {
+                    return this.$listeners;
+                }
             },
         },
         mounted() {

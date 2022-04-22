@@ -6,7 +6,7 @@
             <slot v-if="$slots.prefix" name="prefix"/>
         </div>
         <div style="width: 100%">
-            <ckeditor
+            <ck-editor
                 v-if="richEditor"
                 :id="id"
                 :editor="editor"
@@ -142,7 +142,7 @@
     export default {
         name: 'PInput',
         components: {
-            PFieldResizer, PSpinner, PIcon, ckeditor: utils.ckeditor
+            PFieldResizer, PSpinner, PIcon, ckEditor: utils.ckEditor
         },
         props: {
             id: {

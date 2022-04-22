@@ -161,6 +161,7 @@ const Template = (args) => ({
     },
     data() {
         return {
+            ...args,
             selectedItems: [],
             selectedAllItems: false,
             statusFilterActive: false,
@@ -241,69 +242,72 @@ const Template = (args) => ({
     template: `
         <PCard>
             <PResourceList
+                v-bind="args"
                 :selectable="selectable"
                 :hasMore="hasMore"
                 :totalCount="pagination.total"
                 :selected="selectedItems"
-                :resourceName="resourceName"
-                :loading="loading"
-                v-bind="args"
                 :appliedFilters="[
-                { value: 'Tagged with ' + this.taggedValue, key: 'tag_' + this.taggedValue},
-              ]"
+                    { value: 'Tagged with ' + this.taggedValue, key: 'tag_' + this.taggedValue},
+                ]"
                 @filter-removed="removeTag"
                 @change="toggleSelected"
                 @sort-change="handleSortChange"
                 @select-mode="handleSelectMode"
             >
-                <PButtonGroup slot="filter" segmented>
-                    <PPopover
-                        id="resource_list_popover"
-                        @close="() => {this.statusFilterActive = false;}"
-                        :active="statusFilterActive"
-                        full-width
-                        preferredPosition="mostSpace"
-                        preferredAlignment="right"
-                    >
-                        <PButton
-                            slot="activator"
-                            :disclosure="statusFilterActive ? 'up' : 'down'"
-                            @click.stop="statusFilterActive = !statusFilterActive"
+                <template #filter>
+                    <PButtonGroup segmented>
+                        <PPopover
+                            id="resource_list_popover"
+                            @close="() => {this.statusFilterActive = false;}"
+                            :active="statusFilterActive"
+                            full-width
+                            preferredPosition="mostSpace"
+                            preferredAlignment="right"
                         >
-                            Status
+                            <template #activator>
+                                <PButton
+                                    :disclosure="statusFilterActive ? 'up' : 'down'"
+                                    @click.stop="statusFilterActive = !statusFilterActive"
+                                >
+                                    Status
+                                </PButton>
+                            </template>
+                            <template #content>
+                                <PCard @change="updateStatusFilter">
+                                    <PCardSection>
+                                        <PStack vertical spacing="tight">
+                                            <PStackItem>
+                                                <PTextField
+                                                    label="Tagged with"
+                                                    v-model="taggedValue"
+                                                    labelHidden
+                                                />
+                                            </PStackItem>
+                                            <PStackItem>
+                                                <PButton plain @click="removeTag">
+                                                    Clear
+                                                </PButton>
+                                            </PStackItem>
+                                        </PStack>
+                                    </PCardSection>
+                                </PCard>
+                            </template>
+                        </PPopover>
+                        <PButton @click="handleButtonClick">
+                            Save
                         </PButton>
-                        <PCard slot="content" @change="updateStatusFilter">
-                            <PCardSection>
-                                <PStack vertical spacing="tight">
-                                    <PStackItem>
-                                        <PTextField
-                                            label="Tagged with"
-                                            v-model="taggedValue"
-                                            labelHidden
-                                        />
-                                    </PStackItem>
-                                    <PStackItem>
-                                        <PButton plain @click="removeTag">
-                                            Clear
-                                        </PButton>
-                                    </PStackItem>
-                                </PStack>
-                            </PCardSection>
-                        </PCard>
-                    </PPopover>
-                    <PButton @click="handleButtonClick">
-                        Save
-                    </PButton>
-                </PButtonGroup>
-                <div v-bind="{selectable}">
+                    </PButtonGroup>
+                </template>
+                <template #default v-slot="args">
                     <PResourceListItem
                         v-for="(item, key) in items"
                         :key="key"
                         :id="item.id"
                         :checked="selectedItems.indexOf(item.id) >= 0"
-                        :selectable="selectable"
+                        :selectable="args.selectable"
                         :selectMode="selectModeStatus"
-                        :loading="loading"
+                        :loading="args.loading"
                         persistActions
                         :shortcutActions="[
                             {
@@ -313,7 +317,9 @@ const Template = (args) => ({
                         ]"
                         @change="updateSelected"
                     >
-                        <PAvatar slot="media" customer size="medium" :name="item.name"/>
+                        <template #media>
+                            <PAvatar customer size="medium" :name="item.name"/>
+                        </template>
                         <div class="resource-list-item">
                             <div class="resource-list-item__book--name">
                                 <p>{{ item.name }}</p>
@@ -327,7 +333,7 @@ const Template = (args) => ({
                             </div>
                         </div>
                     </PResourceListItem>
-                </div>
+                </template>
             </PResourceList>
             <PCardSection>
                 <PStack v-if="pagination.hasPrevious || pagination.hasNext" distribution="center">
@@ -337,9 +343,11 @@ const Template = (args) => ({
         </PCard>`,
     methods: {
         toggleSelected(item) {
+            console.log(JSON.parse(JSON.stringify(item)))
             this.selectedItems = item.selected ? this.items.map(book => book.id) : [];
-            this.selectedAllItems = item.selectedMore;
-            console.log(this.selectedItems, this.selectedAllItems);
+            this.selectedAllItems = item.selectedAll;
+            console.log(JSON.parse(JSON.stringify(this.selectedItems)),
+                JSON.parse(JSON.stringify(this.selectedAllItems)));
         },
         updateSelected(id, checked) {
             if (checked) this.selectedItems.push(id);

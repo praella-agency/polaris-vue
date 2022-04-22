@@ -70,7 +70,7 @@ class ComponentHelpers {
     wrapNodesWithComponent(createElement, nodes, component, ignoredComponents = []) {
         let children = [];
         for (let node of nodes) {
-            if (!node.tag) {
+            if (!node.tag && (node.text && !node.text.trim())) {
                 continue;
             }
 

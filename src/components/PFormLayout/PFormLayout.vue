@@ -1,7 +1,40 @@
 <script>
+    const vue = require('vue');
+    import utils from '../../utilities';
     import { PFormLayoutItem } from '../../components/PFormLayout/components/PFormLayoutItem';
     import { PFormLayoutGroup } from '../../components/PFormLayout/components/PFormLayoutGroup';
     import ComponentHelpers from '../../ComponentHelpers';
+
+    let render = {};
+    if (utils.isVue3) {
+        render = function render() {
+            return vue.h('div', {
+                    class: 'Polaris-FormLayout',
+                    id: this.id,
+                },
+                ComponentHelpers.wrapNodesWithComponent(
+                    vue.h,
+                    this.$slots.default(), PFormLayoutItem,
+                    [PFormLayoutGroup]
+                ),
+            );
+        }
+    } else {
+        render = function render(createElement) {
+            return createElement('div', {
+                    class: 'Polaris-FormLayout',
+                    attrs: {
+                        id: this.id,
+                    },
+                },
+                ComponentHelpers.wrapNodesWithComponent(
+                    createElement,
+                    this.$slots.default, PFormLayoutItem,
+                    [PFormLayoutGroup]
+                ),
+            );
+        }
+    }
 
     /**
      * <br/>
@@ -23,19 +56,6 @@
                 default: 'PFormLayout',
             },
         },
-        render(createElement) {
-            return createElement('div', {
-                    class: 'Polaris-FormLayout',
-                    attrs: {
-                        id: this.id,
-                    },
-                },
-                ComponentHelpers.wrapNodesWithComponent(
-                    createElement,
-                    this.$slots.default,
-                    PFormLayoutItem,
-                    [PFormLayoutGroup]),
-            );
-        },
+        render,
     }
 </script>
