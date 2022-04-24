@@ -96,7 +96,7 @@ const Template = (args) => ({
         <PEmptyState
             v-bind="args"
         >
-            <template v-slot:footer>
+            <template #footer>
                 If you don’t want to add a transfer, you can import your inventory from
                 <PLink url="javascript:void(0);" monochrome>settings.</PLink>
             </template>

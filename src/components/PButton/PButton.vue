@@ -20,7 +20,7 @@
             preferredAlignment="right"
             @close="() => {this.disclosureActive = false;}"
         >
-            <template v-slot:activator>
+            <template #activator>
                 <button
                     type="button"
                     :class="connectedDisclosureClassName"
@@ -36,7 +36,7 @@
                     </span>
                 </button>
             </template>
-            <template v-slot:content>
+            <template #content>
                 <PActionList
                     :items="Object.keys(connectedDisclosure).length ? connectedDisclosure.actions : []"
                 />

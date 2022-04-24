@@ -199,7 +199,7 @@ const Template2 = (args) => ({
                 onAction: handleActionClick,
                 },
             ]"
-                v-slot:children
+                #children
             >
                 <PPopover
                     id="CardHeaderPopover"
@@ -311,7 +311,7 @@ AllElements.parameters = {
         title="Sales"
         shortDescription="Sales Report"
         :actions="[{content: 'Total Sales'}]"
-        v-slot:children
+        #children
     >
         <PPopover
             id="CardHeaderPopover"

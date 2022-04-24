@@ -3,7 +3,7 @@
         <PSettingAction>
             <!-- @slot Inner content of the card -->
             <slot/>
-            <template v-slot:action>
+            <template #action>
                 <PButton
                     :accessibility-label="action.accessibilityLabel"
                     :destructive="action.destructive"
