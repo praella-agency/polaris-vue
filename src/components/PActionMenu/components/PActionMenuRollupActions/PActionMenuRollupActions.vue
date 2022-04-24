@@ -1,9 +1,13 @@
 <template>
    <PPopover :id="`Popover${this['_uid']}`" :active="rollupOpen" preferredAlignment="right" @close="toggleRollupOpen" hideOnPrint>
-       <div slot="activator" class="Polaris-ActionMenu-RollupActions__RollupActivator">
-           <PButton :plain="true" :outline="false" icon="HorizontalDotsMinor" type="button" @click="toggleRollupOpen" />
-       </div>
-       <PActionList slot="content" :items="items" :sections="sections" @item-action="toggleRollupOpen" />
+       <template #activator>
+           <div class="Polaris-ActionMenu-RollupActions__RollupActivator">
+               <PButton :plain="true" :outline="false" icon="HorizontalDotsMinor" type="button" @click="toggleRollupOpen" />
+           </div>
+       </template>
+       <template #content>
+           <PActionList :items="items" :sections="sections" @item-action="toggleRollupOpen" />
+       </template>
    </PPopover>
 </template>
 

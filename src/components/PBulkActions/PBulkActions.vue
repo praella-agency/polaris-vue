@@ -35,19 +35,21 @@
                             :active.sync="smallScreenPopoverVisible"
                             @close="() => { this.smallScreenPopoverVisible = false; }"
                         >
-                            <PBulkActionButton
-                                slot="activator"
-                                disclosure
-                                @action="toggleSmallScreenPopover()"
-                                content="Actions"
-                                :disabled="disabled"
-                                :indicator="isNewBadgeInBadgeActions()"
-                            />
-                            <PActionList
-                                slot="content"
-                                :items="promotedActions"
-                                :sections="actionSections"
-                            />
+                            <template #activator>
+                                <PBulkActionButton
+                                    disclosure
+                                    @action="toggleSmallScreenPopover()"
+                                    content="Actions"
+                                    :disabled="disabled"
+                                    :indicator="isNewBadgeInBadgeActions()"
+                                />
+                            </template>
+                            <template #content>
+                                <PActionList
+                                    :items="promotedActions"
+                                    :sections="actionSections"
+                                />
+                            </template>
                         </PPopover>
                     </div>
                     <PButton
@@ -129,19 +131,21 @@
                                 :active.sync="largeScreenPopoverVisible"
                                 @close="() => { this.largeScreenPopoverVisible = false; }"
                             >
-                                <PBulkActionButton
-                                    slot="activator"
-                                    disclosure
-                                    @action="toggleLargeScreenPopover()"
-                                    :content="activatorLabel"
-                                    :disabled="disabled"
-                                    :indicator="isNewBadgeInBadgeActions()"
-                                />
-                                <PActionList
-                                    slot="content"
-                                    :sections="combinedActions"
-                                    @item-action="toggleLargeScreenPopover()"
-                                />
+                                <template #activator>
+                                    <PBulkActionButton
+                                        disclosure
+                                        @action="toggleLargeScreenPopover()"
+                                        :content="activatorLabel"
+                                        :disabled="disabled"
+                                        :indicator="isNewBadgeInBadgeActions()"
+                                    />
+                                </template>
+                                <template #content>
+                                    <PActionList
+                                        :sections="combinedActions"
+                                        @item-action="toggleLargeScreenPopover()"
+                                    />
+                                </template>
                             </PPopover>
                         </div>
                     </PButtonGroup>

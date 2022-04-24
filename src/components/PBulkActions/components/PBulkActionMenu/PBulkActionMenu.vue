@@ -5,19 +5,21 @@
         @close="handleItemAction"
         preferInputActivator
     >
-        <PBulkActionButton
-            slot="activator"
-            disclosure
-            @action="toggleMenuVisibility"
-            :content="title"
-            :icon="icon"
-            :indicator="isNewBadgeInBadgeActions"
-        />
-        <PActionList
-            slot="content"
-            :items="actions"
-            @item-action="handleItemAction"
-        />
+        <template #activator>
+            <PBulkActionButton
+                disclosure
+                @action="toggleMenuVisibility"
+                :content="title"
+                :icon="icon"
+                :indicator="isNewBadgeInBadgeActions"
+            />
+        </template>
+        <template #content>
+            <PActionList
+                :items="actions"
+                @item-action="handleItemAction"
+            />
+        </template>
     </PPopover>
 </template>
 

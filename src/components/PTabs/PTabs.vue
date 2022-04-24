@@ -72,7 +72,7 @@
                         @close="handleClose"
                     >
 
-                        <template slot="activator">
+                        <template #activator>
                             <div v-if="disclosureText" class="Polaris-Tabs__TabContainer">
                                 <button
                                     type="button"
@@ -110,9 +110,7 @@
                             </button>
                         </template>
 
-                        <template
-                            slot="content"
-                        >
+                        <template #content>
                             <PList
                                 :focus-index="hiddenTabs.indexOf(tabToFocus)"
                                 :disclosure-tabs="disclosureTabs"

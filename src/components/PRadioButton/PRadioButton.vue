@@ -1,10 +1,14 @@
 <template>
     <PChoice :label="label" :label-hidden="labelHidden" :help-text="helpText" :id="id">
-        <!-- @slot Label content -->
-        <slot slot="label" name="label"/>
+        <template #label>
+            <!-- @slot Content of a label -->
+            <slot name="label"/>
+        </template>
 
-        <!-- @slot Help text content -->
-        <slot slot="helpText" name="helpText"/>
+        <template #helpText>
+            <!-- @slot Body of Help text -->
+            <slot name="helpText"/>
+        </template>
 
         <div class="Polaris-RadioButton">
             <input

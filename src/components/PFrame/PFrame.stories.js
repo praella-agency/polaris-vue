@@ -793,7 +793,7 @@ const Template1 = (args) => ({
                         />
                     </PFormLayout>
                 </PModal>
-                <template slot="globalRibbon">
+                <template #globalRibbon>
                     <div style="background: #C0FFEE; padding: 30px">
                         Global ribbon
                     </div>
@@ -1019,7 +1019,7 @@ FrameWithAnOffset.parameters = {
         />
       </PFormLayout>
     </PModal>
-    <template slot="globalRibbon">
+    <template #globalRibbon>
       <div style="background: #C0FFEE; padding: 30px">
         Global ribbon
       </div>

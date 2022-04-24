@@ -154,17 +154,17 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PNavigation, PIcon, PAvatar,
     },
     template: `
-      <PNavigation
-          v-bind="args"
-          location="/"
-          :on-dismiss="handleDismiss"
-      />`,
+        <PNavigation
+            v-bind="args"
+            location="/"
+            :on-dismiss="handleDismiss"
+        />`,
     methods: {
         handleDismiss() {
             alert('On Navigation Dismiss');

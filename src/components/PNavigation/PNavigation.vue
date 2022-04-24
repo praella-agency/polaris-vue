@@ -1,6 +1,6 @@
 <template>
     <nav class="Polaris-Navigation" :aria-labelledby="ariaLabelledBy">
-        <template v-if="$slots.hasOwnProperty('contextControl')">
+        <template v-if="$slots.contextControl">
             <div class="Polaris-Navigation__ContextControl">
                 <!-- @slot Add context control. -->
                 <slot name="contextControl"/>

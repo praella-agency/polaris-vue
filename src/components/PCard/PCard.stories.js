@@ -207,24 +207,27 @@ const Template2 = (args) => ({
                     preferredAlignment="right"
                     @close="handlePopoverClose"
                 >
-                    <PButton
-                        slot="activator"
-                        plain
-                        :disclosure="statusFilterActive ? 'up' : 'down'"
-                        @click="handlePopoverOpen"
-                    >
-                        Status
-                    </PButton>
-                    <PActionList slot="content"
-                                 :items="[
-                  {
-                    content: 'Gross Sales'
-                  },
-                  {
-                    content: 'Net Sales'
-                  }
-              ]"
-                    />
+                    <template #activator>
+                        <PButton
+                            plain
+                            :disclosure="statusFilterActive ? 'up' : 'down'"
+                            @click="handlePopoverOpen"
+                        >
+                            Status
+                        </PButton>
+                    </template>
+                    <template #content>
+                        <PActionList 
+                            :items="[
+                                {
+                                    content: 'Gross Sales'
+                                },
+                                {
+                                    content: 'Net Sales'
+                                }
+                            ]"
+                        />
+                    </template>
                 </PPopover>
             </PCardHeader>
             <PCardSection>
@@ -267,10 +270,12 @@ const Template2 = (args) => ({
                 </PTextContainer>
             </PCardSection>
 
-            <PButtonGroup slot="footer">
-                <PButton @click="handleSecondaryButton">Dismiss</PButton>
-                <PButton primary @click="handlePrimaryButton">Export Report</PButton>
-            </PButtonGroup>
+            <template #footer>
+                <PButtonGroup>
+                    <PButton @click="handleSecondaryButton">Dismiss</PButton>
+                    <PButton primary @click="handlePrimaryButton">Export Report</PButton>
+                </PButtonGroup>
+            </template>
         </PCard>`,
     methods: {
         handleActionClick() {
@@ -313,17 +318,19 @@ AllElements.parameters = {
             :active="statusFilterActive"
             preferredAlignment="right"
         >
-            <PButton
-                slot="activator"
-                plain
-                :disclosure="statusFilterActive ? 'up' : 'down'"
-            >
-                Status
-            </PButton>
-            <PActionList 
-                slot="content"
-                :items="[{content: 'Gross Sales'},{content: 'Net Sales'}]"
-            />
+            <template #activator>
+                <PButton
+                    plain
+                    :disclosure="statusFilterActive ? 'up' : 'down'"
+                >
+                    Status
+                </PButton>
+            </template>
+            <template #content>
+                <PActionList 
+                    :items="[{content: 'Gross Sales'},{content: 'Net Sales'}]"
+                />
+            </template>
         </PPopover>
     </PCardHeader>
     <PCardSection>
@@ -364,11 +371,12 @@ AllElements.parameters = {
             The sales reports are available only if your store is on the Shopify plan or higher.
         </PTextContainer>
     </PCardSection>
-    
-    <PButtonGroup slot="footer">
-        <PButton>Dismiss</PButton>
-        <PButton primary>Export Report</PButton>
-    </PButtonGroup>
+    <template #footer>
+        <PButtonGroup>
+            <PButton>Dismiss</PButton>
+            <PButton primary>Export Report</PButton>
+        </PButtonGroup>
+    </template>
 </PCard>`
         },
     },

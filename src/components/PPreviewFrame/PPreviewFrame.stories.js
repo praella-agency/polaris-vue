@@ -136,7 +136,9 @@ const Template = (args) => ({
                             <div style="padding: 1.2rem 1.1rem;">
                                 <PConnected>
                                     <PTextField placeholder="Search online store">
-                                        <PIcon source="SearchMinor" slot="prefix"/>
+                                        <template #prefix>
+                                            <PIcon source="SearchMinor"/>
+                                        </template>
                                     </PTextField>
                                 </PConnected>
                             </div>

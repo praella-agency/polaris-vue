@@ -83,7 +83,7 @@
           :fullWidth="contextualSaveBar.fullWidth"
           :logo="logo"
       >
-        <template slot="contextControl">
+        <template #contextControl>
           <slot name="contextControl"/>
         </template>
       </PContextualSaveBar>
@@ -97,14 +97,14 @@
     <main
         class="Polaris-Frame__Main"
         :id="APP_FRAME_MAIN"
-        :data-has-global-ribbon="Boolean($slots.hasOwnProperty('globalRibbon'))"
+        :data-has-global-ribbon="Boolean($slots.globalRibbon)"
     >
       <div class="Polaris-Frame__Content">
         <slot/>
       </div>
     </main>
     <div
-        v-if="$slots.hasOwnProperty('globalRibbon')"
+        v-if="$slots.globalRibbon"
         class="Polaris-Frame__GlobalRibbonContainer"
         :ref="this.setGlobalRibbonContainer"
     >

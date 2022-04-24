@@ -10,7 +10,7 @@
             >
                 <!-- @slot Add filterOptions -->
                 <slot name="filterOptions"/>
-                <template slot="auxiliaryContainer">
+                <template #auxiliaryContainer>
                     <!-- @slot Add auxiliary filters -->
                     <slot name="auxiliaryContainer"/>
                 </template>

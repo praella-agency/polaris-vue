@@ -3,16 +3,22 @@
         <template
             v-if="$slots.hasOwnProperty('title') || title || $slots.hasOwnProperty('short_description') || shortDescription">
             <PCardHeader :actions="actions">
-                <!-- @slot Title content for the card -->
-                <slot slot="title" name="title" v-if="$slots.hasOwnProperty('title') || title">
-                    <PHeading>{{ title }}</PHeading>
-                </slot>
-                <!-- @slot Short Description content for the card -->
-                <slot slot="short_description" name="short_description"
-                      v-if="$slots.hasOwnProperty('short_description') || shortDescription">
-                    <PCaption>{{ shortDescription }}</PCaption>
-                </slot>
-                <template slot="children" v-if="$slots.hasOwnProperty('children')">
+                <template #title>
+                    <!-- @slot Title content for the card -->
+                    <slot name="title" v-if="$slots.hasOwnProperty('title') || title">
+                        <PHeading>{{ title }}</PHeading>
+                    </slot>
+                </template>
+                <template
+                    #short_description
+                    v-if="$slots.hasOwnProperty('short_description') || shortDescription"
+                >
+                    <!-- @slot Short Description content for the card -->
+                    <slot name="short_description">
+                        <PCaption>{{ shortDescription }}</PCaption>
+                    </slot>
+                </template>
+                <template #children v-if="$slots.hasOwnProperty('children')">
                     <!-- @slot Inner content of the card -->
                     <slot name="children"/>
                 </template>

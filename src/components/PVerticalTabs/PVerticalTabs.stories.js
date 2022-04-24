@@ -274,31 +274,34 @@ VerticalTabs.parameters = {
         title="Moving along nicely."
         style="margin-bottom: 20px;"
     >
-        <PPopover
-            slot="children"
-            id="CardHeaderPopover"
-            :active="statusFilterActive"
-            preferredAlignment="right"
-        >
-            <PButton
-                slot="activator"
-                plain
-                icon="HorizontalDotsMinor"
-            />
-            <PActionList 
-                slot="content"
-                :items="[
-                    {
-                        content: 'Dismiss',
-                        icon: 'CancelSmallMinor',
-                    },
-                    {
-                        content: 'Give feedback',
-                        icon: 'ChatMajor',
-                    },
-                ]"
-            />
-        </PPopover>
+        <template #children>
+            <PPopover
+                id="CardHeaderPopover"
+                :active="statusFilterActive"
+                preferredAlignment="right"
+            >
+                <template #activator>
+                    <PButton
+                        plain
+                        icon="HorizontalDotsMinor"
+                    />
+                </template>
+                <template #content>
+                    <PActionList 
+                        :items="[
+                            {
+                                content: 'Dismiss',
+                                icon: 'CancelSmallMinor',
+                            },
+                            {
+                                content: 'Give feedback',
+                                icon: 'ChatMajor',
+                            },
+                        ]"
+                    />
+                </template>
+            </PPopover>
+        </template>
     </PCardHeader>
     <PVerticalTabs v-bind="args" :tabs="items" :selected="selectedTab">
         <PStack v-if="selectedTab === 0">

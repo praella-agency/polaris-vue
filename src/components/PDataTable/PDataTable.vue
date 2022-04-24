@@ -4,7 +4,7 @@
                  @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
             <!-- @slot Add a custom Filter content -->
             <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
-            <template slot="auxiliaryContainer">
+            <template #auxiliaryContainer>
                 <!-- @slot Add auxiliary filters -->
                 <slot name="auxiliaryContainer"/>
             </template>
