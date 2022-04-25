@@ -1,22 +1,44 @@
 <script>
+    const vue = require('vue');
+    import utils from '../../../../utilities';
     import { PFormLayoutItem } from '../../../../components/PFormLayout/components/PFormLayoutItem';
     import ComponentHelpers from '../../../../ComponentHelpers';
+
+    let render = {};
+    if (utils.isVue3) {
+        render = function render() {
+            return vue.h(this.child, {
+                    class: 'Polaris-FormLayout__Items',
+                },
+                ComponentHelpers.wrapNodesWithComponent(
+                    vue.h,
+                    this.$slots.default(), PFormLayoutItem,
+                ),
+            );
+        }
+    } else {
+        render = function render(createElement) {
+            return createElement('div', {
+                    class: 'Polaris-FormLayout__Items',
+                },
+                ComponentHelpers.wrapNodesWithComponent(
+                    createElement,
+                    this.$slots.default, PFormLayoutItem,
+                ),
+            );
+        }
+    }
 
     export default {
         name: 'PFormLayoutGroupItemWrapper',
         components: {
             PFormLayoutItem,
         },
-        render(createElement) {
-            return createElement('div', {
-                    class: 'Polaris-FormLayout__Items',
-                },
-                ComponentHelpers.wrapNodesWithComponent(
-                    createElement,
-                    this.$slots.default,
-                    PFormLayoutItem,
-                ),
-            );
+        props: {
+            child: {
+                type: HTMLElement,
+            }
         },
+        render,
     }
 </script>

@@ -28,7 +28,7 @@
     import { PHeading } from '../../../../components/PHeading';
     import { PIcon } from '../../../../components/PIcon';
 
-   export default {
+    export default {
         name: 'PAccordionHeader',
         components: {
             PHeading, PIcon,
@@ -57,6 +57,7 @@
                 type: Boolean,
             }
         },
+        emits: ['toggle'],
         computed: {
             className() {
                 return classNames(

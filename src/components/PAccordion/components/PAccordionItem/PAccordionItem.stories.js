@@ -11,8 +11,8 @@ export default {
 
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PAccordion, PAccordionItem, PIcon,
     },
@@ -25,20 +25,20 @@ const Template = (args) => ({
                 :key="key"
                 v-bind="args"
             >
-                <template slot="title">
+                <template #title>
                     Item {{ item }}
                 </template>
-                <template slot="actions">
+                <template #actions>
                     <PIcon
                         source="CircleUpMajor"
                         color="success"
                     />
                 </template>
-                <div slot="content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                <template #content>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
                     aliquip ex ea commodo consequat.
-                </div>
+                </template>
             </PAccordionItem>
         </PAccordion>`,
 });
