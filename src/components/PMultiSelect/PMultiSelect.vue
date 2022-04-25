@@ -36,7 +36,7 @@
                 @tag="addTag"
                 @search-change="(query) => {$emit('searchChange', query)}"
             >
-                <template #caret>
+                <template slot="caret">
                     <div v-if="!floatingLabel" class="multiselect__select">
                         <PIcon source="SelectMinor"/>
                     </div>
@@ -59,7 +59,7 @@
                             />
                         </template>
                     </div>
-                    <template #limit></template>
+                    <template slot="limit"></template>
                 </template>
             </multi-select>
         </div>
