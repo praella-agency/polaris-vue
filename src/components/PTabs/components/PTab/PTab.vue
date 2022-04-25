@@ -106,6 +106,7 @@
                 default: false,
             },
         },
+        emits: ['click'],
         computed: {
             className() {
                 return classNames(

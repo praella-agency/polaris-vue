@@ -15,7 +15,7 @@
         name: 'PPanel',
         props: {
             id: {
-                type: String | Number,
+                type: [String, Number],
             },
             hidden: {
                 type: Boolean,

@@ -105,6 +105,7 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
     import { PInput } from '../../components/PTextField/components/PInput';
     import { PConnected } from '../../components/PConnected';

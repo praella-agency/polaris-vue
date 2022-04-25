@@ -10,6 +10,8 @@ import { PFooterHelp } from '../PFooterHelp';
 import { PLink } from '../PLink';
 import { PPopover } from '../PPopover';
 import { PActionList } from '../PActionList';
+import VueRouter from 'storybook-vue3-router';
+import routes from '../../utilities/StorybookRoutes';
 
 export default {
     title: 'Navigation / Vertical Tabs',
@@ -95,6 +97,33 @@ export default {
     },
 }
 
+const items = [
+    {
+        id: 'add-product',
+        content: 'Add product',
+        icon: {
+            source: 'CircleTickMajor',
+            color: 'success',
+        },
+    },
+    {
+        id: 'customize-theme',
+        content: 'Customize theme',
+        icon: {
+            source: 'CircleTickMajor',
+            color: 'success',
+        },
+    },
+    {
+        id: 'add-domain',
+        content: 'Add domain',
+        icon: {
+            source: 'DomainsMajor',
+            color: 'success',
+        },
+    },
+];
+
 const Template = (args) => ({
     setup() {
     return { args };
@@ -106,32 +135,7 @@ const Template = (args) => ({
     data() {
         return {
             selectedTab: 0,
-            items: [
-                {
-                    id: 'add-product',
-                    content: 'Add product',
-                    icon: {
-                        source: 'CircleTickMajor',
-                        color: 'success',
-                    },
-                },
-                {
-                    id: 'customize-theme',
-                    content: 'Customize theme',
-                    icon: {
-                        source: 'CircleTickMajor',
-                        color: 'success',
-                    },
-                },
-                {
-                    id: 'add-domain',
-                    content: 'Add domain',
-                    icon: {
-                        source: 'DomainsMajor',
-                        color: 'success',
-                    },
-                },
-            ],
+            items,
             statusFilterActive: false,
         };
     },
@@ -390,3 +394,7 @@ VerticalTabs.parameters = {
         },
     },
 }
+
+VerticalTabs.decorators = [
+    VueRouter(routes(items, 'to')),
+]

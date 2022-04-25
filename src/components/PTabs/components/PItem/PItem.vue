@@ -64,13 +64,14 @@
                 default: null,
             },
             to: {
-                type: Object | String,
+                type: [Object, String],
             },
             accessibilityLabel: {
                 type: String,
                 default: null,
             },
         },
+        emits: ['click'],
         methods: {
             handleClick() {
                 this.$emit('click');

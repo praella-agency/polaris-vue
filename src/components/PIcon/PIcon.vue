@@ -16,6 +16,7 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { DeprecatedIcons } from './index';
     import * as Icon from '../../assets/shopify-polaris-icons';
     import { classNames, variationName } from '../../utilities/css';
@@ -112,11 +113,13 @@
             }
         },
         mounted() {
-            // if (this.$listeners.click) {
-            //     this.clickable = {
-            //         cursor: 'pointer',
-            //     };
-            // }
+            if (utils.isVue2) {
+                if (this.$listeners.click) {
+                    this.clickable = {
+                        cursor: 'pointer',
+                    };
+                }
+            }
         }
     }
 </script>

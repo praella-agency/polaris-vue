@@ -1,6 +1,8 @@
 import { PTabs } from './index';
 import { PCard } from '../PCard';
 import { PCardSection } from '../PCard/components/PCardSection';
+import VueRouter from 'storybook-vue3-router';
+import routes from '../../utilities/StorybookRoutes';
 
 export default {
     title: 'Navigation / Tabs',
@@ -70,54 +72,55 @@ export default {
     },
 };
 
+const items = [
+    {
+        id: 'all-customers-1',
+        content: 'All',
+        to: '/all-customers-1',
+        external: false,
+        badge: {
+            content: '10+',
+            status: 'critical'
+        },
+    },
+    {
+        id: 'accepts-marketing-1',
+        content: 'Accepts marketing',
+        to: '/accepts-marketing-content-1',
+    },
+    {
+        id: 'repeat-customers-1',
+        content: 'Repeat customers',
+        to: '/repeat-customers-content-1',
+    },
+    {
+        id: 'prospects-1',
+        content: 'Prospects',
+        to: '/prospects-1',
+    },
+];
+
 const Template = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         PTabs, PCard, PCardSection,
     },
     data() {
         return {
             selectedTab: 0,
-            items: [
-                {
-                    id: 'all-customers-1',
-                    content: 'All',
-                    to: '/all-customers-1',
-                    external: false,
-                    badge: {
-                        content: '10+',
-                        status: 'critical'
-                    },
-                },
-                {
-                    id: 'accepts-marketing-1',
-                    content: 'Accepts marketing',
-                    to: '/accepts-marketing-content-1',
-                },
-                {
-                    id: 'repeat-customers-1',
-                    content: 'Repeat customers',
-                    to: '/repeat-customers-content-1',
-                },
-                {
-                    id: 'prospects-1',
-                    content: 'Prospects',
-                    to: '/prospects-1',
-                },
-            ],
+            items,
         };
     },
     template: `
-<!--        <PCard>-->
+        <PCard>
             <PTabs v-bind="args" :tabs="items" @select="selectMenu" :selected="selectedTab">
                 <PCardSection :title="(selectedTab !== null) ? items[selectedTab].content : ''">
                     <p>Tab {{ selectedTab }} selected</p>
                 </PCardSection>
             </PTabs>
-<!--        </PCard>-->
-    `,
+        </PCard>`,
     methods: {
         selectMenu(menuIndex) {
             this.selectedTab = menuIndex;
@@ -126,3 +129,21 @@ const Template = (args) => ({
 });
 
 export const Tabs = Template.bind({});
+//
+// const customRoutes = [
+//     {
+//         path: '/all-customers-1',
+//         name: 'all-customers-1',
+//         component: {
+//             template: ''
+//         }
+//     },
+//     {
+//         path: '/accepts-marketing-content-1',
+//         name: 'accepts-marketing-content-1',
+//     }
+// ]
+
+Tabs.decorators = [
+    VueRouter(routes(items, 'to')),
+]
