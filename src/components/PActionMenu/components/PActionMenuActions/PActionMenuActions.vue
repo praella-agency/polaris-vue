@@ -128,7 +128,9 @@ export default {
     },
     handleResize() {
       const actionsLayoutRef = this.$refs[this.id];
-      this.availableWidthRef = actionsLayoutRef.offsetWidth;
+      if (actionsLayoutRef) {
+        this.availableWidthRef = actionsLayoutRef.offsetWidth;
+      }
 
       // // Set timesMeasured to 0 to allow re-measuring
       this.timesMeasured = 0;

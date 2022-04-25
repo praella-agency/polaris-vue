@@ -3,11 +3,11 @@
         <template #activator>
             <PActionMenuMenuAction disclosure :content="title" :getOffsetWidth="getOffsetWidth" :icon="icon" :onAction="handleOpen" />
         </template>
-        <template #content>actionsLayoutRef
+        <template #content>
             <PActionList :items="actions" @item-action="handleClose" />
         </template>
         <div v-if="$slots.details" class="">
-            <slot name="details" />
+            <slot name="details"/>
         </div>
     </PPopover>
 </template>
