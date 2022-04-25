@@ -46,6 +46,7 @@
                 animationFrame: Number,
             };
         },
+        emits: ['handleMeasurement'],
         methods: {
             handleMeasurement() {
                 if (this.animationFrame) {

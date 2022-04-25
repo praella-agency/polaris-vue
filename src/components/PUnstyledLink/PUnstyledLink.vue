@@ -64,13 +64,12 @@
             rel() {
                 return this.external ? 'noopener noreferrer' : undefined;
             },
-        },
-        methods: {
             listeners() {
                 if (utils.isVue2) {
                     this.$listeners;
                 }
+                return {};
             }
-        }
+        },
     }
 </script>

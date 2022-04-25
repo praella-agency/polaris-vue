@@ -30,7 +30,7 @@
 
             <PInput
                 v-bind="$attrs"
-                v-on="$listeners"
+                v-on="listeners"
                 :hasError="!!error"
                 :id="id"
                 :floatingLabel="floatingLabel"
@@ -64,7 +64,7 @@
         <PInput
             v-else
             v-bind="$attrs"
-            v-on="$listeners"
+            v-on="listeners"
             :hasError="!!error"
             :id="id"
             :floatingLabel="floatingLabel"
@@ -259,6 +259,12 @@
             },
             computedLabelHidden() {
                 return this.floatingLabel || this.labelHidden;
+            },
+            listeners() {
+                if (utils.isVue2) {
+                    return this.$listeners;
+                }
+                return {};
             },
         },
         methods: {

@@ -1,5 +1,4 @@
 <template>
-    <span v-if="utils.isVue3" style="visibility: hidden"/>
     <div :class="className" v-show="showInput">
         <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
             {{ prefix }}

@@ -142,6 +142,7 @@
                 if (utils.isVue2) {
                     return this.$listeners;
                 }
+                return {};
             }
         },
     }

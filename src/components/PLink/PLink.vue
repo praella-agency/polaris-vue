@@ -9,7 +9,7 @@
             </span>
         </span>
     </PUnstyledLink>
-    <button v-else type="button" :id="id" :class="className" v-on="$listeners">
+    <button v-else type="button" :id="id" :class="className" v-on="listeners">
         <!-- @slot The content to display inside the link -->
         <slot/>
         <span v-if="isStringSlot" class="Polaris-Link__IconLockup">
@@ -84,13 +84,12 @@
             isStringSlot() {
                 return this.external;
             },
-        },
-        methods: {
             listeners() {
                 if (utils.isVue2) {
-                    this.$listeners;
+                    return this.$listeners;
                 }
+                return {};
             }
-        }
+        },
     }
 </script>

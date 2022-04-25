@@ -264,6 +264,12 @@
             showEmptySearchState() {
                 return !this.showEmptyState && !this.hideFilters && !this.itemsExist && !this.loading;
             },
+            listeners() {
+                if (utils.isVue2) {
+                    return this.$listeners;
+                }
+                return {};
+            },
         },
         methods: {
             count() {
@@ -329,11 +335,6 @@
                  * Calls when selection is changed and component is responsive
                  */
                 this.$emit('select-mode', this.toggleSelectMode);
-            },
-            listeners() {
-                if (utils.isVue2) {
-                    return this.$listeners;
-                }
             },
         },
         mounted() {

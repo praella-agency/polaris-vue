@@ -19,7 +19,7 @@
                             :label="queryPlaceholder || resourceTitle || resource"
                             clearable
                             :disabled="disabled"
-                            v-on="$listeners"
+                            v-on="listeners"
                         >
                             <template #prefix>
                                 <PIcon source="SearchMinor"/>
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="Polaris-Filters__TagsContainer" v-if="!hideTags">
-                <PTag v-for="(filter, key) in appliedFilters" :key="key" v-on="$listeners" removable :tag="filter"/>
+                <PTag v-for="(filter, key) in appliedFilters" :key="key" v-on="listeners" removable :tag="filter"/>
             </div>
         </div>
     </div>
@@ -238,6 +238,12 @@
                  */
                 this.$emit('queryFocus');
             },
+            listeners() {
+                if (utils.isVue2) {
+                    return this.$listeners;
+                }
+                return {};
+            }
         },
         mounted() {
             if (this.resourceTitle != null) {
