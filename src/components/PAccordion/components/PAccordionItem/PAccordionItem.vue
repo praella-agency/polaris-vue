@@ -158,7 +158,7 @@
         // emits: [`accordion-${this.getAccordionId}-toggle`, `accordion-${this.getAccordionId}-item`],
         data() {
             return {
-                ID: (this.id || this.id === 0) ? this.id : this['_uid'],
+                ID: (this.id || this.id === 0) ? this.id : Math.random(),
                 themeOptionsData: {
                     header: {
                         color: '',
@@ -287,11 +287,12 @@
         },
         methods: {
             handleToggle(index) {
-                if (utils.isVue3) {
+                this.$parent.handleToggle(index);
+                /*if (utils.isVue3) {
                     emitter.emit(`accordion-${this.getAccordionId}-toggle`, index);
                 } else {
                     this.$root.$emit(`accordion-${this.getAccordionId}-toggle`, index);
-                }
+                }*/
             },
             setOpenCloseIcon(object, type, source) {
                 if (object.hasOwnProperty(type) && Object.keys(object[type]).length) {
@@ -313,10 +314,8 @@
             },
         },
         mounted() {
-            if (utils.isVue3) {
-                emitter.emit(`accordion-${this.getAccordionId}-item`, this.ID);
-            } else {
-                this.$root.$emit(`accordion-${this.getAccordionId}-item`, this.ID);
+            if (this.$parent.handleItemToggleDefault) {
+                this.$parent.handleItemToggleDefault(this.ID);
             }
         }
     }

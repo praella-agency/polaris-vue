@@ -119,9 +119,9 @@
                         });
                     } else {
                         if (utils.isVue3) {
-                            this.visibility[`${this.id}-${this.open}`] = true;
+                            this.visibility[`${this.id}-${this.accordionItemIds[this.open]}`] = true;
                         } else {
-                            this.$set(this.visibility, `${this.id}-${this.open}`, true);
+                            this.$set(this.visibility, `${this.id}-${this.accordionItemIds[this.open]}`, true);
                         }
                     }
                 }
@@ -143,6 +143,10 @@
                 } else {
                     this.$set(this.visibility, index, !this.visibility[index]);
                 }
+            },
+            handleItemToggleDefault(id) {
+                this.accordionItemIds.push(id);
+                this.handleAccordionItemExpansion();
             },
             setIcon(index, key) {
                 if (this.icon) {
@@ -193,32 +197,6 @@
                 }
             },
         },
-        created() {
-            this.accordions.forEach((item, index) => {
-                this.accordionItemIds.push(index);
-            })
-            this.handleAccordionItemExpansion();
-
-            if (utils.isVue3) {
-                emitter.on(`accordion-${this.id}-toggle`, (index) => {
-                    this.handleToggle(index);
-                });
-                this.accordionItemIds = [];
-                emitter.on(`accordion-${this.id}-item`, (index) => {
-                    this.accordionItemIds.push(index);
-                    this.handleAccordionItemExpansion();
-                });
-            } else {
-                this.$root.$on(`accordion-${this.id}-toggle`, (index) => {
-                    this.handleToggle(index);
-                });
-                this.accordionItemIds = [];
-                this.$root.$on(`accordion-${this.id}-item`, (index) => {
-                    this.accordionItemIds.push(index);
-                    this.handleAccordionItemExpansion();
-                });
-            }
-        }
     }
 </script>
 

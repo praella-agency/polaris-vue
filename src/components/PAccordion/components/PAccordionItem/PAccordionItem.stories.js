@@ -4,7 +4,7 @@ import { PIcon } from '../../../PIcon';
 import argTypes from './args';
 
 export default {
-    title: 'Behavior / Accordion / Accordion Item',
+    title: 'Behavior / Accordion',
     component: PAccordionItem,
     argTypes,
 }
@@ -19,6 +19,7 @@ const Template = (args) => ({
     template: `
         <PAccordion
             id="Polaris-Accordion"
+            :open="0"
         >
             <PAccordionItem
                 v-for="(item, key) in 3"

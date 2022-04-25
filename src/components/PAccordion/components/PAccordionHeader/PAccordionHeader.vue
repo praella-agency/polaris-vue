@@ -1,7 +1,7 @@
 <template>
     <h2 :id="`heading${id}`">
         <button
-            :id="`accordion-button${this['_uid']}`"
+            :id="`accordion-button${Math.random()}`"
             :class="$slots.default ? slotClassName : className"
             :style="style"
             @click="handleToggle(id)"
