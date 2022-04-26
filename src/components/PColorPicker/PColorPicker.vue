@@ -6,8 +6,8 @@
                         labelClass="mb-0"></PTextField>
         </div>
         <div class="picker-wrapper">
-            <Chrome v-if="utils.isVue3" v-show="showPicker" v-model="computedColor"/>
-            <Chrome v-else-if="utils.isVue2" v-show="showPicker" :value="color" @input="updateColor"/>
+            <Chrome v-if="utils.isVue3" v-show="showPicker" v-model="computedColor" @mouseup="dropColor"/>
+            <Chrome v-else-if="utils.isVue2" v-show="showPicker" :value="color" @input="updateColor" @mouseup="dropColor"/>
         </div>
     </div>
 </template>
@@ -87,6 +87,7 @@
         data() {
             return {
                 showPicker: false,
+                dropColors: null,
             };
         },
         computed: {
@@ -101,6 +102,7 @@
                     return this.color;
                 },
                 set(value) {
+                    this.dropColors = value;
                     /**
                      * Triggers when color is changed
                      * @ignore
@@ -134,6 +136,12 @@
             hidePicker() {
                 this.showPicker = false;
             },
+            dropColor() {
+                /**
+                 * Mouse drop event, triggered when mouseup
+                 */
+                this.$emit('drop', this.dropColors);
+            }
         },
     }
 </script>

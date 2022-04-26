@@ -30,6 +30,17 @@ export default {
                 },
             },
         },
+        drop: {
+            control: {
+                type: null,
+            },
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(color)',
+                },
+            },
+        },
     },
 }
 
