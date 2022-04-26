@@ -27,12 +27,8 @@
             </template>
             <template #content>
                 <PActionList :sections="actions"/>
-            </template>
-            <template
-                v-if="Object.keys(message).length > 0"
-                #content
-            >
                 <PMessage
+                    v-if="Object.keys(message).length > 0"
                     :title="message.title"
                     :description="message.description"
                     :action="Object.keys(message).length > 0 ? message.action: {}"

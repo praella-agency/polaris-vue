@@ -23,7 +23,6 @@ class ComponentHelpers {
         this.componentNameFormat = format;
     }
 
-
     makeComponentClass(componentName, properties, state) {
         let classes = {};
         classes[componentName] = true;
@@ -38,17 +37,6 @@ class ComponentHelpers {
         }
 
         return classes;
-    }
-
-    isNodeOfComponent(node, component) {
-        if (!node || !node.componentOptions) {
-            return false;
-        }
-
-        let nodeComponentTagName = node.componentOptions.tag;
-        let componentTagName = this.getComponentName(component.name);
-
-        return nodeComponentTagName === componentTagName;
     }
 
     getComponentName(polarisName) {
@@ -66,56 +54,96 @@ class ComponentHelpers {
             snakeCase,
         });
     }
+}
 
-    wrapNodesWithComponent(createElement, nodes, component, ignoredComponents = []) {
-        let children = [];
-        for (let node of nodes) {
-            if (!node.tag && (node.text && !node.text.trim())) {
-                continue;
-            }
-
-            let added = false;
-            if (this.isNodeOfComponent(node, component)) {
-                added = true;
-                children.push(node);
-            } else {
-                for (let ignored of ignoredComponents) {
-                    if (this.isNodeOfComponent(node, ignored)) {
-                        added = true;
-                        children.push(node);
-                        break;
-                    }
-                }
-            }
-
-            if (!added) {
-                children.push(createElement(component, {}, [node]));
-            }
-        }
-        return children;
+function isNodeOfComponent(node, component) {
+    if (!node || !node.componentOptions) {
+        return false;
     }
 
-    uuid() {
-        return '_' + Math.random().toString(36).substr(2, 9);
-    };
+    let nodeComponentTagName = node.componentOptions.tag;
+    let ComponentHelpers = new ComponentHelpers();
+    let componentTagName = ComponentHelpers.getComponentName(component.name);
 
-    createComponent(component, props, parentContainer, className, slots = {}) {
-        if (utils.isVue2) {
-            return new (vue.extend(component))({
-                el: document.createElement('div'),
-                props
-            })
+    return nodeComponentTagName === componentTagName;
+}
+
+function wrapNodesWithComponent(createElement, nodes, component, ignoredComponents = []) {
+    let children = [];
+    for (let node of nodes) {
+        if (!node.tag && (node.text && !node.text.trim())) {
+            continue;
+        }
+
+        let added = false;
+        if (isNodeOfComponent(node, component)) {
+            added = true;
+            children.push(node);
         } else {
-            const vNode = vue.h(component, props, slots);
-            const container = document.createElement('div');
-            container.classList.add(className);
+            for (let ignored of ignoredComponents) {
+                if (isNodeOfComponent(node, ignored)) {
+                    added = true;
+                    children.push(node);
+                    break;
+                }
+            }
+        }
+
+        if (!added) {
+            children.push(createElement(component, {}, utils.isVue3 ? () => [node] : [node]));
+        }
+    }
+    return children;
+}
+
+function uuid() {
+    return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function createComponent(component, props, parentContainer, element, slots = {}) {
+    if (utils.isVue2) {
+        let el = null;
+        if (element.tag) {
+            el = document.createElement(element.tag);
+            if (element.className) {
+                el.classList.add(element.className);
+            }
+        } else {
+            el = parentContainer;
+        }
+        return new (vue.extend(component))({
+            el,
+            props,
+            slots
+        })
+    } else {
+        const vNode = vue.h(component, props, () => slots);
+        if (element.tag) {
+            const container = document.createElement(element.tag);
+            if (element.className) {
+                container.classList.add(element.className);
+            }
             parentContainer.appendChild(container);
             vue.render(vNode, container);
-
-            return vNode.component;
+        } else {
+            vue.render(vNode, parentContainer)
         }
+
+        return vNode.component;
     }
 }
 
+function hasSlot(slot) {
+    if (utils.isVue3) {
+        return !!(slot && slot().length === 2 ? slot()[1].children.length : false);
+    } else {
+        return !!slot;
+    }
+}
 
-export default new ComponentHelpers();
+export {
+    createComponent,
+    uuid,
+    wrapNodesWithComponent,
+    hasSlot
+};

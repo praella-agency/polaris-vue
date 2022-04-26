@@ -118,7 +118,6 @@
         },
         methods: {
             updateColor(color) {
-                console.log(color)
                 /**
                  * Triggers when color is changed
                  * @ignore

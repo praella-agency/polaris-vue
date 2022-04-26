@@ -38,7 +38,17 @@
                 <!-- @slot Customize SearchField -->
                 <slot name="searchField">
                     <PSearchField
+                        v-if="utils.isVue2"
                         v-model="searchFieldValue"
+                        :placeholder="searchField.placeholder"
+                        :showFocusBorder="searchField.showFocusBorder"
+                        :focused="searchField.focused"
+                        :active="searchField.active"
+                        @change="handleSearchFieldChange"
+                    />
+                    <PSearchField
+                        v-else-if="utils.isVue3"
+                        v-model:value="searchFieldValue"
                         :placeholder="searchField.placeholder"
                         :showFocusBorder="searchField.showFocusBorder"
                         :focused="searchField.focused"
@@ -47,7 +57,7 @@
                     />
                 </slot>
                 <PSearch
-                    :visible="searchResultsVisible"
+                    :visible="(searchFieldValue.length > 0) && searchResultsVisible"
                     @dismiss="handleSearchResultsDismiss"
                     :overlayVisible="searchResultsOverlayVisible"
                 >
@@ -61,7 +71,7 @@
                 </PSearch>
             </div>
             <div
-                v-if="$slots.secondaryMenu || Object.keys(secondaryMenu).length > 0"
+                v-if="hasSlot(this.$slots.secondaryMenu) || Object.keys(secondaryMenu).length > 0"
                 class="Polaris-TopBar__SecondaryMenu"
             >
                 <!-- @slot Customize SecondaryMenu -->
@@ -89,6 +99,8 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
+    import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { ThemeLogo, getWidth } from '../../types/logo';
     import { PIcon } from '../../components/PIcon';
@@ -231,6 +243,12 @@
                 return {
                     width: getWidth(this.logo, 104),
                 };
+            },
+            utils() {
+                return utils;
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

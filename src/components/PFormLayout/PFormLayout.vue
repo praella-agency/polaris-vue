@@ -3,7 +3,7 @@
     import utils from '../../utilities';
     import { PFormLayoutItem } from '../../components/PFormLayout/components/PFormLayoutItem';
     import { PFormLayoutGroup } from '../../components/PFormLayout/components/PFormLayoutGroup';
-    import ComponentHelpers from '../../ComponentHelpers';
+    import { wrapNodesWithComponent } from '../../ComponentHelpers';
 
     let render = {};
     if (utils.isVue3) {
@@ -12,7 +12,7 @@
                     class: 'Polaris-FormLayout',
                     id: this.id,
                 },
-                ComponentHelpers.wrapNodesWithComponent(
+                wrapNodesWithComponent(
                     vue.h,
                     this.$slots.default(), PFormLayoutItem,
                     [PFormLayoutGroup]
@@ -27,7 +27,7 @@
                         id: this.id,
                     },
                 },
-                ComponentHelpers.wrapNodesWithComponent(
+                wrapNodesWithComponent(
                     createElement,
                     this.$slots.default, PFormLayoutItem,
                     [PFormLayoutGroup]

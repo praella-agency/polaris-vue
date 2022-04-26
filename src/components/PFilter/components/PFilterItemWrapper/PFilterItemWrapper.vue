@@ -2,7 +2,7 @@
     const vue = require('vue');
     import utils from '../../../../utilities';
     import { classNames } from '../../../../utilities/css';
-    import ComponentHelpers from '../../../../ComponentHelpers';
+    import { wrapNodesWithComponent } from '../../../../ComponentHelpers';
     import { PFilterItem } from '../../../../components/PFilter/components/PFilterItem';
 
     let render = {};
@@ -11,7 +11,7 @@
             return vue.h('div', {
                     class: this.className,
                 },
-                ComponentHelpers.wrapNodesWithComponent(
+                wrapNodesWithComponent(
                     vue.h,
                     this.$slots.default(), PFilterItem
                 ),
@@ -22,7 +22,7 @@
             return createElement('div', {
                     class: this.className,
                 },
-                ComponentHelpers.wrapNodesWithComponent(
+                wrapNodesWithComponent(
                     createElement,
                     this.$slots.default, PFilterItem
                 ),

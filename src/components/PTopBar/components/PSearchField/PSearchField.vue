@@ -1,7 +1,7 @@
 <template>
     <div :class="className">
         <input
-            :id="`SearchField${this['_uid']}`"
+            :id="`SearchField${Math.random()}`"
             class="Polaris-TopBar-SearchField__Input"
             :placeholder="placeholder"
             type="search"
@@ -79,7 +79,7 @@
                 default: false,
             },
         },
-        emits: ['input', 'change', 'cancel', 'focus'],
+        emits: ['input', 'change', 'cancel', 'focus', 'update:value'],
         data() {
             return {
                 forceActive: false,
@@ -109,6 +109,12 @@
                      * Handle input of search field
                      */
                     this.$emit('input', value);
+                    /**
+                     * For Vue 3
+                     * Handle input of search field
+                     * @ignore
+                     */
+                    this.$emit('update:value', value);
                 },
             },
         },
@@ -139,7 +145,12 @@
             },
             handleClear() {
                 this.inputValue = '';
-                this.$emit('change', '');
+                this.$emit('input', '');
+                /**
+                 * For Vue 3
+                 * @ignore
+                 */
+                this.$emit('update:value', '');
             },
         },
         watch: {

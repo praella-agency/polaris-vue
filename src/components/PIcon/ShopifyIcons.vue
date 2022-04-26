@@ -1,68 +1,72 @@
 <template>
-<!--    <PFrame>-->
-        <PTopBar
-            :searchField="{
+    <PFrame>
+        <template #topBar>
+            <PTopBar
+                :searchField="{
                 value: search,
                 placeholder: 'Search',
                 showFocusBorder: true,
             }"
-            :searchResultsVisible="false"
-            @searchFieldChange="searchIcon"
-            @searchResultsDismiss="handleSearchResultsDismiss"
-        />
-        <div class="shopify-div">
-            <PStack v-if="icons.major.length > 0" vertical spacing="tight">
-                <PStackItem>
-                    <PHeading class="icon-heading">Major Icons</PHeading>
-                </PStackItem>
-                <PStackItem>
-                    <div class="container-div">
-                        <div
-                            v-for="(icon, key) in icons.major"
-                            :key="key"
-                            class="icon-div"
-                            v-p-tooltip.mostSpace='"<PIcon source=\"" + icon + "\" />"'
-                            @mouseover="changeCode(icon)"
-                            @click="copyCode(icon)"
-                        >
-                            <div>
-                                <PIcon v-if="source" :source="source"/>
-                                <PIcon v-else :source="icon" :color="color" :backdrop="backdrop"/>
-                                <div class="icon-text-div">
-                                    {{ icon.replace('Major', '').replace(/([A-Z])/g, ' $1').trim() }}
+                :searchResultsVisible="false"
+                @searchFieldChange="searchIcon"
+                @searchResultsDismiss="handleSearchResultsDismiss"
+            />
+        </template>
+        <template #default>
+            <div class="shopify-div">
+                <PStack v-if="icons.major.length > 0" vertical spacing="tight">
+                    <PStackItem>
+                        <PHeading class="icon-heading">Major Icons</PHeading>
+                    </PStackItem>
+                    <PStackItem>
+                        <div class="container-div">
+                            <div
+                                v-for="(icon, key) in icons.major"
+                                :key="key"
+                                class="icon-div"
+                                v-p-tooltip.mostSpace='"<PIcon source=\"" + icon + "\" />"'
+                                @mouseover="changeCode(icon)"
+                                @click="copyCode(icon)"
+                            >
+                                <div>
+                                    <PIcon v-if="source" :source="source"/>
+                                    <PIcon v-else :source="icon" :color="color" :backdrop="backdrop"/>
+                                    <div class="icon-text-div">
+                                        {{ icon.replace('Major', '').replace(/([A-Z])/g, ' $1').trim() }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </PStackItem>
-            </PStack>
-            <PStack v-if="icons.minor.length > 0" vertical spacing="tight">
-                <PStackItem>
-                    <PHeading class="icon-heading">Minor Icons</PHeading>
-                </PStackItem>
-                <PStackItem>
-                    <div class="container-div">
-                        <div
-                            v-for="(icon, key) in icons.minor"
-                            :key="key"
-                            class="icon-div"
-                            v-p-tooltip.mostSpace='"<PIcon source=\"" + icon + "\" />"'
-                            @mouseover="changeCode(icon)"
-                            @click="copyCode(icon)"
-                        >
-                            <div>
-                                <PIcon v-if="source" :source="source"/>
-                                <PIcon v-else :source="icon" :color="color" :backdrop="backdrop"/>
-                                <div class="icon-text-div">
-                                    {{ icon.replace('Minor', '').replace(/([A-Z])/g, ' $1').trim() }}
+                    </PStackItem>
+                </PStack>
+                <PStack v-if="icons.minor.length > 0" vertical spacing="tight">
+                    <PStackItem>
+                        <PHeading class="icon-heading">Minor Icons</PHeading>
+                    </PStackItem>
+                    <PStackItem>
+                        <div class="container-div">
+                            <div
+                                v-for="(icon, key) in icons.minor"
+                                :key="key"
+                                class="icon-div"
+                                v-p-tooltip.mostSpace='"<PIcon source=\"" + icon + "\" />"'
+                                @mouseover="changeCode(icon)"
+                                @click="copyCode(icon)"
+                            >
+                                <div>
+                                    <PIcon v-if="source" :source="source"/>
+                                    <PIcon v-else :source="icon" :color="color" :backdrop="backdrop"/>
+                                    <div class="icon-text-div">
+                                        {{ icon.replace('Minor', '').replace(/([A-Z])/g, ' $1').trim() }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </PStackItem>
-            </PStack>
-        </div>
-<!--    </PFrame>-->
+                    </PStackItem>
+                </PStack>
+            </div>
+        </template>
+    </PFrame>
 </template>
 
 <script>

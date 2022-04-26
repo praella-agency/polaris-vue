@@ -20,7 +20,7 @@
             <!-- @slot Accepts a navigation component that will be rendered in the left sidebar of an application frame -->
             <slot name="navigation"/>
         </template>
-        <template>
+        <template #default>
             <!-- @slot The content to display inside the frame -->
             <slot/>
         </template>

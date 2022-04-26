@@ -2,7 +2,7 @@
     const vue = require('vue');
     import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
-    import ComponentHelpers from '../../ComponentHelpers';
+    import { wrapNodesWithComponent } from '../../ComponentHelpers';
     import { PButtonGroupItem } from '../../components/PButtonGroup/components/PButtonGroupItem';
 
     const Spacing = 'extraTight' | 'tight' | 'loose';
@@ -16,7 +16,7 @@
                     'data-buttongroup-full-width': this.fullWidth,
                     'data-buttongroup-connected-top': this.connectedTop,
                 },
-                ComponentHelpers.wrapNodesWithComponent(
+                wrapNodesWithComponent(
                     vue.h,
                     this.$slots.default() || [], PButtonGroupItem
                 ),
@@ -32,7 +32,7 @@
                         'data-buttongroup-connected-top': this.connectedTop,
                     },
                 },
-                ComponentHelpers.wrapNodesWithComponent(
+                wrapNodesWithComponent(
                     createElement,
                     this.$slots.default || [], PButtonGroupItem
                 ),

@@ -114,7 +114,7 @@
 <script>
     import utils from '../../../../utilities';
     import { classNames } from '../../../../utilities/css';
-    import ComponentHelpers from '../../../../ComponentHelpers';
+    import { uuid } from '../../../../ComponentHelpers';
     import { PButtonGroup } from '../../../../components/PButtonGroup';
     import { PButton } from '../../../../components/PButton';
     import { PCheckableButton } from '../../../../components/PResourceList/components/PCheckableButton';
@@ -154,7 +154,7 @@
         props: {
             popoverId: {
                 type: String,
-                default: `PolarisPopover${ComponentHelpers.uuid()}`,
+                default: `PolarisPopover${uuid}`,
             },
             resourceTitle: {
                 type: String,
