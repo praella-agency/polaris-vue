@@ -34,7 +34,7 @@
                     <!-- @slot Customize the icon part of navigation. This slot provides values.
 
 Access values with `slot-props` attribute. -->
-                    <slot name="icon" :item="slotProps.item"/>
+                    <slot name="icon" :item="slotProps ? slotProps.item : {}"/>
                 </template>
             </PSection>
         </div>
@@ -42,6 +42,7 @@ Access values with `slot-props` attribute. -->
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { hasSlot } from '../../ComponentHelpers';
     import { ThemeLogo, getWidth } from '../../types/logo';
     import { PUnstyledLink } from '../../components/PUnstyledLink';
@@ -141,7 +142,7 @@ Access values with `slot-props` attribute. -->
         created() {
             window.addEventListener('resize', this.useMediaQuery);
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('resize', this.useMediaQuery);
         },
     }

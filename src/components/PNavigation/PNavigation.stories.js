@@ -191,7 +191,7 @@ Navigation.args = {
                     icon: 'HomeMajor',
                     onClick: () => {
                         console.log('Inactive Item')
-                    }
+                    },
                 },
                 {
                     to: '/path/to/place',

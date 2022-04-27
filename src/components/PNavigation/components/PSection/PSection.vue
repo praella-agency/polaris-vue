@@ -24,7 +24,7 @@
             :onNavigationDismiss="onNavigationDismiss"
         >
             <template v-slot:icon="slotProps">
-                <slot v-if="slotProps" name="icon" :item="slotProps.item"/>
+                <slot name="icon" :item="slotProps ? slotProps.item : {}"/>
             </template>
         </PItem>
         <li
@@ -50,7 +50,7 @@
                         :onNavigationDismiss="onNavigationDismiss"
                     >
                         <template v-slot:icon="slotProps">
-                            <slot v-if="slotProps" name="icon" :item="slotProps.item"/>
+                            <slot name="icon" :item="slotProps ? slotProps.item : {}"/>
                         </template>
                     </PItem>
                 </ul>
