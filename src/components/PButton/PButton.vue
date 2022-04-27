@@ -324,6 +324,13 @@
             value: {
                 type: [String, Number, Array],
             },
+            /**
+             * Add focus border to button
+             */
+            addFocus: {
+                type: Boolean,
+                default: false,
+            },
         },
         emits: ['click', 'focus', 'blur', 'keydown', 'keyup', 'keyPress'],
         data() {

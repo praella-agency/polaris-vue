@@ -282,6 +282,13 @@
             value: {
                 type: [String, Number, Array],
             },
+            /**
+             * Add focus border to button
+             */
+            addFocus: {
+                type: Boolean,
+                default: false,
+            },
         },
         emits: ['click', 'focus', 'blur', 'keydown', 'keyup', 'keyPress'],
         computed: {
@@ -304,6 +311,7 @@
                     this.icon && !this.hasNoChildren && 'Polaris-Button--iconOnly',
                     this.isConnectedDisclosure && 'Polaris-Button--connectedDisclosure',
                     this.monochrome && 'Polaris-Button--monochrome',
+                    this.addFocus && 'Polaris-Button__FocusBorder',
                 );
             },
             disclosureIconClassName() {
