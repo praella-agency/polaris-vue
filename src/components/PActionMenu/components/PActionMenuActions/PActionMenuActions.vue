@@ -15,7 +15,7 @@
                     />
                 </div>
             </template>
-            <PActionMenuMenuAction v-else-if="!computedHiddenActions.includes(action)" :key="`MenuAction-${index}`"
+            <PActionMenuMenuAction v-else-if="computedActionMenuMenuAction(action)" :key="`MenuAction-${index}`"
                                    :getOffsetWidth="handleActionsOffsetWidth" :content="action.content"
                                    v-bind="action"/>
         </template>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import utils from '../../../../utilities';
     import { uuid } from '../../../../ComponentHelpers';
     import { MenuActionDescriptor, MenuGroupDescriptor } from '../../../../types';
     import { sortAndOverrideActionOrder } from '../../../../components/PActionMenu/utilities';
@@ -188,13 +189,16 @@
 
                 this.timesMeasured += 1;
                 this.actionsAndGroupsLengthRef = actionsAndGroups.length;
-            }
+            },
+            computedActionMenuMenuAction(action) {
+                return !this.computedHiddenActions.includes(action);
+            },
         },
-        mounted() {
+        created() {
             window.addEventListener('resize', this.handleResize);
             this.handleResize();
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('resize', this.handleResize);
         },
     }
