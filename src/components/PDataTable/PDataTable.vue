@@ -1,15 +1,17 @@
 <template>
     <div>
-        <PFilter v-if="$slots.hasOwnProperty('filter') || hasFilter" v-bind="$attrs" :resourceName="resource"
+        <PFilter v-if="hasSlot($slots.filter) || hasFilter" v-bind="$attrs" :resourceName="resource"
                  @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
-            <!-- @slot Add a custom Filter content -->
-            <slot name="filter" v-if="$slots.hasOwnProperty('filter')"></slot>
+            <template v-if="hasSlot($slots.filter)" #default>
+                <!-- @slot Add a custom Filter content -->
+                <slot name="filter"/>
+            </template>
             <template #auxiliaryContainer>
                 <!-- @slot Add auxiliary filters -->
                 <slot name="auxiliaryContainer"/>
             </template>
         </PFilter>
-        <div class="Polaris-DataTable" v-if="rows.length > 0 || $slots.hasOwnProperty('body')">
+        <div class="Polaris-DataTable" v-if="rows.length > 0 || hasSlot($slots.body)">
             <div class="Polaris-DataTable__ScrollContainer">
                 <table class="Polaris-DataTable__Table">
                     <thead ref="thead">
@@ -81,7 +83,7 @@
                                 <tr class="Polaris-ResourceList__SpinnerContainer"
                                     :style="{'padding-top': `${topPadding}px`}">
                                     <PSpinner
-                                        :size="!$slots.hasOwnProperty('body') && rows.length < 2 ? 'small' : 'large'"/>
+                                        :size="!hasSlot($slots.body) && rows.length < 2 ? 'small' : 'large'"/>
                                 </tr>
                                 <tr class="Polaris-ResourceList__LoadingOverlay"/>
                             </template>
@@ -174,7 +176,7 @@ Access values with `slot-props` attribute. -->
                 </table>
             </div>
 
-            <div v-if="footerContent || $slots.footer" class="Polaris-DataTable__Footer">
+            <div v-if="footerContent || hasSlot($slots.footer)" class="Polaris-DataTable__Footer">
                 <!-- @slot Add a custom Footer content -->
                 <slot name="footer">
                     {{ footerContent }}
@@ -198,6 +200,7 @@ Access values with `slot-props` attribute. -->
 
 
 <script>
+    import { hasSlot } from '../../ComponentHelpers';
     import { PDataTableCellNew } from '../../components/PDataTable/components/PDataTableCellNew';
     import { PDataTableCell } from '../../components/PDataTable/components/PDataTableCell';
     import { PPagination } from '../../components/PPagination';
@@ -467,6 +470,9 @@ Access values with `slot-props` attribute. -->
                 this.totals.filter((total) => total !== '' || typeof (total !== 'number')).length > 1 ?
                     totalsLabel.plural :
                     totalsLabel.singular;
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

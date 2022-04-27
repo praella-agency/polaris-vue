@@ -1,10 +1,10 @@
 <template>
     <div class="Polaris-Frame-ContextualSaveBar">
-        <div v-if="$slots.contextControl" class="Polaris-Frame-ContextualSaveBar__ContextControl">
+        <div v-if="hasSlot($slots.contextControl)" class="Polaris-Frame-ContextualSaveBar__ContextControl">
             <slot name="contextControl"/>
         </div>
         <div
-            v-if="!alignContentFlush || (!$slots.contextControl && Object.keys(logo).length)"
+            v-if="!alignContentFlush || (!hasSlot($slots.contextControl) && Object.keys(logo).length)"
             class="Polaris-Frame-ContextualSaveBar__LogoContainer"
             :style="width"
         >
@@ -68,6 +68,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { PButton } from '../../../../components/PButton';
     import { PImage } from '../../../../components/PImage';
     import { PStack } from '../../../../components/PStack';
@@ -187,6 +188,9 @@
                 return {
                     width: getWidth(this.logo, 104),
                 };
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

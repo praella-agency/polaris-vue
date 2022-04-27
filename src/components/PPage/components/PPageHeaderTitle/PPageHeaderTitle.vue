@@ -7,7 +7,7 @@
             <div class="Polaris-Header-Title__TitleWithMetadataWrapper">
                 <PDisplayText element="h1" v-html="title" class="Polaris-Header-Title"/>
                 <div class="Polaris-Header-Title__TitleMetadata"
-                     v-if="titleMetadata || $slots.hasOwnProperty('titleMetadata')">
+                     v-if="titleMetadata || hasSlot($slots.titleMetadata)">
                     <template v-if="titleMetadata">
                         {{ titleMetadata }}
                     </template>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-    import utils from '../../../../utilities';
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PDisplayText } from '../../../../components/PDisplayText';
     import { PTextStyle } from '../../../../components/PTextStyle';
@@ -58,14 +58,13 @@
                     this.source && 'Polaris-Header-Title--hasThumbnail',
                 );
             },
-            computedTitleMetadata() {
-                return this.titleMetadata || (utils.isVue3 ? this.$slots.titleMetadata :
-                    this.$slots.hasOwnProperty('titleMetadata'));
-            }
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             hasThumbnailSlot() {
-                return !!this.$slots.thumbnail;
+                return hasSlot(this.$slots.thumbnail);
             },
         },
     }

@@ -60,13 +60,13 @@ const Template = (args) => ({
     },
     data() {
         return {
-            selectedOption: '',
+            selectedOption: 'mostSpent',
         };
     },
     template: `
         <div>
             <PSelect
-                v-model:value="selectedOption"
+                v-model="selectedOption"
                 v-bind="args"
                 @change="changeEvent"
             />

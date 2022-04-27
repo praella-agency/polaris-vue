@@ -17,7 +17,7 @@
             :class="className"
             :style="cssVars"
         >
-            <div v-if="prefix || $slots.prefix" class="Polaris-RangeSlider-SingleThumb__Prefix">
+            <div v-if="prefix || hasSlot($slots.prefix)" class="Polaris-RangeSlider-SingleThumb__Prefix">
                 <slot name="prefix">
                     {{ prefix }}
                 </slot>
@@ -35,7 +35,7 @@
                     :aria-valuemin="min"
                     :aria-valuemax="max"
                     :aria-valuenow="clampedValue"
-                    :aria-invalid="Boolean(error) || $slots.error"
+                    :aria-invalid="Boolean(error) || hasSlot($slots.error)"
                     :aria-describedby="ariaDescribedBy"
                     :disabled="disabled"
                     @input="handleChange"
@@ -54,7 +54,7 @@
                     </div>
                 </output>
             </div>
-            <div v-if="suffix || $slots.suffix" class="Polaris-RangeSlider-SingleThumb__Suffix">
+            <div v-if="suffix || hasSlot($slots.suffix)" class="Polaris-RangeSlider-SingleThumb__Suffix">
                 <slot name="suffix">
                     {{ suffix }}
                 </slot>
@@ -64,6 +64,8 @@
 </template>
 
 <script>
+    import utils from '../../../../utilities';
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PLabelled } from '../../../../components/PLabelled';
 
@@ -105,6 +107,12 @@
              * Initial value for range input
              */
             value: {
+                type: [Number, Array],
+            },
+            /**
+             * Initial model value for range input
+             */
+            modelValue: {
                 type: [Number, Array],
             },
             /**
@@ -174,10 +182,16 @@
             };
         },
         computed: {
+            computedVModel() {
+                if (utils.isVue3) {
+                    return this.modelValue;
+                }
+                return this.value;
+            },
             className() {
                 return classNames(
                     'Polaris-RangeSlider-SingleThumb',
-                    (this.error || this.$slots.error) && 'Polaris-RangeSlider-SingleThumb--error',
+                    (this.error || hasSlot(this.$slots.error)) && 'Polaris-RangeSlider-SingleThumb--error',
                     this.disabled && 'Polaris-RangeSlider-SingleThumb--disabled',
                 );
             },
@@ -191,7 +205,7 @@
                 }
             },
             clampedValue() {
-                return this.clamp(this.value, this.min, this.max);
+                return this.clamp(this.computedVModel, this.min, this.max);
             },
             sliderProgress() {
                 return ((this.clampedValue - this.min) * 100) / (this.max - this.min);
@@ -201,6 +215,9 @@
             },
             ariaDescribedBy() {
                 return this.describedBy.length ? this.describedBy.join(' ') : undefined;
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

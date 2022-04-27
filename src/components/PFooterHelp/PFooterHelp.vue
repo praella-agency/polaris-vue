@@ -16,6 +16,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
 
@@ -71,10 +72,6 @@
                 return classNames(
                     'Polaris-FooterHelp',
                 );
-            },
-            isStringSlot() {
-                const slots = (this.$slots.default || []);
-                return this.external && slots.length === 1 && slots[0].text;
             },
         },
     }

@@ -16,6 +16,7 @@
 </template>
 
 <script>
+    import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames, variationName } from '../../../../utilities/css';
     import { PChoice } from '../../../../components/PChoice';
     import { PCheckbox } from '../../../../components/PCheckbox';
@@ -35,7 +36,7 @@
         props: {
             id: {
                 type: [String, Number],
-                default: `PCheckableButton${new Date().getUTCMilliseconds()}`,
+                default: `PCheckableButton${uuid()}`,
             },
             checkedAll: {
                 type: Boolean,
@@ -118,7 +119,7 @@
                 return this.disabled || this.loading;
             },
             hasNoChildren() {
-                return (this.$slots.default || []).length === 0;
+                return hasSlot(this.$slots.default);
             },
         },
         methods: {

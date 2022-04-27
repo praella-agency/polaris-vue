@@ -70,6 +70,7 @@
 
 <script>
     import utils from '../../utilities';
+    import { uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
     import { PTag } from '../../components/PTag';
@@ -133,6 +134,13 @@
                 default: () => ([]),
             },
             /**
+             * Model value for PMultiSelect.
+             */
+            modelValue: {
+                type: [String, Object, Array, Number, Boolean],
+                default: () => ([]),
+            },
+            /**
              * Disable the searchable options feature.
              */
             searchable: {
@@ -179,7 +187,7 @@
              */
             id: {
                 type: [String, Number],
-                default: `PolarisMultiSelect${(new Date()).getTime()}`,
+                default: `PolarisMultiSelect${uuid()}`,
             },
             /**
              * Create beautifully simple form labels that float over your input fields
@@ -189,7 +197,7 @@
                 default: false,
             }
         },
-        emits: ['change', 'input', 'searchChange'],
+        emits: ['change', 'input', 'searchChange', 'update:modelValue'],
         data() {
             return {
                 selected: this.value,
@@ -197,6 +205,12 @@
             };
         },
         computed: {
+            computedVModel() {
+                if (utils.isVue3) {
+                    return this.modelValue;
+                }
+                return this.value;
+            },
             parentClassName() {
                 return classNames(
                     this.floatingLabel && 'Polaris-Select-Floating-Label',
@@ -246,6 +260,11 @@
                      * Callback when input is triggered
                      */
                     this.$emit('input', value);
+                    /**
+                     * Callback when input is triggered
+                     * @ignore
+                     */
+                    this.$emit('update:modelValue', value);
                 },
             },
             computedMultiple() {
@@ -278,6 +297,9 @@
                 this.selected = value;
             },
         },
+        created() {
+            this.selected = this.computedVModel;
+        }
     }
 </script>
 

@@ -15,7 +15,7 @@
                 <slot name="helpText"/>
             </template>
             <div class="Polaris-RangeSlider-DualThumb__Wrapper">
-                <div v-if="prefix || $slots.prefix" class="Polaris-RangeSlider-DualThumb__Prefix">
+                <div v-if="prefix || hasSlot($slots.prefix)" class="Polaris-RangeSlider-DualThumb__Prefix">
                     <slot name="prefix">
                         {{ prefix }}
                     </slot>
@@ -38,7 +38,7 @@
                         :aria-valuemin="min"
                         :aria-valuemax="max"
                         :aria-valuenow="newValue[0]"
-                        :aria-invalid="Boolean(error) || $slots.error"
+                        :aria-invalid="Boolean(error) || hasSlot($slots.error)"
                         :aria-describedby="ariaDescribedBy"
                         :aria-labelledby="`${id}Label`"
                         @focus="$emit('focus', $event)"
@@ -74,7 +74,7 @@
                         :aria-valuemin="min"
                         :aria-valuemax="max"
                         :aria-valuenow="newValue[1]"
-                        :aria-invalid="Boolean(error) || $slots.error"
+                        :aria-invalid="Boolean(error) || hasSlot($slots.error)"
                         :aria-describedby="ariaDescribedBy"
                         :aria-labelledby="`${id}Label`"
                         @focus="$emit('focus', $event)"
@@ -100,7 +100,7 @@
                         </div>
                     </output>
                 </div>
-                <div v-if="suffix || $slots.suffix" class="Polaris-RangeSlider-DualThumb__Suffix">
+                <div v-if="suffix || hasSlot($slots.suffix)" class="Polaris-RangeSlider-DualThumb__Suffix">
                     <slot name="suffix">
                         {{ suffix }}
                     </slot>
@@ -113,6 +113,7 @@
 
 <script>
     import utils from '../../../../utilities';
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { Key } from '../../../../types/keys';
     import { PLabelled } from '../../../../components/PLabelled';
@@ -156,6 +157,12 @@
              * Initial value for range input
              */
             value: {
+                type: [Number, Array],
+            },
+            /**
+             * Initial value for range input
+             */
+            modelValue: {
                 type: [Number, Array],
             },
             /**
@@ -231,10 +238,16 @@
             };
         },
         computed: {
+            computedVModel() {
+                if (utils.isVue3) {
+                    return this.modelValue;
+                }
+                return this.value;
+            },
             trackWrapperClassName() {
                 return classNames(
                     'Polaris-RangeSlider-DualThumb__TrackWrapper',
-                    (this.error || this.$slots.error) && 'Polaris-RangeSlider-DualThumb--error',
+                    (this.error || hasSlot(this.$slots.error)) && 'Polaris-RangeSlider-DualThumb--error',
                     this.disabled && 'Polaris-RangeSlider-DualThumb--disabled',
                 )
             },
@@ -259,7 +272,7 @@
                 };
             },
             newValue() {
-                return this.sanitizeValue(this.value, this.min, this.max, this.step);
+                return this.sanitizeValue(this.computedVModel, this.min, this.max, this.step);
             },
             range() {
                 return this.max - this.min;
@@ -287,6 +300,9 @@
             },
             decrementValueUpper() {
                 this.setValue([this.newValue[0], this.newValue[1] - this.step], this.controlLower);
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

@@ -1,6 +1,6 @@
 <script>
     import utils from '../../utilities';
-    import { h } from 'vue';
+    const vue = require('vue');
     import { classNames } from '../../utilities/css';
     import { PUnstyledLink } from '../../components/PUnstyledLink';
     import { PIcon } from '../../components/PIcon';
@@ -46,17 +46,17 @@
             let contentMarkup = null;
 
             if (utils.isVue3) {
-                contentMarkup = h('span', {
+                contentMarkup = vue.h('span', {
                     class: 'Polaris-Breadcrumbs__ContentWrapper',
                 }, [
-                    h('span', {
+                    vue.h('span', {
                         class: 'Polaris-Breadcrumbs__Icon',
                     }, [
-                        h(PIcon, {
+                        vue.h(PIcon, {
                             source: 'ChevronLeftMinor',
                         }),
                     ]),
-                    h('span', {
+                    vue.h('span', {
                         class: 'Polaris-Breadcrumbs__Content',
                     }, content),
                 ]);
@@ -87,7 +87,7 @@
 
             if (utils.isVue3) {
                 breadcrumbMarkup = 'url' in breadcrumb || 'to' in breadcrumb ? (
-                    h(PUnstyledLink, {
+                    vue.h(PUnstyledLink, {
                         class: breadcrumbClassNames,
                         key: content,
                         url: breadcrumb.url,
@@ -98,7 +98,7 @@
                         },
                     }, [contentMarkup])
                 ) : (
-                    h('button', {
+                    vue.h('button', {
                         class: breadcrumbClassNames,
                         key: content,
                         type: 'button',
@@ -109,7 +109,7 @@
                     }, [contentMarkup])
                 );
 
-                return h('nav', {
+                return vue.h('nav', {
                         role: 'navigation',
                 }, [breadcrumbMarkup]);
             } else {

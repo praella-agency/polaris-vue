@@ -335,13 +335,13 @@ const Template = (args) => ({
                             <PFormLayout>
                                 <PTextField
                                     label="Full name"
-                                    :value="nameFieldValue"
+                                    v-model="nameFieldValue"
                                     @input="handleNameFieldChange"
                                 />
                                 <PTextField
                                     type="email"
                                     label="Email"
-                                    :value="emailFieldValue"
+                                    v-model="emailFieldValue"
                                     @input="handleEmailFieldChange"
                                 />
                             </PFormLayout>
@@ -362,12 +362,12 @@ const Template = (args) => ({
                 <PFormLayout>
                     <PTextField
                         label="Subject"
-                        :value="modalMarkup.supportSubject"
+                        v-model="modalMarkup.supportSubject"
                         @input="handleSubjectChange"
                     />
                     <PTextField
                         label="Message"
-                        :value="modalMarkup.supportMessage"
+                        v-model="modalMarkup.supportMessage"
                         multiline
                         @input="handleMessageChange"
                     />
@@ -558,12 +558,12 @@ Default.parameters = {
             <PFormLayout>
               <PTextField
                   label="Full name"
-                  :value="nameFieldValue"
+                  v-model="nameFieldValue"
               />
               <PTextField
                   type="email"
                   label="Email"
-                  :value="emailFieldValue"
+                  v-model="emailFieldValue"
               />
             </PFormLayout>
           </PCard>
@@ -581,11 +581,11 @@ Default.parameters = {
       <PFormLayout>
         <PTextField
             label="Subject"
-            :value="modalMarkup.supportSubject"
+            v-model="modalMarkup.supportSubject"
         />
         <PTextField
             label="Message"
-            :value="modalMarkup.supportMessage"
+            v-model="modalMarkup.supportMessage"
             multiline
         />
       </PFormLayout>
@@ -755,13 +755,13 @@ const Template1 = (args) => ({
                                 <PFormLayout>
                                     <PTextField
                                         label="Full name"
-                                        :value="nameFieldValue"
+                                        v-model="nameFieldValue"
                                         @input="handleNameFieldChange"
                                     />
                                     <PTextField
                                         type="email"
                                         label="Email"
-                                        :value="emailFieldValue"
+                                        v-model="emailFieldValue"
                                         @input="handleEmailFieldChange"
                                     />
                                 </PFormLayout>
@@ -782,12 +782,12 @@ const Template1 = (args) => ({
                     <PFormLayout>
                         <PTextField
                             label="Subject"
-                            :value="modalMarkup.supportSubject"
+                            v-model="modalMarkup.supportSubject"
                             @input="handleSubjectChange"
                         />
                         <PTextField
                             label="Message"
-                            :value="modalMarkup.supportMessage"
+                            v-model="modalMarkup.supportMessage"
                             multiline
                             @input="handleMessageChange"
                         />
@@ -987,12 +987,12 @@ FrameWithAnOffset.parameters = {
             <PFormLayout>
               <PTextField
                   label="Full name"
-                  :value="nameFieldValue"
+                  v-model="nameFieldValue"
               />
               <PTextField
                   type="email"
                   label="Email"
-                  :value="emailFieldValue"
+                  v-model="emailFieldValue"
               />
             </PFormLayout>
           </PCard>
@@ -1010,11 +1010,11 @@ FrameWithAnOffset.parameters = {
       <PFormLayout>
         <PTextField
             label="Subject"
-            :value="modalMarkup.supportSubject"
+            v-model="modalMarkup.supportSubject"
         />
         <PTextField
             label="Message"
-            :value="modalMarkup.supportMessage"
+            v-model="modalMarkup.supportMessage"
             multiline
         />
       </PFormLayout>

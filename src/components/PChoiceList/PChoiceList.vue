@@ -32,6 +32,7 @@
 </template>
 
 <script>
+    import { uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PCheckbox } from '../../components/PCheckbox';
     import { PRadioButton } from '../../components/PRadioButton';
@@ -117,7 +118,7 @@
              */
             name: {
                 type: String,
-                default: `PolarisChoiceList${new Date().getUTCMilliseconds()}`,
+                default: `PolarisChoiceList${uuid()}`,
             },
             /**
              * Allow multiple

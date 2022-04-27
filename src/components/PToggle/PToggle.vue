@@ -16,6 +16,8 @@
 </template>
 
 <script>
+    import { uuid } from '../../ComponentHelpers';
+
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -37,7 +39,7 @@
              */
             id: {
                 type: [String, Number],
-                default: `PolarisTextField${new Date().getUTCMilliseconds()}`,
+                default: `PolarisTextField${uuid()}`,
             },
             /**
              * propsClass of toggle.

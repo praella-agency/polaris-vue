@@ -17,7 +17,7 @@
             <slot/>
         </PFormLayoutGroupItemWrapper>
         <div
-            v-if="helpText || $slots.helpText"
+            v-if="helpText || hasSlot($slots.helpText)"
             :id="id+'helpText'"
             class="Polaris-FormLayout__HelpText"
         >
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+    import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PFormLayoutItem } from '../../../../components/PFormLayout/components/PFormLayoutItem';
     import { PFormLayoutGroupItemWrapper } from '../../../../components/PFormLayout/components/PFormLayoutGroupItemWrapper';
@@ -45,7 +46,7 @@
              */
             id: {
                 type: [String, Number],
-                default: `PolarisFormLayout${new Date().getUTCMilliseconds()}`,
+                default: `PolarisFormLayout${uuid()}`,
             },
             /**
              * Form group title.
@@ -82,6 +83,9 @@
                     this.condensed && 'Polaris-FormLayout--condensed',
                     !this.condensed && 'Polaris-FormLayout--grouped',
                 );
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
     };

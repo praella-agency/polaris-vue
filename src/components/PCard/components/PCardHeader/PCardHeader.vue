@@ -20,7 +20,7 @@
                     </component>
                 </PButtonGroup>
             </PStackItem>
-            <PStackItem v-if="$slots.hasOwnProperty('children')">
+            <PStackItem v-if="hasSlot($slots.children)">
                 <slot name="children"/>
             </PStackItem>
         </PStack>
@@ -40,6 +40,7 @@
 
 <script>
     import utils from '../../../../utilities';
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { PStack } from '../../../../components/PStack';
     import { PStackItem } from '../../../../components/PStack/components/PStackItem';
     import { PHeading } from '../../../../components/PHeading';
@@ -69,6 +70,9 @@
         computed: {
             util() {
                 return utils;
+            },
+            hasSlot() {
+                return hasSlot;
             },
         }
     }

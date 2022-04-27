@@ -26,6 +26,7 @@
 </template>
 
 <script>
+    import { uuid } from '../../../../ComponentHelpers';
     import {classNames} from '../../../../utilities/css';
     import {ComplexAction, MenuActionDescriptor} from '../../../../types';
     import {PIcon} from '../../../../components/PIcon';
@@ -44,7 +45,7 @@
       props: {
         id: {
           type: [String, Number],
-          default: `ActionMenuMenuAction${new Date().getUTCMilliseconds()}`,
+          default: `ActionMenuMenuAction${uuid()}`,
         },
         content: {
           type: String,

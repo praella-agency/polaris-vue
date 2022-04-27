@@ -83,7 +83,7 @@
                 default: false,
             },
         },
-        emits: ['change', 'update:color'],
+        emits: ['change', 'update:color', 'drop'],
         data() {
             return {
                 showPicker: false,

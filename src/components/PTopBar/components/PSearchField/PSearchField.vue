@@ -1,7 +1,7 @@
 <template>
     <div :class="className">
         <input
-            :id="`SearchField${Math.random()}`"
+            :id="`SearchField${uuid}`"
             class="Polaris-TopBar-SearchField__Input"
             :placeholder="placeholder"
             type="search"
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+    import utils from '../../../../utilities';
+    import { uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PIcon } from '../../../../components/PIcon';
 
@@ -47,6 +49,13 @@
              * Initial value for the input
              */
             value: {
+                type: String,
+                required: true,
+            },
+            /**
+             * Initial value for the input
+             */
+            modelValue: {
                 type: String,
                 required: true,
             },
@@ -79,14 +88,20 @@
                 default: false,
             },
         },
-        emits: ['input', 'change', 'cancel', 'focus', 'update:value'],
+        emits: ['input', 'change', 'cancel', 'focus', 'update:value', 'update:modelValue'],
         data() {
             return {
                 forceActive: false,
-                inputValue: this.value,
+                inputValue: this.computedVModel,
             };
         },
         computed: {
+            computedVModel() {
+                if (utils.isVue3) {
+                    return this.modelValue;
+                }
+                return this.value;
+            },
             className() {
                 return classNames(
                     'Polaris-TopBar-SearchField',
@@ -115,8 +130,17 @@
                      * @ignore
                      */
                     this.$emit('update:value', value);
+                    /**
+                     * For Vue 3
+                     * Handle input of search field
+                     * @ignore
+                     */
+                    this.$emit('update:modelValue', value);
                 },
             },
+            uuid() {
+                return uuid();
+            }
         },
         methods: {
             preventDefault(event) {
@@ -147,10 +171,14 @@
                 this.inputValue = '';
                 this.$emit('input', '');
                 /**
-                 * For Vue 3
                  * @ignore
                  */
                 this.$emit('update:value', '');
+                /**
+                 * For Vue 3
+                 * @ignore
+                 */
+                this.$emit('update:modelValue', '');
             },
         },
         watch: {
@@ -166,5 +194,8 @@
                 }
             },
         },
+        created() {
+            this.inputValue = this.computedVModel;
+        }
     }
 </script>

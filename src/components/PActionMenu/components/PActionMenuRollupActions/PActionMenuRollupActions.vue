@@ -1,5 +1,5 @@
 <template>
-   <PPopover :id="`Popover${this['_uid']}`" :active="rollupOpen" preferredAlignment="right" @close="toggleRollupOpen" hideOnPrint>
+   <PPopover :id="`Popover${uuid}`" :active="rollupOpen" preferredAlignment="right" @close="toggleRollupOpen" hideOnPrint>
        <template #activator>
            <div class="Polaris-ActionMenu-RollupActions__RollupActivator">
                <PButton :plain="true" :outline="false" icon="HorizontalDotsMinor" type="button" @click="toggleRollupOpen" />
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+    import { uuid } from '../../../../ComponentHelpers';
 import {ActionListSection, ActionListItemDescriptor } from '../../../../types';
 import {PPopover} from '../../../../components/PPopover';
 import {PButton} from '../../../../components/PButton';
@@ -38,6 +39,11 @@ export default {
       rollupOpen: false,
     }
   },
+    computed: {
+        uuid() {
+            return uuid();
+        },
+    },
   methods: {
     toggleRollupOpen() {
       this.rollupOpen = !this.rollupOpen;

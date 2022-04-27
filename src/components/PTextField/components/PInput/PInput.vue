@@ -2,7 +2,7 @@
     <div :class="className" v-show="showInput">
         <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
             {{ prefix }}
-            <slot v-if="$slots.prefix" name="prefix"/>
+            <slot v-if="hasSlot($slots.prefix)" name="prefix"/>
         </div>
         <div style="width: 100%">
             <ck-editor
@@ -93,7 +93,7 @@
         </div>
         <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" v-if="showSuffix">
             {{ suffix }}
-            <slot v-if="$slots.suffix" name="suffix"></slot>
+            <slot v-if="hasSlot($slots.suffix)" name="suffix"></slot>
         </div>
 
         <div v-if="showCharacterCount"
@@ -123,6 +123,7 @@
 
 <script>
     import utils from '../../../../utilities';
+    import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PSpinner } from '../../../../components/PTextField/components/PSpinner';
     import { PFieldResizer } from '../../../../components/PTextField/components/PFieldResizer';
@@ -146,9 +147,13 @@
         props: {
             id: {
                 type: [String, Number],
-                default: `PolarisTextField${new Date().getUTCMilliseconds()}`,
+                default: `PolarisTextField${uuid()}`,
             },
             value: {
+                type: [String, Number, Object, Array, Boolean, FileList],
+                default: null,
+            },
+            modelValue: {
                 type: [String, Number, Object, Array, Boolean, FileList],
                 default: null,
             },
@@ -246,17 +251,23 @@
                 type: Boolean,
             },
         },
-        emits: ['input'],
+        emits: ['input', 'update:modelValue'],
         data() {
             return {
-                content: this.value !== null ? this.value : '',
+                content: this.computedVModel !== null ? this.computedVModel : '',
                 height: this.minHeight,
                 editor: ClassicEditor,
                 characterCountLabel: this.maxLength || 'characterCountLabel',
-                characterCount: this.value && this.value.length,
+                characterCount: this.computedVModel && this.computedVModel.length,
             };
         },
         computed: {
+            computedVModel() {
+                if (utils.isVue3) {
+                    return this.modelValue;
+                }
+                return this.value;
+            },
             className() {
                 return classNames(
                     'Polaris-TextField',
@@ -307,10 +318,10 @@
                 return this.type === 'currency' ? 'text' : this.type;
             },
             showPrefix() {
-                return this.prefix || this.$slots.prefix;
+                return this.prefix || hasSlot(this.$slots.prefix);
             },
             showSuffix() {
-                return this.suffix || this.$slots.suffix;
+                return this.suffix || hasSlot(this.$slots.suffix);
             },
             textAlign() {
                 return this.align.replace(
@@ -349,6 +360,7 @@
                         this.content = value;
                     }
                     this.$emit('input', this.type === 'number' ? Number(value) : value);
+                    this.$emit('update:modelValue', this.type === 'number' ? Number(value) : value);
                 },
             },
             computedStyle() {
@@ -362,7 +374,10 @@
             },
             utils() {
                 return utils;
-            }
+            },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             onInput(event) {
@@ -424,7 +439,15 @@
                 // this.normalizedValue = value;
                 this.characterCount = value ? value.length : 0;
             },
+            modelValue(value, oldValue) {
+                this.content = value;
+                // this.normalizedValue = value;
+                this.characterCount = value ? value.length : 0;
+            },
         },
+        created() {
+            this.content = this.computedVModel;
+        }
     }
 </script>
 

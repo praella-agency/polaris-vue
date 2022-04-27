@@ -5,14 +5,14 @@
                 <POptionsListCheckbox :id="id" :value="value" :checked="select" :active="active" :disabled="disabled"
                                       @change="handleEvent"/>
             </div>
-            <div v-if="$slots.media()" class="Polaris-OptionList-Option__Media">
+            <div v-if="hasSlot($slots.media)" class="Polaris-OptionList-Option__Media">
                 <slot name="media"/>
             </div>
             <slot/>
         </label>
         <button v-else :id="id" type="button" :class="singleSelectClassName" @click="handleEvent"
                 @focus="focused = !focused" @blur="focused = !focused">
-            <div v-if="$slots.media()" class="Polaris-OptionList-Option__Media">
+            <div v-if="hasSlot($slots.media)" class="Polaris-OptionList-Option__Media">
                 <slot name="media"/>
             </div>
             <slot/>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { POptionsListCheckbox } from '../../../../components/POptionList/components/POptionsListCheckbox';
 
@@ -78,7 +79,10 @@
                     this.active && 'Polaris-OptionList-Option--active',
                     this.select && 'Polaris-OptionList-Option--select',
                 );
-            }
+            },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             handleEvent() {

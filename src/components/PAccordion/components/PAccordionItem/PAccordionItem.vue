@@ -36,6 +36,7 @@
 
 <script>
     import utils from '../../../../utilities';
+    import { uuid } from '../../../../ComponentHelpers';
     import { PAccordionHeader } from '../../../../components/PAccordion/components/PAccordionHeader';
     import { PAccordionContent } from '../../../../components/PAccordion/components/PAccordionContent';
     import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
@@ -158,7 +159,7 @@
         // emits: [`accordion-${this.getAccordionId}-toggle`, `accordion-${this.getAccordionId}-item`],
         data() {
             return {
-                ID: (this.id || this.id === 0) ? this.id : Math.random(),
+                ID: (this.id || this.id === 0) ? this.id : uuid(),
                 themeOptionsData: {
                     header: {
                         color: '',

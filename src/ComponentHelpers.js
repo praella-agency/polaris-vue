@@ -135,7 +135,21 @@ function createComponent(component, props, parentContainer, element, slots = {})
 
 function hasSlot(slot) {
     if (utils.isVue3) {
-        return !!(slot && slot().length === 2 ? slot()[1].children.length : false);
+        let hasSlot = false;
+        if (slot) {
+            slot().forEach((item) => {
+                if (item.type !== vue.Comment) {
+                    if (Array.isArray(item.children)) {
+                        if (item.children.length) {
+                            hasSlot = true;
+                        }
+                    } else {
+                        hasSlot = true;
+                    }
+                }
+            });
+        }
+        return hasSlot;
     } else {
         return !!slot;
     }
@@ -145,5 +159,5 @@ export {
     createComponent,
     uuid,
     wrapNodesWithComponent,
-    hasSlot
+    hasSlot,
 };

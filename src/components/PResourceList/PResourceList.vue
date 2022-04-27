@@ -2,7 +2,7 @@
     <div :class="className">
         <div class="Polaris-ResourceList__FiltersWrapper" v-if="!hideFilters">
             <PFilter
-                v-if="$slots.filter"
+                v-if="hasSlot($slots.filter)"
                 v-bind="$attrs"
                 :resourceName="resourceName"
                 @remove-tag="onRemoveFilter"
@@ -101,6 +101,7 @@
 
 <script>
     import utils from '../../utilities';
+    import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
     import { PFilter } from '../../components/PFilter';
@@ -269,6 +270,9 @@
                     return this.$listeners;
                 }
                 return {};
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

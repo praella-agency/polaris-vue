@@ -112,7 +112,6 @@
 </template>
 
 <script>
-    import utils from '../../../../utilities';
     import { classNames } from '../../../../utilities/css';
     import { uuid } from '../../../../ComponentHelpers';
     import { PButtonGroup } from '../../../../components/PButtonGroup';
@@ -154,7 +153,7 @@
         props: {
             popoverId: {
                 type: String,
-                default: `PolarisPopover${uuid}`,
+                default: `PolarisPopover${uuid()}`,
             },
             resourceTitle: {
                 type: String,

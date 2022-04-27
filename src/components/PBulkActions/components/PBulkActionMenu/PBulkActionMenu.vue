@@ -1,6 +1,6 @@
 <template>
     <PPopover
-        :id="this['_uid']"
+        :id="uuid"
         :active.sync="isVisible"
         @close="handleItemAction"
         preferInputActivator
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+    import { uuid } from '../../../../ComponentHelpers';
     import { PPopover } from '../../../../components/PPopover';
     import { PActionList } from '../../../../components/PActionList';
     import { PBulkActionButton } from '../../../../components/PBulkActions/components/PBulkActionButton';
@@ -56,6 +57,11 @@
                 isVisible: false,
             };
         },
+        computed: {
+            uuid() {
+                return uuid();
+            },
+        },
         methods: {
             toggleMenuVisibility() {
                 this.isVisible = !this.isVisible;
@@ -65,8 +71,8 @@
             }
         },
         beforeDestroy() {
-            if (document.getElementById('PolarisPopover' + this['_uid'] + 'Overlay')) {
-                document.getElementById('PolarisPopover' + this['_uid'] + 'Overlay').remove();
+            if (document.getElementById('PolarisPopover' + this.uuid + 'Overlay')) {
+                document.getElementById('PolarisPopover' + this.uuid + 'Overlay').remove();
             }
         },
     }

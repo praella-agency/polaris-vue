@@ -2,7 +2,7 @@
     <div>
         <div v-if="open">
             <PModalDialog :large="large" :small="small" :limitHeight="limitHeight">
-                <PModalHeader v-if="title || $slots.title" @close="handleOnClick">
+                <PModalHeader v-if="title || hasSlot($slots.title)" @close="handleOnClick">
                     <slot name="title">
                         {{ title }}
                     </slot>
@@ -30,11 +30,11 @@
                         </template>
                     </div>
                 </div>
-                <PModalFooter v-if="$slots.footer">
+                <PModalFooter v-if="hasSlot($slots.footer)">
                     <!-- @slot The content to display inside modal footer -->
                     <slot name="footer"/>
                 </PModalFooter>
-                <PModalFooter v-if="!$slots.footer && (Object.keys(primaryAction).length > 0
+                <PModalFooter v-if="!hasSlot($slots.footer) && (Object.keys(primaryAction).length > 0
                                       || secondaryActions)"
                               :primaryAction="primaryAction" :secondaryActions="secondaryActions">
                 </PModalFooter>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../ComponentHelpers';
     import { PSpinner } from '../../components/PSpinner';
     import { PModalDialog } from '../../components/PModal/components/PModalDialog';
     import { PModalHeader } from '../../components/PModal/components/PModalHeader';
@@ -148,6 +149,11 @@
             return {
                 iframeHeight: 200,
             };
+        },
+        computed: {
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             setIframeHeight(height) {

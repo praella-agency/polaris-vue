@@ -1,7 +1,7 @@
 <template>
     <div :class="className">
         <div
-            v-if="!floatingLabel && (label || emptyLabel || $slots.label)"
+            v-if="!floatingLabel && (label || emptyLabel || hasSlot($slots.label))"
             class="Polaris-Labelled__LabelWrapper"
             :class="labelClass"
         >
@@ -14,14 +14,14 @@
         </div>
 
         <PConnected v-if="connected">
-            <template #left v-if="$slots.connectedLeft">
+            <template #left v-if="hasSlot($slots.connectedLeft)">
                 <!-- @slot An element connected to the left of the input -->
                 <slot name="connectedLeft">
                     {{ connectedLeft }}
                 </slot>
             </template>
 
-            <template #right v-if="$slots.connectedRight">
+            <template #right v-if="hasSlot($slots.connectedRight)">
                 <!-- @slot An element connected to the right of the input -->
                 <slot name="connectedRight">
                     {{ connectedRight }}
@@ -48,13 +48,14 @@
                 :accept="accept"
                 :type="type"
                 :readOnly="readOnly"
+                :prefix="prefix"
                 @input="handleInput"
             >
-                <template #prefix v-if="this.$attrs.prefix || this.$slots.prefix">
+                <template #prefix v-if="$attrs.prefix || hasSlot($slots.prefix)">
                     <!-- @slot Field prefix -->
                     <slot name="prefix"></slot>
                 </template>
-                <template #suffix v-if="this.$attrs.suffix || this.$slots.suffix">
+                <template #suffix v-if="$attrs.suffix || hasSlot($slots.suffix)">
                     <!-- @slot Field suffix -->
                     <slot name="suffix"></slot>
                 </template>
@@ -82,15 +83,16 @@
             :accept="accept"
             :type="type"
             :readOnly="readOnly"
+            :prefix="prefix"
             @input="handleInput"
         >
-            <template #prefix v-if="this.$attrs.prefix || this.$slots.prefix">
+            <template #prefix v-if="$attrs.prefix || hasSlot($slots.prefix)">
                 <slot name="prefix"></slot>
             </template>
             <template #label>
                 <slot name="label"></slot>
             </template>
-            <template #suffix v-if="this.$attrs.suffix || this.$slots.suffix">
+            <template #suffix v-if="$attrs.suffix || hasSlot($slots.suffix)">
                 <slot name="suffix"></slot>
             </template>
         </PInput>
@@ -106,6 +108,7 @@
 
 <script>
     import utils from '../../utilities';
+    import { hasSlot, uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PInput } from '../../components/PTextField/components/PInput';
     import { PConnected } from '../../components/PConnected';
@@ -135,7 +138,7 @@
              */
             id: {
                 type: [String, Number],
-                default: `PolarisTextField${new Date().getUTCMilliseconds()}`,
+                default: `PolarisTextField${uuid()}`,
             },
             /**
              * Text field label class
@@ -176,6 +179,13 @@
              * Text field has error
              */
             error: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Element to display before the input
+             */
+            prefix: {
                 type: String,
                 default: null,
             },
@@ -245,7 +255,7 @@
                 type: Boolean,
             },
         },
-        emits: ['input', 'update:value'],
+        emits: ['input', 'update:value', 'update:modelValue'],
         computed: {
             className() {
                 return classNames(
@@ -267,6 +277,9 @@
                 }
                 return {};
             },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             handleInput(value) {
@@ -279,8 +292,13 @@
                  * @ignore
                  */
                 this.$emit('update:value', value);
+                /**
+                 * Get inserted data
+                 * @ignore
+                 */
+                this.$emit('update:modelValue', value);
             },
-        }
+        },
     }
 </script>
 

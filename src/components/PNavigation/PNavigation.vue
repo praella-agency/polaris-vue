@@ -1,6 +1,6 @@
 <template>
     <nav class="Polaris-Navigation" :aria-labelledby="ariaLabelledBy">
-        <template v-if="$slots.contextControl">
+        <template v-if="hasSlot($slots.contextControl)">
             <div class="Polaris-Navigation__ContextControl">
                 <!-- @slot Add context control. -->
                 <slot name="contextControl"/>
@@ -42,6 +42,7 @@ Access values with `slot-props` attribute. -->
 </template>
 
 <script>
+    import { hasSlot } from '../../ComponentHelpers';
     import { ThemeLogo, getWidth } from '../../types/logo';
     import { PUnstyledLink } from '../../components/PUnstyledLink';
     import { PImage } from '../../components/PImage';
@@ -123,6 +124,9 @@ Access values with `slot-props` attribute. -->
                 set(value) {
                     this.showLogo = value;
                 },
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

@@ -15,7 +15,7 @@ import { PButtonGroup } from '../PButtonGroup';
 import argTypes from './args';
 
 export default {
-    title: 'Lists & Tables / Data Table / Slot ',
+    title: 'Lists & Tables / Data Table / Slot',
     component: PDataTable,
     argTypes
 }

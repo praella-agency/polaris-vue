@@ -42,6 +42,8 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
+    import { uuid } from '../../ComponentHelpers';
     import { Action } from '../../types';
     import { PDualThumb } from './components/PDualThumb';
     import { PSingleThumb } from './components/PSingleThumb';
@@ -80,12 +82,18 @@
              */
             id: {
                 type: [String, Number],
-                default: `PolarisRangeSlider-${new Date().getUTCMilliseconds()}`,
+                default: `PolarisRangeSlider-${uuid()}`,
             },
             /**
              * Initial value for range input
              */
             value: {
+                type: [Number, Array],
+            },
+            /**
+             * Initial model value for range input
+             */
+            modelValue: {
                 type: [Number, Array],
             },
             /**
@@ -151,10 +159,16 @@
                 default: null,
             },
         },
-        emits: ['change', 'update:value', 'focus', 'blur'],
+        emits: ['change', 'update:value', 'update:modelValue', 'focus', 'blur'],
         computed: {
+            computedVModel() {
+                if (utils.isVue3) {
+                    return this.modelValue;
+                }
+                return this.value;
+            },
             isDualThumb() {
-                return Array.isArray(this.value);
+                return Array.isArray(this.computedVModel);
             }
         },
         methods: {
@@ -167,6 +181,10 @@
                  * @ignore
                  */
                 this.$emit('update:value', value);
+                /**
+                 * @ignore
+                 */
+                this.$emit('update:modelValue', value);
             },
             handleFocus(event) {
                 /**

@@ -146,8 +146,9 @@ const Template = (args) => ({
     template: `
         <PTextField
             v-bind="args"
-            v-model:value="formData"
-        />`,
+            v-model="formData"
+        />
+    {{formData}}`,
 });
 
 export const TextField = Template.bind({});
@@ -203,7 +204,7 @@ const Template2 = (args) => ({
                 <PButton>Submit</PButton>
             </template>
             <template #connectedLeft>
-                <PSelect v-model:value="selectedOption" :options="['%','$']"/>
+                <PSelect v-model="selectedOption" :options="['%','$']"/>
             </template>
         </PTextField>`,
 });
@@ -232,12 +233,12 @@ const Template3 = (args) => ({
     template: `
         <PTextField
             v-bind="args"
-            v-model:value="files"
+            v-model="files"
             @input="getFiles"
         />`,
     methods: {
-        getFiles() {
-            console.log(this.files)
+        getFiles(value) {
+            console.log(value)
         }
     },
 });

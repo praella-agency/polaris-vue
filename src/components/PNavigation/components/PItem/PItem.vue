@@ -16,7 +16,7 @@
                 :aria-controls="normalizeAriaAttributesForControls"
             >
 
-                <div v-if="icon" :class="$slots.icon() ? 'Polaris-Navigation__Icon--slot' : 'Polaris-Navigation__Icon'">
+                <div v-if="icon" :class="hasSlot($slots.icon) ? 'Polaris-Navigation__Icon--slot' : 'Polaris-Navigation__Icon'">
                     <span class="Polaris-Navigation__Icon--span">
                         <slot name="icon" :item="itemValue">
                             <PIcon :source="icon"/>
@@ -34,7 +34,7 @@
                         <span class="Polaris-Indicator Polaris-Indicator--pulseIndicator"/>
                     </span>
                 </span>
-                <div v-if="this.new || this.badge || $slots.hasOwnProperty('badge')"
+                <div v-if="this.new || this.badge || hasSlot($slots.badge)"
                      class="Polaris-Navigation__Badge">
                     <PBadge v-if="this.new" status="new" size="small">
                         New
@@ -90,6 +90,7 @@
 
 <script>
     import utils from '../../../../utilities';
+    import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PUnstyledLink } from '../../../../components/PUnstyledLink';
     import { PIcon } from '../../../../components/PIcon';
@@ -188,7 +189,7 @@
                 keyFocused: false,
                 tabIndex: this.disabled ? -1 : 0,
                 isNavigationCollapsed: false,
-                secondaryNavigationId: `SecondaryNavigation${new Date().getUTCMilliseconds()}`,
+                secondaryNavigationId: `SecondaryNavigation${uuid()}`,
                 matchState: this.matchStateForItem({
                     url: this.url,
                     to: this.to,
@@ -282,6 +283,9 @@
                     subNavigationItems: this.subNavigationItems,
                     secondaryAction: this.secondaryAction
                 };
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

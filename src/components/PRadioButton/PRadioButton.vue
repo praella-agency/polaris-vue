@@ -32,6 +32,7 @@
 </template>
 
 <script>
+    import { uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PChoice } from '../../components/PChoice';
 
@@ -52,7 +53,7 @@
              */
             id: {
                 type: [String, Number],
-                default: `PolarisRadioButton${new Date().getUTCMilliseconds()}`,
+                default: `PolarisRadioButton${uuid()}`,
                 required: true,
             },
             /**

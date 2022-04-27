@@ -14,7 +14,7 @@
                             @input="handleQueryChange"
                             @blur="handleQueryBlur"
                             @focus="handleQueryFocus"
-                            :value="queryValue || inputFilter"
+                            v-model="computedValue"
                             :autoFocus="focused"
                             :label="queryPlaceholder || resourceTitle || resource"
                             clearable
@@ -26,7 +26,7 @@
                             </template>
                         </PTextField>
                     </PFilterItemWrapper>
-                    <PFilterItemWrapper v-if="$slots.default" position="right">
+                    <PFilterItemWrapper v-if="hasSlot($slots.default)" position="right">
                         <!-- @slot The content to display inline with the controls -->
                         <slot/>
                     </PFilterItemWrapper>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../ComponentHelpers';
     import { PTextField } from '../../components/PTextField';
     import { PIcon } from '../../components/PIcon';
     import { PTag } from '../../components/PTag';
@@ -194,18 +195,27 @@
             };
         },
         computed: {
-          prefix() {
-            if(this.resourceName.plural) {
-              return `${this.resourceName.plural.toLowerCase()}`;
-            } else {
-              return this.resourceName.plural;
-            }
-          },
-          resource() {
-            const resourceName = this.resourceName;
-            return resourceName.plural ? 'Filter ' + resourceName.plural.toLowerCase() :
-                (resourceName.singular ? 'Filter ' + resourceName.singular.toLowerCase() : '');
-          },
+            prefix() {
+                if (this.resourceName.plural) {
+                    return `${this.resourceName.plural.toLowerCase()}`;
+                } else {
+                    return this.resourceName.plural;
+                }
+            },
+            resource() {
+                const resourceName = this.resourceName;
+                return resourceName.plural ? 'Filter ' + resourceName.plural.toLowerCase() :
+                    (resourceName.singular ? 'Filter ' + resourceName.singular.toLowerCase() : '');
+            },
+            computedValue() {
+                if (this.queryValue) {
+                    return this.queryValue;
+                }
+                return this.inputFilter;
+            },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             handleQueryChange(queryValue) {

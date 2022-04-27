@@ -11,6 +11,7 @@
 </template>
 
 <script>
+    import { uuid } from '../../../../../../ComponentHelpers';
     import { PCollapsible } from '../../../../../../components/PCollapsible';
 
     export default {
@@ -30,7 +31,7 @@
         },
         data() {
             return {
-                uid: `SecondaryNavigation${new Date().getUTCMilliseconds()}`,
+                uid: `SecondaryNavigation${uuid()}`,
             };
         },
     }

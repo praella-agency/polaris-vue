@@ -2,7 +2,7 @@
     <div>
         <div>
             <PFilter
-                v-if="$slots.hasOwnProperty('filterOptions') || hasFilter"
+                v-if="hasSlot($slots.filterOptions) || hasFilter"
                 v-bind="$attrs"
                 :resourceName="resourceName"
                 @remove-tag="onRemoveFilter"
@@ -611,6 +611,7 @@ Access values with `slot-props` attribute.-->
 </template>
 
 <script>
+    import { hasSlot } from '../../ComponentHelpers';
     import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
     import { PSpinner } from '../../components/PSpinner';
@@ -878,7 +879,10 @@ Access values with `slot-props` attribute.-->
                         this.$set(this, 'paginatedSelectAction', value);
                     }
                 },
-            }
+            },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             isSmallScreen() {

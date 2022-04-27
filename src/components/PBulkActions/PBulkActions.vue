@@ -31,7 +31,7 @@
                         v-if="hasActions"
                     >
                         <PPopover
-                            :id="this['_uid']"
+                            :id="uuid"
                             :active.sync="smallScreenPopoverVisible"
                             @close="() => { this.smallScreenPopoverVisible = false; }"
                         >
@@ -127,7 +127,7 @@
                             ref="moreActionsNode"
                         >
                             <PPopover
-                                :id="this['_uid']"
+                                :id="uuid"
                                 :active.sync="largeScreenPopoverVisible"
                                 @close="() => { this.largeScreenPopoverVisible = false; }"
                             >
@@ -186,6 +186,7 @@
 </template>
 
 <script>
+    import { uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { BulkAction } from '../../components/PIndexTable/utilities';
     import { PButtonGroup } from '../../components/PButtonGroup';
@@ -387,6 +388,9 @@
 
                 return rolledInPromotedActions.slice(numberOfPromotedActionsToRender);
             },
+            uuid() {
+                return uuid();
+            },
         },
         methods: {
             isNewBadgeInBadgeActions() {
@@ -468,8 +472,8 @@
             },
         },
         beforeDestroy() {
-            if (document.getElementById('PolarisPopover'+this['_uid']+'Overlay')) {
-                document.getElementById('PolarisPopover' + this['_uid'] + 'Overlay').remove();
+            if (document.getElementById('PolarisPopover'+this.uuid+'Overlay')) {
+                document.getElementById('PolarisPopover' + this.uuid + 'Overlay').remove();
             }
         },
     }

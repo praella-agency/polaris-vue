@@ -10,7 +10,7 @@
                     :disabled="action.disabled"
                     :external="action.external"
                     :icon="action.icon"
-                    :id="action.id ? action.id : `Polaris-Setting-Toggle${this['_uid']}`"
+                    :id="action.id ? action.id : `Polaris-Setting-Toggle${this.uuid}`"
                     :loading="action.loading"
                     :outline="action.outline"
                     :url="action.url"
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+    import { uuid } from '../../ComponentHelpers';
     import { PCard } from '../../components/PCard';
     import { PButton } from '../../components/PButton';
     import { PSettingAction } from '../../components/PSettingToggle/components/PSettingAction';
@@ -79,5 +80,10 @@
                 default: null,
             },
         },
+        computed: {
+            uuid() {
+                return uuid();
+            }
+        }
     }
 </script>

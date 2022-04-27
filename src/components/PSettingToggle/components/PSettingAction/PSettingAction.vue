@@ -3,7 +3,7 @@
         <div class="Polaris-SettingAction__Setting">
             <slot/>
         </div>
-        <div v-if="$slots.action || action" class="Polaris-SettingAction__Action">
+        <div v-if="hasSlot($slots.action) || action" class="Polaris-SettingAction__Action">
             <slot name="action">
                 <PButton v-if="action"
                          primary
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { PCard } from '../../../../components/PCard';
     import { PButton } from '../../../../components/PButton';
 
@@ -38,6 +39,11 @@
             },
             propsClass: {
                 type: String,
+            },
+        },
+        computed: {
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

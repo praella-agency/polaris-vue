@@ -11,7 +11,7 @@
         >
             <PIcon source="MobileHamburgerMajor"/>
         </button>
-        <div v-if="$slots.contextControl" testID="ContextControl"
+        <div v-if="hasSlot($slots.contextControl)" testID="ContextControl"
              class="Polaris-TopBar__ContextControl">
             <!-- @slot Accepts a component that is used to help users switch between different contexts -->
             <slot name="contextControl"/>
@@ -32,23 +32,13 @@
         </div>
         <div class="Polaris-TopBar__Contents">
             <div
-                v-if="$slots.searchField || Object.keys(searchField).length > 0"
+                v-if="hasSlot($slots.searchField) || Object.keys(searchField).length > 0"
                 class="Polaris-TopBar__SearchField"
             >
                 <!-- @slot Customize SearchField -->
                 <slot name="searchField">
                     <PSearchField
-                        v-if="utils.isVue2"
                         v-model="searchFieldValue"
-                        :placeholder="searchField.placeholder"
-                        :showFocusBorder="searchField.showFocusBorder"
-                        :focused="searchField.focused"
-                        :active="searchField.active"
-                        @change="handleSearchFieldChange"
-                    />
-                    <PSearchField
-                        v-else-if="utils.isVue3"
-                        v-model:value="searchFieldValue"
                         :placeholder="searchField.placeholder"
                         :showFocusBorder="searchField.showFocusBorder"
                         :focused="searchField.focused"
@@ -71,7 +61,7 @@
                 </PSearch>
             </div>
             <div
-                v-if="hasSlot(this.$slots.secondaryMenu) || Object.keys(secondaryMenu).length > 0"
+                v-if="hasSlot($slots.secondaryMenu) || Object.keys(secondaryMenu).length > 0"
                 class="Polaris-TopBar__SecondaryMenu"
             >
                 <!-- @slot Customize SecondaryMenu -->
@@ -99,7 +89,6 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
     import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { ThemeLogo, getWidth } from '../../types/logo';
@@ -228,7 +217,7 @@
                 return classNames(
                     'Polaris-TopBar__LogoContainer',
                     /* tslint:disable-next-line */
-                    (this.showNavigationToggle || this.$slots.searchField) ?
+                    (this.showNavigationToggle || hasSlot(this.$slots.searchField)) ?
                         'Polaris-TopBar__LogoDisplayControl' :
                         'Polaris-TopBar__LogoDisplayContainer',
                 );
@@ -243,9 +232,6 @@
                 return {
                     width: getWidth(this.logo, 104),
                 };
-            },
-            utils() {
-                return utils;
             },
             hasSlot() {
                 return hasSlot;

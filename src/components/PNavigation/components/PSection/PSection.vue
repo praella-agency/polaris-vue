@@ -32,7 +32,7 @@
             class="Polaris-Navigation__RollupSection"
         >
             <PCollapsible
-                :id="`AdditionalItems#${this['_uid']}`"
+                :id="`AdditionalItems#${this.uuid}`"
                 :open="expanded"
             >
                 <ul
@@ -65,7 +65,7 @@
                     class="Polaris-Navigation__Item Polaris-Navigation__RollupToggle"
                     @click="toggleExpanded"
                     :aria-label="Object.keys(rollup).length > 0 && (expanded ? rollup.view : rollup.hide)"
-                    :aria-controls="`AdditionalItems#${this['_uid']}`"
+                    :aria-controls="`AdditionalItems#${this.uuid}`"
                     :testID="`ToggleViewAll`"
                 >
                     <span class="Polaris-Navigation__Icon">
@@ -78,6 +78,7 @@
 </template>
 
 <script>
+    import { uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PItem } from '../../../../components/PNavigation/components/PItem';
     import { PIcon } from '../../../../components/PIcon';
@@ -178,6 +179,9 @@
                 return Object.keys(this.rollup).length > 0
                     ? this.itemsMarkup.slice(0, this.rollup.after)
                     : this.itemsMarkup;
+            },
+            uuid() {
+                return uuid();
             },
         },
         methods: {

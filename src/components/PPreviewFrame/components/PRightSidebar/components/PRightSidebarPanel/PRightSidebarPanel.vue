@@ -4,7 +4,7 @@
             <div :class="className"
             >
                 <section
-                    v-if="rightSidebarTitle || $slots['sidebar.right.title']"
+                    v-if="rightSidebarTitle || hasSlot($slots['sidebar.right.title'])"
                     :class="sectionClassName"
                 >
                     <div class="Polaris-PreviewFrame__ChildrenWrapper--header">
@@ -39,7 +39,7 @@
                 </section>
             </div>
             <div
-                v-if="$slots['sidebar.right.footer']"
+                v-if="hasSlot($slots['sidebar.right.footer'])"
                 class="Polaris-PreviewFrame__Layout
                                 Polaris-PreviewFrame__layoutSpacingDefault
                                 Polaris-PreviewFrame__sticky"
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../../../../../ComponentHelpers';
     import { classNames } from "../../../../../../utilities/css";
     import { PHeading } from '../../../../../../components/PHeading';
     import { PButton } from '../../../../../../components/PButton';
@@ -106,6 +107,9 @@
                     this.responsiveRightSidebar && 'Polaris-PreviewFrame__RightHeader--sticky',
                     this.responsiveRightSidebar && 'Polaris-PreviewFrame__RightHeader--hasBack',
                 );
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

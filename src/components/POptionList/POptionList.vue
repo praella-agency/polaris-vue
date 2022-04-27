@@ -33,6 +33,7 @@ Access values with `slot-props` attribute.-->
 </template>
 
 <script>
+    import { uuid } from '../../ComponentHelpers';
     import { POptionsListOption } from '../../components/POptionList/components/POptionsListOption';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
 
@@ -134,7 +135,7 @@ Access values with `slot-props` attribute.-->
         computed: {
             optionListId() {
                 if (!this.id) {
-                    return `Polaris-OptionList-${this['_uid']}`;
+                    return `Polaris-OptionList-${this.uuid}`;
                 }
                 return this.id;
             },
@@ -148,7 +149,10 @@ Access values with `slot-props` attribute.-->
                 }
 
                 return [{title: this.title, options: this.options}, ...this.sections];
-            }
+            },
+            uuid() {
+                return uuid();
+            },
         },
         methods: {
             handleClick(sectionIndex, optionIndex) {

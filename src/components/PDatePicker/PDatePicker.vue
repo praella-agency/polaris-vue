@@ -1,7 +1,7 @@
 <template>
     <div :class="labelHidden && 'Polaris-Labelled--hidden'">
         <div class="Polaris-Labelled__LabelWrapper"
-             v-if="!floatingLabel && (label || emptyLabel || $slots.hasOwnProperty('label'))"
+             v-if="!floatingLabel && (label || emptyLabel || hasSlot($slots.label))"
              :class="labelClass">
             <!-- @slot Display label for the element -->
             <slot name="label">
@@ -51,6 +51,7 @@
                     :floating-label="floatingLabel"
                     readOnly
                     aria-readonly="true"
+                    :modelValue="computedTextValue(picker)"
                     :value="computedTextValue(picker)"
                     labelHidden
                     :error="hasError"
@@ -103,7 +104,7 @@
                 </PStack>
             </template>
         </DateRangePicker>
-        <div class="Polaris-Labelled__HelpText" v-if="$slots.hasOwnProperty('helpText') || helpText">
+        <div class="Polaris-Labelled__HelpText" v-if="hasSlot($slots.helpText) || helpText">
             <!-- @slot Custom helpText -->
             <slot name="helpText">
                 {{ helpText }}
@@ -115,6 +116,7 @@
 
 <script>
     import utils from '../../utilities';
+    import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import dayjs from 'dayjs';
     import { PIcon } from '../../components/PIcon';
@@ -379,9 +381,17 @@
                 default: '-',
             },
             /**
-             * Element Value
+             * Element value
              */
             value: {
+                type: [String, Object],
+                ...ObjectValidator('value', ValueInterface),
+            },
+            /**
+             * For Vue 3
+             * Element model value
+             */
+            modelValue: {
                 type: [String, Object],
                 ...ObjectValidator('value', ValueInterface),
             },
@@ -393,13 +403,20 @@
                 default: false,
             }
         },
-        emits: ['change', 'input', 'checkOpen', 'updateValues'],
+        emits: ['change', 'input', 'checkOpen', 'updateValues', 'update:modelValue'],
         data() {
             return {
+                content: null,
                 selectedRanges: null,
             };
         },
         computed: {
+            computedVModel() {
+                if (utils.isVue3) {
+                    return this.modelValue;
+                }
+                return this.value;
+            },
             className() {
                 return classNames(
                     'Polaris-TextField__Input',
@@ -430,10 +447,10 @@
             computedValue: {
                 get() {
                     if (this.singleDatePicker) {
-                        if (this.value) {
+                        if (this.computedVModel) {
                             return {
-                                startDate: typeof this.value === 'string' ? this.value : this.value.startDate,
-                                endDate: typeof this.value === 'string' ? this.value : this.value.startDate,
+                                startDate: typeof this.computedVModel === 'string' ? this.computedVModel : this.computedVModel.startDate,
+                                endDate: typeof this.computedVModel === 'string' ? this.computedVModel : this.computedVModel.startDate,
                             };
                         } else if (this.dateRange) {
                             return {
@@ -442,8 +459,8 @@
                             };
                         }
                     } else {
-                        if (this.value) {
-                            return this.value;
+                        if (this.computedVModel) {
+                            return this.computedVModel;
                         } else if (this.dateRange) {
                             return this.dateRange;
                         }
@@ -460,10 +477,20 @@
                      * Emits when the input is triggered
                      */
                     this.$emit('input', dateRange);
+                    /**
+                     * For Vue 3
+                     * Emits when the input is triggered
+                     * v-model
+                     * @ignore
+                     */
+                    this.$emit('update:modelValue', dateRange);
                 }
             },
             showPrefix() {
-                return this.prefix || this.$slots.prefix;
+                return this.prefix || hasSlot(this.$slots.prefix);
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

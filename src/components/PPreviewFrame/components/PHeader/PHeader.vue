@@ -63,7 +63,7 @@
                         </template>
                     </div>
 
-                    <div v-if="$slots['header.right']" :class="rightLayoutChildClassName">
+                    <div v-if="hasSlot($slots['header.right'])" :class="rightLayoutChildClassName">
                         <slot name="header.right"/>
                     </div>
                 </div>
@@ -75,6 +75,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PHeading } from '../../../../components/PHeading';
     import { PButton } from '../../../../components/PButton';
@@ -184,6 +185,9 @@
                     'Polaris-PreviewFrame__LayoutGroup',
                     'Polaris-PreviewFrame__spacingTight',
                 );
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

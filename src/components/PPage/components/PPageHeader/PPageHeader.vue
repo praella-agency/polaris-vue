@@ -21,7 +21,7 @@
                 <div class="Polaris-Page-Header__Actions" v-if="hasActions">
                     <PActionMenu :groups="actionGroups" :actions="secondaryActions" v-if="hasActionMenu"
                                  :rollup="isNavigationCollapsed.rollup"/>
-                    <div v-if="Object.keys(primaryAction).length > 0 || $slots.hasOwnProperty('primaryAction')"
+                    <div v-if="Object.keys(primaryAction).length > 0 || hasSlot($slots.primaryAction)"
                          class="Polaris-Page-Header__PrimaryActionWrapper">
                         <slot name="primaryAction">
                             <PButton
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="Polaris-Page-Header__Row"
-             v-if="$slots.hasOwnProperty('additionalNavigation') || avatar || avatarInitials">
+             v-if="hasSlot($slots.additionalNavigation) || avatar || avatarInitials">
             <div class="Polaris-Page-Header__LeftAlign"></div>
             <div class="Polaris-Page-Header__RightAlign">
                 <div class="Polaris-Page-Header__AdditionalNavigationWrapper">
@@ -61,6 +61,7 @@
 
 <script>
     import utils from '../../../../utilities';
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { hasGroupsWithActions } from '../../../../components/PActionMenu/utilities';
     import { PTextStyle } from '../../../../components/PTextStyle';
@@ -157,8 +158,7 @@
                 );
             },
             hasNavigation() {
-
-                return this.breadcrumbs.length > 0 || this.$slots.additionalNavigation || this.pagination;
+                return this.breadcrumbs.length > 0 || hasSlot(this.$slots.additionalNavigation) || this.pagination;
             },
             hasActions() {
                 return this.hasActionMenu ||
@@ -171,10 +171,13 @@
             },
             hasTitle() {
                 return this.title || this.subtitle || this.titleMetadata || this.thumbnail ||
-                    (utils.isVue3 ? this.$slots.titleMetadata : this.$slots.hasOwnProperty('titleMetadata'));
+                    hasSlot(this.$slots.titleMetadata);
             },
             hasAvatar() {
                 return this.avatar || this.avatarInitials;
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

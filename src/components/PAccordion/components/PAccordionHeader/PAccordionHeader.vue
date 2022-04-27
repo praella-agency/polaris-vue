@@ -1,8 +1,8 @@
 <template>
     <h2 :id="`heading${id}`">
         <button
-            :id="`accordion-button${Math.random()}`"
-            :class="$slots.default ? slotClassName : className"
+            :id="`accordion-button${uuid}`"
+            :class="hasSlot($slots.default) ? slotClassName : className"
             :style="style"
             @click="handleToggle(id)"
             type="button"
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+    import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PHeading } from '../../../../components/PHeading';
     import { PIcon } from '../../../../components/PIcon';
@@ -89,6 +90,12 @@
                     styles.backgroundColor = this.themeOptions.backgroundCollapsed;
                 }
                 return styles;
+            },
+            hasSlot() {
+                return hasSlot;
+            },
+            uuid() {
+                return uuid();
             },
         },
         methods: {

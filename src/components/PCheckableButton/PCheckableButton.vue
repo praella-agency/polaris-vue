@@ -7,7 +7,7 @@
             class="Polaris-CheckableButton__Checkbox"
         >
             <PCheckbox
-                :id="this['_uid']"
+                :id="uuid"
                 :label="accessibilityLabel"
                 labelHidden
                 :checked="selected"
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+    import { uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PCheckbox } from '../../components/PCheckbox';
 
@@ -90,6 +91,9 @@
                         this.measuring && 'Polaris-CheckableButton__CheckableButton--measuring',
                     );
                 }
+            },
+            uuid() {
+                return uuid();
             },
         },
         watch: {
