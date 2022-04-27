@@ -611,8 +611,8 @@ Access values with `slot-props` attribute.-->
 </template>
 
 <script>
-    import { hasSlot } from '../../ComponentHelpers';
     import utils from '../../utilities';
+    import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PSpinner } from '../../components/PSpinner';
     import { PButton } from '../../components/PButton';
@@ -1153,7 +1153,7 @@ Access values with `slot-props` attribute.-->
             window.addEventListener('resize', this.isSmallScreen);
             this.isSmallScreen();
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('resize', this.isSmallScreen);
         },
     }

@@ -195,7 +195,7 @@
             window.addEventListener('resize', this.rightSidebarMediaQuery);
             this.rightSidebarMediaQuery();
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('resize', this.headerMediaQuery);
             window.removeEventListener('resize', this.rightSidebarMediaQuery);
         },

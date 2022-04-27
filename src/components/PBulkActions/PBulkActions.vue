@@ -186,6 +186,7 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { BulkAction } from '../../components/PIndexTable/utilities';
@@ -471,7 +472,7 @@
                 }
             },
         },
-        beforeDestroy() {
+        [utils.beforeDestroy]() {
             if (document.getElementById('PolarisPopover'+this.uuid+'Overlay')) {
                 document.getElementById('PolarisPopover' + this.uuid + 'Overlay').remove();
             }

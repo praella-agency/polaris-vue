@@ -112,6 +112,7 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { uuid } from '../../ComponentHelpers';
     import { classNames, variationName } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
@@ -595,7 +596,7 @@
             dropNode.addEventListener('dragleave', this.handleDragLeave);
             window.addEventListener('resize', this.adjustSize);
         },
-        destroyed() {
+        [utils.destroyed]() {
             const dropNode = this.dropOnPage ? document : this.$refs.node;
             if (!dropNode) {
                 return;

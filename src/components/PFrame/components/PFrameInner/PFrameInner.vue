@@ -114,6 +114,7 @@
 </template>
 
 <script>
+    import utils from '../../../../utilities';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { ToastProps } from '../../context';
@@ -331,7 +332,7 @@
         updated() {
             this.setGlobalRibbonHeight();
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('resize', this.useMediaQuery);
         },
     }

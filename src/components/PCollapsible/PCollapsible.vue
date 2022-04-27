@@ -12,6 +12,7 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
@@ -183,7 +184,7 @@
                 this.height = (this.$refs.collapsibleContainer).scrollHeight;
             }
         },
-        beforeDestroy() {
+        [utils.beforeDestroy]() {
             (this.$refs.collapsibleContainer)
                 .removeEventListener('transitionend', this.handleCompleteAnimation);
         },

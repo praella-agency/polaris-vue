@@ -183,16 +183,16 @@
         methods: {
             useMediaQuery() {
                 if (window.innerWidth <= 768) {
-                    if (utils.isVue2) {
-                        this.$set(this.isNavigationCollapsed, 'rollup', true);
-                    } else {
+                    if (utils.isVue3) {
                         this.isNavigationCollapsed['rollup'] = true;
+                    } else {
+                        this.$set(this.isNavigationCollapsed, 'rollup', true);
                     }
                 } else {
-                    if (utils.isVue2) {
-                        this.$set(this.isNavigationCollapsed, 'rollup', false);
-                    } else {
+                    if (utils.isVue3) {
                         this.isNavigationCollapsed['rollup'] = false;
+                    } else {
+                        this.$set(this.isNavigationCollapsed, 'rollup', false);
                     }
                 }
             },
@@ -201,7 +201,7 @@
             window.addEventListener('resize', this.useMediaQuery);
             this.useMediaQuery();
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('resize', this.useMediaQuery);
         },
     }

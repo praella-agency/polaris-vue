@@ -24,6 +24,7 @@
 </template>
 
 <script>
+    import utils from '../../../../utilities';
     import { uuid } from '../../../../ComponentHelpers';
     import { PPopover } from '../../../../components/PPopover';
     import { PActionList } from '../../../../components/PActionList';
@@ -70,7 +71,7 @@
                 this.isVisible = false;
             }
         },
-        beforeDestroy() {
+        [utils.beforeDestroy]() {
             if (document.getElementById('PolarisPopover' + this.uuid + 'Overlay')) {
                 document.getElementById('PolarisPopover' + this.uuid + 'Overlay').remove();
             }
