@@ -58,7 +58,7 @@ const Template = (args) => ({
     template: `
         <PActionList 
             v-bind="args"
-        ></PActionList>`,
+        />`,
 });
 
 export const ActionList = Template.bind({});

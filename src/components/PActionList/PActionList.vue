@@ -6,7 +6,14 @@
             :section="section"
             :hasMultipleSections="hasMultipleSections"
             @itemAction="onItemAction"
-        />
+        >
+            <template v-slot:media="slotProps">
+                <!-- @slot Customize the icon part of navigation. This slot provides values.
+
+Access values with `slot-props` attribute. -->
+                <slot name="media" :item="slotProps ? slotProps.item : {}"/>
+            </template>
+        </PActionListSection>
     </component>
 </template>
 

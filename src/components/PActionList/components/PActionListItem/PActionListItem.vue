@@ -4,13 +4,16 @@
             @click="handleAction(action)"
             :disabled="disabled"
             :class="className">
-            <template v-if="icon || image">
+            <template v-if="(icon || image) || hasSlot($slots.media)">
                 <span class="Polaris-ActionList__Content">
                     <span
                         role="presentation"
-                        class="Polaris-ActionList__Prefix"
-                        :style="{ backgroundImage: icon ? null : 'url('+image+')'}">
-                        <PIcon v-if="icon" :source="icon"/>
+                        :class="mediaSlotClassName"
+                        :style="{ backgroundImage: icon ? null : 'url('+image+')'}"
+                    >
+                        <slot name="media" :item="listValues">
+                            <PIcon v-if="icon" :source="icon"/>
+                        </slot>
                     </span>
                     <span class="Polaris-ActionList__Text">
                         <slot>
@@ -40,6 +43,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PUnstyledLink } from '../../../../components/PUnstyledLink';
     import { PIcon } from '../../../../components/PIcon';
@@ -74,6 +78,24 @@
                 return classNames(
                     'Polaris-ActionList__Item',
                 );
+            },
+            mediaSlotClassName() {
+                return classNames(
+                    'Polaris-ActionList__Prefix',
+                );
+            },
+            listValues() {
+                return {
+                    content: this.content,
+                    helpText: this.helpText,
+                    action: this.action,
+                    icon: this.icon,
+                    image: this.image,
+                    disabled: this.disabled,
+                };
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {
