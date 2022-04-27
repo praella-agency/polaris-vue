@@ -16,16 +16,11 @@
                 :aria-controls="normalizeAriaAttributesForControls"
             >
 
-                <div v-if="icon" :class="hasSlot($slots.icon) ? 'Polaris-Navigation__Icon--slot' : 'Polaris-Navigation__Icon'">
+                <div v-if="icon" :class="iconSlotClassName">
                     <span class="Polaris-Navigation__Icon--span">
                         <slot name="icon" :item="itemValue">
                             <PIcon :source="icon"/>
                         </slot>
-                    </span>
-                </div>
-                <div v-if="!icon" class="Polaris-Navigation__Icon--slot">
-                    <span class="Polaris-Navigation__Icon--span">
-                        <slot name="icon" :item="itemValue"/>
                     </span>
                 </div>
                 <span class="Polaris-Navigation__Text">
@@ -80,7 +75,7 @@
                     @click="onNavigationDismiss ? onNavigationDismiss : {}"
                 >
                     <template v-slot:icon="slotProps">
-                        <slot name="icon" :item="slotProps.item"/>
+                        <slot v-if="slotProps" name="icon" :item="slotProps.item"/>
                     </template>
                 </PItem>
             </PSecondary>
@@ -220,12 +215,6 @@
                     Object.keys(this.secondaryAction).length > 0 && 'Polaris-Navigation__ListItem--hasAction',
                 );
             },
-            childIsActive() {
-                return this.matchingSubNavigationItems.length > 0;
-            },
-            showExpanded() {
-                return this.selectedOverride || this.expanded || this.childIsActive;
-            },
             itemClassName() {
                 return classNames(
                     'Polaris-Navigation__Item',
@@ -241,6 +230,18 @@
                     this.showExpanded && 'Polaris-Navigation--isExpanded',
                     !this.icon && 'Polaris-Navigation__SecondaryNavigation--noIcon',
                 );
+            },
+            iconSlotClassName() {
+                if (this.hasSlot(this.$slots.icon)) {
+                    return 'Polaris-Navigation__Icon--slot';
+                }
+                return 'Polaris-Navigation__Icon';
+            },
+            childIsActive() {
+                return this.matchingSubNavigationItems.length > 0;
+            },
+            showExpanded() {
+                return this.selectedOverride || this.expanded || this.childIsActive;
             },
             longestMatch() {
                 if (this.subNavigationItems.length > 0) {
