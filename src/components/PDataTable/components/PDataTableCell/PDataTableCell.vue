@@ -198,17 +198,3 @@
         },
     }
 </script>
-
-<style scoped>
-    th:last-child {
-        text-align: right;
-    }
-
-    td:last-child {
-        text-align: right;
-    }
-
-    td:last-child > * {
-        float: right;
-    }
-</style>

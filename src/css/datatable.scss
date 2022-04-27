@@ -45,6 +45,12 @@
 	white-space: nowrap;
 	text-align: left;
 	transition: background-color .2s ease-in-out;
+	&:last-child {
+		text-align: right;
+		> * {
+			float: right;
+		}
+	}
 }
 
 @media (min-width:48em) {
