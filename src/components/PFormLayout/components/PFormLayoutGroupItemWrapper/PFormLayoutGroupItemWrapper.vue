@@ -7,7 +7,7 @@
     let render = {};
     if (utils.isVue3) {
         render = function render() {
-            return vue.h(this.child, {
+            return vue.h('div', {
                     class: 'Polaris-FormLayout__Items',
                 },
                 wrapNodesWithComponent(
@@ -33,11 +33,6 @@
         name: 'PFormLayoutGroupItemWrapper',
         components: {
             PFormLayoutItem,
-        },
-        props: {
-            child: {
-                type: HTMLElement,
-            }
         },
         render,
     }

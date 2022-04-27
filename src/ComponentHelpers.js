@@ -1,71 +1,12 @@
-import {
-    camelCase,
-    capitalCase,
-    constantCase,
-    dotCase,
-    headerCase,
-    noCase,
-    paramCase,
-    pascalCase,
-    pathCase,
-    sentenceCase,
-    snakeCase,
-} from 'change-case';
 import utils from './utilities';
 const vue = require('vue');
 
-class ComponentHelpers {
-    constructor() {
-        this.componentNameFormat = name => name;
-    }
-
-    setComponentNameFormat(format) {
-        this.componentNameFormat = format;
-    }
-
-    makeComponentClass(componentName, properties, state) {
-        let classes = {};
-        classes[componentName] = true;
-
-        for (let prop of properties) {
-            let value = state[prop];
-            let valueTag = '';
-            if (value && typeof value === 'string') {
-                valueTag = value.charAt(0).toUpperCase() + value.slice(1);
-            }
-            classes[componentName + '--' + prop + valueTag] = state[prop];
-        }
-
-        return classes;
-    }
-
-    getComponentName(polarisName) {
-        return this.componentNameFormat(polarisName, {
-            camelCase,
-            capitalCase,
-            constantCase,
-            dotCase,
-            headerCase,
-            noCase,
-            paramCase,
-            pascalCase,
-            pathCase,
-            sentenceCase,
-            snakeCase,
-        });
-    }
-}
-
 function isNodeOfComponent(node, component) {
-    if (!node || !node.componentOptions) {
+    if (!node || (utils.isVue2 && !node.componentOptions)) {
         return false;
     }
-
-    let nodeComponentTagName = node.componentOptions.tag;
-    let ComponentHelpers = new ComponentHelpers();
-    let componentTagName = ComponentHelpers.getComponentName(component.name);
-
-    return nodeComponentTagName === componentTagName;
+    let nodeComponentTagName = utils.isVue2 ? node.componentOptions.tag : node.type.name;
+    return nodeComponentTagName === component.name;
 }
 
 function wrapNodesWithComponent(createElement, nodes, component, ignoredComponents = []) {
@@ -75,6 +16,17 @@ function wrapNodesWithComponent(createElement, nodes, component, ignoredComponen
             continue;
         }
 
+        if(utils.isVue3 && node.type === vue.Comment) {
+            continue;
+        }
+        if(utils.isVue3 && node.type === vue.Fragment) {
+            const fragmentChildren = wrapNodesWithComponent(createElement, node.children, component, ignoredComponents);
+            children = [
+                ...children,
+                ...fragmentChildren,
+            ]
+            continue;
+        }
         let added = false;
         if (isNodeOfComponent(node, component)) {
             added = true;

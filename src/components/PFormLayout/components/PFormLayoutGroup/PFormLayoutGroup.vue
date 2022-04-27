@@ -12,7 +12,7 @@
         >
             {{ title }}
         </div>
-        <PFormLayoutGroupItemWrapper v-for="(slot, name) in $slots" :key="name" :child="slot">
+        <PFormLayoutGroupItemWrapper v-for="(slot, name) in $slots" :key="name">
             <!-- @slot The content to display inside the group layout -->
             <slot/>
         </PFormLayoutGroupItemWrapper>
