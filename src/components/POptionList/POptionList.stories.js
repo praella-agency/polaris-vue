@@ -101,13 +101,7 @@ const Template = (args) => ({
             :selected="selectedStatus"
             @change="updateStatusFilter"
             @click="handleClick"
-        >
-            <template v-slot:media="{item}">
-                <template v-if="item.icon">
-                    <PIcon :source="item.icon"/>
-                </template>
-            </template>
-        </POptionList>
+        />
     `,
     methods: {
         updateStatusFilter(selected) {
