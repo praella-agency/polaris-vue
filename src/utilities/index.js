@@ -1,5 +1,5 @@
-const Vue = require('vue');
-const isVue3 = parseFloat(Vue.version || Vue.default.version) >= 3;
+import { vue } from '../ComponentHelpers';
+const isVue3 = parseFloat(vue.version || vue.default.version) >= 3;
 const isVue2 = !isVue3;
 
 export default {
@@ -9,6 +9,7 @@ export default {
     destroyed: isVue2 ? 'destroyed' : 'unmounted',
     bind: isVue2 ? 'bind' : 'beforeMount',
     unbind: isVue2 ? 'unbind' : 'unmounted',
+    inserted: isVue2 ? 'inserted' : 'mounted',
     Chrome: isVue2 ? require('vue-color').Chrome : require('@ckpack/vue-color').Chrome,
     VueApexCharts: isVue2 ? require('vue-apexcharts').default : require('vue3-apexcharts').default,
     DateRangePicker: isVue2 ? require('vue2-daterange-picker').default : require('vue3-daterange-picker').default,

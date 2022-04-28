@@ -1,5 +1,5 @@
 <script>
-    const vue = require('vue');
+    import { vue } from '../../ComponentHelpers';
     import utils from '../../utilities';
     import { PFormLayoutItem } from '../../components/PFormLayout/components/PFormLayoutItem';
     import { PFormLayoutGroup } from '../../components/PFormLayout/components/PFormLayoutGroup';

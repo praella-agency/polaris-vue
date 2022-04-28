@@ -1,5 +1,5 @@
 <script>
-    const vue = require('vue');
+    import { vue } from '../../ComponentHelpers';
     import utils from '../../utilities';
     let render = {};
 

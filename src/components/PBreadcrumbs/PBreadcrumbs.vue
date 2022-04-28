@@ -1,6 +1,6 @@
 <script>
     import utils from '../../utilities';
-    const vue = require('vue');
+    import { vue } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PUnstyledLink } from '../../components/PUnstyledLink';
     import { PIcon } from '../../components/PIcon';

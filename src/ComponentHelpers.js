@@ -112,4 +112,5 @@ export {
     uuid,
     wrapNodesWithComponent,
     hasSlot,
+    vue,
 };

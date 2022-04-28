@@ -1,5 +1,5 @@
 import utils from '../';
-const Vue = require('vue');
+import { vue } from '../../ComponentHelpers';
 import { StringValidator } from './StringValidator';
 import { ArrayValidator } from './ArrayValidator';
 
@@ -77,9 +77,9 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
 
         if (isRequired && !object.hasOwnProperty(objectKey)) {
             if (utils.isVue3) {
-                Vue.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" is missing.`);
+                vue.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" is missing.`);
             } else {
-                Vue.default.util.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" is missing.`);
+                vue.default.util.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" is missing.`);
             }
             result = false;
         } else if (object.hasOwnProperty(objectKey)) {
@@ -88,17 +88,17 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
             if (Array.isArray(objectValue)) {
                 if (!valueType.includes('Array')) {
                     if (utils.isVue3) {
-                        Vue.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`);
+                        vue.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`);
                     } else {
-                        Vue.default.util.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`);
+                        vue.default.util.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`);
                     }
                     result = false;
                 }
             } else if (!valueType.includes((typeof (objectValue)).charAt(0).toUpperCase() + (typeof (objectValue)).slice(1))) {
                 if (utils.isVue3) {
-                    Vue.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`);
+                    vue.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`);
                 } else {
-                    Vue.default.util.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`);
+                    vue.default.util.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`);
                 }
                 result = false;
             }
@@ -112,9 +112,9 @@ export const ObjectValidator = (name, object, objectInterface, isRequired) => {
     // Value type validation.
     if (isRequired && (object === null || object === undefined || Object.keys(object).length === 0)) {
         if (utils.isVue3) {
-            Vue.warn(`The "${name}" prop is missing.`);
+            vue.warn(`The "${name}" prop is missing.`);
         } else {
-            Vue.default.util.warn(`The "${name}" prop is missing.`);
+            vue.default.util.warn(`The "${name}" prop is missing.`);
         }
         return false;
     } else {
@@ -151,9 +151,9 @@ export const ObjectValidator = (name, object, objectInterface, isRequired) => {
 
         if (!isValidated && typeof object !== 'object') {
             if (utils.isVue3) {
-                Vue.warn(`The "${name}" prop is invalid. Given value type: ${typeof object}. Expected value type: Object.`);
+                vue.warn(`The "${name}" prop is invalid. Given value type: ${typeof object}. Expected value type: Object.`);
             } else {
-                Vue.default.util.warn(`The "${name}" prop is invalid. Given value type: ${typeof object}. Expected value type: Object.`);
+                vue.default.util.warn(`The "${name}" prop is invalid. Given value type: ${typeof object}. Expected value type: Object.`);
             }
             return false;
         }
