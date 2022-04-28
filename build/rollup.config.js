@@ -11,7 +11,6 @@ import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import scss from 'rollup-plugin-scss';
 import autoprefixer from 'autoprefixer';
-import cjs from 'rollup-plugin-commonjs';
 import minimist from 'minimist';
 
 // Get browserslist config and remove ie from es build targets
@@ -115,7 +114,7 @@ if (!argv.format || argv.format === 'es') {
                     'node_modules/'
                 ]
             }),
-            cjs()
+            commonjs()
         ],
     };
     buildFormats.push(esConfig);
@@ -153,7 +152,7 @@ if (!argv.format || argv.format === 'cjs') {
                     'node_modules/'
                 ]
             }),
-            cjs()
+            commonjs()
         ],
     };
     buildFormats.push(umdConfig);
@@ -190,7 +189,7 @@ if (!argv.format || argv.format === 'umd') {
                     'node_modules/'
                 ]
             }),
-            cjs()
+            commonjs()
         ],
     };
     buildFormats.push(unpkgConfig);
