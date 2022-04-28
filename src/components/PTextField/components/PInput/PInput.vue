@@ -450,39 +450,3 @@
         }
     }
 </script>
-
-<style>
-    .ql-container.ql-snow {
-        background: #FFF;
-    }
-
-    .ql-toolbar.ql-snow {
-        background: #fafafa;
-        padding: 5px;
-    }
-
-    .quill-editor.editor {
-        width: 100%;
-    }
-
-    .ql-snow .ql-picker {
-        font-weight: normal;
-    }
-
-    .ql-toolbar.ql-snow > .ql-formats:not(:first-child):before {
-        content: "";
-        height: calc(100% + 4px);
-        width: 1px;
-        background: #c4c4c4;
-        position: absolute;
-        display: block;
-        top: -2px;
-        left: -10px;
-    }
-
-    .ql-toolbar.ql-snow .ql-formats {
-        position: relative;
-        margin-right: 10px;
-        margin-left: 10px;
-    }
-</style>

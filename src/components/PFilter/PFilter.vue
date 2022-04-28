@@ -19,7 +19,7 @@
                             :label="queryPlaceholder || resourceTitle || resource"
                             clearable
                             :disabled="disabled"
-                            v-on="listeners"
+                            v-bind="$attrs"
                         >
                             <template #prefix>
                                 <PIcon source="SearchMinor"/>
@@ -37,7 +37,14 @@
                 </div>
             </div>
             <div class="Polaris-Filters__TagsContainer" v-if="!hideTags">
-                <PTag v-for="(filter, key) in appliedFilters" :key="key" v-on="listeners" removable :tag="filter"/>
+                <PTag
+                    v-for="(filter, key) in appliedFilters"
+                    v-bind="$attrs"
+                    :key="key"
+                    removable
+                    :tag="filter"
+                    @remove-tag="handleTagRemove"
+                />
             </div>
         </div>
     </div>
@@ -188,7 +195,7 @@
                 default: false,
             },
         },
-        emits: ['queryChange', 'queryClear', 'queryClearAll', 'queryBlur', 'queryFocus'],
+        emits: ['queryChange', 'queryClear', 'queryClearAll', 'queryBlur', 'queryFocus', 'remove-tag'],
         data() {
             return {
                 appliedFiltersCount: this.appliedFilters ? this.appliedFilters.length : 0,
@@ -248,12 +255,12 @@
                  */
                 this.$emit('queryFocus');
             },
-            listeners() {
-                if (utils.isVue2) {
-                    return this.$listeners;
-                }
-                return {};
-            }
+            handleTagRemove() {
+                /**
+                 * Method to remove tag
+                 */
+                this.$emit('remove-tag', this.tag.key);
+            },
         },
         mounted() {
             if (this.resourceTitle != null) {

@@ -146,7 +146,7 @@ const Template1 = (args) => ({
                 </PList>
             </PCardSection>
 
-            <PCardSection :subdued="subdued" title="New Products">
+            <PCardSection :subdued="true" title="New Products">
                 <PList>
                     <PListItem>Google</PListItem>
                     <PListItem>Oneplus</PListItem>

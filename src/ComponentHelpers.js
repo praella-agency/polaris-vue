@@ -107,10 +107,15 @@ function hasSlot(slot) {
     }
 }
 
+function nextTick() {
+    return vue.nextTick;
+}
+
 export {
     createComponent,
     uuid,
     wrapNodesWithComponent,
     hasSlot,
     vue,
+    nextTick,
 };

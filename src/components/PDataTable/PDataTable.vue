@@ -534,12 +534,3 @@ Access values with `slot-props` attribute. -->
     }
 </script>
 
-<style scoped>
-    .Polaris-DataTable__Pagination {
-        text-align: center;
-        padding: 1.6rem;
-        border-top: 0.1rem solid #e1e3e5;
-        border-bottom-left-radius: 0.4rem;
-        border-bottom-right-radius: 0.4rem;
-    }
-</style>

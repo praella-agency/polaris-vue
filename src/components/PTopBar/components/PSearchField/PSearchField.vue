@@ -50,14 +50,14 @@
              */
             value: {
                 type: String,
-                required: true,
+                required: false,
             },
             /**
              * Initial value for the input
              */
             modelValue: {
                 type: String,
-                required: true,
+                required: false,
             },
             /**
              * Hint text to display

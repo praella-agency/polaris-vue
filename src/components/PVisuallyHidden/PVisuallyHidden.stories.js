@@ -28,7 +28,9 @@ export default {
 }
 
 const Template = (args) => ({
-    props: Object.keys(args),
+    setup() {
+        return {args};
+    },
     components: {
         PVisuallyHidden,
     },

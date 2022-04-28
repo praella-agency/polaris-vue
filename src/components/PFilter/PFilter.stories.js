@@ -165,7 +165,7 @@ const Template = (args) => ({
                         <PButton
                             :disclosure="accountStatusPopover ? 'up' : 'down'"
                             @click="toggleAccountStatus"
-                            :disabled="disabled"
+                            :disabled="false"
                         >
                             Account Status
                         </PButton>
@@ -201,7 +201,7 @@ const Template = (args) => ({
                         <PButton
                             :disclosure="popoverActive ? 'up' : 'down'"
                             @click="togglePopoverActive"
-                            :disabled="disabled"
+                            :disabled="false"
                         >
                             Status
                         </PButton>
@@ -227,7 +227,7 @@ const Template = (args) => ({
                         </PCard>
                     </template>
                 </PPopover>
-                <PButton :disabled="disabled">Submit</PButton>
+                <PButton :disabled="false">Submit</PButton>
             </PButtonGroup>
             <template #auxiliaryContainer>
                 <div style="padding-left: 8px;">

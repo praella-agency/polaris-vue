@@ -1,5 +1,5 @@
 <template>
-    <div :class="labelHidden && 'Polaris-Labelled--hidden'">
+    <div :class="className">
         <div class="Polaris-Labelled__LabelWrapper"
              v-if="!floatingLabel && (label || emptyLabel || hasSlot($slots.label))"
              :class="labelClass">
@@ -419,7 +419,8 @@
             },
             className() {
                 return classNames(
-                    'Polaris-TextField__Input',
+                    this.labelHidden && 'Polaris-Labelled--hidden',
+                    'Polaris-DatePicker',
                 );
             },
             computedRanges() {
@@ -571,67 +572,3 @@
         },
     }
 </script>
-
-<style scoped>
-    .vue-daterange-picker {
-        min-width: 100%;
-    }
-
-    .date-date {
-        background: orange;
-    }
-</style>
-<style>
-    .daterangepicker {
-        border: none;
-        box-shadow: -1px 0px 20px rgba(23, 24, 24, 0.05), 0px 1px 5px rgba(0, 0, 0, 0.15);
-    }
-
-    @media screen and (min-width: 339px) {
-        .vue-daterange-picker div.daterangepicker.single.show-ranges.show-weeknumbers,
-        .vue-daterange-picker div.daterangepicker.single.show-ranges {
-            min-width: 250px;
-        }
-    }
-
-    @media screen and (min-width: 768px) {
-        .vue-daterange-picker div.daterangepicker.show-ranges.show-weeknumbers,
-        .vue-daterange-picker div.daterangepicker.show-ranges {
-            min-width: 500px;
-        }
-    }
-
-    .daterangepicker .calendars {
-        display: block;
-        border-bottom: .1rem solid #e1e3e5;
-    }
-
-    .daterangepicker .Polaris-Stack {
-        padding: 10px;
-    }
-
-
-    .daterangepicker td.in-range {
-        background-color: #f2f7fe;
-    }
-
-    .daterangepicker td.active,
-    .daterangepicker td.active:hover {
-        background-color: #2c6ecb;
-        color: #FFF;
-    }
-
-    .daterangepicker td:hover {
-        background: #1f5199;
-        color: #ffffff;
-        outline: .1rem solid transparent;
-    }
-
-    .daterangepicker td.start-date {
-        border-radius: 3rem 0 0 3rem;
-    }
-
-    .daterangepicker td.end-date {
-        border-radius: 0 3rem 3rem 0;
-    }
-</style>

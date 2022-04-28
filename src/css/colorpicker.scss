@@ -1,112 +1,52 @@
-/*.Polaris-ColorPicker {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	display: flex;
+.color-picker-field span.picker {
+  position: absolute;
+  right: 10px;
+  width: 30px;
+  height: 20px;
+  z-index: 25;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, .24);
+  float: left;
+  left: 0;
+  margin: 0 10px 0 0;
 }
-.Polaris-ColorPicker__MainColor {
-	background-image: $colorpicker-maincolor-bgimage;
-	background-size: 1.6rem 1.6rem;
-	background-position: 0 0,0 .8rem,.8rem -.8rem,-.8rem 0;
-	position: relative;
-	overflow: hidden;
-	height: 16rem;
-	width: 16rem;
-	border-radius: $colorpicker-maincolor-border-radius;
-	cursor: pointer;
-	.Polaris-ColorPicker__Dragger {
-		right: .9rem;
-		margin: 0;
-	}
-	.Polaris-ColorPicker__ColorLayer {
-		box-shadow: $colorpicker-maincolor-layer-box-shadow;
-		border-radius: $colorpicker-maincolor-border-radius;
-	}
-	&:after {
-		content: "";
-		position: absolute;
-		z-index: 20;
-		top: 0;
-		left: 0;
-		display: block;
-		height: 100%;
-		width: 100%;
-		pointer-events: none;
-		border-radius: $colorpicker-maincolor-before-border-radius;
-		background-image: $colorpicker-maincolor-after-bgimage;
-		box-shadow: $colorpicker-maincolor-after-box-shadow;
-	}
-	&:before {
-		content: "";
-		position: absolute;
-		z-index: 20;
-		top: 0;
-		left: 0;
-		display: block;
-		height: 100%;
-		width: 100%;
-		pointer-events: none;
-		border-radius: $colorpicker-maincolor-before-border-radius;
-		background: $colorpicker-maincolor-before-bgcolor;
-	}
+
+.color-picker-field {
+  position: relative;
 }
-.Polaris-ColorPicker__Dragger {
-	position: relative;
-	z-index: 30;
-	bottom: .9rem;
-	transform: none;
-	height: 1.8rem;
-	width: 1.8rem;
-	margin: 0 auto;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	will-change: transform;
-	background: $colorpicker-dragger-background;
-	border: $colorpicker-dragger-border;
-	box-shadow: $colorpicker-dragger-box-shadow;
-	border-radius: $colorpicker-dragger-border-radius;
-	pointer-events: none;
+
+.picker-wrapper {
+  position: absolute;
+  top: 100%;
+  z-index: 111;
 }
-.Polaris-ColorPicker__AlphaPicker {
-	position: relative;
-	overflow: hidden;
-	height: 16rem;
-	width: 2.4rem;
-	margin-left: .8rem;
-	border-width: 3px;
-	border-radius: $colorpicker-alphapicker-border-radius;
-	background-image: $colorpicker-alphapicker-bgimage;
-	background-size: 1.6rem 1.6rem;
-	background-position: 0 0,0 .8rem,.8rem -.8rem,-.8rem 0;
-	.Polaris-ColorPicker__ColorLayer {
-		border-radius: $colorpicker-alphapicker-border-radius;
-	}
+
+.picker {
+  position: relative !important;
+  display: inline-block;
 }
-.Polaris-ColorPicker__HuePicker {
-	position: relative;
-	overflow: hidden;
-	height: 16rem;
-	width: 2.4rem;
-	margin-left: .8rem;
-	border-width: 3px;
-	border-radius: $colorpicker-huepicker-border-radius;
-	background-image: $colorpicker-huepicker-bgimage;
-	box-shadow: $colorpicker-huepicker-box-shadow;
+
+.vc-chrome input {
+  font-family: inherit;
 }
-.Polaris-ColorPicker__ColorLayer {
-	position: absolute;
-	z-index: 10;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	box-shadow: $colorpicker-color-layer-box-shadow;
-	pointer-events: none;
+
+.vc-chrome {
+  font-family: inherit !important;
+  box-shadow: -1px 0px 20px rgba(23, 24, 24, 0.05), 0px 1px 5px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 0.8rem !important;
+  border: none !important;
+  overflow: hidden;
 }
-.Polaris-ColorPicker__Slidable {
-	height: 100%;
-	width: 100%;
-	cursor: pointer;
+
+.vc-chrome-saturation-wrap {
+  box-shadow: -1px 0px 20px rgba(23, 24, 24, 0.05), 0px 1px 5px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 0.8rem 0.8rem 0 0 !important;
+  border: none !important;
 }
-*/
+
+
+.Polaris-ColorPicker--disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}

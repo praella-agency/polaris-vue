@@ -147,8 +147,7 @@ const Template = (args) => ({
         <PTextField
             v-bind="args"
             v-model="formData"
-        />
-    {{formData}}`,
+        />`,
 });
 
 export const TextField = Template.bind({});

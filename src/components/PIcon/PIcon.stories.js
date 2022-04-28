@@ -35,13 +35,13 @@ export default {
 
 const Template1 = (args) => ({
     setup() {
-    return { args };
-},
+        return {args};
+    },
     components: {
         ShopifyIcons,
     },
     template: `
-        <shopify-icons 
+        <shopify-icons
             v-bind="args"
         />`,
 });

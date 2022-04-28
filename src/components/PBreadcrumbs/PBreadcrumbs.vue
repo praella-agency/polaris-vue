@@ -96,7 +96,7 @@
                         // tslint:disable-next-line:no-empty
                         onClick: onAction ? onAction : () => {
                         },
-                    }, [contentMarkup])
+                    }, () => [contentMarkup])
                 ) : (
                     vue.h('button', {
                         class: breadcrumbClassNames,
