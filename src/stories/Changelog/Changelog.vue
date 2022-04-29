@@ -6,58 +6,44 @@
                 value: search,
                 placeholder: 'Search',
                 showFocusBorder: true,
-            }"
+          }"
             :searchResultsVisible="false"
             @searchFieldChange="searchRelease"
             @searchResultsDismiss="handleSearchResultsDismiss"
         />
-            <PCard>
-                <PAccordion
-                    :id="`changelog-accordion`"
-                    :open="[0, 1, 2]"
-                >
-                    <PAccordionItem
-                        v-for="(release, key) in releases" :key="key"
-                    >
-                        <template #title>
-                            <p>{{ release['tag_name'] + ' - ' + release['name'] }}</p>
-                            <PVerticalDivider/>
-                            <p>{{ formatDate(release['published_at']) }}</p>
-                        </template>
-
-                        <template #content>
-                            <span v-html="formattedContent(release['body'])"/>
-                        </template>
-                    </PAccordionItem>
-                </PAccordion>
-<!--                    <PStack vertical>-->
-<!--                        <PStackItem>-->
-<!--                            <PButton-->
-<!--                                @click="handleToggle(key)"-->
-<!--                                :aria-expanded="isOpen[key]"-->
-<!--                                :aria-controls="`basic-collapsible-${key}`"-->
-<!--                                plain-->
-<!--                            >-->
-<!--                                {{ release['tag_name'] + ' - ' + release['name'] }}-->
-<!--                            </PButton>-->
-<!--                        </PStackItem>-->
-<!--                        <PStackItem style="margin: 0 0 0 -1px;">-->
-<!--                            {{ formatDate(release['published_at']) }}-->
-<!--                        </PStackItem>-->
-<!--                        <PStackItem>-->
-<!--                            <PCollapsible-->
-<!--                                :open="key <= 2 ? true : isOpen[key]"-->
-<!--                                :id="`basic-collapsible-${key}`"-->
-<!--                                :transition="{duration: '500ms', timingFunction: 'ease-in-out'}"-->
-<!--                                :expandOnPrint="true"-->
-<!--                            >-->
-<!--                                <PTextContainer>-->
-<!--                                    <p v-html="formattedContent(release['body'])"/>-->
-<!--                                </PTextContainer>-->
-<!--                            </PCollapsible>-->
-<!--                        </PStackItem>-->
-<!--                    </PStack>-->
-            </PCard>
+        <PStack vertical>
+            <PStackItem v-for="(release, key) in releases" :key="key">
+                <PCard sectioned>
+                    <PStack vertical>
+                        <PStackItem>
+                            <PButton
+                                @click="handleToggle(key)"
+                                :aria-expanded="isOpen[key]"
+                                :aria-controls="`basic-collapsible-${key}`"
+                                plain
+                            >
+                                {{ release['tag_name'] + ' - ' + release['name'] }}
+                            </PButton>
+                        </PStackItem>
+                        <PStackItem style="margin: 0 0 0 -1px;">
+                            {{ formatDate(release['published_at']) }}
+                        </PStackItem>
+                        <PStackItem>
+                            <PCollapsible
+                                :open="key <= 2 ? true : isOpen[key]"
+                                :id="`basic-collapsible-${key}`"
+                                :transition="{duration: '500ms', timingFunction: 'ease-in-out'}"
+                                :expandOnPrint="true"
+                            >
+                                <PTextContainer>
+                                    <p v-html="formattedContent(release['body'])"/>
+                                </PTextContainer>
+                            </PCollapsible>
+                        </PStackItem>
+                    </PStack>
+                </PCard>
+            </PStackItem>
+        </PStack>
     </PFrame>
 </template>
 
@@ -79,9 +65,6 @@
     import { PTextContainer } from '../../components/PTextContainer';
     import { PCollapsible } from '../../components/PCollapsible';
     import { PButton } from '../../components/PButton';
-    import { PAccordion } from '../../components/PAccordion';
-    import { PAccordionItem } from '../../components/PAccordion/components/PAccordionItem';
-    import { PVerticalDivider } from '../../components/PVerticalDivider';
     import dayjs from 'dayjs';
     import showdown from 'showdown';
 
@@ -97,17 +80,7 @@
         },
         components: {
             PDisplayText, PLayout, PStack, PStackItem, PList, PListItem, PLink, PCard, PCardHeader, PCardSection,
-            PHeading, PTextContainer, PCollapsible, PButton, PFrame, PTopBar, PAccordion, PAccordionItem,
-            PVerticalDivider,
-        },
-        filters: {
-            trimContent(content) {
-                content = content.trim();
-                if (content.startsWith('*')) {
-                    content = content.replace('*', '');
-                }
-                return content;
-            },
+            PHeading, PTextContainer, PCollapsible, PButton, PFrame, PTopBar,
         },
         methods: {
             formatDate(date) {
