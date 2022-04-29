@@ -6,15 +6,14 @@
                         labelClass="mb-0"></PTextField>
         </div>
         <div class="picker-wrapper">
-            <Chrome v-if="utils.isVue3" v-show="showPicker" v-model="computedColor" @mouseup="dropColor"/>
-            <Chrome v-else-if="utils.isVue2" v-show="showPicker" :value="color" @input="updateColor" @mouseup="dropColor"/>
+            <Chrome v-show="showPicker" :value="color" @input="updateColor" @mouseup="dropColor"/>
         </div>
     </div>
 </template>
 
 <script>
-    import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
+    import { Chrome } from './components/Chrome';
     import { PTextField } from '../../components/PTextField/';
     import vClickOutside from 'v-click-outside';
 
@@ -27,7 +26,7 @@
     export default {
         name: 'PColorPicker',
         components: {
-            PTextField, Chrome: utils.Chrome,
+            PTextField, Chrome,
         },
         directives: {
             clickOutside: vClickOutside.directive,
@@ -113,9 +112,6 @@
                      */
                     this.$emit('change', value);
                 }
-            },
-            utils() {
-                return utils;
             }
         },
         methods: {

@@ -1,6 +1,6 @@
 <template>
     <PCard :title="title">
-        <VueApexCharts
+        <PApexCharts
             :type="type"
             :width="width"
             :height="height"
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
+    import { PApexCharts } from './components/PApexCharts';
     import { PCard } from '../../components/PCard';
 
     /**
@@ -22,7 +22,7 @@
     export default {
         name: 'PChart',
         components: {
-            VueApexCharts: utils.VueApexCharts, PCard,
+            PApexCharts, PCard,
         },
         props: {
             /**

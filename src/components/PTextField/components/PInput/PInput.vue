@@ -5,13 +5,14 @@
             <slot v-if="hasSlot($slots.prefix)" name="prefix"/>
         </div>
         <div style="width: 100%">
-            <ck-editor
+            <CKEditor
                 v-if="richEditor"
                 :id="id"
                 :editor="editor"
                 :config="{}"
                 @input="onInput"
-                v-model="computedValue"
+                :value="computedValue"
+                @update:modelValue="onInput"
                 :disabled="disabled"
                 :readonly="readOnly"
                 :autofocus="autoFocus"
@@ -125,10 +126,10 @@
     import utils from '../../../../utilities';
     import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
+    import { CKEditor } from './components/CKEditor';
     import { PSpinner } from '../../../../components/PTextField/components/PSpinner';
     import { PFieldResizer } from '../../../../components/PTextField/components/PFieldResizer';
     import { PIcon } from '../../../../components/PIcon';
-    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
     import StringValidator from '../../../../utilities/validators/StringValidator';
 
@@ -142,7 +143,7 @@
     export default {
         name: 'PInput',
         components: {
-            PFieldResizer, PSpinner, PIcon, ckEditor: utils.ckEditor
+            PFieldResizer, PSpinner, PIcon, CKEditor
         },
         props: {
             id: {

@@ -1,5 +1,6 @@
 import PToast from './PToast';
-import eventBus from '../helper/event-bus';
+import mitt from 'mitt';
+const eventBus = mitt();
 import { createComponent } from '../../../ComponentHelpers';
 
 const Api = (Vue, globalOptions = {}) => {
@@ -13,7 +14,7 @@ const Api = (Vue, globalOptions = {}) => {
             };
 
             const propsData = Object.assign({}, defaultOptions, globalOptions, options);
-
+            propsData.eventBus = eventBus;
             return createComponent(PToast, propsData, document.body, {
                 tag: 'div',
                 className: 'v-toast--pending'

@@ -119,6 +119,7 @@
     import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import dayjs from 'dayjs';
+    import { DateRangePicker } from './components/components';
     import { PIcon } from '../../components/PIcon';
     import { PFieldError } from '../../components/PFieldError';
     import { PButton } from '../../components/PButton';
@@ -163,7 +164,7 @@
     export default {
         name: 'PDatePicker',
         components: {
-            DateRangePicker: utils.DateRangePicker,
+            DateRangePicker,
             PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField, PVisuallyHidden,
         },
         props: {

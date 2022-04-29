@@ -1,55 +1,70 @@
 <template>
-<!--    <PFrame>-->
-<!--        <PTopBar-->
-<!--            slot="topBar"-->
-<!--            :searchField="{-->
-<!--                value: search,-->
-<!--                placeholder: 'Search',-->
-<!--                showFocusBorder: true,-->
-<!--          }"-->
-<!--            :searchResultsVisible="false"-->
-<!--            @searchFieldChange="searchRelease"-->
-<!--            @searchResultsDismiss="handleSearchResultsDismiss"-->
-<!--        />-->
-        <PStack vertical>
-            <PStackItem v-for="(release, key) in releases" :key="key">
-                <PCard sectioned>
-                    <PStack vertical>
-                        <PStackItem>
-                            <PButton
-                                @click="handleToggle(key)"
-                                :aria-expanded="isOpen[key]"
-                                :aria-controls="`basic-collapsible-${key}`"
-                                plain
-                            >
-                                {{ release['tag_name'] + ' - ' + release['name'] }}
-                            </PButton>
-                        </PStackItem>
-                        <PStackItem style="margin: 0 0 0 -1px;">
-                            {{ formatDate(release['published_at']) }}
-                        </PStackItem>
-                        <PStackItem>
-                            <PCollapsible
-                                :open="key <= 2 ? true : isOpen[key]"
-                                :id="`basic-collapsible-${key}`"
-                                :transition="{duration: '500ms', timingFunction: 'ease-in-out'}"
-                                :expandOnPrint="true"
-                            >
-                                <PTextContainer>
-                                    <p v-html="formattedContent(release['body'])"/>
-                                </PTextContainer>
-                            </PCollapsible>
-                        </PStackItem>
-                    </PStack>
-                </PCard>
-            </PStackItem>
-        </PStack>
-<!--    </PFrame>-->
+    <PFrame>
+        <PTopBar
+            slot="topBar"
+            :searchField="{
+                value: search,
+                placeholder: 'Search',
+                showFocusBorder: true,
+            }"
+            :searchResultsVisible="false"
+            @searchFieldChange="searchRelease"
+            @searchResultsDismiss="handleSearchResultsDismiss"
+        />
+            <PCard>
+                <PAccordion
+                    :id="`changelog-accordion`"
+                    :open="[0, 1, 2]"
+                >
+                    <PAccordionItem
+                        v-for="(release, key) in releases" :key="key"
+                    >
+                        <template #title>
+                            <p>{{ release['tag_name'] + ' - ' + release['name'] }}</p>
+                            <PVerticalDivider/>
+                            <p>{{ formatDate(release['published_at']) }}</p>
+                        </template>
+
+                        <template #content>
+                            <span v-html="formattedContent(release['body'])"/>
+                        </template>
+                    </PAccordionItem>
+                </PAccordion>
+<!--                    <PStack vertical>-->
+<!--                        <PStackItem>-->
+<!--                            <PButton-->
+<!--                                @click="handleToggle(key)"-->
+<!--                                :aria-expanded="isOpen[key]"-->
+<!--                                :aria-controls="`basic-collapsible-${key}`"-->
+<!--                                plain-->
+<!--                            >-->
+<!--                                {{ release['tag_name'] + ' - ' + release['name'] }}-->
+<!--                            </PButton>-->
+<!--                        </PStackItem>-->
+<!--                        <PStackItem style="margin: 0 0 0 -1px;">-->
+<!--                            {{ formatDate(release['published_at']) }}-->
+<!--                        </PStackItem>-->
+<!--                        <PStackItem>-->
+<!--                            <PCollapsible-->
+<!--                                :open="key <= 2 ? true : isOpen[key]"-->
+<!--                                :id="`basic-collapsible-${key}`"-->
+<!--                                :transition="{duration: '500ms', timingFunction: 'ease-in-out'}"-->
+<!--                                :expandOnPrint="true"-->
+<!--                            >-->
+<!--                                <PTextContainer>-->
+<!--                                    <p v-html="formattedContent(release['body'])"/>-->
+<!--                                </PTextContainer>-->
+<!--                            </PCollapsible>-->
+<!--                        </PStackItem>-->
+<!--                    </PStack>-->
+            </PCard>
+    </PFrame>
 </template>
 
 <script>
-    // import { PFrame } from '../../components/PFrame';
-    // import { PTopBar } from '../../components/PTopBar';
+    import utils from '../../utilities';
+    import { PFrame } from '../../components/PFrame';
+    import { PTopBar } from '../../components/PTopBar';
     import { PDisplayText } from '../../components/PDisplayText';
     import { PLayout } from '../../components/PLayout';
     import { PStack } from '../../components/PStack';
@@ -64,6 +79,9 @@
     import { PTextContainer } from '../../components/PTextContainer';
     import { PCollapsible } from '../../components/PCollapsible';
     import { PButton } from '../../components/PButton';
+    import { PAccordion } from '../../components/PAccordion';
+    import { PAccordionItem } from '../../components/PAccordion/components/PAccordionItem';
+    import { PVerticalDivider } from '../../components/PVerticalDivider';
     import dayjs from 'dayjs';
     import showdown from 'showdown';
 
@@ -79,7 +97,8 @@
         },
         components: {
             PDisplayText, PLayout, PStack, PStackItem, PList, PListItem, PLink, PCard, PCardHeader, PCardSection,
-            PHeading, PTextContainer, PCollapsible, PButton,
+            PHeading, PTextContainer, PCollapsible, PButton, PFrame, PTopBar, PAccordion, PAccordionItem,
+            PVerticalDivider,
         },
         filters: {
             trimContent(content) {
@@ -101,15 +120,27 @@
             handleToggle(key) {
                 if (key > 2) {
                     if (!this.isOpen[key] || this.isOpen[key] === false) {
-                        this.$set(this.isOpen, key, true);
+                        if (utils.isVue3) {
+                            this.isOpen[key] = true;
+                        } else {
+                            this.$set(this.isOpen, key, true);
+                        }
                     } else {
-                        this.$set(this.isOpen, key, false);
+                        if (utils.isVue3) {
+                            this.isOpen[key] = false;
+                        } else {
+                            this.$set(this.isOpen, key, false);
+                        }
                     }
                 }
             },
             handleSearchResultsDismiss() {
                 this.releases.forEach((item, index) => {
-                    this.$set(this.isOpen, index, false);
+                    if (utils.isVue3) {
+                        this.isOpen[index] = false;
+                    } else {
+                        this.$set(this.isOpen, index, false);
+                    }
                 });
             },
             searchRelease(value) {
@@ -125,14 +156,26 @@
                             /* tslint:disable-next-line */
                             item['body'].toLowerCase().includes(value.toLowerCase())
                         ) {
-                            this.$set(this.isOpen, index, true);
+                            if (utils.isVue3) {
+                                this.isOpen[index] = true;
+                            } else {
+                                this.$set(this.isOpen, index, true);
+                            }
                         } else {
-                            this.$set(this.isOpen, index, false);
+                            if (utils.isVue3) {
+                                this.isOpen[index] = false;
+                            } else {
+                                this.$set(this.isOpen, index, false);
+                            }
                         }
                     });
                 } else {
                     this.releases.forEach((item, index) => {
-                        this.$set(this.isOpen, index, false);
+                        if (utils.isVue3) {
+                            this.isOpen[index] = false;
+                        } else {
+                            this.$set(this.isOpen, index, false);
+                        }
                     });
                 }
             },

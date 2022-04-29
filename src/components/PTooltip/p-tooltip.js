@@ -35,7 +35,7 @@ function tooltipBind(app, event, binding, togglePop, elementId) {
             });
             window.dispatchEvent(new Event('resize'));
         } else {
-            const element = document.getElementById('PolarisPopover' + elementId.replace(/_/g, '') + 'Activator');
+            const element = document.getElementById('PolarisPopover' + targetEl.id.replace(/_/g, '') + 'Activator');
             if (element && element.parentElement) {
                 element.parentElement.parentElement.remove();
             }

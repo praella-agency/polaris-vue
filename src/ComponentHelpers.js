@@ -1,5 +1,6 @@
 import utils from './utilities';
-const vue = require('vue');
+const vue3 = require('vue3');
+const vue = require('vue').default;
 
 function isNodeOfComponent(node, component) {
     if (!node || (utils.isVue2 && !node.componentOptions)) {
@@ -16,10 +17,10 @@ function wrapNodesWithComponent(createElement, nodes, component, ignoredComponen
             continue;
         }
 
-        if(utils.isVue3 && node.type === vue.Comment) {
+        if(utils.isVue3 && node.type === vue3.Comment) {
             continue;
         }
-        if(utils.isVue3 && node.type === vue.Fragment) {
+        if(utils.isVue3 && node.type === vue3.Fragment) {
             const fragmentChildren = wrapNodesWithComponent(createElement, node.children, component, ignoredComponents);
             children = [
                 ...children,
@@ -54,33 +55,43 @@ function uuid() {
 
 function createComponent(component, props, parentContainer, element, slots = {}) {
     if (utils.isVue2) {
-        let el = null;
-        if (element.tag) {
-            el = document.createElement(element.tag);
-            if (element.className) {
-                el.classList.add(element.className);
-            }
-        } else {
-            el = parentContainer;
+        let componentClass = vue.extend(component);
+        let instance = new componentClass({
+            propsData: props
+        });
+        if(slots.tooltipContent) {
+            instance.$slots.tooltipContent =slots.tooltipContent;
         }
-        return new (vue.extend(component))({
-            el,
-            props,
-            slots
-        })
+        instance.$mount();
+
+        parentContainer.append(instance.$el);
+        return instance.$el;
+        // let el;
+        // if (element.tag) {
+        //     el = document.createElement(element.tag);
+        //     if (element.className) {
+        //         el.classList.add(element.className);
+        //     }
+        // } else {
+        //     el = parentContainer;
+        // }
+        // return new (vue.extend(component))({
+        //     el,
+        //     props,
+        //     slots
+        // })
     } else {
-        const vNode = vue.h(component, props, () => slots);
+        const vNode = vue3.h(component, props, () => slots);
         if (element.tag) {
             const container = document.createElement(element.tag);
             if (element.className) {
                 container.classList.add(element.className);
             }
             parentContainer.appendChild(container);
-            vue.render(vNode, container);
+            vue3.render(vNode, container);
         } else {
-            vue.render(vNode, parentContainer)
+            vue3.render(vNode, parentContainer)
         }
-
         return vNode.component;
     }
 }
@@ -107,15 +118,10 @@ function hasSlot(slot) {
     }
 }
 
-function nextTick() {
-    return vue.nextTick;
-}
-
 export {
     createComponent,
     uuid,
     wrapNodesWithComponent,
     hasSlot,
     vue,
-    nextTick,
 };

@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import vue from 'rollup-plugin-vue';
+import vue2 from 'rollup-plugin-vue2';
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
@@ -67,7 +68,7 @@ const baseConfig = {
 // ESM/UMD/IIFE shared settings: externals
 // Refer to https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
 const external = [
-    'vue',
+    'vue', 'vue3'
 ];
 
 // UMD/IIFE shared settings: output.globals
@@ -92,7 +93,7 @@ if (!argv.format || argv.format === 'es') {
         plugins: [
             replace(baseConfig.plugins.replace),
             ...baseConfig.plugins.preVue,
-            vue(baseConfig.plugins.vue),
+            vue2(baseConfig.plugins.vue),
             ...baseConfig.plugins.postVue,
             babel({
                 ...baseConfig.plugins.babel,
@@ -135,7 +136,7 @@ if (!argv.format || argv.format === 'cjs') {
         plugins: [
             replace(baseConfig.plugins.replace),
             ...baseConfig.plugins.preVue,
-            vue({
+            vue2({
                 ...baseConfig.plugins.vue,
                 template: {
                     ...baseConfig.plugins.vue.template,
@@ -173,7 +174,7 @@ if (!argv.format || argv.format === 'umd') {
         plugins: [
             replace(baseConfig.plugins.replace),
             ...baseConfig.plugins.preVue,
-            vue(baseConfig.plugins.vue),
+            vue2(baseConfig.plugins.vue),
             ...baseConfig.plugins.postVue,
             babel(baseConfig.plugins.babel),
             terser({

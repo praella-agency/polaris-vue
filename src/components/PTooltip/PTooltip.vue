@@ -1,4 +1,5 @@
 <template>
+    <div>
     <div ref="container">
         <!-- @slot Filter Activator content -->
         <slot name="activator" :activate="onActivate"/>
@@ -33,6 +34,7 @@
                 </div>
             </template>
         </PTooltipOverlay>
+    </div>
     </div>
 </template>
 

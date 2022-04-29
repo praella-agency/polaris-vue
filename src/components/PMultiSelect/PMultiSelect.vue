@@ -15,7 +15,7 @@
              Triggers on searchChange
              @event searchChange
              -->
-            <multi-select
+            <MultiSelect
                 :id="id"
                 v-model="computedValue"
                 v-bind="$attrs"
@@ -61,7 +61,7 @@
                     </div>
                     <template slot="limit"></template>
                 </template>
-            </multi-select>
+            </MultiSelect>
         </div>
         <div class="Polaris-Labelled__HelpText" v-if="helpText">{{ helpText }}</div>
         <PFieldError v-if="error" :error="error"/>
@@ -72,6 +72,7 @@
     import utils from '../../utilities';
     import { uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
+    import { MultiSelect } from './components';
     import { PIcon } from '../../components/PIcon';
     import { PTag } from '../../components/PTag';
     import { PFieldError } from '../../components/PFieldError';
@@ -80,7 +81,7 @@
         name: 'PMultiSelect',
         components: {
             PIcon, PTag, PFieldError,
-            MultiSelect: utils.MultiSelect,
+            MultiSelect,
         },
         props: {
             /**
