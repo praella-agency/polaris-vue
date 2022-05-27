@@ -1,6 +1,6 @@
 <script>
     import utils from '../../utilities';
-    import { vue } from '../../ComponentHelpers';
+    import { vue3 } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PUnstyledLink } from '../../components/PUnstyledLink';
     import { PIcon } from '../../components/PIcon';
@@ -46,17 +46,17 @@
             let contentMarkup = null;
 
             if (utils.isVue3) {
-                contentMarkup = vue.h('span', {
+                contentMarkup = vue3.h('span', {
                     class: 'Polaris-Breadcrumbs__ContentWrapper',
                 }, [
-                    vue.h('span', {
+                    vue3.h('span', {
                         class: 'Polaris-Breadcrumbs__Icon',
                     }, [
-                        vue.h(PIcon, {
+                        vue3.h(PIcon, {
                             source: 'ChevronLeftMinor',
                         }),
                     ]),
-                    vue.h('span', {
+                    vue3.h('span', {
                         class: 'Polaris-Breadcrumbs__Content',
                     }, content),
                 ]);
@@ -87,7 +87,7 @@
 
             if (utils.isVue3) {
                 breadcrumbMarkup = 'url' in breadcrumb || 'to' in breadcrumb ? (
-                    vue.h(PUnstyledLink, {
+                    vue3.h(PUnstyledLink, {
                         class: breadcrumbClassNames,
                         key: content,
                         url: breadcrumb.url,
@@ -98,7 +98,7 @@
                         },
                     }, () => [contentMarkup])
                 ) : (
-                    vue.h('button', {
+                    vue3.h('button', {
                         class: breadcrumbClassNames,
                         key: content,
                         type: 'button',
@@ -109,7 +109,7 @@
                     }, [contentMarkup])
                 );
 
-                return vue.h('nav', {
+                return vue3.h('nav', {
                         role: 'navigation',
                 }, [breadcrumbMarkup]);
             } else {

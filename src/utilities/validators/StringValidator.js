@@ -1,5 +1,5 @@
 import utils from '../';
-import { vue } from '../../ComponentHelpers';
+import { vue3, vue } from '../../ComponentHelpers';
 
 export const StringValidator = (name, value, expectedValues) => {
     if (expectedValues.indexOf(value) === -1) {
@@ -7,7 +7,7 @@ export const StringValidator = (name, value, expectedValues) => {
             expectedValues.splice(expectedValues.indexOf(null), 1);
         }
         if (utils.isVue3) {
-            vue.warn(`The "${name}" prop is invalid. Given value: "${value}". Available options: "${expectedValues.join(', ')}".`);
+            vue3.warn(`The "${name}" prop is invalid. Given value: "${value}". Available options: "${expectedValues.join(', ')}".`);
         } else {
             vue.default.util.warn(`The "${name}" prop is invalid. Given value: "${value}". Available options: "${expectedValues.join(', ')}".`);
         }

@@ -65,14 +65,16 @@
                             {{ label }}
                         </slot>
                     </template>
-                    <PStack #suffix>
+                    <template #suffix>
+                      <PStack>
                         <PStackItem>
-                            <PIcon source="CalendarMajor"/>
+                          <PIcon source="CalendarMajor"/>
                         </PStackItem>
                         <PStackItem v-if="clearable">
-                            <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
+                          <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
                         </PStackItem>
-                    </PStack>
+                      </PStack>
+                    </template>
                     <template #prefix v-if="showPrefix">
                         {{ prefix }}
                     </template>

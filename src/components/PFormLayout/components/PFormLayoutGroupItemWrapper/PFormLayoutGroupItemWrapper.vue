@@ -1,5 +1,5 @@
 <script>
-    import { vue } from '../../../../ComponentHelpers';
+    import { vue3 } from '../../../../ComponentHelpers';
     import utils from '../../../../utilities';
     import { PFormLayoutItem } from '../../../../components/PFormLayout/components/PFormLayoutItem';
     import { wrapNodesWithComponent } from '../../../../ComponentHelpers';
@@ -7,11 +7,11 @@
     let render = {};
     if (utils.isVue3) {
         render = function render() {
-            return vue.h('div', {
+            return vue3.h('div', {
                     class: 'Polaris-FormLayout__Items',
                 },
                 wrapNodesWithComponent(
-                    vue.h,
+                    vue3.h,
                     this.$slots.default(), PFormLayoutItem,
                 ),
             );

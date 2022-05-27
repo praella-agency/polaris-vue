@@ -198,7 +198,7 @@
                 default: false,
             }
         },
-        emits: ['change', 'input', 'searchChange', 'update:modelValue'],
+        emits: ['change', 'input', 'searchChange', 'update:modelValue', 'update:value'],
         data() {
             return {
                 selected: this.value,
@@ -252,6 +252,7 @@
                     return this.selected;
                 },
                 set(value) {
+                  console.log(value);
                     this.selected = value;
                     /**
                      * Callback when selection is changed
@@ -266,6 +267,11 @@
                      * @ignore
                      */
                     this.$emit('update:modelValue', value);
+                    /**
+                     * Callback when input is triggered
+                     * @ignore
+                     */
+                    this.$emit('update:value', value);
                 },
             },
             computedMultiple() {

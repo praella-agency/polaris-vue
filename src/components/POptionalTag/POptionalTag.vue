@@ -1,14 +1,14 @@
 <script>
-    import { vue } from '../../ComponentHelpers';
+    import { vue3 } from '../../ComponentHelpers';
     import utils from '../../utilities';
     let render = {};
 
     if (utils.isVue3) {
         render = function render() {
             const validSlot = this.$slots.default();
-            const child = validSlot ? validSlot[0] : vue.h('div');
+            const child = validSlot ? validSlot[0] : vue3.h('div');
             if (this.active) {
-                return vue.h(this.tag, {}, [child]);
+                return vue3.h(this.tag, {}, [child]);
             }
             return child;
         }

@@ -5,11 +5,13 @@ import PToast from '../src/components/PToast';
 import PLoading from '../src/components/PLoading';
 import { directives } from '../src/components/PTooltip';
 import PTooltip from '../src/components/PTooltip/PTooltip.vue';
+import { ClickOutSideDirective } from '../src/components/PClickOutSide';
 
 app.use(PToast);
 app.use(PLoading);
 app.component('PTooltip', PTooltip);
 app.directive('p-tooltip', directives(app));
+app.directive('p-click-outside', ClickOutSideDirective(app));
 
 export const decorators = [(story) => ({
     components: {story},

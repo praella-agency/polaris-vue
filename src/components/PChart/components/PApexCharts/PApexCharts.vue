@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import utils from '../../../utilities';
+    import utils from '../../../../utilities';
     import ApexCharts from 'apexcharts/dist/apexcharts.min';
 
     export default {

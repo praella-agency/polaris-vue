@@ -28,12 +28,13 @@ module.exports = {
             use: ['style-loader', 'css-loader', 'sass-loader'],
             include: path.resolve(__dirname, '../'),
         });
-        config.resolve = {
+        /*config.resolve = {
             symlinks: false,
             alias: {
-                vue: path.resolve(`./node_modules/vue`),
+                vue: path.resolve(`./node_modules/vue3`),
+                vue2: path.resolve(`./node_modules/vue`),
             }
-        };
+        };*/
 
         // Return the altered config
         return config;

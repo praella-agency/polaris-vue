@@ -142,7 +142,7 @@
             },
             tableRowCallbackRef(node) {
                 this.tableRowRef = node;
-                const el = node.querySelector('[data-primary-link]');
+                const el = node?.querySelector('[data-primary-link]');
 
                 if (el) {
                     this.primaryLinkElement = el;

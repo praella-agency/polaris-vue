@@ -3,8 +3,8 @@
 </template>
 
 <script>
-    import utils from '../../../../../utilities';
-    import { vue } from '../../../../../ComponentHelpers';
+    import utils from '../../../../../../utilities';
+    import { vue3 } from '../../../../../../ComponentHelpers';
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
     import { debounce } from 'lodash-es';
 
@@ -70,7 +70,7 @@
             this.editor.create(this.$el, editorConfig)
                 .then(editor => {
                     // Save the reference to the instance for further use.
-                    this.instance = utils.isVue3 ? vue.markRaw(editor) : editor;
+                    this.instance = utils.isVue3 ? vue3.markRaw(editor) : editor;
 
                     // Set initial disabled state.
                     if (this.disabled) {

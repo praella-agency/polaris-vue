@@ -257,7 +257,7 @@
             return {
                 content: this.computedVModel !== null ? this.computedVModel : '',
                 height: this.minHeight,
-                editor: ClassicEditor,
+                editor: CKEditor,
                 characterCountLabel: this.maxLength || 'characterCountLabel',
                 characterCount: this.computedVModel && this.computedVModel.length,
             };

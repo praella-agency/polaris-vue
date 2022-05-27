@@ -101,7 +101,7 @@ function hasSlot(slot) {
         let hasSlot = false;
         if (slot) {
             slot().forEach((item) => {
-                if (item.type !== vue.Comment) {
+                if (item.type !== vue3.Comment) {
                     if (Array.isArray(item.children)) {
                         if (item.children.length) {
                             hasSlot = true;
@@ -124,4 +124,5 @@ export {
     wrapNodesWithComponent,
     hasSlot,
     vue,
+    vue3
 };

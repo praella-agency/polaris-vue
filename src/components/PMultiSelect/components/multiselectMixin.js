@@ -391,6 +391,8 @@ export default {
       if (this.resetAfter && this.internalValue.length) {
         this.search = ''
         this.$emit('input', this.multiple ? [] : null)
+        this.$emit('update:value', this.multiple ? [] : null)
+        this.$emit('update:modelValue', this.multiple ? [] : null)
       }
     },
     search () {
@@ -528,8 +530,12 @@ export default {
 
         if (this.multiple) {
           this.$emit('input', this.internalValue.concat([option]), this.id)
+          this.$emit('update:value', this.internalValue.concat([option]), this.id)
+          this.$emit('update:modelValue', this.internalValue.concat([option]), this.id)
         } else {
           this.$emit('input', option, this.id)
+          this.$emit('update:value', option, this.id)
+          this.$emit('update:modelValue', option, this.id)
         }
 
         /* istanbul ignore else */
@@ -559,6 +565,8 @@ export default {
         )
 
         this.$emit('input', newValue, this.id)
+        this.$emit('update:value', newValue, this.id)
+        this.$emit('update:modelValue', newValue, this.id)
       } else {
         const optionsToAdd = group[this.groupValues].filter(
             option => !(this.isOptionDisabled(option) || this.isSelected(option))
@@ -567,6 +575,16 @@ export default {
         this.$emit('select', optionsToAdd, this.id)
         this.$emit(
             'input',
+            this.internalValue.concat(optionsToAdd),
+            this.id
+        )
+        this.$emit(
+            'update:value',
+            this.internalValue.concat(optionsToAdd),
+            this.id
+        )
+        this.$emit(
+            'update:modelValue',
             this.internalValue.concat(optionsToAdd),
             this.id
         )
@@ -618,8 +636,12 @@ export default {
       if (this.multiple) {
         const newValue = this.internalValue.slice(0, index).concat(this.internalValue.slice(index + 1))
         this.$emit('input', newValue, this.id)
+        this.$emit('update:value', newValue, this.id)
+        this.$emit('update:modelValue', newValue, this.id)
       } else {
         this.$emit('input', null, this.id)
+        this.$emit('update:value', null, this.id)
+        this.$emit('update:modelValue', null, this.id)
       }
 
       /* istanbul ignore else */

@@ -214,11 +214,14 @@
                 return resourceName.plural ? 'Filter ' + resourceName.plural.toLowerCase() :
                     (resourceName.singular ? 'Filter ' + resourceName.singular.toLowerCase() : '');
             },
-            computedValue() {
-                if (this.queryValue) {
+            computedValue: {
+                get() {
+                  if (this.queryValue) {
                     return this.queryValue;
-                }
-                return this.inputFilter;
+                  }
+                  return this.inputFilter;
+                },
+                set(value) {}
             },
             hasSlot() {
                 return hasSlot;
@@ -255,11 +258,11 @@
                  */
                 this.$emit('queryFocus');
             },
-            handleTagRemove() {
+            handleTagRemove(key) {
                 /**
                  * Method to remove tag
                  */
-                this.$emit('remove-tag', this.tag.key);
+                this.$emit('remove-tag', key);
             },
         },
         mounted() {

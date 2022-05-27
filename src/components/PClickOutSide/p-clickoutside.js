@@ -3,21 +3,21 @@ import utils from '../../utilities';
 export const ClickOutSideDirective = (app) => {
     return {
         [utils.bind](el, binding, vnode) {
-            console.log(el.clickOutsideEvent);
-            if (el.clickOutsideEvent) {
-                el.clickOutsideEvent = function (event) {
-                    console.log('here i am in click outside');
-                    // here I check that click was outside the el and his childrens
-                    if (!(el === event.target || el.contains(event.target))) {
-                        // and if it did, call method provided in attribute value
-                        vnode.context[binding.expression](event);
-                    }
-                };
-            }
-            document.body.addEventListener('click', el.clickOutsideEvent)
+            console.log('here', el, binding, el.clickOutsideEvent, vnode)
+            el.clickOutsideEvent = function(event) {
+                if (!(el === event.target || el.contains(event.target))) {
+                    console.log('here in click outside');
+                    binding.value(event, el);
+                    // vnode.context[binding.expression](event);
+                }
+            };
+            // console.log(el.clickOutsideEvent);
+            // document.body.style.cssText = 'height: 100vh;';
+            document.addEventListener('click', el.clickOutsideEvent);
         },
         [utils.unbind](el) {
-            document.body.removeEventListener('click', el.clickOutsideEvent)
+            console.log('in unbind click outside');
+            document.removeEventListener('click', el.clickOutsideEvent);
         }
     }
 }

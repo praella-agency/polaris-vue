@@ -1,5 +1,5 @@
 <template>
-    <div class="color-picker-field" v-click-outside="hidePicker">
+    <div class="color-picker-field" v-p-click-outside="hidePicker">
         <div :class="propsClass">
             <span @click="togglePicker()" :class="className" :style="'background-color:'+color"></span>
             <PTextField v-model="color" type="text" :label="label" :show-input="showInput" class="picker"
@@ -15,7 +15,6 @@
     import { classNames } from '../../utilities/css';
     import { Chrome } from './components/Chrome';
     import { PTextField } from '../../components/PTextField/';
-    import vClickOutside from 'v-click-outside';
 
     /**
      * <br/>
@@ -27,9 +26,6 @@
         name: 'PColorPicker',
         components: {
             PTextField, Chrome,
-        },
-        directives: {
-            clickOutside: vClickOutside.directive,
         },
         props: {
             /**

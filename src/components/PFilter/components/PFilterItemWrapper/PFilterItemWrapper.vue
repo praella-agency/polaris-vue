@@ -1,5 +1,5 @@
 <script>
-    import { vue } from '../../../../ComponentHelpers';
+    import { vue3 } from '../../../../ComponentHelpers';
     import utils from '../../../../utilities';
     import { classNames } from '../../../../utilities/css';
     import { wrapNodesWithComponent } from '../../../../ComponentHelpers';
@@ -8,11 +8,11 @@
     let render = {};
     if (utils.isVue3) {
         render = function render() {
-            return vue.h('div', {
+            return vue3.h('div', {
                     class: this.className,
                 },
                 wrapNodesWithComponent(
-                    vue.h,
+                    vue3.h,
                     this.$slots.default(), PFilterItem
                 ),
             );
