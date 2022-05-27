@@ -62,7 +62,7 @@ const Template = (args) => ({
                 <PColorPicker
                     v-model:color="colorAttr"
                     v-bind="args"
-                    @change="handleChange"
+                    @drop="handleChange"
                 />
             </PStackItem>
             <PStackItem>

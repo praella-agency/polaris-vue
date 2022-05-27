@@ -240,7 +240,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -380,7 +380,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

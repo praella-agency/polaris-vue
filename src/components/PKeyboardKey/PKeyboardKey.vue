@@ -16,7 +16,3 @@
         name: 'PKeyboardKey',
     }
 </script>
-
-<style scoped>
-
-</style>

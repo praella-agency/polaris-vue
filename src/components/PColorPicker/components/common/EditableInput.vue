@@ -84,19 +84,3 @@
         }
     }
 </script>
-
-<style>
-    .vc-editable-input {
-        position: relative;
-    }
-
-    .vc-input__input {
-        padding: 0;
-        border: 0;
-        outline: none;
-    }
-
-    .vc-input__label {
-        text-transform: capitalize;
-    }
-</style>

@@ -147,7 +147,3 @@ Access values with `slot-props` attribute. -->
         },
     }
 </script>
-
-<style scoped>
-
-</style>

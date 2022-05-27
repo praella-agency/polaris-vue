@@ -5,7 +5,6 @@ import * as components from './components';
 import PToast from './components/PToast';
 import PLoading from './components/PLoading';
 import { PTooltip } from './components/PTooltip';
-import {app} from "@storybook/vue3";
 import {ClickOutSideDirective} from './components/PClickOutSide';
 
 // install function executed by Vue.use()

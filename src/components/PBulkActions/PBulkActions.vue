@@ -479,7 +479,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

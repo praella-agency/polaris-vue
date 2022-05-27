@@ -555,7 +555,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>
