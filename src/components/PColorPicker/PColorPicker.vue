@@ -112,6 +112,7 @@
         },
         methods: {
             updateColor(color) {
+                this.dropColors = color;
                 /**
                  * Triggers when color is changed
                  * @ignore
@@ -126,6 +127,9 @@
                 this.showPicker = !this.showPicker;
             },
             hidePicker() {
+                if (this.showPicker) {
+                    this.$emit('drop', this.dropColors || this.color);
+                }
                 this.showPicker = false;
             },
             dropColor() {
