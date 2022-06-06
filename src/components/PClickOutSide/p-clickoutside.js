@@ -7,8 +7,11 @@ export const ClickOutSideDirective = (app) => {
             el.clickOutsideEvent = function(event) {
                 if (!(el === event.target || el.contains(event.target))) {
                     console.log('here in click outside');
-                    binding.value(event, el);
-                    // vnode.context[binding.expression](event);
+                    if (utils.isVue3){
+                        binding.value(event, el);
+                    } else {
+                        vnode.context[binding.expression](event);
+                    }
                 }
             };
             // console.log(el.clickOutsideEvent);
