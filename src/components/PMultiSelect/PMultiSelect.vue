@@ -36,7 +36,7 @@
                 @tag="addTag"
                 @search-change="(query) => {$emit('searchChange', query)}"
             >
-                <template slot="caret">
+                <template v-slot:caret>
                     <div v-if="!floatingLabel" class="multiselect__select">
                         <PIcon source="SelectMinor"/>
                     </div>
@@ -196,6 +196,13 @@
             floatingLabel: {
                 type: Boolean,
                 default: false,
+            },
+            /**
+             * Return object
+             */
+            returnObject: {
+                type: Boolean,
+                default: true
             }
         },
         emits: ['change', 'input', 'searchChange', 'update:modelValue', 'update:value'],
@@ -252,26 +259,8 @@
                     return this.selected;
                 },
                 set(value) {
-                  console.log(value);
                     this.selected = value;
-                    /**
-                     * Callback when selection is changed
-                     */
-                    this.$emit('change', value);
-                    /**
-                     * Callback when input is triggered
-                     */
-                    this.$emit('input', value);
-                    /**
-                     * Callback when input is triggered
-                     * @ignore
-                     */
-                    this.$emit('update:modelValue', value);
-                    /**
-                     * Callback when input is triggered
-                     * @ignore
-                     */
-                    this.$emit('update:value', value);
+                    this.emitUpdateEvents();
                 },
             },
             computedMultiple() {
@@ -284,13 +273,13 @@
                     [this.textField]: newTag,
                     [this.valueField]: newTag,
                 };
+                this.options.push(tag);
                 if (this.multiple) {
                     this.selected.push(tag);
                 } else {
                     this.selected = tag;
                 }
-                this.options.push(tag);
-                this.$emit('change', this.selected);
+                this.emitUpdateEvents();
             },
             handleOpen() {
                 this.dropdownOpen = true;
@@ -298,6 +287,33 @@
             handleClose() {
                 this.dropdownOpen = false;
             },
+            emitUpdateEvents() {
+                const computedValue = this.computedValue;
+                let values = this.multiple ? [] : computedValue;
+                if (this.multiple && Array.isArray(computedValue) && computedValue.length ) {
+                    computedValue.forEach(item => {
+                        values.push(item[this.valueField] || null);
+                    });
+                }
+                /**
+                 * Callback when selection is changed
+                 */
+                this.$emit('change', this.returnObject ? computedValue : values);
+                /**
+                 * Callback when input is triggered
+                 */
+                this.$emit('input', this.returnObject ? computedValue : values);
+                /**
+                 * Callback when input is triggered
+                 * @ignore
+                 */
+                this.$emit('update:modelValue', this.returnObject ? computedValue : values);
+                /**
+                 * Callback when input is triggered
+                 * @ignore
+                 */
+                this.$emit('update:value', this.returnObject ? computedValue : values);
+            }
         },
         watch: {
             value(value) {
@@ -305,7 +321,7 @@
             },
         },
         created() {
-            this.selected = this.computedVModel;
+            this.selected = this.computedVModel || (this.multiple ? [] : null);
         }
     }
 </script>

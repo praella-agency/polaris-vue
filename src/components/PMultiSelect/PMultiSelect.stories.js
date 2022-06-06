@@ -144,6 +144,7 @@ MultiSelect.args = {
     ],
     label: 'Sort by',
     textField: 'label',
-    valueField: 'language'
+    valueField: 'language',
+    returnObject: true
 }
 

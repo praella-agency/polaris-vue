@@ -1,3 +1,5 @@
+import utils from "../../../utilities";
+
 function isEmpty (opt) {
   if (opt === 0) return false
   if (Array.isArray(opt) && opt.length === 0) return true
@@ -104,6 +106,12 @@ export default {
      * @type {Object||Array||String||Integer}
      */
     value: {
+      type: null,
+      default () {
+        return []
+      }
+    },
+    modelValue: {
       type: null,
       default () {
         return []
@@ -331,9 +339,15 @@ export default {
     }
   },
   computed: {
+    computedVModel() {
+      if (utils.isVue3) {
+        return this.modelValue
+      }
+      return this.value
+    },
     internalValue () {
-      return this.value || this.value === 0
-          ? Array.isArray(this.value) ? this.value : [this.value]
+      return this.computedVModel || this.computedVModel === 0
+          ? Array.isArray(this.computedVModel) ? this.computedVModel : [this.computedVModel]
           : []
     },
     filteredOptions () {
