@@ -289,7 +289,7 @@
             },
             emitUpdateEvents() {
                 const computedValue = this.computedValue;
-                let values = this.multiple ? [] : computedValue;
+                let values = this.multiple ? [] : computedValue.language;
                 if (this.multiple && Array.isArray(computedValue) && computedValue.length ) {
                     computedValue.forEach(item => {
                         values.push(item[this.valueField] || null);
