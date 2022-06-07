@@ -74,7 +74,7 @@
                 @mousedown.prevent="toggle"
             >
           <slot name="singleLabel" :option="singleValue">
-            <template>{{ currentOptionLabel }}</template>
+              {{ currentOptionLabel }}
           </slot>
         </span>
             <span
