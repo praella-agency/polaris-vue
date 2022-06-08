@@ -210,6 +210,7 @@
             return {
                 selected: this.value,
                 dropdownOpen: false,
+                taggableOptions: [],
             };
         },
         computed: {
@@ -236,6 +237,16 @@
             computedOptions() {
                 const options = [];
                 this.options.map((value) => {
+                    if (typeof value === 'object') {
+                        if (value[this.disabledField]) {
+                            value.$isDisabled = value[this.disabledField];
+                        }
+                        options.push(value);
+                    } else {
+                        options.push({[this.textField]: value, [this.valueField]: value});
+                    }
+                });
+                this.taggableOptions.map((value) => {
                     if (typeof value === 'object') {
                         if (value[this.disabledField]) {
                             value.$isDisabled = value[this.disabledField];
@@ -273,7 +284,7 @@
                     [this.textField]: newTag,
                     [this.valueField]: newTag,
                 };
-                this.options.push(tag);
+                this.taggableOptions.push(tag);
                 if (this.multiple) {
                     this.selected.push(tag);
                 } else {
@@ -289,7 +300,13 @@
             },
             emitUpdateEvents() {
                 const computedValue = this.computedValue;
-                let values = this.multiple ? [] : computedValue.language;
+                let values = [];
+                if (!this.multiple) {
+                    values = null;
+                    if(computedValue) {
+                        values = computedValue[this.valueField];
+                    }
+                }
                 if (this.multiple && Array.isArray(computedValue) && computedValue.length ) {
                     computedValue.forEach(item => {
                         values.push(item[this.valueField] || null);

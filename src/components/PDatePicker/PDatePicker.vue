@@ -96,12 +96,12 @@
                 </button>
             </template>
             <template v-slot:footer="data" v-if="!autoApply" class="slot">
-                <PStack distribution="equalSpacing" alignment="center">
+                <PStack v-show="!data.in_selection" distribution="equalSpacing" alignment="center">
                     <PStackItem>
-                        <PButton @click="data.clickCancel" v-if="!data.in_selection">Cancel</PButton>
+                        <PButton @click="data.clickCancel">Cancel</PButton>
                     </PStackItem>
                     <PStackItem>
-                        <PButton primary @click="data.clickApply" v-if="!data.in_selection">Apply</PButton>
+                        <PButton primary @click="data.clickApply">Apply</PButton>
                     </PStackItem>
                 </PStack>
             </template>
@@ -283,6 +283,7 @@
              */
             singleDatePicker: {
                 type: [Boolean, String],
+                default: true
             },
             /**
              * Show the dropdown for time (hour/minute) selection below the calendars
@@ -303,7 +304,7 @@
              */
             showWeekNumbers: {
                 type: Boolean,
-                default: false,
+                default: true,
             },
             /**
              * Show the dropdowns for month and year selection above the calendars

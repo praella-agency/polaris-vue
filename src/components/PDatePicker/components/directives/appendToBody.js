@@ -2,10 +2,6 @@ import utils from '../../../../utilities';
 
 export default {
     mounted(el, bindings, context) {
-        console.log(el)
-        console.log(bindings)
-        console.log(bindings.instance.$refs.toggle)
-        console.log(context)
         const {height, top, left, width, right} = bindings.instance.$refs.toggle.getBoundingClientRect();
 
         el.unbindPosition = bindings.instance.calculatePosition(el, bindings.instance, {

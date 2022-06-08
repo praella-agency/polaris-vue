@@ -1,17 +1,18 @@
+window.isVue3 = true;
 import '!style-loader!css-loader!sass-loader!../src/scss/main.scss';
 import '!style-loader!css-loader!sass-loader!./styles/docs.scss';
 import { app } from '@storybook/vue3';
-import PToast from '../src/components/PToast';
-import PLoading from '../src/components/PLoading';
-import { directives } from '../src/components/PTooltip';
-import PTooltip from '../src/components/PTooltip/PTooltip.vue';
-import { ClickOutSideDirective } from '../src/components/PClickOutSide';
+const PToast = require('../src/components/PToast');
+const PLoading = require('../src/components/PLoading');
+const PTooltip = require('../src/components/PTooltip');
+const PTooltipComponent = require('../src/components/PTooltip/PTooltip.vue');
+const PClickOutSide = require('../src/components/PClickOutSide');
 
-app.use(PToast);
-app.use(PLoading);
-app.component('PTooltip', PTooltip);
-app.directive('p-tooltip', directives(app));
-app.directive('p-click-outside', ClickOutSideDirective(app));
+app.use(PToast.default);
+app.use(PLoading.default);
+app.component('PTooltip', PTooltipComponent);
+app.directive('p-tooltip', PTooltip.directives(app));
+app.directive('p-click-outside', PClickOutSide.ClickOutSideDirective(app));
 
 export const decorators = [(story) => ({
     components: {story},

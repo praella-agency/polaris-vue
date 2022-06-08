@@ -27,7 +27,7 @@
         </div>
         <transition name="slide-fade" mode="out-in">
             <div
-                class="daterangepicker ltr"
+                class="PDateRangePicker daterangepicker ltr"
                 :class="pickerStyles"
                 v-if="open || opens === 'inline'"
                 v-append-to-body
@@ -389,7 +389,7 @@
              */
             controlContainerClass: {
                 type: [Object, String],
-                default: 'form-control reportrange-text'
+                default: ''
             },
             /**
              * Append the dropdown element to the end of the body

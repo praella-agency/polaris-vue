@@ -1,10 +1,5 @@
-console.log('in utilities', window.isVue3);
-// const isVue3 = window.isVue3 || true;
-const isVue3 = true;
+const isVue3 = window.isVue3;
 const isVue2 = !isVue3;
-console.log('isVue2');
-console.log(isVue2);
-console.log('isVue2');
 export default {
     isVue3,
     isVue2,

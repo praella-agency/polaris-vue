@@ -46,7 +46,6 @@
 </template>
 
 <script>
-    import utils from '../../../../utilities';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { PIcon } from '../../../../components/PIcon';
     import { PSpinner } from '../../../../components/PSpinner';
