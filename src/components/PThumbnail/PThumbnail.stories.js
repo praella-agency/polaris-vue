@@ -35,11 +35,3 @@ Thumbnail.args = {
     alt: 'Black choker necklace',
     source: 'https://burst.shopifycdn.com/photos/black-leather-choker-necklace_373x@2x.jpg',
 }
-
-Thumbnail.parameters= {
-    docs: {
-        source: {
-            code: `<PThumbnail/>`
-        },
-    },
-};

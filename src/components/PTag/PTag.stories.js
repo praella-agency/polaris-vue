@@ -53,11 +53,3 @@ Tag.args = {
         key: 'test',
     },
 }
-Tag.parameters= {
-    docs: {
-        source: {
-            code: `<PTag/>`
-        },
-    },
-};
-

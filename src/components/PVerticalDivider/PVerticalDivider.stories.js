@@ -49,11 +49,3 @@ const Template = (args) => ({
 });
 
 export const VerticalDivider = Template.bind({});
-
-VerticalDivider.parameters = {
-    docs: {
-        source: {
-            code: `<PVerticalDivider/>`
-        },
-    },
-};

@@ -50,19 +50,3 @@ export const StackItem = Template.bind({});
 StackItem.args = {
     fill: false,
 }
-
-StackItem.parameters= {
-    docs: {
-        source: {
-            code: `
-<PStack>
-    <PStackItem>
-        <PTextStyle>Item 1</PTextStyle>
-    </PStackItem>
-    <PStackItem>
-        <PTextStyle>Item 2</PTextStyle>
-    </PStackItem>
-</PStack>`
-        },
-    },
-};

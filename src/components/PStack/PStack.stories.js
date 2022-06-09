@@ -70,19 +70,3 @@ const Template = (args) => ({
 });
 
 export const Stack = Template.bind({});
-
-Stack.parameters= {
-    docs: {
-        source: {
-            code: `
-<PStack>
-    <PStackItem>
-        <PThumbnail/>
-    </PStackItem>
-    <PStackItem>
-        <PTextStyle>Item 1</PTextStyle>
-    </PStackItem>
-</PStack>`
-        },
-    },
-};

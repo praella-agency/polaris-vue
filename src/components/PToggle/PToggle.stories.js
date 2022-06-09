@@ -60,11 +60,3 @@ export const Toggle = Template.bind({});
 Toggle.args = {
     label: 'Toggle Switch'
 }
-Toggle.parameters = {
-    docs: {
-        source: {
-            code: `<PToggle/>`
-        },
-    },
-};
-

@@ -1,4 +1,5 @@
 import { PUnstyledLink } from './index';
+
 export default {
     title: 'Navigation / Unstyled Link',
     component: PUnstyledLink,
@@ -39,11 +40,3 @@ export const UnstyledLink = Template.bind({});
 UnstyledLink.args = {
     url: 'javascript:void(0);',
 }
-UnstyledLink.parameters = {
-    docs: {
-        source: {
-            code: `<PUnstyledLink>HulkApps</PUnstyledLink>`
-        },
-    },
-};
-

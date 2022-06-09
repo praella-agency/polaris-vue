@@ -45,11 +45,3 @@ const Template = (args) => ({
 });
 
 export const TextStyle = Template.bind({});
-
-TextStyle.parameters= {
-    docs: {
-        source: {
-            code: `<PTextStyle>No supplier listed</PTextStyle>`
-        },
-    },
-};

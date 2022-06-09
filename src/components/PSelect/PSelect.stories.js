@@ -95,11 +95,3 @@ Select.args = {
         {label: 'Last name Z–A', value: 'lastNameReverseAlpha'},
     ],
 }
-
-Select.parameters= {
-    docs: {
-        source: {
-            code: `<PSelect/>`
-        },
-    },
-};
