@@ -27,3 +27,11 @@ const Template = (args) => ({
 });
 
 export const SkeletonDisplayText = Template.bind({});
+
+SkeletonDisplayText.parameters= {
+    docs: {
+        source: {
+            code: `<PSkeletonDisplayText/>`
+        },
+    },
+};

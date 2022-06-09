@@ -23,3 +23,11 @@ export const SkeletonBodyText = Template.bind({});
 SkeletonBodyText.args = {
     lines: 5,
 }
+
+SkeletonBodyText.parameters= {
+    docs: {
+        source: {
+            code: `<PSkeletonBodyText/>`
+        },
+    },
+};

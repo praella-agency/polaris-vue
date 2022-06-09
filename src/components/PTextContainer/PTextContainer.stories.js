@@ -49,3 +49,19 @@ const Template = (args) => ({
 });
 
 export const TextContainer = Template.bind({});
+
+TextContainer.parameters= {
+    docs: {
+        source: {
+            code: `
+<PTextContainer>
+  <PHeading>
+    Sample Heading
+  </PHeading>
+  <p> 
+    Sample paragraph  
+  </p>
+</PTextContainer>`
+        },
+    },
+};

@@ -27,3 +27,11 @@ const Template = (args) => ({
 });
 
 export const SkeletonThumbnail = Template.bind({});
+
+SkeletonThumbnail.parameters= {
+    docs: {
+        source: {
+            code: `<PSkeletonThumbnail/>`
+        },
+    },
+};

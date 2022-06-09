@@ -86,3 +86,10 @@ const Template = (args) => ({
 });
 
 export const SettingToggle = Template.bind({});
+SettingToggle.parameters= {
+    docs: {
+        source: {
+            code: `<PSettingToggle/>`
+        },
+    },
+};
