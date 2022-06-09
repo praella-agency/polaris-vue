@@ -41,3 +41,15 @@ const Template = (args) => ({
 });
 
 export const Default = Template.bind({});
+
+Default.parameters = {
+    docs: {
+        source: {
+            code: `
+<PFormLayout>
+    <PTextField label="Store name"/>
+    <PTextField error="Please enter valid email" type="email" label="Account email"/>
+</PFormLayout>`
+        },
+    },
+};

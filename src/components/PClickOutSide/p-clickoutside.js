@@ -19,13 +19,3 @@ export const ClickOutSideDirective = (app) => {
         }
     }
 }
-
-const PClickOutside = {
-    install(app, options) {
-        app.directive('p-click-outside', ClickOutSideDirective(app));
-    }
-}
-
-export {
-    PClickOutside
-};

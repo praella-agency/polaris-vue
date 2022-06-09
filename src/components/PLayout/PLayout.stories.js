@@ -46,6 +46,21 @@ Layout.args = {
     sectioned: true,
 }
 
+Layout.parameters = {
+    docs: {
+        source: {
+            code: `
+<PLayout>
+    <PLayoutSection>
+        <PCard sectioned>
+            View a summary of your online store’s performance
+        </PCard>
+    </PLayoutSection>
+</PLayout>`
+        },
+    },
+};
+
 const Template1 = (args) => ({
     setup() {
         return {args};
@@ -70,6 +85,26 @@ const Template1 = (args) => ({
 
 export const TwoColumnWithPrimaryAndSecondaryWidth = Template1.bind({});
 
+TwoColumnWithPrimaryAndSecondaryWidth.parameters = {
+    docs: {
+        source: {
+            code: `
+<PLayout>
+    <PLayoutSection>
+        <PCard sectioned title="Order details">
+            View a summary of your order.
+        </PCard>
+    </PLayoutSection>
+    <PLayoutSection secondary>
+        <PCard sectioned title="Tags">
+            Add tags to your order.
+        </PCard>
+    </PLayoutSection>
+</PLayout>`
+        },
+    },
+};
+
 const Template2 = (args) => ({
     setup() {
         return {args};
@@ -93,6 +128,26 @@ const Template2 = (args) => ({
 });
 
 export const TwoColumnsWithEqualWidth = Template2.bind({});
+
+TwoColumnsWithEqualWidth.parameters = {
+    docs: {
+        source: {
+            code: `
+<PLayout>
+    <PLayoutSection one-half>
+        <PCard sectioned title="Order details">
+            View a summary of your order.
+        </PCard>
+    </PLayoutSection>
+    <PLayoutSection one-half>
+        <PCard sectioned title="Tags">
+            Add tags to your order.
+        </PCard>
+    </PLayoutSection>
+</PLayout>`
+        },
+    },
+};
 
 const Template3 = (args) => ({
     setup() {
@@ -122,6 +177,31 @@ const Template3 = (args) => ({
 });
 
 export const ThreeColumnsWithEqualWidth = Template3.bind({});
+
+ThreeColumnsWithEqualWidth.parameters = {
+    docs: {
+        source: {
+            code: `
+<PLayout>
+    <PLayoutSection oneThird>
+        <PCard sectioned title="Order details">
+            View a summary of your order.
+        </PCard>
+    </PLayoutSection>
+    <PLayoutSection oneThird>
+        <PCard sectioned title="Variant">
+            Add Variant
+        </PCard>
+    </PLayoutSection>
+    <PLayoutSection oneThird>
+        <PCard sectioned title="Tags">
+            Add tags to your order.
+        </PCard>
+    </PLayoutSection>
+</PLayout>`
+        },
+    },
+};
 
 const Template4 = (args) => ({
     setup() {
@@ -157,3 +237,29 @@ const Template4 = (args) => ({
 });
 
 export const AnnotatedLayout = Template4.bind({});
+
+AnnotatedLayout.parameters = {
+    docs: {
+        source: {
+            code: `
+<PLayout>
+    <PLayoutSection>
+        <PBanner title="Order archived">
+            <p>This order was archived on March 7, 2017 at 3:12pm EDT.</p>
+        </PBanner>
+    </PLayoutSection>
+    <PLayoutAnnotatedSection
+        title="Store details"
+        description="Shopify and your customers will use this information to contact you."
+    >
+        <PCard sectioned>
+            <PFormLayout>
+                <PTextField label="Store name"></PTextField>
+                <PTextField type="email" label="Account email"></PTextField>
+            </PFormLayout>
+        </PCard>
+    </PLayoutAnnotatedSection>
+</PLayout>`
+        },
+    },
+};

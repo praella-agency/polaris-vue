@@ -94,3 +94,17 @@ const Template = (args) => ({
 export const Banner = Template.bind({});
 
 Banner.args = {}
+
+Banner.parameters = {
+    docs: {
+        source: {
+            code: `
+<PBanner>
+    Add weights to show accurate rates at checkout and when buying shipping
+    labels in Shopify.Add weights to show accurate rates at checkout and when buying shipping
+    labels in Shopify.Add weights to show accurate rates at checkout and when buying shipping
+    labels in Shopify.
+</PBanner>`
+        },
+    },
+};

@@ -48,3 +48,11 @@ const Template = (args) => ({
 });
 
 export const DisplayText = Template.bind({});
+
+DisplayText.parameters = {
+    docs: {
+        source: {
+            code: `<PDisplayText>Default Example Usage</PDisplayText>`
+        },
+    },
+};

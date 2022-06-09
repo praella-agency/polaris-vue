@@ -122,3 +122,18 @@ EmptyState.args = {
         },
     },
 }
+
+EmptyState.parameters = {
+    docs: {
+        source: {
+            code: `
+<PEmptyState>
+    <template>
+        If you don’t want to add a transfer, you can import your inventory from
+        <PLink>settings</PLink>
+    </template>
+    <p>Track and receive your incoming inventory from suppliers.</p>
+</PEmptyState>`
+        },
+    },
+};

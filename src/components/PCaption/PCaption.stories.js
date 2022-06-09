@@ -53,3 +53,21 @@ const Template = (args) => ({
 });
 
 export const Caption = Template.bind({});
+
+Caption.parameters = {
+    docs: {
+        source: {
+            code:
+`<PList>
+    <PListItem>
+        Order #1001
+        <PCaption>Received April 21, 2017</PCaption>
+    </PListItem>
+    <PListItem>
+        Order #1002
+        <PCaption>Received April 22, 2017</PCaption>
+    </PListItem>
+</PList>`
+        },
+    },
+};

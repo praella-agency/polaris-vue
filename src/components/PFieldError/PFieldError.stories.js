@@ -21,3 +21,11 @@ export const FieldError = Template.bind({});
 FieldError.args = {
     error: 'Validation Error',
 }
+
+FieldError.parameters = {
+    docs: {
+        source: {
+            code: `<PFieldError error="Validation Error"/>`
+        },
+    },
+};

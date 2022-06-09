@@ -16,26 +16,25 @@ import { Meta } from '@storybook/addon-docs';
 
 Polaris Vue by HulkApps is a component library for [Vue.js](https://vuejs.org/) based on
 [Shopify Polaris style guide](https://polaris.shopify.com/).
+<br />
 
-## Quick start
+## Getting Started
 
-You need [Vue.js](https://vuejs.org/) **version 2+**.
+Make sure that you had [Vue.js](https://vuejs.org/) **version 2+**.
 
-### 1. Install via npm
-
+### Installation
 <br/>
 
-#### Using NPM
+#### Using npm or yarn
 ```bash
-npm i @hulkapps/polaris-vue
+npm install @hulkapps/polaris-vue
 ```
 
-#### Using Yarn
 ```bash
 yarn add @hulkapps/polaris-vue
 ```
 
-### 2. Import and use Polaris Vue
+### Usage for VueJS v2
 
 ```javascript
 import Vue from 'vue';
@@ -44,11 +43,18 @@ import '@hulkapps/polaris-vue/dist/polaris-vue.min.css';
 Vue.use(PolarisVue);
 ```
 
-#### Other available builds
+### Usage for VueJS v3
+
 ```javascript
-'/dist/polaris-vue.min.js';
-'/dist/polaris-vue.ssr.js';
-'/dist/polaris-vue.esm.js';
+import { createApp } from 'vue';
+import PolarisVue from '@hulkapps/polaris-vue/dist/vue3/polaris-vue.min.js';
+import '@hulkapps/polaris-vue/dist/polaris-vue.min.css';
+
+import App from './App';
+
+const app = createApp(App);
+app.use(PolarisVue);
+app.mount('#app');
 ```
 
 ## Contributing

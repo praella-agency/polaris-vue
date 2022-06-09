@@ -31,3 +31,11 @@ export const ProgressBar = Template.bind({});
 ProgressBar.args = {
     progress: 30,
 }
+
+ProgressBar.parameters = {
+    docs: {
+        source: {
+            code: `<PProgressBar/>`
+        },
+    },
+};

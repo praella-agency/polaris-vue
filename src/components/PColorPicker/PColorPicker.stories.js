@@ -84,3 +84,11 @@ ColorPicker.args = {
     id: 'color-picker',
     label: 'Color Picker',
 }
+
+ColorPicker.parameters = {
+    docs: {
+        source: {
+            code: `<PColorPicker/>`
+        },
+    },
+};

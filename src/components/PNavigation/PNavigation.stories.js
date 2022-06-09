@@ -299,3 +299,11 @@ Navigation.args = {
         }
     ]
 }
+
+Navigation.parameters = {
+    docs: {
+        source: {
+            code: `<PNavigation/>`
+        },
+    },
+};

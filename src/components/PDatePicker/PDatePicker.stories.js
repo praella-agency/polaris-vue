@@ -108,3 +108,16 @@ DatePicker.args = {
     placeholder: "Select Date",
     label: "Date Picker",
 }
+
+DatePicker.parameters = {
+    docs: {
+        source: {
+            code: `
+<PDatePicker
+    id="pDatePicker"
+    singleDatePicker
+    placeholder="Select Date"
+/>`
+        },
+    },
+};

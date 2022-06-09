@@ -52,3 +52,11 @@ Default.args = {
         },
     ],
 }
+
+Default.parameters = {
+    docs: {
+        source: {
+            code: '<PAccordion id="Polaris-Accordion"/>'
+        },
+    },
+};

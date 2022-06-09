@@ -237,3 +237,16 @@ Page.args = {
         }
     ],
 }
+
+Page.parameters = {
+    docs: {
+        source: {
+            code: `
+<PPage>
+    <PBadge status="success">Paid</PBadge>
+    <PAvatar initials="HA"></PAvatar>
+    Page Content
+</PPage>`
+        },
+    },
+};

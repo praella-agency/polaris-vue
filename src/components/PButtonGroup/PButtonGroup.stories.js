@@ -42,3 +42,16 @@ const Template = (args) => ({
 });
 
 export const ButtonGroup = Template.bind({});
+
+ButtonGroup.parameters = {
+    docs: {
+        source: {
+            code: `
+<PButtonGroup>
+    <PButton>Button 1</PButton>
+    <PButton>Button 2</PButton>
+    <PButton>Button 3</PButton>
+</PButtonGroup>`
+        },
+    },
+};

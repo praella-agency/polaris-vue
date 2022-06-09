@@ -34,3 +34,11 @@ Pagination.args = {
         console.log('Next')
     },
 }
+
+Pagination.parameters = {
+    docs: {
+        source: {
+            code: `<PPagination/>`
+        },
+    },
+};

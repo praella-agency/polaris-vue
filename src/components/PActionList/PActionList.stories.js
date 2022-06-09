@@ -98,3 +98,11 @@ ActionList.args = {
         },
     ],
 }
+
+ActionList.parameters = {
+    docs: {
+        source: {
+            code: `<PActionList/>`
+        },
+    },
+};

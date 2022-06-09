@@ -101,3 +101,28 @@ export const RadioButton = Template.bind({});
 RadioButton.args = {
     name: 'accounts',
 }
+
+RadioButton.parameters = {
+    docs: {
+        source: {
+            code: `
+<PStack vertical>
+    <PStackItem>
+        <PRadioButton
+            id="disabled"
+            label="Customers will only be able to check out as guests."
+            help-text="Customers will only be able to check out as guests."
+        />
+    </PStackItem>
+    <PStackItem>
+        <PRadioButton
+            id="optional"
+            label="Accounts are optional"
+            help-text="Customers will be able to check out with a customer account or as a guest."
+            checked
+        />
+    </PStackItem>
+</PStack>`
+        },
+    },
+};

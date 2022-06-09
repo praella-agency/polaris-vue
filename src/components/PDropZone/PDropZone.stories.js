@@ -223,6 +223,16 @@ DropZone.args = {
     type: "image"
 }
 
+DropZone.parameters = {
+    docs: {
+        source: {
+            code: `<template>
+    <PDropZone/>
+</template>`
+        },
+    },
+};
+
 const Template1 = (args) => ({
     setup() {
         return {args};
@@ -275,3 +285,17 @@ export const DropZoneWithCustomFileDialogTrigger = Template1.bind({});
 DropZoneWithCustomFileDialogTrigger.args = {
     validImageTypes: ['image/gif', 'image/jpeg', 'image/png'],
 }
+
+DropZoneWithCustomFileDialogTrigger.parameters = {
+    docs: {
+        source: {
+            code: `
+<PCard>
+    <PCardHeadertitle="Product Images"/>
+    <PCardSection>
+        <PDropZone/>
+    </PCardSection>
+</PCard>`
+        },
+    },
+};

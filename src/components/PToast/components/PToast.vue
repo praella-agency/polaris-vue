@@ -241,7 +241,6 @@ export default {
     },
   },
   beforeMount() {
-    console.log('binding container');
     this.setupContainer();
   },
   mounted() {
