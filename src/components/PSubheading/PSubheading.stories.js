@@ -46,3 +46,11 @@ export const Subheading = Template.bind({});
 Subheading.args = {
     element: 'h2',
 }
+Subheading.parameters= {
+    docs: {
+        source: {
+            code: `<PSubheading>Sample Sub Heading</PSubheading>`
+        },
+    },
+};
+

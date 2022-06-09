@@ -129,7 +129,6 @@ const Template = (args) => ({
 });
 
 export const Tabs = Template.bind({});
-//
 // const customRoutes = [
 //     {
 //         path: '/all-customers-1',
@@ -147,3 +146,11 @@ export const Tabs = Template.bind({});
 Tabs.decorators = [
     VueRouter(routes(items, 'to')),
 ]
+
+Tabs.parameters= {
+    docs: {
+        source: {
+            code: `<PTabs/>`
+        },
+    },
+};

@@ -201,3 +201,39 @@ DualRangeSlider.args = {
     step: 10,
     id: 'Dual Slider'
 }
+
+SingleRangeSlider.parameters= {
+    docs: {
+        source: {
+            code: `<template>
+  <PRangeSlider/>
+</template>`
+        },
+    },
+};
+
+DualRangeSlider.parameters= {
+    docs: {
+        source: {
+            code: `
+<PRangeSlider>
+    <PStack distribution="equalSpacing" spacing="extraLoose">
+        <PStackItem>
+            <PTextField
+                label="Min money spent"
+                type="number"
+                prefix="$"    
+            />
+        </PStackItem>
+        <PStackItem>
+            <PTextField
+                label="Max money spent"
+                type="number"
+                prefix="$"
+            />
+        </PStackItem>
+    </PStack>
+  </PRangeSlider>`
+        },
+    },
+};

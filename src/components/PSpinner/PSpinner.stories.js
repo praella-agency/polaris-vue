@@ -40,3 +40,11 @@ export const Spinner = Template.bind({});
 Spinner.args = {
     accessibilityLabel: 'Spinner Example',
 }
+
+Spinner.parameters= {
+    docs: {
+        source: {
+            code: `<PSpinner/>`
+        },
+    },
+};

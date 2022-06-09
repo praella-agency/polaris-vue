@@ -278,3 +278,17 @@ FloatingLabels.args = {
     floatingLabel: true,
     label: 'Sort By'
 }
+
+TextField.parameters= {
+    docs: {
+        source: {
+            code: `
+<PTextField
+    label="Input Field"
+    id="input_field"
+    type="text"
+    value="Hello There!"
+/>`
+        },
+    },
+};

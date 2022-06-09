@@ -424,3 +424,56 @@ ResourceList.args = {
         },
     ],
 }
+
+ResourceList.parameters= {
+    docs: {
+        source: {
+            code: `
+<PResourceList>
+    <template>
+        <PButtonGroup segmented>
+            <PPopover>
+                <template>
+                    <PButton>Status</PButton>
+                </template>
+                <template>
+                    <PCard>
+                        <PCardSection>
+                            <PStack>
+                                <PStackItem>
+                                    <PTextField/>
+                                </PStackItem>
+                                <PStackItem>
+                                    <PButton>Clear</PButton>
+                                </PStackItem>
+                            </PStack>
+                        </PCardSection>
+                    </PCard>
+                </template>
+            </PPopover>
+            <PButton>Save</PButton>
+        </PButtonGroup>
+    </template>
+    <template>
+         <PResourceListItem>
+             <template>
+                 <PAvatar/>
+             </template>
+             <div>
+                 <div>
+                     <p>Javascript</p>
+                 </div>
+                 <div>
+                     <h3>
+                         <PTextStyle>Published</PTextStyle>
+                         <PTextStyle>Pending</PTextStyle>
+                         <PTextStyle>Archived</PTextStyle>
+                     </h3>
+                 </div>
+             </div>
+         </PResourceListItem>
+    </template>
+</PResourceList>`
+        },
+    },
+};
