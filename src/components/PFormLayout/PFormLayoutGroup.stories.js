@@ -57,3 +57,19 @@ export const Group = Template.bind({});
 Group.args = {
     helpText: "Order details",
 }
+
+Group.parameters = {
+    docs: {
+        source: {
+            code: `
+<PFormLayout>
+    <PFormLayoutGroup>
+        <PTextField type='currency' label="Price" align="right" suffix="$"/>
+        <PTextField type='number' label="Minimum order"/>
+        <PTextField type='number' label="Maximum order"/>
+        <PTextField type='text' label="Product"/>
+    </PFormLayoutGroup>
+</PFormLayout>`
+        },
+    },
+};

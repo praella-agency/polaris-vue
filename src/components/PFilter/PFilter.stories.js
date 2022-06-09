@@ -286,3 +286,55 @@ Filter.args = {
     resourceName: {singular: 'Customer', plural: 'Customers'},
     disabled: false
 }
+
+Filter.parameters = {
+    docs: {
+        source: {
+            code: `
+<PFilter>
+    <PButtonGroup segmented>
+        <PPopover id="popover_1">
+            <template>
+                <PButton>
+                    Account Status
+                </PButton>
+            </template>
+            <template>
+                <PCard sectioned>
+                    <PChoiceList title="Account Status">
+                    </PChoiceList>
+                </PCard>
+            </template>
+        </PPopover>
+        <PPopover id="popover_2">
+            <template>
+                <PButton>Status</PButton>
+            </template>
+            <template>
+                <PCard>
+                    <PCardSection>
+                        <PStack vertical spacing="tight">
+                            <PStackItem>
+                                <PTextField
+                                    label="Tagged with"
+                                />
+                            </PStackItem>
+                            <PStackItem>
+                                <PButton>Clear</PButton>
+                            </PStackItem>
+                        </PStack>
+                    </PCardSection>
+                </PCard>
+            </template>
+        </PPopover>
+        <PButton>Submit</PButton>
+    </PButtonGroup>
+    <template>
+        <div style="padding-left: 8px;">
+            <PButton>Save</PButton>
+        </div>
+    </template>
+</PFilter>`
+        },
+    },
+};

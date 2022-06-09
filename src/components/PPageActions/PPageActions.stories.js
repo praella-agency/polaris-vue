@@ -133,3 +133,11 @@ PageActions.args = {
         },
     ],
 }
+
+PageActions.parameters = {
+    docs: {
+        source: {
+            code: `<PPageActions/>`
+        },
+    },
+};

@@ -59,3 +59,15 @@ AccordionItem.args = {
         }
     }
 }
+
+AccordionItem.parameters = {
+    docs: {
+        source: {
+            code: `<template>
+    <PAccordion id="Polaris-Accordion"/>
+    <PAccordionItem>
+    </PAccordionItem>
+</template>`
+        },
+    },
+};

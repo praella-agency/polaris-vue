@@ -142,6 +142,17 @@ SingleRangeSlider.args = {
     id: 'Single Slider'
 }
 
+SingleRangeSlider.parameters = {
+    docs: {
+        source: {
+            code: `
+<PCard sectioned title="Background color">
+    <PRangeSlider/>
+</PCard>`
+        },
+    },
+};
+
 const Template1 = (args) => ({
     setup() {
         return {args};
@@ -201,3 +212,28 @@ DualRangeSlider.args = {
     step: 10,
     id: 'Dual Slider'
 }
+
+DualRangeSlider.parameters = {
+    docs: {
+        source: {
+            code: `
+<PCard sectioned title="Minimum requirements">
+    <PRangeSlider></PRangeSlider>
+    <PStack distribution="equalSpacing" spacing="extraLoose">
+        <PStackItem>
+            <PTextField
+                label="Min money spent"
+                type="number">
+        </PTextField>
+        </PStackItem>
+        <PStackItem>
+            <PTextField
+                label="Max money spent"
+                type="number">
+        </PTextField>
+        </PStackItem>
+    </PStack>
+</PCard>`
+        },
+    },
+};

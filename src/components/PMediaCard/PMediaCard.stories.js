@@ -100,3 +100,14 @@ MediaCard.args = {
         }
     ],
 }
+
+MediaCard.parameters = {
+    docs: {
+        source: {
+            code: `
+<PMediaCard>
+    Discover how Shopify can power up your entrepreneurial journey.
+</PMediaCard>`
+        },
+    },
+};

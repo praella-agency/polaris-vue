@@ -80,6 +80,18 @@ Default.args = {
     ],
 }
 
+Default.parameters = {
+    docs: {
+        source: {
+            code: `<template>
+    <PCard>
+        <PIndexTable/>
+    </PCard>
+</template>`
+        },
+    },
+};
+
 const Template1 = (args) => ({
     setup() {
         return {args};
@@ -194,6 +206,18 @@ BulkActions.args = {
     lastColumnSticky: true,
 }
 
+BulkActions.parameters = {
+    docs: {
+        source: {
+            code: `<template>
+    <PCard>
+        <PIndexTable/>
+    </PCard>
+</template>`
+        },
+    },
+};
+
 const Template2 = (args) => ({
     setup() {
         return {args};
@@ -279,3 +303,14 @@ SmallScreen.args = {
     ],
     condensed: true,
 }
+
+SmallScreen.parameters = {
+    docs: {
+        source: {
+            code: `
+<PCard>
+    <PIndexTable/>
+</PCard>`
+        },
+    },
+};

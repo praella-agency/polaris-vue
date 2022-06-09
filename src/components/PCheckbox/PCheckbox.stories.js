@@ -75,3 +75,11 @@ Checkbox.args = {
     id: 'PCheckbox',
     label: 'Polaris Vue Checkbox',
 }
+
+Checkbox.parameters = {
+    docs: {
+        source: {
+            code: `<PCheckbox id="PCheckbox" label="Polaris Vue Checkbox"/>`
+        },
+    },
+};

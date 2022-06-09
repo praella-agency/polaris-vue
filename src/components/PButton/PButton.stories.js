@@ -206,3 +206,19 @@ SplitButton.parameters = {
         iframeHeight: 500,
     },
 }
+
+BaseButton.parameters = {
+    docs: {
+        source: {
+            code: `<PButton>Button</PButton>`
+        },
+    },
+};
+
+SplitButton.parameters = {
+    docs: {
+        source: {
+            code: `<PButton>Button</PButton>`
+        },
+    },
+};

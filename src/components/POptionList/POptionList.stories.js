@@ -134,3 +134,11 @@ OptionList.args = {
         },
     ],
 }
+
+OptionList.parameters = {
+    docs: {
+        source: {
+            code: `<POptionList/>`
+        },
+    },
+};

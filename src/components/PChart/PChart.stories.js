@@ -59,6 +59,16 @@ Chart.args = {
     },
 }
 
+Chart.parameters = {
+    docs: {
+        source: {
+            code: `<template>
+    <PChart/>
+</template>`
+        },
+    },
+};
+
 const Template1 = (args) => ({
     setup() {
         return {args};
@@ -100,3 +110,11 @@ GroupedChart.args = {
         colors: ['#39A9A2', '#f49342']
     },
 }
+
+GroupedChart.parameters = {
+    docs: {
+        source: {
+            code: `<PChart/>`
+        },
+    },
+};

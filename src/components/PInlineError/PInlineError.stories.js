@@ -33,3 +33,11 @@ InlineError.args = {
     message: 'Store name is required',
     fieldID: 'MyFieldID'
 }
+
+InlineError.parameters = {
+    docs: {
+        source: {
+            code: `<PInlineError message="Store name is required"/>`
+        },
+    },
+};

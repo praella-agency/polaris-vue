@@ -129,6 +129,25 @@ Card.args = {
     sectioned: false
 }
 
+Card.parameters = {
+    docs: {
+        source: {
+            code: `<template>
+    <PCard>
+        <PCardHeader
+            title="Sales"
+            shortDescription="Sales Report"
+            :actions="[{content: 'Total Sales',to: '/to-route'}]"
+        />
+        <PCardSection>
+            View a summary of your online store’s performance.
+        </PCardSection>
+    </PCard>
+</template>`
+        },
+    },
+};
+
 const Template1 = (args) => ({
     setup() {
         return {args};
@@ -160,6 +179,30 @@ export const CardWithSubdued = Template1.bind({});
 CardWithSubdued.args = {
     subdued: true,
 }
+
+CardWithSubdued.parameters = {
+    docs: {
+        source: {
+            code: `
+<PCard>
+    <PCardHeader title="Products"/>
+    <PCardSection>
+        <PList>
+            <PListItem>Samsung</PListItem>
+            <PListItem>Apple</PListItem>
+        </PList>
+    </PCardSection>
+
+    <PCardSection title="New Products">
+        <PList>
+            <PListItem>Google</PListItem>
+            <PListItem>Oneplus</PListItem>
+        </PList>
+    </PCardSection>
+</PCard>`
+        },
+    },
+};
 
 const Template2 = (args) => ({
     setup() {
@@ -306,30 +349,19 @@ AllElements.parameters = {
     docs: {
         source: {
             code: `
-<PCard :subdued="true">
-    <PCardHeader
-        title="Sales"
-        shortDescription="Sales Report"
-        :actions="[{content: 'Total Sales'}]"
-        #children
-    >
+<PCard>
+    <PCardHeader title="Sales">
         <PPopover
             id="CardHeaderPopover"
-            :active="statusFilterActive"
             preferredAlignment="right"
         >
-            <template #activator>
-                <PButton
-                    plain
-                    :disclosure="statusFilterActive ? 'up' : 'down'"
-                >
+            <template>
+                <PButton>
                     Status
                 </PButton>
             </template>
-            <template #content>
-                <PActionList 
-                    :items="[{content: 'Gross Sales'},{content: 'Net Sales'}]"
-                />
+            <template>
+                <PActionList/>
             </template>
         </PPopover>
     </PCardHeader>
@@ -341,16 +373,8 @@ AllElements.parameters = {
     </PCardSection>
     
     <PCardSection title="Total Sales Breakdown">
-        <PResourceList
-            :resource-name="{singular: 'Sale', plural: 'Sales'}"
-            :hideFilters="true"
-            :showHeader="false"
-        >
-            <PResourceListItem
-              v-for="(item, key) in items"
-              :key="key"
-              :id="item.id"
-            >
+        <PResourceList>
+            <PResourceListItem>
                 <PStack>
                     <PStackItem fill>{{ item.sales }}</PStackItem>
                     <PStackItem>{{ item.amount }}</PStackItem>
@@ -371,7 +395,7 @@ AllElements.parameters = {
             The sales reports are available only if your store is on the Shopify plan or higher.
         </PTextContainer>
     </PCardSection>
-    <template #footer>
+    <template>
         <PButtonGroup>
             <PButton>Dismiss</PButton>
             <PButton primary>Export Report</PButton>

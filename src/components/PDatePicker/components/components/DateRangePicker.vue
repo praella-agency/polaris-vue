@@ -1,5 +1,8 @@
 <template>
-    <div class="vue-daterange-picker" :class="{ inline: opens === 'inline' }">
+    <div class="vue-daterange-picker"
+         v-p-click-outside="clickCancel"
+         :class="{ inline: opens === 'inline' }"
+    >
         <div
             :class="controlContainerClass"
             @click="onClickPicker"
@@ -30,7 +33,6 @@
                 class="PDateRangePicker daterangepicker ltr"
                 :class="pickerStyles"
                 v-if="open || opens === 'inline'"
-                v-append-to-body
                 ref="dropdown"
             >
 
@@ -193,14 +195,12 @@
     import CalendarTime from './CalendarTime.vue'
     import CalendarRanges from './CalendarRanges.vue'
     import DateUtil from './date_util/native'
-    import appendToBody from '../directives/appendToBody';
 
     export default {
         name: 'DateRangePicker',
         inheritAttrs: false,
         components: {Calendar, CalendarTime, CalendarRanges},
         mixins: [dateUtilMixin],
-        directives: {appendToBody},
         emits: ['update:modelValue', 'toggle', 'hoverDate', 'startSelection', 'select', 'change-month', 'finishSelection'],
         props: {
             modelValue: {
@@ -541,7 +541,6 @@
                 return newDate;
             },
             dateClick(value) {
-                console.log(value)
                 if (this.readonly)
                     return false
                 if (this.in_selection) {

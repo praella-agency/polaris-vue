@@ -1,3 +1,3 @@
-import { PClickOutside, ClickOutSideDirective } from './p-clickoutside';
+import { ClickOutSideDirective } from './p-clickoutside';
 
-export { PClickOutside, ClickOutSideDirective };
+export { ClickOutSideDirective };

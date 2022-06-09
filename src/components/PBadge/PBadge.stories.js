@@ -56,3 +56,11 @@ const Template = (args) => ({
 });
 
 export const Badge = Template.bind({});
+
+Badge.parameters = {
+    docs: {
+        source: {
+            code: `<PBadge>Default Badge</PBadge>`
+        },
+    },
+};

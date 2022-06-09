@@ -33,3 +33,11 @@ const Template = (args) => ({
 });
 
 export const KeyboardKey = Template.bind({});
+
+KeyboardKey.parameters = {
+    docs: {
+        source: {
+            code: `<PKeyboardKey>ctrl</PKeyboardKey>`
+        },
+    },
+};

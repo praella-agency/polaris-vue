@@ -99,3 +99,30 @@ const Template = (args) => ({
 })
 
 export const Collapsible = Template.bind({});
+
+Collapsible.parameters = {
+    docs: {
+        source: {
+            code: `
+<PCard sectioned>
+    <PStack vertical>
+        <PStackItem>
+            <PButton>Toggle</PButton>
+        </PStackItem>
+        <PStackItem>
+            <PCollapsible id="basic-collapsible">
+                <PTextContainer>
+                    <p>
+                        Your mailing list lets you contact customers or visitors who
+                        have shown an interest in your store. Reach out to them with
+                        exclusive offers or updates about your products.
+                    </p>
+                    <PLink>Test link</PLink>
+                </PTextContainer>
+            </PCollapsible>
+        </PStackItem>
+    </PStack>
+</PCard>`
+        },
+    },
+};

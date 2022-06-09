@@ -102,3 +102,16 @@ Default.args = {
         '', '', '', 255, '$155,830.00',
     ],
 }
+
+Default.parameters = {
+    docs: {
+        source: {
+            code: `
+<PPage title="Sales by product">
+    <PCard>
+        <PDataTable/>
+    </PCard>
+</PPage>`
+        },
+    },
+};

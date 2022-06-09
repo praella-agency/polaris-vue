@@ -42,3 +42,11 @@ export const Heading = Template.bind({});
 Heading.args = {
     element: 'h1',
 }
+
+Heading.parameters = {
+    docs: {
+        source: {
+            code: `<PHeading>Online store dashboard</PHeading>`
+        },
+    },
+};

@@ -28,3 +28,11 @@ const Template = (args) => ({
 });
 
 export const Avatar = Template.bind({});
+
+Avatar.parameters = {
+    docs: {
+        source: {
+            code: `<PAvatar/>`
+        },
+    },
+};

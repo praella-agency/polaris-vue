@@ -148,3 +148,11 @@ MultiSelect.args = {
     returnObject: true
 }
 
+MultiSelect.parameters = {
+    docs: {
+        source: {
+            code: `<PMultiSelect/>`
+        },
+    },
+};
+

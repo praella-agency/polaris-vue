@@ -43,3 +43,11 @@ export const Link = Template.bind({});
 Link.args = {
     url: 'javascript:void(0);',
 }
+
+Link.parameters = {
+    docs: {
+        source: {
+            code: `<PLink>Click here</PLink>`
+        },
+    },
+};

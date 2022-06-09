@@ -63,3 +63,15 @@ export const FooterHelp = Template.bind({});
 FooterHelp.args = {
     id: 'MyFooter',
 }
+
+FooterHelp.parameters = {
+    docs: {
+        source: {
+            code: `
+<PFooterHelp>
+    Learn more about
+    <PLink>fulfilling orders</PLink>
+</PFooterHelp>`
+        },
+    },
+};

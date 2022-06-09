@@ -117,3 +117,11 @@ ContextualSaveBar.args = {
     },
     alignContentFlush: true,
 }
+
+ContextualSaveBar.parameters = {
+    docs: {
+        source: {
+            code: `<PContextualSaveBar message="Unsaved changes"/>`
+        },
+    },
+};

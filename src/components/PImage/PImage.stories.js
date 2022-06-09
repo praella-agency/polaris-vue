@@ -35,3 +35,11 @@ Image.args = {
     height: 100,
     width: 100,
 }
+
+Image.parameters = {
+    docs: {
+        source: {
+            code: `<PImage/>`
+        },
+    },
+};

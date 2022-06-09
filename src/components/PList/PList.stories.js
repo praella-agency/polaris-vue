@@ -44,3 +44,17 @@ const Template = (args) => ({
 });
 
 export const List = Template.bind({});
+
+List.parameters = {
+    docs: {
+        source: {
+            code: `
+<PList>
+    <PListItem>Item 1</PListItem>
+    <PListItem>Item 2</PListItem>
+    <PListItem>Item 3</PListItem>
+    <PListItem>Item 4</PListItem>
+</PList>`
+        },
+    },
+};

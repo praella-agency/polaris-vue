@@ -90,3 +90,14 @@ ChoiceList.args = {
     describedByErrorField: 'error',
     renderChildrenField: 'renderChildren'
 }
+
+ChoiceList.parameters = {
+    docs: {
+        source: {
+            code: `
+<PChoiceList>
+    <PTextField/>
+</PChoiceList>`
+        },
+    },
+};
