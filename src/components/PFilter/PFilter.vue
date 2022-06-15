@@ -1,10 +1,9 @@
 <template>
-    <div>
-        <div class="Polaris-Filters">
-            <div class="Polaris-Filters-ConnectedFilterControl__Wrapper">
-                <div class="Polaris-Filters-ConnectedFilterControl Polaris-Filters-ConnectedFilterControl--right">
-                    <PFilterItemWrapper position="center" v-if="!hideQueryField">
-                        <PTextField
+    <div class="Polaris-Filters">
+        <div class="Polaris-Filters-ConnectedFilterControl__Wrapper">
+            <div class="Polaris-Filters-ConnectedFilterControl Polaris-Filters-ConnectedFilterControl--right">
+                <PFilterItemWrapper position="center" v-if="!hideQueryField">
+                    <PTextField
                             id="Polaris-Input-Filter"
                             connected
                             labelHidden
@@ -20,32 +19,31 @@
                             clearable
                             :disabled="disabled"
                             v-bind="$attrs"
-                        >
-                            <template #prefix>
-                                <PIcon source="SearchMinor"/>
-                            </template>
-                        </PTextField>
-                    </PFilterItemWrapper>
-                    <PFilterItemWrapper v-if="hasSlot($slots.default)" position="right">
-                        <!-- @slot The content to display inline with the controls -->
-                        <slot/>
-                    </PFilterItemWrapper>
-                </div>
-                <div class="Polaris-Filters-ConnectedFilterControl__AuxiliaryContainer">
-                    <!-- @slot Add extra elements -->
-                    <slot name="auxiliaryContainer"/>
-                </div>
+                    >
+                        <template #prefix>
+                            <PIcon source="SearchMinor"/>
+                        </template>
+                    </PTextField>
+                </PFilterItemWrapper>
+                <PFilterItemWrapper v-if="hasSlot($slots.default)" position="right">
+                    <!-- @slot The content to display inline with the controls -->
+                    <slot/>
+                </PFilterItemWrapper>
             </div>
-            <div class="Polaris-Filters__TagsContainer" v-if="!hideTags">
-                <PTag
+            <div class="Polaris-Filters-ConnectedFilterControl__AuxiliaryContainer">
+                <!-- @slot Add extra elements -->
+                <slot name="auxiliaryContainer"/>
+            </div>
+        </div>
+        <div class="Polaris-Filters__TagsContainer" v-if="!hideTags && appliedFilters.length">
+            <PTag
                     v-for="(filter, key) in appliedFilters"
                     v-bind="$attrs"
                     :key="key"
                     removable
                     :tag="filter"
                     @remove-tag="handleTagRemove"
-                />
-            </div>
+            />
         </div>
     </div>
 </template>

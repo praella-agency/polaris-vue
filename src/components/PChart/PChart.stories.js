@@ -62,9 +62,7 @@ Chart.args = {
 Chart.parameters = {
     docs: {
         source: {
-            code: `<template>
-    <PChart/>
-</template>`
+            code: `<PChart/>`
         },
     },
 };

@@ -161,6 +161,19 @@ TextField.args = {
     minHeight: 0,
 }
 
+TextField.parameters= {
+    docs: {
+        source: {
+            code: `
+<PTextField
+    label="Input Field"
+    id="input_field"
+    type="text"
+/>`
+        },
+    },
+};
+
 const Template1 = (args) => ({
     setup() {
         return {args};
@@ -184,6 +197,17 @@ IconPrefix.args = {
     label: 'User email',
     placeholder: 'Enter email',
 }
+
+IconPrefix.parameters= {
+    docs: {
+        source: {
+            code: `
+<PTextField>
+    <PIcon source="EmailMajor"/>
+</PTextField>`
+        },
+    },
+};
 
 const Template2 = (args) => ({
     setup() {
@@ -216,6 +240,18 @@ ConnectedTextField.args = {
     connected: true,
     type: 'number',
 }
+
+ConnectedTextField.parameters= {
+    docs: {
+        source: {
+            code: `
+<PTextField>
+    <PButton>Submit</PButton>
+    <PSelect/>
+</PTextField>`
+        },
+    },
+};
 
 const Template3 = (args) => ({
     setup() {
@@ -252,6 +288,19 @@ FileInput.args = {
     accept: 'image/png, image/jpeg',
 }
 
+FileInput.parameters= {
+    docs: {
+        source: {
+            code: `
+<PTextField
+    label="Upload file"
+    id="input_field_file"
+    type="file"
+/>`
+        },
+    },
+};
+
 const Template4 = (args) => ({
     setup() {
         return {args};
@@ -279,16 +328,11 @@ FloatingLabels.args = {
     label: 'Sort By'
 }
 
-TextField.parameters= {
+FloatingLabels.parameters= {
     docs: {
         source: {
             code: `
-<PTextField
-    label="Input Field"
-    id="input_field"
-    type="text"
-    value="Hello There!"
-/>`
+<PTextField label="Sort By" floatingLabel/>`
         },
     },
 };

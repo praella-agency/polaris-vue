@@ -68,7 +68,7 @@ const Template = (args) => ({
         };
     },
     template: `
-        <PCard sectioned>
+        <PCard>
             <PIndexTable
                 v-bind="args"
                 :rows="customers"
@@ -285,7 +285,7 @@ CustomisableColumn.parameters = {
     docs: {
         source: {
             code: `
-<PCard sectioned>
+<PCard>
     <PIndexTable
         :rows="[
             {

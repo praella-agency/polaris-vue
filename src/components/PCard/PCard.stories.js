@@ -132,18 +132,16 @@ Card.args = {
 Card.parameters = {
     docs: {
         source: {
-            code: `<template>
-    <PCard>
-        <PCardHeader
-            title="Sales"
-            shortDescription="Sales Report"
-            :actions="[{content: 'Total Sales',to: '/to-route'}]"
-        />
-        <PCardSection>
-            View a summary of your online store’s performance.
-        </PCardSection>
-    </PCard>
-</template>`
+            code: `
+<PCard>
+    <PCardHeader
+        title="Sales"
+        shortDescription="Sales Report"
+    />
+    <PCardSection>
+        View a summary of your online store’s performance.
+    </PCardSection>
+</PCard>`
         },
     },
 };

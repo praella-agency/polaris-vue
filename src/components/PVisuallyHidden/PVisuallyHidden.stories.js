@@ -72,7 +72,7 @@ VisuallyHidden.parameters = {
     <thead>
         <tr>
             <th scope="col">
-                <PVisuallyHidden v-bind="args">Line item</PVisuallyHidden>
+                <PVisuallyHidden>Line item</PVisuallyHidden>
             </th>
             <th scope="col">
                 <PVisuallyHidden>Value</PVisuallyHidden>

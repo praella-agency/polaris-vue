@@ -1,21 +1,19 @@
 <template>
-    <div>
-        <div>
-            <PFilter
-                v-if="hasSlot($slots.filterOptions) || hasFilter"
-                v-bind="$attrs"
-                :resourceName="resourceName"
-                @remove-tag="onRemoveFilter"
-                @input="onFilterInputChanged"
-            >
-                <!-- @slot Add filterOptions -->
-                <slot name="filterOptions"/>
-                <template #auxiliaryContainer>
-                    <!-- @slot Add auxiliary filters -->
-                    <slot name="auxiliaryContainer"/>
-                </template>
-            </PFilter>
-        </div>
+    <div class="Polaris-DataTable-Wrapper">
+        <PFilter
+            v-if="hasSlot($slots.filterOptions) || hasFilter"
+            v-bind="$attrs"
+            :resourceName="resourceName"
+            @remove-tag="onRemoveFilter"
+            @input="onFilterInputChanged"
+        >
+            <!-- @slot Add filterOptions -->
+            <slot name="filterOptions"/>
+            <template #auxiliaryContainer>
+                <!-- @slot Add auxiliary filters -->
+                <slot name="auxiliaryContainer"/>
+            </template>
+        </PFilter>
         <div class="Polaris-IndexTable">
             <template v-if="!shouldShowBulkActions && !condensed && loading">
                 <transition>

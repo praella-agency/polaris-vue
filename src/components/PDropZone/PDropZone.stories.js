@@ -226,9 +226,7 @@ DropZone.args = {
 DropZone.parameters = {
     docs: {
         source: {
-            code: `<template>
-    <PDropZone/>
-</template>`
+            code: `<PDropZone/>`
         },
     },
 };

@@ -9,7 +9,6 @@ import {ClickOutSideDirective} from './components/PClickOutSide';
 
 // install function executed by Vue.use()
 const install = function installPolarisVue(Vue) {
-  window.isVue3 = parseFloat(Vue.version || Vue.default.version) >= 3;
   Object.entries(components).forEach(([componentName, component]) => {
     Vue.component(componentName, component);
   });

@@ -37,7 +37,7 @@ const Template = (args) => ({
         };
     },
     template: `
-        <PCard sectioned>
+        <PCard>
             <PDataTable
                 v-bind="args"
                 @sort-changed="handleSortChange"
@@ -255,7 +255,7 @@ CustomisableRow.parameters = {
     docs: {
         source: {
             code: `
-<PCard sectioned>
+<PCard>
     <PDataTable
         :resourceName="{singular: 'Product', plural: 'Products'}"
         :headings="[
@@ -443,7 +443,7 @@ const Template1 = (args) => ({
         };
     },
     template: `
-        <PCard sectioned>
+        <PCard>
             <PDataTable
                 v-bind="args"
                 @sort-changed="handleSortChange"
@@ -655,7 +655,7 @@ CustomisableColumn.parameters = {
     docs: {
         source: {
             code: `
-<PCard sectioned>
+<PCard>
     <PDataTable
         :resourceName="{singular: 'Product', plural: 'Products'}"
         :headings="[

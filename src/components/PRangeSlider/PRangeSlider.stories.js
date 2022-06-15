@@ -205,9 +205,7 @@ DualRangeSlider.args = {
 SingleRangeSlider.parameters= {
     docs: {
         source: {
-            code: `<template>
-  <PRangeSlider/>
-</template>`
+            code: `<PRangeSlider/>`
         },
     },
 };
@@ -221,15 +219,13 @@ DualRangeSlider.parameters= {
         <PStackItem>
             <PTextField
                 label="Min money spent"
-                type="number"
-                prefix="$"    
+                type="number" 
             />
         </PStackItem>
         <PStackItem>
             <PTextField
                 label="Max money spent"
                 type="number"
-                prefix="$"
             />
         </PStackItem>
     </PStack>

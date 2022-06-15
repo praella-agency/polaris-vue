@@ -83,11 +83,10 @@ Default.args = {
 Default.parameters = {
     docs: {
         source: {
-            code: `<template>
-    <PCard>
-        <PIndexTable/>
-    </PCard>
-</template>`
+            code: `
+<PCard>
+    <PIndexTable/>
+</PCard>`
         },
     },
 };
@@ -209,11 +208,10 @@ BulkActions.args = {
 BulkActions.parameters = {
     docs: {
         source: {
-            code: `<template>
-    <PCard>
-        <PIndexTable/>
-    </PCard>
-</template>`
+            code: `
+<PCard>
+    <PIndexTable/>
+</PCard>`
         },
     },
 };

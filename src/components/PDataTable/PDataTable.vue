@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="Polaris-DataTable-Wrapper">
         <PFilter v-if="hasSlot($slots.filter) || hasFilter" v-bind="$attrs" :resourceName="resource"
                  @remove-tag="onRemoveFilter" @input="onFilterInputChanged">
             <template v-if="hasSlot($slots.filter)" #default>

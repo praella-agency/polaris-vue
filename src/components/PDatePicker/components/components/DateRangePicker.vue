@@ -2,6 +2,7 @@
     <div class="vue-daterange-picker"
          v-p-click-outside="clickCancel"
          :class="{ inline: opens === 'inline' }"
+         :style="style"
     >
         <div
             :class="controlContainerClass"
@@ -203,6 +204,9 @@
         mixins: [dateUtilMixin],
         emits: ['update:modelValue', 'toggle', 'hoverDate', 'startSelection', 'select', 'change-month', 'finishSelection'],
         props: {
+            style: {
+                type: Object,
+            },
             modelValue: {
                 type: Object,
             },

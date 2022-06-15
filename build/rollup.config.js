@@ -62,6 +62,14 @@ const baseConfig = {
             extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
             babelHelpers: 'bundled',
         },
+        vue2: {
+            'process.env.IS_VUE_3': false,
+            preventAssignment: true,
+        },
+        vue3: {
+            'process.env.IS_VUE_3': true,
+            preventAssignment: true,
+        }
     },
 };
 
@@ -96,6 +104,7 @@ const buildFormats = [];
             },
             plugins: [
                 replace(baseConfig.plugins.replace),
+                isVue3 ? replace(baseConfig.plugins.vue3) : replace(baseConfig.plugins.vue2),
                 ...baseConfig.plugins.preVue,
                 isVue3 ? vue() : vue2(baseConfig.plugins.vue),
                 ...baseConfig.plugins.postVue,
@@ -139,6 +148,7 @@ const buildFormats = [];
             },
             plugins: [
                 replace(baseConfig.plugins.replace),
+                isVue3 ? replace(baseConfig.plugins.vue3) : replace(baseConfig.plugins.vue2),
                 ...baseConfig.plugins.preVue,
                 isVue3 ? vue() : vue2({
                     ...baseConfig.plugins.vue,
@@ -177,6 +187,7 @@ const buildFormats = [];
             },
             plugins: [
                 replace(baseConfig.plugins.replace),
+                isVue3 ? replace(baseConfig.plugins.vue3) : replace(baseConfig.plugins.vue2),
                 ...baseConfig.plugins.preVue,
                 isVue3 ? vue() : vue2(baseConfig.plugins.vue),
                 ...baseConfig.plugins.postVue,

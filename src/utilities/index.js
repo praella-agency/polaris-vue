@@ -1,4 +1,4 @@
-const isVue3 = window.isVue3;
+const isVue3 = process.env.IS_VUE_3;
 const isVue2 = !isVue3;
 export default {
     isVue3,
