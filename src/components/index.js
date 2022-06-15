@@ -91,6 +91,7 @@ import { PHorizontalDivider } from './PHorizontalDivider';
 import { PLabel } from './PLabel';
 import { PLabelled } from './PLabelled';
 import { PRangeSlider } from './PRangeSlider';
+import { PHorizontalNavigation } from './PHorizontalNavigation';
 
 export {
   PBadge,
@@ -172,4 +173,5 @@ export {
   PVerticalDivider, PHorizontalDivider,
   PLabel, PLabelled,
   PRangeSlider,
+  PHorizontalNavigation,
 };
