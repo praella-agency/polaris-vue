@@ -61,8 +61,10 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PPopover, PButton, POptionList
     },
@@ -81,26 +83,28 @@ const Template = (args, { argTypes }) => ({
     template: `
         <PPopover
             :active="statusFilterActive"
-            v-bind="$props"
+            v-bind="args"
             @close="() => {this.statusFilterActive = false}"
         >
-          <PButton
-              slot="activator"
-              :disclosure="statusFilterActive ? 'up' : 'down'"
-              @click="toggleStatusFilter"
-          >
-            More Actions
-          </PButton>
-          <POptionList
-              slot="content"
-              :selected="queryParams.status"
-              :options="[
-                {label: 'Pending', value: '0'},
-                {label: 'Published', value: '1'},
-                {label: 'Archived', value: '-1'},
-              ]"
-              @change="updateStatusFilter"
-          ></POptionList>
+            <template #activator>
+                <PButton
+                    :disclosure="statusFilterActive ? 'up' : 'down'"
+                    @click="toggleStatusFilter"
+                >
+                    More Actions
+                </PButton>
+            </template>
+            <template #content>
+                <POptionList
+                    :selected="queryParams.status"
+                    :options="[
+                        {label: 'Pending', value: '0'},
+                        {label: 'Published', value: '1'},
+                        {label: 'Archived', value: '-1'},
+                    ]"
+                    @change="updateStatusFilter"
+                ></POptionList>
+            </template>
         </PPopover>`,
     methods: {
         toggleStatusFilter() {
@@ -124,12 +128,15 @@ Popover.parameters = {
             code: `
 <template>
   <PPopover id="items-status-filter" :active="false">
-    <PButton slot="activator" disclosure="down">More Actions</PButton>
-    <POptionList
-      slot="content"
-      :options='[{"label":"Pending","value":"0"},{"label":"Published","value":"1"},{"label":"Archived","value":"-1"}]'
-      :selected="[]"
-    />
+    <template #activator>
+        <PButton disclosure="down">More Actions</PButton>
+    </template>
+    <template #content>
+        <POptionList
+          :options='[{"label":"Pending","value":"0"},{"label":"Published","value":"1"},{"label":"Archived","value":"-1"}]'
+          :selected="[]"
+        />
+    </template>
   </PPopover>
 </template>`,
         },

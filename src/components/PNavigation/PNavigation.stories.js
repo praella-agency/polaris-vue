@@ -152,17 +152,19 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PNavigation, PIcon, PAvatar,
     },
     template: `
-      <PNavigation
-          v-bind="$props"
-          location="/"
-          :on-dismiss="handleDismiss"
-      />`,
+        <PNavigation
+            v-bind="args"
+            location="/"
+            :on-dismiss="handleDismiss"
+        />`,
     methods: {
         handleDismiss() {
             alert('On Navigation Dismiss');
@@ -189,7 +191,7 @@ Navigation.args = {
                     icon: 'HomeMajor',
                     onClick: () => {
                         console.log('Inactive Item')
-                    }
+                    },
                 },
                 {
                     to: '/path/to/place',
@@ -297,3 +299,11 @@ Navigation.args = {
         }
     ]
 }
+
+Navigation.parameters = {
+    docs: {
+        source: {
+            code: `<PNavigation/>`
+        },
+    },
+};

@@ -1,11 +1,21 @@
 <template>
-    <PChoice :label="label" :label-hidden="labelHidden" :help-text="helpText" :id="id" :error="error"
-             :disabled="disabled">
-        <!-- @slot Content of a label -->
-        <slot slot="label" name="label"/>
+    <PChoice
+        :label="label"
+        :label-hidden="labelHidden"
+        :help-text="helpText"
+        :id="id"
+        :error="error"
+        :disabled="disabled"
+    >
+        <template #label>
+            <!-- @slot Content of a label -->
+            <slot name="label"/>
+        </template>
 
-        <!-- @slot Body of Help text -->
-        <slot slot="helpText" name="helpText"/>
+        <template #helpText>
+            <!-- @slot Body of Help text -->
+            <slot name="helpText"/>
+        </template>
 
         <div :class="wrapperClassName">
             <input :id="id"
@@ -118,6 +128,7 @@
                 default: null,
             },
         },
+        emits: ['change', 'focus', 'blur'],
         computed: {
             wrapperClassName() {
                 return classNames(

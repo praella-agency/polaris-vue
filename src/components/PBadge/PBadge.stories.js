@@ -44,13 +44,23 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
     components: {
         PBadge,
     },
+    setup() {
+        return {args};
+    },
     template: `
-        <PBadge v-bind="$props">Default Badge</PBadge>`,
+        <PBadge v-bind="args">Default Badge</PBadge>`,
 });
 
 export const Badge = Template.bind({});
+
+Badge.parameters = {
+    docs: {
+        source: {
+            code: `<PBadge>Default Badge</PBadge>`
+        },
+    },
+};

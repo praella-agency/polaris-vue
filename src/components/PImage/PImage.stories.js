@@ -16,12 +16,15 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PImage,
     },
-    template: `<PImage v-bind="$props"/>`
+    template: `
+        <PImage v-bind="args"/>`
 });
 
 export const Image = Template.bind({});
@@ -32,3 +35,11 @@ Image.args = {
     height: 100,
     width: 100,
 }
+
+Image.parameters = {
+    docs: {
+        source: {
+            code: `<PImage/>`
+        },
+    },
+};

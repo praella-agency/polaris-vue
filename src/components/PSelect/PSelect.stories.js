@@ -51,25 +51,29 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PSelect, PBadge
     },
     data() {
         return {
-            selectedOption: '',
+            selectedOption: 'mostSpent',
         };
     },
     template: `
         <div>
-          <PSelect
-              v-model="selectedOption"
-              v-bind="$props"
-              @change="changeEvent"
-          />
-          <br />
-          <p v-if="selectedOption">Selected Value: <PBadge>{{selectedOption}}</PBadge></p>
+            <PSelect
+                v-model="selectedOption"
+                v-bind="args"
+                @change="changeEvent"
+            />
+            <br/>
+            <p v-if="selectedOption">Selected Value:
+                <PBadge>{{selectedOption}}</PBadge>
+            </p>
         </div>`,
     methods: {
         changeEvent(value) {
@@ -91,3 +95,11 @@ Select.args = {
         {label: 'Last name Z–A', value: 'lastNameReverseAlpha'},
     ],
 }
+
+Select.parameters= {
+    docs: {
+        source: {
+            code: `<PSelect/>`
+        },
+    },
+};

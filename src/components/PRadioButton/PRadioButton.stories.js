@@ -67,35 +67,62 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PRadioButton, PStack, PStackItem,
     },
     template: `
-      <PStack vertical>
-        <PStackItem>
-            <PRadioButton
-                v-bind="$props"
-            ></PRadioButton>
-        </PStackItem>
-        <PStackItem>
-            <PRadioButton
-                id="optional"
-                label="Accounts are optional"
-                help-text="Customers will be able to check out with a customer account or as a guest."
-                v-bind="$props"
-            ></PRadioButton>
-        </PStackItem>
-      </PStack>`,
+        <PStack vertical>
+            <PStackItem>
+                <PRadioButton
+                    id="disabled"
+                    label="Customers will only be able to check out as guests."
+                    help-text="Customers will only be able to check out as guests."
+                    :checked="true"
+                    v-bind="args"
+                />
+            </PStackItem>
+            <PStackItem>
+                <PRadioButton
+                    id="optional"
+                    label="Accounts are optional"
+                    help-text="Customers will be able to check out with a customer account or as a guest."
+                    v-bind="args"
+                />
+            </PStackItem>
+        </PStack>`,
 });
 
 export const RadioButton = Template.bind({});
 
 RadioButton.args = {
-    label: 'Accounts are disabled',
-    helpText: 'Customers will only be able to check out as guests.',
-    checked: true,
-    id: 'disabled',
     name: 'accounts',
 }
+
+RadioButton.parameters = {
+    docs: {
+        source: {
+            code: `
+<PStack vertical>
+    <PStackItem>
+        <PRadioButton
+            id="disabled"
+            label="Customers will only be able to check out as guests."
+            help-text="Customers will only be able to check out as guests."
+        />
+    </PStackItem>
+    <PStackItem>
+        <PRadioButton
+            id="optional"
+            label="Accounts are optional"
+            help-text="Customers will be able to check out with a customer account or as a guest."
+            checked
+        />
+    </PStackItem>
+</PStack>`
+        },
+    },
+};

@@ -20,7 +20,7 @@ export default {
             table: {
                 defaultValue: {
                     summary: '{}',
-                    detail:`{
+                    detail: `{
     /** Content the action displays */
     content?: string,
     /** Disable the element */
@@ -37,7 +37,7 @@ export default {
             table: {
                 defaultValue: {
                     summary: '[]',
-                    detail:`[{
+                    detail: `[{
     /** Content the action displays */
     content?: string,
     /** Disable the element */
@@ -94,8 +94,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PModal, PFormLayout, PTextField, PBanner, PButton, PStack, PStackItem,
     },
@@ -105,24 +107,24 @@ const Template = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PStack>
-          <PStackItem>
-              <PModal 
-                  v-bind="$props"
-                  @close="closeModal"
-                  :open="this.is_active"
-              >
-                  <PFormLayout>
-                      <PTextField label="First Name"/>
-                      <PTextField label="Last Name Name"/>
-                      <PTextField label="Email" type="email"/>
-                  </PFormLayout>
-              </PModal>
-          </PStackItem>
-          <PStackItem>
-              <PButton @click="openModal">Open Modal</PButton>
-          </PStackItem>
-      </PStack>`,
+        <PStack>
+            <PStackItem>
+                <PModal
+                    v-bind="args"
+                    @close="closeModal"
+                    :open="this.is_active"
+                >
+                    <PFormLayout>
+                        <PTextField label="First Name"/>
+                        <PTextField label="Last Name Name"/>
+                        <PTextField label="Email" type="email"/>
+                    </PFormLayout>
+                </PModal>
+            </PStackItem>
+            <PStackItem>
+                <PButton @click="openModal">Open Modal</PButton>
+            </PStackItem>
+        </PStack>`,
     methods: {
         openModal() {
             this.is_active = true;

@@ -7,7 +7,7 @@
                     <slot name="title">
                         <PHeading v-if="title">{{ title }}</PHeading>
                     </slot>
-                    <div v-if="description || $slots.hasOwnProperty('description')"
+                    <div v-if="description || hasSlot($slots.description)"
                          class="Polaris-Layout__AnnotationDescription">
                         <!-- @slot Short Description content for the layout  -->
                         <slot name="description">
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { PHeading } from '../../../../components/PHeading';
     import { PTextContainer } from '../../../../components/PTextContainer';
 
@@ -48,6 +49,11 @@
             description: {
                 type: String,
                 default: null,
+            },
+        },
+        computed: {
+            hasSlot() {
+                return hasSlot;
             },
         },
     }

@@ -15,36 +15,31 @@
                 :aria-expanded="normalizeAriaAttributesForExpanded"
                 :aria-controls="normalizeAriaAttributesForControls"
             >
-                <template>
-                    <div v-if="icon" :class="$scopedSlots.icon() ? 'Polaris-Navigation__Icon--slot' : 'Polaris-Navigation__Icon'">
-                        <span class="Polaris-Navigation__Icon--span">
-                            <slot name="icon" :item="itemValue">
-                                <PIcon :source="icon"/>
-                            </slot>
-                        </span>
-                    </div>
-                    <div v-if="!icon" class="Polaris-Navigation__Icon--slot">
-                        <span class="Polaris-Navigation__Icon--span">
-                            <slot name="icon" :item="itemValue"/>
-                        </span>
-                    </div>
-                    <span class="Polaris-Navigation__Text">
-                        {{ label }}
-                        <span v-if="hasNewChild" class="Polaris-Navigation__Indicator">
-                            <span class="Polaris-Indicator Polaris-Indicator--pulseIndicator"/>
-                        </span>
+
+                <div v-if="icon" :class="iconSlotClassName">
+                    <span class="Polaris-Navigation__Icon--span">
+                        <slot name="icon" :item="itemValue">
+                            <PIcon :source="icon"/>
+                        </slot>
                     </span>
-                    <div v-if="this.new || this.badge || $slots.hasOwnProperty('badge')"
-                         class="Polaris-Navigation__Badge">
-                        <PBadge v-if="this.new" status="new" size="small">
-                            New
-                        </PBadge>
-                        <PBadge v-else-if="badge" status="new" size="small">
-                            {{ badge }}
-                        </PBadge>
-                        <slot v-else name="badge"/>
-                    </div>
-                </template>
+                </div>
+                <span class="Polaris-Navigation__Text">
+                    {{ label }}
+                    <span v-if="hasNewChild" class="Polaris-Navigation__Indicator">
+                        <span class="Polaris-Indicator Polaris-Indicator--pulseIndicator"/>
+                    </span>
+                </span>
+                <div v-if="this.new || this.badge || hasSlot($slots.badge)"
+                     class="Polaris-Navigation__Badge">
+                    <PBadge v-if="this.new" status="new" size="small">
+                        New
+                    </PBadge>
+                    <PBadge v-else-if="badge" status="new" size="small">
+                        {{ badge }}
+                    </PBadge>
+                    <slot v-else name="badge"/>
+                </div>
+
                 <div v-if="external" class="Polaris-Navigation__ExternalIcon">
                     <PIcon
                         :accessibilityLabel="accessibilityLabel"
@@ -80,7 +75,7 @@
                     @click="onNavigationDismiss ? onNavigationDismiss : {}"
                 >
                     <template v-slot:icon="slotProps">
-                        <slot name="icon" :item="slotProps.item"/>
+                        <slot name="icon" :item="slotProps ? slotProps.item : {}"/>
                     </template>
                 </PItem>
             </PSecondary>
@@ -89,6 +84,8 @@
 </template>
 
 <script>
+    import utils from '../../../../utilities';
+    import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PUnstyledLink } from '../../../../components/PUnstyledLink';
     import { PIcon } from '../../../../components/PIcon';
@@ -180,13 +177,14 @@
                 default: false,
             },
         },
+        emits: ['click'],
         data() {
             return {
                 expanded: false,
                 keyFocused: false,
                 tabIndex: this.disabled ? -1 : 0,
                 isNavigationCollapsed: false,
-                secondaryNavigationId: `SecondaryNavigation${new Date().getUTCMilliseconds()}`,
+                secondaryNavigationId: `SecondaryNavigation${uuid()}`,
                 matchState: this.matchStateForItem({
                     url: this.url,
                     to: this.to,
@@ -217,12 +215,6 @@
                     Object.keys(this.secondaryAction).length > 0 && 'Polaris-Navigation__ListItem--hasAction',
                 );
             },
-            childIsActive() {
-                return this.matchingSubNavigationItems.length > 0;
-            },
-            showExpanded() {
-                return this.selectedOverride || this.expanded || this.childIsActive;
-            },
             itemClassName() {
                 return classNames(
                     'Polaris-Navigation__Item',
@@ -238,6 +230,18 @@
                     this.showExpanded && 'Polaris-Navigation--isExpanded',
                     !this.icon && 'Polaris-Navigation__SecondaryNavigation--noIcon',
                 );
+            },
+            iconSlotClassName() {
+                if (this.hasSlot(this.$slots.icon)) {
+                    return 'Polaris-Navigation__Icon--slot';
+                }
+                return 'Polaris-Navigation__Icon';
+            },
+            childIsActive() {
+                return this.matchingSubNavigationItems.length > 0;
+            },
+            showExpanded() {
+                return this.selectedOverride || this.expanded || this.childIsActive;
             },
             longestMatch() {
                 if (this.subNavigationItems.length > 0) {
@@ -280,6 +284,9 @@
                     subNavigationItems: this.subNavigationItems,
                     secondaryAction: this.secondaryAction
                 };
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {
@@ -368,12 +375,8 @@
             window.addEventListener('resize', this.useMediaQuery);
             this.useMediaQuery();
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('resize', this.useMediaQuery);
         },
     }
 </script>
-
-<style scoped>
-
-</style>

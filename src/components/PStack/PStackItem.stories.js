@@ -21,26 +21,28 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PStack, PStackItem,
     },
     template: `
-      <PStack>
-          <PStackItem
-              v-bind = "$props"
-          >
-            Item 1
-          </PStackItem>
-          <PStackItem
-              v-bind = "$props"
-              :fill= "false"
-              :width = "0"
-          >
-            Item 2
-          </PStackItem>
-      </PStack>`,
+        <PStack>
+            <PStackItem
+                v-bind="args"
+            >
+                Item 1
+            </PStackItem>
+            <PStackItem
+                v-bind="args"
+                :fill="false"
+                :width="0"
+            >
+                Item 2
+            </PStackItem>
+        </PStack>`,
 });
 
 export const StackItem = Template.bind({});
@@ -48,3 +50,19 @@ export const StackItem = Template.bind({});
 StackItem.args = {
     fill: false,
 }
+
+StackItem.parameters= {
+    docs: {
+        source: {
+            code: `
+<PStack>
+    <PStackItem>
+        <PTextStyle>Item 1</PTextStyle>
+    </PStackItem>
+    <PStackItem>
+        <PTextStyle>Item 2</PTextStyle>
+    </PStackItem>
+</PStack>`
+        },
+    },
+};

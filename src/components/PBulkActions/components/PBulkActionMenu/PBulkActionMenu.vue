@@ -1,27 +1,31 @@
 <template>
     <PPopover
-        :id="this['_uid']"
+        :id="uuid"
         :active.sync="isVisible"
         @close="handleItemAction"
         preferInputActivator
     >
-        <PBulkActionButton
-            slot="activator"
-            disclosure
-            @action="toggleMenuVisibility"
-            :content="title"
-            :icon="icon"
-            :indicator="isNewBadgeInBadgeActions"
-        />
-        <PActionList
-            slot="content"
-            :items="actions"
-            @item-action="handleItemAction"
-        />
+        <template #activator>
+            <PBulkActionButton
+                disclosure
+                @action="toggleMenuVisibility"
+                :content="title"
+                :icon="icon"
+                :indicator="isNewBadgeInBadgeActions"
+            />
+        </template>
+        <template #content>
+            <PActionList
+                :items="actions"
+                @item-action="handleItemAction"
+            />
+        </template>
     </PPopover>
 </template>
 
 <script>
+    import utils from '../../../../utilities';
+    import { uuid } from '../../../../ComponentHelpers';
     import { PPopover } from '../../../../components/PPopover';
     import { PActionList } from '../../../../components/PActionList';
     import { PBulkActionButton } from '../../../../components/PBulkActions/components/PBulkActionButton';
@@ -54,6 +58,11 @@
                 isVisible: false,
             };
         },
+        computed: {
+            uuid() {
+                return uuid();
+            },
+        },
         methods: {
             toggleMenuVisibility() {
                 this.isVisible = !this.isVisible;
@@ -62,14 +71,10 @@
                 this.isVisible = false;
             }
         },
-        beforeDestroy() {
-            if (document.getElementById('PolarisPopover' + this['_uid'] + 'Overlay')) {
-                document.getElementById('PolarisPopover' + this['_uid'] + 'Overlay').remove();
+        [utils.beforeDestroy]() {
+            if (document.getElementById('PolarisPopover' + this.uuid + 'Overlay')) {
+                document.getElementById('PolarisPopover' + this.uuid + 'Overlay').remove();
             }
         },
     }
 </script>
-
-<style scoped>
-
-</style>

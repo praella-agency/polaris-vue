@@ -31,23 +31,25 @@
                         v-if="hasActions"
                     >
                         <PPopover
-                            :id="this['_uid']"
+                            :id="uuid"
                             :active.sync="smallScreenPopoverVisible"
                             @close="() => { this.smallScreenPopoverVisible = false; }"
                         >
-                            <PBulkActionButton
-                                slot="activator"
-                                disclosure
-                                @action="toggleSmallScreenPopover()"
-                                content="Actions"
-                                :disabled="disabled"
-                                :indicator="isNewBadgeInBadgeActions()"
-                            />
-                            <PActionList
-                                slot="content"
-                                :items="promotedActions"
-                                :sections="actionSections"
-                            />
+                            <template #activator>
+                                <PBulkActionButton
+                                    disclosure
+                                    @action="toggleSmallScreenPopover()"
+                                    content="Actions"
+                                    :disabled="disabled"
+                                    :indicator="isNewBadgeInBadgeActions()"
+                                />
+                            </template>
+                            <template #content>
+                                <PActionList
+                                    :items="promotedActions"
+                                    :sections="actionSections"
+                                />
+                            </template>
                         </PPopover>
                     </div>
                     <PButton
@@ -125,23 +127,25 @@
                             ref="moreActionsNode"
                         >
                             <PPopover
-                                :id="this['_uid']"
+                                :id="uuid"
                                 :active.sync="largeScreenPopoverVisible"
                                 @close="() => { this.largeScreenPopoverVisible = false; }"
                             >
-                                <PBulkActionButton
-                                    slot="activator"
-                                    disclosure
-                                    @action="toggleLargeScreenPopover()"
-                                    :content="activatorLabel"
-                                    :disabled="disabled"
-                                    :indicator="isNewBadgeInBadgeActions()"
-                                />
-                                <PActionList
-                                    slot="content"
-                                    :sections="combinedActions"
-                                    @item-action="toggleLargeScreenPopover()"
-                                />
+                                <template #activator>
+                                    <PBulkActionButton
+                                        disclosure
+                                        @action="toggleLargeScreenPopover()"
+                                        :content="activatorLabel"
+                                        :disabled="disabled"
+                                        :indicator="isNewBadgeInBadgeActions()"
+                                    />
+                                </template>
+                                <template #content>
+                                    <PActionList
+                                        :sections="combinedActions"
+                                        @item-action="toggleLargeScreenPopover()"
+                                    />
+                                </template>
                             </PPopover>
                         </div>
                     </PButtonGroup>
@@ -182,6 +186,8 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
+    import { uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { BulkAction } from '../../components/PIndexTable/utilities';
     import { PButtonGroup } from '../../components/PButtonGroup';
@@ -383,6 +389,9 @@
 
                 return rolledInPromotedActions.slice(numberOfPromotedActionsToRender);
             },
+            uuid() {
+                return uuid();
+            },
         },
         methods: {
             isNewBadgeInBadgeActions() {
@@ -463,14 +472,10 @@
                 }
             },
         },
-        beforeDestroy() {
-            if (document.getElementById('PolarisPopover'+this['_uid']+'Overlay')) {
-                document.getElementById('PolarisPopover' + this['_uid'] + 'Overlay').remove();
+        [utils.beforeDestroy]() {
+            if (document.getElementById('PolarisPopover'+this.uuid+'Overlay')) {
+                document.getElementById('PolarisPopover' + this.uuid + 'Overlay').remove();
             }
         },
     }
 </script>
-
-<style scoped>
-
-</style>

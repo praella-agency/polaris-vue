@@ -7,14 +7,16 @@ export default {
     argTypes,
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PAccordion,
     },
     template: `
         <PAccordion
-            v-bind="$props"
+            v-bind="args"
             id="Polaris-Accordion"
         />`,
 });
@@ -50,3 +52,11 @@ Default.args = {
         },
     ],
 }
+
+Default.parameters = {
+    docs: {
+        source: {
+            code: '<PAccordion id="Polaris-Accordion"/>'
+        },
+    },
+};

@@ -88,8 +88,10 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PPreviewFrame, PVerticalDivider, PIcon, PStack, PStackItem, PTextStyle, PBadge, PPopover, PButton, PTextField,
         PCard, PConnected, PActionList, PHeading, POptionList, PTextContainer, PHorizontalDivider, PImage, PKeyboardKey,
@@ -104,36 +106,39 @@ const Template = (args, { argTypes }) => ({
     },
     template: `
         <PPreviewFrame
-            v-bind="$props"
-            :openRightSidebar.sync="openSidebar"
+            v-bind="args"
+            v-model:openRightSidebar="openSidebar"
             :rightSidebarTitle="rightTitle || 'Side bar'"
         >
-            <template slot="header.left">
+            <template #header.left>
                 <PButton plainAction icon="ExitMajor"/>
                 <PVerticalDivider/>
                 <PTextStyle>Debut</PTextStyle>
                 <PBadge status="success" progress="complete" size="small">Live</PBadge>
             </template>
-            <template slot="header.center">
+            <template #header.center>
                 <PPopover
                     id="PreviewFrameSearch"
                     :active="searchActive"
                     @close="() => {this.searchActive = false}"
                 >
-                    <PButton 
-                        slot="activator"
-                        full-width
-                        :disclosure="searchActive ? 'up' : 'down'"
-                        @click="handleSearchClick"
-                    >
-                        Home Page
-                    </PButton>
-                    <template slot="content">
+                    <template #activator>
+                        <PButton
+                            full-width
+                            :disclosure="searchActive ? 'up' : 'down'"
+                            @click="handleSearchClick"
+                        >
+                            Home Page
+                        </PButton>
+                    </template>
+                    <template #content>
                         <div>
                             <div style="padding: 1.2rem 1.1rem;">
                                 <PConnected>
                                     <PTextField placeholder="Search online store">
-                                        <PIcon source="SearchMinor" slot="prefix"/>
+                                        <template #prefix>
+                                            <PIcon source="SearchMinor"/>
+                                        </template>
                                     </PTextField>
                                 </PConnected>
                             </div>
@@ -160,11 +165,11 @@ const Template = (args, { argTypes }) => ({
                     </template>
                 </PPopover>
             </template>
-            <template slot="header.right">
-                <PButton primary>Save</PButton>    
+            <template #header.right>
+                <PButton primary>Save</PButton>
             </template>
-            <template slot="sidebar.left.content">
-                <POptionList 
+            <template #sidebar.left.content>
+                <POptionList
                     :options="[{
                         value: 'header',
                         label: 'Header',
@@ -211,7 +216,7 @@ const Template = (args, { argTypes }) => ({
                         <PIcon :source="item.icon ? item.icon : ''"/>
                     </template>
                 </POptionList>
-                <POptionList 
+                <POptionList
                     :options="[{
                         value: 'footer',
                         label: 'Footer',
@@ -259,20 +264,21 @@ const Template = (args, { argTypes }) => ({
                     </template>
                 </POptionList>
             </template>
-            <template slot="sidebar.left.footer">
+            <template #sidebar.left.footer>
                 <div style="padding-top: 0.8rem; padding-bottom: 0.8rem;">
                     <PButton plainAction>
                         <PTextStyle variation="strong">Theme settings</PTextStyle>
                     </PButton>
                 </div>
             </template>
-            <template slot="sidebar.right.content">
+            <template #sidebar.right.content>
                 <PStack vertical>
                     <PStackItem>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45"
                              style="display: flex; justify-content: center; align-items: center; flex: 0 0 auto; width: 4.5rem; height: 4.5rem; fill: #5c5f62"
                         >
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20 18h4v3h-3v3h-3v-4a2 2 0 012-2zm7 3h5v-3h-5v3zm-3 18v1a1 1 0 01-1 1h-3a2 2 0 01-2-2v-4h3v3h2a1 1 0 011 1zm-6-7h3v-5h-3v5zm14.841.766c-.358.124-.655.38-.832.714l-1.426 2.695-1.607-7.369 6.533 3.029-2.668.931zm7.29-2.096l-12.634-5.858a1.5 1.5 0 00-2.096 1.681l3.126 14.326a1.5 1.5 0 002.791.382l3.067-5.797 5.609-1.957a1.502 1.502 0 00.137-2.777zM41 20v3a1 1 0 01-1 1h-1a1 1 0 01-1-1v-2h-3v-3h4a2 2 0 012 2zM14 8h24V5H14v3zM7 8h4V5H7v3zm34-3a3 3 0 00-3-3H7a3 3 0 00-3 3v31a3 3 0 003 3h6a1 1 0 001-1v-1a1 1 0 00-1-1H7V11h31v2a1 1 0 001 1h1a1 1 0 001-1V8h-.021c.01-1.235.021-3 .021-3z"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M20 18h4v3h-3v3h-3v-4a2 2 0 012-2zm7 3h5v-3h-5v3zm-3 18v1a1 1 0 01-1 1h-3a2 2 0 01-2-2v-4h3v3h2a1 1 0 011 1zm-6-7h3v-5h-3v5zm14.841.766c-.358.124-.655.38-.832.714l-1.426 2.695-1.607-7.369 6.533 3.029-2.668.931zm7.29-2.096l-12.634-5.858a1.5 1.5 0 00-2.096 1.681l3.126 14.326a1.5 1.5 0 002.791.382l3.067-5.797 5.609-1.957a1.502 1.502 0 00.137-2.777zM41 20v3a1 1 0 01-1 1h-1a1 1 0 01-1-1v-2h-3v-3h4a2 2 0 012 2zM14 8h24V5H14v3zM7 8h4V5H7v3zm34-3a3 3 0 00-3-3H7a3 3 0 00-3 3v31a3 3 0 003 3h6a1 1 0 001-1v-1a1 1 0 00-1-1H7V11h31v2a1 1 0 001 1h1a1 1 0 001-1V8h-.021c.01-1.235.021-3 .021-3z"></path>
                         </svg>
                     </PStackItem>
                     <PStackItem>

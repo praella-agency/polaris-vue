@@ -50,6 +50,7 @@
                 type: Function,
             },
         },
+        emits: ['change', 'focus', 'blur'],
         methods: {
             triggerFileDialog() {
                 this.open();
@@ -73,7 +74,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

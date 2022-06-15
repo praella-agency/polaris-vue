@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import vue from 'rollup-plugin-vue';
+import vue2 from 'rollup-plugin-vue2';
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
@@ -11,7 +12,6 @@ import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import scss from 'rollup-plugin-scss';
 import autoprefixer from 'autoprefixer';
-import cjs from 'rollup-plugin-commonjs';
 import minimist from 'minimist';
 
 // Get browserslist config and remove ie from es build targets
@@ -62,13 +62,21 @@ const baseConfig = {
             extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
             babelHelpers: 'bundled',
         },
+        vue2: {
+            'process.env.IS_VUE_3': false,
+            preventAssignment: true,
+        },
+        vue3: {
+            'process.env.IS_VUE_3': true,
+            preventAssignment: true,
+        }
     },
 };
 
 // ESM/UMD/IIFE shared settings: externals
 // Refer to https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
 const external = [
-    'vue',
+    'vue', 'vue3'
 ];
 
 // UMD/IIFE shared settings: output.globals
@@ -77,124 +85,132 @@ const globals = {
     // Provide global variable names to replace your external imports
     vue: 'Vue',
 };
-
-// Customize configs for individual targets
 const buildFormats = [];
-if (!argv.format || argv.format === 'es') {
-    const esConfig = {
-        ...baseConfig,
-        input: 'src/entry.esm.js',
-        external,
-        output: {
-            file: 'dist/polaris-vue.esm.js',
-            format: 'esm',
-            exports: 'named',
-        },
-        plugins: [
-            replace(baseConfig.plugins.replace),
-            ...baseConfig.plugins.preVue,
-            vue(baseConfig.plugins.vue),
-            ...baseConfig.plugins.postVue,
-            babel({
-                ...baseConfig.plugins.babel,
-                presets: [
-                    [
-                        '@babel/preset-env',
-                        {
-                            ...babelPresetEnvConfig,
-                            targets: esbrowserslist,
-                        },
+['vue', 'vue2'].forEach((value) => {
+    let isVue3 = false;
+    if (value === 'vue') {
+        isVue3 = true;
+    }
+    // Customize configs for individual targets
+    if (!argv.format || argv.format === 'es') {
+        const esConfig = {
+            ...baseConfig,
+            input: 'src/entry.esm.js',
+            external,
+            output: {
+                file: isVue3 ? 'dist/vue3/polaris-vue.esm.js' : 'dist/polaris-vue.esm.js',
+                format: 'esm',
+                exports: 'named',
+            },
+            plugins: [
+                replace(baseConfig.plugins.replace),
+                isVue3 ? replace(baseConfig.plugins.vue3) : replace(baseConfig.plugins.vue2),
+                ...baseConfig.plugins.preVue,
+                isVue3 ? vue() : vue2(baseConfig.plugins.vue),
+                ...baseConfig.plugins.postVue,
+                babel({
+                    ...baseConfig.plugins.babel,
+                    presets: [
+                        [
+                            '@babel/preset-env',
+                            {
+                                ...babelPresetEnvConfig,
+                                targets: esbrowserslist,
+                            },
+                        ],
                     ],
-                ],
-            }),
-            scss({
-                processor: () => postcss([autoprefixer()]),
-                outputStyle: 'compressed',
-                includePaths: [
-                    path.join(__dirname, '../../node_modules/'),
-                    'node_modules/'
-                ]
-            }),
-            cjs()
-        ],
-    };
-    buildFormats.push(esConfig);
-}
+                }),
+                scss({
+                    processor: () => postcss([autoprefixer()]),
+                    outputStyle: 'compressed',
+                    includePaths: [
+                        path.join(__dirname, '../../node_modules/'),
+                        'node_modules/'
+                    ]
+                }),
+                commonjs()
+            ],
+        };
+        buildFormats.push(esConfig);
+    }
 
-if (!argv.format || argv.format === 'cjs') {
-    const umdConfig = {
-        ...baseConfig,
-        external,
-        output: {
-            compact: true,
-            file: 'dist/polaris-vue.ssr.js',
-            format: 'cjs',
-            name: 'PolarisVue',
-            exports: 'auto',
-            globals,
-        },
-        plugins: [
-            replace(baseConfig.plugins.replace),
-            ...baseConfig.plugins.preVue,
-            vue({
-                ...baseConfig.plugins.vue,
-                template: {
-                    ...baseConfig.plugins.vue.template,
-                    optimizeSSR: true,
-                },
-            }),
-            ...baseConfig.plugins.postVue,
-            babel(baseConfig.plugins.babel),
-            scss({
-                processor: () => postcss([autoprefixer()]),
-                outputStyle: 'compressed',
-                includePaths: [
-                    path.join(__dirname, '../../node_modules/'),
-                    'node_modules/'
-                ]
-            }),
-            cjs()
-        ],
-    };
-    buildFormats.push(umdConfig);
-}
+    if (!argv.format || argv.format === 'cjs') {
+        const umdConfig = {
+            ...baseConfig,
+            external,
+            output: {
+                compact: true,
+                file: isVue3 ? 'dist/vue3/polaris-vue.ssr.js' : 'dist/polaris-vue.ssr.js',
+                format: 'cjs',
+                name: 'PolarisVue',
+                exports: 'auto',
+                globals,
+            },
+            plugins: [
+                replace(baseConfig.plugins.replace),
+                isVue3 ? replace(baseConfig.plugins.vue3) : replace(baseConfig.plugins.vue2),
+                ...baseConfig.plugins.preVue,
+                isVue3 ? vue() : vue2({
+                    ...baseConfig.plugins.vue,
+                    template: {
+                        ...baseConfig.plugins.vue.template,
+                        optimizeSSR: true,
+                    },
+                }),
+                ...baseConfig.plugins.postVue,
+                babel(baseConfig.plugins.babel),
+                scss({
+                    processor: () => postcss([autoprefixer()]),
+                    outputStyle: 'compressed',
+                    includePaths: [
+                        path.join(__dirname, '../../node_modules/'),
+                        'node_modules/'
+                    ]
+                }),
+                commonjs()
+            ],
+        };
+        buildFormats.push(umdConfig);
+    }
 
-if (!argv.format || argv.format === 'umd') {
-    const unpkgConfig = {
-        ...baseConfig,
-        external,
-        output: {
-            compact: true,
-            file: 'dist/polaris-vue.min.js',
-            format: 'umd',
-            name: 'PolarisVue',
-            exports: 'auto',
-            globals,
-        },
-        plugins: [
-            replace(baseConfig.plugins.replace),
-            ...baseConfig.plugins.preVue,
-            vue(baseConfig.plugins.vue),
-            ...baseConfig.plugins.postVue,
-            babel(baseConfig.plugins.babel),
-            terser({
-                output: {
-                    ecma: 5,
-                },
-            }),
-            scss({
-                processor: () => postcss([autoprefixer()]),
-                outputStyle: 'compressed',
-                includePaths: [
-                    path.join(__dirname, '../../node_modules/'),
-                    'node_modules/'
-                ]
-            }),
-            cjs()
-        ],
-    };
-    buildFormats.push(unpkgConfig);
-}
+    if (!argv.format || argv.format === 'umd') {
+        const unpkgConfig = {
+            ...baseConfig,
+            external,
+            output: {
+                compact: true,
+                file: isVue3 ? 'dist/vue3/polaris-vue.min.js' : 'dist/polaris-vue.min.js',
+                format: 'umd',
+                name: 'PolarisVue',
+                exports: 'auto',
+                globals,
+            },
+            plugins: [
+                replace(baseConfig.plugins.replace),
+                isVue3 ? replace(baseConfig.plugins.vue3) : replace(baseConfig.plugins.vue2),
+                ...baseConfig.plugins.preVue,
+                isVue3 ? vue() : vue2(baseConfig.plugins.vue),
+                ...baseConfig.plugins.postVue,
+                babel(baseConfig.plugins.babel),
+                terser({
+                    output: {
+                        ecma: 5,
+                    },
+                }),
+                scss({
+                    processor: () => postcss([autoprefixer()]),
+                    outputStyle: 'compressed',
+                    includePaths: [
+                        path.join(__dirname, '../../node_modules/'),
+                        'node_modules/'
+                    ]
+                }),
+                commonjs()
+            ],
+        };
+        buildFormats.push(unpkgConfig);
+    }
+});
 
 // Export config
 export default buildFormats;

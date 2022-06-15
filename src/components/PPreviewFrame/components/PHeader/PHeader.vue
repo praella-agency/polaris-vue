@@ -25,22 +25,24 @@
                                 @close="() => {this.isPreview = false;}"
                                 preferred-alignment="left"
                             >
-                                <PButton
-                                    slot="activator"
-                                    :icon="previewIcon"
-                                    plainAction
-                                    @click="() => {this.isPreview = !this.isPreview}"
-                                />
-                                <POptionList
-                                    slot="content"
-                                    :options="previewOptions"
-                                    :selected="selectedOption"
-                                    @click="handlePreviewClick"
-                                >
-                                    <template v-slot:media="{item}">
-                                        <PIcon :source="item.icon"/>
-                                    </template>
-                                </POptionList>
+                                <template #activator>
+                                    <PButton
+                                        :icon="previewIcon"
+                                        plainAction
+                                        @click="() => {this.isPreview = !this.isPreview}"
+                                    />
+                                </template>
+                                <template #content>
+                                    <POptionList
+                                        :options="previewOptions"
+                                        :selected="selectedOption"
+                                        @click="handlePreviewClick"
+                                    >
+                                        <template v-slot:media="{item}">
+                                            <PIcon :source="item.icon"/>
+                                        </template>
+                                    </POptionList>
+                                </template>
                             </PPopover>
                             <PVerticalDivider/>
                         </template>
@@ -61,7 +63,7 @@
                         </template>
                     </div>
 
-                    <div v-if="$slots['header.right']" :class="rightLayoutChildClassName">
+                    <div v-if="hasSlot($slots['header.right'])" :class="rightLayoutChildClassName">
                         <slot name="header.right"/>
                     </div>
                 </div>
@@ -73,6 +75,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PHeading } from '../../../../components/PHeading';
     import { PButton } from '../../../../components/PButton';
@@ -121,6 +124,7 @@
                 ...ObjectValidator('redoActions', RedoActions),
             },
         },
+        emits: ['previewChange'],
         data() {
             return {
                 isPreview: false,
@@ -182,6 +186,9 @@
                     'Polaris-PreviewFrame__spacingTight',
                 );
             },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             handlePreviewClick(selected, option) {
@@ -192,7 +199,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

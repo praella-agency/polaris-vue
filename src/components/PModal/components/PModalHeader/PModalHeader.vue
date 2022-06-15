@@ -23,5 +23,6 @@
                 type: [String, Number],
             },
         },
+        emits: ['close'],
     }
 </script>

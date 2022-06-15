@@ -30,11 +30,24 @@ export default {
                 },
             },
         },
+        drop: {
+            control: {
+                type: null,
+            },
+            table: {
+                defaultValue: {
+                    summary: '()',
+                    detail: '(color)',
+                },
+            },
+        },
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PColorPicker, PBadge, PStack, PStackItem,
     },
@@ -44,20 +57,20 @@ const Template = (args, { argTypes }) => ({
         };
     },
     template: `
-      <PStack vertical>
-        <PStackItem>
-          <PColorPicker
-              :color.sync="colorAttr"
-              v-bind = "$props"
-              @change="handleChange"
-          />
-        </PStackItem>
-        <PStackItem>
-          <PBadge :color="colorAttr">
-            {{ colorAttr }}
-          </PBadge>
-        </PStackItem>
-      </PStack>`,
+        <PStack vertical>
+            <PStackItem>
+                <PColorPicker
+                    v-model:color="colorAttr"
+                    v-bind="args"
+                    @drop="handleChange"
+                />
+            </PStackItem>
+            <PStackItem>
+                <PBadge :color="colorAttr">
+                    {{ colorAttr }}
+                </PBadge>
+            </PStackItem>
+        </PStack>`,
     methods: {
         handleChange(color) {
             console.log(color);
@@ -71,3 +84,11 @@ ColorPicker.args = {
     id: 'color-picker',
     label: 'Color Picker',
 }
+
+ColorPicker.parameters = {
+    docs: {
+        source: {
+            code: `<PColorPicker/>`
+        },
+    },
+};

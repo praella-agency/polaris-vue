@@ -48,23 +48,41 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PStack, PStackItem, PThumbnail, PTextStyle, PButton,
     },
     template: `
-      <PStack v-bind = "$props">
-          <PStackItem>
-            <PThumbnail/>
-          </PStackItem>
-          <PStackItem fill>
-            <PTextStyle>Item 1</PTextStyle>
-          </PStackItem>
-          <PStackItem>
-            <PButton plain>Delete</PButton>
-          </PStackItem>
-      </PStack>`,
+        <PStack v-bind="args">
+            <PStackItem>
+                <PThumbnail/>
+            </PStackItem>
+            <PStackItem fill>
+                <PTextStyle>Item 1</PTextStyle>
+            </PStackItem>
+            <PStackItem>
+                <PButton plain>Delete</PButton>
+            </PStackItem>
+        </PStack>`,
 });
 
 export const Stack = Template.bind({});
+
+Stack.parameters= {
+    docs: {
+        source: {
+            code: `
+<PStack>
+    <PStackItem>
+        <PThumbnail/>
+    </PStackItem>
+    <PStackItem>
+        <PTextStyle>Item 1</PTextStyle>
+    </PStackItem>
+</PStack>`
+        },
+    },
+};

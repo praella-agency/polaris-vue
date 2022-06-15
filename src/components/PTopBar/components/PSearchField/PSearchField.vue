@@ -1,12 +1,7 @@
 <template>
     <div :class="className">
-    <span class="Polaris-VisuallyHidden">
-      <label :for="`SearchField${this['_uid']}`">
-        Search
-      </label>
-    </span>
         <input
-            :id="`SearchField${this['_uid']}`"
+            :id="`SearchField${uuid}`"
             class="Polaris-TopBar-SearchField__Input"
             :placeholder="placeholder"
             type="search"
@@ -19,8 +14,8 @@
             @keydown="preventDefault"
         />
         <span class="Polaris-TopBar-SearchField__Icon">
-        <PIcon source="SearchMinor"/>
-    </span>
+            <PIcon source="SearchMinor"/>
+        </span>
         <button
             v-if="inputValue !== ''"
             type="button"
@@ -39,6 +34,8 @@
 </template>
 
 <script>
+    import utils from '../../../../utilities';
+    import { uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PIcon } from '../../../../components/PIcon';
 
@@ -53,7 +50,14 @@
              */
             value: {
                 type: String,
-                required: true,
+                required: false,
+            },
+            /**
+             * Initial value for the input
+             */
+            modelValue: {
+                type: String,
+                required: false,
             },
             /**
              * Hint text to display
@@ -84,13 +88,20 @@
                 default: false,
             },
         },
+        emits: ['input', 'change', 'cancel', 'focus', 'update:value', 'update:modelValue'],
         data() {
             return {
                 forceActive: false,
-                inputValue: this.value,
+                inputValue: this.computedVModel,
             };
         },
         computed: {
+            computedVModel() {
+                if (utils.isVue3) {
+                    return this.modelValue;
+                }
+                return this.value;
+            },
             className() {
                 return classNames(
                     'Polaris-TopBar-SearchField',
@@ -113,8 +124,23 @@
                      * Handle input of search field
                      */
                     this.$emit('input', value);
+                    /**
+                     * For Vue 3
+                     * Handle input of search field
+                     * @ignore
+                     */
+                    this.$emit('update:value', value);
+                    /**
+                     * For Vue 3
+                     * Handle input of search field
+                     * @ignore
+                     */
+                    this.$emit('update:modelValue', value);
                 },
             },
+            uuid() {
+                return uuid();
+            }
         },
         methods: {
             preventDefault(event) {
@@ -143,7 +169,16 @@
             },
             handleClear() {
                 this.inputValue = '';
-                this.$emit('change', '');
+                this.$emit('input', '');
+                /**
+                 * @ignore
+                 */
+                this.$emit('update:value', '');
+                /**
+                 * For Vue 3
+                 * @ignore
+                 */
+                this.$emit('update:modelValue', '');
             },
         },
         watch: {
@@ -159,5 +194,8 @@
                 }
             },
         },
+        created() {
+            this.inputValue = this.computedVModel;
+        }
     }
 </script>

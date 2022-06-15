@@ -151,14 +151,17 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PResourceList, PCard, PPopover, PButton, PResourceListItem, PBadge, PPagination, PButtonGroup,
         PCardSection, PCardHeader, PStack, PStackItem, PTextField, PAvatar, PTextStyle
     },
     data() {
         return {
+            ...args,
             selectedItems: [],
             selectedAllItems: false,
             statusFilterActive: false,
@@ -239,69 +242,72 @@ const Template = (args, {argTypes}) => ({
     template: `
         <PCard>
             <PResourceList
+                v-bind="args"
                 :selectable="selectable"
                 :hasMore="hasMore"
                 :totalCount="pagination.total"
                 :selected="selectedItems"
-                :resourceName="resourceName"
-                :loading="loading"
-                v-bind="$props"
                 :appliedFilters="[
-                { value: 'Tagged with ' + this.taggedValue, key: 'tag_' + this.taggedValue},
-              ]"
+                    { value: 'Tagged with ' + this.taggedValue, key: 'tag_' + this.taggedValue},
+                ]"
                 @filter-removed="removeTag"
                 @change="toggleSelected"
                 @sort-change="handleSortChange"
                 @select-mode="handleSelectMode"
             >
-                <PButtonGroup slot="filter" segmented>
-                    <PPopover
-                        id="resource_list_popover"
-                        @close="() => {this.statusFilterActive = false;}"
-                        :active="statusFilterActive"
-                        full-width
-                        preferredPosition="mostSpace"
-                        preferredAlignment="right"
-                    >
-                        <PButton
-                            slot="activator"
-                            :disclosure="statusFilterActive ? 'up' : 'down'"
-                            @click.stop="statusFilterActive = !statusFilterActive"
+                <template #filter>
+                    <PButtonGroup segmented>
+                        <PPopover
+                            id="resource_list_popover"
+                            @close="() => {this.statusFilterActive = false;}"
+                            :active="statusFilterActive"
+                            full-width
+                            preferredPosition="mostSpace"
+                            preferredAlignment="right"
                         >
-                            Status
+                            <template #activator>
+                                <PButton
+                                    :disclosure="statusFilterActive ? 'up' : 'down'"
+                                    @click.stop="statusFilterActive = !statusFilterActive"
+                                >
+                                    Status
+                                </PButton>
+                            </template>
+                            <template #content>
+                                <PCard @change="updateStatusFilter">
+                                    <PCardSection>
+                                        <PStack vertical spacing="tight">
+                                            <PStackItem>
+                                                <PTextField
+                                                    label="Tagged with"
+                                                    v-model="taggedValue"
+                                                    labelHidden
+                                                />
+                                            </PStackItem>
+                                            <PStackItem>
+                                                <PButton plain @click="removeTag">
+                                                    Clear
+                                                </PButton>
+                                            </PStackItem>
+                                        </PStack>
+                                    </PCardSection>
+                                </PCard>
+                            </template>
+                        </PPopover>
+                        <PButton @click="handleButtonClick">
+                            Save
                         </PButton>
-                        <PCard slot="content" @change="updateStatusFilter">
-                            <PCardSection>
-                                <PStack vertical spacing="tight">
-                                    <PStackItem>
-                                        <PTextField
-                                            label="Tagged with"
-                                            v-model="taggedValue"
-                                            labelHidden
-                                        />
-                                    </PStackItem>
-                                    <PStackItem>
-                                        <PButton plain @click="removeTag">
-                                            Clear
-                                        </PButton>
-                                    </PStackItem>
-                                </PStack>
-                            </PCardSection>
-                        </PCard>
-                    </PPopover>
-                    <PButton @click="handleButtonClick">
-                        Save
-                    </PButton>
-                </PButtonGroup>
-                <template v-bind="{selectable}">
+                    </PButtonGroup>
+                </template>
+                <template #default v-slot="args">
                     <PResourceListItem
                         v-for="(item, key) in items"
                         :key="key"
                         :id="item.id"
                         :checked="selectedItems.indexOf(item.id) >= 0"
-                        :selectable="selectable"
+                        :selectable="args.selectable"
                         :selectMode="selectModeStatus"
-                        :loading="loading"
+                        :loading="args.loading"
                         persistActions
                         :shortcutActions="[
                             {
@@ -311,7 +317,9 @@ const Template = (args, {argTypes}) => ({
                         ]"
                         @change="updateSelected"
                     >
-                        <PAvatar slot="media" customer size="medium" :name="item.name"/>
+                        <template #media>
+                            <PAvatar customer size="medium" :name="item.name"/>
+                        </template>
                         <div class="resource-list-item">
                             <div class="resource-list-item__book--name">
                                 <p>{{ item.name }}</p>
@@ -336,8 +344,7 @@ const Template = (args, {argTypes}) => ({
     methods: {
         toggleSelected(item) {
             this.selectedItems = item.selected ? this.items.map(book => book.id) : [];
-            this.selectedAllItems = item.selectedMore;
-            console.log(this.selectedItems, this.selectedAllItems);
+            this.selectedAllItems = item.selectedAll;
         },
         updateSelected(id, checked) {
             if (checked) this.selectedItems.push(id);
@@ -417,3 +424,56 @@ ResourceList.args = {
         },
     ],
 }
+
+ResourceList.parameters= {
+    docs: {
+        source: {
+            code: `
+<PResourceList>
+    <template>
+        <PButtonGroup segmented>
+            <PPopover>
+                <template>
+                    <PButton>Status</PButton>
+                </template>
+                <template>
+                    <PCard>
+                        <PCardSection>
+                            <PStack>
+                                <PStackItem>
+                                    <PTextField/>
+                                </PStackItem>
+                                <PStackItem>
+                                    <PButton>Clear</PButton>
+                                </PStackItem>
+                            </PStack>
+                        </PCardSection>
+                    </PCard>
+                </template>
+            </PPopover>
+            <PButton>Save</PButton>
+        </PButtonGroup>
+    </template>
+    <template>
+         <PResourceListItem>
+             <template>
+                 <PAvatar/>
+             </template>
+             <div>
+                 <div>
+                     <p>Javascript</p>
+                 </div>
+                 <div>
+                     <h3>
+                         <PTextStyle>Published</PTextStyle>
+                         <PTextStyle>Pending</PTextStyle>
+                         <PTextStyle>Archived</PTextStyle>
+                     </h3>
+                 </div>
+             </div>
+         </PResourceListItem>
+    </template>
+</PResourceList>`
+        },
+    },
+};

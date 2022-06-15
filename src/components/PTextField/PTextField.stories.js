@@ -131,8 +131,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PTextField,
     },
@@ -143,7 +145,7 @@ const Template = (args, {argTypes}) => ({
     },
     template: `
         <PTextField
-            v-bind="$props"
+            v-bind="args"
             v-model="formData"
         />`,
 });
@@ -159,14 +161,31 @@ TextField.args = {
     minHeight: 0,
 }
 
-const Template1 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+TextField.parameters= {
+    docs: {
+        source: {
+            code: `
+<PTextField
+    label="Input Field"
+    id="input_field"
+    type="text"
+/>`
+        },
+    },
+};
+
+const Template1 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PTextField, PButton, PIcon,
     },
     template: `
-        <PTextField v-bind="$props">
-            <PIcon source="EmailMajor" slot="suffix"/>
+        <PTextField v-bind="args">
+            <template #suffix>
+                <PIcon source="EmailMajor"/>
+            </template>
         </PTextField>`,
 });
 
@@ -176,10 +195,24 @@ IconPrefix.args = {
     type: 'email',
     id: 'input_field',
     label: 'User email',
+    placeholder: 'Enter email',
 }
 
-const Template2 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+IconPrefix.parameters= {
+    docs: {
+        source: {
+            code: `
+<PTextField>
+    <PIcon source="EmailMajor"/>
+</PTextField>`
+        },
+    },
+};
+
+const Template2 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PTextField, PButton, PSelect,
     },
@@ -189,9 +222,13 @@ const Template2 = (args, {argTypes}) => ({
         };
     },
     template: `
-        <PTextField v-bind="$props">
-            <PButton slot="connectedRight">Submit</PButton>
-            <PSelect v-model="selectedOption" :options="['%','$']" slot="connectedLeft"/>
+        <PTextField v-bind="args">
+            <template #connectedRight>
+                <PButton>Submit</PButton>
+            </template>
+            <template #connectedLeft>
+                <PSelect v-model="selectedOption" :options="['%','$']"/>
+            </template>
         </PTextField>`,
 });
 
@@ -204,8 +241,22 @@ ConnectedTextField.args = {
     type: 'number',
 }
 
-const Template3 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+ConnectedTextField.parameters= {
+    docs: {
+        source: {
+            code: `
+<PTextField>
+    <PButton>Submit</PButton>
+    <PSelect/>
+</PTextField>`
+        },
+    },
+};
+
+const Template3 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PTextField, PButton, PSelect,
     },
@@ -216,13 +267,13 @@ const Template3 = (args, {argTypes}) => ({
     },
     template: `
         <PTextField
-            v-bind="$props"
+            v-bind="args"
             v-model="files"
             @input="getFiles"
         />`,
     methods: {
-        getFiles() {
-            console.log(this.files)
+        getFiles(value) {
+            console.log(value)
         }
     },
 });
@@ -237,8 +288,23 @@ FileInput.args = {
     accept: 'image/png, image/jpeg',
 }
 
-const Template4 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+FileInput.parameters= {
+    docs: {
+        source: {
+            code: `
+<PTextField
+    label="Upload file"
+    id="input_field_file"
+    type="file"
+/>`
+        },
+    },
+};
+
+const Template4 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PTextField,
     },
@@ -249,7 +315,7 @@ const Template4 = (args, {argTypes}) => ({
     },
     template: `
         <PTextField
-            v-bind="$props"
+            v-bind="args"
             v-model="formData"
         />
     `
@@ -261,3 +327,12 @@ FloatingLabels.args = {
     floatingLabel: true,
     label: 'Sort By'
 }
+
+FloatingLabels.parameters= {
+    docs: {
+        source: {
+            code: `
+<PTextField label="Sort By" floatingLabel/>`
+        },
+    },
+};

@@ -5,7 +5,7 @@
                 <PImage v-if="imageSrc" width="100%" height="100%"
                         style="object-fit: cover; object-position: center center;"
                         :src="imageSrc"/>
-                <vue-plyr>
+                <PVuePlyr>
                     <video
                         controls
                         crossorigin
@@ -22,7 +22,7 @@
                             :type="video.type"
                         />
                     </video>
-                </vue-plyr>
+                </PVuePlyr>
             </div>
             <div class="Polaris-MediaCard__InfoContainer">
                 <div class="Polaris-Card__Section">
@@ -65,7 +65,7 @@
 <script>
     import { classNames } from '../../utilities/css';
     import { DestructableAction, DisableableAction, IconableAction, LoadableAction, Video } from '../../types';
-    import VuePlyr from '@hulkapps/vue-plyr';
+    import PVuePlyr from '../../components/PVuePlyr';
     import { PCard } from '../../components/PCard';
     import { PStack } from '../../components/PStack';
     import { PStackItem } from '../../components/PStack/components/PStackItem';
@@ -95,7 +95,7 @@
     export default {
         name: 'PMediaCard',
         components: {
-            PCard, VuePlyr, PStack, PStackItem, PHeading, PImage, PButtonGroup, PButton,
+            PCard, PVuePlyr, PStack, PStackItem, PHeading, PImage, PButtonGroup, PButton,
         },
         props: {
             /**
@@ -177,7 +177,3 @@
         },
     }
 </script>
-
-<style scoped lang="scss">
-
-</style>

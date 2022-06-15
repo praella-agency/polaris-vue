@@ -4,7 +4,8 @@
         class="Polaris-PositionedOverlay"
         :style="containerStyle"
         v-show="active"
-        ref="overlay">
+        ref="overlay"
+    >
         <slot
             name="overlay"
             :measuring="measuring"
@@ -19,6 +20,8 @@
 
 
 <script>
+    import utils from '../../../../utilities';
+
     export default {
         name: 'PPositionedOverlay',
         props: {
@@ -227,7 +230,7 @@
 
                 if (preferredPosition === 'above') {
                     return ((enoughSpaceFromTopScroll ||
-                            (distanceToTopScroll >= distanceToBottomScroll && !enoughSpaceFromBottomScroll)) &&
+                        (distanceToTopScroll >= distanceToBottomScroll && !enoughSpaceFromBottomScroll)) &&
                         (spaceAbove > desiredHeight || spaceAbove > spaceBelow))
                         ? positionIfAbove
                         : positionIfBelow;
@@ -235,7 +238,7 @@
 
                 if (preferredPosition === 'below') {
                     return ((enoughSpaceFromBottomScroll ||
-                            (distanceToBottomScroll >= distanceToTopScroll && !enoughSpaceFromTopScroll)) &&
+                        (distanceToBottomScroll >= distanceToTopScroll && !enoughSpaceFromTopScroll)) &&
                         (spaceBelow > desiredHeight || spaceBelow > spaceAbove))
                         ? positionIfBelow
                         : positionIfAbove;
@@ -281,7 +284,7 @@
         updated() {
             this.overlay = this.$refs.overlay;
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('resize', this.handleMeasurement);
             window.removeEventListener('scroll', this.handleMeasurement);
         },

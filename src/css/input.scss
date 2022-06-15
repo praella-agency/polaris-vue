@@ -329,7 +329,10 @@
 		border-bottom-right-radius: calc(0.4rem - 0.2rem);
 	}
 }
-
+.Polaris-TextField .ck.ck-editor {
+	position: relative;
+	width: 100%;
+}
 
 /*.Polaris-TextField--globalTheming.Polaris-TextField {
 	color: var(--p-text-on-surface);

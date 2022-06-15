@@ -176,8 +176,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PFrame, PSkeletonPage, PLayout, PLayoutSection,
         PLayoutAnnotatedSection, PCard, PTextContainer, PSkeletonDisplayText, PSkeletonBodyText, PPage, PFormLayout,
@@ -221,10 +223,10 @@ const Template = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PFrame
-          :showMobileNavigation="mobileNavigationActive"
-          :onNavigationDismiss="handleMobileNavigationToggle"
-          :contextualSaveBar="{
+        <PFrame
+            :showMobileNavigation="mobileNavigationActive"
+            :onNavigationDismiss="handleMobileNavigationToggle"
+            :contextualSaveBar="{
               active: contextualSaveBarMarkup.isDirty,
               message: 'Unsaved changes',
               saveAction: {
@@ -234,7 +236,7 @@ const Template = (args, {argTypes}) => ({
                 onAction: handleDiscard,
               }
           }"
-          :topBar="{
+            :topBar="{
               showNavigationToggle: true,
               logo: this.logoMarkup,
               searchResultsDismiss: this.handleTopBarSearchResultsDismiss,
@@ -272,7 +274,7 @@ const Template = (args, {argTypes}) => ({
                   ],
               },
           }"
-          :navigation="{
+            :navigation="{
               location: '/',
               showMobileNavigation: true,
               logo: logoMarkup,
@@ -308,70 +310,70 @@ const Template = (args, {argTypes}) => ({
                   }
               ]
           }"
-          v-bind="$props"
-      >
-        <PSkeletonPage v-if="navigationMarkup.isLoading">
-          <PLayout>
-            <PLayoutSection>
-              <PCard sectioned>
-                <PTextContainer>
-                  <PSkeletonDisplayText size="small"/>
-                  <PSkeletonBodyText :lines="9"/>
-                </PTextContainer>
-              </PCard>
-            </PLayoutSection>
-          </PLayout>
-        </PSkeletonPage>
-        <PPage v-else title="Account">
-          <PLayout>
-            <a id="SkipToContentTarget" ref="skipToContentTarget" tabindex="-1"/>
-            <PLayoutAnnotatedSection
-                title="Account details"
-                description="Hulkapps will use this as your account information."
-            >
-              <PCard sectioned>
-                <PFormLayout>
-                  <PTextField
-                      label="Full name"
-                      :value="nameFieldValue"
-                      @input="handleNameFieldChange"
-                  />
-                  <PTextField
-                      type="email"
-                      label="Email"
-                      :value="emailFieldValue"
-                      @input="handleEmailFieldChange"
-                  />
-                </PFormLayout>
-              </PCard>
-            </PLayoutAnnotatedSection>
-          </PLayout>
-        </PPage>
-        <PModal
-            :open="modalMarkup.modalActive"
-            title="Contact Support"
-            :primaryAction="{
+            v-bind="args"
+        >
+            <PSkeletonPage v-if="navigationMarkup.isLoading">
+                <PLayout>
+                    <PLayoutSection>
+                        <PCard sectioned>
+                            <PTextContainer>
+                                <PSkeletonDisplayText size="small"/>
+                                <PSkeletonBodyText :lines="9"/>
+                            </PTextContainer>
+                        </PCard>
+                    </PLayoutSection>
+                </PLayout>
+            </PSkeletonPage>
+            <PPage v-else title="Account">
+                <PLayout>
+                    <a id="SkipToContentTarget" ref="skipToContentTarget" tabindex="-1"/>
+                    <PLayoutAnnotatedSection
+                        title="Account details"
+                        description="Hulkapps will use this as your account information."
+                    >
+                        <PCard sectioned>
+                            <PFormLayout>
+                                <PTextField
+                                    label="Full name"
+                                    v-model="nameFieldValue"
+                                    @input="handleNameFieldChange"
+                                />
+                                <PTextField
+                                    type="email"
+                                    label="Email"
+                                    v-model="emailFieldValue"
+                                    @input="handleEmailFieldChange"
+                                />
+                            </PFormLayout>
+                        </PCard>
+                    </PLayoutAnnotatedSection>
+                </PLayout>
+            </PPage>
+            <PModal
+                :open="modalMarkup.modalActive"
+                title="Contact Support"
+                :primaryAction="{
                 content: 'Send',
                 onAction: toggleModalActive,
             }"
-            @close="toggleModalActive"
-            sectioned
-        >
-          <PFormLayout>
-            <PTextField
-                label="Subject"
-                :value="modalMarkup.supportSubject"
-                @input="handleSubjectChange"
-            />
-            <PTextField
-                label="Message"
-                :value="modalMarkup.supportMessage"
-                multiline
-                @input="handleMessageChange"
-            />
-          </PFormLayout>
-        </PModal>
-      </PFrame>`,
+                @close="toggleModalActive"
+                sectioned
+            >
+                <PFormLayout>
+                    <PTextField
+                        label="Subject"
+                        v-model="modalMarkup.supportSubject"
+                        @input="handleSubjectChange"
+                    />
+                    <PTextField
+                        label="Message"
+                        v-model="modalMarkup.supportMessage"
+                        multiline
+                        @input="handleMessageChange"
+                    />
+                </PFormLayout>
+            </PModal>
+        </PFrame>`,
     methods: {
         handleTopBarSearchResultsDismiss() {
             this.topBarMarkup.isSearchActive = false;
@@ -556,12 +558,12 @@ Default.parameters = {
             <PFormLayout>
               <PTextField
                   label="Full name"
-                  :value="nameFieldValue"
+                  v-model="nameFieldValue"
               />
               <PTextField
                   type="email"
                   label="Email"
-                  :value="emailFieldValue"
+                  v-model="emailFieldValue"
               />
             </PFormLayout>
           </PCard>
@@ -579,11 +581,11 @@ Default.parameters = {
       <PFormLayout>
         <PTextField
             label="Subject"
-            :value="modalMarkup.supportSubject"
+            v-model="modalMarkup.supportSubject"
         />
         <PTextField
             label="Message"
-            :value="modalMarkup.supportMessage"
+            v-model="modalMarkup.supportMessage"
             multiline
         />
       </PFormLayout>
@@ -593,8 +595,10 @@ Default.parameters = {
     },
 }
 
-const Template1 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template1 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PFrame, PSkeletonPage, PLayout, PLayoutSection,
         PLayoutAnnotatedSection, PCard, PTextContainer, PSkeletonDisplayText, PSkeletonBodyText, PPage, PFormLayout,
@@ -638,11 +642,11 @@ const Template1 = (args, {argTypes}) => ({
         };
     },
     template: `
-      <div style="height: 500px; background: #DE1373; margin: -8px;">
-          <PFrame
-              :showMobileNavigation="mobileNavigationActive"
-              :onNavigationDismiss="handleMobileNavigationToggle"
-              :contextualSaveBar="{
+        <div style="height: 500px; background: #DE1373; margin: -8px;">
+            <PFrame
+                :showMobileNavigation="mobileNavigationActive"
+                :onNavigationDismiss="handleMobileNavigationToggle"
+                :contextualSaveBar="{
                   active: contextualSaveBarMarkup.isDirty,
                   message: 'Unsaved changes',
                   saveAction: {
@@ -652,7 +656,7 @@ const Template1 = (args, {argTypes}) => ({
                     onAction: handleDiscard,
                   }
               }"
-              :topBar="{
+                :topBar="{
                   showNavigationToggle: true,
                   logo: this.logoMarkup,
                   onSearchResultsDismiss: this.handleTopBarSearchResultsDismiss,
@@ -690,7 +694,7 @@ const Template1 = (args, {argTypes}) => ({
                       ],
                   },
               }"
-              :navigation="{
+                :navigation="{
                   location: '/',
                   showMobileNavigation: true,
                   logo: logoMarkup,
@@ -726,76 +730,76 @@ const Template1 = (args, {argTypes}) => ({
                       }
                   ]
               }"
-              v-bind="$props"
-          >
-            <PSkeletonPage v-if="navigationMarkup.isLoading">
-              <PLayout>
-                <PLayoutSection>
-                  <PCard sectioned>
-                    <PTextContainer>
-                      <PSkeletonDisplayText size="small"/>
-                      <PSkeletonBodyText :lines="9"/>
-                    </PTextContainer>
-                  </PCard>
-                </PLayoutSection>
-              </PLayout>
-            </PSkeletonPage>
-            <PPage v-else title="Account">
-              <PLayout>
-                <a id="SkipToContentTarget" ref="skipToContentTarget" tabindex="-1"/>
-                <PLayoutAnnotatedSection
-                    title="Account details"
-                    description="Hulkapps will use this as your account information."
-                >
-                  <PCard sectioned>
-                    <PFormLayout>
-                      <PTextField
-                          label="Full name"
-                          :value="nameFieldValue"
-                          @input="handleNameFieldChange"
-                      />
-                      <PTextField
-                          type="email"
-                          label="Email"
-                          :value="emailFieldValue"
-                          @input="handleEmailFieldChange"
-                      />
-                    </PFormLayout>
-                  </PCard>
-                </PLayoutAnnotatedSection>
-              </PLayout>
-            </PPage>
-            <PModal
-                :open="modalMarkup.modalActive"
-                title="Contact Support"
-                :primaryAction="{
+                v-bind="args"
+            >
+                <PSkeletonPage v-if="navigationMarkup.isLoading">
+                    <PLayout>
+                        <PLayoutSection>
+                            <PCard sectioned>
+                                <PTextContainer>
+                                    <PSkeletonDisplayText size="small"/>
+                                    <PSkeletonBodyText :lines="9"/>
+                                </PTextContainer>
+                            </PCard>
+                        </PLayoutSection>
+                    </PLayout>
+                </PSkeletonPage>
+                <PPage v-else title="Account">
+                    <PLayout>
+                        <a id="SkipToContentTarget" ref="skipToContentTarget" tabindex="-1"/>
+                        <PLayoutAnnotatedSection
+                            title="Account details"
+                            description="Hulkapps will use this as your account information."
+                        >
+                            <PCard sectioned>
+                                <PFormLayout>
+                                    <PTextField
+                                        label="Full name"
+                                        v-model="nameFieldValue"
+                                        @input="handleNameFieldChange"
+                                    />
+                                    <PTextField
+                                        type="email"
+                                        label="Email"
+                                        v-model="emailFieldValue"
+                                        @input="handleEmailFieldChange"
+                                    />
+                                </PFormLayout>
+                            </PCard>
+                        </PLayoutAnnotatedSection>
+                    </PLayout>
+                </PPage>
+                <PModal
+                    :open="modalMarkup.modalActive"
+                    title="Contact Support"
+                    :primaryAction="{
                     content: 'Send',
                     onAction: toggleModalActive,
                 }"
-                @close="toggleModalActive"
-                sectioned
-            >
-              <PFormLayout>
-                <PTextField
-                    label="Subject"
-                    :value="modalMarkup.supportSubject"
-                    @input="handleSubjectChange"
-                />
-                <PTextField
-                    label="Message"
-                    :value="modalMarkup.supportMessage"
-                    multiline
-                    @input="handleMessageChange"
-                />
-              </PFormLayout>
-            </PModal>
-            <template slot="globalRibbon">
-              <div style="background: #C0FFEE; padding: 30px">
-                Global ribbon
-              </div>
-            </template>
-          </PFrame>
-      </div>`,
+                    @close="toggleModalActive"
+                    sectioned
+                >
+                    <PFormLayout>
+                        <PTextField
+                            label="Subject"
+                            v-model="modalMarkup.supportSubject"
+                            @input="handleSubjectChange"
+                        />
+                        <PTextField
+                            label="Message"
+                            v-model="modalMarkup.supportMessage"
+                            multiline
+                            @input="handleMessageChange"
+                        />
+                    </PFormLayout>
+                </PModal>
+                <template #globalRibbon>
+                    <div style="background: #C0FFEE; padding: 30px">
+                        Global ribbon
+                    </div>
+                </template>
+            </PFrame>
+        </div>`,
     methods: {
         handleTopBarSearchResultsDismiss() {
             this.topBarMarkup.isSearchActive = false;
@@ -983,12 +987,12 @@ FrameWithAnOffset.parameters = {
             <PFormLayout>
               <PTextField
                   label="Full name"
-                  :value="nameFieldValue"
+                  v-model="nameFieldValue"
               />
               <PTextField
                   type="email"
                   label="Email"
-                  :value="emailFieldValue"
+                  v-model="emailFieldValue"
               />
             </PFormLayout>
           </PCard>
@@ -1006,16 +1010,16 @@ FrameWithAnOffset.parameters = {
       <PFormLayout>
         <PTextField
             label="Subject"
-            :value="modalMarkup.supportSubject"
+            v-model="modalMarkup.supportSubject"
         />
         <PTextField
             label="Message"
-            :value="modalMarkup.supportMessage"
+            v-model="modalMarkup.supportMessage"
             multiline
         />
       </PFormLayout>
     </PModal>
-    <template slot="globalRibbon">
+    <template #globalRibbon>
       <div style="background: #C0FFEE; padding: 30px">
         Global ribbon
       </div>

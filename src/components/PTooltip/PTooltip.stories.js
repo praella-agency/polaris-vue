@@ -16,14 +16,14 @@ export default {
     },
 }
 
-const Template = (arg, {argTypes}) => ({
+const Template = () => ({
     components: {
         PTextStyle,
     },
     template: `
         <PTextStyle
             variation="strong"
-            v-p-tooltip.mostSpace="'This order has shipping labels.'"
+            v-p-tooltip="'This order has shipping labels.'"
         >
             Order #1001
         </PTextStyle>`,

@@ -1,21 +1,20 @@
 <template>
-    <div class="color-picker-field" v-click-outside="hidePicker">
+    <div class="color-picker-field" v-p-click-outside="hidePicker">
         <div :class="propsClass">
             <span @click="togglePicker()" :class="className" :style="'background-color:'+color"></span>
             <PTextField v-model="color" type="text" :label="label" :show-input="showInput" class="picker"
                         labelClass="mb-0"></PTextField>
         </div>
         <div class="picker-wrapper">
-            <Chrome v-show="showPicker" :value="color" @input="updateColor"></Chrome>
+            <Chrome v-show="showPicker" :value="color" @input="updateColor" @mouseup="dropColor"/>
         </div>
     </div>
 </template>
 
 <script>
-    import { Chrome } from 'vue-color';
+    import { classNames } from '../../utilities/css';
+    import { Chrome } from './components/Chrome';
     import { PTextField } from '../../components/PTextField/';
-    import vClickOutside from 'v-click-outside';
-    import { classNames } from "../../utilities/css";
 
     /**
      * <br/>
@@ -27,9 +26,6 @@
         name: 'PColorPicker',
         components: {
             PTextField, Chrome,
-        },
-        directives: {
-            clickOutside: vClickOutside.directive,
         },
         props: {
             /**
@@ -82,9 +78,11 @@
                 default: false,
             },
         },
+        emits: ['change', 'update:color', 'drop'],
         data() {
             return {
                 showPicker: false,
+                dropColors: null,
             };
         },
         computed: {
@@ -94,9 +92,27 @@
                     this.disabled && 'Polaris-ColorPicker--disabled',
                 );
             },
+            computedColor: {
+                get() {
+                    return this.color;
+                },
+                set(value) {
+                    this.dropColors = value;
+                    /**
+                     * Triggers when color is changed
+                     * @ignore
+                     */
+                    this.$emit('update:color', value ? value.hex : value);
+                    /**
+                     * Triggers when color is changed
+                     */
+                    this.$emit('change', value);
+                }
+            }
         },
         methods: {
             updateColor(color) {
+                this.dropColors = color;
                 /**
                  * Triggers when color is changed
                  * @ignore
@@ -111,59 +127,17 @@
                 this.showPicker = !this.showPicker;
             },
             hidePicker() {
+                if (this.showPicker) {
+                    this.$emit('drop', this.dropColors || this.color);
+                }
                 this.showPicker = false;
             },
+            dropColor() {
+                /**
+                 * Mouse drop event, triggered when mouseup
+                 */
+                this.$emit('drop', this.dropColors);
+            }
         },
     }
 </script>
-
-<style>
-    .vc-chrome input {
-        font-family: inherit;
-    }
-
-    .vc-chrome {
-        font-family: inherit !important;
-        box-shadow: -1px 0px 20px rgba(23, 24, 24, 0.05), 0px 1px 5px rgba(0, 0, 0, 0.15) !important;
-        border-radius: 0.8rem !important;
-        border: none !important;
-        overflow: hidden;
-    }
-
-    .vc-chrome-saturation-wrap {
-        box-shadow: -1px 0px 20px rgba(23, 24, 24, 0.05), 0px 1px 5px rgba(0, 0, 0, 0.15) !important;
-        border-radius: 0.8rem 0.8rem 0 0 !important;
-        border: none !important;
-    }
-</style>
-
-<style scoped>
-    .color-picker-field span.picker {
-        position: absolute;
-        right: 10px;
-        width: 30px;
-        height: 20px;
-        z-index: 25;
-        cursor: pointer;
-        border-radius: 4px;
-        border: 1px solid rgba(0, 0, 0, .24);
-        float: left;
-        left: 0;
-        margin: 0 10px 0 0;
-    }
-
-    .color-picker-field {
-        position: relative;
-    }
-
-    .picker-wrapper {
-        position: absolute;
-        top: 100%;
-        z-index: 111;
-    }
-
-    .picker {
-        position: relative !important;
-        display: inline-block;
-    }
-</style>

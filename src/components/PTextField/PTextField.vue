@@ -1,7 +1,7 @@
 <template>
     <div :class="className">
         <div
-            v-if="!floatingLabel && (label || emptyLabel || $slots.hasOwnProperty('label'))"
+            v-if="!floatingLabel && (label || emptyLabel || hasSlot($slots.label))"
             class="Polaris-Labelled__LabelWrapper"
             :class="labelClass"
         >
@@ -14,38 +14,91 @@
         </div>
 
         <PConnected v-if="connected">
-            <template v-if="$slots.hasOwnProperty('connectedLeft')" slot="left">
+            <template #left v-if="hasSlot($slots.connectedLeft)">
                 <!-- @slot An element connected to the left of the input -->
-                <slot name="connectedLeft">{{ connectedLeft }}</slot>
+                <slot name="connectedLeft">
+                    {{ connectedLeft }}
+                </slot>
             </template>
 
-            <template slot="right" v-if="$slots.hasOwnProperty('connectedRight')">
+            <template #right v-if="hasSlot($slots.connectedRight)">
                 <!-- @slot An element connected to the right of the input -->
-                <slot name="connectedRight">{{ connectedRight }}</slot>
+                <slot name="connectedRight">
+                    {{ connectedRight }}
+                </slot>
             </template>
 
-            <PInput v-bind="[$attrs, $props]" v-on="$listeners" :hasError="!!error" :id="id">
-                <!-- @slot Field prefix -->
-                <slot name="prefix" slot="prefix"></slot>
-                <!-- @slot Field suffix -->
-                <slot name="suffix" slot="suffix"></slot>
+            <PInput
+                v-bind="$attrs"
+                v-on="listeners"
+                :hasError="!!error"
+                :id="id"
+                :floatingLabel="floatingLabel"
+                :label="label"
+                :labelClass="labelClass"
+                :helpText="helpText"
+                :connectedLeft="connectedLeft"
+                :connected="connected"
+                :error="error"
+                :labelHidden="labelHidden"
+                :emptyLabel="emptyLabel"
+                :richEditor="richEditor"
+                :clearable="clearable"
+                :multiple="multiple"
+                :accept="accept"
+                :type="type"
+                :readOnly="readOnly"
+                :prefix="prefix"
+                @input="handleInput"
+            >
+                <template #prefix v-if="$attrs.prefix || hasSlot($slots.prefix)">
+                    <!-- @slot Field prefix -->
+                    <slot name="prefix"></slot>
+                </template>
+                <template #suffix v-if="$attrs.suffix || hasSlot($slots.suffix)">
+                    <!-- @slot Field suffix -->
+                    <slot name="suffix"></slot>
+                </template>
             </PInput>
         </PConnected>
 
         <PInput
             v-else
-            v-bind="[$attrs, $props]"
-            v-on="$listeners"
+            v-bind="$attrs"
+            v-on="listeners"
             :hasError="!!error"
             :id="id"
             :floatingLabel="floatingLabel"
             :label="label"
+            :labelClass="labelClass"
+            :helpText="helpText"
+            :connectedLeft="connectedLeft"
+            :connected="connected"
+            :error="error"
+            :labelHidden="labelHidden"
+            :emptyLabel="emptyLabel"
+            :richEditor="richEditor"
+            :clearable="clearable"
+            :multiple="multiple"
+            :accept="accept"
+            :type="type"
+            :readOnly="readOnly"
+            :prefix="prefix"
+            @input="handleInput"
         >
-            <slot name="prefix" slot="prefix"></slot>
-            <slot name="label" slot="label"></slot>
-            <slot name="suffix" slot="suffix"></slot>
+            <template #prefix v-if="$attrs.prefix || hasSlot($slots.prefix)">
+                <slot name="prefix"></slot>
+            </template>
+            <template #label>
+                <slot name="label"></slot>
+            </template>
+            <template #suffix v-if="$attrs.suffix || hasSlot($slots.suffix)">
+                <slot name="suffix"></slot>
+            </template>
         </PInput>
-        <div class="Polaris-Labelled__HelpText" v-if="helpText">{{ helpText }}</div>
+        <div class="Polaris-Labelled__HelpText" v-if="helpText">
+            {{ helpText }}
+        </div>
         <!-- @slot Customize Error -->
         <slot name="error">
             <PFieldError v-if="error" :error="error"/>
@@ -54,11 +107,12 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
+    import { hasSlot, uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PInput } from '../../components/PTextField/components/PInput';
     import { PConnected } from '../../components/PConnected';
     import { PFieldError } from '../../components/PFieldError';
-    import StringValidator from "../../utilities/validators/StringValidator";
 
     /**
      * <br/>
@@ -84,7 +138,7 @@
              */
             id: {
                 type: [String, Number],
-                default: `PolarisTextField${new Date().getUTCMilliseconds()}`,
+                default: `PolarisTextField${uuid()}`,
             },
             /**
              * Text field label class
@@ -125,6 +179,13 @@
              * Text field has error
              */
             error: {
+                type: String,
+                default: null,
+            },
+            /**
+             * Element to display before the input
+             */
+            prefix: {
                 type: String,
                 default: null,
             },
@@ -194,6 +255,7 @@
                 type: Boolean,
             },
         },
+        emits: ['input', 'update:value', 'update:modelValue'],
         computed: {
             className() {
                 return classNames(
@@ -208,7 +270,16 @@
             },
             computedLabelHidden() {
                 return this.floatingLabel || this.labelHidden;
-            }
+            },
+            listeners() {
+                if (utils.isVue2) {
+                    return this.$listeners;
+                }
+                return {};
+            },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             handleInput(value) {
@@ -216,14 +287,18 @@
                  * Get inserted data
                  */
                 this.$emit('input', value);
+                /**
+                 * Get inserted data
+                 * @ignore
+                 */
+                this.$emit('update:value', value);
+                /**
+                 * Get inserted data
+                 * @ignore
+                 */
+                this.$emit('update:modelValue', value);
             },
         },
     }
 </script>
 
-<style>
-    .ck.ck-editor {
-        position: relative;
-        width: 100%;
-    }
-</style>

@@ -8,12 +8,18 @@
             :redoActions="redoActions"
             @previewChange="handlePreviewChange"
         >
-            <!-- @slot Add content or component to header left side -->
-            <slot slot="header.left" name="header.left"/>
-            <!-- @slot Add content or component to header center -->
-            <slot slot="header.center" name="header.center"/>
-            <!-- @slot Add content or component to header right side -->
-            <slot slot="header.right" name="header.right"/>
+            <template #header.left>
+                <!-- @slot Add content or component to header left side -->
+                <slot name="header.left"/>
+            </template>
+            <template #header.center>
+                <!-- @slot Add content or component to header center -->
+                <slot name="header.center"/>
+            </template>
+            <template #header.right>
+                <!-- @slot Add content or component to header right side -->
+                <slot name="header.right"/>
+            </template>
         </PHeader>
         <PLeftSidebar
             v-if="!slimHeader"
@@ -24,19 +30,31 @@
             :openRightSidebar="openRightSidebar"
             @backClick="handleClick"
         >
-            <!-- @slot Add content or component to left sidebar title -->
-            <slot slot="sidebar.left.title" name="sidebar.left.title"/>
-            <!-- @slot Add content or component to left sidebar content -->
-            <slot slot="sidebar.left.content" name="sidebar.left.content"/>
-            <!-- @slot Add content or component to left sidebar footer -->
-            <slot slot="sidebar.left.footer" name="sidebar.left.footer"/>
+            <template #sidebar.left.title>
+                <!-- @slot Add content or component to left sidebar title -->
+                <slot name="sidebar.left.title"/>
+            </template>
+            <template #sidebar.left.content>
+                <!-- @slot Add content or component to left sidebar content -->
+                <slot name="sidebar.left.content"/>
+            </template>
+            <template #sidebar.left.footer>
+                <!-- @slot Add content or component to left sidebar footer -->
+                <slot name="sidebar.left.footer"/>
+            </template>
 
-            <!-- @slot Add content or component to right sidebar title -->
-            <slot slot="sidebar.right.title" name="sidebar.right.title"/>
-            <!-- @slot Add content or component to right sidebar content -->
-            <slot slot="sidebar.right.content" name="sidebar.right.content"/>
-            <!-- @slot Add content or component to right sidebar footer -->
-            <slot slot="sidebar.right.footer" name="sidebar.right.footer"/>
+            <template #sidebar.right.title>
+                <!-- @slot Add content or component to right sidebar title -->
+                <slot name="sidebar.right.title"/>
+            </template>
+            <template #sidebar.right.content>
+                <!-- @slot Add content or component to right sidebar content -->
+                <slot name="sidebar.right.content"/>
+            </template>
+            <template #sidebar.right.footer>
+                <!-- @slot Add content or component to right sidebar footer -->
+                <slot name="sidebar.right.footer"/>
+            </template>
         </PLeftSidebar>
         <PRightSidebar
             v-if="!responsiveRightSidebar"
@@ -44,12 +62,18 @@
             :responsiveRightSidebar="responsiveRightSidebar"
             :previewMode="previewOption"
         >
-            <!-- @slot Add content or component to right sidebar title -->
-            <slot slot="sidebar.right.title" name="sidebar.right.title"/>
-            <!-- @slot Add content or component to right sidebar content -->
-            <slot slot="sidebar.right.content" name="sidebar.right.content"/>
-            <!-- @slot Add content or component to right sidebar footer -->
-            <slot slot="sidebar.right.footer" name="sidebar.right.footer"/>
+            <template #sidebar.right.title>
+                <!-- @slot Add content or component to right sidebar title -->
+                <slot name="sidebar.right.title"/>
+            </template>
+            <template #sidebar.right.content>
+                <!-- @slot Add content or component to right sidebar content -->
+                <slot name="sidebar.right.content"/>
+            </template>
+            <template #sidebar.right.footer>
+                <!-- @slot Add content or component to right sidebar footer -->
+                <slot name="sidebar.right.footer"/>
+            </template>
         </PRightSidebar>
         <PPreviewPanel :previewMode="previewOption">
             <!-- @slot The content to display inside the preview frame -->
@@ -59,6 +83,7 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
     import { PFrame } from '../PFrame';
     import { PHeader } from './components/PHeader';
@@ -123,6 +148,7 @@
                 default: false,
             },
         },
+        emits: ['update:openRightSidebar'],
         data() {
             return {
                 slimHeader: false,
@@ -140,10 +166,18 @@
         },
         methods: {
             headerMediaQuery() {
-                this.$set(this, 'slimHeader', window.innerWidth <= 666);
+                if (utils.isVue3) {
+                    this.slimHeader = window.innerWidth <= 666;
+                } else {
+                    this.$set(this, 'slimHeader', window.innerWidth <= 666);
+                }
             },
             rightSidebarMediaQuery() {
-                this.$set(this, 'responsiveRightSidebar', window.innerWidth < 1614);
+                if (utils.isVue3) {
+                    this.responsiveRightSidebar = window.innerWidth < 1614;
+                } else {
+                    this.$set(this, 'responsiveRightSidebar', window.innerWidth < 1614);
+                }
             },
             handlePreviewChange(option) {
                 this.previewOption = option[0];
@@ -161,13 +195,9 @@
             window.addEventListener('resize', this.rightSidebarMediaQuery);
             this.rightSidebarMediaQuery();
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('resize', this.headerMediaQuery);
             window.removeEventListener('resize', this.rightSidebarMediaQuery);
         },
     }
 </script>
-
-<style scoped>
-
-</style>

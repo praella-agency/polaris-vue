@@ -32,17 +32,27 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PDisplayText,
     },
     template: `
-      <PDisplayText
-          v-bind="$props"
-      >
-        Default Example Usage
-      </PDisplayText>`,
+        <PDisplayText
+            v-bind="args"
+        >
+            Default Example Usage
+        </PDisplayText>`,
 });
 
 export const DisplayText = Template.bind({});
+
+DisplayText.parameters = {
+    docs: {
+        source: {
+            code: `<PDisplayText>Default Example Usage</PDisplayText>`
+        },
+    },
+};

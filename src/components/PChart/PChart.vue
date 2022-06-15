@@ -1,6 +1,6 @@
 <template>
     <PCard :title="title">
-        <VueApexCharts
+        <PApexCharts
             :type="type"
             :width="width"
             :height="height"
@@ -11,8 +11,8 @@
 </template>
 
 <script>
+    import { PApexCharts } from './components/PApexCharts';
     import { PCard } from '../../components/PCard';
-    import VueApexCharts from 'vue-apexcharts';
 
     /**
      * <br/>
@@ -22,7 +22,7 @@
     export default {
         name: 'PChart',
         components: {
-            VueApexCharts, PCard,
+            PApexCharts, PCard,
         },
         props: {
             /**
@@ -85,6 +85,7 @@
                 default: () => ({}),
             },
         },
+        emits: ['chartObject'],
         data() {
             return {
                 options: this.chartObject(),
@@ -175,27 +176,3 @@
         },
     }
 </script>
-
-<style>
-    div.apexcharts-tooltip-title {
-        font-family: -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Helvetica Neue, sans-serif !important;
-    }
-
-    div.apexcharts-tooltip.apexcharts-theme-light {
-        box-shadow: -1px 0 20px rgba(23, 24, 24, 0.05), 0 1px 5px rgba(0, 0, 0, 0.15);
-        border-radius: 0.8rem;
-        border: none !important;
-        background: #212b36;
-        color: #fff;
-    }
-
-    div.apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
-        background: #212b36;
-        color: #fff;
-        border-bottom: 1px solid #585858;
-    }
-
-    .apexcharts-tooltip-title {
-        padding: 10px;
-    }
-</style>

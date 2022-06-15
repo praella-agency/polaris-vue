@@ -27,18 +27,34 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PList, PListItem,
     },
     template: `
-      <PList v-bind="$props">
-          <PListItem>Item 1</PListItem>
-          <PListItem>Item 2</PListItem>
-          <PListItem>Item 3</PListItem>
-          <PListItem>Item 4</PListItem>
-      </PList>`,
+        <PList v-bind="args">
+            <PListItem>Item 1</PListItem>
+            <PListItem>Item 2</PListItem>
+            <PListItem>Item 3</PListItem>
+            <PListItem>Item 4</PListItem>
+        </PList>`,
 });
 
 export const List = Template.bind({});
+
+List.parameters = {
+    docs: {
+        source: {
+            code: `
+<PList>
+    <PListItem>Item 1</PListItem>
+    <PListItem>Item 2</PListItem>
+    <PListItem>Item 3</PListItem>
+    <PListItem>Item 4</PListItem>
+</PList>`
+        },
+    },
+};

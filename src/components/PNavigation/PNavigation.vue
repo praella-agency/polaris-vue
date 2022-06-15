@@ -1,6 +1,6 @@
 <template>
     <nav class="Polaris-Navigation" :aria-labelledby="ariaLabelledBy">
-        <template v-if="$slots.hasOwnProperty('contextControl')">
+        <template v-if="hasSlot($slots.contextControl)">
             <div class="Polaris-Navigation__ContextControl">
                 <!-- @slot Add context control. -->
                 <slot name="contextControl"/>
@@ -34,7 +34,7 @@
                     <!-- @slot Customize the icon part of navigation. This slot provides values.
 
 Access values with `slot-props` attribute. -->
-                    <slot name="icon" :item="slotProps.item"/>
+                    <slot name="icon" :item="slotProps ? slotProps.item : {}"/>
                 </template>
             </PSection>
         </div>
@@ -42,6 +42,8 @@ Access values with `slot-props` attribute. -->
 </template>
 
 <script>
+    import utils from '../../utilities';
+    import { hasSlot } from '../../ComponentHelpers';
     import { ThemeLogo, getWidth } from '../../types/logo';
     import { PUnstyledLink } from '../../components/PUnstyledLink';
     import { PImage } from '../../components/PImage';
@@ -124,6 +126,9 @@ Access values with `slot-props` attribute. -->
                     this.showLogo = value;
                 },
             },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             useMediaQuery() {
@@ -137,12 +142,8 @@ Access values with `slot-props` attribute. -->
         created() {
             window.addEventListener('resize', this.useMediaQuery);
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('resize', this.useMediaQuery);
         },
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -8,31 +8,34 @@
             :fullHeight="isFullHeight"
             preferredAlignment="right"
         >
-            <div class="Polaris-TopBar-Menu__ActivatorWrapper" slot="activator">
-                <button
-                    type="button"
-                    class="Polaris-TopBar-Menu__Activator"
-                    @click="onOpen"
-                    :aria-label="accessibilityLabel"
-                >
-                    <slot name="activatorContent">
-                        <span>
-                            <PIcon :source="icon"/>
-                            <PVisuallyHidden>Secondary menu</PVisuallyHidden>
-                        </span>
-                    </slot>
-                </button>
-            </div>
-            <PActionList slot="content" :sections="actions"/>
-            <PMessage
-                slot="content"
-                v-if="Object.keys(message).length > 0"
-                :title="message.title"
-                :description="message.description"
-                :action="Object.keys(message).length > 0 ? message.action: {}"
-                :link="Object.keys(message).length > 0 ? message.link : {}"
-                :badge="message && message.badge ? message.badge : {}"
-            />
+            <template #activator>
+                <div class="Polaris-TopBar-Menu__ActivatorWrapper">
+                    <button
+                        type="button"
+                        class="Polaris-TopBar-Menu__Activator"
+                        @click="onOpen"
+                        :aria-label="accessibilityLabel"
+                    >
+                        <slot name="activatorContent">
+                            <span>
+                                <PIcon v-if="icon" :source="icon"/>
+                                <PVisuallyHidden>Secondary menu</PVisuallyHidden>
+                            </span>
+                        </slot>
+                    </button>
+                </div>
+            </template>
+            <template #content>
+                <PActionList :sections="actions"/>
+                <PMessage
+                    v-if="Object.keys(message).length > 0"
+                    :title="message.title"
+                    :description="message.description"
+                    :action="Object.keys(message).length > 0 ? message.action: {}"
+                    :link="Object.keys(message).length > 0 ? message.link : {}"
+                    :badge="message && message.badge ? message.badge : {}"
+                />
+            </template>
         </PPopover>
     </div>
 </template>

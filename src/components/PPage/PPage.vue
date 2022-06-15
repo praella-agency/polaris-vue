@@ -11,14 +11,20 @@
             :thumbnailAlt="thumbnailAlt"
             :pagination="pagination"
             v-bind="$attrs"
-            v-on="$listeners"
+            v-on="listeners"
         >
             <!-- @slot Use some other component for primary Action -->
-            <slot slot="primaryAction" name="primaryAction"/>
+            <template #primaryAction>
+                <slot name="primaryAction"/>
+            </template>
             <!-- @slot Use some other component for title meta data -->
-            <slot slot="titleMetadata" name="titleMetadata"/>
+            <template #titleMetadata>
+                <slot name="titleMetadata"/>
+            </template>
             <!-- @slot Use some other component for additional navigation -->
-            <slot slot="additionalNavigation" name="additionalNavigation"/>
+            <template #additionalNavigation>
+                <slot name="additionalNavigation"/>
+            </template>
         </PPageHeader>
         <div class="Polaris-Page__Content">
             <!-- @slot The contents of the page -->
@@ -28,6 +34,8 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
+    import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PPageHeader } from '../../components/PPage/components/PPageHeader';
 
@@ -127,9 +135,18 @@
                     this.thumbnail ||
                     (this.secondaryActions != null && this.secondaryActions.length > 0) ||
                     (this.actionGroups != null && this.actionGroups.length > 0) ||
-                    (this.$slots.hasOwnProperty('primaryAction')) ||
-                    (this.$slots.hasOwnProperty('additionalNavigation')) ||
+                    (hasSlot(this.$slots.primaryAction)) ||
+                    (hasSlot(this.$slots.additionalNavigation)) ||
                     (this.breadcrumbs != null && this.breadcrumbs.length > 0);
+            },
+            listeners() {
+                if (utils.isVue2) {
+                    return this.$listeners;
+                }
+                return {};
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
     }

@@ -23,15 +23,17 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PChart,
     },
     template: `
-      <PChart
-          v-bind="$props"
-      />`,
+        <PChart
+            v-bind="args"
+        />`,
 });
 
 export const Chart = Template.bind({});
@@ -57,15 +59,25 @@ Chart.args = {
     },
 }
 
-const Template1 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+Chart.parameters = {
+    docs: {
+        source: {
+            code: `<PChart/>`
+        },
+    },
+};
+
+const Template1 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PChart,
     },
     template: `
-      <PChart
-          v-bind="$props"
-      />`,
+        <PChart
+            v-bind="args"
+        />`,
 });
 
 export const GroupedChart = Template1.bind({});
@@ -96,3 +108,11 @@ GroupedChart.args = {
         colors: ['#39A9A2', '#f49342']
     },
 }
+
+GroupedChart.parameters = {
+    docs: {
+        source: {
+            code: `<PChart/>`
+        },
+    },
+};

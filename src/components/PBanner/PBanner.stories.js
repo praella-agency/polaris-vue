@@ -67,14 +67,16 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PBanner,
     },
     template: `
-        <PBanner 
-            v-bind="$props"
+        <PBanner
+            v-bind="args"
             @dismiss="handleDismissAction"
         >
             Add weights to show accurate rates at checkout and when buying shipping
@@ -91,5 +93,18 @@ const Template = (args, { argTypes }) => ({
 
 export const Banner = Template.bind({});
 
-Banner.args = {
-}
+Banner.args = {}
+
+Banner.parameters = {
+    docs: {
+        source: {
+            code: `
+<PBanner>
+    Add weights to show accurate rates at checkout and when buying shipping
+    labels in Shopify.Add weights to show accurate rates at checkout and when buying shipping
+    labels in Shopify.Add weights to show accurate rates at checkout and when buying shipping
+    labels in Shopify.
+</PBanner>`
+        },
+    },
+};

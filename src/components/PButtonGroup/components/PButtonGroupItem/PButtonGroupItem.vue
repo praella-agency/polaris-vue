@@ -1,4 +1,4 @@
-<template functional>
+<template>
     <div class="Polaris-ButtonGroup__Item">
         <slot/>
     </div>

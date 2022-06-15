@@ -1,7 +1,8 @@
-import Vue from 'vue';
+import utils from '../../utilities';
+import { createComponent } from '../../ComponentHelpers';
 import Tooltip from './PTooltip.vue';
 
-function tooltipBind(event, binding, togglePop, elementId) {
+function tooltipBind(app, event, binding, togglePop, elementId) {
     let position = 'below';
     if (Object.keys(binding.modifiers).length > 0) {
         Object.keys(binding.modifiers).forEach(function modifiersKey(key) {
@@ -14,46 +15,58 @@ function tooltipBind(event, binding, togglePop, elementId) {
     }
 
     let targetEl = event.target;
-    targetEl.style.display = 'block';
-    if (targetEl.offsetWidth <= targetEl.scrollWidth) {
+
+    // if (targetEl.offsetWidth <= targetEl.scrollWidth) {
         if (!elementId) {
             targetEl.id = 'tooltip' + (new Date()).getTime();
         }
 
         let id = `_${targetEl.id}_`;
         if (togglePop) {
-            let componentClass = Vue.extend(Tooltip);
-            let instance = new componentClass({
-                propsData: {
-                    id: id,
-                    active: togglePop,
-                    preferredPosition: position,
-                }
+            createComponent(Tooltip, {
+                id: id,
+                active: togglePop,
+                preferredPosition: position,
+                tooltipContent: binding.value,
+            }, document.body, {
+                tag: 'div'
+            }, {
+                tooltipContent: binding.value,
             });
-            instance.$slots.tooltipContent = binding.value;
-            instance.$mount();
-
-            document.body.append(instance.$el);
             window.dispatchEvent(new Event('resize'));
         } else {
-            document.getElementById('PolarisPopover' + elementId.replace(/_/g, '') + 'Activator').parentElement.remove();
+            const element = document.getElementById('PolarisPopover' + targetEl.id.replace(/_/g, '') + 'Activator');
+            if (element && element.parentElement) {
+                element.parentElement.parentElement.remove();
+            }
+        }
+    // }
+}
+
+export const directives = (app) => {
+    return {
+        [utils.bind](el, binding, vnode) {
+            el.addEventListener('mouseenter', function (event) {
+                tooltipBind(app, event, binding, true, event.target.id);
+            });
+            el.addEventListener('mouseleave', function (event) {
+                tooltipBind(app, event, binding, false, event.target.id);
+            });
+        },
+        [utils.unbind](el) {
+            el.removeEventListener('mouseenter', tooltipBind);
+            el.removeEventListener('mouseleave', tooltipBind);
         }
     }
 }
 
-const PTooltip = Vue.directive('p-tooltip', {
-    bind(el, binding, vnode) {
-        el.addEventListener('mouseenter', function (event) {
-            tooltipBind(event, binding, true, event.target.id);
-        });
-        el.addEventListener('mouseleave', function (event) {
-            tooltipBind(event, binding, false, event.target.id);
-        });
-    },
-    unbind(el) {
-        el.removeEventListener('mouseenter', tooltipBind);
-        el.removeEventListener('mouseleave', tooltipBind);
+const PTooltip = {
+    install(app, options) {
+        app.component('PTooltip', Tooltip);
+        app.directive('p-tooltip', directives(app));
     }
-})
+}
 
-export { PTooltip };
+export {
+    PTooltip
+};

@@ -82,10 +82,12 @@ export default {
     },
 };
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
-        PMultiSelect,PBadge
+        PMultiSelect, PBadge
     },
     data() {
         return {
@@ -94,17 +96,21 @@ const Template = (args, {argTypes}) => ({
         }
     },
     template: `
-      <div>
-      <PMultiSelect
-          v-bind="$props"
-          v-model="selectedValue"
-          @searchChange="search"
-      />
-      <br />
-      <p v-if="selectedValue">Selected Value: <PBadge>{{selectedValue}}</PBadge></p>
-      <br />
-      <p v-if="searchValue">Search Value: <PBadge>{{searchValue}}</PBadge></p>
-      </div>`,
+        <div>
+            <PMultiSelect
+                v-bind="args"
+                v-model="selectedValue"
+                @searchChange="search"
+            />
+            <br/>
+            <p v-if="selectedValue">Selected Value:
+                <PBadge>{{selectedValue}}</PBadge>
+            </p>
+            <br/>
+            <p v-if="searchValue">Search Value:
+                <PBadge>{{searchValue}}</PBadge>
+            </p>
+        </div>`,
     methods: {
         search(query) {
             this.searchValue = query;
@@ -138,6 +144,15 @@ MultiSelect.args = {
     ],
     label: 'Sort by',
     textField: 'label',
-    valueField: 'language'
+    valueField: 'language',
+    returnObject: true
 }
+
+MultiSelect.parameters = {
+    docs: {
+        source: {
+            code: `<PMultiSelect/>`
+        },
+    },
+};
 

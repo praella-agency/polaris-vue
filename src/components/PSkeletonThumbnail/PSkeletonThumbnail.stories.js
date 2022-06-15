@@ -13,15 +13,25 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PSkeletonThumbnail,
     },
     template: `
-      <PSkeletonThumbnail
-          v-bind="$props"
-      />`,
+        <PSkeletonThumbnail
+            v-bind="args"
+        />`,
 });
 
 export const SkeletonThumbnail = Template.bind({});
+
+SkeletonThumbnail.parameters= {
+    docs: {
+        source: {
+            code: `<PSkeletonThumbnail/>`
+        },
+    },
+};

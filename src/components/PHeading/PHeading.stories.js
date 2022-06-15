@@ -26,13 +26,15 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PHeading,
     },
     template: `
-        <PHeading v-bind="$props">Online store dashboard</PHeading>`,
+        <PHeading v-bind="args">Online store dashboard</PHeading>`,
 });
 
 export const Heading = Template.bind({});
@@ -40,3 +42,11 @@ export const Heading = Template.bind({});
 Heading.args = {
     element: 'h1',
 }
+
+Heading.parameters = {
+    docs: {
+        source: {
+            code: `<PHeading>Online store dashboard</PHeading>`
+        },
+    },
+};

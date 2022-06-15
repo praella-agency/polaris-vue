@@ -5,15 +5,17 @@ export default {
     component: PSkeletonBodyText,
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PSkeletonBodyText
     },
     template: `
-      <PSkeletonBodyText
-          v-bind="$props"
-      />`,
+        <PSkeletonBodyText
+            v-bind="args"
+        />`,
 });
 
 export const SkeletonBodyText = Template.bind({});
@@ -21,3 +23,11 @@ export const SkeletonBodyText = Template.bind({});
 SkeletonBodyText.args = {
     lines: 5,
 }
+
+SkeletonBodyText.parameters= {
+    docs: {
+        source: {
+            code: `<PSkeletonBodyText/>`
+        },
+    },
+};

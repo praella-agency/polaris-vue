@@ -1,3 +1,8 @@
+.Polaris-DataTable-Wrapper {
+	> .Polaris-Filters {
+		padding: 1.6rem 1.6rem .8rem;
+	}
+}
 .Polaris-DataTable {
 	position: relative;
 	max-width: 100vw;
@@ -45,6 +50,12 @@
 	white-space: nowrap;
 	text-align: left;
 	transition: background-color .2s ease-in-out;
+	&:last-child {
+		text-align: right;
+		> * {
+			float: right;
+		}
+	}
 }
 
 @media (min-width:48em) {
@@ -74,7 +85,7 @@
 .Polaris-DataTable__Cell--header {
 	font-weight: $datatable-cell-header-font-weight;
 	color: $datatable-cell-header-font-color;
-	border-bottom: $datatable-cell-header-border;
+	border-bottom: .1rem solid #e1e3e5;
 	border-top: $datatable-border-none;
 }
 .Polaris-DataTable__Cell--sortable {
@@ -114,6 +125,7 @@
 	transition: color .2s cubic-bezier(.64,0,.35,1);
 	padding: 1.6rem;
 	cursor: pointer;
+	font-weight: 600;
 	&:focus {
 		outline: none;
 		color: $datatable-heading-focus-color;

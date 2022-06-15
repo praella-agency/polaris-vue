@@ -49,14 +49,16 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PCheckbox,
     },
     template: `
-        <PCheckbox 
-            v-bind="$props" 
+        <PCheckbox
+            v-bind="args"
             @change="handleChange"
         >
         </PCheckbox>`,
@@ -73,3 +75,11 @@ Checkbox.args = {
     id: 'PCheckbox',
     label: 'Polaris Vue Checkbox',
 }
+
+Checkbox.parameters = {
+    docs: {
+        source: {
+            code: `<PCheckbox id="PCheckbox" label="Polaris Vue Checkbox"/>`
+        },
+    },
+};

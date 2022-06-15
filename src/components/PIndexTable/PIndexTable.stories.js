@@ -8,8 +8,10 @@ export default {
     argTypes: argTypes,
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PIndexTable, PCard,
     },
@@ -38,7 +40,7 @@ const Template = (args, {argTypes}) => ({
     template: `
         <PCard>
             <PIndexTable
-                v-bind="$props"
+                v-bind="args"
                 :rows="customers"
                 :itemCount="customers.length"
                 @selectionChange="handleSelectionChange"
@@ -78,8 +80,21 @@ Default.args = {
     ],
 }
 
-const Template1 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+Default.parameters = {
+    docs: {
+        source: {
+            code: `
+<PCard>
+    <PIndexTable/>
+</PCard>`
+        },
+    },
+};
+
+const Template1 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PIndexTable, PCard,
     },
@@ -119,7 +134,7 @@ const Template1 = (args, {argTypes}) => ({
     template: `
         <PCard>
             <PIndexTable
-                v-bind="$props"
+                v-bind="args"
                 :rows="customers"
                 :itemCount="customers.length"
                 @selectionChange="handleSelectionChange"
@@ -190,8 +205,21 @@ BulkActions.args = {
     lastColumnSticky: true,
 }
 
-const Template2 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+BulkActions.parameters = {
+    docs: {
+        source: {
+            code: `
+<PCard>
+    <PIndexTable/>
+</PCard>`
+        },
+    },
+};
+
+const Template2 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PIndexTable, PCard,
     },
@@ -232,7 +260,7 @@ const Template2 = (args, {argTypes}) => ({
         <div style="width: 430px;">
             <PCard>
                 <PIndexTable
-                    v-bind="$props"
+                    v-bind="args"
                     :rows="customers"
                     :itemCount="customers.length"
                     @selectionChange="handleSelectionChange"
@@ -273,3 +301,14 @@ SmallScreen.args = {
     ],
     condensed: true,
 }
+
+SmallScreen.parameters = {
+    docs: {
+        source: {
+            code: `
+<PCard>
+    <PIndexTable/>
+</PCard>`
+        },
+    },
+};

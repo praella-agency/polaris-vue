@@ -10,6 +10,8 @@ import { PFooterHelp } from '../PFooterHelp';
 import { PLink } from '../PLink';
 import { PPopover } from '../PPopover';
 import { PActionList } from '../PActionList';
+import VueRouter from 'storybook-vue3-router';
+import routes from '../../utilities/StorybookRoutes';
 
 export default {
     title: 'Navigation / Vertical Tabs',
@@ -95,8 +97,37 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const items = [
+    {
+        id: 'add-product',
+        content: 'Add product',
+        icon: {
+            source: 'CircleTickMajor',
+            color: 'success',
+        },
+    },
+    {
+        id: 'customize-theme',
+        content: 'Customize theme',
+        icon: {
+            source: 'CircleTickMajor',
+            color: 'success',
+        },
+    },
+    {
+        id: 'add-domain',
+        content: 'Add domain',
+        icon: {
+            source: 'DomainsMajor',
+            color: 'success',
+        },
+    },
+];
+
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PCard, PCardSection, PVerticalTabs, PStack, PStackItem, PHeading, PButton, PFooterHelp, PLink, PCardHeader,
         PPopover, PActionList,
@@ -104,32 +135,7 @@ const Template = (args, { argTypes }) => ({
     data() {
         return {
             selectedTab: 0,
-            items: [
-                {
-                    id: 'add-product',
-                    content: 'Add product',
-                    icon: {
-                        source: 'CircleTickMajor',
-                        color: 'success',
-                    },
-                },
-                {
-                    id: 'customize-theme',
-                    content: 'Customize theme',
-                    icon: {
-                        source: 'CircleTickMajor',
-                        color: 'success',
-                    },
-                },
-                {
-                    id: 'add-domain',
-                    content: 'Add domain',
-                    icon: {
-                        source: 'DomainsMajor',
-                        color: 'success',
-                    },
-                },
-            ],
+            items,
             statusFilterActive: false,
         };
     },
@@ -139,35 +145,38 @@ const Template = (args, { argTypes }) => ({
                 title="Moving along nicely."
                 style="margin-bottom: 20px;"
             >
-                <PPopover
-                    slot="children"
-                    id="CardHeaderPopover"
-                    :active="statusFilterActive"
-                    preferredAlignment="right"
-                    @close="() => {this.statusFilterActive = false}"
-                >
-                    <PButton
-                        slot="activator"
-                        plain
-                        icon="HorizontalDotsMinor"
-                        @click.stop="statusFilterActive = !statusFilterActive"
-                    />
-                    <PActionList 
-                        slot="content"
-                        :items="[
-                            {
-                                content: 'Dismiss',
-                                icon: 'CancelSmallMinor',
-                            },
-                            {
-                                content: 'Give feedback',
-                                icon: 'ChatMajor',
-                            },
-                      ]"
-                    />
-                </PPopover>
+                <template #children>
+                    <PPopover
+                        id="CardHeaderPopover"
+                        :active="statusFilterActive"
+                        preferredAlignment="right"
+                        @close="() => {this.statusFilterActive = false}"
+                    >
+                        <template #activator>
+                            <PButton
+                                plain
+                                icon="HorizontalDotsMinor"
+                                @click.stop="statusFilterActive = !statusFilterActive"
+                            />
+                        </template>
+                        <template #content>
+                            <PActionList
+                                :items="[
+                                {
+                                    content: 'Dismiss',
+                                    icon: 'CancelSmallMinor',
+                                },
+                                {
+                                    content: 'Give feedback',
+                                    icon: 'ChatMajor',
+                                },
+                            ]"
+                            />
+                        </template>
+                    </PPopover>
+                </template>
             </PCardHeader>
-            <PVerticalTabs v-bind="$props" :tabs="items" @select="selectMenu" :selected="selectedTab">
+            <PVerticalTabs v-bind="args" :tabs="items" @select="selectMenu" :selected="selectedTab">
                 <PStack v-if="selectedTab === 0">
                     <PStackItem width="60%">
                         <PStack vertical>
@@ -269,33 +278,36 @@ VerticalTabs.parameters = {
         title="Moving along nicely."
         style="margin-bottom: 20px;"
     >
-        <PPopover
-            slot="children"
-            id="CardHeaderPopover"
-            :active="statusFilterActive"
-            preferredAlignment="right"
-        >
-            <PButton
-                slot="activator"
-                plain
-                icon="HorizontalDotsMinor"
-            />
-            <PActionList 
-                slot="content"
-                :items="[
-                    {
-                        content: 'Dismiss',
-                        icon: 'CancelSmallMinor',
-                    },
-                    {
-                        content: 'Give feedback',
-                        icon: 'ChatMajor',
-                    },
-                ]"
-            />
-        </PPopover>
+        <template #children>
+            <PPopover
+                id="CardHeaderPopover"
+                :active="statusFilterActive"
+                preferredAlignment="right"
+            >
+                <template #activator>
+                    <PButton
+                        plain
+                        icon="HorizontalDotsMinor"
+                    />
+                </template>
+                <template #content>
+                    <PActionList 
+                        :items="[
+                            {
+                                content: 'Dismiss',
+                                icon: 'CancelSmallMinor',
+                            },
+                            {
+                                content: 'Give feedback',
+                                icon: 'ChatMajor',
+                            },
+                        ]"
+                    />
+                </template>
+            </PPopover>
+        </template>
     </PCardHeader>
-    <PVerticalTabs v-bind="$props" :tabs="items" :selected="selectedTab">
+    <PVerticalTabs v-bind="args" :tabs="items" :selected="selectedTab">
         <PStack v-if="selectedTab === 0">
             <PStackItem width="60%">
                 <PStack vertical>
@@ -382,3 +394,7 @@ VerticalTabs.parameters = {
         },
     },
 }
+
+VerticalTabs.decorators = [
+    VueRouter(routes(items, 'to')),
+]

@@ -8,19 +8,19 @@
         :frameOffset="frameOffset"
         :navigation="navigation"
     >
-        <template slot="topBar">
+        <template #topBar>
             <!-- @slot Accepts a top bar component that will be rendered at the top-most portion of an application frame -->
             <slot name="topBar"/>
         </template>
-        <template slot="globalRibbon">
+        <template #globalRibbon>
             <!-- @slot Accepts a global ribbon component that will be rendered fixed to the bottom of an application frame -->
             <slot name="globalRibbon"/>
         </template>
-        <template slot="navigation">
+        <template #navigation>
             <!-- @slot Accepts a navigation component that will be rendered in the left sidebar of an application frame -->
             <slot name="navigation"/>
         </template>
-        <template>
+        <template #default>
             <!-- @slot The content to display inside the frame -->
             <slot/>
         </template>
@@ -97,18 +97,7 @@
             frameOffset: {
                 type: String,
                 default: '0px',
-            },
-            // /**
-            //  * Set the frame position with it's internal components
-            //  */
-            // positioning: {
-            //     type: String,
-            //     default: 'fixed',
-            // },
+            }
         },
     }
 </script>
-
-<style scoped>
-
-</style>

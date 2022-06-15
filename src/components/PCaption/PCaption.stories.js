@@ -32,20 +32,42 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PCaption, PList, PListItem,
     },
     template: `
-      <PList>
-          <PListItem>
-            Order #1001 <PCaption v-bind="$props">Received April 21, 2017</PCaption>
-          </PListItem>
-          <PListItem>
-            Order #1002 <PCaption v-bind="$props">Received April 22, 2017</PCaption>
-          </PListItem>
-      </PList>`,
+        <PList>
+            <PListItem>
+                Order #1001
+                <PCaption v-bind="args">Received April 21, 2017</PCaption>
+            </PListItem>
+            <PListItem>
+                Order #1002
+                <PCaption v-bind="args">Received April 22, 2017</PCaption>
+            </PListItem>
+        </PList>`,
 });
 
 export const Caption = Template.bind({});
+
+Caption.parameters = {
+    docs: {
+        source: {
+            code:
+`<PList>
+    <PListItem>
+        Order #1001
+        <PCaption>Received April 21, 2017</PCaption>
+    </PListItem>
+    <PListItem>
+        Order #1002
+        <PCaption>Received April 22, 2017</PCaption>
+    </PListItem>
+</PList>`
+        },
+    },
+};

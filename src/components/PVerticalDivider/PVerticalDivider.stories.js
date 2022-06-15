@@ -20,8 +20,10 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PVerticalDivider, PButton, PStack, PStackItem,
     },
@@ -47,3 +49,11 @@ const Template = (args, {argTypes}) => ({
 });
 
 export const VerticalDivider = Template.bind({});
+
+VerticalDivider.parameters = {
+    docs: {
+        source: {
+            code: `<PVerticalDivider/>`
+        },
+    },
+};

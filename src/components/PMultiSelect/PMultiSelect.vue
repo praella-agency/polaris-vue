@@ -15,7 +15,7 @@
              Triggers on searchChange
              @event searchChange
              -->
-            <multiselect
+            <MultiSelect
                 :id="id"
                 v-model="computedValue"
                 v-bind="$attrs"
@@ -36,7 +36,7 @@
                 @tag="addTag"
                 @search-change="(query) => {$emit('searchChange', query)}"
             >
-                <template slot="caret">
+                <template v-slot:caret>
                     <div v-if="!floatingLabel" class="multiselect__select">
                         <PIcon source="SelectMinor"/>
                     </div>
@@ -61,7 +61,7 @@
                     </div>
                     <template slot="limit"></template>
                 </template>
-            </multiselect>
+            </MultiSelect>
         </div>
         <div class="Polaris-Labelled__HelpText" v-if="helpText">{{ helpText }}</div>
         <PFieldError v-if="error" :error="error"/>
@@ -69,7 +69,10 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
+    import { uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
+    import { MultiSelect } from './components';
     import { PIcon } from '../../components/PIcon';
     import { PTag } from '../../components/PTag';
     import { PFieldError } from '../../components/PFieldError';
@@ -78,7 +81,7 @@
         name: 'PMultiSelect',
         components: {
             PIcon, PTag, PFieldError,
-            Multiselect: require('vue-multiselect').default,
+            MultiSelect,
         },
         props: {
             /**
@@ -132,6 +135,13 @@
                 default: () => ([]),
             },
             /**
+             * Model value for PMultiSelect.
+             */
+            modelValue: {
+                type: [String, Object, Array, Number, Boolean],
+                default: () => ([]),
+            },
+            /**
              * Disable the searchable options feature.
              */
             searchable: {
@@ -178,7 +188,7 @@
              */
             id: {
                 type: [String, Number],
-                default: `PolarisMultiSelect${(new Date()).getTime()}`,
+                default: `PolarisMultiSelect${uuid()}`,
             },
             /**
              * Create beautifully simple form labels that float over your input fields
@@ -186,15 +196,30 @@
             floatingLabel: {
                 type: Boolean,
                 default: false,
+            },
+            /**
+             * Return object
+             */
+            returnObject: {
+                type: Boolean,
+                default: true
             }
         },
+        emits: ['change', 'input', 'searchChange', 'update:modelValue', 'update:value'],
         data() {
             return {
                 selected: this.value,
                 dropdownOpen: false,
+                taggableOptions: [],
             };
         },
         computed: {
+            computedVModel() {
+                if (utils.isVue3) {
+                    return this.modelValue;
+                }
+                return this.value;
+            },
             parentClassName() {
                 return classNames(
                     this.floatingLabel && 'Polaris-Select-Floating-Label',
@@ -221,6 +246,16 @@
                         options.push({[this.textField]: value, [this.valueField]: value});
                     }
                 });
+                this.taggableOptions.map((value) => {
+                    if (typeof value === 'object') {
+                        if (value[this.disabledField]) {
+                            value.$isDisabled = value[this.disabledField];
+                        }
+                        options.push(value);
+                    } else {
+                        options.push({[this.textField]: value, [this.valueField]: value});
+                    }
+                });
                 return options;
             },
             hasValue() {
@@ -236,14 +271,7 @@
                 },
                 set(value) {
                     this.selected = value;
-                    /**
-                     * Callback when selection is changed
-                     */
-                    this.$emit('change', value);
-                    /**
-                     * Callback when input is triggered
-                     */
-                    this.$emit('input', value);
+                    this.emitUpdateEvents();
                 },
             },
             computedMultiple() {
@@ -256,13 +284,13 @@
                     [this.textField]: newTag,
                     [this.valueField]: newTag,
                 };
+                this.taggableOptions.push(tag);
                 if (this.multiple) {
                     this.selected.push(tag);
                 } else {
                     this.selected = tag;
                 }
-                this.options.push(tag);
-                this.$emit('change', this.selected);
+                this.emitUpdateEvents();
             },
             handleOpen() {
                 this.dropdownOpen = true;
@@ -270,12 +298,48 @@
             handleClose() {
                 this.dropdownOpen = false;
             },
+            emitUpdateEvents() {
+                const computedValue = this.computedValue;
+                let values = [];
+                if (!this.multiple) {
+                    values = null;
+                    if(computedValue) {
+                        values = computedValue[this.valueField];
+                    }
+                }
+                if (this.multiple && Array.isArray(computedValue) && computedValue.length ) {
+                    computedValue.forEach(item => {
+                        values.push(item[this.valueField] || null);
+                    });
+                }
+                /**
+                 * Callback when selection is changed
+                 */
+                this.$emit('change', this.returnObject ? computedValue : values);
+                /**
+                 * Callback when input is triggered
+                 */
+                this.$emit('input', this.returnObject ? computedValue : values);
+                /**
+                 * Callback when input is triggered
+                 * @ignore
+                 */
+                this.$emit('update:modelValue', this.returnObject ? computedValue : values);
+                /**
+                 * Callback when input is triggered
+                 * @ignore
+                 */
+                this.$emit('update:value', this.returnObject ? computedValue : values);
+            }
         },
         watch: {
             value(value) {
                 this.selected = value;
             },
         },
+        created() {
+            this.selected = this.computedVModel || (this.multiple ? [] : null);
+        }
     }
 </script>
 

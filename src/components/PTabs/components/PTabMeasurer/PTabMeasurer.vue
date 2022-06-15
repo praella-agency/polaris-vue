@@ -46,6 +46,7 @@
                 animationFrame: Number,
             };
         },
+        emits: ['handleMeasurement'],
         methods: {
             handleMeasurement() {
                 if (this.animationFrame) {
@@ -71,7 +72,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

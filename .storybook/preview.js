@@ -1,22 +1,22 @@
+process.env.IS_VUE_3 = true;
 import '!style-loader!css-loader!sass-loader!../src/scss/main.scss';
 import '!style-loader!css-loader!sass-loader!./styles/docs.scss';
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import PToast from '../src/components/PToast';
-import pLoading from '../src/components/PLoading';
-import { PTooltip } from '../src/components/PTooltip';
+import { app } from '@storybook/vue3';
+const PToast = require('../src/components/PToast');
+const PLoading = require('../src/components/PLoading');
+const PTooltip = require('../src/components/PTooltip');
+const PTooltipComponent = require('../src/components/PTooltip/PTooltip.vue');
+const PClickOutSide = require('../src/components/PClickOutSide');
 
-Vue.use(VueRouter);
-Vue.component('router-link', Vue.component('RouterLink'));
-
-Vue.use(PToast);
-Vue.use(pLoading);
-Vue.use(PTooltip);
+app.use(PToast.default);
+app.use(PLoading.default);
+app.component('PTooltip', PTooltipComponent);
+app.directive('p-tooltip', PTooltip.directives(app));
+app.directive('p-click-outside', PClickOutSide.ClickOutSideDirective(app));
 
 export const decorators = [(story) => ({
     components: {story},
-    template: '<story />',
-    router: new VueRouter()
+    template: '<story/>',
 })];
 
 export const parameters = {

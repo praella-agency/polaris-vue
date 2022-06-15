@@ -1,3 +1,3 @@
-import { PTooltip } from './p-tooltip';
+import { PTooltip, directives } from './p-tooltip';
 
-export { PTooltip };
+export { PTooltip, directives };

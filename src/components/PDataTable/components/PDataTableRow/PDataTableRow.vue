@@ -9,7 +9,3 @@
       name: 'PDataTableRow',
   }
 </script>
-
-<style scoped>
-
-</style>

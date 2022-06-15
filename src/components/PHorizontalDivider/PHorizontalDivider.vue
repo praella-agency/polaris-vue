@@ -14,7 +14,3 @@
         name: 'PHorizontalDivider',
     }
 </script>
-
-<style scoped>
-
-</style>

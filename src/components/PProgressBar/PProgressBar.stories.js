@@ -13,15 +13,17 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PProgressBar,
     },
     template: `
-      <PProgressBar
-          v-bind="$props"
-      />`,
+        <PProgressBar
+            v-bind="args"
+        />`,
 });
 
 export const ProgressBar = Template.bind({});
@@ -29,3 +31,11 @@ export const ProgressBar = Template.bind({});
 ProgressBar.args = {
     progress: 30,
 }
+
+ProgressBar.parameters = {
+    docs: {
+        source: {
+            code: `<PProgressBar/>`
+        },
+    },
+};

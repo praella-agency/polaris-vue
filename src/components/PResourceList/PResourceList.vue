@@ -2,11 +2,12 @@
     <div :class="className">
         <div class="Polaris-ResourceList__FiltersWrapper" v-if="!hideFilters">
             <PFilter
-                v-if="$slots.hasOwnProperty('filter')"
+                v-if="hasSlot($slots.filter)"
                 v-bind="$attrs"
                 :resourceName="resourceName"
                 @remove-tag="onRemoveFilter"
-                @input="onFilterInputChanged">
+                @input="onFilterInputChanged"
+            >
                 <!-- @slot Filter content -->
                 <slot name="filter"/>
             </PFilter>
@@ -31,14 +32,14 @@
                 :count="count()"
                 :hasMore="hasMore"
                 :loading="loading"
-                v-on="$listeners"
+                v-on="listeners"
                 @toggle-all="onToggledAll($event)"
                 @toggle-select-more="onSelectMore"
                 @handle-selection-mode="handleSelectMode"
             />
         </div>
         <ul
-            v-if="$slots.hasOwnProperty('default')"
+            v-if="$slots.default"
             :class="resourceListClassName"
             ref="listRef"
             aria-live="polite"
@@ -99,6 +100,8 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
+    import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
     import { PFilter } from '../../components/PFilter';
@@ -193,6 +196,7 @@
                 type: Array,
             },
         },
+        emits: ['change', 'filter-removed', 'input-filter-changed', 'select-mode'],
         data() {
             return {
                 selectedItems: this.selectable && this.selected ? this.selected : [],
@@ -253,7 +257,7 @@
                 },
             },
             itemsExist() {
-                return this.$slots.default;
+                return utils.isVue3 ? this.$slots.default() : this.$slots.default;
             },
             showEmptyState() {
                 return this.$slots.emptyState && !this.itemsExist && !this.loading;
@@ -261,19 +265,48 @@
             showEmptySearchState() {
                 return !this.showEmptyState && !this.hideFilters && !this.itemsExist && !this.loading;
             },
+            listeners() {
+                if (utils.isVue2) {
+                    return this.$listeners;
+                }
+                return {};
+            },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             count() {
-                if (typeof this.$scopedSlots !== 'undefined'
-                    && typeof this.$scopedSlots.default === 'function'
-                    && this.$scopedSlots.default({})) {
-                    const slots = this.$scopedSlots.default({});
-                    return slots ? slots.filter((vNode) => vNode.tag !== undefined).length : 0;
-                }
-                if (this.$slots.default) {
-                    return this.$slots.default.filter((vNode) => {
-                        return vNode.tag !== undefined;
-                    }).length;
+                if (utils.isVue3) {
+                    if (typeof this.$slots !== 'undefined'
+                        && typeof this.$slots.default() === 'function'
+                        && this.$slots.default({})) {
+                        const slots = this.$slots.default({});
+                        return slots ? slots.filter((vNode) => vNode.tag !== undefined).length : 0;
+                    }
+                    if (this.$slots.default()) {
+                        let count = 0;
+                        this.$slots.default().forEach((node) => {
+                            node?.children.forEach(vNode => {
+                                if (vNode.type && vNode.type.name === 'PResourceListItem') {
+                                  count++;
+                                }
+                            });
+                        });
+                      return count;
+                    }
+                } else {
+                    if (typeof this.$scopedSlots !== 'undefined'
+                        && typeof this.$scopedSlots.default === 'function'
+                        && this.$scopedSlots.default({})) {
+                        const slots = this.$scopedSlots.default({});
+                        return slots ? slots.filter((vNode) => vNode.tag !== undefined).length : 0;
+                    }
+                    if (this.$slots.default) {
+                        return this.$slots.default.filter((vNode) => {
+                            return vNode.tag !== undefined;
+                        }).length;
+                    }
                 }
 
                 return 0;

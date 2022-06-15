@@ -71,8 +71,7 @@
                         preferred-position="below"
                         @close="handleClose"
                     >
-
-                        <template slot="activator">
+                        <template #activator>
                             <div v-if="disclosureText" class="Polaris-Tabs__TabContainer">
                                 <button
                                     type="button"
@@ -80,15 +79,15 @@
                                     @click="handleDisclosureActivatorClick"
                                     aria-label="More tabs"
                                 >
-                            <span :class="disclosureButtonContentWrapperClassName">
-                                <template v-if="disclosureText">
-                                    {{ disclosureText }}
-                                    <PIcon source="CaretDownMinor" color="subdued" />
-                                </template>
-                                <template v-else>
-                                    <PIcon source="HorizontalDotsMinor" color="subdued" />
-                                </template>
-                            </span>
+                                    <span :class="disclosureButtonContentWrapperClassName">
+                                        <template v-if="disclosureText">
+                                            {{ disclosureText }}
+                                            <PIcon source="CaretDownMinor" color="subdued" />
+                                        </template>
+                                        <template v-else>
+                                            <PIcon source="HorizontalDotsMinor" color="subdued" />
+                                        </template>
+                                    </span>
                                 </button>
                             </div>
                             <button
@@ -98,21 +97,18 @@
                                 @click="handleDisclosureActivatorClick"
                                 aria-label="More tabs"
                             >
-                      <span :class="disclosureButtonContentWrapperClassName">
-                          <template v-if="disclosureText">
-                              {{ disclosureText }}
-                              <PIcon source="CaretDownMinor" color="subdued" />
-                          </template>
-                          <template v-else>
-                              <PIcon source="HorizontalDotsMinor" color="subdued" />
-                          </template>
-                      </span>
+                                <span :class="disclosureButtonContentWrapperClassName">
+                                    <template v-if="disclosureText">
+                                        {{ disclosureText }}
+                                        <PIcon source="CaretDownMinor" color="subdued" />
+                                    </template>
+                                    <template v-else>
+                                        <PIcon source="HorizontalDotsMinor" color="subdued" />
+                                    </template>
+                                </span>
                             </button>
                         </template>
-
-                        <template
-                            slot="content"
-                        >
+                        <template #content>
                             <PList
                                 :focus-index="hiddenTabs.indexOf(tabToFocus)"
                                 :disclosure-tabs="disclosureTabs"
@@ -120,15 +116,22 @@
                                 @keypress="handleKeyPress"
                             />
                         </template>
-
                     </PPopover>
                 </li>
             </ul>
         </div>
-        <PPanel v-if="!navigation" v-for="(tab, tabIndex) in tabs" :key="tab.id" :id="tab.id + '-panel'" :tabID="tab.id" :hidden="!(selected === tabIndex)">
-            <!-- @slot The content to display in tabs -->
-            <slot v-if="selected === tabIndex"/>
-        </PPanel>
+        <template v-if="!navigation">
+            <PPanel
+                v-for="(tab, tabIndex) in tabs"
+                :key="tab.id"
+                :id="tab.id + '-panel'"
+                :tabID="tab.id"
+                :hidden="!(selected === tabIndex)"
+            >
+                <!-- @slot The content to display in tabs -->
+                <slot v-if="selected === tabIndex"/>
+            </PPanel>
+        </template>
     </div>
 </template>
 
@@ -142,7 +145,6 @@
     import { PList } from '../../components/PTabs/components/PList';
     import { PIcon } from '../../components/PIcon';
 
-    import { TabDescriptor } from '../../types/tabs';
     import { getVisibleAndHiddenTabIndices } from './utilities';
 
     /**
@@ -199,6 +201,7 @@
                 default: '',
             },
         },
+        emits: ['select'],
         data() {
             return {
                 disclosureWidth: 0,

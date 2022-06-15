@@ -1,102 +1,128 @@
-import {
-    camelCase,
-    capitalCase,
-    constantCase,
-    dotCase,
-    headerCase,
-    noCase,
-    paramCase,
-    pascalCase,
-    pathCase,
-    sentenceCase,
-    snakeCase,
-} from 'change-case';
+import utils from './utilities';
+const vue3 = require('vue3');
+const vue = require('vue').default;
 
-class ComponentHelpers {
-    constructor() {
-        this.componentNameFormat = name => name;
+function isNodeOfComponent(node, component) {
+    if (!node || (utils.isVue2 && !node.componentOptions)) {
+        return false;
     }
-
-    setComponentNameFormat(format) {
-        this.componentNameFormat = format;
-    }
-
-
-    makeComponentClass(componentName, properties, state) {
-        let classes = {};
-        classes[componentName] = true;
-
-        for (let prop of properties) {
-            let value = state[prop];
-            let valueTag = '';
-            if (value && typeof value === 'string') {
-                valueTag = value.charAt(0).toUpperCase() + value.slice(1);
-            }
-            classes[componentName + '--' + prop + valueTag] = state[prop];
-        }
-
-        return classes;
-    }
-
-    isNodeOfComponent(node, component) {
-        if (!node || !node.componentOptions) {
-            return false;
-        }
-
-        let nodeComponentTagName = node.componentOptions.tag;
-        let componentTagName = this.getComponentName(component.name);
-
-        return nodeComponentTagName === componentTagName;
-    }
-
-    getComponentName(polarisName) {
-        return this.componentNameFormat(polarisName, {
-            camelCase,
-            capitalCase,
-            constantCase,
-            dotCase,
-            headerCase,
-            noCase,
-            paramCase,
-            pascalCase,
-            pathCase,
-            sentenceCase,
-            snakeCase,
-        });
-    }
-
-    wrapNodesWithComponent(createElement, nodes, component, ignoredComponents = []) {
-        let children = [];
-        for (let node of nodes) {
-            if (!node.tag && !node.text.trim()) {
-                continue;
-            }
-
-            var added = false;
-            if (this.isNodeOfComponent(node, component)) {
-                added = true;
-                children.push(node);
-            } else {
-                for (let ignored of ignoredComponents) {
-                    if (this.isNodeOfComponent(node, ignored)) {
-                        added = true;
-                        children.push(node);
-                        break;
-                    }
-                }
-            }
-
-            if (!added) {
-                children.push(createElement(component, {}, [node]));
-            }
-        }
-        return children;
-    }
-
-    uuid() {
-        return '_' + Math.random().toString(36).substr(2, 9);
-    };
+    let nodeComponentTagName = utils.isVue2 ? node.componentOptions.tag : node.type.name;
+    return nodeComponentTagName === component.name;
 }
 
+function wrapNodesWithComponent(createElement, nodes, component, ignoredComponents = []) {
+    let children = [];
+    for (let node of nodes) {
+        if (!node.tag && (node.text && !node.text.trim())) {
+            continue;
+        }
 
-export default new ComponentHelpers();
+        if(utils.isVue3 && node.type === vue3.Comment) {
+            continue;
+        }
+        if(utils.isVue3 && node.type === vue3.Fragment) {
+            const fragmentChildren = wrapNodesWithComponent(createElement, node.children, component, ignoredComponents);
+            children = [
+                ...children,
+                ...fragmentChildren,
+            ]
+            continue;
+        }
+        let added = false;
+        if (isNodeOfComponent(node, component)) {
+            added = true;
+            children.push(node);
+        } else {
+            for (let ignored of ignoredComponents) {
+                if (isNodeOfComponent(node, ignored)) {
+                    added = true;
+                    children.push(node);
+                    break;
+                }
+            }
+        }
+
+        if (!added) {
+            children.push(createElement(component, {}, utils.isVue3 ? () => [node] : [node]));
+        }
+    }
+    return children;
+}
+
+function uuid() {
+    return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function createComponent(component, props, parentContainer, element, slots = {}) {
+    if (utils.isVue2) {
+        let componentClass = vue.extend(component);
+        let instance = new componentClass({
+            propsData: props
+        });
+        if(slots.tooltipContent) {
+            instance.$slots.tooltipContent =slots.tooltipContent;
+        }
+        instance.$mount();
+
+        parentContainer.append(instance.$el);
+        return instance.$el;
+        // let el;
+        // if (element.tag) {
+        //     el = document.createElement(element.tag);
+        //     if (element.className) {
+        //         el.classList.add(element.className);
+        //     }
+        // } else {
+        //     el = parentContainer;
+        // }
+        // return new (vue.extend(component))({
+        //     el,
+        //     props,
+        //     slots
+        // })
+    } else {
+        const vNode = vue3.h(component, props, () => slots);
+        if (element.tag) {
+            const container = document.createElement(element.tag);
+            if (element.className) {
+                container.classList.add(element.className);
+            }
+            parentContainer.appendChild(container);
+            vue3.render(vNode, container);
+        } else {
+            vue3.render(vNode, parentContainer)
+        }
+        return vNode.component;
+    }
+}
+
+function hasSlot(slot) {
+    if (utils.isVue3) {
+        let hasSlot = false;
+        if (slot) {
+            slot().forEach((item) => {
+                if (item.type !== vue3.Comment) {
+                    if (Array.isArray(item.children)) {
+                        if (item.children.length) {
+                            hasSlot = true;
+                        }
+                    } else {
+                        hasSlot = true;
+                    }
+                }
+            });
+        }
+        return hasSlot;
+    } else {
+        return !!slot;
+    }
+}
+
+export {
+    createComponent,
+    uuid,
+    wrapNodesWithComponent,
+    hasSlot,
+    vue,
+    vue3
+};

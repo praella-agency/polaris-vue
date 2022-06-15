@@ -16,6 +16,7 @@
 </template>
 
 <script>
+    import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames, variationName } from '../../../../utilities/css';
     import { PChoice } from '../../../../components/PChoice';
     import { PCheckbox } from '../../../../components/PCheckbox';
@@ -35,7 +36,7 @@
         props: {
             id: {
                 type: [String, Number],
-                default: `PCheckableButton${new Date().getUTCMilliseconds()}`,
+                default: `PCheckableButton${uuid()}`,
             },
             checkedAll: {
                 type: Boolean,
@@ -95,12 +96,12 @@
                 type: [String, Array, Number],
             },
         },
+        emits: ['toggle-all'],
         computed: {
             className() {
                 return classNames(
                     'Polaris-ResourceList-CheckableButton',
-                    this.checked && 'Polaris-ResourceList-CheckableButton__CheckableButton--selected',
-                    this.checked && 'Polaris-ResourceList-CheckableButton__CheckableButton--selectMode',
+                    this.checked && 'Polaris-ResourceList-CheckableButton__CheckableButton--selected Polaris-ResourceList-CheckableButton__CheckableButton--selectMode',
                     this.primary && 'Polaris-ResourceList-CheckableButton__CheckableButton--primary',
                     this.outline && 'Polaris-ResourceList-CheckableButton__CheckableButton--outline',
                     this.destructive && 'Polaris-ResourceList-CheckableButton__CheckableButton--destructive',
@@ -118,7 +119,7 @@
                 return this.disabled || this.loading;
             },
             hasNoChildren() {
-                return (this.$slots.default || []).length === 0;
+                return hasSlot(this.$slots.default);
             },
         },
         methods: {

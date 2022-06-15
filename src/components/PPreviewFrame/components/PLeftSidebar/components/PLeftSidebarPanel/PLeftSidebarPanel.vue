@@ -27,7 +27,7 @@
                 </section>
             </div>
             <div
-                v-if="$slots['sidebar.left.footer']"
+                v-if="hasSlot($slots['sidebar.left.footer'])"
                 class="Polaris-PreviewFrame__Layout
                                 Polaris-PreviewFrame__layoutSpacingDefault
                                 Polaris-PreviewFrame__sticky"
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../../../../../ComponentHelpers';
     import { classNames } from '../../../../../../utilities/css';
     import { PHeading } from '../../../../../../components/PHeading';
 
@@ -78,10 +79,9 @@
                     (this.responsiveRightSidebar && this.openRightSidebar) && 'Polaris-PreviewFrame__StaticPanel--suspend',
                 );
             },
+            hasSlot() {
+                return hasSlot;
+            },
         }
     }
 </script>
-
-<style scoped>
-
-</style>

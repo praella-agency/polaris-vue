@@ -34,6 +34,7 @@
                 type: Number,
             },
         },
+        emits: ['heightchange'],
         computed: {
             finalContents() {
                 return this.contents ? this.contents.replace(REPLACE_REGEX, this.replaceEntity) + '<br>' : '<br>';
