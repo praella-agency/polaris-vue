@@ -182,8 +182,9 @@ Access values with `slot-props` attribute. -->
                     {{ footerContent }}
                 </slot>
             </div>
-            <div class="Polaris-DataTable__Pagination" v-if="hasPagination">
-                <PPagination v-bind="pagination"/>
+            <div class="Polaris-DataTable__Pagination">
+                <!-- @slot Add Custom pagination -->
+                <slot name="pagination" :pagination="pagination"/>
             </div>
         </div>
         <div v-else>
@@ -370,25 +371,11 @@ Access values with `slot-props` attribute. -->
                 default: false,
             },
             /**
-             * Data table has pagination.
-             */
-            hasPagination: {
-                type: Boolean,
-                default: false,
-            },
-            /**
              * Data table is loading.
              */
             loading: {
                 type: Boolean,
                 default: false,
-            },
-            /**
-             * Pagination object.
-             */
-            pagination: {
-                type: Object,
-                default: () => ({}),
             },
             /**
              * Display empty state if record not found!
@@ -441,6 +428,16 @@ Access values with `slot-props` attribute. -->
         data() {
             return {
                 topPadding: 8,
+                pagination: {
+                    hasPrevious:true,
+                    hasNext: true,
+                    onNext:()=>{
+                        alert('Next');
+                    },
+                    onPrevious:()=>{
+                        alert('Previous');
+                    }
+                },
             };
         },
         computed: {
