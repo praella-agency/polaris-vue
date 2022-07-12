@@ -601,8 +601,9 @@ Access values with `slot-props` attribute.-->
                     </slot>
                 </div>
             </template>
-            <div class="Polaris-IndexTable__Pagination" v-if="Object.keys(pagination).length > 0">
-                <PPagination v-bind="pagination"/>
+            <div class="Polaris-IndexTable__Pagination">
+                <!-- @slot Add Custom pagination-->
+               <slot name="pagination" :pagination="pagination"/>
             </div>
         </div>
     </div>
@@ -757,16 +758,6 @@ Access values with `slot-props` attribute.-->
                 default: false,
             },
             // Filter <-- End -->
-
-            // Pagination <-- Start -->
-            /**
-             * Pagination object.
-             */
-            pagination: {
-                type: Object,
-                default: () => ({}),
-            },
-            // Pagination <-- End -->
         },
         data() {
             return {
@@ -780,6 +771,16 @@ Access values with `slot-props` attribute.-->
                         offsetLeft: Number,
                     },
                 ],
+                pagination: {
+                    table: {
+                        type: {
+                            summary: null,
+                        },
+                    },
+                    control: {
+                        type: null,
+                    },
+                },
                 bulkActionsSelectable: Boolean(this.promotedBulkActions.length > 0 || this.bulkActions.length > 0),
                 isSmallScreenSelectable: false,
                 selectMode: false,

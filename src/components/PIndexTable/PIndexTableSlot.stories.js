@@ -11,6 +11,7 @@ import { PStackItem } from '../PStack/components/PStackItem';
 import { PRadioButton } from '../PRadioButton';
 import { PTextField } from '../PTextField';
 import { PButtonGroup } from '../PButtonGroup';
+import { PPagination } from '../PPagination';
 import argTypes from './args';
 
 export default {
@@ -25,7 +26,7 @@ const Template = (args) => ({
 },
     components: {
         PIndexTable, PCard, PLink, PThumbnail, PPopover, PButton, POptionList, PBadge, PStack, PStackItem, PRadioButton,
-        PTextField, PButtonGroup,
+        PTextField, PButtonGroup,PPagination
     },
     data() {
         return {
@@ -65,6 +66,16 @@ const Template = (args) => ({
             active1: false,
             selected: [],
             tag: 'Andres',
+            pagination: {
+                hasPrevious:true,
+                hasNext: true,
+                onNext:()=>{
+                    alert('Next');
+                },
+                onPrevious:()=>{
+                    alert('Previous');
+                }
+            },
         };
     },
     template: `
@@ -185,6 +196,9 @@ const Template = (args) => ({
                         </PButton>
                     </div>
                 </template>
+                <template #pagination :pagiantion="pagination">
+                    <PPagination v-bind="pagination"/>
+                </template>
             </PIndexTable>
         </PCard>`,
     methods: {
@@ -270,13 +284,13 @@ CustomisableColumn.args = {
     ],
     lastColumnSticky: true,
     pagination: {
-        hasPrevious: true,
-        hasNext: true,
-        onNext: () => {
-            alert('Next');
+        table: {
+            type: {
+                summary: null,
+            },
         },
-        onPrevious: () => {
-            alert('Previous');
+        control: {
+            type: null,
         },
     },
 }
@@ -387,16 +401,6 @@ CustomisableColumn.parameters = {
             },
         ]"
         :lastColumnSticky="true"
-        :pagination="{
-            hasPrevious: true,
-            hasNext: true,
-            onNext: () => {
-                alert('Next');
-            },
-            onPrevious: () => {
-                alert('Previous');
-            },
-        }"
     >
         <template v-slot:item.image="{ item }">
             <div style="height: 93px; display: block; padding: 15px 0 15px 0;">
@@ -490,6 +494,9 @@ CustomisableColumn.parameters = {
                     Saved
                 </PButton>
             </div>
+        </template>
+        <template #pagination :pagiantion="pagination">
+            <PPagination v-bind="pagination"/>
         </template>
     </PIndexTable>
 </PCard>`

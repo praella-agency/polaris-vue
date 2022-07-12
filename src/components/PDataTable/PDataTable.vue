@@ -188,6 +188,7 @@ Access values with `slot-props` attribute. -->
                 </slot>
             </div>
             <div class="Polaris-DataTable__Pagination" v-if="hasPagination">
+                <!-- @slot Add Custom pagination -->
                 <slot name="pagination" :pagination="pagination">
                     <PPagination v-bind="pagination"/>
                 </slot>
