@@ -15,10 +15,18 @@ const Api = (Vue, globalOptions = {}) => {
 
             const propsData = Object.assign({}, defaultOptions, globalOptions, options);
             propsData.eventBus = eventBus;
-            return createComponent(PToast, propsData, document.body, {
-                tag: 'div',
-                className: 'v-toast--pending'
-            });
+            return createComponent(
+                PToast,
+                {
+                    el: document.createElement('div'),
+                    props: propsData,
+                    canAppend: false,
+                    canMount: false,
+                }, document.body, {
+                    tag: 'div',
+                    className: 'v-toast--pending'
+                }
+            );
         },
         clear() {
             eventBus.emit('toast-clear')

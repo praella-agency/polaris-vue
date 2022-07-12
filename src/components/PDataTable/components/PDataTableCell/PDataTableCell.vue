@@ -144,6 +144,10 @@
                 type: Object,
                 default: () => ({}),
             },
+            alignLastRight: {
+                type: Boolean,
+                default: false,
+            },
         },
         emits: ['sort-changed'],
         computed: {
@@ -159,6 +163,7 @@
                     this.sorted && 'Polaris-DataTable__Cell--sorted ',
                     this.sortable && 'Polaris-DataTable__Cell--sortable',
                     this.verticalAlign && `Polaris-DataTable__Cell--${variationName('verticalAlign', this.verticalAlign)}`,
+                    this.alignLastRight && `Polaris-DataTable__Cell-align-right`,
                 );
             },
             headerClassName() {

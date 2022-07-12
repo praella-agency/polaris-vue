@@ -1,5 +1,5 @@
 <template>
-    <div class="Polaris-Frame__LoadingBar">
+    <div :class="className">
         <div class="Polaris-Frame-Loading" role="progressbar" aria-label="Page loading bar">
             <div class="Polaris-Frame-Loading__Level" :style="style"></div>
         </div>
@@ -8,6 +8,7 @@
 
 <script>
     import utils from "../../utilities";
+    import {classNames} from "../../utilities/css";
     export default {
         name: 'PLoading',
         props: ['RADON_LOADING_BAR', 'eventBus'],
@@ -17,6 +18,14 @@
             }
         },
         computed: {
+            className() {
+                const progress = this.loadingStyles;
+                const options = progress.options;
+                return classNames(
+                    'Polaris-Frame__LoadingBar',
+                    !options.show && 'Polaris-Frame__Hidden',
+                );
+            },
             style() {
                 const progress = this.loadingStyles;
                 const options = progress.options;

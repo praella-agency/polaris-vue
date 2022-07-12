@@ -34,7 +34,7 @@
             @update="updateValues"
             @toggle="checkOpen"
             :linkedCalendars="linkedCalendars"
-            :style="pDatePickerButtonStyle"
+            :styles="pDatePickerButtonStyle"
         >
             <template #ranges="ranges">
                 <PStack>
