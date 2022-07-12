@@ -601,9 +601,11 @@ Access values with `slot-props` attribute.-->
                     </slot>
                 </div>
             </template>
-            <div class="Polaris-IndexTable__Pagination">
-                <!-- @slot Add Custom pagination-->
-               <slot name="pagination" :pagination="pagination"/>
+            <div class="Polaris-IndexTable__Pagination" v-if="Object.keys(pagination).length > 0">
+                <!-- @slot Table Pagination -->
+                <slot name="pagination" :pagination="pagination">
+                    <PPagination v-bind="pagination"/>
+                </slot>
             </div>
         </div>
     </div>
@@ -620,13 +622,13 @@ Access values with `slot-props` attribute.-->
     import { PStackItem } from '../../components/PStack/components/PStackItem';
     import { PCheckbox } from '../../components/PCheckbox';
     import { PBadge } from '../../components/PBadge';
-    import { BulkActionsProps, IndexTableHeading } from '../../components/PIndexTable/utilities';
+    import { BulkActionsProps, IndexTableHeading } from './utilities';
     import { PBulkActions } from '../../components/PBulkActions';
     import { PIndexTableCell } from '../../components/PIndexTable/components/PIndexTableCell';
     import { PIndexTableRow } from '../../components/PIndexTable/components/PIndexTableRow';
     import { PTextStyle } from '../../components/PTextStyle';
     import { PFilter } from '../../components/PFilter';
-    import { PPagination, PPaginationDescriptor } from '../../components/PPagination';
+    import { PPagination } from '../../components/PPagination';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
 
     const TableHeadingRect = {
@@ -758,6 +760,15 @@ Access values with `slot-props` attribute.-->
                 default: false,
             },
             // Filter <-- End -->
+
+            // Pagination <-- Start -->
+            /**
+             * Pagination object.
+             */
+            pagination: {
+                type: Object,
+                default: () => ({}),
+            },
         },
         data() {
             return {
@@ -771,16 +782,6 @@ Access values with `slot-props` attribute.-->
                         offsetLeft: Number,
                     },
                 ],
-                pagination: {
-                    table: {
-                        type: {
-                            summary: null,
-                        },
-                    },
-                    control: {
-                        type: null,
-                    },
-                },
                 bulkActionsSelectable: Boolean(this.promotedBulkActions.length > 0 || this.bulkActions.length > 0),
                 isSmallScreenSelectable: false,
                 selectMode: false,
