@@ -68,6 +68,7 @@
      */
     export default {
         name: 'PTextField',
+        inheritAttrs: false,
         components: {
             PInput, PConnected, PFieldError,
         },
