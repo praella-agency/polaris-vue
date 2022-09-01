@@ -5,7 +5,7 @@
                 <PImage v-if="imageSrc" width="100%" height="100%"
                         style="object-fit: cover; object-position: center center;"
                         :src="imageSrc"/>
-                <vue-plyr>
+                <vue-plyr v-if="!imageSrc">
                     <video
                         controls
                         crossorigin
