@@ -76,27 +76,18 @@ export default {
             type: 'number',
         },
     },
-    pagination: {
-        table: {
-            type: {
-                summary: 'object',
-            },
-            defaultValue: {
-                summary: '{}',
-                detail: `{
-    nextURL?: string,
-    previousURL?: string,
-    hasNext?: boolean,
-    hasPrevious?: boolean,
-    accessibilityLabel?: string,
-    onNext?(): void,
-    onPrevious?(): void,
-}`,
-            },
-        },
-    },
     // slot
     filterOptions: {
+        table: {
+            type: {
+                summary: null,
+            },
+        },
+        control: {
+            type: null,
+        },
+    },
+    pagination: {
         table: {
             type: {
                 summary: null,

@@ -4,13 +4,14 @@
             <div :class="className"
             >
                 <section
-                    v-if="rightSidebarTitle || $slots['sidebar.right.title']"
+                    v-if="rightSidebarTitle || hasSlot($slots['sidebar.right.title'])"
                     :class="sectionClassName"
                 >
                     <div class="Polaris-PreviewFrame__ChildrenWrapper--header">
                         <div :class="rightHeaderClassName">
                             <div class="Polaris-PreviewFrame__RightTitleWrapper">
-                                <div v-if="responsiveRightSidebar" class="Polaris-PreviewFrame__RightHeader--BackActionWrapper">
+                                <div v-if="responsiveRightSidebar"
+                                     class="Polaris-PreviewFrame__RightHeader--BackActionWrapper">
                                     <PButton
                                         plainAction
                                         type="button"
@@ -38,7 +39,7 @@
                 </section>
             </div>
             <div
-                v-if="$slots['sidebar.right.footer']"
+                v-if="hasSlot($slots['sidebar.right.footer'])"
                 class="Polaris-PreviewFrame__Layout
                                 Polaris-PreviewFrame__layoutSpacingDefault
                                 Polaris-PreviewFrame__sticky"
@@ -60,6 +61,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../../../../../ComponentHelpers';
     import { classNames } from "../../../../../../utilities/css";
     import { PHeading } from '../../../../../../components/PHeading';
     import { PButton } from '../../../../../../components/PButton';
@@ -79,6 +81,7 @@
                 default: false,
             },
         },
+        emits: ['backClick'],
         computed: {
             className() {
                 return classNames(
@@ -105,6 +108,9 @@
                     this.responsiveRightSidebar && 'Polaris-PreviewFrame__RightHeader--hasBack',
                 );
             },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             handleBackClick() {
@@ -113,7 +119,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -78,6 +78,7 @@
                 default: 'left',
             }
         },
+        emits: ['select'],
         computed: {
             className() {
                 return classNames(
@@ -108,7 +109,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="Polaris-Frame__LoadingBar">
+    <div :class="className">
         <div class="Polaris-Frame-Loading" role="progressbar" aria-label="Page loading bar">
             <div class="Polaris-Frame-Loading__Level" :style="style"></div>
         </div>
@@ -7,14 +7,27 @@
 </template>
 
 <script>
-    const inBrowser = typeof window !== 'undefined';
-
+    import utils from "../../utilities";
+    import {classNames} from "../../utilities/css";
     export default {
         name: 'PLoading',
-        serverCacheKey: () => 'Loading',
+        props: ['RADON_LOADING_BAR', 'eventBus'],
+        data() {
+            return {
+                loadingStyles: {...this.RADON_LOADING_BAR}
+            }
+        },
         computed: {
+            className() {
+                const progress = this.loadingStyles;
+                const options = progress.options;
+                return classNames(
+                    'Polaris-Frame__LoadingBar',
+                    !options.show && 'Polaris-Frame__Hidden',
+                );
+            },
             style() {
-                const progress = this.progress;
+                const progress = this.loadingStyles;
                 const options = progress.options;
                 const isShow = !!options.show;
                 const location = options.location;
@@ -47,34 +60,17 @@
                 }
                 return style;
             },
-            progress() {
-                if (inBrowser) {
-                    return window.PLoadingEventBus.RADON_LOADING_BAR;
-                } else {
-                    return {
-                        percent: 0,
-                        options: {
-                            canSuccess: true,
-                            show: false,
-                            color: 'rgba(0, 127, 95, 1)',
-                            failedColor: 'rgba(191,7,17,0.88)',
-                            thickness: '3px',
-                            transition: {
-                                speed: '0.5s',
-                                opacity: '0.6s',
-                                termination: 300,
-                            },
-                            location: 'top',
-                            autoRevert: true,
-                            inverse: false,
-                        },
-                    };
-                }
-            },
+        },
+        methods: {
+            handleStyle(data) {
+                this.loadingStyles = {...data};
+            }
+        },
+        mounted() {
+            this.eventBus.on('PLoading-update-data', this.handleStyle);
+        },
+        [utils.beforeDestroy]() {
+            this.eventBus.off('PLoading-update-data', this.handleStyle);
         },
     };
 </script>
-
-<style scoped>
-
-</style>

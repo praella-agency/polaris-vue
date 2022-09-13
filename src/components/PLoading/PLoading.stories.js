@@ -25,7 +25,7 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
+const Template = (args) => ({
     components: {
         PPage, PButton, PStack, PStackItem,
     },

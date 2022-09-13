@@ -2,7 +2,7 @@
     <div>
         <div v-if="open">
             <PModalDialog :large="large" :small="small" :limitHeight="limitHeight">
-                <PModalHeader v-if="title || $slots.title" @close="handleOnClick">
+                <PModalHeader v-if="title || hasSlot($slots.title)" @close="handleOnClick">
                     <slot name="title">
                         {{ title }}
                     </slot>
@@ -12,23 +12,29 @@
                     <iframe v-if="src" :name="iFrameName" :src="src" @load="handleIFrameLoad"
                             class="Polaris-Modal__IFrame" :style="{height: `${iframeHeight}px`}"/>
                     <div v-else class="Polaris-Modal__Body">
-                        <div v-if="loading" class="Polaris-Modal__Spinner">
-                            <PSpinner/>
-                        </div>
+                        <template v-if="loading">
+                            <div class="Polaris-Modal__Spinner">
+                                <PSpinner/>
+                            </div>
+                        </template>
                         <template v-else>
-                            <PModalSection v-if="sectioned">
+                            <template v-if="sectioned">
+                                <PModalSection>
+                                    <slot/>
+                                </PModalSection>
+                            </template>
+                            <template v-else>
+                                <!-- @slot The content to display inside modal -->
                                 <slot/>
-                            </PModalSection>
-                            <!-- @slot The content to display inside modal -->
-                            <slot v-else/>
+                            </template>
                         </template>
                     </div>
                 </div>
-                <PModalFooter v-if="$slots.hasOwnProperty('footer')">
+                <PModalFooter v-if="hasSlot($slots.footer)">
                     <!-- @slot The content to display inside modal footer -->
                     <slot name="footer"/>
                 </PModalFooter>
-                <PModalFooter v-if="!$slots.footer && (Object.keys(primaryAction).length > 0
+                <PModalFooter v-if="!hasSlot($slots.footer) && (Object.keys(primaryAction).length > 0
                                       || secondaryActions)"
                               :primaryAction="primaryAction" :secondaryActions="secondaryActions">
                 </PModalFooter>
@@ -39,6 +45,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../ComponentHelpers';
     import { PSpinner } from '../../components/PSpinner';
     import { PModalDialog } from '../../components/PModal/components/PModalDialog';
     import { PModalHeader } from '../../components/PModal/components/PModalHeader';
@@ -137,10 +144,16 @@
                 default: false,
             },
         },
+        emits: ['close'],
         data() {
             return {
                 iframeHeight: 200,
             };
+        },
+        computed: {
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             setIframeHeight(height) {

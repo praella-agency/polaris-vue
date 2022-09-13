@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  export default {
-    name: 'PListItem'
-  }
+    export default {
+        name: 'PListItem'
+    }
 </script>

@@ -17,8 +17,11 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
+    import mitt from 'mitt';
     import { PAccordionItem } from '../../components/PAccordion/components/PAccordionItem';
 
+    const emitter = mitt();
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -107,11 +110,19 @@
                     if (Array.isArray(this.open)) {
                         this.open.forEach((index) => {
                             if (this.accordionItemIds[index] || this.accordionItemIds[index] === 0) {
-                                this.$set(this.visibility, `${this.id}-${this.accordionItemIds[index]}`, true);
+                                if (utils.isVue3) {
+                                    this.visibility[`${this.id}-${this.accordionItemIds[index]}`] = true;
+                                } else {
+                                    this.$set(this.visibility, `${this.id}-${this.accordionItemIds[index]}`, true);
+                                }
                             }
                         });
                     } else {
-                        this.$set(this.visibility, `${this.id}-${this.open}`, true);
+                        if (utils.isVue3) {
+                            this.visibility[`${this.id}-${this.accordionItemIds[this.open]}`] = true;
+                        } else {
+                            this.$set(this.visibility, `${this.id}-${this.accordionItemIds[this.open]}`, true);
+                        }
                     }
                 }
             },
@@ -119,11 +130,23 @@
                 if (!this.allowMultiple) {
                     Object.keys(this.visibility).forEach((key) => {
                         if (key.toString() !== index.toString()) {
-                            this.$set(this.visibility, key, false);
+                            if (utils.isVue3) {
+                                this.visibility[key] = false;
+                            } else {
+                                this.$set(this.visibility, key, false);
+                            }
                         }
                     });
                 }
-                this.$set(this.visibility, index, !this.visibility[index]);
+                if (utils.isVue3) {
+                    this.visibility[index] = !this.visibility[index];
+                } else {
+                    this.$set(this.visibility, index, !this.visibility[index]);
+                }
+            },
+            handleItemToggleDefault(id) {
+                this.accordionItemIds.push(id);
+                this.handleAccordionItemExpansion();
             },
             setIcon(index, key) {
                 if (this.icon) {
@@ -174,24 +197,5 @@
                 }
             },
         },
-        created() {
-            this.accordions.forEach((item, index) => {
-                this.accordionItemIds.push(index);
-            })
-            this.handleAccordionItemExpansion();
-
-            this.$root.$on(`accordion-${this.id}-toggle`, (index) => {
-                this.handleToggle(index);
-            });
-            this.accordionItemIds = [];
-            this.$root.$on(`accordion-${this.id}-item`, (index) => {
-                this.accordionItemIds.push(index);
-                this.handleAccordionItemExpansion();
-            });
-        }
     }
 </script>
-
-<style scoped>
-
-</style>

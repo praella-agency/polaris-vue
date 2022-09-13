@@ -1,29 +1,31 @@
 <template>
     <PCard sectioned>
         <PSettingAction>
-            <template slot="children">
-                <!-- @slot Inner content of the card -->
-                <slot/>
+            <!-- @slot Inner content of the card -->
+            <slot/>
+            <template #action>
+                <PButton
+                    :accessibility-label="action.accessibilityLabel"
+                    :destructive="action.destructive"
+                    :disabled="action.disabled"
+                    :external="action.external"
+                    :icon="action.icon"
+                    :id="action.id ? action.id : `Polaris-Setting-Toggle${this.uuid}`"
+                    :loading="action.loading"
+                    :outline="action.outline"
+                    :url="action.url"
+                    :primary="!enabled"
+                    @click="action.onAction"
+                >
+                    {{ action.contentStatus }}
+                </PButton>
             </template>
-            <PButton slot="action"
-                     :accessibility-label="action.accessibilityLabel"
-                     :destructive="action.destructive"
-                     :disabled="action.disabled"
-                     :external="action.external"
-                     :icon="action.icon"
-                     :id="action.id ? action.id : `Polaris-Setting-Toggle${this['_uid']}`"
-                     :loading="action.loading"
-                     :outline="action.outline"
-                     :url="action.url"
-                     :primary="!enabled"
-                     @click="action.onAction"
-            > {{ action.contentStatus }}
-            </PButton>
         </PSettingAction>
     </PCard>
 </template>
 
 <script>
+    import { uuid } from '../../ComponentHelpers';
     import { PCard } from '../../components/PCard';
     import { PButton } from '../../components/PButton';
     import { PSettingAction } from '../../components/PSettingToggle/components/PSettingAction';
@@ -34,7 +36,7 @@
         disabled: Boolean,
         external: Boolean,
         icon: String,
-        id: [String| Number],
+        id: [String | Number],
         loading: Boolean,
         outline: Boolean,
         url: String,
@@ -78,5 +80,10 @@
                 default: null,
             },
         },
+        computed: {
+            uuid() {
+                return uuid();
+            }
+        }
     }
 </script>

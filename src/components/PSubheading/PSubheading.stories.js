@@ -26,17 +26,19 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PSubheading,
     },
     template: `
-      <PSubheading 
-          v-bind="$props"
-      > 
-        Sample Sub Heading 
-      </PSubheading>`,
+        <PSubheading
+            v-bind="args"
+        >
+            Sample Sub Heading
+        </PSubheading>`,
 });
 
 export const Subheading = Template.bind({});
@@ -44,3 +46,11 @@ export const Subheading = Template.bind({});
 Subheading.args = {
     element: 'h2',
 }
+Subheading.parameters= {
+    docs: {
+        source: {
+            code: `<PSubheading>Sample Sub Heading</PSubheading>`
+        },
+    },
+};
+

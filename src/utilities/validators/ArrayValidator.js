@@ -1,11 +1,15 @@
-import Vue from 'vue';
+import utils from '../';
+import { vue3, vue } from '../../ComponentHelpers';
 import { ObjectValidator } from './ObjectValidator';
 
 export const ArrayValidator = (name, arrayOfValues, objectInterface, isRequired, isNullable) => {
     let result = true;
     if (!Array.isArray(arrayOfValues)) {
-        Vue.util.warn(
-            `The "${name}" prop is invalid. Given value type: ${typeof arrayOfValues}. Expected value type: Array.`, true)
+        if (utils.isVue3) {
+            vue3.warn(`The "${name}" prop is invalid. Given value type: ${typeof arrayOfValues}. Expected value type: Array.`);
+        } else {
+            vue.default.util.warn(`The "${name}" prop is invalid. Given value type: ${typeof arrayOfValues}. Expected value type: Array.`);
+        }
         return false;
     }
     arrayOfValues.forEach(function (object) {

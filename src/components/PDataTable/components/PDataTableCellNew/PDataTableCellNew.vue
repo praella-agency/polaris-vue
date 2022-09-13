@@ -3,9 +3,9 @@
         :aria-sort="sortLabel">
         <template v-if="sortable">
             <button :class="headerClassName" @click="handleSortChange">
-        <span class="Polaris-DataTable__Icon">
-          <PIcon :source="source"/>
-        </span>
+                <span class="Polaris-DataTable__Icon">
+                    <PIcon :source="source"/>
+                </span>
                 {{ content }}
             </button>
         </template>
@@ -100,7 +100,12 @@
             headerValue: {
                 type: String,
             },
+            alignLastRight: {
+                type: Boolean,
+                default: false,
+            },
         },
+        emits: ['sort-changed'],
         computed: {
             className() {
                 return classNames(
@@ -114,6 +119,7 @@
                     this.sorted && 'Polaris-DataTable__Cell--sorted ',
                     this.sortable && 'Polaris-DataTable__Cell--sortable',
                     this.verticalAlign && `Polaris-DataTable__Cell--${variationName('verticalAlign', this.verticalAlign)}`,
+                    this.alignLastRight && `Polaris-DataTable__Cell-align-right`,
                 );
             },
             headerClassName() {
@@ -146,17 +152,3 @@
         },
     }
 </script>
-
-<style scoped>
-    th:last-child {
-        text-align: right;
-    }
-
-    td:last-child {
-        text-align: right;
-    }
-
-    td:last-child > * {
-        float: right;
-    }
-</style>

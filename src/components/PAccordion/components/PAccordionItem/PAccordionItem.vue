@@ -16,7 +16,7 @@
         >
             <!-- @slot Customize title -->
             <slot name="title"/>
-            <template slot="actions">
+            <template #actions>
                 <!-- @slot Customizable actions -->
                 <slot name="actions"/>
             </template>
@@ -26,7 +26,6 @@
             :content="content"
             :animation="animation"
             :open="this.getVisibility[accordionItemId]"
-
             :themeOptions="contentThemeOptions"
         >
             <!-- @slot Customize body part -->
@@ -36,9 +35,14 @@
 </template>
 
 <script>
+    import utils from '../../../../utilities';
+    import { uuid } from '../../../../ComponentHelpers';
     import { PAccordionHeader } from '../../../../components/PAccordion/components/PAccordionHeader';
     import { PAccordionContent } from '../../../../components/PAccordion/components/PAccordionContent';
     import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
+    import mitt from 'mitt';
+
+    const emitter = mitt();
 
     const Icon = {
         icon: {
@@ -152,9 +156,10 @@
                 default: false,
             },
         },
+        // emits: [`accordion-${this.getAccordionId}-toggle`, `accordion-${this.getAccordionId}-item`],
         data() {
             return {
-                ID: (this.id || this.id === 0) ? this.id : this['_uid'],
+                ID: (this.id || this.id === 0) ? this.id : uuid(),
                 themeOptionsData: {
                     header: {
                         color: '',
@@ -205,13 +210,25 @@
                         };
                         let header = this.themeOptions.header;
                         if (header.color) {
-                            this.$set(styleOptions, 'color', header.color);
+                            if (utils.isVue3) {
+                                styleOptions.color = header.color;
+                            } else {
+                                this.$set(styleOptions, 'color', header.color);
+                            }
                         }
                         if (header.background) {
-                            this.$set(styleOptions, 'background', header.background);
+                            if (utils.isVue3) {
+                                styleOptions.background = header.background;
+                            } else {
+                                this.$set(styleOptions, 'background', header.background);
+                            }
                         }
                         if (header.backgroundCollapsed) {
-                            this.$set(styleOptions, 'backgroundCollapsed', header.backgroundCollapsed);
+                            if (utils.isVue3) {
+                                styleOptions.backgroundCollapsed = header.backgroundCollapsed;
+                            } else {
+                                this.$set(styleOptions, 'backgroundCollapsed', header.backgroundCollapsed);
+                            }
                         }
                     }
                 }
@@ -231,10 +248,18 @@
                         };
                         let content = this.themeOptions.content;
                         if (content.color) {
-                            this.$set(styleOptions, 'color', content.color);
+                            if (utils.isVue3) {
+                                styleOptions.color = content.color;
+                            } else {
+                                this.$set(styleOptions, 'color', content.color);
+                            }
                         }
                         if (content.background) {
-                            this.$set(styleOptions, 'background', content.background);
+                            if (utils.isVue3) {
+                                styleOptions.background = content.background;
+                            } else {
+                                this.$set(styleOptions, 'background', content.background);
+                            }
                         }
                     }
                 }
@@ -263,7 +288,12 @@
         },
         methods: {
             handleToggle(index) {
-                this.$root.$emit(`accordion-${this.getAccordionId}-toggle`, index);
+                this.$parent.handleToggle(index);
+                /*if (utils.isVue3) {
+                    emitter.emit(`accordion-${this.getAccordionId}-toggle`, index);
+                } else {
+                    this.$root.$emit(`accordion-${this.getAccordionId}-toggle`, index);
+                }*/
             },
             setOpenCloseIcon(object, type, source) {
                 if (object.hasOwnProperty(type) && Object.keys(object[type]).length) {
@@ -285,11 +315,10 @@
             },
         },
         mounted() {
-            this.$root.$emit(`accordion-${this.getAccordionId}-item`, this.ID);
+            if (this.$parent.handleItemToggleDefault) {
+                this.$parent.handleItemToggleDefault(this.ID);
+            }
         }
     }
 </script>
 
-<style scoped>
-
-</style>

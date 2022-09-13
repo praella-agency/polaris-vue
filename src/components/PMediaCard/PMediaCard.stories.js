@@ -62,13 +62,15 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PMediaCard,
     },
     template: `
-      <PMediaCard v-bind="$props">
+      <PMediaCard v-bind="args">
         Discover how Shopify can power up your entrepreneurial journey.
       </PMediaCard>`,
 });
@@ -98,3 +100,14 @@ MediaCard.args = {
         }
     ],
 }
+
+MediaCard.parameters = {
+    docs: {
+        source: {
+            code: `
+<PMediaCard>
+    Discover how Shopify can power up your entrepreneurial journey.
+</PMediaCard>`
+        },
+    },
+};

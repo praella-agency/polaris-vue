@@ -15,13 +15,13 @@
                                        @change="handleChange" :disabled="loading"></PCheckbox>
                         </div>
                     </div>
-                    <div class="Polaris-ResourceItem__Media" v-if="$slots.media">
+                    <div class="Polaris-ResourceItem__Media" v-if="hasSlot($slots.media)">
                         <!-- @slot Content for the media area at the left of the item, usually an Avatar or Thumbnail -->
                         <slot name="media"/>
                     </div>
                 </div>
 
-                <div class="Polaris-ResourceItem__Content" v-if="$slots.default">
+                <div class="Polaris-ResourceItem__Content" v-if="hasSlot($slots.default)">
                     <!-- @slot Content for the details area -->
                     <slot/>
                 </div>
@@ -72,14 +72,17 @@
                         preferredAlignment="right"
                         @close="handlePopoverClick"
                     >
-                        <PButton
-                            slot="activator"
-                            accessibilityLabel="Actions"
-                            @click.stop="handlePopoverClick"
-                            plain
-                            icon="HorizontalDotsMinor"
-                        />
-                        <PActionList slot="content" :items="shortcutActions"/>
+                        <template #activator>
+                            <PButton
+                                accessibilityLabel="Actions"
+                                @click.stop="handlePopoverClick"
+                                plain
+                                icon="HorizontalDotsMinor"
+                            />
+                        </template>
+                        <template #content>
+                            <PActionList :items="shortcutActions"/>
+                        </template>
                     </PPopover>
                 </div>
             </div>
@@ -89,6 +92,7 @@
 
 
 <script>
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { DisableableAction } from '../../../../types';
     import { PCheckbox } from '../../../../components/PCheckbox';
@@ -241,6 +245,7 @@
                 default: null,
             },
         },
+        emits: ['change'],
         data() {
             return {
                 actionMenuVisible: false,
@@ -258,7 +263,7 @@
             ownedClassName() {
                 return classNames(
                     'Polaris-ResourceItem__Owned',
-                    !this.$slots.media && 'Polaris-ResourceItem__OwnedNoMedia',
+                    !hasSlot(this.$slots.media) && 'Polaris-ResourceItem__OwnedNoMedia',
                 );
             },
             checkboxId() {
@@ -270,6 +275,9 @@
             itemName() {
                 return this.accessibilityLabel || (this.name ||
                     (Object.keys(this.resourceName).length > 0 ? this.resourceName.singular : '') || '');
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

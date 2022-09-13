@@ -7,7 +7,7 @@
         :rel="rel"
         :download="download"
         v-bind="$attrs"
-        v-on="$listeners"
+        v-on="listeners"
     >
         <!-- @slot The content to display inside the link -->
         <slot/>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
+
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -62,6 +64,12 @@
             rel() {
                 return this.external ? 'noopener noreferrer' : undefined;
             },
+            listeners() {
+                if (utils.isVue2) {
+                    return this.$listeners;
+                }
+                return {};
+            }
         },
     }
 </script>

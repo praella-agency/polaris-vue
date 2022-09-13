@@ -44,10 +44,15 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
-    components: {PToggle},
-    template: '<PToggle v-bind="$props"/>'
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
+    components: {
+        PToggle,
+    },
+    template: `
+        <PToggle v-bind="args"/>`,
 });
 
 export const Toggle = Template.bind({});
@@ -55,3 +60,11 @@ export const Toggle = Template.bind({});
 Toggle.args = {
     label: 'Toggle Switch'
 }
+Toggle.parameters = {
+    docs: {
+        source: {
+            code: `<PToggle/>`
+        },
+    },
+};
+

@@ -1,7 +1,7 @@
 <template>
-    <div :class="labelHidden && 'Polaris-Labelled--hidden'">
+    <div :class="className">
         <div class="Polaris-Labelled__LabelWrapper"
-             v-if="!floatingLabel && (label || emptyLabel || $slots.hasOwnProperty('label'))"
+             v-if="!floatingLabel && (label || emptyLabel || hasSlot($slots.label))"
              :class="labelClass">
             <!-- @slot Display label for the element -->
             <slot name="label">
@@ -28,12 +28,13 @@
             :closeOnEsc="closeOnEsc"
             :localeData="localeData"
             :ranges="computedRanges"
+            :date-range="computedValue"
             v-bind="$attrs"
             v-model="computedValue"
             @update="updateValues"
             @toggle="checkOpen"
             :linkedCalendars="linkedCalendars"
-            :style="pDatePickerButtonStyle"
+            :styles="pDatePickerButtonStyle"
         >
             <template #ranges="ranges">
                 <PStack>
@@ -50,26 +51,31 @@
                     :floating-label="floatingLabel"
                     readOnly
                     aria-readonly="true"
+                    :modelValue="computedTextValue(picker)"
                     :value="computedTextValue(picker)"
                     labelHidden
                     :error="hasError"
                     style="min-width:100%"
                 >
-                    <template slot="error">
+                    <template #error>
                         <PVisuallyHidden>{{ error }}</PVisuallyHidden>
                     </template>
-                    <slot slot="label" name="label">
-                        {{ label }}
-                    </slot>
-                    <PStack slot="suffix">
+                    <template #label>
+                        <slot name="label">
+                            {{ label }}
+                        </slot>
+                    </template>
+                    <template #suffix>
+                      <PStack>
                         <PStackItem>
-                            <PIcon source="CalendarMajor"/>
+                          <PIcon source="CalendarMajor"/>
                         </PStackItem>
                         <PStackItem v-if="clearable">
-                            <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
+                          <PIcon source="CircleCancelMinor" @click.stop="handleCancelClick"/>
                         </PStackItem>
-                    </PStack>
-                    <template v-if="showPrefix" slot="prefix">
+                      </PStack>
+                    </template>
+                    <template #prefix v-if="showPrefix">
                         {{ prefix }}
                     </template>
                 </PTextField>
@@ -89,20 +95,18 @@
                     </span>
                 </button>
             </template>
-            <template v-if="!autoApply" slot="footer" slot-scope="data" class="slot">
-                <PStack distribution="equalSpacing" alignment="center">
+            <template v-slot:footer="data" v-if="!autoApply" class="slot">
+                <PStack v-show="!data.in_selection" distribution="equalSpacing" alignment="center">
                     <PStackItem>
-                        <PButton @click="data.clickCancel" v-if="!data.in_selection">Cancel</PButton>
+                        <PButton @click="data.clickCancel">Cancel</PButton>
                     </PStackItem>
                     <PStackItem>
-                        <PButtonGroup>
-                            <PButton primary @click="data.clickApply" v-if="!data.in_selection">Apply</PButton>
-                        </PButtonGroup>
+                        <PButton primary @click="data.clickApply">Apply</PButton>
                     </PStackItem>
                 </PStack>
             </template>
         </DateRangePicker>
-        <div class="Polaris-Labelled__HelpText" v-if="$slots.hasOwnProperty('helpText') || helpText">
+        <div class="Polaris-Labelled__HelpText" v-if="hasSlot($slots.helpText) || helpText">
             <!-- @slot Custom helpText -->
             <slot name="helpText">
                 {{ helpText }}
@@ -113,8 +117,11 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
+    import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import dayjs from 'dayjs';
+    import { DateRangePicker } from './components/components';
     import { PIcon } from '../../components/PIcon';
     import { PFieldError } from '../../components/PFieldError';
     import { PButton } from '../../components/PButton';
@@ -159,7 +166,7 @@
     export default {
         name: 'PDatePicker',
         components: {
-            DateRangePicker: require('vue2-daterange-picker').default,
+            DateRangePicker,
             PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField, PVisuallyHidden,
         },
         props: {
@@ -276,6 +283,7 @@
              */
             singleDatePicker: {
                 type: [Boolean, String],
+                default: true
             },
             /**
              * Show the dropdown for time (hour/minute) selection below the calendars
@@ -296,7 +304,7 @@
              */
             showWeekNumbers: {
                 type: Boolean,
-                default: false,
+                default: true,
             },
             /**
              * Show the dropdowns for month and year selection above the calendars
@@ -377,9 +385,17 @@
                 default: '-',
             },
             /**
-             * Element Value
+             * Element value
              */
             value: {
+                type: [String, Object],
+                ...ObjectValidator('value', ValueInterface),
+            },
+            /**
+             * For Vue 3
+             * Element model value
+             */
+            modelValue: {
                 type: [String, Object],
                 ...ObjectValidator('value', ValueInterface),
             },
@@ -391,15 +407,24 @@
                 default: false,
             }
         },
+        emits: ['change', 'input', 'checkOpen', 'updateValues', 'update:modelValue'],
         data() {
             return {
+                content: null,
                 selectedRanges: null,
             };
         },
         computed: {
+            computedVModel() {
+                if (utils.isVue3) {
+                    return this.modelValue;
+                }
+                return this.value;
+            },
             className() {
                 return classNames(
-                    'Polaris-TextField__Input',
+                    this.labelHidden && 'Polaris-Labelled--hidden',
+                    'Polaris-DatePicker',
                 );
             },
             computedRanges() {
@@ -427,10 +452,10 @@
             computedValue: {
                 get() {
                     if (this.singleDatePicker) {
-                        if (this.value) {
+                        if (this.computedVModel) {
                             return {
-                                startDate: typeof this.value === 'string' ? this.value : this.value.startDate,
-                                endDate: typeof this.value === 'string' ? this.value : this.value.startDate,
+                                startDate: typeof this.computedVModel === 'string' ? this.computedVModel : this.computedVModel.startDate,
+                                endDate: typeof this.computedVModel === 'string' ? this.computedVModel : this.computedVModel.startDate,
                             };
                         } else if (this.dateRange) {
                             return {
@@ -439,8 +464,8 @@
                             };
                         }
                     } else {
-                        if (this.value) {
-                            return this.value;
+                        if (this.computedVModel) {
+                            return this.computedVModel;
                         } else if (this.dateRange) {
                             return this.dateRange;
                         }
@@ -457,10 +482,20 @@
                      * Emits when the input is triggered
                      */
                     this.$emit('input', dateRange);
+                    /**
+                     * For Vue 3
+                     * Emits when the input is triggered
+                     * v-model
+                     * @ignore
+                     */
+                    this.$emit('update:modelValue', dateRange);
                 }
             },
             showPrefix() {
-                return this.prefix || this.$slots.prefix;
+                return this.prefix || hasSlot(this.$slots.prefix);
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {
@@ -541,67 +576,3 @@
         },
     }
 </script>
-
-<style scoped>
-    .vue-daterange-picker {
-        min-width: 100%;
-    }
-
-    .date-date {
-        background: orange;
-    }
-</style>
-<style>
-    .daterangepicker {
-        border: none;
-        box-shadow: -1px 0px 20px rgba(23, 24, 24, 0.05), 0px 1px 5px rgba(0, 0, 0, 0.15);
-    }
-
-    @media screen and (min-width: 339px) {
-        .vue-daterange-picker div.daterangepicker.single.show-ranges.show-weeknumbers,
-        .vue-daterange-picker div.daterangepicker.single.show-ranges {
-            min-width: 250px;
-        }
-    }
-
-    @media screen and (min-width: 768px) {
-        .vue-daterange-picker div.daterangepicker.show-ranges.show-weeknumbers,
-        .vue-daterange-picker div.daterangepicker.show-ranges {
-            min-width: 500px;
-        }
-    }
-
-    .daterangepicker .calendars {
-        display: block;
-        border-bottom: .1rem solid #e1e3e5;
-    }
-
-    .daterangepicker .Polaris-Stack {
-        padding: 10px;
-    }
-
-
-    .daterangepicker td.in-range {
-        background-color: #f2f7fe;
-    }
-
-    .daterangepicker td.active,
-    .daterangepicker td.active:hover {
-        background-color: #2c6ecb;
-        color: #FFF;
-    }
-
-    .daterangepicker td:hover {
-        background: #1f5199;
-        color: #ffffff;
-        outline: .1rem solid transparent;
-    }
-
-    .daterangepicker td.start-date {
-        border-radius: 3rem 0 0 3rem;
-    }
-
-    .daterangepicker td.end-date {
-        border-radius: 0 3rem 3rem 0;
-    }
-</style>

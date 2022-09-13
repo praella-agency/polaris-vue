@@ -1,25 +1,31 @@
 <template>
     <div :class="className">
         <template
-            v-if="$slots.hasOwnProperty('title') || title || $slots.hasOwnProperty('short_description') || shortDescription">
+            v-if="hasSlot($slots.title) || title || hasSlot($slots.short_description) || shortDescription">
             <PCardHeader :actions="actions">
-                <!-- @slot Title content for the card -->
-                <slot slot="title" name="title" v-if="$slots.hasOwnProperty('title') || title">
-                    <PHeading>{{ title }}</PHeading>
-                </slot>
-                <!-- @slot Short Description content for the card -->
-                <slot slot="short_description" name="short_description"
-                      v-if="$slots.hasOwnProperty('short_description') || shortDescription">
-                    <PCaption>{{ shortDescription }}</PCaption>
-                </slot>
-                <template slot="children" v-if="$slots.hasOwnProperty('children')">
+                <template #title>
+                    <!-- @slot Title content for the card -->
+                    <slot name="title" v-if="hasSlot($slots.title) || title">
+                        <PHeading>{{ title }}</PHeading>
+                    </slot>
+                </template>
+                <template
+                    #short_description
+                    v-if="hasSlot($slots.short_description) || shortDescription"
+                >
+                    <!-- @slot Short Description content for the card -->
+                    <slot name="short_description">
+                        <PCaption>{{ shortDescription }}</PCaption>
+                    </slot>
+                </template>
+                <template #children v-if="hasSlot($slots.children)">
                     <!-- @slot Inner content of the card -->
                     <slot name="children"/>
                 </template>
             </PCardHeader>
         </template>
 
-        <template v-if="$slots.hasOwnProperty('default')">
+        <template v-if="hasSlot($slots.default)">
             <template v-if="sectioned">
                 <PCardSection>
                     <!-- @slot Body content for the card -->
@@ -35,7 +41,7 @@
             <slot/>
         </div>
 
-        <template v-if="$slots.hasOwnProperty('footer')">
+        <template v-if="hasSlot($slots.footer)">
             <PCardFooter>
                 <!-- @slot Footer content for the card -->
                 <slot name="footer"/>
@@ -45,6 +51,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PCardHeader } from '../../components/PCard/components/PCardHeader';
     import { PCardSection } from '../../components/PCard/components/PCardSection';
@@ -111,6 +118,9 @@
                     'Polaris-Card',
                     this.subdued && 'Polaris-Card__Section--subdued',
                 );
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
     }

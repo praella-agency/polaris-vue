@@ -18,30 +18,29 @@
      * </h4>
      */
     export default {
-      name: 'PList',
-      props: {
-        /**
-         * Type of list
-         */
-        type: {
-          type: String,
-          default: 'bullet',
-          ...StringValidator('type', Type)
+        name: 'PList',
+        props: {
+            /**
+             * Type of list
+             */
+            type: {
+                type: String,
+                default: 'bullet',
+                ...StringValidator('type', Type)
+            }
+        },
+        data() {
+            return {
+                element: this.type === 'bullet' ? 'ul' : 'ol',
+            }
+        },
+        computed: {
+            className() {
+                return classNames(
+                    'Polaris-List',
+                    this.type && this.type === 'number' && 'Polaris-List--typeNumber',
+                );
+            }
         }
-      },
-      data() {
-        return {
-          element: this.type === 'bullet' ? 'ul' : 'ol',
-        }
-      },
-      computed: {
-        className() {
-
-          return classNames(
-              'Polaris-List',
-              this.type && this.type === 'number' && 'Polaris-List--typeNumber',
-          );
-        }
-      }
     }
 </script>

@@ -1,24 +1,29 @@
 <template>
     <PChoice :label="label" :label-hidden="labelHidden" :help-text="helpText" :id="id">
-        <!-- @slot Label content -->
-        <slot slot="label" name="label"/>
+        <template #label>
+            <!-- @slot Content of a label -->
+            <slot name="label"/>
+        </template>
 
-        <!-- @slot Help text content -->
-        <slot slot="helpText" name="helpText"/>
+        <template #helpText>
+            <!-- @slot Body of Help text -->
+            <slot name="helpText"/>
+        </template>
 
         <div class="Polaris-RadioButton">
-            <input :id="id"
-                   :name="name"
-                   :value="value"
-                   type="radio"
-                   :checked="checked"
-                   :disabled="disabled"
-                   class="Polaris-RadioButton__Input"
-                   @change="onChange"
-                   @focus="onFocus"
-                   @blur="onBlur"
-                   :aria-describedby="helpText ? id+'HelpText' : ''">
-
+            <input
+                :id="id"
+                :name="name"
+                :value="value"
+                type="radio"
+                :checked="checked"
+                :disabled="disabled"
+                class="Polaris-RadioButton__Input"
+                @change="onChange"
+                @focus="onFocus"
+                @blur="onBlur"
+                :aria-describedby="helpText ? id+'HelpText' : ''"
+            >
             <div class="Polaris-RadioButton__Backdrop"></div>
             <div class="Polaris-RadioButton__Icon"></div>
         </div>
@@ -27,6 +32,7 @@
 </template>
 
 <script>
+    import { uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PChoice } from '../../components/PChoice';
 
@@ -47,7 +53,7 @@
              */
             id: {
                 type: [String, Number],
-                default: `PolarisRadioButton${new Date().getUTCMilliseconds()}`,
+                default: `PolarisRadioButton${uuid()}`,
                 required: true,
             },
             /**
@@ -99,6 +105,7 @@
                 default: false,
             },
         },
+        emits: ['change', 'focus', 'blur'],
         computed: {
             className() {
                 return classNames(

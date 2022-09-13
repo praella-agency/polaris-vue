@@ -1,6 +1,6 @@
 <template>
     <div :class="parentClassName">
-        <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || $slots.label">
+        <div class="Polaris-Labelled__LabelWrapper" v-if="label || emptyLabel || hasSlot($slots.label)">
             <div class="Polaris-Label">
                 <slot name="label">
                     <label
@@ -48,9 +48,11 @@
 </template>
 
 <script>
+    import { hasSlot, uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
     import { PFieldError } from '../../components/PFieldError';
+    import utils from "../../utilities";
 
     const PLACEHOLDER_VALUE = '';
 
@@ -71,7 +73,7 @@
              */
             id: {
                 type: [String, Number],
-                default: `PolarisSelect${new Date().getUTCMilliseconds()}`,
+                default: `PolarisSelect${uuid()}`,
             },
             /**
              * Name for form input.
@@ -150,6 +152,12 @@
                 type: [String, Object, Array, Boolean, Number],
             },
             /**
+             * Value for form input.
+             */
+            modelValue: {
+                type: [String, Object, Array, Boolean, Number],
+            },
+            /**
              * Example text to display as placeholder.
              */
             placeholder: {
@@ -178,12 +186,19 @@
                 default: false,
             }
         },
+        emits: ['change', 'update:value', 'update:modelValue'],
         data() {
             return {
-                selected: this.value,
+                selected: this.computedVModel,
             };
         },
         computed: {
+            computedVModel() {
+                if (utils.isVue3) {
+                    return this.modelValue;
+                }
+                return this.value;
+            },
             parentClassName() {
                 return classNames(
                     this.floatingLabel && 'Polaris-Select-Floating-Label',
@@ -237,8 +252,14 @@
                     this.$emit('change', value);
                     /**
                      * Callback when input is triggered
+                     * @ignore
                      */
-                    this.$emit('input', value);
+                    this.$emit('update:value', value);
+                    /**
+                     * Callback when input is triggered
+                     * @ignore
+                     */
+                    this.$emit('update:modelValue', value);
                 },
             },
             selectedOption() {
@@ -250,11 +271,20 @@
 
                 return selectedOption ? selectedOption[this.textField] : '';
             },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         watch: {
             value(value, oldValue) {
                 this.selected = value;
             },
+            modelValue(value, oldValue) {
+                this.selected = value;
+            },
         },
+        created() {
+            this.selected = this.computedVModel;
+        }
     }
 </script>

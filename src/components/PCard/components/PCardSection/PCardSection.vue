@@ -1,6 +1,6 @@
 <template>
     <div :class="className">
-        <div v-if="title || $slots.hasOwnProperty('title')" class="Polaris-Card__SectionHeader">
+        <div v-if="title || hasSlot($slots.title)" class="Polaris-Card__SectionHeader">
             <slot name="title">
                 <PSubheading v-bind="$attrs">
                     {{ title }}
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PSubheading } from '../../../../components/PSubheading';
 
@@ -48,6 +49,9 @@
                     this.subdued && 'Polaris-Card__Section--subdued',
                     this.fullWidth && 'Polaris-Card__Section--fullWidth',
                 );
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
     }

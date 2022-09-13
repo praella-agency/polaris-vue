@@ -4,7 +4,9 @@
         <div class="Polaris-ResourceList__HeaderContentWrapper">
             <div class="Polaris-ResourceList__HeaderTitleWrapper">{{ resourceHeaderTitle }}</div>
             <div class="Polaris-ResourceList__CheckableButtonWrapper" v-if="selectable && !checked">
-                <PCheckableButton plain v-bind="$attrs" v-on="$listeners">{{ resourceHeaderTitle }}</PCheckableButton>
+                <PCheckableButton plain :checked="checked" v-bind="$attrs" @toggle-all="handleToggleAll">
+                    {{ resourceHeaderTitle }}
+                </PCheckableButton>
             </div>
             <template v-if="!(checked || smallViewChecked)">
                 <div class="Polaris-ResourceList__SortWrapper" v-if="(sortOptions && sortOptions.length > 0)">
@@ -32,65 +34,66 @@
                 Polaris-ResourceList-BulkActions__Group--entered`">
                 <div class="Polaris-ResourceList-BulkActions__ButtonGroupWrapper">
                     <PButtonGroup :segmented="segmentedGroup">
-                        <PCheckableButton v-bind="$attrs" :checked="checked" v-on="$listeners">
+                        <PCheckableButton v-bind="$attrs" :checked="checked" @toggle-all="handleToggleAll">
                             {{ resourceHeaderTitle }}
                         </PCheckableButton>
                         <PBulkActionButtonWrapper
                             v-if="!smallView && (promotedBulkActions.length > 0 || Object.keys(promotedBulkActions).length > 0)"
                             :actions="promotedBulkActions"
                         />
-                        <template v-if="smallView">
                             <PBulkActionButtonWrapper
-                                v-if="promotedBulkActions.length > 0 || Object.keys(promotedBulkActions).length > 0 ||
-                                        bulkActions.length > 0"
+                                v-if="smallView && (promotedBulkActions.length > 0 || Object.keys(promotedBulkActions).length > 0 ||
+                                        bulkActions.length > 0)"
                             >
                                 <PPopover
                                     :id="popOverID"
                                     :active="bulkActionsShown"
                                     :fullWidth="false"
-                                    @close="bulkActionsShown = false">
-                                    <template slot="activator">
+                                    @close="bulkActionsShown = false"
+                                >
+                                    <template #activator>
                                         <PButton
                                             :disclosure="bulkActionsShown ? 'up' : 'down'"
-                                            @click="bulkActionsShown = !bulkActionsShown">
+                                            @click="bulkActionsShown = !bulkActionsShown"
+                                        >
                                             Actions
                                         </PButton>
                                     </template>
-                                    <template slot="content">
-                                        <PActionList :items="promotedBulkActionsData"
-                                                     :sections="bulkActionsForSmallScreen"/>
+                                    <template #content>
+                                        <PActionList
+                                            :items="promotedBulkActionsData"
+                                            :sections="bulkActionsForSmallScreen"
+                                        />
                                     </template>
                                 </PPopover>
                             </PBulkActionButtonWrapper>
-                            <PBulkActionButtonWrapper>
+                            <PBulkActionButtonWrapper v-if="smallView">
                                 <PButton
                                     @click="cancelSelectMode(false)"
                                 >
                                     Cancel
                                 </PButton>
                             </PBulkActionButtonWrapper>
-                        </template>
-                        <template v-else>
-                            <PBulkActionButtonWrapper v-if="bulkActions.length > 0">
+                            <PBulkActionButtonWrapper v-else-if="bulkActions.length > 0">
                                 <PPopover
                                     :id="popOverID"
                                     :active="bulkActionsShown"
                                     preferredAlignment="right"
                                     :fullWidth="false"
-                                    @close="bulkActionsShown = false">
-                                    <template slot="activator">
+                                    @close="bulkActionsShown = false"
+                                >
+                                    <template #activator>
                                         <PButton
                                             :disclosure="bulkActionsShown ? 'up' : 'down'"
                                             @click="bulkActionsShown = !bulkActionsShown">
                                             More actions
                                         </PButton>
                                     </template>
-                                    <template slot="content">
+                                    <template #content>
                                         <PActionList :items="bulkActions"/>
                                     </template>
                                 </PPopover>
                             </PBulkActionButtonWrapper>
-                        </template>
                     </PButtonGroup>
                 </div>
                 <div class="Polaris-ResourceList-BulkActions__PaginatedSelectAll"
@@ -110,7 +113,7 @@
 
 <script>
     import { classNames } from '../../../../utilities/css';
-    import ComponentHelpers from '../../../../ComponentHelpers';
+    import { uuid } from '../../../../ComponentHelpers';
     import { PButtonGroup } from '../../../../components/PButtonGroup';
     import { PButton } from '../../../../components/PButton';
     import { PCheckableButton } from '../../../../components/PResourceList/components/PCheckableButton';
@@ -150,7 +153,7 @@
         props: {
             popoverId: {
                 type: String,
-                default: `PolarisPopover${ComponentHelpers.uuid()}`,
+                default: `PolarisPopover${uuid()}`,
             },
             resourceTitle: {
                 type: String,
@@ -198,6 +201,7 @@
                 type: Boolean,
             },
         },
+        emits: ['toggle-select-more', 'sort-change', 'handle-selection-mode', 'toggle-all'],
         data() {
             return {
                 bulkActionsShown: false,
@@ -290,6 +294,9 @@
                 this.smallViewChecked = false;
                 this.$emit('handle-selection-mode', selectMode);
             },
+            handleToggleAll(value) {
+                this.$emit('toggle-all', value);
+            }
         },
         mounted() {
             window.addEventListener('resize', this.isSmallScreen);

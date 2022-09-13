@@ -38,22 +38,24 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PFooterHelp, PLink,
     },
     template: `
-      <PFooterHelp
-          v-bind="$props"
-      >
-          Learn more about
-          <PLink 
-              url="javascript:void(0);"
-          >
-            fulfilling orders
-          </PLink>
-      </PFooterHelp>`,
+        <PFooterHelp
+            v-bind="args"
+        >
+            Learn more about
+            <PLink
+                url="javascript:void(0);"
+            >
+                fulfilling orders
+            </PLink>
+        </PFooterHelp>`,
 });
 
 export const FooterHelp = Template.bind({});
@@ -61,3 +63,15 @@ export const FooterHelp = Template.bind({});
 FooterHelp.args = {
     id: 'MyFooter',
 }
+
+FooterHelp.parameters = {
+    docs: {
+        source: {
+            code: `
+<PFooterHelp>
+    Learn more about
+    <PLink>fulfilling orders</PLink>
+</PFooterHelp>`
+        },
+    },
+};

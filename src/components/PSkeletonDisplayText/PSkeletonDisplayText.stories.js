@@ -13,15 +13,25 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PSkeletonDisplayText,
     },
     template: `
-      <PSkeletonDisplayText
-          v-bind="$props"
-      />`,
+        <PSkeletonDisplayText
+            v-bind="args"
+        />`,
 });
 
 export const SkeletonDisplayText = Template.bind({});
+
+SkeletonDisplayText.parameters= {
+    docs: {
+        source: {
+            code: `<PSkeletonDisplayText/>`
+        },
+    },
+};

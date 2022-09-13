@@ -11,7 +11,7 @@
         >
             <PIcon source="MobileHamburgerMajor"/>
         </button>
-        <div v-if="$slots.hasOwnProperty('contextControl')" testID="ContextControl"
+        <div v-if="hasSlot($slots.contextControl)" testID="ContextControl"
              class="Polaris-TopBar__ContextControl">
             <!-- @slot Accepts a component that is used to help users switch between different contexts -->
             <slot name="contextControl"/>
@@ -32,7 +32,7 @@
         </div>
         <div class="Polaris-TopBar__Contents">
             <div
-                v-if="$slots.hasOwnProperty('pSearchField') || Object.keys(searchField).length > 0"
+                v-if="hasSlot($slots.searchField) || Object.keys(searchField).length > 0"
                 class="Polaris-TopBar__SearchField"
             >
                 <!-- @slot Customize SearchField -->
@@ -61,7 +61,7 @@
                 </PSearch>
             </div>
             <div
-                v-if="$slots.hasOwnProperty('pSecondaryMenu') || Object.keys(secondaryMenu).length > 0"
+                v-if="hasSlot($slots.secondaryMenu) || Object.keys(secondaryMenu).length > 0"
                 class="Polaris-TopBar__SecondaryMenu"
             >
                 <!-- @slot Customize SecondaryMenu -->
@@ -70,8 +70,10 @@
                         v-if="Object.keys(secondaryMenu).length > 0"
                         v-bind="secondaryMenu"
                     >
-                        <!-- @slot Customize icon -->
-                        <slot slot="activatorContent" name="activatorContent"/>
+                        <template #activatorContent>
+                            <!-- @slot Customize icon -->
+                            <slot name="activatorContent"/>
+                        </template>
                     </PMenu>
                 </slot>
             </div>
@@ -87,6 +89,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { ThemeLogo, getWidth } from '../../types/logo';
     import { PIcon } from '../../components/PIcon';
@@ -201,6 +204,7 @@
                 ...ObjectValidator('searchResult', SearchResult),
             },
         },
+        emits: ['searchFieldChange', 'searchResultsDismiss'],
         data() {
             return {
                 focused: false,
@@ -213,7 +217,7 @@
                 return classNames(
                     'Polaris-TopBar__LogoContainer',
                     /* tslint:disable-next-line */
-                    (this.showNavigationToggle || this.$slots['searchField'] || this.$scopedSlots['searchField']) ?
+                    (this.showNavigationToggle || hasSlot(this.$slots.searchField)) ?
                         'Polaris-TopBar__LogoDisplayControl' :
                         'Polaris-TopBar__LogoDisplayContainer',
                 );
@@ -228,6 +232,9 @@
                 return {
                     width: getWidth(this.logo, 104),
                 };
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
         methods: {

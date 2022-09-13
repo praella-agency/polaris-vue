@@ -2,7 +2,7 @@ import { PFormLayout } from './index';
 import { PTextField } from '../PTextField';
 
 export default {
-    title: 'Forms / Form Layout / Default',
+    title: 'Forms / Form Layout',
     component: PFormLayout,
     argTypes: {
         id: {
@@ -26,16 +26,30 @@ export default {
     }
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PFormLayout, PTextField,
     },
     template: `
-      <PFormLayout v-bind="$props">
-          <PTextField label="Store name"/>
-          <PTextField error="Please enter valid email" type="email" label="Account email"/>
-      </PFormLayout>`,
+        <PFormLayout v-bind="args">
+            <PTextField label="Store name"/>
+            <PTextField error="Please enter valid email" type="email" label="Account email"/>
+        </PFormLayout>`,
 });
 
 export const Default = Template.bind({});
+
+Default.parameters = {
+    docs: {
+        source: {
+            code: `
+<PFormLayout>
+    <PTextField label="Store name"/>
+    <PTextField error="Please enter valid email" type="email" label="Account email"/>
+</PFormLayout>`
+        },
+    },
+};

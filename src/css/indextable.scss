@@ -600,7 +600,14 @@
     }
   }
 }
-
+.Polaris-DataTable .Polaris-DataTable__Pagination,
+.Polaris-IndexTable .Polaris-IndexTable__Pagination {
+  text-align: center;
+  padding: 1.6rem;
+  border-top: 0.1rem solid #e1e3e5;
+  border-bottom-left-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
+}
 $spacing-data: (
         'none': 0,
         'extra-tight': 4px,

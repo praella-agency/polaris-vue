@@ -20,8 +20,7 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = () => ({
     components: {
         PHorizontalDivider, PButton, PStack, PStackItem, PTextField,
     },
@@ -47,3 +46,28 @@ const Template = (args, {argTypes}) => ({
 });
 
 export const HorizontalDivider = Template.bind({});
+
+HorizontalDivider.parameters = {
+    docs: {
+        source: {
+            code: `
+<PStack vertical>
+    <PStackItem>
+        <PTextField label="Name" placeholder="Enter name"/>
+    </PStackItem>
+    <PStackItem>
+        <PHorizontalDivider/>
+    </PStackItem>
+    <PStackItem>
+        <PTextField label="Address" placeholder="Enter address" multiline/>
+    </PStackItem>
+    <PStackItem>
+        <PHorizontalDivider/>
+    </PStackItem>
+    <PStackItem>
+        <PButton primary>Add</PButton>
+    </PStackItem>
+</PStack>`
+        },
+    },
+};

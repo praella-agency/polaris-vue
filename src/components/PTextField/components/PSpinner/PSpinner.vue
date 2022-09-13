@@ -31,6 +31,7 @@
         components: {
             PIcon,
         },
+        emits: ['click', 'change'],
         methods: {
             onClick() {
                 this.$emit('click');
@@ -41,7 +42,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

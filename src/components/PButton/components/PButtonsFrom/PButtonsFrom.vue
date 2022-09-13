@@ -3,7 +3,8 @@
         <PButton
             v-for="(prop, i) in props" :key="i"
             @click="prop.onAction"
-            v-bind="prop.rest">
+            v-bind="prop.rest"
+        >
             {{ prop.content }}
         </PButton>
     </div>

@@ -1,7 +1,7 @@
 <template>
     <div ref="container" :id="activatorId">
         <!-- @slot Filter Activator content -->
-        <slot name="activator" :activate="onActivate"></slot>
+        <slot name="activator" :activate="onActivate"/>
 
         <PPopoverOverlay
             :id="realId+'Overlay'"
@@ -42,6 +42,7 @@
 
 
 <script>
+    import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
     import { PPopoverOverlay } from '../../components/PPopover/components/PPopoverOverlay';
 
@@ -143,9 +144,9 @@
                 default: false,
             },
         },
+        emits: ['click', 'keyup', 'close', 'update:active', 'activate'],
         data() {
             return {
-                isAppended: false,
                 activeStatus: this.active,
                 container: HTMLElement,
             };
@@ -274,22 +275,17 @@
             }
         },
         mounted() {
-            // if (this.$refs.container['firstElementChild'] !== null) {
-            //     document.getElementById('popover-container').setAttribute('id', this.activatorId);
-            // }
             window.addEventListener('click', this.handlePageClick);
             window.addEventListener('touchstart', this.handlePageClick);
             document.addEventListener('keyup', this.handleKeyPress);
         },
-        beforeDestroy() {
-            if (this.isAppended) {
-                const popoverOverlay = document.getElementById(this.realId + 'Overlay');
-                if (popoverOverlay) {
-                    popoverOverlay.remove();
-                }
+        [utils.beforeDestroy]() {
+            const overlay = document.getElementById(this.realId + 'Overlay');
+            if (overlay) {
+                overlay.remove();
             }
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('click', this.handlePageClick);
             window.removeEventListener('touchstart', this.handlePageClick);
             window.removeEventListener('keyup', this.handleKeyPress);

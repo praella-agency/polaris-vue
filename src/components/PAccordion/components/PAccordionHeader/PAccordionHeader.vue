@@ -1,8 +1,8 @@
 <template>
     <h2 :id="`heading${id}`">
         <button
-            :id="`accordion-button${this['_uid']}`"
-            :class="$slots.default ? slotClassName : className"
+            :id="`accordion-button${uuid}`"
+            :class="hasSlot($slots.default) ? slotClassName : className"
             :style="style"
             @click="handleToggle(id)"
             type="button"
@@ -24,11 +24,12 @@
 </template>
 
 <script>
+    import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PHeading } from '../../../../components/PHeading';
     import { PIcon } from '../../../../components/PIcon';
 
-   export default {
+    export default {
         name: 'PAccordionHeader',
         components: {
             PHeading, PIcon,
@@ -57,6 +58,7 @@
                 type: Boolean,
             }
         },
+        emits: ['toggle'],
         computed: {
             className() {
                 return classNames(
@@ -89,6 +91,12 @@
                 }
                 return styles;
             },
+            hasSlot() {
+                return hasSlot;
+            },
+            uuid() {
+                return uuid();
+            },
         },
         methods: {
             handleToggle(id) {
@@ -97,7 +105,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

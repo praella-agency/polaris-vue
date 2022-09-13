@@ -8,14 +8,16 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PPagination,
     },
     template: `
         <PPagination
-            v-bind="$props"
+            v-bind="args"
         ></PPagination>`,
 });
 
@@ -32,3 +34,11 @@ Pagination.args = {
         console.log('Next')
     },
 }
+
+Pagination.parameters = {
+    docs: {
+        source: {
+            code: `<PPagination/>`
+        },
+    },
+};

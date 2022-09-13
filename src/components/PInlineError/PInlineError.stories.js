@@ -14,15 +14,17 @@ export default {
     }
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PInlineError,
     },
     template: `
-      <PInlineError
-          v-bind="$props"
-      />`,
+        <PInlineError
+            v-bind="args"
+        />`,
 });
 
 export const InlineError = Template.bind({});
@@ -31,3 +33,11 @@ InlineError.args = {
     message: 'Store name is required',
     fieldID: 'MyFieldID'
 }
+
+InlineError.parameters = {
+    docs: {
+        source: {
+            code: `<PInlineError message="Store name is required"/>`
+        },
+    },
+};

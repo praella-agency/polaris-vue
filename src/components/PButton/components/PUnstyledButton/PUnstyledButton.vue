@@ -21,7 +21,7 @@
         :aria-expanded="ariaExpanded"
         :aria-describedby="ariaDescribedBy"
         :aria-pressed="pressed"
-        @keydown="$emit('keyDown', $event)"
+        @keydown="$emit('keydown', $event)"
         @keyup="$emit('keyup', $event)"
         @keypress="$emit('keyPress', $event)"
     >
@@ -32,7 +32,7 @@
             <span v-if="icon" :class="iconClassName">
                 <PIcon :source="loading ? 'placeholder' : icon"/>
             </span>
-            <span v-if="!hasNoChildren" :class="childMarkupClassName" :key="disabled ? 'text-disabled' : 'text'">
+            <span v-if="hasNoChildren" :class="childMarkupClassName" :key="disabled ? 'text-disabled' : 'text'">
                 <!-- @slot The content to display content inside the button -->
                 <slot/>
             </span>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../../../ComponentHelpers';
     import { PIcon } from '../../../../components/PIcon';
     import { PSpinner } from '../../../../components/PSpinner';
     import { PUnstyledLink } from '../../../../components/PUnstyledLink';
@@ -280,7 +281,15 @@
             value: {
                 type: [String, Number, Array],
             },
+            /**
+             * Add focus border to button
+             */
+            addFocus: {
+                type: Boolean,
+                default: false,
+            },
         },
+        emits: ['click', 'focus', 'blur', 'keydown', 'keyup', 'keyPress'],
         computed: {
             className() {
                 return classNames(
@@ -298,9 +307,10 @@
                     this.size && this.size !== DEFAULT_SIZE && `Polaris-Button--${variationName('size', this.size)}`,
                     this.textAlign && `Polaris-Button--${variationName('textAlign', this.textAlign)}`,
                     this.fullWidth && 'Polaris-Button--fullWidth',
-                    this.icon && this.hasNoChildren && 'Polaris-Button--iconOnly',
+                    this.icon && !this.hasNoChildren && 'Polaris-Button--iconOnly',
                     this.isConnectedDisclosure && 'Polaris-Button--connectedDisclosure',
                     this.monochrome && 'Polaris-Button--monochrome',
+                    this.addFocus && 'Polaris-Button__FocusBorder',
                 );
             },
             disclosureIconClassName() {
@@ -320,7 +330,7 @@
                 return this.disabled || this.loading;
             },
             hasNoChildren() {
-                return (this.$slots.default || []).length === 0;
+                return hasSlot(this.$slots.default);
             },
             spinnerColor() {
                 return this.primary || this.destructive ? 'white' : 'inkLightest';
@@ -334,7 +344,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,10 +1,9 @@
 <template>
-    <div>
-        <div class="Polaris-Filters">
-            <div class="Polaris-Filters-ConnectedFilterControl__Wrapper">
-                <div class="Polaris-Filters-ConnectedFilterControl Polaris-Filters-ConnectedFilterControl--right">
-                    <PFilterItemWrapper position="center" v-if="!hideQueryField">
-                        <PTextField
+    <div class="Polaris-Filters">
+        <div class="Polaris-Filters-ConnectedFilterControl__Wrapper">
+            <div class="Polaris-Filters-ConnectedFilterControl Polaris-Filters-ConnectedFilterControl--right">
+                <PFilterItemWrapper position="center" v-if="!hideQueryField">
+                    <PTextField
                             id="Polaris-Input-Filter"
                             connected
                             labelHidden
@@ -14,34 +13,43 @@
                             @input="handleQueryChange"
                             @blur="handleQueryBlur"
                             @focus="handleQueryFocus"
-                            :value="queryValue || inputFilter"
+                            v-model="computedValue"
                             :autoFocus="focused"
                             :label="queryPlaceholder || resourceTitle || resource"
                             clearable
                             :disabled="disabled"
-                            v-on="$listeners"
-                        >
-                            <PIcon source="SearchMinor" slot="prefix"/>
-                        </PTextField>
-                    </PFilterItemWrapper>
-                    <PFilterItemWrapper v-if="$slots.hasOwnProperty('default')" position="right">
-                        <!-- @slot The content to display inline with the controls -->
-                        <slot/>
-                    </PFilterItemWrapper>
-                </div>
-                <div class="Polaris-Filters-ConnectedFilterControl__AuxiliaryContainer">
-                    <!-- @slot Add extra elements -->
-                    <slot name="auxiliaryContainer"/>
-                </div>
+                            v-bind="$attrs"
+                    >
+                        <template #prefix>
+                            <PIcon source="SearchMinor"/>
+                        </template>
+                    </PTextField>
+                </PFilterItemWrapper>
+                <PFilterItemWrapper v-if="hasSlot($slots.default)" position="right">
+                    <!-- @slot The content to display inline with the controls -->
+                    <slot/>
+                </PFilterItemWrapper>
             </div>
-            <div class="Polaris-Filters__TagsContainer" v-if="!hideTags">
-                <PTag v-for="(filter, key) in appliedFilters" :key="key" v-on="$listeners" removable :tag="filter"/>
+            <div class="Polaris-Filters-ConnectedFilterControl__AuxiliaryContainer">
+                <!-- @slot Add extra elements -->
+                <slot name="auxiliaryContainer"/>
             </div>
+        </div>
+        <div class="Polaris-Filters__TagsContainer" v-if="!hideTags && appliedFilters.length">
+            <PTag
+                    v-for="(filter, key) in appliedFilters"
+                    v-bind="$attrs"
+                    :key="key"
+                    removable
+                    :tag="filter"
+                    @remove-tag="handleTagRemove"
+            />
         </div>
     </div>
 </template>
 
 <script>
+    import { hasSlot } from '../../ComponentHelpers';
     import { PTextField } from '../../components/PTextField';
     import { PIcon } from '../../components/PIcon';
     import { PTag } from '../../components/PTag';
@@ -185,24 +193,37 @@
                 default: false,
             },
         },
+        emits: ['queryChange', 'queryClear', 'queryClearAll', 'queryBlur', 'queryFocus', 'remove-tag'],
         data() {
             return {
                 appliedFiltersCount: this.appliedFilters ? this.appliedFilters.length : 0,
             };
         },
         computed: {
-          prefix() {
-            if(this.resourceName.plural) {
-              return `${this.resourceName.plural.toLowerCase()}`;
-            } else {
-              return this.resourceName.plural;
-            }
-          },
-          resource() {
-            const resourceName = this.resourceName;
-            return resourceName.plural ? 'Filter ' + resourceName.plural.toLowerCase() :
-                (resourceName.singular ? 'Filter ' + resourceName.singular.toLowerCase() : '');
-          },
+            prefix() {
+                if (this.resourceName.plural) {
+                    return `${this.resourceName.plural.toLowerCase()}`;
+                } else {
+                    return this.resourceName.plural;
+                }
+            },
+            resource() {
+                const resourceName = this.resourceName;
+                return resourceName.plural ? 'Filter ' + resourceName.plural.toLowerCase() :
+                    (resourceName.singular ? 'Filter ' + resourceName.singular.toLowerCase() : '');
+            },
+            computedValue: {
+                get() {
+                  if (this.queryValue) {
+                    return this.queryValue;
+                  }
+                  return this.inputFilter;
+                },
+                set(value) {}
+            },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             handleQueryChange(queryValue) {
@@ -234,6 +255,12 @@
                  * Callback when the query field is focused
                  */
                 this.$emit('queryFocus');
+            },
+            handleTagRemove(key) {
+                /**
+                 * Method to remove tag
+                 */
+                this.$emit('remove-tag', key);
             },
         },
         mounted() {

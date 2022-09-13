@@ -16,14 +16,16 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PThumbnail,
     },
     template: `
         <PThumbnail
-            v-bind="$props"
+            v-bind="args"
         ></PThumbnail>`,
 });
 
@@ -33,3 +35,11 @@ Thumbnail.args = {
     alt: 'Black choker necklace',
     source: 'https://burst.shopifycdn.com/photos/black-leather-choker-necklace_373x@2x.jpg',
 }
+
+Thumbnail.parameters= {
+    docs: {
+        source: {
+            code: `<PThumbnail/>`
+        },
+    },
+};

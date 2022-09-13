@@ -11,6 +11,7 @@ import { PStackItem } from '../PStack/components/PStackItem';
 import { PRadioButton } from '../PRadioButton';
 import { PTextField } from '../PTextField';
 import { PButtonGroup } from '../PButtonGroup';
+import { PPagination } from '../PPagination';
 import argTypes from './args';
 
 export default {
@@ -19,11 +20,13 @@ export default {
     argTypes: argTypes,
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PIndexTable, PCard, PLink, PThumbnail, PPopover, PButton, POptionList, PBadge, PStack, PStackItem, PRadioButton,
-        PTextField, PButtonGroup,
+        PTextField, PButtonGroup,PPagination
     },
     data() {
         return {
@@ -63,12 +66,22 @@ const Template = (args, {argTypes}) => ({
             active1: false,
             selected: [],
             tag: 'Andres',
+            pagination: {
+                hasPrevious:true,
+                hasNext: true,
+                onNext:()=>{
+                    alert('Next');
+                },
+                onPrevious:()=>{
+                    alert('Previous');
+                }
+            },
         };
     },
     template: `
-        <PCard sectioned>
+        <PCard>
             <PIndexTable
-                v-bind="$props"
+                v-bind="args"
                 :rows="customers"
                 :itemCount="customers.length"
                 :appliedFilters="[
@@ -105,69 +118,75 @@ const Template = (args, {argTypes}) => ({
                     </PBadge>
                 </template>
                 
-                <PButtonGroup slot="filterOptions" segmented>
-                    <PPopover
-                        id="popover_1"
-                        :active="active"
-                        preferred-alignment="right"
-                        @close="() => {this.active = false;}"
-                        full-width
-                    >
-                        <PButton slot="activator" @click="toggleRatingFilter"
-                                 :disclosure="active ? 'up' : 'down'">
-                            Product Vendor
-                        </PButton>
-                        <PCard 
-                            sectioned
-                            slot="content"
+                <template #filterOptions>
+                    <PButtonGroup segmented>
+                        <PPopover
+                            id="popover_1"
+                            :active="active"
+                            preferred-alignment="right"
+                            @close="() => {this.active = false;}"
+                            full-width
                         >
-                            <PStack
-                                vertical
-                            >
-                                <PStackItem>
-                                    <PRadioButton id="demo-admin" name="vendor" label="demo-admin"/>
-                                </PStackItem>
-                                <PStackItem>
-                                    <PRadioButton id="demo-user" name="vendor" label="demo-user"/>
-                                </PStackItem>
-                                <PStackItem>
-                                    <PButton plain monochrome remove-underline>Clear</PButton>
-                                </PStackItem>
-                            </PStack>
-                        </PCard>
-                    </PPopover>                    
+                            <template #activator>
+                                <PButton
+                                    @click="toggleRatingFilter"
+                                    :disclosure="active ? 'up' : 'down'"
+                                >
+                                    Product Vendor
+                                </PButton>
+                            </template>
+                            <template #content>
+                                <PCard sectioned>
+                                    <PStack vertical>
+                                        <PStackItem>
+                                            <PRadioButton id="demo-admin" name="vendor" label="demo-admin"/>
+                                        </PStackItem>
+                                        <PStackItem>
+                                            <PRadioButton id="demo-user" name="vendor" label="demo-user"/>
+                                        </PStackItem>
+                                        <PStackItem>
+                                            <PButton plain monochrome remove-underline>Clear</PButton>
+                                        </PStackItem>
+                                    </PStack>
+                                </PCard>
+                            </template>
+                        </PPopover>
 
-                    <PPopover
-                        id="popover_2"
-                        :active="active1"
-                        preferred-alignment="right"
-                        @close="() => {this.active1 = false;}"
-                        full-width
-                    >
-                        <PButton slot="activator" @click="toggleRatingFilter1"
-                                 :disclosure="active1 ? 'up' : 'down'">
-                            Tagged With
-                        </PButton>
-                        <PCard 
-                            sectioned                                 
-                            slot="content"
+                        <PPopover
+                            id="popover_2"
+                            :active="active1"
+                            preferred-alignment="right"
+                            @close="() => {this.active1 = false;}"
+                            full-width
                         >
-                            <PStack
-                                vertical
-                                spacing="tight"
-                            >
-                                <PStackItem>
-                                    <PTextField id="tag" type="text" v-model="tag"/>
-                                </PStackItem>
-                                <PStackItem>
-                                    <PButton plain monochrome remove-underline>Clear</PButton>
-                                </PStackItem>
-                            </PStack>
-                        </PCard>
-                    </PPopover>
-                </PButtonGroup>
+                            <template #activator>
+                                <PButton 
+                                    @click="toggleRatingFilter1"
+                                    :disclosure="active1 ? 'up' : 'down'"
+                                >
+                                    Tagged With
+                                </PButton>
+                            </template>
+                            <template #content>
+                                <PCard sectioned>
+                                    <PStack
+                                        vertical
+                                        spacing="tight"
+                                    >
+                                        <PStackItem>
+                                            <PTextField id="tag" type="text" v-model="tag"/>
+                                        </PStackItem>
+                                        <PStackItem>
+                                            <PButton plain monochrome remove-underline>Clear</PButton>
+                                        </PStackItem>
+                                    </PStack>
+                                </PCard>
+                            </template>
+                        </PPopover>
+                    </PButtonGroup>
+                </template>
 
-                <template slot="auxiliaryContainer">
+                <template #auxiliaryContainer>
                     <div style="padding-left: 8px;">
                         <PButton 
                             disabled
@@ -176,6 +195,9 @@ const Template = (args, {argTypes}) => ({
                             Saved
                         </PButton>
                     </div>
+                </template>
+                <template #pagination :pagiantion="pagination">
+                    <PPagination v-bind="pagination"/>
                 </template>
             </PIndexTable>
         </PCard>`,
@@ -262,13 +284,13 @@ CustomisableColumn.args = {
     ],
     lastColumnSticky: true,
     pagination: {
-        hasPrevious: true,
-        hasNext: true,
-        onNext: () => {
-            alert('Next');
+        table: {
+            type: {
+                summary: null,
+            },
         },
-        onPrevious: () => {
-            alert('Previous');
+        control: {
+            type: null,
         },
     },
 }
@@ -277,7 +299,7 @@ CustomisableColumn.parameters = {
     docs: {
         source: {
             code: `
-<PCard sectioned>
+<PCard>
     <PIndexTable
         :rows="[
             {
@@ -379,16 +401,6 @@ CustomisableColumn.parameters = {
             },
         ]"
         :lastColumnSticky="true"
-        :pagination="{
-            hasPrevious: true,
-            hasNext: true,
-            onNext: () => {
-                alert('Next');
-            },
-            onPrevious: () => {
-                alert('Previous');
-            },
-        }"
     >
         <template v-slot:item.image="{ item }">
             <div style="height: 93px; display: block; padding: 15px 0 15px 0;">
@@ -415,37 +427,33 @@ CustomisableColumn.parameters = {
             </PBadge>
         </template>
         
-        <template slot="filterOptions">
+        <template #filterOptions>
             <PPopover
                 id="popover_1"
                 :active="active"
                 preferred-alignment="right"
                 full-width
             >
-                <PButton 
-                    slot="activator"
-                    :disclosure="active ? 'up' : 'down'"
-                >
-                    Product Vendor
-                </PButton>
-                <PCard 
-                    sectioned
-                    slot="content"
-                >
-                    <PStack
-                        vertical
-                    >
-                        <PStackItem>
-                            <PRadioButton id="demo-admin" name="vendor" label="demo-admin"/>
-                        </PStackItem>
-                        <PStackItem>
-                            <PRadioButton id="demo-user" name="vendor" label="demo-user"/>
-                        </PStackItem>
-                        <PStackItem>
-                            <PButton plain monochrome>Clear</PButton>
-                        </PStackItem>
-                    </PStack>
-                </PCard>
+                <template #activator>
+                    <PButton :disclosure="active ? 'up' : 'down'">
+                        Product Vendor
+                    </PButton>
+                </template>
+                <template #content>
+                    <PCard sectioned>
+                        <PStack vertical>
+                            <PStackItem>
+                                <PRadioButton id="demo-admin" name="vendor" label="demo-admin"/>
+                            </PStackItem>
+                            <PStackItem>
+                                <PRadioButton id="demo-user" name="vendor" label="demo-user"/>
+                            </PStackItem>
+                            <PStackItem>
+                                <PButton plain monochrome>Clear</PButton>
+                            </PStackItem>
+                        </PStack>
+                    </PCard>
+                </template>
             </PPopover>                    
 
             <PPopover
@@ -454,32 +462,30 @@ CustomisableColumn.parameters = {
                 preferred-alignment="right"
                 full-width
             >
-                <PButton
-                    slot="activator"
-                    :disclosure="active1 ? 'up' : 'down'"
-                >
-                    Tagged With
-                </PButton>
-                <PCard 
-                    sectioned                                 
-                    slot="content"
-                >
-                    <PStack
-                        vertical
-                        spacing="tight"
-                    >
-                        <PStackItem>
-                            <PTextField id="tag" type="text" v-model="tag"/>
-                        </PStackItem>
-                        <PStackItem>
-                            <PButton plain monochrome>Clear</PButton>
-                        </PStackItem>
-                    </PStack>
-                </PCard>
+                <template #activator>
+                    <PButton :disclosure="active1 ? 'up' : 'down'">
+                        Tagged With
+                    </PButton>
+                </template>
+                <template #content>
+                    <PCard sectioned>
+                        <PStack
+                            vertical
+                            spacing="tight"
+                        >
+                            <PStackItem>
+                                <PTextField id="tag" type="text" v-model="tag"/>
+                            </PStackItem>
+                            <PStackItem>
+                                <PButton plain monochrome>Clear</PButton>
+                            </PStackItem>
+                        </PStack>
+                    </PCard>
+                </template>
             </PPopover>
         </template>
 
-        <template slot="auxiliaryContainer">
+        <template #auxiliaryContainer>
             <div style="padding-left: 8px;">
                 <PButton 
                     disabled
@@ -488,6 +494,9 @@ CustomisableColumn.parameters = {
                     Saved
                 </PButton>
             </div>
+        </template>
+        <template #pagination :pagiantion="pagination">
+            <PPagination v-bind="pagination"/>
         </template>
     </PIndexTable>
 </PCard>`

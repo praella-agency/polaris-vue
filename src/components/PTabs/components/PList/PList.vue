@@ -19,7 +19,6 @@
 
 <script>
     import { PItem } from '../../../../components/PTabs/components/PItem';
-    import { TabDescriptor } from '../../../../types/tabs';
 
     export default {
         name: 'PList',
@@ -36,9 +35,10 @@
                 default: () => ([]),
             },
         },
+        emits: ['keypress', 'click'],
         methods: {
             handleKeyDown(event) {
-                const { key } = event;
+                const {key} = event;
 
                 if (key === 'ArrowLeft' || key === 'ArrowRight') {
                     event.preventDefault();
@@ -48,7 +48,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

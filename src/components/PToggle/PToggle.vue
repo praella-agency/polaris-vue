@@ -9,12 +9,14 @@
           @slot Label
           @type String
         -->
-        <slot v-if="$slots.label" name="label"/>
-        <template v-else>{{ label }}</template>
+        <slot name="label">
+            {{ label }}
+        </slot>
     </div>
 </template>
 
 <script>
+    import { uuid } from '../../ComponentHelpers';
 
     /**
      * <br/>
@@ -37,7 +39,7 @@
              */
             id: {
                 type: [String, Number],
-                default: `PolarisTextField${new Date().getUTCMilliseconds()}`,
+                default: `PolarisTextField${uuid()}`,
             },
             /**
              * propsClass of toggle.
@@ -67,6 +69,7 @@
                 default: false,
             },
         },
+        emits: ['change'],
         methods: {
             onChange(e) {
                 const target = e.target || e.srcElement;

@@ -5,16 +5,17 @@ import * as components from './components';
 import PToast from './components/PToast';
 import PLoading from './components/PLoading';
 import { PTooltip } from './components/PTooltip';
+import {ClickOutSideDirective} from './components/PClickOutSide';
 
 // install function executed by Vue.use()
 const install = function installPolarisVue(Vue) {
   Object.entries(components).forEach(([componentName, component]) => {
     Vue.component(componentName, component);
   });
-
   Vue.use(PToast);
   Vue.use(PLoading);
   Vue.use(PTooltip);
+  Vue.directive('p-click-outside', ClickOutSideDirective(Vue));
 };
 
 // Create module definition for Vue.use()

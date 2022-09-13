@@ -48,6 +48,7 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { PFrame } from '../../components/PFrame';
     import { PTopBar } from '../../components/PTopBar';
     import { PDisplayText } from '../../components/PDisplayText';
@@ -81,15 +82,6 @@
             PDisplayText, PLayout, PStack, PStackItem, PList, PListItem, PLink, PCard, PCardHeader, PCardSection,
             PHeading, PTextContainer, PCollapsible, PButton, PFrame, PTopBar,
         },
-        filters: {
-            trimContent(content) {
-                content = content.trim();
-                if (content.startsWith('*')) {
-                    content = content.replace('*', '');
-                }
-                return content;
-            },
-        },
         methods: {
             formatDate(date) {
                 return dayjs(date).format('DD MMMM YYYY');
@@ -101,15 +93,27 @@
             handleToggle(key) {
                 if (key > 2) {
                     if (!this.isOpen[key] || this.isOpen[key] === false) {
-                        this.$set(this.isOpen, key, true);
+                        if (utils.isVue3) {
+                            this.isOpen[key] = true;
+                        } else {
+                            this.$set(this.isOpen, key, true);
+                        }
                     } else {
-                        this.$set(this.isOpen, key, false);
+                        if (utils.isVue3) {
+                            this.isOpen[key] = false;
+                        } else {
+                            this.$set(this.isOpen, key, false);
+                        }
                     }
                 }
             },
             handleSearchResultsDismiss() {
                 this.releases.forEach((item, index) => {
-                    this.$set(this.isOpen, index, false);
+                    if (utils.isVue3) {
+                        this.isOpen[index] = false;
+                    } else {
+                        this.$set(this.isOpen, index, false);
+                    }
                 });
             },
             searchRelease(value) {
@@ -125,14 +129,26 @@
                             /* tslint:disable-next-line */
                             item['body'].toLowerCase().includes(value.toLowerCase())
                         ) {
-                            this.$set(this.isOpen, index, true);
+                            if (utils.isVue3) {
+                                this.isOpen[index] = true;
+                            } else {
+                                this.$set(this.isOpen, index, true);
+                            }
                         } else {
-                            this.$set(this.isOpen, index, false);
+                            if (utils.isVue3) {
+                                this.isOpen[index] = false;
+                            } else {
+                                this.$set(this.isOpen, index, false);
+                            }
                         }
                     });
                 } else {
                     this.releases.forEach((item, index) => {
-                        this.$set(this.isOpen, index, false);
+                        if (utils.isVue3) {
+                            this.isOpen[index] = false;
+                        } else {
+                            this.$set(this.isOpen, index, false);
+                        }
                     });
                 }
             },

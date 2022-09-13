@@ -32,14 +32,16 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PTag,
     },
     template: `
-        <PTag 
-            v-bind="$props"
+        <PTag
+            v-bind="args"
         ></PTag>`,
 });
 
@@ -51,3 +53,11 @@ Tag.args = {
         key: 'test',
     },
 }
+Tag.parameters= {
+    docs: {
+        source: {
+            code: `<PTag/>`
+        },
+    },
+};
+

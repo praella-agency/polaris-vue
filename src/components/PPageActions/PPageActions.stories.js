@@ -95,14 +95,16 @@ export default {
     },
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PPageActions,
     },
     template: `
-        <PPageActions 
-            v-bind="$props" 
+        <PPageActions
+            v-bind="args"
         />`,
 });
 
@@ -131,3 +133,11 @@ PageActions.args = {
         },
     ],
 }
+
+PageActions.parameters = {
+    docs: {
+        source: {
+            code: `<PPageActions/>`
+        },
+    },
+};

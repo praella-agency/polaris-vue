@@ -16,12 +16,12 @@
             </span>
         </label>
         <div
-            v-if="typeof error === 'string' || helpText || $slots.helpText"
+            v-if="typeof error === 'string' || helpText || hasSlot($slots.helpText)"
             class="Polaris-Choice__Descriptions"
         >
             <PFieldError v-if="typeof error === 'string'" :error="error"/>
             <div
-                v-if="helpText || $slots.helpText"
+                v-if="helpText || hasSlot($slots.helpText)"
                 class="Polaris-Choice__HelpText"
                 :id="id+'HelpText'"
             >
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PFieldError } from '../../components/PFieldError';
 
@@ -81,6 +82,7 @@
                 type: [String, Boolean],
             },
         },
+        emits: ['click'],
         computed: {
             className() {
                 return classNames(
@@ -88,6 +90,9 @@
                     this.labelHidden && 'Polaris-Choice--labelHidden',
                     this.disabled && 'Polaris-Choice--disabled',
                 );
+            },
+            hasSlot() {
+                return hasSlot;
             },
         },
     }

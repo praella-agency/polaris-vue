@@ -8,7 +8,7 @@
              @mouseover="toggleTimer(true)"
              @mouseleave="toggleTimer(false)">
           {{ message }}
-          <button v-if="dismissible" class="Polaris-Frame-Toast__CloseButton" @click="whenClicked">
+          <button v-if="dismissible" class="Polaris-Frame-Toast__CloseButton" @click="closeToast">
             <PIcon source="MobileCancelMajor"></PIcon>
           </button>
         </div>
@@ -19,10 +19,8 @@
 <script>
 import {PIcon} from '../../../components/PIcon';
 import Timer from './timer';
-import mitt from 'mitt';
 import {classNames} from '../../../utilities/css';
-
-const eventBus = mitt();
+import utils from "../../../utilities";
 
 const Positions = Object.freeze({
   TOP_RIGHT: 'top-right',
@@ -118,6 +116,9 @@ export default {
       type: Function,
       default: () => ({}),
     },
+    eventBus: {
+      type: Object
+    }
   },
   data() {
     return {
@@ -220,7 +221,8 @@ export default {
       // Timeout for the animation complete before destroying
       setTimeout(() => {
         this.onDismiss.apply(null, arguments);
-        this.$destroy();
+        // this.$`utils.destroyed`;
+        // this.$destroy();
         removeElement(this.$el);
       }, 150);
     },
@@ -230,14 +232,11 @@ export default {
       }
       newVal ? this.timer.pause() : this.timer.resume();
     },
-    whenClicked() {
+    closeToast() {
       if (!this.dismissible) {
         return;
       }
       this.onClick.apply(null, arguments);
-      this.dismiss();
-    },
-    closeToast() {
       this.dismiss();
     },
   },
@@ -246,12 +245,13 @@ export default {
   },
   mounted() {
     this.showNotice();
-    eventBus.on('toast-clear', this.dismiss);
+    this.eventBus.on('toast-clear', () => {
+      this.dismiss();
+    });
   },
-  beforeDestroy() {
-    eventBus.off('toast-clear', this.dismiss);
+  [utils.beforeDestroy]() {
+    this.eventBus.off('toast-clear', this.dismiss);
   },
 };
 </script>
-<style scoped>
-</style>
+

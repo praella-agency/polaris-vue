@@ -48,15 +48,17 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
     components: {
         PActionList,
     },
+    setup() {
+        return { args };
+    },
     template: `
         <PActionList 
-            v-bind="$props"
-        ></PActionList>`,
+            v-bind="args"
+        />`,
 });
 
 export const ActionList = Template.bind({});
@@ -96,3 +98,11 @@ ActionList.args = {
         },
     ],
 }
+
+ActionList.parameters = {
+    docs: {
+        source: {
+            code: `<PActionList/>`
+        },
+    },
+};

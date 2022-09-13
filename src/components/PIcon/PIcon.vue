@@ -1,5 +1,5 @@
 <template>
-  <span :class="className" :aria-label="accessibilityLabel" @click="handleClick" :style="clickable">
+  <span :class="className" :aria-label="accessibilityLabel" @click="handleClick" :style="clickableStyles">
     <div v-if="sourceType === 'placeholder'" class="Polaris-Icon__Placeholder"/>
     <img
         v-else-if="sourceType === 'external'"
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
     import { DeprecatedIcons } from './index';
     import * as Icon from '../../assets/shopify-polaris-icons';
     import { classNames, variationName } from '../../utilities/css';
@@ -59,11 +60,20 @@
             accessibilityLabel: {
                 type: String,
                 default: null
+            },
+
+            /**
+             * Shows pointer cursor on icon for clickable.
+             */
+            clickable: {
+                type: Boolean,
+                default: true
             }
         },
+        emits: ['click'],
         data() {
             return {
-                clickable: {}
+                clickableStyles: {}
             }
         },
         computed: {
@@ -108,14 +118,30 @@
                  * Handle click event
                  */
                 this.$emit('click', event);
+            },
+            attrs () {
+              const onRE = /^on[^a-z]/
+              const attributes = {}
+              const listeners = {}
+              const { $attrs } = this
+
+              for (const property in $attrs) {
+                if (onRE.test(property)) {
+                  listeners[property] = $attrs[property]
+                } else {
+                  attributes[property] = $attrs[property]
+                }
+              }
+
+              return { attributes, listeners }
             }
         },
         mounted() {
-            if (this.$listeners.click) {
-                this.clickable = {
-                    cursor: 'pointer',
-                };
-            }
+          if (this.clickable) {
+              this.clickableStyles = {
+                  cursor: 'pointer',
+              };
+          }
         }
     }
 </script>

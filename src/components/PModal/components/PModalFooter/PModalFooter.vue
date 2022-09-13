@@ -6,26 +6,32 @@
                     <slot/>
                 </PStackItem>
                 <PStackItem v-if="primaryAction || secondaryActions">
-                    <PButtonGroup v-if="primaryAction || secondaryActions.length > 0">
-                        <PButton
+                    <div class="Polaris-ButtonGroup" v-if="primaryAction || secondaryActions.length > 0">
+                        <div
+                            class="Polaris-ButtonGroup__Item"
                             v-for="(secondaryAction, secondaryActionIndex) in secondaryActions"
                             :key="`secondaryAction-${secondaryActionIndex}`"
-                            :destructive="secondaryAction.destructive"
-                            :disabled="secondaryAction.disabled"
-                            v-on="secondaryAction.onAction ? { click: secondaryAction.onAction } : {}"
                         >
-                            {{ secondaryAction.content }}
-                        </PButton>
-                        <PButton
-                            v-if="Object.keys(primaryAction).length > 0"
-                            :disabled="primaryAction.disabled && primaryAction.disabled"
-                            :destructive="primaryAction.destructive"
-                            :primary="!primaryAction.destructive"
-                            v-on="primaryAction.onAction ? { click: primaryAction.onAction } : {}"
-                        >
-                            {{ primaryAction.content }}
-                        </PButton>
-                    </PButtonGroup>
+                            <PButton
+                                :destructive="secondaryAction.destructive"
+                                :disabled="secondaryAction.disabled"
+                                v-on="secondaryAction.onAction ? { click: secondaryAction.onAction } : {}"
+                            >
+                                {{ secondaryAction.content }}
+                            </PButton>
+                        </div>
+                        <div class="Polaris-ButtonGroup__Item">
+                            <PButton
+                                v-if="Object.keys(primaryAction).length > 0"
+                                :disabled="primaryAction.disabled && primaryAction.disabled"
+                                :destructive="primaryAction.destructive"
+                                :primary="!primaryAction.destructive"
+                                v-on="primaryAction.onAction ? { click: primaryAction.onAction } : {}"
+                            >
+                                {{ primaryAction.content }}
+                            </PButton>
+                        </div>
+                    </div>
                 </PStackItem>
             </PStack>
         </div>

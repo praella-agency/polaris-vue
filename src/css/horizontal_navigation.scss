@@ -1,0 +1,22 @@
+.Polaris-Tabs__Wrapper.Polaris-HorizontalNavigation__Wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 3.2rem;
+  .Polaris-HorizontalNavigation-Menu {
+    flex: 1 1 auto;
+    .Polaris-Tabs__Tab {
+      padding: 0;
+      .Polaris-Tabs__Title {
+        padding: 1.6rem;
+        &::before {
+          bottom: 0;
+        }
+      }
+    }
+  }
+  .Polaris-HorizontalNavigation__connected-right {
+    display: flex;
+    gap: 1.6rem;
+    margin-right: 1.6rem;
+  }
+}

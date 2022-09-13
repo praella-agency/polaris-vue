@@ -23,7 +23,9 @@
                              data-polaris-scrollable="true">
                             <div class="Polaris-Tooltip-TooltipOverlay">
                                 <div class="Polaris-Tooltip-TooltipOverlay__Content" style="min-height: 28px;">
-                                    <slot name="tooltipContent"/>
+                                    <slot name="tooltipContent">
+                                        {{ tooltipContent }}
+                                    </slot>
                                 </div>
                             </div>
                         </div>
@@ -35,6 +37,7 @@
 </template>
 
 <script>
+    import utils from "../../utilities";
     import { classNames } from '../../utilities/css';
     import { PTooltipOverlay } from '../../components/PTooltip/components/PTooltipOverlay';
 
@@ -128,7 +131,14 @@
                 type: Boolean,
                 default: false,
             },
+            /**
+             * Enable positioning.
+             */
+            tooltipContent: {
+                type: [String, Number, Object, Array, Boolean],
+            },
         },
+        emits: ['close', 'activate'],
         data() {
             return {
                 isAppended: false,
@@ -216,21 +226,15 @@
             window.addEventListener('click', this.handlePageClick);
             window.addEventListener('touchstart', this.handlePageClick);
         },
-        beforeDestroy() {
-            if (this.isAppended) {
-                const popoverOverlay = document.getElementById(this.realId + 'Overlay');
-                if (popoverOverlay) {
-                    popoverOverlay.remove();
-                }
+        [utils.beforeDestroy]() {
+            const popoverOverlay = document.getElementById(this.realId + 'Overlay');
+            if (popoverOverlay) {
+                popoverOverlay.remove();
             }
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('click', this.handlePageClick);
             window.removeEventListener('touchstart', this.handlePageClick);
         },
     }
 </script>
-
-<style scoped>
-
-</style>

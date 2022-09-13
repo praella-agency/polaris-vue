@@ -112,6 +112,8 @@
 </template>
 
 <script>
+    import utils from '../../utilities';
+    import { uuid } from '../../ComponentHelpers';
     import { classNames, variationName } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
     import { PStack } from '../../components/PStack';
@@ -122,9 +124,7 @@
     import { PDropZoneInput } from '../../components/PDropZone/components/PDropZoneInput';
     import { PLabelled } from '../../components/PLabelled';
     import { PThumbnail } from '../../components/PThumbnail';
-    import { Action } from '../../types';
     import { NoteMinor } from '../../assets/shopify-polaris-icons';
-    import ObjectValidator from '../../utilities/validators/ObjectValidator';
     import {
         fileAccepted,
         isServer,
@@ -177,7 +177,7 @@
              */
             id: {
                 type: [Number, String],
-                default: `PDropZone${new Date().getUTCMilliseconds()}`,
+                default: `PDropZone${uuid()}`,
             },
             /**
              * Allowed file types
@@ -382,6 +382,7 @@
                 default: `or drop files to upload`,
             },
         },
+        emits: ['focus', 'blur'],
         data() {
             return {
                 dragTargets: [],
@@ -595,7 +596,7 @@
             dropNode.addEventListener('dragleave', this.handleDragLeave);
             window.addEventListener('resize', this.adjustSize);
         },
-        destroyed() {
+        [utils.destroyed]() {
             const dropNode = this.dropOnPage ? document : this.$refs.node;
             if (!dropNode) {
                 return;

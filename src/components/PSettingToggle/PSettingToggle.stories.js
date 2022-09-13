@@ -54,8 +54,10 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PSettingToggle, PTextStyle,
     },
@@ -64,17 +66,18 @@ const Template = (args, { argTypes }) => ({
             enable: false,
         }
     },
-    template: `  
-      <PSettingToggle
-          :action="{
-            contentStatus: enable ? 'Deactivate' : 'Activate',
-            onAction: toggleStatus,
-          }"
-          :enabled="enable"
-          v-bind="$props"
-      >
-        This setting is <PTextStyle variation="strong">{{ enable ? 'activated' : 'deactivated' }}</PTextStyle>
-      </PSettingToggle>`,
+    template: `
+        <PSettingToggle
+            :action="{
+                contentStatus: enable ? 'Deactivate' : 'Activate',
+                onAction: toggleStatus,
+            }"
+            :enabled="enable"
+            v-bind="args"
+        >
+            This setting is
+            <PTextStyle variation="strong">{{ enable ? 'activated' : 'deactivated' }}</PTextStyle>
+        </PSettingToggle>`,
     methods: {
         toggleStatus() {
             this.enable = !this.enable;
@@ -83,3 +86,10 @@ const Template = (args, { argTypes }) => ({
 });
 
 export const SettingToggle = Template.bind({});
+SettingToggle.parameters= {
+    docs: {
+        source: {
+            code: `<PSettingToggle/>`
+        },
+    },
+};

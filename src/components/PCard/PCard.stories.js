@@ -98,27 +98,29 @@ export default {
     },
 }
 
-const Template = (arg, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
-        PCard,PCardHeader,PCardSection
+        PCard, PCardHeader, PCardSection
     },
     template: `
-      <PCard v-bind="$props">
-        <PCardHeader
-          title="Sales"
-          shortDescription="Sales Report"
-          :actions="[
+        <PCard v-bind="args">
+            <PCardHeader
+                title="Sales"
+                shortDescription="Sales Report"
+                :actions="[
               {
                 content: 'Total Sales',
                 to: '/to-route',
               }
           ]"
-        />
-        <PCardSection>
-          View a summary of your online store’s performance.
-        </PCardSection>
-      </PCard>`,
+            />
+            <PCardSection>
+                View a summary of your online store’s performance.
+            </PCardSection>
+        </PCard>`,
 });
 
 export const Card = Template.bind({});
@@ -127,28 +129,47 @@ Card.args = {
     sectioned: false
 }
 
-const Template1 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+Card.parameters = {
+    docs: {
+        source: {
+            code: `
+<PCard>
+    <PCardHeader
+        title="Sales"
+        shortDescription="Sales Report"
+    />
+    <PCardSection>
+        View a summary of your online store’s performance.
+    </PCardSection>
+</PCard>`
+        },
+    },
+};
+
+const Template1 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PCard, PCardSection, PList, PListItem, PCardHeader
     },
     template: `
-      <PCard v-bind="$props">
-          <PCardHeader title="Products"/>
-          <PCardSection>
-            <PList>
-              <PListItem>Samsung</PListItem>
-              <PListItem>Apple</PListItem>
-            </PList>
-          </PCardSection>
-    
-          <PCardSection :subdued="subdued" title="New Products">
-            <PList>
-              <PListItem>Google</PListItem>
-              <PListItem>Oneplus</PListItem>
-            </PList>
-          </PCardSection>
-      </PCard>`,
+        <PCard v-bind="args">
+            <PCardHeader title="Products"/>
+            <PCardSection>
+                <PList>
+                    <PListItem>Samsung</PListItem>
+                    <PListItem>Apple</PListItem>
+                </PList>
+            </PCardSection>
+
+            <PCardSection :subdued="true" title="New Products">
+                <PList>
+                    <PListItem>Google</PListItem>
+                    <PListItem>Oneplus</PListItem>
+                </PList>
+            </PCardSection>
+        </PCard>`,
 });
 
 export const CardWithSubdued = Template1.bind({});
@@ -157,8 +178,34 @@ CardWithSubdued.args = {
     subdued: true,
 }
 
-const Template2 = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+CardWithSubdued.parameters = {
+    docs: {
+        source: {
+            code: `
+<PCard>
+    <PCardHeader title="Products"/>
+    <PCardSection>
+        <PList>
+            <PListItem>Samsung</PListItem>
+            <PListItem>Apple</PListItem>
+        </PList>
+    </PCardSection>
+
+    <PCardSection title="New Products">
+        <PList>
+            <PListItem>Google</PListItem>
+            <PListItem>Oneplus</PListItem>
+        </PList>
+    </PCardSection>
+</PCard>`
+        },
+    },
+};
+
+const Template2 = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PCard, PCardHeader, PPopover, PButton, PButtonGroup, PActionList, PCardSection, PTextContainer, PResourceList,
         PResourceListItem, PStack, PStackItem, PList, PListItem, POptionList
@@ -183,89 +230,94 @@ const Template2 = (args, {argTypes}) => ({
         };
     },
     template: `
-      <PCard v-bind="$props">
-        <PCardHeader
-            title="Sales"
-            shortDescription="Sales Report"
-            :actions="[
+        <PCard v-bind="args">
+            <PCardHeader
+                title="Sales"
+                shortDescription="Sales Report"
+                :actions="[
                 {
                 content: 'Total Sales',
                 onAction: handleActionClick,
                 },
             ]"
-            v-slot:children
-        >
-            <PPopover
-                id="CardHeaderPopover"
-                :active="statusFilterActive"
-                preferredAlignment="right"
-                @close="handlePopoverClose"
+                #children
             >
-              <PButton
-                  slot="activator"
-                  plain
-                  :disclosure="statusFilterActive ? 'up' : 'down'"
-                  @click="handlePopoverOpen"
-              >
-                Status
-              </PButton>
-              <PActionList slot="content"
-                           :items="[
-                  {
-                    content: 'Gross Sales'
-                  },
-                  {
-                    content: 'Net Sales'
-                  }
-              ]"
-              />
-            </PPopover>
-        </PCardHeader>
-        <PCardSection>
-            <PTextContainer>
-              You can use sales reports to see information about your customers’ orders
-              based on criteria such as sales over time, by channel, or by staff.
-            </PTextContainer>
-        </PCardSection>
+                <PPopover
+                    id="CardHeaderPopover"
+                    :active="statusFilterActive"
+                    preferredAlignment="right"
+                    @close="handlePopoverClose"
+                >
+                    <template #activator>
+                        <PButton
+                            plain
+                            :disclosure="statusFilterActive ? 'up' : 'down'"
+                            @click="handlePopoverOpen"
+                        >
+                            Status
+                        </PButton>
+                    </template>
+                    <template #content>
+                        <PActionList 
+                            :items="[
+                                {
+                                    content: 'Gross Sales'
+                                },
+                                {
+                                    content: 'Net Sales'
+                                }
+                            ]"
+                        />
+                    </template>
+                </PPopover>
+            </PCardHeader>
+            <PCardSection>
+                <PTextContainer>
+                    You can use sales reports to see information about your customers’ orders
+                    based on criteria such as sales over time, by channel, or by staff.
+                </PTextContainer>
+            </PCardSection>
 
-        <PCardSection title="Total Sales Breakdown">
-            <PResourceList
-                :resource-name="{singular: 'Sale', plural: 'Sales'}"
-                :hideFilters="true"
-                :showHeader="false"
-            >
-              <PResourceListItem
-                  v-for="(item, key) in items"
-                  :key="key"
-                  :id="item.id"
-              >
-                <PStack>
-                  <PStackItem fill>{{ item.sales }}</PStackItem>
-                  <PStackItem>{{ item.amount }}</PStackItem>
-                </PStack>
-              </PResourceListItem>
-            </PResourceList>
-        </PCardSection>
+            <PCardSection title="Total Sales Breakdown">
+                <PResourceList
+                    :resource-name="{singular: 'Sale', plural: 'Sales'}"
+                    :hideFilters="true"
+                    :showHeader="false"
+                >
+                    <PResourceListItem
+                        v-for="(item, key) in items"
+                        :key="key"
+                        :id="item.id"
+                    >
+                        <PStack>
+                            <PStackItem fill>{{ item.sales }}</PStackItem>
+                            <PStackItem>{{ item.amount }}</PStackItem>
+                        </PStack>
+                    </PResourceListItem>
+                </PResourceList>
+            </PCardSection>
 
-        <PCardSection title="Deactivated reports" subdued>
-            <PList>
-              <PListItem>Payouts</PListItem>
-              <PListItem>Total Sales By Channel</PListItem>
-            </PList>
-        </PCardSection>
-        
-        <PCardSection title="Note">
-            <PTextContainer>
-              The sales reports are available only if your store is on the Shopify plan
-              or higher.
-            </PTextContainer>
-        </PCardSection>
-        
-        <PButtonGroup slot="footer">
-            <PButton @click="handleSecondaryButton">Dismiss</PButton>
-            <PButton primary @click="handlePrimaryButton">Export Report</PButton>
-        </PButtonGroup>
-      </PCard>`,
+            <PCardSection title="Deactivated reports" subdued>
+                <PList>
+                    <PListItem>Payouts</PListItem>
+                    <PListItem>Total Sales By Channel</PListItem>
+                </PList>
+            </PCardSection>
+
+            <PCardSection title="Note">
+                <PTextContainer>
+                    The sales reports are available only if your store is on the Shopify plan
+                    or higher.
+                </PTextContainer>
+            </PCardSection>
+
+            <template #footer>
+                <PButtonGroup>
+                    <PButton @click="handleSecondaryButton">Dismiss</PButton>
+                    <PButton primary @click="handlePrimaryButton">Export Report</PButton>
+                </PButtonGroup>
+            </template>
+        </PCard>`,
     methods: {
         handleActionClick() {
             alert('Total Sales');
@@ -292,32 +344,23 @@ AllElements.args = {
 }
 
 AllElements.parameters = {
-    docs:{
+    docs: {
         source: {
             code: `
-<PCard :subdued="true">
-    <PCardHeader
-        title="Sales"
-        shortDescription="Sales Report"
-        :actions="[{content: 'Total Sales'}]"
-        v-slot:children
-    >
+<PCard>
+    <PCardHeader title="Sales">
         <PPopover
             id="CardHeaderPopover"
-            :active="statusFilterActive"
             preferredAlignment="right"
         >
-            <PButton
-                slot="activator"
-                plain
-                :disclosure="statusFilterActive ? 'up' : 'down'"
-            >
-                Status
-            </PButton>
-            <PActionList 
-                slot="content"
-                :items="[{content: 'Gross Sales'},{content: 'Net Sales'}]"
-            />
+            <template>
+                <PButton>
+                    Status
+                </PButton>
+            </template>
+            <template>
+                <PActionList/>
+            </template>
         </PPopover>
     </PCardHeader>
     <PCardSection>
@@ -328,16 +371,8 @@ AllElements.parameters = {
     </PCardSection>
     
     <PCardSection title="Total Sales Breakdown">
-        <PResourceList
-            :resource-name="{singular: 'Sale', plural: 'Sales'}"
-            :hideFilters="true"
-            :showHeader="false"
-        >
-            <PResourceListItem
-              v-for="(item, key) in items"
-              :key="key"
-              :id="item.id"
-            >
+        <PResourceList>
+            <PResourceListItem>
                 <PStack>
                     <PStackItem fill>{{ item.sales }}</PStackItem>
                     <PStackItem>{{ item.amount }}</PStackItem>
@@ -358,11 +393,12 @@ AllElements.parameters = {
             The sales reports are available only if your store is on the Shopify plan or higher.
         </PTextContainer>
     </PCardSection>
-    
-    <PButtonGroup slot="footer">
-        <PButton>Dismiss</PButton>
-        <PButton primary>Export Report</PButton>
-    </PButtonGroup>
+    <template>
+        <PButtonGroup>
+            <PButton>Dismiss</PButton>
+            <PButton primary>Export Report</PButton>
+        </PButtonGroup>
+    </template>
 </PCard>`
         },
     },

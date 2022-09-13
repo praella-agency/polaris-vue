@@ -9,8 +9,10 @@ export default {
     argTypes
 }
 
-const Template = (args, {argTypes}) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+    return { args };
+},
     components: {
         PDataTable, PCard, PPage,
     },
@@ -26,7 +28,7 @@ const Template = (args, {argTypes}) => ({
         <PPage title="Sales by product">
             <PCard>
                 <PDataTable
-                    v-bind="$props"
+                    v-bind="args"
                     footer-content="Showing 3 of 3"
                 />        
             </PCard>
@@ -77,7 +79,7 @@ Default.args = {
         },
         {
             product: 'Mauve Cashmere Scarf',
-            product_link: "javascript:void(0);",
+            product_link: 'javascript:void(0);',
             price: '$230.00',
             sku: 124533,
             sku_status: 'warning',
@@ -87,7 +89,7 @@ Default.args = {
         },
         {
             product: 'Navy Merino Wool Blazer with khaki chinos and yellow belt',
-            product_link: "javascript:void(0);",
+            product_link: 'javascript:void(0);',
             price: '$445.00',
             sku: 124518,
             sku_status: 'success',
@@ -100,3 +102,16 @@ Default.args = {
         '', '', '', 255, '$155,830.00',
     ],
 }
+
+Default.parameters = {
+    docs: {
+        source: {
+            code: `
+<PPage title="Sales by product">
+    <PCard>
+        <PDataTable/>
+    </PCard>
+</PPage>`
+        },
+    },
+};

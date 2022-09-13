@@ -27,13 +27,15 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PLink,
     },
     template: `
-      <PLink v-bind="$props">Click here</PLink>`,
+        <PLink v-bind="args">Click here</PLink>`,
 });
 
 export const Link = Template.bind({});
@@ -41,3 +43,11 @@ export const Link = Template.bind({});
 Link.args = {
     url: 'javascript:void(0);',
 }
+
+Link.parameters = {
+    docs: {
+        source: {
+            code: `<PLink>Click here</PLink>`
+        },
+    },
+};

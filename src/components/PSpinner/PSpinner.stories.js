@@ -22,14 +22,16 @@ export default {
     },
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
+    setup() {
+        return {args};
+    },
     components: {
         PSpinner,
     },
     template: `
-        <PSpinner 
-            v-bind="$props"
+        <PSpinner
+            v-bind="args"
         ></PSpinner>`,
 });
 
@@ -38,3 +40,11 @@ export const Spinner = Template.bind({});
 Spinner.args = {
     accessibilityLabel: 'Spinner Example',
 }
+
+Spinner.parameters= {
+    docs: {
+        source: {
+            code: `<PSpinner/>`
+        },
+    },
+};

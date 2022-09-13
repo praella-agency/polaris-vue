@@ -6,11 +6,9 @@
         :preferredPosition="preferredPosition"
         :preferredAlignment="preferredAlignment"
         :activatorId="activatorId"
-        @scrollout="handleScrollOut"
     >
         <template
-            slot="overlay"
-            slot-scope="props"
+            v-slot:overlay="props"
         >
             <slot
                 name="overlay"
@@ -22,6 +20,7 @@
 
 <script>
     import { PPositionedOverlay } from '../../../../components/PPopover/components/PPositionedOverlay';
+    import utils from '../../../../utilities';
 
     export default {
         name: 'PPopoverOverlay',
@@ -54,12 +53,7 @@
                 type: String,
             },
         },
-        methods: {
-            handleScrollOut() {
-                this.$emit('scrollout');
-            }
-        },
-        beforeDestroy() {
+        [utils.beforeDestroy]() {
             this.$emit('close');
         }
     }

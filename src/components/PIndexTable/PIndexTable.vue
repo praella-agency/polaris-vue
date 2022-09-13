@@ -1,21 +1,19 @@
 <template>
-    <div>
-        <div>
-            <PFilter
-                v-if="$slots.hasOwnProperty('filterOptions') || hasFilter"
-                v-bind="$attrs"
-                :resourceName="resourceName"
-                @remove-tag="onRemoveFilter"
-                @input="onFilterInputChanged"
-            >
-                <!-- @slot Add filterOptions -->
-                <slot name="filterOptions"/>
-                <template slot="auxiliaryContainer">
-                    <!-- @slot Add auxiliary filters -->
-                    <slot name="auxiliaryContainer"/>
-                </template>
-            </PFilter>
-        </div>
+    <div class="Polaris-DataTable-Wrapper">
+        <PFilter
+            v-if="hasSlot($slots.filterOptions) || hasFilter"
+            v-bind="$attrs"
+            :resourceName="resourceName"
+            @remove-tag="onRemoveFilter"
+            @input="onFilterInputChanged"
+        >
+            <!-- @slot Add filterOptions -->
+            <slot name="filterOptions"/>
+            <template #auxiliaryContainer>
+                <!-- @slot Add auxiliary filters -->
+                <slot name="auxiliaryContainer"/>
+            </template>
+        </PFilter>
         <div class="Polaris-IndexTable">
             <template v-if="!shouldShowBulkActions && !condensed && loading">
                 <transition>
@@ -209,11 +207,12 @@
                             >
                                 <template
                                     v-for="(heading, index) in headings"
+                                    v-bind="utils.isVue3 ? { key: heading.title } : {}"
                                 >
                                     <div
                                         :class="stickyHeadingClassName(index)"
                                         :style="headingStyle(index + 1)"
-                                        :key="heading.title"
+                                        v-bind="utils.isVue2 ? { key: heading.title } : {}"
                                         data-index-table-sticky-heading
                                     >
                                         <PStack
@@ -441,8 +440,8 @@ Access values with `slot-props` attribute. -->
                                                     </PStackItem>
                                                 </PStack>
                                                 <span v-else-if="headings[0].hidden" class="Polaris-VisuallyHidden">
-                                                {{ headings[0].title }}
-                                            </span>
+                                                    {{ headings[0].title }}
+                                                </span>
                                                 <template v-else>
                                                     {{ headings[0].title }}
                                                 </template>
@@ -457,11 +456,12 @@ Access values with `slot-props` attribute. -->
                             >
                                 <template
                                     v-for="(heading, index) in headings"
+                                    :key="heading.title"
                                 >
                                     <div
                                         :class="stickyHeadingClassName(index)"
                                         :style="headingStyle(index + 1)"
-                                        :key="heading.title"
+
                                         data-index-table-sticky-heading
                                     >
                                         <PStack
@@ -602,13 +602,18 @@ Access values with `slot-props` attribute.-->
                 </div>
             </template>
             <div class="Polaris-IndexTable__Pagination" v-if="Object.keys(pagination).length > 0">
-                <PPagination v-bind="pagination"/>
+                <!-- @slot Table Pagination -->
+                <slot name="pagination" :pagination="pagination">
+                    <PPagination v-bind="pagination"/>
+                </slot>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import utils from '../../utilities';
+    import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PSpinner } from '../../components/PSpinner';
     import { PButton } from '../../components/PButton';
@@ -617,13 +622,13 @@ Access values with `slot-props` attribute.-->
     import { PStackItem } from '../../components/PStack/components/PStackItem';
     import { PCheckbox } from '../../components/PCheckbox';
     import { PBadge } from '../../components/PBadge';
-    import { BulkActionsProps, IndexTableHeading } from '../../components/PIndexTable/utilities';
+    import { BulkActionsProps, IndexTableHeading } from './utilities';
     import { PBulkActions } from '../../components/PBulkActions';
     import { PIndexTableCell } from '../../components/PIndexTable/components/PIndexTableCell';
     import { PIndexTableRow } from '../../components/PIndexTable/components/PIndexTableRow';
     import { PTextStyle } from '../../components/PTextStyle';
     import { PFilter } from '../../components/PFilter';
-    import { PPagination, PPaginationDescriptor } from '../../components/PPagination';
+    import { PPagination } from '../../components/PPagination';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
 
     const TableHeadingRect = {
@@ -764,7 +769,6 @@ Access values with `slot-props` attribute.-->
                 type: Object,
                 default: () => ({}),
             },
-            // Pagination <-- End -->
         },
         data() {
             return {
@@ -869,9 +873,16 @@ Access values with `slot-props` attribute.-->
                     return this.paginatedSelectAction;
                 },
                 set(value) {
-                    this.$set(this, 'paginatedSelectAction', value);
+                    if (utils.isVue3) {
+                        this.paginatedSelectAction = value;
+                    } else {
+                        this.$set(this, 'paginatedSelectAction', value);
+                    }
                 },
-            }
+            },
+            hasSlot() {
+                return hasSlot;
+            },
         },
         methods: {
             isSmallScreen() {
@@ -923,10 +934,17 @@ Access values with `slot-props` attribute.-->
                 }
 
                 if (this.hasMoreItems) {
-                    this.$set(this, 'paginatedSelectAllAction', {
-                        content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
-                        onAction: this.handleSelectAllItemsInStore,
-                    });
+                    if (utils.isVue3) {
+                        this.paginatedSelectAllAction = {
+                            content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+                            onAction: this.handleSelectAllItemsInStore,
+                        }
+                    } else {
+                        this.$set(this, 'paginatedSelectAllAction', {
+                            content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+                            onAction: this.handleSelectAllItemsInStore,
+                        });
+                    }
                 }
                 this.paginatedSelectAllText = '';
                 this.togglePlus = '';
@@ -997,10 +1015,17 @@ Access values with `slot-props` attribute.-->
 
                 this.emitSelection('multiple', true, this.selectedResources);
                 if (this.hasMoreItems) {
-                    this.$set(this, 'paginatedSelectAllAction', {
-                        content: actionText,
-                        onAction: this.handleSelectAllItemsInStore,
-                    });
+                    if (utils.isVue3) {
+                        this.paginatedSelectAllAction = {
+                            content: actionText,
+                            onAction: this.handleSelectAllItemsInStore,
+                        }
+                    } else {
+                        this.$set(this, 'paginatedSelectAllAction', {
+                            content: actionText,
+                            onAction: this.handleSelectAllItemsInStore,
+                        });
+                    }
                 }
             },
             handleSelectionChange(selectionType, selected, id) {
@@ -1011,10 +1036,17 @@ Access values with `slot-props` attribute.-->
 
                 if (!selected) {
                     if (this.hasMoreItems) {
-                        this.$set(this, 'paginatedSelectAllAction', {
-                            content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
-                            onAction: this.handleSelectAllItemsInStore,
-                        });
+                        if (utils.isVue3) {
+                            this.paginatedSelectAllAction = {
+                                content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+                                onAction: this.handleSelectAllItemsInStore,
+                            }
+                        } else {
+                            this.$set(this, 'paginatedSelectAllAction', {
+                                content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+                                onAction: this.handleSelectAllItemsInStore,
+                            });
+                        }
                     }
                     this.paginatedSelectAllText = '';
                     this.togglePlus = '';
@@ -1036,10 +1068,17 @@ Access values with `slot-props` attribute.-->
                 } else {
                     if (this.selectedResources.length === 1) {
                         if (this.hasMoreItems) {
-                            this.$set(this, 'paginatedSelectAllAction', {
-                                content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
-                                onAction: this.handleSelectAllItemsInStore,
-                            });
+                            if (utils.isVue3) {
+                                this.paginatedSelectAllAction = {
+                                    content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+                                    onAction: this.handleSelectAllItemsInStore,
+                                }
+                            } else {
+                                this.$set(this, 'paginatedSelectAllAction', {
+                                    content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
+                                    onAction: this.handleSelectAllItemsInStore,
+                                });
+                            }
                         }
                         this.paginatedSelectAllText = '';
                         this.togglePlus = '';
@@ -1114,18 +1153,8 @@ Access values with `slot-props` attribute.-->
             window.addEventListener('resize', this.isSmallScreen);
             this.isSmallScreen();
         },
-        destroyed() {
+        [utils.destroyed]() {
             window.removeEventListener('resize', this.isSmallScreen);
         },
     }
 </script>
-
-<style scoped>
-    .Polaris-IndexTable__Pagination {
-        text-align: center;
-        padding: 1.6rem;
-        border-top: 0.1rem solid #e1e3e5;
-        border-bottom-left-radius: 0.4rem;
-        border-bottom-right-radius: 0.4rem;
-    }
-</style>

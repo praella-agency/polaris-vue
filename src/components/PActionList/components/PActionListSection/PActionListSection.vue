@@ -12,7 +12,11 @@
                     :icon="item.icon"
                     :helpText="item.helpText"
                     :action="wrapAction(item)"
-                />
+                >
+                    <template v-slot:media="slotProps">
+                        <slot name="media" :item="slotProps ? slotProps.item : {}"/>
+                    </template>
+                </PActionListItem>
             </ul>
         </div>
     </POptionalTag>
@@ -44,6 +48,7 @@
                 type: Boolean,
             },
         },
+        emits: ['item-action'],
         computed: {
             className() {
                 return classNames(
