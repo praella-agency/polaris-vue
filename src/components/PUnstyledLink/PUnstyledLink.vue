@@ -66,7 +66,7 @@
             },
             listeners() {
                 if (utils.isVue2) {
-                    this.$listeners;
+                    return this.$listeners;
                 }
                 return {};
             }
