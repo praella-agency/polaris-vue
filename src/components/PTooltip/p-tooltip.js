@@ -1,5 +1,5 @@
 import utils from '../../utilities';
-import { createComponent } from '../../ComponentHelpers';
+import {createComponent} from '../../ComponentHelpers';
 import Tooltip from './PTooltip.vue';
 
 function tooltipBind(app, event, binding, togglePop, elementId) {
@@ -15,32 +15,36 @@ function tooltipBind(app, event, binding, togglePop, elementId) {
     }
 
     let targetEl = event.target;
+    if (!elementId) {
+        targetEl.id = 'tooltip' + (new Date()).getTime();
+    }
 
-    // if (targetEl.offsetWidth <= targetEl.scrollWidth) {
-        if (!elementId) {
-            targetEl.id = 'tooltip' + (new Date()).getTime();
-        }
-
-        let id = `_${targetEl.id}_`;
-        if (togglePop) {
-            createComponent(Tooltip, {
-                id: id,
-                active: togglePop,
-                preferredPosition: position,
-                tooltipContent: binding.value,
-            }, document.body, {
+    let id = `_${targetEl.id}_`;
+    if (togglePop) {
+        createComponent(
+            Tooltip,
+            {
+                props: {
+                    id: id,
+                    active: togglePop,
+                    preferredPosition: position,
+                },
+                slots: {
+                    tooltipContent: binding.value,
+                }
+            },
+            document.body,
+            {
                 tag: 'div'
-            }, {
-                tooltipContent: binding.value,
-            });
-            window.dispatchEvent(new Event('resize'));
-        } else {
-            const element = document.getElementById('PolarisPopover' + targetEl.id.replace(/_/g, '') + 'Activator');
-            if (element && element.parentElement) {
-                element.parentElement.parentElement.remove();
             }
+        );
+        window.dispatchEvent(new Event('resize'));
+    } else {
+        const element = document.getElementById('PolarisPopover' + targetEl.id.replace(/_/g, '') + 'Activator');
+        if (element && element.parentElement) {
+            element.parentElement.parentElement.remove();
         }
-    // }
+    }
 }
 
 export const directives = (app) => {

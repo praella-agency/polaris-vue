@@ -1,6 +1,6 @@
 import utils from './utilities';
+import vue from 'vue';
 const vue3 = require('vue3');
-const vue = require('vue').default;
 
 function isNodeOfComponent(node, component) {
     if (!node || (utils.isVue2 && !node.componentOptions)) {
@@ -53,36 +53,34 @@ function uuid() {
     return '_' + Math.random().toString(36).substr(2, 9);
 }
 
-function createComponent(component, props, parentContainer, element, slots = {}) {
+function createComponent(component, options, parentContainer, element, slots = {}) {
     if (utils.isVue2) {
-        let componentClass = vue.extend(component);
-        let instance = new componentClass({
-            propsData: props
-        });
-        if(slots.tooltipContent) {
-            instance.$slots.tooltipContent =slots.tooltipContent;
+        const extendedOptions = {
+            propsData: options.props,
+        };
+        if(options.el) {
+            extendedOptions.el = options.el;
         }
-        instance.$mount();
-
-        parentContainer.append(instance.$el);
-        return instance.$el;
-        // let el;
-        // if (element.tag) {
-        //     el = document.createElement(element.tag);
-        //     if (element.className) {
-        //         el.classList.add(element.className);
-        //     }
-        // } else {
-        //     el = parentContainer;
-        // }
-        // return new (vue.extend(component))({
-        //     el,
-        //     props,
-        //     slots
-        // })
+        const instance = new (vue.extend(component))(extendedOptions);
+        if(options.slots) {
+            for(const slotName of Object.keys(options.slots)) {
+                instance.$slots[slotName] = options.slots[slotName];
+            }
+        }
+        if(options.canMount !== false) {
+            instance.$mount();
+        }
+        if(options.canAppend !== false) {
+            if(options.prependToContainer) {
+                parentContainer.prepend(instance.$el);
+            } else {
+                parentContainer.append(instance.$el);
+            }
+        }
+        return instance;
     } else {
-        const vNode = vue3.h(component, props, () => slots);
-        if (element.tag) {
+        const vNode = vue3.h(component, {...options.props, ...options.slots}, () => slots);
+        if (element && element.tag) {
             const container = document.createElement(element.tag);
             if (element.className) {
                 container.classList.add(element.className);
@@ -92,7 +90,7 @@ function createComponent(component, props, parentContainer, element, slots = {})
         } else {
             vue3.render(vNode, parentContainer)
         }
-        return vNode.component;
+        return vNode;
     }
 }
 

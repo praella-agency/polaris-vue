@@ -33,6 +33,7 @@
                                     :truncate="truncate"
                                     :verticalAlign="verticalAlign"
                                     @sort-changed="handleSortChange"
+                                    :alignLastRight="(headings.length === hIndex+1) && alignLastRight"
                                 />
 
                                 <!-- @deprecated Remove in version 4.0.0 - START -->
@@ -61,6 +62,7 @@
                                     :truncate="truncate"
                                     :vertical-align="verticalAlign"
                                     :sortable="false"
+                                    :alignLastRight="(totals.length === index+1) && alignLastRight"
                                 />
 
                                 <!-- @deprecated Remove in version 4.0.0 - START -->
@@ -105,7 +107,9 @@ Access values with `slot-props` attribute -->
                                                         :content-type="headings[hIndex].type ? headings[hIndex].type : columnContentTypes[hIndex]"
                                                         :truncate="truncate"
                                                         :vertical-align="verticalAlign"
-                                                        :sortable="false">
+                                                        :sortable="false"
+                                                        :alignLastRight="(headings.length === hIndex+1) && alignLastRight"
+                                                    >
                                                         <template v-slot:[`item.${heading.value}`]="slotProps">
                                                             <!-- @slot Customize a specific column. This slot provides row values.
 
@@ -135,6 +139,7 @@ Access values with `slot-props` attribute. -->
                                             :firstColumn="cIndex === 0"
                                             :truncate="truncate"
                                             :verticalAlign="verticalAlign"
+                                            :alignLastRight="(row.length === cIndex+1) && alignLastRight"
                                         />
                                         <PDataTableCell
                                             v-if="hasActions"
@@ -183,7 +188,10 @@ Access values with `slot-props` attribute. -->
                 </slot>
             </div>
             <div class="Polaris-DataTable__Pagination" v-if="hasPagination">
-                <PPagination v-bind="pagination"/>
+                <!-- @slot Table Pagination -->
+                <slot name="pagination" :pagination="pagination">
+                    <PPagination v-bind="pagination"/>
+                </slot>
             </div>
         </div>
         <div v-else>
@@ -403,6 +411,13 @@ Access values with `slot-props` attribute. -->
             emptyStateImage: {
                 type: String,
                 default: 'https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png',
+            },
+            /**
+             * Align last column to right.
+             */
+            alignLastRight: {
+                type: Boolean,
+                default: false,
             },
             // ============Deprecated Props============
             /**

@@ -37,7 +37,7 @@
             v-else
             :id="id"
             :tabIndex="tabIndex"
-            :active-class="activeClass"
+            :exact-active-class="activeClass"
             :class="className"
             :to="to"
             @click.native="$emit('click', id, $event)"

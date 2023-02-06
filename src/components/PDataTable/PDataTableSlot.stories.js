@@ -12,6 +12,7 @@ import { PCard } from '../PCard';
 import { PStack } from '../PStack';
 import { PStackItem } from '../PStack/components/PStackItem';
 import { PButtonGroup } from '../PButtonGroup';
+import { PPagination } from '../PPagination';
 import argTypes from './args';
 
 export default {
@@ -26,7 +27,7 @@ const Template = (args) => ({
     },
     components: {
         PDataTable, PPopover, PButton, POptionList, PCard, PLink, PBadge, PToggle, PIcon, PStack, PStackItem,
-        PDataTableRow, PDataTableCol, PButtonGroup,
+        PDataTableRow, PDataTableCol, PButtonGroup,PPagination
     },
     data() {
         return {
@@ -34,6 +35,16 @@ const Template = (args) => ({
             active2: false,
             selected: [],
             status: ['Active'],
+            pagination: {
+                hasPrevious: true,
+                hasNext: true,
+                onNext: () => {
+                    alert('Next');
+                },
+                onPrevious: () => {
+                    alert('Previous');
+                }
+            },
         };
     },
     template: `
@@ -127,6 +138,9 @@ const Template = (args) => ({
                             </template>
                         </PPopover>
                     </PButtonGroup>
+                </template>
+                <template #pagination slot-scope="{ pagination }">
+                    <PPagination v-bind="pagination"/>
                 </template>
             </PDataTable>
         </PCard>`,
@@ -238,16 +252,15 @@ CustomisableRow.args = {
     totals: [
         '', '', '', 255, '', '',
     ],
-    hasPagination: true,
     pagination: {
-        hasPrevious: true,
-        hasNext: true,
-        onNext: () => {
-            alert('Next');
+        table: {
+            type: {
+                summary: null,
+            },
         },
-        onPrevious: () => {
-            alert('Previous');
-        }
+        control: {
+            type: null,
+        },
     },
 }
 
@@ -327,18 +340,7 @@ CustomisableRow.parameters = {
         ]"
         :totals="[
             '', '', '', 255, '', '',
-        ]"
-        :hasPagination="true"
-        :pagination="{
-            hasPrevious: true,
-            hasNext: true,
-            onNext: () => {
-                alert('Next');
-            },
-            onPrevious: () => {
-                alert('Previous');
-            }
-        }"
+        ]" 
     >    
         <template v-slot:item="{item}">
             <PDataTableRow>
@@ -420,6 +422,9 @@ CustomisableRow.parameters = {
                 </PPopover>
             </PButtonGroup>
         </template>
+        <template #pagination slot-scope="{ pagination }">
+            <PPagination v-bind="pagination"/>
+        </template>
     </PDataTable>
 </PCard>`
         }
@@ -432,7 +437,7 @@ const Template1 = (args) => ({
     },
     components: {
         PDataTable, PPopover, PButton, POptionList, PCard, PLink, PBadge, PToggle, PIcon, PStack, PStackItem,
-        PButtonGroup
+        PButtonGroup,PPagination
     },
     data() {
         return {
@@ -440,6 +445,16 @@ const Template1 = (args) => ({
             active2: false,
             selected: [],
             status: ["Active"],
+            pagination: {
+                hasPrevious: true,
+                hasNext: true,
+                onNext: () => {
+                    alert('Next');
+                },
+                onPrevious: () => {
+                    alert('Previous');
+                }
+            },
         };
     },
     template: `
@@ -527,6 +542,9 @@ const Template1 = (args) => ({
                             </template>
                         </PPopover>
                     </PButtonGroup>
+                </template>
+                <template #pagination slot-scope="{ pagination }">
+                    <PPagination v-bind="pagination"/>
                 </template>
             </PDataTable>
         </PCard>`,
@@ -638,7 +656,6 @@ CustomisableColumn.args = {
     totals: [
         '', '', '', 255, '', '',
     ],
-    hasPagination: true,
     pagination: {
         hasPrevious: true,
         hasNext: true,
@@ -728,17 +745,6 @@ CustomisableColumn.parameters = {
         :totals="[
             '', '', '', 255, '', '',
         ]"
-        :hasPagination="true"
-        :pagination="{
-            hasPrevious: true,
-            hasNext: true,
-            onNext: () => {
-                alert('Next');
-            },
-            onPrevious: () => {
-                alert('Previous');
-            }
-        }"
     >    
         <template v-slot:item.product="{item}">
             <PLink :url="item.product_link">
@@ -814,6 +820,9 @@ CustomisableColumn.parameters = {
                     </template>
                 </PPopover>
             </PButtonGroup>
+        </template>
+        <template #pagination slot-scope="{ pagination }">
+            <PPagination v-bind="pagination"/>
         </template>
     </PDataTable>
 </PCard>`

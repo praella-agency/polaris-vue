@@ -1,5 +1,6 @@
 import PLoading from '../PLoading';
 import mitt from 'mitt';
+
 const eventBus = mitt();
 import {createComponent} from '../../../ComponentHelpers';
 
@@ -38,8 +39,18 @@ const Api = (Vue, globalOptions = {}) => {
         options: progressOptions
     }
 
-    createComponent(PLoading, { RADON_LOADING_BAR: RADON_LOADING_BAR, eventBus }, document.body, {class: 'Polaris-Loading'});
-    return  {
+    createComponent(
+        PLoading,
+        {
+            props: {
+                RADON_LOADING_BAR: RADON_LOADING_BAR,
+                eventBus
+            },
+            prependToContainer: true
+        },
+        document.body
+    );
+    return {
         state: {
             tFailColor: '',
             tColor: '',

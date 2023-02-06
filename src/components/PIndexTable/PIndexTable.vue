@@ -602,7 +602,10 @@ Access values with `slot-props` attribute.-->
                 </div>
             </template>
             <div class="Polaris-IndexTable__Pagination" v-if="Object.keys(pagination).length > 0">
-                <PPagination v-bind="pagination"/>
+                <!-- @slot Table Pagination -->
+                <slot name="pagination" :pagination="pagination">
+                    <PPagination v-bind="pagination"/>
+                </slot>
             </div>
         </div>
     </div>
@@ -619,13 +622,13 @@ Access values with `slot-props` attribute.-->
     import { PStackItem } from '../../components/PStack/components/PStackItem';
     import { PCheckbox } from '../../components/PCheckbox';
     import { PBadge } from '../../components/PBadge';
-    import { BulkActionsProps, IndexTableHeading } from '../../components/PIndexTable/utilities';
+    import { BulkActionsProps, IndexTableHeading } from './utilities';
     import { PBulkActions } from '../../components/PBulkActions';
     import { PIndexTableCell } from '../../components/PIndexTable/components/PIndexTableCell';
     import { PIndexTableRow } from '../../components/PIndexTable/components/PIndexTableRow';
     import { PTextStyle } from '../../components/PTextStyle';
     import { PFilter } from '../../components/PFilter';
-    import { PPagination, PPaginationDescriptor } from '../../components/PPagination';
+    import { PPagination } from '../../components/PPagination';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
 
     const TableHeadingRect = {
@@ -766,7 +769,6 @@ Access values with `slot-props` attribute.-->
                 type: Object,
                 default: () => ({}),
             },
-            // Pagination <-- End -->
         },
         data() {
             return {

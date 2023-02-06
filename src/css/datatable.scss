@@ -50,7 +50,7 @@
 	white-space: nowrap;
 	text-align: left;
 	transition: background-color .2s ease-in-out;
-	&:last-child {
+	&.Polaris-DataTable__Cell-align-right {
 		text-align: right;
 		> * {
 			float: right;

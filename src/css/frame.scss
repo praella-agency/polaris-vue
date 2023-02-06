@@ -429,6 +429,9 @@
   top: 0;
   right: 0;
   left: 0;
+  &.Polaris-Frame__Hidden {
+    display: none !important;
+  }
 }
 
 @media print {

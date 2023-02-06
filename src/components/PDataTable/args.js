@@ -186,20 +186,30 @@ type: "numeric"`,
     },
     pagination: {
         table: {
-            defaultValue: {
-                summary: '{}',
-                detail: `{
-    nextURL?: string,
-    previousURL?: string,
-    hasNext?: boolean,
-    hasPrevious?: boolean,
-    accessibilityLabel?: string,
-    onNext?(): void,
-    onPrevious?(): void,
-}`
+            type: {
+                summary: null,
             },
         },
+        control: {
+            type: null,
+        },
     },
+//     pagination: {
+//         table: {
+//             defaultValue: {
+//                 summary: '{}',
+//                 detail: `{
+//     nextURL?: string,
+//     previousURL?: string,
+//     hasNext?: boolean,
+//     hasPrevious?: boolean,
+//     accessibilityLabel?: string,
+//     onNext?(): void,
+//     onPrevious?(): void,
+// }`
+//             },
+//         },
+//     },
     rows: {
         table: {
             defaultValue: {
