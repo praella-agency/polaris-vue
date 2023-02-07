@@ -1,6 +1,6 @@
 import utils from './utilities';
-import vue from 'vue';
-const vue3 = require('vue3');
+import vue2 from 'vue2';
+const vue3 = require('vue');
 
 function isNodeOfComponent(node, component) {
     if (!node || (utils.isVue2 && !node.componentOptions)) {
@@ -61,7 +61,7 @@ function createComponent(component, options, parentContainer, element, slots = {
         if(options.el) {
             extendedOptions.el = options.el;
         }
-        const instance = new (vue.extend(component))(extendedOptions);
+        const instance = new (vue2.extend(component))(extendedOptions);
         if(options.slots) {
             for(const slotName of Object.keys(options.slots)) {
                 instance.$slots[slotName] = options.slots[slotName];
@@ -121,6 +121,6 @@ export {
     uuid,
     wrapNodesWithComponent,
     hasSlot,
-    vue,
+    vue2,
     vue3
 };

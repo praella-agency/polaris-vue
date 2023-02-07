@@ -14,6 +14,7 @@ module.exports = {
             },
         },
         "@storybook/addon-actions",
+        "@storybook/addon-postcss"
     ],
     webpackFinal: async (config, { configType }) => {
         // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'

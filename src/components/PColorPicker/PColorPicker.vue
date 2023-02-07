@@ -2,7 +2,7 @@
     <div class="color-picker-field" v-p-click-outside="hidePicker">
         <div :class="propsClass">
             <span @click="togglePicker()" :class="className" :style="'background-color:'+color"></span>
-            <PTextField v-model="color" type="text" :label="label" :show-input="showInput" class="picker"
+            <PTextField v-model="computedColor" type="text" :label="label" :show-input="showInput" class="picker"
                         labelClass="mb-0"></PTextField>
         </div>
         <div class="picker-wrapper">
@@ -102,7 +102,7 @@
                      * Triggers when color is changed
                      * @ignore
                      */
-                    this.$emit('update:color', value ? value.hex : value);
+                    this.$emit('update:color', value.hex ? value.hex : value);
                     /**
                      * Triggers when color is changed
                      */
