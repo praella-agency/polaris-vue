@@ -34,6 +34,7 @@
   "main": "dist/polaris-vue.min.js",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^33.0.0",
+    "@mdx-js/react": "^1.6.22",
     "@storybook/builder-webpack5": "^6.5.16",
     "@storybook/manager-webpack5": "^6.5.16",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
@@ -78,7 +79,7 @@
     "@vue/cli-plugin-typescript": "^4.0.0",
     "@vue/compiler-sfc": "^3.1.0",
     "autoprefixer": "^9.7.8",
-    "babel-loader": "^8.2.2",
+    "babel-loader": "^8.2.5",
     "clean-css": "^5.2.2",
     "clean-css-cli": "4.3.0",
     "cross-env": "^7.0.3",
