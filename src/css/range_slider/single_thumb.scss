@@ -173,7 +173,7 @@
 
 .Polaris-RangeSlider-SingleThumb__Input::-ms-thumb {
   margin-top: 0;
-  transform: translateY($p-range-slider-thumb-size-base/5) scale(0.4);
+  transform: translateY(calc($p-range-slider-thumb-size-base / 5)) scale(0.4);
 }
 
 //.Polaris-RangeSlider-SingleThumb__Input::-webkit-slider-thumb {

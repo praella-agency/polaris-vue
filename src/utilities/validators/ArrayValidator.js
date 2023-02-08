@@ -1,5 +1,5 @@
 import utils from '../';
-import { vue3, vue } from '../../ComponentHelpers';
+import { vue3, vue2 } from '../../ComponentHelpers';
 import { ObjectValidator } from './ObjectValidator';
 
 export const ArrayValidator = (name, arrayOfValues, objectInterface, isRequired, isNullable) => {
@@ -8,7 +8,7 @@ export const ArrayValidator = (name, arrayOfValues, objectInterface, isRequired,
         if (utils.isVue3) {
             vue3.warn(`The "${name}" prop is invalid. Given value type: ${typeof arrayOfValues}. Expected value type: Array.`);
         } else {
-            vue.default.util.warn(`The "${name}" prop is invalid. Given value type: ${typeof arrayOfValues}. Expected value type: Array.`);
+            vue2.default.util.warn(`The "${name}" prop is invalid. Given value type: ${typeof arrayOfValues}. Expected value type: Array.`);
         }
         return false;
     }
