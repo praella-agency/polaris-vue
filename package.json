@@ -79,7 +79,7 @@
     "@vue/cli-plugin-typescript": "^4.0.0",
     "@vue/compiler-sfc": "^3.2.47",
     "autoprefixer": "^9.7.8",
-    "babel-loader": "^8.0.0",
+    "babel-loader": "^9.1.2",
     "clean-css": "^5.2.2",
     "clean-css-cli": "4.3.0",
     "cross-env": "^7.0.3",
