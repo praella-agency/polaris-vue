@@ -1,4 +1,4 @@
-import { vue } from '../../ComponentHelpers';
+import { vue3 } from '../../ComponentHelpers';
 
 export const StringValidator = (name, value, expectedValues) => {
     if (expectedValues.indexOf(value) === -1) {
@@ -6,7 +6,7 @@ export const StringValidator = (name, value, expectedValues) => {
             expectedValues.splice(expectedValues.indexOf(null), 1);
         }
 
-        vue.warn(`The "${name}" prop is invalid. Given value: "${value}". Available options: "${expectedValues.join(', ')}".`);
+        vue3.warn(`The "${name}" prop is invalid. Given value: "${value}". Available options: "${expectedValues.join(', ')}".`);
 
         return false;
     }
