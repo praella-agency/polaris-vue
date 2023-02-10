@@ -1,12 +1,10 @@
-import utils from './utilities';
-import vue2 from 'vue2';
-const vue3 = require('vue');
+const vue = require('vue');
 
 function isNodeOfComponent(node, component) {
-    if (!node || (utils.isVue2 && !node.componentOptions)) {
+    if (!node) {
         return false;
     }
-    let nodeComponentTagName = utils.isVue2 ? node.componentOptions.tag : node.type.name;
+    let nodeComponentTagName = node.type.name;
     return nodeComponentTagName === component.name;
 }
 
@@ -17,10 +15,10 @@ function wrapNodesWithComponent(createElement, nodes, component, ignoredComponen
             continue;
         }
 
-        if(utils.isVue3 && node.type === vue3.Comment) {
+        if(node.type === vue.Comment) {
             continue;
         }
-        if(utils.isVue3 && node.type === vue3.Fragment) {
+        if(node.type === vue.Fragment) {
             const fragmentChildren = wrapNodesWithComponent(createElement, node.children, component, ignoredComponents);
             children = [
                 ...children,
@@ -43,7 +41,7 @@ function wrapNodesWithComponent(createElement, nodes, component, ignoredComponen
         }
 
         if (!added) {
-            children.push(createElement(component, {}, utils.isVue3 ? () => [node] : [node]));
+            children.push(createElement(component, {}, () => [node]));
         }
     }
     return children;
@@ -54,66 +52,36 @@ function uuid() {
 }
 
 function createComponent(component, options, parentContainer, element, slots = {}) {
-    if (utils.isVue2) {
-        const extendedOptions = {
-            propsData: options.props,
-        };
-        if(options.el) {
-            extendedOptions.el = options.el;
+    const vNode = vue.h(component, {...options.props, ...options.slots}, () => slots);
+    if (element && element.tag) {
+        const container = document.createElement(element.tag);
+        if (element.className) {
+            container.classList.add(element.className);
         }
-        const instance = new (vue2.extend(component))(extendedOptions);
-        if(options.slots) {
-            for(const slotName of Object.keys(options.slots)) {
-                instance.$slots[slotName] = options.slots[slotName];
-            }
-        }
-        if(options.canMount !== false) {
-            instance.$mount();
-        }
-        if(options.canAppend !== false) {
-            if(options.prependToContainer) {
-                parentContainer.prepend(instance.$el);
-            } else {
-                parentContainer.append(instance.$el);
-            }
-        }
-        return instance;
+        parentContainer.appendChild(container);
+        vue.render(vNode, container);
     } else {
-        const vNode = vue3.h(component, {...options.props, ...options.slots}, () => slots);
-        if (element && element.tag) {
-            const container = document.createElement(element.tag);
-            if (element.className) {
-                container.classList.add(element.className);
-            }
-            parentContainer.appendChild(container);
-            vue3.render(vNode, container);
-        } else {
-            vue3.render(vNode, parentContainer)
-        }
-        return vNode;
+        vue.render(vNode, parentContainer)
     }
+    return vNode;
 }
 
 function hasSlot(slot) {
-    if (utils.isVue3) {
-        let hasSlot = false;
-        if (slot) {
-            slot().forEach((item) => {
-                if (item.type !== vue3.Comment) {
-                    if (Array.isArray(item.children)) {
-                        if (item.children.length) {
-                            hasSlot = true;
-                        }
-                    } else {
+    let hasSlot = false;
+    if (slot) {
+        slot().forEach((item) => {
+            if (item.type !== vue.Comment) {
+                if (Array.isArray(item.children)) {
+                    if (item.children.length) {
                         hasSlot = true;
                     }
+                } else {
+                    hasSlot = true;
                 }
-            });
-        }
-        return hasSlot;
-    } else {
-        return !!slot;
+            }
+        });
     }
+    return hasSlot;
 }
 
 export {
@@ -121,6 +89,5 @@ export {
     uuid,
     wrapNodesWithComponent,
     hasSlot,
-    vue2,
-    vue3
+    vue
 };

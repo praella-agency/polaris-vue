@@ -340,10 +340,7 @@ export default {
   },
   computed: {
     computedVModel() {
-      if (utils.isVue3) {
-        return this.modelValue
-      }
-      return this.value
+      return this.modelValue
     },
     internalValue () {
       return this.computedVModel || this.computedVModel === 0

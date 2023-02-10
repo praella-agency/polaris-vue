@@ -1,4 +1,3 @@
-process.env.IS_VUE_3 = true;
 import '!style-loader!css-loader!sass-loader!../src/scss/main.scss';
 import '!style-loader!css-loader!sass-loader!./styles/docs.scss';
 import { app } from '@storybook/vue3';
