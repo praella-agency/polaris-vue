@@ -106,7 +106,7 @@ const buildFormats = [];
                 replace(baseConfig.plugins.replace),
                 isVue3 ? replace(baseConfig.plugins.vue3) : replace(baseConfig.plugins.vue2),
                 ...baseConfig.plugins.preVue,
-                isVue3 ? vue() : vue2(baseConfig.plugins.vue),
+                isVue3 ? vue() : vue2(baseConfig.plugins.vue3),
                 ...baseConfig.plugins.postVue,
                 babel({
                     ...baseConfig.plugins.babel,
