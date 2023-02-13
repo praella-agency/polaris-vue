@@ -15,8 +15,6 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
-
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -65,9 +63,6 @@
                 return this.external ? 'noopener noreferrer' : undefined;
             },
             listeners() {
-                if (utils.isVue2) {
-                    return this.$listeners;
-                }
                 return {};
             }
         },

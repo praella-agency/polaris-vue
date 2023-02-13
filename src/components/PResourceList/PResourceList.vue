@@ -266,9 +266,6 @@
                 return !this.showEmptyState && !this.hideFilters && !this.itemsExist && !this.loading;
             },
             listeners() {
-                if (utils.isVue2) {
-                    return this.$listeners;
-                }
                 return {};
             },
             hasSlot() {

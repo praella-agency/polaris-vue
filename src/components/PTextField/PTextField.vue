@@ -107,7 +107,6 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
     import { hasSlot, uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PInput } from '../../components/PTextField/components/PInput';
@@ -272,9 +271,6 @@
                 return this.floatingLabel || this.labelHidden;
             },
             listeners() {
-                if (utils.isVue2) {
-                    return this.$listeners;
-                }
                 return {};
             },
             hasSlot() {

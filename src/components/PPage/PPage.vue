@@ -34,11 +34,6 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
-    import { hasSlot } from '../../ComponentHelpers';
-    import { classNames } from '../../utilities/css';
-    import { PPageHeader } from '../../components/PPage/components/PPageHeader';
-
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -140,9 +135,6 @@
                     (this.breadcrumbs != null && this.breadcrumbs.length > 0);
             },
             listeners() {
-                if (utils.isVue2) {
-                    return this.$listeners;
-                }
                 return {};
             },
             hasSlot() {

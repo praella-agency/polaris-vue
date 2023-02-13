@@ -21,11 +21,6 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
-    import { classNames } from '../../utilities/css';
-    import { PButton } from '../../components/PButton';
-    import { PUnstyledLink } from '../../components/PUnstyledLink';
-    import { PIcon } from '../../components/PIcon';
 
     /**
      * <br/>
@@ -85,9 +80,6 @@
                 return this.external;
             },
             listeners() {
-                if (utils.isVue2) {
-                    return this.$listeners;
-                }
                 return {};
             }
         },
