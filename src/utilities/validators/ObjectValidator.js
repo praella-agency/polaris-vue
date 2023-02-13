@@ -1,4 +1,4 @@
-import { vue3 } from '../../ComponentHelpers';
+import { vue } from '../../ComponentHelpers';
 import { StringValidator } from './StringValidator';
 import { ArrayValidator } from './ArrayValidator';
 
@@ -75,7 +75,7 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
         }
 
         if (isRequired && !object.hasOwnProperty(objectKey)) {
-            vue3.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" is missing.`);
+            vue.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" is missing.`);
 
             result = false;
         } else if (object.hasOwnProperty(objectKey)) {
@@ -83,12 +83,12 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
 
             if (Array.isArray(objectValue)) {
                 if (!valueType.includes('Array')) {
-                    vue3.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`);
+                    vue.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`);
 
                     result = false;
                 }
             } else if (!valueType.includes((typeof (objectValue)).charAt(0).toUpperCase() + (typeof (objectValue)).slice(1))) {
-                vue3.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`);
+                vue.warn(`The "${name}" prop is invalid. Expected object key "${objectKey}" value type to be "${valueType}", got "${typeof objectValue}".`);
 
                 result = false;
             }
@@ -101,7 +101,7 @@ export const ObjectPropertyValidator = (name, object, objectInterface) => {
 export const ObjectValidator = (name, object, objectInterface, isRequired) => {
     // Value type validation.
     if (isRequired && (object === null || object === undefined || Object.keys(object).length === 0)) {
-        vue3.warn(`The "${name}" prop is missing.`);
+        vue.warn(`The "${name}" prop is missing.`);
         return false;
     } else {
         let isValidated = false;
@@ -136,7 +136,7 @@ export const ObjectValidator = (name, object, objectInterface, isRequired) => {
         }
 
         if (!isValidated && typeof object !== 'object') {
-            vue3.warn(`The "${name}" prop is invalid. Given value type: ${typeof object}. Expected value type: Object.`);
+            vue.warn(`The "${name}" prop is invalid. Given value type: ${typeof object}. Expected value type: Object.`);
 
             return false;
         }

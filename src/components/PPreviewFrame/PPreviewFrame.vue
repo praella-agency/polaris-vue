@@ -166,18 +166,10 @@
         },
         methods: {
             headerMediaQuery() {
-                if (utils.isVue3) {
-                    this.slimHeader = window.innerWidth <= 666;
-                } else {
-                    this.$set(this, 'slimHeader', window.innerWidth <= 666);
-                }
+                this.slimHeader = window.innerWidth <= 666;
             },
             rightSidebarMediaQuery() {
-                if (utils.isVue3) {
-                    this.responsiveRightSidebar = window.innerWidth < 1614;
-                } else {
-                    this.$set(this, 'responsiveRightSidebar', window.innerWidth < 1614);
-                }
+                this.responsiveRightSidebar = window.innerWidth < 1614;
             },
             handlePreviewChange(option) {
                 this.previewOption = option[0];

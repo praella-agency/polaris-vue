@@ -183,17 +183,9 @@
         methods: {
             useMediaQuery() {
                 if (window.innerWidth <= 768) {
-                    if (utils.isVue3) {
-                        this.isNavigationCollapsed['rollup'] = true;
-                    } else {
-                        this.$set(this.isNavigationCollapsed, 'rollup', true);
-                    }
+                    this.isNavigationCollapsed['rollup'] = true;
                 } else {
-                    if (utils.isVue3) {
-                        this.isNavigationCollapsed['rollup'] = false;
-                    } else {
-                        this.$set(this.isNavigationCollapsed, 'rollup', false);
-                    }
+                    this.isNavigationCollapsed['rollup'] = false;
                 }
             },
         },

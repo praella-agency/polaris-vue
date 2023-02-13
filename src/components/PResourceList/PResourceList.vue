@@ -257,7 +257,7 @@
                 },
             },
             itemsExist() {
-                return utils.isVue3 ? this.$slots.default() : this.$slots.default;
+                return this.$slots.default();
             },
             showEmptyState() {
                 return this.$slots.emptyState && !this.itemsExist && !this.loading;
@@ -274,38 +274,23 @@
         },
         methods: {
             count() {
-                if (utils.isVue3) {
-                    if (typeof this.$slots !== 'undefined'
-                        && typeof this.$slots.default() === 'function'
-                        && this.$slots.default({})) {
-                        const slots = this.$slots.default({});
-                        return slots ? slots.filter((vNode) => vNode.tag !== undefined).length : 0;
-                    }
-                    if (this.$slots.default()) {
-                        let count = 0;
-                        this.$slots.default().forEach((node) => {
-                            node?.children.forEach(vNode => {
-                                if (vNode.type && vNode.type.name === 'PResourceListItem') {
-                                  count++;
-                                }
-                            });
-                        });
-                      return count;
-                    }
-                } else {
-                    if (typeof this.$scopedSlots !== 'undefined'
-                        && typeof this.$scopedSlots.default === 'function'
-                        && this.$scopedSlots.default({})) {
-                        const slots = this.$scopedSlots.default({});
-                        return slots ? slots.filter((vNode) => vNode.tag !== undefined).length : 0;
-                    }
-                    if (this.$slots.default) {
-                        return this.$slots.default.filter((vNode) => {
-                            return vNode.tag !== undefined;
-                        }).length;
-                    }
-                }
-
+                      if (typeof this.$slots !== 'undefined'
+                          && typeof this.$slots.default() === 'function'
+                          && this.$slots.default({})) {
+                          const slots = this.$slots.default({});
+                          return slots ? slots.filter((vNode) => vNode.tag !== undefined).length : 0;
+                      }
+                      if (this.$slots.default()) {
+                          let count = 0;
+                          this.$slots.default().forEach((node) => {
+                              node?.children.forEach(vNode => {
+                                  if (vNode.type && vNode.type.name === 'PResourceListItem') {
+                                    count++;
+                                  }
+                              });
+                          });
+                        return count;
+                      }
                 return 0;
             },
             onToggledAll(checked) {

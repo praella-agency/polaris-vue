@@ -34,7 +34,6 @@
 </template>
 
 <script>
-    import utils from '../../../../utilities';
     import { uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PIcon } from '../../../../components/PIcon';
@@ -97,10 +96,7 @@
         },
         computed: {
             computedVModel() {
-                if (utils.isVue3) {
-                    return this.modelValue;
-                }
-                return this.value;
+                return this.modelValue;
             },
             className() {
                 return classNames(

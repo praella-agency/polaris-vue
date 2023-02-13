@@ -42,7 +42,6 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
     import { uuid } from '../../ComponentHelpers';
     import { Action } from '../../types';
     import { PDualThumb } from './components/PDualThumb';
@@ -162,10 +161,7 @@
         emits: ['change', 'update:value', 'update:modelValue', 'focus', 'blur'],
         computed: {
             computedVModel() {
-                if (utils.isVue3) {
-                    return this.modelValue;
-                }
-                return this.value;
+                return this.modelValue;
             },
             isDualThumb() {
                 return Array.isArray(this.computedVModel);

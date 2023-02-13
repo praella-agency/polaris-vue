@@ -52,7 +52,6 @@
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
     import { PFieldError } from '../../components/PFieldError';
-    import utils from "../../utilities";
 
     const PLACEHOLDER_VALUE = '';
 
@@ -194,10 +193,7 @@
         },
         computed: {
             computedVModel() {
-                if (utils.isVue3) {
-                    return this.modelValue;
-                }
-                return this.value;
+                  return this.modelValue;
             },
             parentClassName() {
                 return classNames(
