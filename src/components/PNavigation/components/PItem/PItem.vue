@@ -91,7 +91,7 @@
     import { PIcon } from '../../../../components/PIcon';
     import { PBadge } from '../../../../components/PBadge';
     import { PSecondary } from '../../../../components/PNavigation/components/PItem/components/PSecondary';
-    import { PItem } from '../../../../components/PNavigation/components/PItem';
+    import PItem from '../../../../components/PNavigation/components/PItem/PItem.vue';
 
     const MatchState = {
         MatchForced: 0,

@@ -2,13 +2,12 @@
 import fs from 'fs';
 import path from 'path';
 import vue from 'rollup-plugin-vue';
-import vue2 from 'rollup-plugin-vue2';
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
-import { terser } from 'rollup-plugin-terser';
+import terser  from '@rollup/plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import scss from 'rollup-plugin-scss';
 import autoprefixer from 'autoprefixer';
@@ -49,7 +48,7 @@ const baseConfig = {
             css: true,
             template: {
                 isProduction: true,
-            },
+            }
         },
         postVue: [
             resolve({
@@ -61,14 +60,6 @@ const baseConfig = {
             exclude: 'node_modules/**',
             extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
             babelHelpers: 'bundled',
-        },
-        vue2: {
-            'process.env.IS_VUE_3': false,
-            preventAssignment: true,
-        },
-        vue3: {
-            'process.env.IS_VUE_3': true,
-            preventAssignment: true,
         }
     },
 };
@@ -76,7 +67,7 @@ const baseConfig = {
 // ESM/UMD/IIFE shared settings: externals
 // Refer to https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
 const external = [
-    'vue', 'vue3'
+    'vue'
 ];
 
 // UMD/IIFE shared settings: output.globals
@@ -86,11 +77,6 @@ const globals = {
     vue: 'Vue',
 };
 const buildFormats = [];
-['vue', 'vue2'].forEach((value) => {
-    let isVue3 = false;
-    if (value === 'vue') {
-        isVue3 = true;
-    }
     // Customize configs for individual targets
     if (!argv.format || argv.format === 'es') {
         const esConfig = {
@@ -98,15 +84,14 @@ const buildFormats = [];
             input: 'src/entry.esm.js',
             external,
             output: {
-                file: isVue3 ? 'dist/vue3/polaris-vue.esm.js' : 'dist/polaris-vue.esm.js',
+                file: 'dist/vue/polaris-vue.esm.js',
                 format: 'esm',
                 exports: 'named',
             },
             plugins: [
                 replace(baseConfig.plugins.replace),
-                isVue3 ? replace(baseConfig.plugins.vue3) : replace(baseConfig.plugins.vue2),
                 ...baseConfig.plugins.preVue,
-                isVue3 ? vue() : vue2(baseConfig.plugins.vue3),
+                vue(baseConfig.plugins.vue),
                 ...baseConfig.plugins.postVue,
                 babel({
                     ...baseConfig.plugins.babel,
@@ -140,7 +125,7 @@ const buildFormats = [];
             external,
             output: {
                 compact: true,
-                file: isVue3 ? 'dist/vue3/polaris-vue.ssr.js' : 'dist/polaris-vue.ssr.js',
+                file: 'dist/vue/polaris-vue.ssr.js',
                 format: 'cjs',
                 name: 'PolarisVue',
                 exports: 'auto',
@@ -148,14 +133,13 @@ const buildFormats = [];
             },
             plugins: [
                 replace(baseConfig.plugins.replace),
-                isVue3 ? replace(baseConfig.plugins.vue3) : replace(baseConfig.plugins.vue2),
                 ...baseConfig.plugins.preVue,
-                isVue3 ? vue() : vue2({
+                vue({
                     ...baseConfig.plugins.vue,
                     template: {
                         ...baseConfig.plugins.vue.template,
                         optimizeSSR: true,
-                    },
+                    }
                 }),
                 ...baseConfig.plugins.postVue,
                 babel(baseConfig.plugins.babel),
@@ -179,7 +163,7 @@ const buildFormats = [];
             external,
             output: {
                 compact: true,
-                file: isVue3 ? 'dist/vue3/polaris-vue.min.js' : 'dist/polaris-vue.min.js',
+                file: 'dist/vue/polaris-vue.min.js',
                 format: 'umd',
                 name: 'PolarisVue',
                 exports: 'auto',
@@ -187,9 +171,8 @@ const buildFormats = [];
             },
             plugins: [
                 replace(baseConfig.plugins.replace),
-                isVue3 ? replace(baseConfig.plugins.vue3) : replace(baseConfig.plugins.vue2),
                 ...baseConfig.plugins.preVue,
-                isVue3 ? vue() : vue2(baseConfig.plugins.vue),
+                vue(baseConfig.plugins.vue),
                 ...baseConfig.plugins.postVue,
                 babel(baseConfig.plugins.babel),
                 terser({
@@ -210,7 +193,7 @@ const buildFormats = [];
         };
         buildFormats.push(unpkgConfig);
     }
-});
+
 
 // Export config
 export default buildFormats;
