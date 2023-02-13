@@ -1,4 +1,4 @@
-const vue3 = require('vue');
+const vue = require('vue');
 
 function isNodeOfComponent(node, component) {
     if (!node) {
@@ -15,10 +15,10 @@ function wrapNodesWithComponent(createElement, nodes, component, ignoredComponen
             continue;
         }
 
-        if(node.type === vue3.Comment) {
+        if(node.type === vue.Comment) {
             continue;
         }
-        if(node.type === vue3.Fragment) {
+        if(node.type === vue.Fragment) {
             const fragmentChildren = wrapNodesWithComponent(createElement, node.children, component, ignoredComponents);
             children = [
                 ...children,
@@ -52,16 +52,16 @@ function uuid() {
 }
 
 function createComponent(component, options, parentContainer, element, slots = {}) {
-    const vNode = vue3.h(component, {...options.props, ...options.slots}, () => slots);
+    const vNode = vue.h(component, {...options.props, ...options.slots}, () => slots);
     if (element && element.tag) {
         const container = document.createElement(element.tag);
         if (element.className) {
             container.classList.add(element.className);
         }
         parentContainer.appendChild(container);
-        vue3.render(vNode, container);
+        vue.render(vNode, container);
     } else {
-        vue3.render(vNode, parentContainer)
+        vue.render(vNode, parentContainer)
     }
     return vNode;
 }
@@ -70,7 +70,7 @@ function hasSlot(slot) {
     let hasSlot = false;
     if (slot) {
         slot().forEach((item) => {
-            if (item.type !== vue3.Comment) {
+            if (item.type !== vue.Comment) {
                 if (Array.isArray(item.children)) {
                     if (item.children.length) {
                         hasSlot = true;
@@ -89,5 +89,5 @@ export {
     uuid,
     wrapNodesWithComponent,
     hasSlot,
-    vue3
+    vue
 };

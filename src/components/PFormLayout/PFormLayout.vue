@@ -1,39 +1,21 @@
 <script>
-    import { vue3 } from '../../ComponentHelpers';
-    import utils from '../../utilities';
+    import { vue } from '../../ComponentHelpers';
     import { PFormLayoutItem } from '../../components/PFormLayout/components/PFormLayoutItem';
     import { PFormLayoutGroup } from '../../components/PFormLayout/components/PFormLayoutGroup';
     import { wrapNodesWithComponent } from '../../ComponentHelpers';
 
     let render = {};
-    if (utils.isVue3) {
-        render = function render() {
-            return vue3.h('div', {
-                    class: 'Polaris-FormLayout',
-                    id: this.id,
-                },
-                wrapNodesWithComponent(
-                    vue3.h,
-                    this.$slots.default(), PFormLayoutItem,
-                    [PFormLayoutGroup]
-                ),
-            );
-        }
-    } else {
-        render = function render(createElement) {
-            return createElement('div', {
-                    class: 'Polaris-FormLayout',
-                    attrs: {
-                        id: this.id,
-                    },
-                },
-                wrapNodesWithComponent(
-                    createElement,
-                    this.$slots.default, PFormLayoutItem,
-                    [PFormLayoutGroup]
-                ),
-            );
-        }
+    render = function render() {
+        return vue.h('div', {
+                class: 'Polaris-FormLayout',
+                id: this.id,
+            },
+            wrapNodesWithComponent(
+                vue.h,
+                this.$slots.default(), PFormLayoutItem,
+                [PFormLayoutGroup]
+            ),
+        );
     }
 
     /**

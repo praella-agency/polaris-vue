@@ -48,7 +48,6 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
     import { PFrame } from '../../components/PFrame';
     import { PTopBar } from '../../components/PTopBar';
     import { PDisplayText } from '../../components/PDisplayText';
@@ -93,27 +92,15 @@
             handleToggle(key) {
                 if (key > 2) {
                     if (!this.isOpen[key] || this.isOpen[key] === false) {
-                        if (utils.isVue3) {
-                            this.isOpen[key] = true;
-                        } else {
-                            this.$set(this.isOpen, key, true);
-                        }
+                      this.isOpen[key] = true;
                     } else {
-                        if (utils.isVue3) {
-                            this.isOpen[key] = false;
-                        } else {
-                            this.$set(this.isOpen, key, false);
-                        }
+                      this.isOpen[key] = false;
                     }
                 }
             },
             handleSearchResultsDismiss() {
                 this.releases.forEach((item, index) => {
-                    if (utils.isVue3) {
-                        this.isOpen[index] = false;
-                    } else {
-                        this.$set(this.isOpen, index, false);
-                    }
+                    this.isOpen[index] = false;
                 });
             },
             searchRelease(value) {
@@ -129,26 +116,14 @@
                             /* tslint:disable-next-line */
                             item['body'].toLowerCase().includes(value.toLowerCase())
                         ) {
-                            if (utils.isVue3) {
-                                this.isOpen[index] = true;
-                            } else {
-                                this.$set(this.isOpen, index, true);
-                            }
+                            this.isOpen[index] = true;
                         } else {
-                            if (utils.isVue3) {
-                                this.isOpen[index] = false;
-                            } else {
-                                this.$set(this.isOpen, index, false);
-                            }
+                            this.isOpen[index] = false;
                         }
                     });
                 } else {
                     this.releases.forEach((item, index) => {
-                        if (utils.isVue3) {
-                            this.isOpen[index] = false;
-                        } else {
-                            this.$set(this.isOpen, index, false);
-                        }
+                        this.isOpen[index] = false;
                     });
                 }
             },

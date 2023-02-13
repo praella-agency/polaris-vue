@@ -117,7 +117,6 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
     import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import dayjs from 'dayjs';
@@ -416,10 +415,7 @@
         },
         computed: {
             computedVModel() {
-                if (utils.isVue3) {
-                    return this.modelValue;
-                }
-                return this.value;
+                return this.modelValue;
             },
             className() {
                 return classNames(

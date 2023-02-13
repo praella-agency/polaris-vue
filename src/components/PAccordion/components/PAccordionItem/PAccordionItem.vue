@@ -35,7 +35,6 @@
 </template>
 
 <script>
-    import utils from '../../../../utilities';
     import { uuid } from '../../../../ComponentHelpers';
     import { PAccordionHeader } from '../../../../components/PAccordion/components/PAccordionHeader';
     import { PAccordionContent } from '../../../../components/PAccordion/components/PAccordionContent';
@@ -210,25 +209,13 @@
                         };
                         let header = this.themeOptions.header;
                         if (header.color) {
-                            if (utils.isVue3) {
-                                styleOptions.color = header.color;
-                            } else {
-                                this.$set(styleOptions, 'color', header.color);
-                            }
+                            styleOptions.color = header.color;
                         }
                         if (header.background) {
-                            if (utils.isVue3) {
-                                styleOptions.background = header.background;
-                            } else {
-                                this.$set(styleOptions, 'background', header.background);
-                            }
+                          styleOptions.background = header.background;
                         }
                         if (header.backgroundCollapsed) {
-                            if (utils.isVue3) {
-                                styleOptions.backgroundCollapsed = header.backgroundCollapsed;
-                            } else {
-                                this.$set(styleOptions, 'backgroundCollapsed', header.backgroundCollapsed);
-                            }
+                          styleOptions.backgroundCollapsed = header.backgroundCollapsed;
                         }
                     }
                 }
@@ -248,18 +235,10 @@
                         };
                         let content = this.themeOptions.content;
                         if (content.color) {
-                            if (utils.isVue3) {
-                                styleOptions.color = content.color;
-                            } else {
-                                this.$set(styleOptions, 'color', content.color);
-                            }
+                            styleOptions.color = content.color;
                         }
                         if (content.background) {
-                            if (utils.isVue3) {
-                                styleOptions.background = content.background;
-                            } else {
-                                this.$set(styleOptions, 'background', content.background);
-                            }
+                            styleOptions.background = content.background;
                         }
                     }
                 }
@@ -289,11 +268,6 @@
         methods: {
             handleToggle(index) {
                 this.$parent.handleToggle(index);
-                /*if (utils.isVue3) {
-                    emitter.emit(`accordion-${this.getAccordionId}-toggle`, index);
-                } else {
-                    this.$root.$emit(`accordion-${this.getAccordionId}-toggle`, index);
-                }*/
             },
             setOpenCloseIcon(object, type, source) {
                 if (object.hasOwnProperty(type) && Object.keys(object[type]).length) {

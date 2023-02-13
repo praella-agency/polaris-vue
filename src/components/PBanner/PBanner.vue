@@ -38,7 +38,6 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
     import { classNames, variationName } from '../../utilities/css';
 
     import { PIcon } from '../../components/PIcon';
@@ -109,11 +108,7 @@
                 );
             },
             hasDismissible() {
-                if (utils.isVue3) {
-                    return this.isDismissible;
-                } else {
-                    return this.$listeners && this.$listeners.dismiss;
-                }
+                return this.isDismissible;
             },
             colorAndIcon() {
                 let color;

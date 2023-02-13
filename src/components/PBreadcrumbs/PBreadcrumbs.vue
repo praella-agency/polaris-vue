@@ -1,6 +1,5 @@
 <script>
-    import utils from '../../utilities';
-    import { vue3 } from '../../ComponentHelpers';
+    import { vue } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PUnstyledLink } from '../../components/PUnstyledLink';
     import { PIcon } from '../../components/PIcon';
@@ -15,10 +14,6 @@
     }
 
     let render = {};
-
-    if (utils.isVue3) {
-
-    }
 
     export default {
         name: 'PBreadcrumbs',
@@ -45,111 +40,54 @@
             const {onAction} = breadcrumb;
             let contentMarkup = null;
 
-            if (utils.isVue3) {
-                contentMarkup = vue3.h('span', {
-                    class: 'Polaris-Breadcrumbs__ContentWrapper',
+
+            contentMarkup = vue.h('span', {
+                class: 'Polaris-Breadcrumbs__ContentWrapper',
+            }, [
+                vue.h('span', {
+                    class: 'Polaris-Breadcrumbs__Icon',
                 }, [
-                    vue3.h('span', {
-                        class: 'Polaris-Breadcrumbs__Icon',
-                    }, [
-                        vue3.h(PIcon, {
-                            source: 'ChevronLeftMinor',
-                        }),
-                    ]),
-                    vue3.h('span', {
-                        class: 'Polaris-Breadcrumbs__Content',
-                    }, content),
-                ]);
-            } else {
-                contentMarkup = this.$createElement('span', {
-                    class: 'Polaris-Breadcrumbs__ContentWrapper',
-                }, [
-                    this.$createElement('span', {
-                        class: 'Polaris-Breadcrumbs__Icon',
-                    }, [
-                        this.$createElement(PIcon, {
-                            attrs: {
-                                source: 'ChevronLeftMinor',
-                            },
-                        }),
-                    ]),
-                    this.$createElement('span', {
-                        class: 'Polaris-Breadcrumbs__Content',
-                    }, content),
-                ]);
-            }
+                    vue.h(PIcon, {
+                        source: 'ChevronLeftMinor',
+                    }),
+                ]),
+                vue.h('span', {
+                    class: 'Polaris-Breadcrumbs__Content',
+                }, content),
+            ]);
 
             const breadcrumbClassNames = classNames(
                 'Polaris-Breadcrumbs__Breadcrumb',
             );
 
             let breadcrumbMarkup = null;
-
-            if (utils.isVue3) {
-                breadcrumbMarkup = 'url' in breadcrumb || 'to' in breadcrumb ? (
-                    vue3.h(PUnstyledLink, {
-                        class: breadcrumbClassNames,
-                        key: content,
-                        url: breadcrumb.url,
-                        to: breadcrumb.to,
-                        ariaLabel: breadcrumb.accessibilityLabel,
-                        // tslint:disable-next-line:no-empty
-                        onClick: onAction ? onAction : () => {
-                        },
-                    }, () => [contentMarkup])
-                ) : (
-                    vue3.h('button', {
-                        class: breadcrumbClassNames,
-                        key: content,
-                        type: 'button',
-                        ariaLabel: breadcrumb.accessibilityLabel,
-                        // tslint:disable-next-line:no-empty
-                        onClick: onAction ? onAction : () => {
-                        },
-                    }, [contentMarkup])
-                );
-
-                return vue3.h('nav', {
-                        role: 'navigation',
-                }, [breadcrumbMarkup]);
-            } else {
-                breadcrumbMarkup = 'url' in breadcrumb || 'to' in breadcrumb ? (
-                    this.$createElement(PUnstyledLink, {
-                        class: breadcrumbClassNames,
-                        attrs: {
-                            key: content,
-                            url: breadcrumb.url,
-                            to: breadcrumb.to,
-                            ariaLabel: breadcrumb.accessibilityLabel,
-                        },
-                        nativeOn: {
-                            // tslint:disable-next-line:no-empty
-                            click: onAction ? onAction : () => {
-                            },
-                        },
-                    }, [contentMarkup])
-                ) : (
-                    this.$createElement('button', {
-                        class: breadcrumbClassNames,
-                        attrs: {
-                            key: content,
-                            type: 'button',
-                            ariaLabel: breadcrumb.accessibilityLabel,
-                        },
-                        on: {
-                            // tslint:disable-next-line:no-empty
-                            click: onAction ? onAction : () => {
-                            },
-                        },
-                    }, [contentMarkup])
-                );
-
-                return this.$createElement('nav', {
-                    attrs: {
-                        role: 'navigation',
+            breadcrumbMarkup = 'url' in breadcrumb || 'to' in breadcrumb ? (
+                vue.h(PUnstyledLink, {
+                    class: breadcrumbClassNames,
+                    key: content,
+                    url: breadcrumb.url,
+                    to: breadcrumb.to,
+                    ariaLabel: breadcrumb.accessibilityLabel,
+                    // tslint:disable-next-line:no-empty
+                    onClick: onAction ? onAction : () => {
                     },
-                }, [breadcrumbMarkup]);
-            }
+                }, () => [contentMarkup])
+            ) : (
+                vue.h('button', {
+                    class: breadcrumbClassNames,
+                    key: content,
+                    type: 'button',
+                    ariaLabel: breadcrumb.accessibilityLabel,
+                    // tslint:disable-next-line:no-empty
+                    onClick: onAction ? onAction : () => {
+                    },
+                }, [contentMarkup])
+            );
+
+            return vue.h('nav', {
+                    role: 'navigation',
+            }, [breadcrumbMarkup]);
+
         },
     }
 </script>

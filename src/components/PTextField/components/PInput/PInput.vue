@@ -264,10 +264,7 @@
         },
         computed: {
             computedVModel() {
-                if (utils.isVue3) {
-                    return this.modelValue;
-                }
-                return this.value;
+              return this.modelValue;
             },
             className() {
                 return classNames(

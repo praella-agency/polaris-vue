@@ -17,7 +17,6 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
     import mitt from 'mitt';
     import { PAccordionItem } from '../../components/PAccordion/components/PAccordionItem';
 
@@ -110,19 +109,11 @@
                     if (Array.isArray(this.open)) {
                         this.open.forEach((index) => {
                             if (this.accordionItemIds[index] || this.accordionItemIds[index] === 0) {
-                                if (utils.isVue3) {
-                                    this.visibility[`${this.id}-${this.accordionItemIds[index]}`] = true;
-                                } else {
-                                    this.$set(this.visibility, `${this.id}-${this.accordionItemIds[index]}`, true);
-                                }
+                              this.visibility[`${this.id}-${this.accordionItemIds[index]}`] = true;
                             }
                         });
                     } else {
-                        if (utils.isVue3) {
-                            this.visibility[`${this.id}-${this.accordionItemIds[this.open]}`] = true;
-                        } else {
-                            this.$set(this.visibility, `${this.id}-${this.accordionItemIds[this.open]}`, true);
-                        }
+                        this.visibility[`${this.id}-${this.accordionItemIds[this.open]}`] = true;
                     }
                 }
             },
@@ -130,19 +121,11 @@
                 if (!this.allowMultiple) {
                     Object.keys(this.visibility).forEach((key) => {
                         if (key.toString() !== index.toString()) {
-                            if (utils.isVue3) {
-                                this.visibility[key] = false;
-                            } else {
-                                this.$set(this.visibility, key, false);
-                            }
+                            this.visibility[key] = false;
                         }
                     });
                 }
-                if (utils.isVue3) {
-                    this.visibility[index] = !this.visibility[index];
-                } else {
-                    this.$set(this.visibility, index, !this.visibility[index]);
-                }
+                this.visibility[index] = !this.visibility[index];
             },
             handleItemToggleDefault(id) {
                 this.accordionItemIds.push(id);
