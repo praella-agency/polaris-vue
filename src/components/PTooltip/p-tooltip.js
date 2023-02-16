@@ -66,7 +66,6 @@ export const directives = (app) => {
 
 const PTooltip = {
     install(app, options) {
-        app.component('PTooltip', Tooltip);
         app.directive('p-tooltip', directives(app));
     }
 }

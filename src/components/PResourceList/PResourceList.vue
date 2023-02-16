@@ -100,7 +100,6 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
     import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
