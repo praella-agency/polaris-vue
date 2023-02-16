@@ -34,6 +34,10 @@
 </template>
 
 <script>
+    import { hasSlot } from '../../ComponentHelpers';
+    import { classNames } from '../../utilities/css';
+    import { PPageHeader } from '../../components/PPage/components/PPageHeader';
+
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,

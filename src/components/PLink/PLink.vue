@@ -21,6 +21,9 @@
 </template>
 
 <script>
+  import { classNames } from '../../utilities/css';
+  import { PUnstyledLink } from '../../components/PUnstyledLink';
+  import { PIcon } from '../../components/PIcon';
 
     /**
      * <br/>
@@ -30,7 +33,7 @@
     export default {
         name: 'PLink',
         components: {
-            PButton, PUnstyledLink, PIcon,
+          PUnstyledLink, PIcon,
         },
         props: {
             /**
