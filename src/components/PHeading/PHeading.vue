@@ -6,6 +6,7 @@
 </template>
 
 <script>
+    import { defineComponent } from 'vue';
     import StringValidator from '../../utilities/validators/StringValidator';
 
     const HeadingTagName = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
@@ -17,7 +18,7 @@
      *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/structure-card--card">card components</a>
      *  generally use headings as their title.</h4>
      */
-    export default {
+    export default defineComponent({
         name: 'PHeading',
         props: {
             /**
@@ -29,5 +30,5 @@
                 ...StringValidator('element', HeadingTagName)
             }
         },
-    }
+    })
 </script>

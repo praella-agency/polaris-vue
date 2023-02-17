@@ -1,17 +1,8 @@
 <script>
+    import { defineComponent } from "vue";
     import { vue } from '../../ComponentHelpers';
-    let render = {};
 
-    render = function render() {
-        const validSlot = this.$slots.default();
-        const child = validSlot ? validSlot[0] : vue.h('div');
-        if (this.active) {
-            return vue.h(this.tag, {}, [child]);
-        }
-        return child;
-    }
-
-    export default {
+    export default defineComponent({
         name: 'POptionalTag',
         props: {
             tag: {
@@ -23,6 +14,16 @@
                 required: true,
             },
         },
-        render,
-    }
+        setup(props) {
+            function render() {
+                const validSlot = this.$slots.default();
+                const child = validSlot ? validSlot[0] : vue.h('div');
+                if (props.active) {
+                  return vue.h(props.tag, {}, [child]);
+                }
+                return child;
+            }
+          return { render };
+        }
+    })
 </script>

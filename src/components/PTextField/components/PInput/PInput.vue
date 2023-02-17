@@ -363,8 +363,9 @@
             },
             computedStyle() {
                 return {
+                    resize: (this.multiline && this.computedHeight) ? 'vertical' : null,
                     height: (this.multiline && this.computedHeight) ? this.computedHeight + 'px' : null,
-                    overflow: (this.multiline && this.computedHeight) ? 'hidden' : null
+                    overflow: (this.multiline && this.computedHeight) ? 'auto' : null
                 };
             },
             computedPlaceholder() {

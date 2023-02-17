@@ -4,7 +4,7 @@
             @click="handleAction(action)"
             :disabled="disabled"
             :class="className">
-            <template v-if="(icon || image) || hasSlot($slots.media)">
+            <template v-if="(icon || image) || isSlot($slots.media)">
                 <span class="Polaris-ActionList__Content">
                     <span
                         role="presentation"
@@ -43,12 +43,13 @@
 </template>
 
 <script>
+    import { defineComponent, computed } from 'vue';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PUnstyledLink } from '../../../../components/PUnstyledLink';
     import { PIcon } from '../../../../components/PIcon';
 
-    export default {
+    export default defineComponent({
         name: 'PActionListItem',
         components: {
             PUnstyledLink, PIcon,
@@ -73,41 +74,45 @@
                 type: Boolean,
             },
         },
-        computed: {
-            className() {
+        setup(props) {
+            const className = () => {
                 return classNames(
                     'Polaris-ActionList__Item',
                 );
-            },
-            mediaSlotClassName() {
+            }
+
+            const mediaSlotClassName = () => {
                 return classNames(
                     'Polaris-ActionList__Prefix',
                 );
-            },
-            listValues() {
+            }
+
+            const listValues = () => {
                 return {
-                    content: this.content,
-                    helpText: this.helpText,
-                    action: this.action,
-                    icon: this.icon,
-                    image: this.image,
-                    disabled: this.disabled,
+                    content: props.content,
+                    helpText: props.helpText,
+                    action: props.action,
+                    icon: props.icon,
+                    image: props.image,
+                    disabled: props.disabled,
                 };
-            },
-            hasSlot() {
+            }
+
+            const isSlot = () => {
                 return hasSlot;
-            },
-        },
-        methods: {
-            handleAction(action) {
+            }
+
+            function handleAction(action) {
                 let res = true;
                 if (action.onAction) {
-                    res = action.onAction();
+                  res = action.onAction();
                 }
                 if (res && action.url) {
-                    window.location.href = action.url;
+                  window.location.href = action.url;
                 }
-            },
+            }
+
+            return { className, mediaSlotClassName, listValues, isSlot, handleAction }
         }
-    }
+    })
 </script>

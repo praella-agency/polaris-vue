@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import utils from '../../utilities';
+    import { defineComponent, ref, computed, onMounted } from 'vue';
     import { DeprecatedIcons } from './index';
     import * as Icon from '../../assets/shopify-polaris-icons';
     import { classNames, variationName } from '../../utilities/css';
@@ -25,7 +25,7 @@
 
     const Color = ['base', 'subdued', 'critical', 'interactive', 'warning', 'highlight', 'success', 'primary', null, ''];
 
-    export default {
+    export default defineComponent({
         name: 'PIcon',
         props: {
             /**
@@ -71,77 +71,80 @@
             }
         },
         emits: ['click'],
-        data() {
-            return {
-                clickableStyles: {}
-            }
-        },
-        computed: {
-            className() {
+        setup(props) {
+            let clickableStyles = ref({});
+
+            onMounted(() => {
+                if (props.clickable) {
+                    clickableStyles = {
+                        cursor: 'pointer',
+                    };
+                }
+            });
+
+            const className = computed(() => {
                 return classNames(
                     'Polaris-Icon',
-                    this.color && (typeof this.color === 'string') && `Polaris-Icon--${variationName('color', this.color)}`,
-                    this.color && 'Polaris-Icon--applyColor',
-                    this.backdrop && 'Polaris-Icon--hasBackdrop',
+                    props.color && (typeof props.color === 'string') && `Polaris-Icon--${variationName('color', props.color)}`,
+                    props.color && 'Polaris-Icon--applyColor',
+                    props.backdrop && 'Polaris-Icon--hasBackdrop',
                 );
-            },
-            encodedSource() {
-                return encodeSVG(this.source);
-            },
-            sourceType() {
-                if (this.source === 'function' || Object.keys(Icon).filter((icon) => icon === this.source).length > 0) {
+            });
+
+            const encodedSource = computed(() => {
+                return encodeSVG(props.source);
+            });
+
+            const sourceType = computed(() => {
+                if (props.source === 'function' || Object.keys(Icon).filter((icon) => icon === props.source).length > 0) {
                     return 'function';
-                } else if (this.source === 'placeholder') {
+                } else if (props.source === 'placeholder') {
                     return 'placeholder';
                 } else {
                     return 'external';
                 }
-            },
-            enhancedSource() {
-                if (DeprecatedIcons.indexOf(this.source) > -1) {
+            });
+
+            const enhancedSource = computed(() => {
+                if (DeprecatedIcons.indexOf(props.source) > -1) {
                     // tslint:disable-next-line:no-console
-                    console.error(this.source + '` this icon has been removed, please use new ' +
+                    console.error(props.source + '` this icon has been removed, please use new ' +
                         'instead of this. Refer this link to get updated icons ' +
                         'https://polaris-vue.hulkapps.com/?path=/story/images-icons-icon--icon');
                 }
 
-                const sourceIcon = Icon[this.source];
+                const sourceIcon = Icon[props.source];
                 if (!sourceIcon) {
-                    return this.source.replace('<svg', '<svg class="Polaris-Icon__Svg"');
+                    return props.source.replace('<svg', '<svg class="Polaris-Icon__Svg"');
                 }
                 return sourceIcon.replace('<svg', '<svg class="Polaris-Icon__Svg" focusable="false" aria-hidden="true"');
-            }
-        },
-        methods: {
-            handleClick() {
+            });
+
+            function handleClick() {
                 /**
                  * Handle click event
                  */
                 this.$emit('click', event);
-            },
-            attrs () {
-              const onRE = /^on[^a-z]/
-              const attributes = {}
-              const listeners = {}
-              const { $attrs } = this
-
-              for (const property in $attrs) {
-                if (onRE.test(property)) {
-                  listeners[property] = $attrs[property]
-                } else {
-                  attributes[property] = $attrs[property]
-                }
-              }
-
-              return { attributes, listeners }
             }
-        },
-        mounted() {
-          if (this.clickable) {
-              this.clickableStyles = {
-                  cursor: 'pointer',
-              };
-          }
+
+            function attrs () {
+                const onRE = /^on[^a-z]/
+                const attributes = {}
+                const listeners = {}
+                const { $attrs } = this
+
+                for (const property in $attrs) {
+                    if (onRE.test(property)) {
+                        listeners[property] = $attrs[property]
+                    } else {
+                        attributes[property] = $attrs[property]
+                    }
+                }
+
+                return { attributes, listeners }
+            }
+
+            return { clickableStyles, className, encodedSource, sourceType, enhancedSource, handleClick, attrs };
         }
-    }
+    })
 </script>

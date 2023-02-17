@@ -1,8 +1,8 @@
 <template>
     <h2 :id="`heading${id}`">
         <button
-            :id="`accordion-button${uuid}`"
-            :class="hasSlot($slots.default) ? slotClassName : className"
+            :id="`accordion-button${uuidVal}`"
+            :class="isSlot($slots.default) ? slotClassName : className"
             :style="style"
             @click="handleToggle(id)"
             type="button"
@@ -24,12 +24,13 @@
 </template>
 
 <script>
+    import { defineComponent, computed } from 'vue';
     import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PHeading } from '../../../../components/PHeading';
     import { PIcon } from '../../../../components/PIcon';
 
-    export default {
+    export default defineComponent({
         name: 'PAccordionHeader',
         components: {
             PHeading, PIcon,
@@ -59,49 +60,55 @@
             }
         },
         emits: ['toggle'],
-        computed: {
-            className() {
+        setup(props, context) {
+            const className = computed(() => {
                 return classNames(
                     'Polaris-Accordion-Title',
-                    this.open && 'Polaris-Accordion-Title--collapsed',
+                    props.open && 'Polaris-Accordion-Title--collapsed',
                 );
-            },
-            slotClassName() {
+            });
+
+            const slotClassName = computed(() => {
                 return classNames(
                     'Polaris-Accordion-Title--slot',
-                    this.open && 'Polaris-Accordion-Title--collapsed--slot',
+                    props.open && 'Polaris-Accordion-Title--collapsed--slot',
                 );
-            },
-            iconClassName() {
+            });
+
+            const iconClassName = computed(() => {
                 return classNames(
                     'Polaris-Accordion-Icon',
-                    !this.disableIconRotate && !this.open && 'Polaris-Accordion__IconFacingUp',
+                    !props.disableIconRotate && !props.open && 'Polaris-Accordion__IconFacingUp',
                 );
-            },
-            style() {
+            });
+
+            const style = computed(() => {
                 let styles = {};
-                if (this.themeOptions.color) {
-                    styles.color = this.themeOptions.color;
+                if (props.themeOptions.color) {
+                  styles.color = props.themeOptions.color;
                 }
-                if (!this.open && this.themeOptions.background) {
-                    styles.backgroundColor = this.themeOptions.background;
+                if (!props.open && props.themeOptions.background) {
+                  styles.backgroundColor = props.themeOptions.background;
                 }
-                if (this.open && this.themeOptions.backgroundCollapsed) {
-                    styles.backgroundColor = this.themeOptions.backgroundCollapsed;
+                if (props.open && props.themeOptions.backgroundCollapsed) {
+                  styles.backgroundColor = props.themeOptions.backgroundCollapsed;
                 }
                 return styles;
-            },
-            hasSlot() {
+            });
+
+            const isSlot = computed(() => {
                 return hasSlot;
-            },
-            uuid() {
+            });
+
+            const uuidVal = computed(() => {
                 return uuid();
-            },
-        },
-        methods: {
-            handleToggle(id) {
+            });
+
+            function handleToggle(id) {
                 this.$emit('toggle', id);
-            },
+            }
+
+            return { className, slotClassName, iconClassName, style, isSlot, uuidVal, handleToggle };
         },
-    }
+    });
 </script>

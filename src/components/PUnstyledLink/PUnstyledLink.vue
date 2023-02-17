@@ -15,6 +15,7 @@
 </template>
 
 <script>
+    import { defineComponent, computed } from 'vue';
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -22,7 +23,7 @@
      *  Similar to Link.
      *  </h4>
      */
-    export default {
+    export default defineComponent({
         name: 'PUnstyledLink',
         props: {
             /**
@@ -55,16 +56,20 @@
                 default: false,
             },
         },
-        computed: {
-            target() {
-                return this.external ? '_blank' : undefined;
-            },
-            rel() {
-                return this.external ? 'noopener noreferrer' : undefined;
-            },
-            listeners() {
-                return {};
-            }
-        },
-    }
+        setup(props) {
+            const target = computed(() => {
+                return props.external ? '_blank' : undefined;
+            });
+
+            const rel = computed(() => {
+                return props.external ? '_blank' : undefined;
+            });
+
+            const listeners = computed(() => {
+                return props.external ? '_blank' : undefined;
+            });
+
+            return { target, rel, listeners };
+        }
+    })
 </script>

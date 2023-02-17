@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import { defineComponent, computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
     import { POptionalTag } from '../../../../components/POptionalTag';
     import { PActionListItem } from '../../../../components/PActionList/components/PActionListItem';
@@ -33,7 +34,7 @@
         items: Array,
     }
 
-    export default {
+    export default defineComponent({
         name: 'PActionListSection',
         components: {
             PActionListItem, POptionalTag,
@@ -49,25 +50,26 @@
             },
         },
         emits: ['item-action'],
-        computed: {
-            className() {
+        setup(props) {
+            const className = computed(() => {
                 return classNames(
-                    !this.section.title && 'Polaris-ActionList__Section--withoutTitle',
+                    !props.section.title && 'Polaris-ActionList__Section--withoutTitle',
                 );
-            },
-        },
-        methods: {
-            wrapAction(action) {
+            });
+
+            function wrapAction(action) {
                 const old = action.onAction;
                 const newAction = Object.assign({}, action);
                 if (old) {
                     newAction.onAction = () => {
-                        old();
-                        this.$emit('item-action', action);
+                      old();
+                      this.$emit('item-action', action);
                     };
                 }
                 return newAction;
-            },
-        }
-    }
+            }
+
+            return { className, wrapAction };
+        },
+    })
 </script>

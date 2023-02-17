@@ -18,6 +18,7 @@ Access values with `slot-props` attribute. -->
 </template>
 
 <script>
+    import { defineComponent, computed } from 'vue';
     import { classNames } from '../../utilities/css';
     import { PActionListSection } from '../../components/PActionList/components/PActionListSection';
 
@@ -28,7 +29,7 @@ Access values with `slot-props` attribute. -->
      *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/overlays-popover--popover">popover</a>
      *  container to create a dropdown menu or to let merchants select from a list of options.</h4>
      */
-    export default {
+    export default defineComponent({
         name: 'PActionList',
         components: {
             PActionListSection,
@@ -49,31 +50,34 @@ Access values with `slot-props` attribute. -->
                 default: () => ([]),
             }
         },
-        computed: {
-            className() {
+        setup(props, context) {
+            const className = computed(() => {
                 return classNames(
                     'Polaris-ActionList',
                 );
-            },
-            finalSections() {
-                /* tslint:disable-next-line */
-                if (typeof this.items != 'undefined' && this.items !== null && this.items.length != null
-                    && this.items.length > 0) {
-                    return [{items: this.items}, ...this.sections];
+            });
+
+            const finalSections = computed(() => {
+              /* tslint:disable-next-line */
+                if (typeof props.items != 'undefined' && props.items !== null && props.items.length != null
+                    && props.items.length > 0) {
+                  return [{items: props.items}, ...props.sections];
                 }
-                return this.sections;
-            },
-            hasMultipleSections() {
-                return this.finalSections.length > 1;
-            },
+                return props.sections;
+            });
+
+            const hasMultipleSections = computed(() => {
+                return finalSections.length > 1;
+            });
+
+            function onItemAction(action) {
+              /**
+               * Triggers when the item is selected/clicked
+               */
+              this.$emit('item-action', action);
+            }
+
+            return { className, finalSections, hasMultipleSections, onItemAction };
         },
-        methods: {
-            onItemAction(action) {
-                /**
-                 * Triggers when the item is selected/clicked
-                 */
-                this.$emit('item-action', action);
-            },
-        },
-    }
+    });
 </script>

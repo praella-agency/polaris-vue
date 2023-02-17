@@ -16,9 +16,10 @@
 </template>
 
 <script>
+    import { defineComponent, computed } from 'vue';
     import { PCollapsible } from '../../../../components/PCollapsible';
 
-    export default {
+    export default defineComponent({
         name: 'PAccordionContent',
         components: {
             PCollapsible,
@@ -44,18 +45,20 @@
                 type: Object,
             },
         },
-        computed: {
-            style() {
-                let styles = {};
-                if (this.themeOptions.color) {
-                    styles.color = this.themeOptions.color;
-                }
-                if (this.themeOptions.background) {
-                    styles.backgroundColor = this.themeOptions.background;
-                }
+        setup(props) {
+            const style = computed(() => {
+              let styles = {};
+              if (props.themeOptions.color) {
+                styles.color = props.themeOptions.color;
+              }
+              if (props.themeOptions.background) {
+                styles.backgroundColor = props.themeOptions.background;
+              }
 
-                return styles;
-            },
+              return styles;
+            })
+
+            return { style };
         }
-    }
+    });
 </script>

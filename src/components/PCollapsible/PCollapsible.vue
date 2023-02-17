@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import {defineComponent, onMounted, ref, computed, watch, onBeforeUnmount} from 'vue';
     import utils from '../../utilities';
     import { classNames } from '../../utilities/css';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
@@ -31,7 +32,7 @@
      *  sans-serif;">The collapsible component is used to put long sections of information under a block that merchants
      *  can expand or collapse.</h4>
      */
-    export default {
+    export default defineComponent({
         name: 'PCollapsible',
         props: {
             /**
@@ -68,125 +69,128 @@
                 ...ObjectValidator('transition', Transition)
             }
         },
-        data() {
-            return {
-                animationState: 'idle',
-                height: 0,
-                isOpen: this.open,
-            }
-        },
-        computed: {
-            isFullyOpen() {
-                return this.animationState === 'idle' && this.open && this.isOpen;
-            },
-            isFullyClosed() {
-                return this.animationState === 'idle' && !this.open && !this.isOpen;
-            },
-            wrapperClassName() {
+        setup(props) {
+            let animationState = ref('idle');
+            let height = ref(0);
+            let isOpen = ref(props.open);
+
+            onMounted(() => {
+                (this.$refs.collapsibleContainer).addEventListener('transitionend', handleCompleteAnimation);
+
+                if (props.open && this.$refs.collapsibleContainer) {
+                    // If collapsible defaults to open, set an initial height
+                    height = (this.$refs.collapsibleContainer).scrollHeight;
+                }
+            });
+
+            const isFullyOpen = computed(() => {
+                return animationState === 'idle' && props.open && isOpen;
+            });
+
+            const isFullyClosed = computed(() => {
+                return animationState === 'idle' && !props.open && !isOpen;
+            });
+
+            const wrapperClassName = computed(() => {
                 return classNames(
                     'Polaris-Collapsible',
-                    this.isFullyClosed && 'Polaris-Collapsible--isFullyClosed',
-                    this.expandOnPrint && 'Polaris-Collapsible--expandOnPrint',
+                    isFullyClosed && 'Polaris-Collapsible--isFullyClosed',
+                    props.expandOnPrint && 'Polaris-Collapsible--expandOnPrint',
                 );
-            },
-            collapsibleStyles() {
+            });
+
+            const collapsibleStyles = computed(() => {
                 let transitionStyle = {};
                 const collapsible = {
-                    maxHeight: this.isFullyOpen ? 'none' : `${this.height}px`,
-                    overflow: this.isFullyOpen ? 'visible' : 'hidden',
+                    maxHeight: isFullyOpen ? 'none' : `${height}px`,
+                    overflow: isFullyOpen ? 'visible' : 'hidden',
                 };
 
-                if (Object.keys(this.transition).length > 0) {
+                if (Object.keys(props.transition).length > 0) {
                     transitionStyle = {
-                        transitionDuration: `${this.transition.duration}`,
-                        transitionTimingFunction: `${this.transition.timingFunction}`,
+                        transitionDuration: `${props.transition.duration}`,
+                        transitionTimingFunction: `${props.transition.timingFunction}`,
                     };
                 }
 
                 return [transitionStyle, collapsible];
-            }
-        },
-        methods: {
-            handleCompleteAnimation(event) {
+            });
+
+            function handleCompleteAnimation(event) {
                 if (event.target) {
                     if (event.target === this.$refs.collapsibleContainer) {
-                        this.animationState = 'idle';
-                        this.isOpen = this.open;
+                        animationState = 'idle';
+                        isOpen = props.open;
                     }
                 }
             }
-        },
-        watch: {
-            animationState: function () {
+
+            watch(animationState, () => {
                 if (!this.$refs.collapsibleContainer) {
                     return;
                 }
 
-                switch (this.animationState) {
+                switch (animationState) {
                     case 'idle':
                         break;
                     case 'measuring':
-                        this.height = (this.$refs.collapsibleContainer).scrollHeight;
+                        height = (this.$refs.collapsibleContainer).scrollHeight;
                         setTimeout(() => {
-                            this.animationState = 'animating';
+                            animationState = 'animating';
                         }, 1);
                         break;
                     case 'animating':
-                        this.height = this.open ? (this.$refs.collapsibleContainer).scrollHeight : 0;
+                        height = props.open ? (this.$refs.collapsibleContainer).scrollHeight : 0;
                 }
-            },
-            isOpen: function (value) {
-                if (this.open !== value) {
-                    this.animationState = 'measuring';
+            })
+
+            watch(isOpen, (value) => {
+                if (props.open !== value) {
+                    animationState = 'measuring';
                 } else {
                     if (!this.$refs.collapsibleContainer) {
                         return;
                     }
 
-                    switch (this.animationState) {
+                    switch (animationState) {
                         case 'idle':
                             break;
                         case 'measuring':
-                            this.height = (this.$refs.collapsibleContainer).scrollHeight;
-                            this.animationState = 'animating';
+                            height = (this.$refs.collapsibleContainer).scrollHeight;
+                            animationState = 'animating';
                             break;
                         case 'animating':
-                            this.height = this.open ? (this.$refs.collapsibleContainer).scrollHeight : 0;
+                            height = props.open ? (this.$refs.collapsibleContainer).scrollHeight : 0;
                     }
                 }
-            },
-            open: function (value) {
-                if (value !== this.isOpen) {
-                    this.animationState = 'measuring';
+            })
+
+            watch(open, (value) => {
+                if (value !== isOpen) {
+                    animationState = 'measuring';
                 } else {
                     if (!this.$refs.collapsibleContainer) {
                         return;
                     }
 
-                    switch (this.animationState) {
+                    switch (animationState) {
                         case 'idle':
                             break;
                         case 'measuring':
-                            this.height = (this.$refs.collapsibleContainer).scrollHeight;
-                            this.animationState = 'animating';
+                            height = (this.$refs.collapsibleContainer).scrollHeight;
+                            animationState = 'animating';
                             break;
                         case 'animating':
-                            this.height = this.open ? (this.$refs.collapsibleContainer).scrollHeight : 0;
+                            height = props.open ? (this.$refs.collapsibleContainer).scrollHeight : 0;
                     }
                 }
-            }
-        },
-        mounted() {
-            (this.$refs.collapsibleContainer).addEventListener('transitionend', this.handleCompleteAnimation);
+            })
 
-            if (this.open && this.$refs.collapsibleContainer) {
-                // If collapsible defaults to open, set an initial height
-                this.height = (this.$refs.collapsibleContainer).scrollHeight;
-            }
-        },
-        [utils.beforeDestroy]() {
-            (this.$refs.collapsibleContainer)
-                .removeEventListener('transitionend', this.handleCompleteAnimation);
-        },
-    }
+            onBeforeUnmount(() => {
+                (this.$refs.collapsibleContainer).removeEventListener('transitionend', this.handleCompleteAnimation);
+            })
+
+            return { animationState, height, isOpen, isFullyOpen, isFullyClosed, wrapperClassName, collapsibleStyles, handleCompleteAnimation};
+        }
+    })
 </script>
