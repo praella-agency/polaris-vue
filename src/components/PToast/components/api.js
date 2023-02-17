@@ -18,7 +18,6 @@ const Api = (Vue, globalOptions = {}) => {
             return createComponent(
                 PToast,
                 {
-                    el: document.createElement('div'),
                     props: propsData,
                     canAppend: false,
                     canMount: false,

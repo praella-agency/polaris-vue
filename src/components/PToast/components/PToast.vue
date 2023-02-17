@@ -36,6 +36,7 @@ const removeElement = (el) => {
   } else {
     el.parentNode.removeChild(el);
   }
+  document.body.querySelector(".v-toast--pending").remove();
 };
 
 export default {

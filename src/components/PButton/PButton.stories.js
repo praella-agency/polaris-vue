@@ -204,18 +204,18 @@ SplitButton.parameters = {
     docs: {
         inlineStories: false,
         iframeHeight: 500,
+        source: {
+            code: `<PButton
+        :connectedDisclosure='{"accessibility":"Other","actions":[{"content":"Save as draft"},{"content":"Delete"}]}'
+        primary=""
+    >
+      Button
+    </PButton>`
+        },
     },
 }
 
 BaseButton.parameters = {
-    docs: {
-        source: {
-            code: `<PButton>Button</PButton>`
-        },
-    },
-};
-
-SplitButton.parameters = {
     docs: {
         source: {
             code: `<PButton>Button</PButton>`
