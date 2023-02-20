@@ -12,8 +12,7 @@
 </template>
 
 <script>
-import {defineComponent, onMounted, ref, computed, watch, onBeforeUnmount} from 'vue';
-    import utils from '../../utilities';
+    import { defineComponent, onBeforeUnmount, onMounted, ref, computed, watch  } from 'vue';
     import { classNames } from '../../utilities/css';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
@@ -73,13 +72,16 @@ import {defineComponent, onMounted, ref, computed, watch, onBeforeUnmount} from 
             let animationState = ref('idle');
             let height = ref(0);
             let isOpen = ref(props.open);
+            const collapsibleContainerRef = ref(null);
+
+            onBeforeUnmount(() => {
+                collapsibleContainerRef.value.removeEventListener('transitionend', handleCompleteAnimation);
+            })
 
             onMounted(() => {
-                (this.$refs.collapsibleContainer).addEventListener('transitionend', handleCompleteAnimation);
-
-                if (props.open && this.$refs.collapsibleContainer) {
-                    // If collapsible defaults to open, set an initial height
-                    height = (this.$refs.collapsibleContainer).scrollHeight;
+                if (collapsibleContainerRef.value) {
+                    collapsibleContainerRef.value.addEventListener('transitionend', handleCompleteAnimation);
+                    if(props.open) height = collapsibleContainerRef.value.scrollHeight;
                 }
             });
 
@@ -118,7 +120,7 @@ import {defineComponent, onMounted, ref, computed, watch, onBeforeUnmount} from 
 
             function handleCompleteAnimation(event) {
                 if (event.target) {
-                    if (event.target === this.$refs.collapsibleContainer) {
+                    if (event.target === collapsibleContainerRef.value) {
                         animationState = 'idle';
                         isOpen = props.open;
                     }
@@ -126,7 +128,7 @@ import {defineComponent, onMounted, ref, computed, watch, onBeforeUnmount} from 
             }
 
             watch(animationState, () => {
-                if (!this.$refs.collapsibleContainer) {
+                if (!collapsibleContainerRef.value) {
                     return;
                 }
 
@@ -134,13 +136,13 @@ import {defineComponent, onMounted, ref, computed, watch, onBeforeUnmount} from 
                     case 'idle':
                         break;
                     case 'measuring':
-                        height = (this.$refs.collapsibleContainer).scrollHeight;
+                        height = (collapsibleContainerRef.value).scrollHeight;
                         setTimeout(() => {
                             animationState = 'animating';
                         }, 1);
                         break;
                     case 'animating':
-                        height = props.open ? (this.$refs.collapsibleContainer).scrollHeight : 0;
+                        height = props.open ? (collapsibleContainerRef.value).scrollHeight : 0;
                 }
             })
 
@@ -148,7 +150,7 @@ import {defineComponent, onMounted, ref, computed, watch, onBeforeUnmount} from 
                 if (props.open !== value) {
                     animationState = 'measuring';
                 } else {
-                    if (!this.$refs.collapsibleContainer) {
+                    if (!collapsibleContainerRef.value) {
                         return;
                     }
 
@@ -156,11 +158,11 @@ import {defineComponent, onMounted, ref, computed, watch, onBeforeUnmount} from 
                         case 'idle':
                             break;
                         case 'measuring':
-                            height = (this.$refs.collapsibleContainer).scrollHeight;
+                            height = (collapsibleContainerRef.value).scrollHeight;
                             animationState = 'animating';
                             break;
                         case 'animating':
-                            height = props.open ? (this.$refs.collapsibleContainer).scrollHeight : 0;
+                            height = props.open ? (collapsibleContainerRef.value).scrollHeight : 0;
                     }
                 }
             })
@@ -169,7 +171,7 @@ import {defineComponent, onMounted, ref, computed, watch, onBeforeUnmount} from 
                 if (value !== isOpen) {
                     animationState = 'measuring';
                 } else {
-                    if (!this.$refs.collapsibleContainer) {
+                    if (!collapsibleContainerRef.value) {
                         return;
                     }
 
@@ -177,20 +179,16 @@ import {defineComponent, onMounted, ref, computed, watch, onBeforeUnmount} from 
                         case 'idle':
                             break;
                         case 'measuring':
-                            height = (this.$refs.collapsibleContainer).scrollHeight;
+                            height = (collapsibleContainerRef.value).scrollHeight;
                             animationState = 'animating';
                             break;
                         case 'animating':
-                            height = props.open ? (this.$refs.collapsibleContainer).scrollHeight : 0;
+                            height = props.open ? (collapsibleContainerRef.value).scrollHeight : 0;
                     }
                 }
             })
 
-            onBeforeUnmount(() => {
-                (this.$refs.collapsibleContainer).removeEventListener('transitionend', this.handleCompleteAnimation);
-            })
-
-            return { animationState, height, isOpen, isFullyOpen, isFullyClosed, wrapperClassName, collapsibleStyles, handleCompleteAnimation};
+            return { animationState, height, isOpen, isFullyOpen, isFullyClosed, wrapperClassName, collapsibleStyles, handleCompleteAnimation, collapsibleContainerRef};
         }
     })
 </script>

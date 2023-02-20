@@ -6,7 +6,7 @@
         <PAccordionHeader
             :id="accordionItemId"
             :title="title"
-            :open="this.getVisibility[accordionItemId]"
+            :open="getVisibility[accordionItemId]"
             :iconSource="iconSource"
             :hideIcon="hideIcon"
             :disableIconRotate="disableIconRotation"
@@ -25,7 +25,7 @@
             :id="accordionItemId"
             :content="content"
             :animation="animation"
-            :open="this.getVisibility[accordionItemId]"
+            :open="getVisibility[accordionItemId]"
             :themeOptions="contentThemeOptions"
         >
             <!-- @slot Customize body part -->
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+    import { defineComponent, inject, ref, onMounted, computed } from 'vue';
     import { uuid } from '../../../../ComponentHelpers';
     import { PAccordionHeader } from '../../../../components/PAccordion/components/PAccordionHeader';
     import { PAccordionContent } from '../../../../components/PAccordion/components/PAccordionContent';
@@ -96,7 +97,7 @@
      *      accordion</a>. Use this component for the customization of title and content.
      * </h4>
      */
-    export default {
+    export default defineComponent({
         name: 'PAccordionItem',
         components: {
             PAccordionHeader, PAccordionContent,
@@ -156,36 +157,44 @@
             },
         },
         // emits: [`accordion-${this.getAccordionId}-toggle`, `accordion-${this.getAccordionId}-item`],
-        data() {
-            return {
-                ID: (this.id || this.id === 0) ? this.id : uuid(),
-                themeOptionsData: {
-                    header: {
-                        color: '',
-                        background: '',
-                        backgroundCollapsed: ''
-                    },
-                    content: {
-                        color: '',
-                        background: '',
-                    },
+        setup(props, context) {
+            const accordion = inject('accordion');
+            const getVisibility = accordion.getVisibility;
+            const getAccordionId = accordion.getAccordionId;
+            const ID = ref((props.id || props.id === 0) ? props.id : uuid());
+            const themeOptionsData = ref({
+                header: {
+                    color: '',
+                    background: '',
+                    backgroundCollapsed: ''
                 },
-                disableIconRotation: this.disableIconRotate,
-            };
-        },
-        computed: {
-            accordionItemId() {
-                return `${this.getAccordionId}-${this.ID}`;
-            },
-            iconSource() {
+                content: {
+                    color: '',
+                    background: '',
+                }
+            });
+            let disableIconRotation = ref(props.disableIconRotate);
+
+            onMounted(() => {
+                if (inject('handleItemToggleDefault')) {
+                    const handleItemToggleDefault = inject('handleItemToggleDefault');
+                    handleItemToggleDefault(ID);
+                }
+            });
+
+            const accordionItemId = computed(() => {
+                return `${getAccordionId}-${ID}`;
+            });
+
+            const iconSource = computed(() => {
                 let source = '';
                 let color = '';
-                if (typeof this.setIcon === 'object') {
-                    this.disableIconRotation = true;
-                    source = this.setIcon.source;
-                    color = this.setIcon.color;
-                } else if (typeof this.setIcon === 'string') {
-                    source = this.setIcon;
+                if (typeof setIcon === 'object') {
+                    disableIconRotation = true;
+                    source = setIcon.source;
+                    color = setIcon.color;
+                } else if (typeof setIcon === 'string') {
+                    source = setIcon;
                     color = '';
                 }
 
@@ -193,47 +202,49 @@
                     source: source,
                     color: color,
                 }
-            },
-            headerThemeOptions() {
+            });
+
+            const headerThemeOptions = computed(() => {
                 let styleOptions = {
                     color: '',
                     background: '',
                     backgroundCollapsed: '',
                 };
-                if (this.themeOptions && Object.keys(this.themeOptions).length) {
-                    if (this.themeOptions.header) {
+                if (props.themeOptions && Object.keys(props.themeOptions).length) {
+                    if (props.themeOptions.header) {
                         styleOptions = {
                             color: '',
                             background: '',
                             backgroundCollapsed: '',
                         };
-                        let header = this.themeOptions.header;
+                        let header = props.themeOptions.header;
                         if (header.color) {
                             styleOptions.color = header.color;
                         }
                         if (header.background) {
-                          styleOptions.background = header.background;
+                            styleOptions.background = header.background;
                         }
                         if (header.backgroundCollapsed) {
-                          styleOptions.backgroundCollapsed = header.backgroundCollapsed;
+                            styleOptions.backgroundCollapsed = header.backgroundCollapsed;
                         }
                     }
                 }
 
                 return styleOptions;
-            },
-            contentThemeOptions() {
+            });
+
+            const contentThemeOptions = computed(() => {
                 let styleOptions = {
                     color: '',
                     background: '',
                 };
-                if (this.themeOptions && Object.keys(this.themeOptions).length) {
-                    if (this.themeOptions.content) {
+                if (props.themeOptions && Object.keys(props.themeOptions).length) {
+                    if (props.themeOptions.content) {
                         styleOptions = {
                             color: '',
                             background: '',
                         };
-                        let content = this.themeOptions.content;
+                        let content = props.themeOptions.content;
                         if (content.color) {
                             styleOptions.color = content.color;
                         }
@@ -244,32 +255,35 @@
                 }
 
                 return styleOptions;
-            },
-            setIcon() {
-                if (this.icon) {
-                    if (typeof this.icon === 'object') {
-                        this.disableIconRotation = true;
-                        if (this.getVisibility[this.accordionItemId]) {
-                            return this.setOpenCloseIcon(this.icon, 'open', 'CaretUpMinor');
+            })
+
+            const setIcon = computed(() => {
+                if (props.icon) {
+                    if (typeof props.icon === 'object') {
+                        disableIconRotation = true;
+                        if (getVisibility[accordionItemId]) {
+                            return setOpenCloseIcon(props.icon, 'open', 'CaretUpMinor');
                         } else {
-                            return this.setOpenCloseIcon(this.icon, 'close', 'CaretDownMinor');
+                            return setOpenCloseIcon(props.icon, 'close', 'CaretDownMinor');
                         }
-                    } else if (typeof this.icon === 'string') {
-                        return this.icon;
+                    } else if (typeof props.icon === 'string') {
+                        return props.icon;
                     }
                 }
 
-                if (this.icon === null || this.icon === '') {
-                    this.showIcon = false;
+                if (props.icon === null || props.icon === '') {
+                    let showIcon = inject('showIcon');
+                    showIcon.value = false;
                 }
                 return 'CaretUpMinor';
-            },
-        },
-        methods: {
-            handleToggle(index) {
-                this.$parent.handleToggle(index);
-            },
-            setOpenCloseIcon(object, type, source) {
+            });
+
+            function handleToggle(index) {
+                const handleToggle = inject('handleToggle');
+                handleToggle(index);
+            }
+
+            function setOpenCloseIcon(object, type, source) {
                 if (object.hasOwnProperty(type) && Object.keys(object[type]).length) {
                     if (typeof object[type] === 'object') {
                         if (!object[type].hasOwnProperty('source') && object[type].hasOwnProperty('color')) {
@@ -286,13 +300,10 @@
                         }
                     }
                 }
-            },
-        },
-        mounted() {
-            if (this.$parent.handleItemToggleDefault) {
-                this.$parent.handleItemToggleDefault(this.ID);
             }
+
+            return { getVisibility, getAccordionId, themeOptionsData, disableIconRotation, accordionItemId, iconSource, headerThemeOptions, contentThemeOptions, setIcon, handleToggle, setOpenCloseIcon };
         }
-    }
+    })
 </script>
 

@@ -17,6 +17,7 @@
 </template>
 
 <script>
+    import { defineComponent, ref, provide } from 'vue';
     import mitt from 'mitt';
     import { PAccordionItem } from '../../components/PAccordion/components/PAccordionItem';
 
@@ -28,16 +29,10 @@
      *  information.
      * </h4>
      */
-    export default {
+    export default defineComponent({
         name: 'PAccordion',
         components: {
             PAccordionItem,
-        },
-        provide() {
-            return {
-                getVisibility: this.visibility,
-                getAccordionId: this.id,
-            };
         },
         props: {
             /**
@@ -96,72 +91,83 @@
                 default: false,
             },
         },
-        data() {
-            return {
-                visibility: {},
-                showIcon: true,
-                accordionItemIds: [],
-            };
-        },
-        methods: {
-            handleAccordionItemExpansion() {
-                if (this.open || this.open === 0) {
-                    if (Array.isArray(this.open)) {
-                        this.open.forEach((index) => {
-                            if (this.accordionItemIds[index] || this.accordionItemIds[index] === 0) {
-                              this.visibility[`${this.id}-${this.accordionItemIds[index]}`] = true;
+        setup(props) {
+            let visibility = ref({});
+            let showIcon = ref(true);
+            let accordionItemIds = ref([]);
+
+            provide('showIcon', showIcon);
+            provide('accordion', {
+                getVisibility: visibility,
+                getAccordionId: props.id,
+            });
+
+            function handleAccordionItemExpansion() {
+                if (props.open || props.open === 0) {
+                    if (Array.isArray(props.open)) {
+                        props.open.forEach((index) => {
+                            if (accordionItemIds[index] || accordionItemIds[index] === 0) {
+                                visibility[`${props.id}-${accordionItemIds[index]}`] = true;
                             }
                         });
                     } else {
-                        this.visibility[`${this.id}-${this.accordionItemIds[this.open]}`] = true;
+                        visibility[`${props.id}-${accordionItemIds[props.open]}`] = true;
                     }
                 }
-            },
-            handleToggle(index) {
-                if (!this.allowMultiple) {
-                    Object.keys(this.visibility).forEach((key) => {
+            }
+
+            function handleToggle(index) {
+                if (!props.allowMultiple) {
+                    Object.keys(visibility).forEach((key) => {
                         if (key.toString() !== index.toString()) {
-                            this.visibility[key] = false;
+                            visibility[key] = false;
                         }
                     });
                 }
-                this.visibility[index] = !this.visibility[index];
-            },
-            handleItemToggleDefault(id) {
-                this.accordionItemIds.push(id);
-                this.handleAccordionItemExpansion();
-            },
-            setIcon(index, key) {
-                if (this.icon) {
-                    if (typeof this.icon === 'object') {
+                visibility[index] = !visibility[index];
+            }
+
+            provide('handleToggle', handleToggle);
+
+            function handleItemToggleDefault(id) {
+                accordionItemIds.value.push(id);
+                handleAccordionItemExpansion();
+            }
+
+            provide('handleItemToggleDefault', handleItemToggleDefault)
+
+            function setIcon(index, key) {
+                if (props.icon) {
+                    if (typeof props.icon === 'object') {
                         this.disableIconRotation = true;
-                        if (this.visibility[index]) {
-                            return this.setOpenCloseIcon(this.icon, 'open', 'CaretUpMinor');
+                        if (visibility[index]) {
+                            return setOpenCloseIcon(props.icon, 'open', 'CaretUpMinor');
                         } else {
-                            return this.setOpenCloseIcon(this.icon, 'close', 'CaretDownMinor');
+                            return setOpenCloseIcon(props.icon, 'close', 'CaretDownMinor');
                         }
-                    } else if (typeof this.icon === 'string') {
-                        return this.icon;
+                    } else if (typeof props.icon === 'string') {
+                        return props.icon;
                     }
-                } else if (this.accordions[key].hasOwnProperty('icon')) {
-                    if (typeof this.accordions[key].icon === 'object') {
+                } else if (props.accordions[key].hasOwnProperty('icon')) {
+                    if (typeof props.accordions[key].icon === 'object') {
                         this.disableIconRotation = true;
-                        if (this.visibility[index]) {
-                            return this.setOpenCloseIcon(this.accordions[key].icon, 'open', 'CaretUpMinor');
+                        if (visibility[index]) {
+                            return setOpenCloseIcon(props.accordions[key].icon, 'open', 'CaretUpMinor');
                         } else {
-                            return this.setOpenCloseIcon(this.accordions[key].icon, 'close', 'CaretDownMinor');
+                            return setOpenCloseIcon(props.accordions[key].icon, 'close', 'CaretDownMinor');
                         }
-                    } else if (typeof this.accordions[key].icon === 'string') {
-                        return this.accordions[key].icon;
+                    } else if (typeof props.accordions[key].icon === 'string') {
+                        return props.accordions[key].icon;
                     }
                 }
 
-                if (this.icon === null || this.icon === '') {
-                    this.showIcon = false;
+                if (props.icon === null || props.icon === '') {
+                    showIcon = false;
                 }
                 return 'CaretUpMinor';
-            },
-            setOpenCloseIcon(object, type, source) {
+            }
+
+            function setOpenCloseIcon(object, type, source) {
                 if (object.hasOwnProperty(type) && Object.keys(object[type]).length) {
                     if (typeof object[type] === 'object') {
                         if (!object[type].hasOwnProperty('source') && object[type].hasOwnProperty('color')) {
@@ -178,7 +184,9 @@
                         }
                     }
                 }
-            },
-        },
-    }
+            }
+
+            return { visibility, showIcon, accordionItemIds, handleAccordionItemExpansion, handleToggle, handleItemToggleDefault, setIcon, setOpenCloseIcon };
+        }
+    })
 </script>
