@@ -1,5 +1,5 @@
 <template>
-    <PUnstyledLink :ref="id" v-if="url" :class="menuActionClassNames" :url="url" :external="external">
+    <PUnstyledLink :ref="refId" v-if="url" :class="menuActionClassNames" :url="url" :external="external">
         <span v-if="icon || disclosure" class="Polaris-ActionMenu-MenuAction__ContentWrapper">
             <span v-if="icon" class="Polaris-ActionMenu-MenuAction__IconWrapper">
                 <PIcon :source="icon" />
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+    import { defineComponent, computed, onMounted, ref } from 'vue';
     import { uuid } from '../../../../ComponentHelpers';
     import {classNames} from '../../../../utilities/css';
     import {ComplexAction, MenuActionDescriptor} from '../../../../types';
@@ -37,7 +38,7 @@
         disclosure: Boolean,
     }
 
-    export default {
+    export default defineComponent({
       name: 'PActionMenuMenuAction',
       components: {
         PUnstyledLink, PIcon,
@@ -78,21 +79,24 @@
           },
         },
       },
-      computed: {
-        menuActionClassNames() {
+      setup(props) {
+        const refId = ref(props.id);
+        const menuActionClassNames = computed(() => {
           return classNames(
               'Polaris-ActionMenu-MenuAction',
-              this.disabled && 'Polaris-ActionMenu-MenuAction--disabled',
+              props.disabled && 'Polaris-ActionMenu-MenuAction--disabled',
           );
-        }
-      },
-      mounted() {
-          const actionsLayoutRef = this.$refs[this.id];
-          if (typeof this.getOffsetWidth === 'function' && actionsLayoutRef) {
+        });
+        onMounted(() => {
+          const actionsLayoutRef = refId.value[props.id];
+          if (typeof props.getOffsetWidth === 'function' && actionsLayoutRef) {
             if(actionsLayoutRef.offsetWidth) {
-              this.getOffsetWidth(actionsLayoutRef.offsetWidth);
+              props.getOffsetWidth(actionsLayoutRef.offsetWidth);
             }
           }
-        }
-    }
+        });
+
+        return { menuActionClassNames, refId };
+      }
+    })
 </script>

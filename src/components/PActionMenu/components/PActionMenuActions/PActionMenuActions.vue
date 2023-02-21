@@ -1,5 +1,5 @@
 <template>
-    <div :ref="id" class="Polaris-ActionMenu-Actions__ActionsLayout">
+    <div :ref="refId" class="Polaris-ActionMenu-Actions__ActionsLayout">
         <template v-for="(action, index) in overriddenActions">
             <template v-if="'title' in action">
                 <div v-if="action.actions.length > 0" :key="`MenuGroup-${index}`">
@@ -24,7 +24,6 @@
 
 <script>
     import { defineComponent, computed, ref, onUnmounted } from 'vue';
-    import utils from '../../../../utilities';
     import { uuid } from '../../../../ComponentHelpers';
     import { MenuActionDescriptor, MenuGroupDescriptor } from '../../../../types';
     import { sortAndOverrideActionOrder } from '../../../../components/PActionMenu/utilities';
@@ -72,7 +71,7 @@
           let timesMeasured = ref(0);
           let actionsAndGroupsLengthRef = ref(0);
           let actionWidthsRef = ref([]);
-          let refs = ref(null);
+          let refId = ref(props.id);
 
           const lastMenuGroupWidth = computed(() => {
             return [...actionWidthsRef].pop() || 0;
@@ -127,7 +126,7 @@
             computedActiveMenuGroup.value = undefined;
           }
           function handleResize() {
-            const actionsLayoutRef = refs.value[props.id];
+            const actionsLayoutRef = refId.value[props.id];
             if (actionsLayoutRef) {
               availableWidthRef.value = actionsLayoutRef.offsetWidth;
             }
@@ -200,8 +199,8 @@
           });
 
           return {activeMenuGroup, hiddenActions, showableActions, availableWidthRef, timesMeasured, actionsAndGroupsLengthRef, actionWidthsRef,
-            lastMenuGroupWidth, lastMenuGroup, menuActions, overriddenActions, computedShowableActions, computedHiddenActions, computedActiveMenuGroup,
-            handleMenuGroupToggle, handleMenuGroupClose, handleResize, measureActions, computedActionMenuMenuAction};
+            lastMenuGroupWidth, lastMenuGroup, menuActions, overriddenActions, computedShowableActions, computedHiddenActions, computedActiveMenuGroup, refId,
+            handleMenuGroupToggle, handleMenuGroupClose, handleResize, measureActions, computedActionMenuMenuAction, handleActionsOffsetWidth};
         },
     })
 </script>
