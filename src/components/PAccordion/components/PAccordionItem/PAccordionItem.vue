@@ -11,7 +11,6 @@
             :hideIcon="hideIcon"
             :disableIconRotate="disableIconRotation"
             :themeOptions="headerThemeOptions"
-
             @toggle="handleToggle(accordionItemId)"
         >
             <!-- @slot Customize title -->
@@ -102,7 +101,6 @@
         components: {
             PAccordionHeader, PAccordionContent,
         },
-        inject: ['getVisibility', 'getAccordionId'],
         props: {
             /**
              * Unique Id for the accordion
@@ -158,6 +156,7 @@
         },
         // emits: [`accordion-${this.getAccordionId}-toggle`, `accordion-${this.getAccordionId}-item`],
         setup(props, context) {
+
             const accordion = inject('accordion');
             const getVisibility = accordion.getVisibility;
             const getAccordionId = accordion.getAccordionId;
@@ -178,23 +177,23 @@
             onMounted(() => {
                 if (inject('handleItemToggleDefault')) {
                     const handleItemToggleDefault = inject('handleItemToggleDefault');
-                    handleItemToggleDefault(ID);
+                    handleItemToggleDefault(ID.value);
                 }
             });
 
             const accordionItemId = computed(() => {
-                return `${getAccordionId}-${ID}`;
+                return `${getAccordionId}-${ID.value}`;
             });
 
             const iconSource = computed(() => {
                 let source = '';
                 let color = '';
-                if (typeof setIcon === 'object') {
-                    disableIconRotation = true;
-                    source = setIcon.source;
-                    color = setIcon.color;
-                } else if (typeof setIcon === 'string') {
-                    source = setIcon;
+                if (typeof setIcon.value === 'object') {
+                    disableIconRotation.value = true;
+                    source = setIcon.value.source;
+                    color = setIcon.value.color;
+                } else if (typeof setIcon.value === 'string') {
+                    source = setIcon.value;
                     color = '';
                 }
 
@@ -260,8 +259,8 @@
             const setIcon = computed(() => {
                 if (props.icon) {
                     if (typeof props.icon === 'object') {
-                        disableIconRotation = true;
-                        if (getVisibility[accordionItemId]) {
+                        disableIconRotation.value = true;
+                        if (getVisibility[accordionItemId.value]) {
                             return setOpenCloseIcon(props.icon, 'open', 'CaretUpMinor');
                         } else {
                             return setOpenCloseIcon(props.icon, 'close', 'CaretDownMinor');
@@ -278,9 +277,9 @@
                 return 'CaretUpMinor';
             });
 
-            function handleToggle(index) {
-                const handleToggle = inject('handleToggle');
-                handleToggle(index);
+            const parentHandleToggle = inject('handleToggle');
+            const handleToggle = (index) => {
+                parentHandleToggle(index);
             }
 
             function setOpenCloseIcon(object, type, source) {

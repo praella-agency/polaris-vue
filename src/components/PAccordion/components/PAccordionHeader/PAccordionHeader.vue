@@ -60,7 +60,7 @@
             }
         },
         emits: ['toggle'],
-        setup(props, context) {
+        setup(props) {
             const className = computed(() => {
                 return classNames(
                     'Polaris-Accordion-Title',

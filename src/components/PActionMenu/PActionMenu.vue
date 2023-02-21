@@ -6,13 +6,14 @@
 </template>
 
 <script>
+import { defineComponent, computed } from 'vue';
 import {classNames} from '../../utilities/css';
 import {MenuActionDescriptor, MenuGroupDescriptor} from '../../types';
 import {PActionMenuRollupActions} from '../../components/PActionMenu/components/PActionMenuRollupActions';
 import {PActionMenuActions} from '../../components/PActionMenu/components/PActionMenuActions';
 import ArrayValidator from '../../utilities/validators/ArrayValidator';
 
-export default {
+export default defineComponent({
   name: 'PActionMenu',
   components: {
     PActionMenuActions, PActionMenuRollupActions,
@@ -31,24 +32,25 @@ export default {
       default: false
     },
   },
-  computed: {
-    rollupSections() {
-      return this.groups.map((group) => this.convertGroupToSection(group));
-    },
-    actionMenuClassNames() {
+  setup(props) {
+    const rollupSections = computed(() => {
+      return props.groups.map((group) => convertGroupToSection(group));
+    });
+    const actionMenuClassNames = computed(() => {
       return classNames(
           'Polaris-ActionMenu',
-          this.rollup && 'Polaris-ActionMenu--rollup',
+          props.rollup && 'Polaris-ActionMenu--rollup',
       );
-    }
-  },
-  methods: {
-    convertGroupToSection(MenuGroupDescriptor) {
+    });
+
+    function convertGroupToSection(MenuGroupDescriptor) {
       return {
         title: MenuGroupDescriptor.title,
         items: MenuGroupDescriptor.actions,
       };
     }
-  },
-}
+
+    return { rollupSections, actionMenuClassNames, convertGroupToSection };
+  }
+})
 </script>

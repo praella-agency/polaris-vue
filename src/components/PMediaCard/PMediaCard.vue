@@ -63,6 +63,7 @@
 </template>
 
 <script>
+    import { defineComponent, computed } from 'vue';
     import { classNames } from '../../utilities/css';
     import { DestructableAction, DisableableAction, IconableAction, LoadableAction, Video } from '../../types';
     import PVuePlyr from '../../components/PVuePlyr';
@@ -92,7 +93,7 @@
      *  sans-serif;">Media cards provide a consistent layout to present visual information to merchants. Visual media is
      *  used to provide additional context to the written information it's paired with.</h4>
      */
-    export default {
+    export default defineComponent({
         name: 'PMediaCard',
         components: {
             PCard, PVuePlyr, PStack, PStackItem, PHeading, PImage, PButtonGroup, PButton,
@@ -164,16 +165,17 @@
                 ...ArrayValidator('videoSrc', Video),
             },
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-MediaCard',
-                    this.portrait && `Polaris-MediaCard--portrait`,
-                );
-            },
-            hasAction() {
-                return this.primaryAction || this.secondaryAction;
-            },
+        setup(props) {
+          const className = computed(() => {
+            return classNames(
+                'Polaris-MediaCard',
+                props.portrait && `Polaris-MediaCard--portrait`,
+            );
+          });
+          const hasAction = computed(() => {
+            return props.primaryAction || props.secondaryAction;
+          });
+          return { className, hasAction };
         },
-    }
+    })
 </script>

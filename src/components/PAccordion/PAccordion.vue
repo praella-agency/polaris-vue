@@ -98,7 +98,7 @@
 
             provide('showIcon', showIcon);
             provide('accordion', {
-                getVisibility: visibility,
+                getVisibility: visibility.value,
                 getAccordionId: props.id,
             });
 
@@ -106,41 +106,39 @@
                 if (props.open || props.open === 0) {
                     if (Array.isArray(props.open)) {
                         props.open.forEach((index) => {
-                            if (accordionItemIds[index] || accordionItemIds[index] === 0) {
-                                visibility[`${props.id}-${accordionItemIds[index]}`] = true;
+                            if (accordionItemIds.value[index] || accordionItemIds.value[index] === 0) {
+                                visibility.value[`${props.id}-${accordionItemIds.value[index]}`] = true;
                             }
                         });
                     } else {
-                        visibility[`${props.id}-${accordionItemIds[props.open]}`] = true;
+                        visibility.value[`${props.id}-${accordionItemIds.value[props.open]}`] = true;
                     }
                 }
             }
 
-            function handleToggle(index) {
+            const handleToggle = (index) => {
                 if (!props.allowMultiple) {
-                    Object.keys(visibility).forEach((key) => {
+                    Object.keys(visibility.value).forEach((key) => {
                         if (key.toString() !== index.toString()) {
-                            visibility[key] = false;
+                            visibility.value[key] = false;
                         }
                     });
                 }
-                visibility[index] = !visibility[index];
+                visibility.value[index] = !visibility.value[index];
             }
-
             provide('handleToggle', handleToggle);
 
             function handleItemToggleDefault(id) {
                 accordionItemIds.value.push(id);
                 handleAccordionItemExpansion();
             }
-
             provide('handleItemToggleDefault', handleItemToggleDefault)
 
             function setIcon(index, key) {
                 if (props.icon) {
                     if (typeof props.icon === 'object') {
-                        this.disableIconRotation = true;
-                        if (visibility[index]) {
+                        props.disableIconRotate = true;
+                        if (visibility.value[index]) {
                             return setOpenCloseIcon(props.icon, 'open', 'CaretUpMinor');
                         } else {
                             return setOpenCloseIcon(props.icon, 'close', 'CaretDownMinor');
@@ -150,8 +148,8 @@
                     }
                 } else if (props.accordions[key].hasOwnProperty('icon')) {
                     if (typeof props.accordions[key].icon === 'object') {
-                        this.disableIconRotation = true;
-                        if (visibility[index]) {
+                        props.disableIconRotate = true;
+                        if (visibility.value[index]) {
                             return setOpenCloseIcon(props.accordions[key].icon, 'open', 'CaretUpMinor');
                         } else {
                             return setOpenCloseIcon(props.accordions[key].icon, 'close', 'CaretDownMinor');
@@ -186,7 +184,7 @@
                 }
             }
 
-            return { visibility, showIcon, accordionItemIds, handleAccordionItemExpansion, handleToggle, handleItemToggleDefault, setIcon, setOpenCloseIcon };
+            return { visibility, showIcon, accordionItemIds, handleItemToggleDefault, setIcon, setOpenCloseIcon };
         }
     })
 </script>

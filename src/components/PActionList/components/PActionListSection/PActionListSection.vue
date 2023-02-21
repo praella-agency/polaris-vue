@@ -63,7 +63,7 @@
                 if (old) {
                     newAction.onAction = () => {
                       old();
-                      this.$emit('item-action', action);
+                      emit('item-action', action);
                     };
                 }
                 return newAction;

@@ -67,14 +67,14 @@ Access values with `slot-props` attribute. -->
             });
 
             const hasMultipleSections = computed(() => {
-                return finalSections.length > 1;
+                return finalSections.value.length > 1;
             });
 
             function onItemAction(action) {
               /**
                * Triggers when the item is selected/clicked
                */
-              this.$emit('item-action', action);
+              emit('item-action', action);
             }
 
             return { className, finalSections, hasMultipleSections, onItemAction };

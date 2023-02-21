@@ -72,31 +72,34 @@
             let animationState = ref('idle');
             let height = ref(0);
             let isOpen = ref(props.open);
-            const collapsibleContainerRef = ref(null);
+
+            const collapsibleContainer = ref(null);
 
             onBeforeUnmount(() => {
-                collapsibleContainerRef.value.removeEventListener('transitionend', handleCompleteAnimation);
+                collapsibleContainer.value.removeEventListener('transitionend', handleCompleteAnimation);
             })
 
             onMounted(() => {
-                if (collapsibleContainerRef.value) {
-                    collapsibleContainerRef.value.addEventListener('transitionend', handleCompleteAnimation);
-                    if(props.open) height = collapsibleContainerRef.value.scrollHeight;
+                if (collapsibleContainer.value) {
+                    collapsibleContainer.value.addEventListener('transitionend', handleCompleteAnimation);
+                    if(props.open) {
+                      height.value = collapsibleContainer.value.scrollHeight;
+                    }
                 }
             });
 
             const isFullyOpen = computed(() => {
-                return animationState === 'idle' && props.open && isOpen;
+                return animationState.value === 'idle' && props.open && isOpen.value;
             });
 
             const isFullyClosed = computed(() => {
-                return animationState === 'idle' && !props.open && !isOpen;
+                return animationState.value === 'idle' && !props.open && !isOpen.value;
             });
 
             const wrapperClassName = computed(() => {
                 return classNames(
                     'Polaris-Collapsible',
-                    isFullyClosed && 'Polaris-Collapsible--isFullyClosed',
+                    isFullyClosed.value && 'Polaris-Collapsible--isFullyClosed',
                     props.expandOnPrint && 'Polaris-Collapsible--expandOnPrint',
                 );
             });
@@ -104,8 +107,8 @@
             const collapsibleStyles = computed(() => {
                 let transitionStyle = {};
                 const collapsible = {
-                    maxHeight: isFullyOpen ? 'none' : `${height}px`,
-                    overflow: isFullyOpen ? 'visible' : 'hidden',
+                    maxHeight: isFullyOpen.value ? 'none' : `${height.value}px`,
+                    overflow: isFullyOpen.value ? 'visible' : 'hidden',
                 };
 
                 if (Object.keys(props.transition).length > 0) {
@@ -120,75 +123,56 @@
 
             function handleCompleteAnimation(event) {
                 if (event.target) {
-                    if (event.target === collapsibleContainerRef.value) {
-                        animationState = 'idle';
-                        isOpen = props.open;
+                    if (event.target === collapsibleContainer.value) {
+                        animationState.value = 'idle';
+                        isOpen.value = props.open;
                     }
                 }
             }
 
             watch(animationState, () => {
-                if (!collapsibleContainerRef.value) {
+                if (!collapsibleContainer.value) {
                     return;
                 }
 
-                switch (animationState) {
+                switch (animationState.value) {
                     case 'idle':
                         break;
                     case 'measuring':
-                        height = (collapsibleContainerRef.value).scrollHeight;
+                        height.value = (collapsibleContainer.value).scrollHeight;
                         setTimeout(() => {
-                            animationState = 'animating';
+                            animationState.value = 'animating';
                         }, 1);
                         break;
                     case 'animating':
-                        height = props.open ? (collapsibleContainerRef.value).scrollHeight : 0;
+                        height.value = props.open ? (collapsibleContainer.value).scrollHeight : 0;
                 }
             })
 
-            watch(isOpen, (value) => {
-                if (props.open !== value) {
-                    animationState = 'measuring';
+            watch(() => props.open, (newValue) => {
+              isOpen.value = newValue;
+
+              if (props.open !== newValue) {
+                    animationState.value = 'measuring';
                 } else {
-                    if (!collapsibleContainerRef.value) {
+                    if (!collapsibleContainer.value) {
                         return;
                     }
 
-                    switch (animationState) {
+                    switch (animationState.value) {
                         case 'idle':
                             break;
                         case 'measuring':
-                            height = (collapsibleContainerRef.value).scrollHeight;
-                            animationState = 'animating';
+                            height.value = (collapsibleContainer.value).scrollHeight;
+                            animationState.value = 'animating';
                             break;
                         case 'animating':
-                            height = props.open ? (collapsibleContainerRef.value).scrollHeight : 0;
+                            height.value = props.open ? (collapsibleContainer.value).scrollHeight : 0;
                     }
                 }
             })
 
-            watch(open, (value) => {
-                if (value !== isOpen) {
-                    animationState = 'measuring';
-                } else {
-                    if (!collapsibleContainerRef.value) {
-                        return;
-                    }
-
-                    switch (animationState) {
-                        case 'idle':
-                            break;
-                        case 'measuring':
-                            height = (collapsibleContainerRef.value).scrollHeight;
-                            animationState = 'animating';
-                            break;
-                        case 'animating':
-                            height = props.open ? (collapsibleContainerRef.value).scrollHeight : 0;
-                    }
-                }
-            })
-
-            return { animationState, height, isOpen, isFullyOpen, isFullyClosed, wrapperClassName, collapsibleStyles, handleCompleteAnimation, collapsibleContainerRef};
+            return { animationState, height, isOpen, isFullyOpen, isFullyClosed, wrapperClassName, collapsibleStyles, handleCompleteAnimation, collapsibleContainer};
         }
     })
 </script>

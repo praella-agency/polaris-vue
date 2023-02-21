@@ -75,19 +75,17 @@
             },
         },
         setup(props) {
-            const className = () => {
+            const className = computed(() => {
                 return classNames(
                     'Polaris-ActionList__Item',
                 );
-            }
-
-            const mediaSlotClassName = () => {
+            });
+            const mediaSlotClassName = computed(() => {
                 return classNames(
                     'Polaris-ActionList__Prefix',
                 );
-            }
-
-            const listValues = () => {
+            });
+            const listValues = computed(() => {
                 return {
                     content: props.content,
                     helpText: props.helpText,
@@ -96,11 +94,10 @@
                     image: props.image,
                     disabled: props.disabled,
                 };
-            }
-
-            const isSlot = () => {
+            });
+            const isSlot = computed(() => {
                 return hasSlot;
-            }
+            })
 
             function handleAction(action) {
                 let res = true;

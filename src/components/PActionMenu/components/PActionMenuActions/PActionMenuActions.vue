@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import { defineComponent, computed, ref, onUnmounted } from 'vue';
     import utils from '../../../../utilities';
     import { uuid } from '../../../../ComponentHelpers';
     import { MenuActionDescriptor, MenuGroupDescriptor } from '../../../../types';
@@ -44,7 +45,7 @@
 
     const ACTION_SPACING = 8;
 
-    export default {
+    export default defineComponent({
         name: 'PActionMenuActions',
         components: {
             PActionMenuMenuGroup, PActionMenuMenuAction,
@@ -63,143 +64,144 @@
                 ...ArrayValidator('actions', MenuGroupDescriptor)
             }
         },
-        data() {
-            return {
-                activeMenuGroup: '',
-                hiddenActions: [],
-                showableActions: [],
-                availableWidthRef: 0,
-                timesMeasured: 0,
-                actionsAndGroupsLengthRef: 0,
-                actionWidthsRef: [],
+        setup(props) {
+          let activeMenuGroup= ref('');
+          let hiddenActions = ref([]);
+          let showableActions = ref([]);
+          let availableWidthRef = ref(0);
+          let timesMeasured = ref(0);
+          let actionsAndGroupsLengthRef = ref(0);
+          let actionWidthsRef = ref([]);
+          let refs = ref(null);
+
+          const lastMenuGroupWidth = computed(() => {
+            return [...actionWidthsRef].pop() || 0;
+          });
+
+          const lastMenuGroup = computed(() => {
+            return [...props.groups].pop();
+          });
+
+          /* Measure Variables End*/
+          const computedShowableActions = computed({
+            get() {
+              return showableActions.value;
+            },
+            set(value) {
+              showableActions.value = value;
             }
+          });
+
+          const computedHiddenActions = computed({
+            get() {
+              return hiddenActions.value;
+            },
+            set(value) {
+              hiddenActions.value = value;
+            }
+          });
+
+          const computedActiveMenuGroup = computed({
+            get() {
+              return activeMenuGroup.value;
+            },
+            set(value) {
+              activeMenuGroup.value = value;
+            }
+          });
+
+          const menuActions = computed(() => {
+            return [...props.actions, ...props.groups];
+          });
+
+          const overriddenActions = computed(() => {
+            return sortAndOverrideActionOrder(menuActions.value);
+          });
+
+          function handleMenuGroupToggle(group) {
+            if (typeof group === 'string') {
+              computedActiveMenuGroup.value = computedActiveMenuGroup.value ? undefined : group;
+            }
+          }
+          function handleMenuGroupClose() {
+            computedActiveMenuGroup.value = undefined;
+          }
+          function handleResize() {
+            const actionsLayoutRef = refs.value[props.id];
+            if (actionsLayoutRef) {
+              availableWidthRef.value = actionsLayoutRef.offsetWidth;
+            }
+
+            // // Set timesMeasured to 0 to allow re-measuring
+            timesMeasured.value = 0;
+            measureActions();
+          }
+          function handleActionsOffsetWidth(width) {
+            actionWidthsRef.value = [...actionWidthsRef.value, width];
+          }
+          function measureActions() {
+            if (
+                actionWidthsRef.value.length === 0 ||
+                availableWidthRef.value === 0
+            ) {
+              return;
+            }
+
+            const actionsAndGroups = [...props.actions, ...props.groups];
+
+            if (actionsAndGroups.length === 1) {
+              showableActions.value = actionsAndGroups;
+              hiddenActions.value = [];
+              return;
+            }
+
+            let currentAvailableWidth = availableWidthRef.value;
+            let newShowableActions = [];
+            let newRolledUpActions = [];
+
+            actionsAndGroups.forEach((action, index) => {
+              const canFitAction =
+                  actionWidthsRef.value[index] +
+                  0 + // menuGroupWidthRef.current
+                  ACTION_SPACING +
+                  lastMenuGroupWidth.value <=
+                  currentAvailableWidth;
+
+              if (canFitAction) {
+                currentAvailableWidth -=
+                    actionWidthsRef.value[index] + ACTION_SPACING * 2;
+                newShowableActions = [...newShowableActions, action];
+              } else {
+                currentAvailableWidth = 0;
+                // Find last group if it exists and always render it as a rolled up action below
+                if (action === lastMenuGroup.value) {
+                  return;
+                }
+                newRolledUpActions = [...newRolledUpActions, action];
+              }
+            });
+
+            showableActions.value = newShowableActions;
+            computedHiddenActions.value = newRolledUpActions;
+
+            timesMeasured.value += 1;
+            actionsAndGroupsLengthRef.value = actionsAndGroups.length;
+          }
+          function computedActionMenuMenuAction(action) {
+            return !computedHiddenActions.value.includes(action);
+          }
+
+          /* Component created lifecycle hook */
+          window.addEventListener('resize', handleResize);
+          handleResize();
+
+          onUnmounted(() => {
+            window.removeEventListener('resize', handleResize);
+          });
+
+          return {activeMenuGroup, hiddenActions, showableActions, availableWidthRef, timesMeasured, actionsAndGroupsLengthRef, actionWidthsRef,
+            lastMenuGroupWidth, lastMenuGroup, menuActions, overriddenActions, computedShowableActions, computedHiddenActions, computedActiveMenuGroup,
+            handleMenuGroupToggle, handleMenuGroupClose, handleResize, measureActions, computedActionMenuMenuAction};
         },
-        computed: {
-            lastMenuGroupWidth() {
-                return [...this.actionWidthsRef].pop() || 0;
-            },
-
-            lastMenuGroup() {
-                return [...this.groups].pop();
-            },
-
-            /* Measure Variables End*/
-
-            computedShowableActions: {
-                get() {
-                    return this.showableActions;
-                },
-                set(value) {
-                    this.showableActions = value;
-                }
-            },
-
-            computedHiddenActions: {
-                get() {
-                    return this.hiddenActions;
-                },
-                set(value) {
-                    this.hiddenActions = value;
-                }
-            },
-
-            computedActiveMenuGroup: {
-                get() {
-                    return this.activeMenuGroup;
-                },
-                set(value) {
-                    this.activeMenuGroup = value;
-                }
-            },
-
-            menuActions() {
-                return [...this.actions, ...this.groups];
-            },
-
-            overriddenActions() {
-                return sortAndOverrideActionOrder(this.menuActions);
-            },
-        },
-        methods: {
-            handleMenuGroupToggle(group) {
-                if (typeof group === 'string') {
-                    this.computedActiveMenuGroup = this.computedActiveMenuGroup ? undefined : group;
-                }
-            },
-            handleMenuGroupClose() {
-                this.computedActiveMenuGroup = undefined;
-            },
-            handleResize() {
-                const actionsLayoutRef = this.$refs[this.id];
-                if (actionsLayoutRef) {
-                    this.availableWidthRef = actionsLayoutRef.offsetWidth;
-                }
-
-                // // Set timesMeasured to 0 to allow re-measuring
-                this.timesMeasured = 0;
-                this.measureActions();
-            },
-            handleActionsOffsetWidth(width) {
-                this.actionWidthsRef = [...this.actionWidthsRef, width];
-            },
-            measureActions() {
-                if (
-                    this.actionWidthsRef.length === 0 ||
-                    this.availableWidthRef === 0
-                ) {
-                    return;
-                }
-
-                const actionsAndGroups = [...this.actions, ...this.groups];
-
-                if (actionsAndGroups.length === 1) {
-                    this.showableActions = actionsAndGroups;
-                    this.hiddenActions = [];
-                    return;
-                }
-
-                let currentAvailableWidth = this.availableWidthRef;
-                let newShowableActions = [];
-                let newRolledUpActions = [];
-
-                actionsAndGroups.forEach((action, index) => {
-                    const canFitAction =
-                        this.actionWidthsRef[index] +
-                        0 + // menuGroupWidthRef.current
-                        ACTION_SPACING +
-                        this.lastMenuGroupWidth <=
-                        currentAvailableWidth;
-
-                    if (canFitAction) {
-                        currentAvailableWidth -=
-                            this.actionWidthsRef[index] + ACTION_SPACING * 2;
-                        newShowableActions = [...newShowableActions, action];
-                    } else {
-                        currentAvailableWidth = 0;
-                        // Find last group if it exists and always render it as a rolled up action below
-                        if (action === this.lastMenuGroup) {
-                            return;
-                        }
-                        newRolledUpActions = [...newRolledUpActions, action];
-                    }
-                });
-
-                this.showableActions = newShowableActions;
-                this.computedHiddenActions = newRolledUpActions;
-
-                this.timesMeasured += 1;
-                this.actionsAndGroupsLengthRef = actionsAndGroups.length;
-            },
-            computedActionMenuMenuAction(action) {
-                return !this.computedHiddenActions.includes(action);
-            },
-        },
-        created() {
-            window.addEventListener('resize', this.handleResize);
-            this.handleResize();
-        },
-        [utils.destroyed]() {
-            window.removeEventListener('resize', this.handleResize);
-        },
-    }
+    })
 </script>

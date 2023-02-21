@@ -92,6 +92,7 @@
             });
 
             const encodedSource = computed(() => {
+              console.log('props.source --> ', props.source)
                 return encodeSVG(props.source);
             });
 
@@ -124,7 +125,7 @@
                 /**
                  * Handle click event
                  */
-                this.$emit('click', event);
+                emit('click', event);
             }
 
             function attrs () {

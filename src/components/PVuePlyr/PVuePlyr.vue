@@ -1,6 +1,7 @@
 <script>
+  import { defineComponent, computed, ref, onMounted, onBeforeUnmount } from 'vue'
   import Plyr from 'plyr'
-  export default {
+  export default defineComponent({
       name: 'PVuePlyr',
       props: {
         /** Options object for plyr config. **/
@@ -12,43 +13,41 @@
           }
         }
       },
-      data() {
-        return {
-          player: {}
-        }
-      },
-      computed: {
-        opts() {
-          const options = this.options;
+      setup(props, { slots }) {
+        let player = ref({});
+        let el = ref(null);
+        const opts = computed(() => {
+          const options = props.options;
           if (
               !Object.prototype.hasOwnProperty.call(
-                  this.options,
+                  props.options,
                   'hideYouTubeDOMError'
               )
           ) {
             options.hideYouTubeDOMError = true
           }
           return options
-        }
-      },
-      mounted() {
-        this.player = new Plyr(this.$el, this.opts)
-      },
-      beforeUnmount() {
-        try {
-          this.player.destroy()
-        } catch (e) {
-          if (!(this.opts.hideYouTubeDOMError && e.message === 'The YouTube player is not attached to the DOM.')
-          ) {
-            // eslint-disable-next-line no-console
-            console.error(e)
+        });
+        onMounted(() => {
+          player.value = new Plyr(el.value, opts.value);
+        });
+        onBeforeUnmount(() => {
+          try {
+            player.value = {};
+          } catch (e) {
+            if (!(opts.value.hideYouTubeDOMError && e.message === 'The YouTube player is not attached to the DOM.')
+            ) {
+              // eslint-disable-next-line no-console
+              console.error(e)
+            }
           }
-        }
+        });
+        return { player, opts, slots, el };
       },
       render() {
-        const slots = this.$slots.default
+        const slots = this.slots.default
         return typeof slots === 'function' ? slots()[0] : slots
       }
-  }
+  })
 </script>
 
