@@ -16,136 +16,132 @@
 </template>
 
 <script>
-    import { defineComponent, ref, computed, onMounted } from 'vue';
+    const colors = ['base', 'subdued', 'critical', 'interactive', 'warning', 'highlight', 'success', 'primary', null, ''];
+</script>
+
+<script setup>
+    import { ref, computed, onMounted } from 'vue';
     import { DeprecatedIcons } from './index';
     import * as Icon from '../../assets/shopify-polaris-icons';
     import { classNames, variationName } from '../../utilities/css';
     import { encode as encodeSVG } from '../../utilities/svg';
     import StringValidator from '../../utilities/validators/StringValidator';
 
-    const Color = ['base', 'subdued', 'critical', 'interactive', 'warning', 'highlight', 'success', 'primary', null, ''];
-
-    export default defineComponent({
-        name: 'PIcon',
-        props: {
-            /**
-             * Icon to display
-             * @see https://polaris-icons.shopify.com/?icon=AbandonedCartMajor available icon list.
-             */
-            source: {
-                type: String,
-                default: null
-            },
-
-            /**
-             * Icon color
-             */
-            color: {
-                type: String,
-                default: null,
-                ...StringValidator('color', Color),
-            },
-
-            /**
-             * Show a backdrop behind the icon
-             */
-            backdrop: {
-                type: Boolean,
-                default: false
-            },
-
-            /**
-             * Descriptive text to be read to screenreaders
-             */
-            accessibilityLabel: {
-                type: String,
-                default: null
-            },
-
-            /**
-             * Shows pointer cursor on icon for clickable.
-             */
-            clickable: {
-                type: Boolean,
-                default: true
-            }
+    const props = defineProps({
+        /**
+         * Icon to display
+         * @see https://polaris-icons.shopify.com/?icon=AbandonedCartMajor available icon list.
+         */
+        source: {
+            type: String,
+            default: null
         },
-        emits: ['click'],
-        setup(props) {
-            let clickableStyles = ref({});
 
-            onMounted(() => {
-                if (props.clickable) {
-                    clickableStyles = {
-                        cursor: 'pointer',
-                    };
-                }
-            });
+        /**
+         * Icon color
+         */
+        color: {
+            type: String,
+            default: null,
+            ...StringValidator('color', colors),
+        },
 
-            const className = computed(() => {
-                return classNames(
-                    'Polaris-Icon',
-                    props.color && (typeof props.color === 'string') && `Polaris-Icon--${variationName('color', props.color)}`,
-                    props.color && 'Polaris-Icon--applyColor',
-                    props.backdrop && 'Polaris-Icon--hasBackdrop',
-                );
-            });
+        /**
+         * Show a backdrop behind the icon
+         */
+        backdrop: {
+            type: Boolean,
+            default: false
+        },
 
-            const encodedSource = computed(() => {
-              console.log('props.source --> ', props.source)
-                return encodeSVG(props.source);
-            });
+        /**
+         * Descriptive text to be read to screenreaders
+         */
+        accessibilityLabel: {
+            type: String,
+            default: null
+        },
 
-            const sourceType = computed(() => {
-                if (props.source === 'function' || Object.keys(Icon).filter((icon) => icon === props.source).length > 0) {
-                    return 'function';
-                } else if (props.source === 'placeholder') {
-                    return 'placeholder';
-                } else {
-                    return 'external';
-                }
-            });
-
-            const enhancedSource = computed(() => {
-                if (DeprecatedIcons.indexOf(props.source) > -1) {
-                    // tslint:disable-next-line:no-console
-                    console.error(props.source + '` this icon has been removed, please use new ' +
-                        'instead of this. Refer this link to get updated icons ' +
-                        'https://polaris-vue.hulkapps.com/?path=/story/images-icons-icon--icon');
-                }
-
-                const sourceIcon = Icon[props.source];
-                if (!sourceIcon) {
-                    return props.source.replace('<svg', '<svg class="Polaris-Icon__Svg"');
-                }
-                return sourceIcon.replace('<svg', '<svg class="Polaris-Icon__Svg" focusable="false" aria-hidden="true"');
-            });
-
-            function handleClick() {
-                /**
-                 * Handle click event
-                 */
-                emit('click', event);
-            }
-
-            function attrs () {
-                const onRE = /^on[^a-z]/
-                const attributes = {}
-                const listeners = {}
-                const { $attrs } = this
-
-                for (const property in $attrs) {
-                    if (onRE.test(property)) {
-                        listeners[property] = $attrs[property]
-                    } else {
-                        attributes[property] = $attrs[property]
-                    }
-                }
-
-                return { attributes, listeners }
-            }
-
-            return { clickableStyles, className, encodedSource, sourceType, enhancedSource, handleClick, attrs };
+        /**
+         * Shows pointer cursor on icon for clickable.
+         */
+        clickable: {
+            type: Boolean,
+            default: true
         }
-    })
+    });
+
+    const emit = defineEmits(['click']);
+
+    let clickableStyles = ref({});
+
+    onMounted(() => {
+        if (props.clickable) {
+            clickableStyles = {
+                cursor: 'pointer',
+            };
+        }
+    });
+
+    const className = computed(() => {
+        return classNames(
+            'Polaris-Icon',
+            props.color && (typeof props.color === 'string') && `Polaris-Icon--${variationName('color', props.color)}`,
+            props.color && 'Polaris-Icon--applyColor',
+            props.backdrop && 'Polaris-Icon--hasBackdrop',
+        );
+    });
+
+    const encodedSource = computed(() => {
+        return encodeSVG(props.source);
+    });
+
+    const sourceType = computed(() => {
+        if (props.source === 'function' || Object.keys(Icon).filter((icon) => icon === props.source).length > 0) {
+            return 'function';
+        } else if (props.source === 'placeholder') {
+            return 'placeholder';
+        } else {
+            return 'external';
+        }
+    });
+
+    const enhancedSource = computed(() => {
+        if (DeprecatedIcons.indexOf(props.source) > -1) {
+            // tslint:disable-next-line:no-console
+            console.error(props.source + '` this icon has been removed, please use new ' +
+                'instead of this. Refer this link to get updated icons ' +
+                'https://polaris-vue.hulkapps.com/?path=/story/images-icons-icon--icon');
+        }
+
+        const sourceIcon = Icon[props.source];
+        if (!sourceIcon) {
+            return props.source.replace('<svg', '<svg class="Polaris-Icon__Svg"');
+        }
+        return sourceIcon.replace('<svg', '<svg class="Polaris-Icon__Svg" focusable="false" aria-hidden="true"');
+    });
+
+    function handleClick() {
+        /**
+         * Handle click event
+         */
+        emit('click', event);
+    }
+
+    function attrs () {
+        const onRE = /^on[^a-z]/
+        const attributes = {}
+        const listeners = {}
+        const { $attrs } = this
+
+        for (const property in $attrs) {
+            if (onRE.test(property)) {
+                listeners[property] = $attrs[property]
+            } else {
+                attributes[property] = $attrs[property]
+            }
+        }
+
+        return { attributes, listeners }
+    }
 </script>

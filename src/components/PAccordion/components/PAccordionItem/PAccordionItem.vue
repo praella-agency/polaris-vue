@@ -34,15 +34,6 @@
 </template>
 
 <script>
-    import { defineComponent, inject, ref, onMounted, computed } from 'vue';
-    import { uuid } from '../../../../ComponentHelpers';
-    import { PAccordionHeader } from '../../../../components/PAccordion/components/PAccordionHeader';
-    import { PAccordionContent } from '../../../../components/PAccordion/components/PAccordionContent';
-    import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
-    import mitt from 'mitt';
-
-    const emitter = mitt();
-
     const Icon = {
         icon: {
             type: [String, Object],
@@ -86,6 +77,16 @@
             },
         },
     }
+</script>
+<script setup>
+    import { inject, ref, onMounted, computed } from 'vue';
+    import { uuid } from '../../../../ComponentHelpers';
+    import { PAccordionHeader } from '../../../../components/PAccordion/components/PAccordionHeader';
+    import { PAccordionContent } from '../../../../components/PAccordion/components/PAccordionContent';
+    import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
+    import mitt from 'mitt';
+
+    const emitter = mitt();
 
     /**
      * <br/>
@@ -96,213 +97,191 @@
      *      accordion</a>. Use this component for the customization of title and content.
      * </h4>
      */
-    export default defineComponent({
-        name: 'PAccordionItem',
-        components: {
-            PAccordionHeader, PAccordionContent,
+    let props = defineProps({
+        /**
+         * Unique Id for the accordion
+         */
+        id: {
+            type: [String, Number],
         },
-        props: {
-            /**
-             * Unique Id for the accordion
-             */
-            id: {
-                type: [String, Number],
-            },
-            /**
-             * Title for the accordion
-             */
-            title: {
-                type: [String, Number],
-            },
-            /**
-             * Custom animation
-             */
-            animation: {
-                type: Object,
-            },
-            /**
-             * Body part of the accordion
-             */
-            content: {
-                type: String,
-            },
-            /**
-             * Custom icon
-             */
-            icon: {
-                type: [Object, String],
-                ...ObjectValidator('icon', Icon),
-            },
-            /**
-             * Hide icon for accordion
-             */
-            hideIcon: {
-                type: Boolean,
-            },
-            /**
-             * Theme Options
-             */
-            themeOptions: {
-                type: Object,
-                ...ObjectValidator('themeOptions', ThemeOptions),
-            },
-            /**
-             * Disable Icon Rotation
-             */
-            disableIconRotate: {
-                type: Boolean,
-                default: false,
-            },
+        /**
+         * Title for the accordion
+         */
+        title: {
+            type: [String, Number],
         },
-        // emits: [`accordion-${this.getAccordionId}-toggle`, `accordion-${this.getAccordionId}-item`],
-        setup(props, context) {
+        /**
+         * Custom animation
+         */
+        animation: {
+            type: Object,
+        },
+        /**
+         * Body part of the accordion
+         */
+        content: {
+            type: String,
+        },
+        /**
+         * Custom icon
+         */
+        icon: {
+            type: [Object, String],
+            ...ObjectValidator('icon', Icon),
+        },
+        /**
+         * Hide icon for accordion
+         */
+        hideIcon: {
+            type: Boolean,
+        },
+        /**
+         * Theme Options
+         */
+        themeOptions: {
+            type: Object,
+            ...ObjectValidator('themeOptions', ThemeOptions),
+        },
+        /**
+         * Disable Icon Rotation
+         */
+        disableIconRotate: {
+            type: Boolean,
+            default: false,
+        },
+    })
 
-            const accordion = inject('accordion');
-            const getVisibility = accordion.getVisibility;
-            const getAccordionId = accordion.getAccordionId;
-            const ID = ref((props.id || props.id === 0) ? props.id : uuid());
-            const themeOptionsData = ref({
-                header: {
-                    color: '',
-                    background: '',
-                    backgroundCollapsed: ''
-                },
-                content: {
-                    color: '',
-                    background: '',
-                }
-            });
-            let disableIconRotation = ref(props.disableIconRotate);
+    const accordion = inject('accordion');
+    const getVisibility = accordion.getVisibility;
+    const getAccordionId = accordion.getAccordionId;
+    const ID = ref((props.id || props.id === 0) ? props.id : uuid());
+    let disableIconRotation = ref(props.disableIconRotate);
 
-            onMounted(() => {
-                if (inject('handleItemToggleDefault')) {
-                    const handleItemToggleDefault = inject('handleItemToggleDefault');
-                    handleItemToggleDefault(ID.value);
-                }
-            });
+    onMounted(() => {
+        if (inject('handleItemToggleDefault')) {
+            const handleItemToggleDefault = inject('handleItemToggleDefault');
+            handleItemToggleDefault(ID.value);
+        }
+    });
 
-            const accordionItemId = computed(() => {
-                return `${getAccordionId}-${ID.value}`;
-            });
+    const accordionItemId = computed(() => {
+        return `${getAccordionId}-${ID.value}`;
+    });
 
-            const iconSource = computed(() => {
-                let source = '';
-                let color = '';
-                if (typeof setIcon.value === 'object') {
-                    disableIconRotation.value = true;
-                    source = setIcon.value.source;
-                    color = setIcon.value.color;
-                } else if (typeof setIcon.value === 'string') {
-                    source = setIcon.value;
-                    color = '';
-                }
+    const iconSource = computed(() => {
+        let source = '';
+        let color = '';
+        if (typeof setIcon.value === 'object') {
+            disableIconRotation.value = true;
+            source = setIcon.value.source;
+            color = setIcon.value.color;
+        } else if (typeof setIcon.value === 'string') {
+            source = setIcon.value;
+            color = '';
+        }
 
-                return {
-                    source: source,
-                    color: color,
-                }
-            });
+        return {
+            source: source,
+            color: color,
+        }
+    });
 
-            const headerThemeOptions = computed(() => {
-                let styleOptions = {
+    const headerThemeOptions = computed(() => {
+        let styleOptions = {
+            color: '',
+            background: '',
+            backgroundCollapsed: '',
+        };
+        if (props.themeOptions && Object.keys(props.themeOptions).length) {
+            if (props.themeOptions.header) {
+                styleOptions = {
                     color: '',
                     background: '',
                     backgroundCollapsed: '',
                 };
-                if (props.themeOptions && Object.keys(props.themeOptions).length) {
-                    if (props.themeOptions.header) {
-                        styleOptions = {
-                            color: '',
-                            background: '',
-                            backgroundCollapsed: '',
-                        };
-                        let header = props.themeOptions.header;
-                        if (header.color) {
-                            styleOptions.color = header.color;
-                        }
-                        if (header.background) {
-                            styleOptions.background = header.background;
-                        }
-                        if (header.backgroundCollapsed) {
-                            styleOptions.backgroundCollapsed = header.backgroundCollapsed;
-                        }
-                    }
+                let header = props.themeOptions.header;
+                if (header.color) {
+                    styleOptions.color = header.color;
                 }
+                if (header.background) {
+                    styleOptions.background = header.background;
+                }
+                if (header.backgroundCollapsed) {
+                    styleOptions.backgroundCollapsed = header.backgroundCollapsed;
+                }
+            }
+        }
 
-                return styleOptions;
-            });
+        return styleOptions;
+    });
 
-            const contentThemeOptions = computed(() => {
-                let styleOptions = {
+    const contentThemeOptions = computed(() => {
+        let styleOptions = {
+            color: '',
+            background: '',
+        };
+        if (props.themeOptions && Object.keys(props.themeOptions).length) {
+            if (props.themeOptions.content) {
+                styleOptions = {
                     color: '',
                     background: '',
                 };
-                if (props.themeOptions && Object.keys(props.themeOptions).length) {
-                    if (props.themeOptions.content) {
-                        styleOptions = {
-                            color: '',
-                            background: '',
-                        };
-                        let content = props.themeOptions.content;
-                        if (content.color) {
-                            styleOptions.color = content.color;
-                        }
-                        if (content.background) {
-                            styleOptions.background = content.background;
-                        }
-                    }
+                let content = props.themeOptions.content;
+                if (content.color) {
+                    styleOptions.color = content.color;
                 }
-
-                return styleOptions;
-            })
-
-            const setIcon = computed(() => {
-                if (props.icon) {
-                    if (typeof props.icon === 'object') {
-                        disableIconRotation.value = true;
-                        if (getVisibility[accordionItemId.value]) {
-                            return setOpenCloseIcon(props.icon, 'open', 'CaretUpMinor');
-                        } else {
-                            return setOpenCloseIcon(props.icon, 'close', 'CaretDownMinor');
-                        }
-                    } else if (typeof props.icon === 'string') {
-                        return props.icon;
-                    }
-                }
-
-                if (props.icon === null || props.icon === '') {
-                    let showIcon = inject('showIcon');
-                    showIcon.value = false;
-                }
-                return 'CaretUpMinor';
-            });
-
-            const parentHandleToggle = inject('handleToggle');
-            const handleToggle = (index) => {
-                parentHandleToggle(index);
-            }
-
-            function setOpenCloseIcon(object, type, source) {
-                if (object.hasOwnProperty(type) && Object.keys(object[type]).length) {
-                    if (typeof object[type] === 'object') {
-                        if (!object[type].hasOwnProperty('source') && object[type].hasOwnProperty('color')) {
-                            return {
-                                source: source,
-                                color: object[type].color,
-                            }
-                        }
-                        return object[type];
-                    } else if (typeof object[type] === 'string') {
-                        return {
-                            source: object[type],
-                            color: '',
-                        }
-                    }
+                if (content.background) {
+                    styleOptions.background = content.background;
                 }
             }
-
-            return { getVisibility, getAccordionId, themeOptionsData, disableIconRotation, accordionItemId, iconSource, headerThemeOptions, contentThemeOptions, setIcon, handleToggle, setOpenCloseIcon };
         }
+
+        return styleOptions;
     })
+
+    const setIcon = computed(() => {
+        if (props.icon) {
+            if (typeof props.icon === 'object') {
+                disableIconRotation.value = true;
+                if (getVisibility[accordionItemId.value]) {
+                    return setOpenCloseIcon(props.icon, 'open', 'CaretUpMinor');
+                } else {
+                    return setOpenCloseIcon(props.icon, 'close', 'CaretDownMinor');
+                }
+            } else if (typeof props.icon === 'string') {
+                return props.icon;
+            }
+        }
+
+        if (props.icon === null || props.icon === '') {
+            let showIcon = inject('showIcon');
+            showIcon.value = false;
+        }
+        return 'CaretUpMinor';
+    });
+
+    const parentHandleToggle = inject('handleToggle');
+    const handleToggle = (index) => {
+        parentHandleToggle(index);
+    }
+
+    function setOpenCloseIcon(object, type, source) {
+        if (object.hasOwnProperty(type) && Object.keys(object[type]).length) {
+            if (typeof object[type] === 'object') {
+                if (!object[type].hasOwnProperty('source') && object[type].hasOwnProperty('color')) {
+                    return {
+                        source: source,
+                        color: object[type].color,
+                    }
+                }
+                return object[type];
+            } else if (typeof object[type] === 'string') {
+                return {
+                    source: object[type],
+                    color: '',
+                }
+            }
+        }
+    }
 </script>
 

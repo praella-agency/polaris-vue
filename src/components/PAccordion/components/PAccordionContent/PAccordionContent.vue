@@ -15,50 +15,40 @@
     </PCollapsible>
 </template>
 
-<script>
-    import { defineComponent, computed } from 'vue';
+<script setup>
+    import { computed } from 'vue';
     import { PCollapsible } from '../../../../components/PCollapsible';
 
-    export default defineComponent({
-        name: 'PAccordionContent',
-        components: {
-            PCollapsible,
+    let props = defineProps({
+        id: {
+            type: [String, Number],
         },
-        props: {
-            id: {
-                type: [String, Number],
-            },
-            animation: {
-                type: Object,
-                default: () => ({
-                    duration: "350ms",
-                    timingFunction: "ease-in-out",
-                }),
-            },
-            open: {
-                type: Boolean,
-            },
-            content: {
-                type: [String, Number],
-            },
-            themeOptions: {
-                type: Object,
-            },
+        animation: {
+            type: Object,
+            default: () => ({
+                duration: "350ms",
+                timingFunction: "ease-in-out",
+            }),
         },
-        setup(props) {
-            const style = computed(() => {
-              let styles = {};
-              if (props.themeOptions.color) {
-                styles.color = props.themeOptions.color;
-              }
-              if (props.themeOptions.background) {
-                styles.backgroundColor = props.themeOptions.background;
-              }
-
-              return styles;
-            })
-
-            return { style };
-        }
+        open: {
+            type: Boolean,
+        },
+        content: {
+            type: [String, Number],
+        },
+        themeOptions: {
+            type: Object,
+        },
     });
+
+    const style = computed(() => {
+        let styles = {};
+        if (props.themeOptions.color) {
+            styles.color = props.themeOptions.color;
+        }
+        if (props.themeOptions.background) {
+            styles.backgroundColor = props.themeOptions.background;
+        }
+        return styles;
+    })
 </script>
