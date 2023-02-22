@@ -1,3 +1,4 @@
+import { defineComponent, computed, watch, provide } from 'vue';
 import tinycolor from 'tinycolor2'
 
 function _colorChange(data, oldHue) {
@@ -57,37 +58,38 @@ function _colorChange(data, oldHue) {
     }
 }
 
-export default {
+export default defineComponent({
     props: ['value'],
-    emits: ['input'],
-    data() {
-        return {
-            val: _colorChange(this.value)
-        }
-    },
-    computed: {
-        colors: {
+    setup(props, context) {
+        let val = _colorChange(props.value);
+        console.log('val',val)
+
+        let colors = computed({
             get() {
-                return this.val
+                return val;
             },
             set(newVal) {
-                this.val = newVal
-                this.$emit('input', newVal)
+                val = newVal;
+                context.emit('input', newVal);
             }
+        });
+        provide('colorValue', colors);
+
+        function colorChange(data, oldHue) {
+            this.oldHue = (colors && colors.hsl) ? colors.hsl.h : 0;
+            colors = _colorChange(data, oldHue || this.oldHue);
         }
-    },
-    watch: {
-        value(newVal) {
-            this.val = _colorChange(newVal)
+        provide('colorChange', colorChange);
+
+        function isValidHex(hex) {
+            return tinycolor(hex).isValid();
         }
-    },
-    methods: {
-        colorChange(data, oldHue) {
-            this.oldHue = (this.colors && this.colors.hsl) ? this.colors.hsl.h : 0;
-            this.colors = _colorChange(data, oldHue || this.oldHue)
-        },
-        isValidHex(hex) {
-            return tinycolor(hex).isValid()
-        },
+        provide('isValidHex', isValidHex);
+
+        watch(() => props.value, (newVal) => {
+            val = _colorChange(newVal);
+        });
+
+        return { val, colors, colorChange, isValidHex };
     }
-}
+})

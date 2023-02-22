@@ -11,7 +11,8 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { ref, computed } from 'vue';
     import { classNames } from '../../utilities/css';
     import { Chrome } from './components/Chrome';
     import { PTextField } from '../../components/PTextField/';
@@ -22,122 +23,116 @@
      *  sans-serif;">The color picker is used to let merchants select a color visually. For example, merchants use the
      *  color picker to customize the accent color of the email templates for their shop.</h4>
      */
-    export default {
-        name: 'PColorPicker',
-        components: {
-            PTextField, Chrome,
+
+    let props = defineProps({
+        /**
+         * Label for the colorPicker
+         */
+        label: {
+            type: String,
+            default: null,
         },
-        props: {
-            /**
-             * Label for the colorPicker
-             */
-            label: {
-                type: String,
-                default: null,
-            },
-            /**
-             * ID for form input
-             */
-            id: {
-                type: [String, Number],
-                required: true,
-            },
-            /**
-             * LabelClass for input
-             */
-            labelClass: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Hide/Show input
-             */
-            showInput: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * PropsClass for input
-             */
-            propsClass: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Selected color
-             */
-            color: {
-                type: String,
-                default: '#FFFF',
-            },
-            /**
-             * Disabled field
-             */
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
+        /**
+         * ID for form input
+         */
+        id: {
+            type: [String, Number],
+            required: true,
         },
-        emits: ['change', 'update:color', 'drop'],
-        data() {
-            return {
-                showPicker: false,
-                dropColors: null,
-            };
+        /**
+         * LabelClass for input
+         */
+        labelClass: {
+            type: String,
+            default: null,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'picker',
-                    this.disabled && 'Polaris-ColorPicker--disabled',
-                );
-            },
-            computedColor: {
-                get() {
-                    return this.color;
-                },
-                set(value) {
-                    this.dropColors = value;
-                    /**
-                     * Triggers when color is changed
-                     * @ignore
-                     */
-                    this.$emit('update:color', value.hex ? value.hex : value);
-                    /**
-                     * Triggers when color is changed
-                     */
-                    this.$emit('change', value);
-                }
-            }
+        /**
+         * Hide/Show input
+         */
+        showInput: {
+            type: Boolean,
+            default: false,
         },
-        methods: {
-            updateColor(color) {
-                this.dropColors = color;
-                /**
-                 * Triggers when color is changed
-                 * @ignore
-                 */
-                this.$emit('update:color', color.hex);
-                /**
-                 * Triggers when color is changed
-                 */
-                this.$emit('change', color);
-            },
-            togglePicker() {
-                this.showPicker = !this.showPicker;
-            },
-            hidePicker() {
-                if (this.showPicker) {
-                    this.$emit('drop', this.dropColors || this.color);
-                }
-                this.showPicker = false;
-            },
-            dropColor() {
-                /**
-                 * Mouse drop event, triggered when mouseup
-                 */
-                this.$emit('drop', this.dropColors);
-            }
+        /**
+         * PropsClass for input
+         */
+        propsClass: {
+            type: String,
+            default: null,
         },
+        /**
+         * Selected color
+         */
+        color: {
+            type: String,
+            default: '#FFFF',
+        },
+        /**
+         * Disabled field
+         */
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+    });
+
+    let emit = defineEmits(['change', 'update:color', 'drop']);
+    let showPicker = ref(false);
+    let dropColors = ref(null);
+
+    const className = computed(() => {
+        return classNames(
+            'picker',
+            props.disabled && 'Polaris-ColorPicker--disabled',
+        );
+    });
+
+    const computedColor = computed({
+        get() {
+            return props.color;
+        },
+        set(value) {
+            dropColors = value;
+            /**
+             * Triggers when color is changed
+             * @ignore
+             */
+            emit('update:color', value.hex ? value.hex : value);
+            /**
+             * Triggers when color is changed
+             */
+            emit('change', value);
+        }
+    });
+
+    function updateColor(color) {
+        dropColors = color;
+        /**
+         * Triggers when color is changed
+         * @ignore
+         */
+        emit('update:color', color.hex);
+        /**
+         * Triggers when color is changed
+         */
+        emit('change', color);
+    }
+
+    function togglePicker() {
+        showPicker = !showPicker;
+    }
+
+    function hidePicker() {
+        if (showPicker) {
+            emit('drop', dropColors || props.color);
+        }
+        showPicker = false;
+    }
+
+    function dropColor() {
+        /**
+         * Mouse drop event, triggered when mouseup
+         */
+        emit('drop', dropColors);
     }
 </script>

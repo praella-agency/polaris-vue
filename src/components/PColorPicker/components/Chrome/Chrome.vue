@@ -26,38 +26,38 @@
                 <div class="vc-chrome-fields" v-show="fieldsIndex === 0">
                     <!-- hex -->
                     <div class="vc-chrome-field">
-                        <ed-in v-if="!hasAlpha" label="hex" :value="colors.hex" @change="inputChange"></ed-in>
-                        <ed-in v-if="hasAlpha" label="hex" :value="colors.hex8" @change="inputChange"></ed-in>
+                        <editable-input v-if="!hasAlpha" label="hex" :value="colors.hex" @change="inputChange"></editable-input>
+                        <editable-input v-if="hasAlpha" label="hex" :value="colors.hex8" @change="inputChange"></editable-input>
                     </div>
                 </div>
                 <div class="vc-chrome-fields" v-show="fieldsIndex === 1">
                     <!-- rgba -->
                     <div class="vc-chrome-field">
-                        <ed-in label="r" :value="((colors && colors.rgba) ? colors.rgba.r : 0)" @change="inputChange"></ed-in>
+                        <editable-input label="r" :value="((colors && colors.rgba) ? colors.rgba.r : 0)" @change="inputChange"></editable-input>
                     </div>
                     <div class="vc-chrome-field">
-                        <ed-in label="g" :value="((colors && colors.rgba) ? colors.rgba.g : 0)" @change="inputChange"></ed-in>
+                        <editable-input label="g" :value="((colors && colors.rgba) ? colors.rgba.g : 0)" @change="inputChange"></editable-input>
                     </div>
                     <div class="vc-chrome-field">
-                        <ed-in label="b" :value="((colors && colors.rgba) ? colors.rgba.b : 0)" @change="inputChange"></ed-in>
+                        <editable-input label="b" :value="((colors && colors.rgba) ? colors.rgba.b : 0)" @change="inputChange"></editable-input>
                     </div>
                     <div class="vc-chrome-field" v-if="!disableAlpha">
-                        <ed-in label="a" :value="colors.a" :arrow-offset="0.01" :max="1" @change="inputChange"></ed-in>
+                        <editable-input label="a" :value="colors.a" :arrow-offset="0.01" :max="1" @change="inputChange"></editable-input>
                     </div>
                 </div>
                 <div class="vc-chrome-fields" v-show="fieldsIndex === 2">
                     <!-- hsla -->
                     <div class="vc-chrome-field">
-                        <ed-in label="h" :value="hsl.h" @change="inputChange"></ed-in>
+                        <editable-input label="h" :value="hsl.h" @change="inputChange"></editable-input>
                     </div>
                     <div class="vc-chrome-field">
-                        <ed-in label="s" :value="hsl.s" @change="inputChange"></ed-in>
+                        <editable-input label="s" :value="hsl.s" @change="inputChange"></editable-input>
                     </div>
                     <div class="vc-chrome-field">
-                        <ed-in label="l" :value="hsl.l" @change="inputChange"></ed-in>
+                        <editable-input label="l" :value="hsl.l" @change="inputChange"></editable-input>
                     </div>
                     <div class="vc-chrome-field" v-if="!disableAlpha">
-                        <ed-in label="a" :value="colors.a" :arrow-offset="0.01" :max="1" @change="inputChange"></ed-in>
+                        <editable-input label="a" :value="colors.a" :arrow-offset="0.01" :max="1" @change="inputChange"></editable-input>
                     </div>
                 </div>
                 <!-- btn -->
@@ -80,102 +80,98 @@
     </div>
 </template>
 
-<script>
-    import colorMixin from '../mixins/color'
-    import editableInput from '../common/EditableInput.vue'
-    import saturation from '../common/Saturation.vue'
-    import hue from '../common/Hue.vue'
-    import alpha from '../common/Alpha.vue'
-    import checkboard from '../common/Checkboard.vue'
+<script setup>
+    import { ref, computed, inject } from 'vue';
+    import colorMixin from '../mixins/color';
+    import Saturation from '../common/Saturation.vue';
+    import Checkboard from '../common/Checkboard.vue';
+    import Hue from '../common/Hue.vue';
+    import Alpha from '../common/Alpha.vue';
+    import EditableInput from '../common/EditableInput.vue';
 
-    export default {
-        name: 'Chrome',
-        mixins: [colorMixin],
-        props: {
-            disableAlpha: {
-                type: Boolean,
-                default: false
-            },
-            disableFields: {
-                type: Boolean,
-                default: false
-            }
+    let props = defineProps({
+        disableAlpha: {
+            type: Boolean,
+            default: false
         },
-        components: {
-            saturation,
-            hue,
-            alpha,
-            'ed-in': editableInput,
-            checkboard
-        },
-        data() {
-            return {
-                fieldsIndex: 0,
-                highlight: false
-            }
-        },
-        computed: {
-            hsl() {
-                const {h, s, l} = this.colors.hsl ? this.colors.hsl : {h:0, s:0, l:0}
-                return {
-                    h: h.toFixed(),
-                    s: `${(s * 100).toFixed()}%`,
-                    l: `${(l * 100).toFixed()}%`
-                }
-            },
-            activeColor() {
-                const rgba = this.colors.rgba;
-                return 'rgba(' + (rgba ? [rgba.r, rgba.g, rgba.b, rgba.a].join(',') : []) + ')';
-            },
-            hasAlpha() {
-                return this.colors.a < 1
-            }
-        },
-        methods: {
-            childChange(data) {
-                this.colorChange(data)
-            },
-            inputChange(data) {
-                if (!data) {
-                    return
-                }
-                if (data.hex) {
-                    this.isValidHex(data.hex) && this.colorChange({
-                        hex: data.hex,
-                        source: 'hex'
-                    })
-                } else if (data.r || data.g || data.b || data.a) {
-                    this.colorChange({
-                        r: data.r || this.colors.rgba.r,
-                        g: data.g || this.colors.rgba.g,
-                        b: data.b || this.colors.rgba.b,
-                        a: data.a || this.colors.rgba.a,
-                        source: 'rgba'
-                    })
-                } else if (data.h || data.s || data.l) {
-                    const s = data.s ? (data.s.replace('%', '') / 100) : this.colors.hsl.s
-                    const l = data.l ? (data.l.replace('%', '') / 100) : this.colors.hsl.l
-                    this.colorChange({
-                        h: data.h || this.colors.hsl.h,
-                        s,
-                        l,
-                        source: 'hsl'
-                    })
-                }
-            },
-            toggleViews() {
-                if (this.fieldsIndex >= 2) {
-                    this.fieldsIndex = 0
-                    return
-                }
-                this.fieldsIndex++
-            },
-            showHighlight() {
-                this.highlight = true
-            },
-            hideHighlight() {
-                this.highlight = false
-            }
+        disableFields: {
+            type: Boolean,
+            default: false
         }
+    })
+
+    const colors = inject('colorValue');
+    console.log('colors',colors);
+
+    let fieldsIndex = ref(0);
+    let highlight = ref(false);
+    const colorChange = inject('colorChange');
+    const isValidHex = inject('isValidHex');
+
+    const hsl = computed(() => {
+        const {h, s, l} = colors.hsl ? colors.hsl : {h: 0, s: 0, l: 0}
+        return {
+            h: h.toFixed(),
+            s: `${(s * 100).toFixed()}%`,
+            l: `${(l * 100).toFixed()}%`
+        }
+    });
+
+    const activeColor = computed(() => {
+        const rgba = colors.rgba;
+        return 'rgba(' + (rgba ? [rgba.r, rgba.g, rgba.b, rgba.a].join(',') : []) + ')';
+    });
+
+    const hasAlpha = computed(() => {
+        return colors.a < 1;
+    });
+
+    function childChange(data) {
+        colorChange(data);
+    }
+
+    function inputChange(data) {
+        if (!data) {
+            return
+        }
+        if (data.hex) {
+            isValidHex(data.hex) && colorChange({
+                hex: data.hex,
+                source: 'hex'
+            })
+        } else if (data.r || data.g || data.b || data.a) {
+            colorChange({
+                r: data.r || colors.rgba.r,
+                g: data.g || colors.rgba.g,
+                b: data.b || colors.rgba.b,
+                a: data.a || colors.rgba.a,
+                source: 'rgba'
+            })
+        } else if (data.h || data.s || data.l) {
+            const s = data.s ? (data.s.replace('%', '') / 100) : colors.hsl.s
+            const l = data.l ? (data.l.replace('%', '') / 100) : colors.hsl.l
+            colorChange({
+                h: data.h || colors.hsl.h,
+                s,
+                l,
+                source: 'hsl'
+            })
+        }
+    }
+
+    function toggleViews() {
+        if (fieldsIndex >= 2) {
+            fieldsIndex = 0;
+            return;
+        }
+        fieldsIndex++;
+    }
+
+    function showHighlight() {
+        highlight = true;
+    }
+
+    function hideHighlight() {
+        highlight = false;
     }
 </script>

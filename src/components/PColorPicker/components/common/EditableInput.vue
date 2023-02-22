@@ -13,73 +13,76 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: 'editableInput',
-        props: {
-            label: String,
-            labelText: String,
-            desc: String,
-            value: [String, Number],
-            max: Number,
-            min: Number,
-            arrowOffset: {
-                type: Number,
-                default: 1
-            }
+<script setup>
+    import { computed, ref } from 'vue';
+
+    let props = defineProps({
+        label: String,
+        labelText: String,
+        desc: String,
+        value: [String, Number],
+        max: Number,
+        min: Number,
+        arrowOffset: {
+            type: Number,
+            default: 1
+        }
+    });
+
+    const emit = defineEmits(['change']);
+
+    const input = ref(null);
+
+    let val = computed({
+        get() {
+            return props.value;
         },
-        emits: ['change'],
-        computed: {
-            val: {
-                get() {
-                    return this.value;
-                },
-                set(v) {
-                    if (!(this.max === undefined) && +v > this.max) {
-                        this.$refs.input.value = this.max
-                    } else {
-                        return v
-                    }
-                }
-            },
-            labelId() {
-                return `input__label__${this.label}__${Math.random().toString().slice(2, 5)}`
-            },
-            labelSpanText() {
-                return this.labelText || this.label
+        set(v) {
+            if (!(props.max === undefined) && +v > props.max) {
+                input.value = props.max;
+            } else {
+                return v;
             }
-        },
-        methods: {
-            update(e) {
-                this.handleChange(e.target.value)
-            },
-            handleChange(newVal) {
-                let data = {}
-                data[this.label] = newVal
-                if (data.hex === undefined && data['#'] === undefined) {
-                    this.$emit('change', data)
-                } else if (newVal.length > 5) {
-                    this.$emit('change', data)
-                }
-            },
-            handleKeyDown(e) {
-                let val = this.val
-                let number = Number(val)
-                if (number) {
-                    let amount = this.arrowOffset || 1
-                    // Up
-                    if (e.keyCode === 38) {
-                        val = number + amount
-                        this.handleChange(val)
-                        e.preventDefault()
-                    }
-                    // Down
-                    if (e.keyCode === 40) {
-                        val = number - amount
-                        this.handleChange(val)
-                        e.preventDefault()
-                    }
-                }
+        }
+    });
+
+    const labelId = computed(() => {
+        return `input__label__${props.label}__${Math.random().toString().slice(2, 5)}`;
+    });
+
+    const labelSpanText = computed(() => {
+        return props.labelText || props.label;
+    });
+
+    function update(e) {
+        handleChange(e.target.value);
+    }
+
+    function handleChange(newVal) {
+        let data = {}
+        data[props.label] = newVal;
+        if (data.hex === undefined && data['#'] === undefined) {
+            emit('change', data);
+        } else if (newVal.length > 5) {
+            emit('change', data);
+        }
+    }
+
+    function handleKeyDown(e) {
+        let number = Number(val)
+        if (number) {
+            let amount = props.arrowOffset || 1
+            // Up
+            if (e.keyCode === 38) {
+                val = number + amount
+                handleChange(val)
+                e.preventDefault()
+            }
+            // Down
+            if (e.keyCode === 40) {
+                val = number - amount
+                handleChange(val)
+                e.preventDefault()
             }
         }
     }

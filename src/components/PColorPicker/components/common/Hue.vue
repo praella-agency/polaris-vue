@@ -16,132 +16,134 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: 'Hue',
-        props: {
-            value: Object,
-            direction: {
-                type: String,
-                // [horizontal | vertical]
-                default: 'horizontal'
+<script setup>
+    import { ref, computed } from 'vue';
+
+    let props = defineProps({
+        value: Object,
+        direction: {
+            type: String,
+            default: 'horizontal' /* [horizontal | vertical] */
+        }
+    });
+
+    const emit = defineEmits(['change']);
+
+    let oldHue = ref(0);
+    let pullDirection = ref('');
+    const hueContainer = ref(null);
+
+    let colors =  computed(() => {
+        const h = props.value.hsl.h;
+        // vue/no-side-effects-in-computed-properties
+        /* eslint-disable */
+        if (h !== 0 && h - oldHue > 0) pullDirection = 'right';
+        if (h !== 0 && h - oldHue < 0) pullDirection = 'left';
+        oldHue = h;
+        /* eslint-enable */
+
+        return props.value;
+    });
+
+    const directionClass = computed(() => {
+        return {
+            'vc-hue--horizontal': props.direction === 'horizontal',
+            'vc-hue--vertical': props.direction === 'vertical'
+        }
+    });
+
+    const pointerTop = computed(() => {
+        if (props.direction === 'vertical') {
+            if (colors.hsl.h === 0 && pullDirection === 'right') return 0
+            return -((colors.hsl.h * 100) / 360) + 100 + '%'
+        } else {
+            return 0
+        }
+    });
+
+    const pointerLeft = computed(() => {
+        if (props.direction === 'vertical') {
+            return 0
+        } else {
+            if (colors.hsl.h === 0 && pullDirection === 'right') return '100%'
+            return (colors.hsl.h * 100) / 360 + '%'
+        }
+    });
+
+    function handleChange (e, skip) {
+        !skip && e.preventDefault()
+
+        const container = hueContainer.value;
+        if (!container) {
+            // for some edge cases, container may not exist. see #220
+            return
+        }
+        const containerWidth = container.clientWidth
+        const containerHeight = container.clientHeight
+
+        const xOffset = container.getBoundingClientRect().left + window.pageXOffset
+        const yOffset = container.getBoundingClientRect().top + window.pageYOffset
+        const pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0)
+        const pageY = e.pageY || (e.touches ? e.touches[0].pageY : 0)
+        const left = pageX - xOffset
+        const top = pageY - yOffset
+
+        let h
+        let percent
+
+        if (props.direction === 'vertical') {
+            if (top < 0) {
+                h = 360
+            } else if (top > containerHeight) {
+                h = 0
+            } else {
+                percent = -(top * 100 / containerHeight) + 100
+                h = (360 * percent / 100)
             }
-        },
-        data () {
-            return {
-                oldHue: 0,
-                pullDirection: ''
+
+            if (colors.hsl.h !== h) {
+                emit('change', {
+                    h: h,
+                    s: colors.hsl.s,
+                    l: colors.hsl.l,
+                    a: colors.hsl.a,
+                    source: 'hsl'
+                })
             }
-        },
-        computed: {
-            colors () {
-                const h = this.value.hsl.h
-                // vue/no-side-effects-in-computed-properties
-                /* eslint-disable */
-                if (h !== 0 && h - this.oldHue > 0) this.pullDirection = 'right'
-                if (h !== 0 && h - this.oldHue < 0) this.pullDirection = 'left'
-                this.oldHue = h
-                /* eslint-enable */
-
-                return this.value
-            },
-            directionClass () {
-                return {
-                    'vc-hue--horizontal': this.direction === 'horizontal',
-                    'vc-hue--vertical': this.direction === 'vertical'
-                }
-            },
-            pointerTop () {
-                if (this.direction === 'vertical') {
-                    if (this.colors.hsl.h === 0 && this.pullDirection === 'right') return 0
-                    return -((this.colors.hsl.h * 100) / 360) + 100 + '%'
-                } else {
-                    return 0
-                }
-            },
-            pointerLeft () {
-                if (this.direction === 'vertical') {
-                    return 0
-                } else {
-                    if (this.colors.hsl.h === 0 && this.pullDirection === 'right') return '100%'
-                    return (this.colors.hsl.h * 100) / 360 + '%'
-                }
+        } else {
+            if (left < 0) {
+                h = 0
+            } else if (left > containerWidth) {
+                h = 360
+            } else {
+                percent = left * 100 / containerWidth
+                h = (360 * percent / 100)
             }
-        },
-        methods: {
-            handleChange (e, skip) {
-                !skip && e.preventDefault()
 
-                const container = this.$refs.container
-                if (!container) {
-                    // for some edge cases, container may not exist. see #220
-                    return
-                }
-                const containerWidth = container.clientWidth
-                const containerHeight = container.clientHeight
-
-                const xOffset = container.getBoundingClientRect().left + window.pageXOffset
-                const yOffset = container.getBoundingClientRect().top + window.pageYOffset
-                const pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0)
-                const pageY = e.pageY || (e.touches ? e.touches[0].pageY : 0)
-                const left = pageX - xOffset
-                const top = pageY - yOffset
-
-                let h
-                let percent
-
-                if (this.direction === 'vertical') {
-                    if (top < 0) {
-                        h = 360
-                    } else if (top > containerHeight) {
-                        h = 0
-                    } else {
-                        percent = -(top * 100 / containerHeight) + 100
-                        h = (360 * percent / 100)
-                    }
-
-                    if (this.colors.hsl.h !== h) {
-                        this.$emit('change', {
-                            h: h,
-                            s: this.colors.hsl.s,
-                            l: this.colors.hsl.l,
-                            a: this.colors.hsl.a,
-                            source: 'hsl'
-                        })
-                    }
-                } else {
-                    if (left < 0) {
-                        h = 0
-                    } else if (left > containerWidth) {
-                        h = 360
-                    } else {
-                        percent = left * 100 / containerWidth
-                        h = (360 * percent / 100)
-                    }
-
-                    if (this.colors.hsl.h !== h) {
-                        this.$emit('change', {
-                            h: h,
-                            s: this.colors.hsl.s,
-                            l: this.colors.hsl.l,
-                            a: this.colors.hsl.a,
-                            source: 'hsl'
-                        })
-                    }
-                }
-            },
-            handleMouseDown (e) {
-                this.handleChange(e, true)
-                window.addEventListener('mousemove', this.handleChange)
-                window.addEventListener('mouseup', this.handleMouseUp)
-            },
-            handleMouseUp () {
-                this.unbindEventListeners()
-            },
-            unbindEventListeners () {
-                window.removeEventListener('mousemove', this.handleChange)
-                window.removeEventListener('mouseup', this.handleMouseUp)
+            if (colors.hsl.h !== h) {
+                emit('change', {
+                    h: h,
+                    s: colors.hsl.s,
+                    l: colors.hsl.l,
+                    a: colors.hsl.a,
+                    source: 'hsl'
+                })
             }
         }
+    }
+
+    function handleMouseDown (e) {
+        handleChange(e, true);
+        window.addEventListener('mousemove', handleChange);
+        window.addEventListener('mouseup', handleMouseUp);
+    }
+
+    function handleMouseUp () {
+        unbindEventListeners();
+    }
+
+    function unbindEventListeners () {
+        window.removeEventListener('mousemove', handleChange);
+        window.removeEventListener('mouseup', handleMouseUp);
     }
 </script>

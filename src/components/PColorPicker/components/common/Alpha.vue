@@ -15,74 +15,74 @@
     </div>
 </template>
 
-<script>
-    import checkboard from './Checkboard.vue'
+<script setup>
+    import { ref, computed } from 'vue';
+    import Checkboard from './Checkboard.vue';
 
-    export default {
-        name: 'Alpha',
-        props: {
-            value: Object,
-            onChange: Function
-        },
-        components: {
-            checkboard
-        },
-        computed: {
-            colors () {
-                return this.value
-            },
-            gradientColor () {
-                const rgba = this.colors.rgba
-                const rgbStr = [rgba.r, rgba.g, rgba.b].join(',')
-                return 'linear-gradient(to right, rgba(' + rgbStr + ', 0) 0%, rgba(' + rgbStr + ', 1) 100%)'
-            }
-        },
-        methods: {
-            handleChange (e, skip) {
-                !skip && e.preventDefault()
-                const container = this.$refs.container
-                if (!container) {
-                    // for some edge cases, container may not exist. see #220
-                    return
-                }
-                const containerWidth = container.clientWidth
+    let props = defineProps({
+        value: Object,
+        onChange: Function
+    });
 
-                const xOffset = container.getBoundingClientRect().left + window.pageXOffset
-                const pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0)
-                const left = pageX - xOffset
+    const emit = defineEmits(['change']);
 
-                let a
-                if (left < 0) {
-                    a = 0
-                } else if (left > containerWidth) {
-                    a = 1
-                } else {
-                    a = Math.round(left * 100 / containerWidth) / 100
-                }
+    const alphaContainer = ref(null);
 
-                if (this.colors.a !== a) {
-                    this.$emit('change', {
-                        h: this.colors.hsl.h,
-                        s: this.colors.hsl.s,
-                        l: this.colors.hsl.l,
-                        a: a,
-                        source: 'rgba'
-                    })
-                }
-            },
-            handleMouseDown (e) {
-                this.handleChange(e, true)
-                window.addEventListener('mousemove', this.handleChange)
-                window.addEventListener('mouseup', this.handleMouseUp)
-            },
-            handleMouseUp () {
-                this.unbindEventListeners()
-            },
-            unbindEventListeners () {
-                window.removeEventListener('mousemove', this.handleChange)
-                window.removeEventListener('mouseup', this.handleMouseUp)
-            }
+    const colors = computed(() => {
+        return props.value;
+    });
+
+    const gradientColor = computed(() => {
+        const rgba = colors.rgba;
+        const rgbStr = [rgba.r, rgba.g, rgba.b].join(',')
+        return 'linear-gradient(to right, rgba(' + rgbStr + ', 0) 0%, rgba(' + rgbStr + ', 1) 100%)'
+    });
+
+    function handleChange(e, skip) {
+        !skip && e.preventDefault()
+        const container = alphaContainer.value;
+        if (!container) {
+            // for some edge cases, container may not exist. see #220
+            return
+        }
+        const containerWidth = container.clientWidth
+
+        const xOffset = container.getBoundingClientRect().left + window.pageXOffset
+        const pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0)
+        const left = pageX - xOffset
+
+        let a
+        if (left < 0) {
+            a = 0
+        } else if (left > containerWidth) {
+            a = 1
+        } else {
+            a = Math.round(left * 100 / containerWidth) / 100
+        }
+
+        if (colors.a !== a) {
+            emit('change', {
+                h: colors.hsl.h,
+                s: colors.hsl.s,
+                l: colors.hsl.l,
+                a: a,
+                source: 'rgba'
+            })
         }
     }
 
+    function handleMouseDown (e) {
+        handleChange(e, true);
+        window.addEventListener('mousemove', handleChange);
+        window.addEventListener('mouseup', handleMouseUp);
+    }
+
+    function handleMouseUp () {
+        unbindEventListeners();
+    }
+
+    function unbindEventListeners () {
+        window.removeEventListener('mousemove', handleChange);
+        window.removeEventListener('mouseup', handleMouseUp);
+    }
 </script>

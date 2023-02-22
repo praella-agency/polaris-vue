@@ -2,11 +2,11 @@
     <div class="vc-checkerboard" :style="bgStyle"></div>
 </template>
 
-<script>
-    let _checkboardCache = {}
-    export default {
-        name: 'Checkboard',
-        props: {
+<script setup>
+    import { computed } from 'vue';
+    let _checkboardCache = {};
+
+    let props = defineProps({
             size: {
                 type: [Number, String],
                 default: 8
@@ -19,15 +19,13 @@
                 type: String,
                 default: '#e6e6e6'
             }
-        },
-        computed: {
-            bgStyle() {
-                return {
-                    'background-image': 'url(' + getCheckboard(this.white, this.grey, this.size) + ')'
-                }
-            }
+        });
+
+    const bgStyle = computed(() => {
+        return {
+            'background-image': 'url(' + getCheckboard(props.white, props.grey, props.size) + ')'
         }
-    }
+    });
 
     /**
      * get base 64 data by canvas
