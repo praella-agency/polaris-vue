@@ -100,13 +100,13 @@
             })
 
             function handleAction(action) {
-                let res = true;
-                if (action.onAction) {
-                  res = action.onAction();
-                }
-                if (res && action.url) {
-                  window.location.href = action.url;
-                }
+              let res = true;
+              if (action.onAction) {
+                res = action.onAction();
+              }
+              if (res && action.url) {
+                window.location.href = action.url;
+              }
             }
 
             return { className, mediaSlotClassName, listValues, isSlot, handleAction }

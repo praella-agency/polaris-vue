@@ -49,8 +49,7 @@
                 type: Boolean,
             },
         },
-        emits: ['item-action'],
-        setup(props) {
+        setup(props, { emit }) {
             const className = computed(() => {
                 return classNames(
                     !props.section.title && 'Polaris-ActionList__Section--withoutTitle',
@@ -58,15 +57,15 @@
             });
 
             function wrapAction(action) {
-                const old = action.onAction;
-                const newAction = Object.assign({}, action);
-                if (old) {
-                    newAction.onAction = () => {
-                      old();
-                      emit('item-action', action);
-                    };
-                }
-                return newAction;
+              const old = action.onAction;
+              const newAction = Object.assign({}, action);
+              if (old) {
+                newAction.onAction = () => {
+                  old();
+                  emit('item-action', action);
+                };
+              }
+              return newAction;
             }
 
             return { className, wrapAction };

@@ -50,7 +50,7 @@ Access values with `slot-props` attribute. -->
                 default: () => ([]),
             }
         },
-        setup(props, context) {
+        setup(props, { emit }) {
             const className = computed(() => {
                 return classNames(
                     'Polaris-ActionList',
