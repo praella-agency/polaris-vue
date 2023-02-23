@@ -81,8 +81,8 @@
 </template>
 
 <script setup>
-    import { ref, computed, inject } from 'vue';
-    import colorMixin from '../mixins/color';
+    import { ref, computed, defineEmits } from 'vue';
+    import { useColors } from '../mixins/color';
     import Saturation from '../common/Saturation.vue';
     import Checkboard from '../common/Checkboard.vue';
     import Hue from '../common/Hue.vue';
@@ -90,6 +90,10 @@
     import EditableInput from '../common/EditableInput.vue';
 
     let props = defineProps({
+        value: {
+          type: String,
+          default: '#FFFF'
+        },
         disableAlpha: {
             type: Boolean,
             default: false
@@ -99,17 +103,14 @@
             default: false
         }
     })
-
-    const colors = inject('colorValue');
-    console.log('colors',colors);
+    const emit = defineEmits(['input']);
+    const { colors, colorChange, isValidHex } = useColors(props.value);
 
     let fieldsIndex = ref(0);
     let highlight = ref(false);
-    const colorChange = inject('colorChange');
-    const isValidHex = inject('isValidHex');
 
     const hsl = computed(() => {
-        const {h, s, l} = colors.hsl ? colors.hsl : {h: 0, s: 0, l: 0}
+        const {h, s, l} = colors.value.hsl ? colors.value.hsl : {h: 0, s: 0, l: 0}
         return {
             h: h.toFixed(),
             s: `${(s * 100).toFixed()}%`,
@@ -118,16 +119,18 @@
     });
 
     const activeColor = computed(() => {
-        const rgba = colors.rgba;
+        const rgba = colors.value.rgba;
         return 'rgba(' + (rgba ? [rgba.r, rgba.g, rgba.b, rgba.a].join(',') : []) + ')';
     });
 
     const hasAlpha = computed(() => {
-        return colors.a < 1;
+        return colors.value.a < 1;
     });
 
     function childChange(data) {
         colorChange(data);
+      console.log('Before emit input', colors.value);
+        emit('input', colors.value);
     }
 
     function inputChange(data) {
@@ -141,17 +144,17 @@
             })
         } else if (data.r || data.g || data.b || data.a) {
             colorChange({
-                r: data.r || colors.rgba.r,
-                g: data.g || colors.rgba.g,
-                b: data.b || colors.rgba.b,
-                a: data.a || colors.rgba.a,
+                r: data.r || colors.value.rgba.r,
+                g: data.g || colors.value.rgba.g,
+                b: data.b || colors.value.rgba.b,
+                a: data.a || colors.value.rgba.a,
                 source: 'rgba'
             })
         } else if (data.h || data.s || data.l) {
-            const s = data.s ? (data.s.replace('%', '') / 100) : colors.hsl.s
-            const l = data.l ? (data.l.replace('%', '') / 100) : colors.hsl.l
+            const s = data.s ? (data.s.replace('%', '') / 100) : colors.value.hsl.s
+            const l = data.l ? (data.l.replace('%', '') / 100) : colors.value.hsl.l
             colorChange({
-                h: data.h || colors.hsl.h,
+                h: data.h || colors.value.hsl.h,
                 s,
                 l,
                 source: 'hsl'
@@ -160,18 +163,18 @@
     }
 
     function toggleViews() {
-        if (fieldsIndex >= 2) {
-            fieldsIndex = 0;
+        if (fieldsIndex.value >= 2) {
+            fieldsIndex.value = 0;
             return;
         }
-        fieldsIndex++;
+        fieldsIndex.value++;
     }
 
     function showHighlight() {
-        highlight = true;
+        highlight.value = true;
     }
 
     function hideHighlight() {
-        highlight = false;
+        highlight.value = false;
     }
 </script>

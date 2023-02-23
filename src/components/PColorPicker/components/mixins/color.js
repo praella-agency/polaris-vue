@@ -1,4 +1,4 @@
-import { defineComponent, computed, watch, provide } from 'vue';
+import { computed, watch, defineEmits } from 'vue';
 import tinycolor from 'tinycolor2'
 
 function _colorChange(data, oldHue) {
@@ -58,38 +58,52 @@ function _colorChange(data, oldHue) {
     }
 }
 
-export default defineComponent({
-    props: ['value'],
-    setup(props, context) {
-        let val = _colorChange(props.value);
-        console.log('val',val)
+export function useColors(value) {
+    let val = _colorChange(value);
+    // let emit = defineEmits(['input']);
 
-        let colors = computed({
-            get() {
-                return val;
-            },
-            set(newVal) {
-                val = newVal;
-                context.emit('input', newVal);
-            }
-        });
-        provide('colorValue', colors);
-
-        function colorChange(data, oldHue) {
-            this.oldHue = (colors && colors.hsl) ? colors.hsl.h : 0;
-            colors = _colorChange(data, oldHue || this.oldHue);
+    let colors = computed({
+        get() {
+            return val;
+        },
+        set(newVal) {
+            val = newVal;
+            // emit('input', newVal);
         }
-        provide('colorChange', colorChange);
-
-        function isValidHex(hex) {
-            return tinycolor(hex).isValid();
-        }
-        provide('isValidHex', isValidHex);
-
-        watch(() => props.value, (newVal) => {
-            val = _colorChange(newVal);
-        });
-
-        return { val, colors, colorChange, isValidHex };
+    });
+    function colorChange(data, oldHue) {
+        let oldHueObj = (colors.value && colors.value.hsl) ? colors.value.hsl.h : 0;
+        colors.value = _colorChange(data, oldHue || oldHueObj);
     }
-})
+
+    function isValidHex(hex) {
+        return tinycolor(hex).isValid();
+    }
+
+    watch(() => value, (newVal) => {
+        val = _colorChange(newVal);
+    });
+    
+    return { val, colors, colorChange, isValidHex };
+}
+
+// export default defineComponent({
+//
+//     setup(props, context) {
+//
+//
+//
+//
+//         provide('colorValue', colors);
+//
+//
+//         provide('colorChange', colorChange);
+//
+//
+//         provide('isValidHex', isValidHex);
+//
+//
+//
+//         return { val, colors, colorChange, isValidHex };
+//     }
+// })

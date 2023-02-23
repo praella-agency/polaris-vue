@@ -54,8 +54,8 @@
 
     const pointerTop = computed(() => {
         if (props.direction === 'vertical') {
-            if (colors.hsl.h === 0 && pullDirection === 'right') return 0
-            return -((colors.hsl.h * 100) / 360) + 100 + '%'
+            if (colors.value.hsl.h === 0 && pullDirection === 'right') return 0
+            return -((colors.value.hsl.h * 100) / 360) + 100 + '%'
         } else {
             return 0
         }
@@ -65,8 +65,8 @@
         if (props.direction === 'vertical') {
             return 0
         } else {
-            if (colors.hsl.h === 0 && pullDirection === 'right') return '100%'
-            return (colors.hsl.h * 100) / 360 + '%'
+            if (colors.value.hsl.h === 0 && pullDirection === 'right') return '100%'
+            return (colors.value.hsl.h * 100) / 360 + '%'
         }
     });
 
@@ -101,12 +101,12 @@
                 h = (360 * percent / 100)
             }
 
-            if (colors.hsl.h !== h) {
+            if (colors.value.hsl.h !== h) {
                 emit('change', {
                     h: h,
-                    s: colors.hsl.s,
-                    l: colors.hsl.l,
-                    a: colors.hsl.a,
+                    s: colors.value.hsl.s,
+                    l: colors.value.hsl.l,
+                    a: colors.value.hsl.a,
                     source: 'hsl'
                 })
             }
@@ -120,12 +120,12 @@
                 h = (360 * percent / 100)
             }
 
-            if (colors.hsl.h !== h) {
+            if (colors.value.hsl.h !== h) {
                 emit('change', {
                     h: h,
-                    s: colors.hsl.s,
-                    l: colors.hsl.l,
-                    a: colors.hsl.a,
+                    s: colors.value.hsl.s,
+                    l: colors.value.hsl.l,
+                    a: colors.value.hsl.a,
                     source: 'hsl'
                 })
             }

@@ -92,7 +92,7 @@
             return props.color;
         },
         set(value) {
-            dropColors = value;
+            dropColors.value = value;
             /**
              * Triggers when color is changed
              * @ignore
@@ -106,7 +106,8 @@
     });
 
     function updateColor(color) {
-        dropColors = color;
+      console.log('Update Clolot', color);
+        dropColors.value = color;
         /**
          * Triggers when color is changed
          * @ignore
@@ -119,20 +120,20 @@
     }
 
     function togglePicker() {
-        showPicker = !showPicker;
+        showPicker.value = !showPicker.value;
     }
 
     function hidePicker() {
-        if (showPicker) {
-            emit('drop', dropColors || props.color);
+        if (showPicker.value) {
+            emit('drop', dropColors.value || props.color);
         }
-        showPicker = false;
+        showPicker.value = false;
     }
 
     function dropColor() {
         /**
          * Mouse drop event, triggered when mouseup
          */
-        emit('drop', dropColors);
+        emit('drop', dropColors.value);
     }
 </script>

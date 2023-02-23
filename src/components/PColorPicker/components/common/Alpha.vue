@@ -33,7 +33,7 @@
     });
 
     const gradientColor = computed(() => {
-        const rgba = colors.rgba;
+        const rgba = colors.value.rgba;
         const rgbStr = [rgba.r, rgba.g, rgba.b].join(',')
         return 'linear-gradient(to right, rgba(' + rgbStr + ', 0) 0%, rgba(' + rgbStr + ', 1) 100%)'
     });
@@ -60,11 +60,11 @@
             a = Math.round(left * 100 / containerWidth) / 100
         }
 
-        if (colors.a !== a) {
+        if (colors.value.a !== a) {
             emit('change', {
-                h: colors.hsl.h,
-                s: colors.hsl.s,
-                l: colors.hsl.l,
+                h: colors.value.hsl.h,
+                s: colors.value.hsl.s,
+                l: colors.value.hsl.l,
                 a: a,
                 source: 'rgba'
             })

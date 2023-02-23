@@ -13,86 +13,83 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import throttle from 'lodash.throttle';
+    import { computed, ref } from 'vue';
 
-    export default {
-        name: 'Saturation',
-        props: {
-            value: Object,
-        },
-        emits: ['change'],
-        computed: {
-            colors() {
-                return this.value;
-            },
-            bgColor() {
-                return `hsl(${this.colors ? this.colors.hsv.h : 0}, 100%, 50%)`
-            },
-            pointerTop() {
-                return (-((this.colors ? this.colors.hsv.v : 0) * 100) + 1) + 100 + '%'
-            },
-            pointerLeft() {
-                return (this.colors ? this.colors.hsv.s : 0) * 100 + '%'
+    let props = defineProps({
+      value: Object,
+    });
+    const emit = defineEmits(['change']);
+
+    const container = ref(null);
+    const colors = computed(() => {
+        return props.value;
+    });
+    const bgColor = computed(() => {
+        return `hsl(${colors.value ? colors.value.hsv.h : 0}, 100%, 50%)`
+    });
+    const pointerTop = computed(() => {
+        return (-((colors.value ? colors.value.hsv.v : 0) * 100) + 1) + 100 + '%'
+    });
+    const pointerLeft = computed(() => {
+        return (colors.value ? colors.value.hsv.s : 0) * 100 + '%'
+    });
+    function clamp(value, min, max) {
+        return min < max
+            ? (value < min ? min : value > max ? max : value)
+            : (value < max ? max : value > min ? min : value)
+    }
+    throttle: throttle(function(fn, data) {
+            if (fn) {
+                fn(data)
             }
-        },
-        methods: {
-            clamp(value, min, max) {
-                return min < max
-                    ? (value < min ? min : value > max ? max : value)
-                    : (value < max ? max : value > min ? min : value)
-            },
-            throttle: throttle(function(fn, data) {
-                    if (fn) {
-                        fn(data)
-                    }
-                }, 20,
-                {
-                    'leading': true,
-                    'trailing': false
-                }),
-            handleChange(e, skip) {
-                !skip && e.preventDefault()
-                let container = this.$refs.container
-                if (!container) {
-                    // for some edge cases, container may not exist. see #220
-                    return
-                }
-                let containerWidth = container.clientWidth
-                let containerHeight = container.clientHeight
-                let xOffset = container.getBoundingClientRect().left + window.pageXOffset
-                let yOffset = container.getBoundingClientRect().top + window.pageYOffset
-                let pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0)
-                let pageY = e.pageY || (e.touches ? e.touches[0].pageY : 0)
-                let left = this.clamp(pageX - xOffset, 0, containerWidth)
-                let top = this.clamp(pageY - yOffset, 0, containerHeight)
-                let saturation = left / containerWidth
-                let bright = this.clamp(-(top / containerHeight) + 1, 0, 1)
-                this.throttle(this.onChange({
-                    h: this.colors ? this.colors.hsv.h : 0,
-                    s: saturation,
-                    v: bright,
-                    a: this.colors ? this.colors.hsv.a : 0,
-                    source: 'hsva'
-                }))
-            },
-            onChange(param) {
-                this.$emit('change', param)
-            },
-            handleMouseDown() {
-                // this.handleChange(e, true)
-                window.addEventListener('mousemove', this.handleChange)
-                window.addEventListener('mouseup', this.handleChange)
-                window.addEventListener('mouseup', this.handleMouseUp)
-            },
-            handleMouseUp() {
-                this.unbindEventListeners()
-            },
-            unbindEventListeners() {
-                window.removeEventListener('mousemove', this.handleChange)
-                window.removeEventListener('mouseup', this.handleChange)
-                window.removeEventListener('mouseup', this.handleMouseUp)
-            }
+        }, 20,
+        {
+            'leading': true,
+            'trailing': false
+        })
+    function handleChange(e, skip) {
+      console.log('Satu handle change')
+        !skip && e.preventDefault()
+        let container = this.$refs.container
+        if (!container) {
+            // for some edge cases, container may not exist. see #220
+            return
         }
+        let containerWidth = container.clientWidth
+        let containerHeight = container.clientHeight
+        let xOffset = container.getBoundingClientRect().left + window.pageXOffset
+        let yOffset = container.getBoundingClientRect().top + window.pageYOffset
+        let pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0)
+        let pageY = e.pageY || (e.touches ? e.touches[0].pageY : 0)
+        let left = clamp(pageX - xOffset, 0, containerWidth)
+        let top = clamp(pageY - yOffset, 0, containerHeight)
+        let saturation = left / containerWidth
+        let bright = clamp(-(top / containerHeight) + 1, 0, 1)
+        throttle(onChange({
+            h: colors.value ? colors.value.hsv.h : 0,
+            s: saturation,
+            v: bright,
+            a: colors.value ? colors.value.hsv.a : 0,
+            source: 'hsva'
+        }))
+    }
+    function onChange(param) {
+        this.$emit('change', param)
+    }
+    function handleMouseDown() {
+        // this.handleChange(e, true)
+        window.addEventListener('mousemove', handleChange)
+        window.addEventListener('mouseup', handleChange)
+        window.addEventListener('mouseup', handleMouseUp)
+    }
+    function handleMouseUp() {
+        this.unbindEventListeners()
+    }
+    function unbindEventListeners() {
+        window.removeEventListener('mousemove', handleChange)
+        window.removeEventListener('mouseup', handleChange)
+        window.removeEventListener('mouseup', handleMouseUp)
     }
 </script>
