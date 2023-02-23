@@ -1,7 +1,7 @@
 <template>
     <div class="vc-saturation"
          :style="{background: bgColor}"
-         ref="container"
+         ref="saturationContainer"
          @mousedown="handleMouseDown"
          @touchmove="handleChange"
          @touchstart="handleChange">
@@ -15,24 +15,24 @@
 
 <script setup>
     import throttle from 'lodash.throttle';
-    import { computed, ref } from 'vue';
+    import { onMounted, computed, ref } from 'vue';
 
     let props = defineProps({
       value: Object,
     });
     const emit = defineEmits(['change']);
 
-    const container = ref(null);
-    const colors = computed(() => {
+    let saturationContainer = ref(null);
+    let colors = computed(() => {
         return props.value;
     });
-    const bgColor = computed(() => {
+    let bgColor = computed(() => {
         return `hsl(${colors.value ? colors.value.hsv.h : 0}, 100%, 50%)`
     });
-    const pointerTop = computed(() => {
+    let pointerTop = computed(() => {
         return (-((colors.value ? colors.value.hsv.v : 0) * 100) + 1) + 100 + '%'
     });
-    const pointerLeft = computed(() => {
+    let pointerLeft = computed(() => {
         return (colors.value ? colors.value.hsv.s : 0) * 100 + '%'
     });
     function clamp(value, min, max) {
@@ -40,7 +40,7 @@
             ? (value < min ? min : value > max ? max : value)
             : (value < max ? max : value > min ? min : value)
     }
-    throttle: throttle(function(fn, data) {
+    throttle(function(fn, data) {
             if (fn) {
                 fn(data)
             }
@@ -50,9 +50,8 @@
             'trailing': false
         })
     function handleChange(e, skip) {
-      console.log('Satu handle change')
         !skip && e.preventDefault()
-        let container = this.$refs.container
+        let container = saturationContainer;
         if (!container) {
             // for some edge cases, container may not exist. see #220
             return
@@ -67,16 +66,19 @@
         let top = clamp(pageY - yOffset, 0, containerHeight)
         let saturation = left / containerWidth
         let bright = clamp(-(top / containerHeight) + 1, 0, 1)
-        throttle(onChange({
-            h: colors.value ? colors.value.hsv.h : 0,
-            s: saturation,
-            v: bright,
-            a: colors.value ? colors.value.hsv.a : 0,
-            source: 'hsva'
-        }))
+        throttle(() => {
+            onChange({
+                h: colors.value ? colors.value.hsv.h : 0,
+                s: saturation,
+                v: bright,
+                a: colors.value ? colors.value.hsv.a : 0,
+                source: 'hsva'
+            })
+        })
     }
     function onChange(param) {
-        this.$emit('change', param)
+        console.log('onChange param', param)
+        emit('change', param)
     }
     function handleMouseDown() {
         // this.handleChange(e, true)
@@ -85,11 +87,16 @@
         window.addEventListener('mouseup', handleMouseUp)
     }
     function handleMouseUp() {
-        this.unbindEventListeners()
+        unbindEventListeners()
     }
     function unbindEventListeners() {
         window.removeEventListener('mousemove', handleChange)
         window.removeEventListener('mouseup', handleChange)
         window.removeEventListener('mouseup', handleMouseUp)
     }
+
+    onMounted(() => {
+        console.log('saturationContainer.value', saturationContainer.value)
+        saturationContainer = saturationContainer.value;
+    })
 </script>

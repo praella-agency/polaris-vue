@@ -15,10 +15,6 @@
   </span>
 </template>
 
-<script>
-    const colors = ['base', 'subdued', 'critical', 'interactive', 'warning', 'highlight', 'success', 'primary', null, ''];
-</script>
-
 <script setup>
     import { ref, computed, onMounted } from 'vue';
     import { DeprecatedIcons } from './index';
@@ -26,8 +22,9 @@
     import { classNames, variationName } from '../../utilities/css';
     import { encode as encodeSVG } from '../../utilities/svg';
     import StringValidator from '../../utilities/validators/StringValidator';
+    import { Colors } from '../variables';
 
-    const props = defineProps({
+    let props = defineProps({
         /**
          * Icon to display
          * @see https://polaris-icons.shopify.com/?icon=AbandonedCartMajor available icon list.
@@ -43,7 +40,7 @@
         color: {
             type: String,
             default: null,
-            ...StringValidator('color', colors),
+            ...StringValidator('color', Colors),
         },
 
         /**
@@ -71,8 +68,8 @@
         }
     });
 
+    console.log('in icon props', props)
     const emit = defineEmits(['click']);
-
     let clickableStyles = ref({});
 
     onMounted(() => {

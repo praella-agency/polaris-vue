@@ -33,51 +33,6 @@
     </div>
 </template>
 
-<script>
-    const Icon = {
-        icon: {
-            type: [String, Object],
-            properties: {
-                open: {
-                    type: [String, Object],
-                    open: {
-                        properties: {
-                            source: String,
-                            color: String,
-                        },
-                    }
-                },
-                close: {
-                    type: [String, Object],
-                    close: {
-                        properties: {
-                            source: String,
-                            color: String,
-                        },
-                    }
-                },
-            },
-        },
-    }
-
-    const ThemeOptions = {
-        header: {
-            type: Object,
-            properties: {
-                color: String,
-                background: String,
-                backgroundCollapsed: String,
-            },
-        },
-        content: {
-            type: Object,
-            properties: {
-                color: String,
-                background: String,
-            },
-        },
-    }
-</script>
 <script setup>
     import { inject, ref, onMounted, computed } from 'vue';
     import { uuid } from '../../../../ComponentHelpers';
@@ -85,6 +40,7 @@
     import { PAccordionContent } from '../../../../components/PAccordion/components/PAccordionContent';
     import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
     import mitt from 'mitt';
+    import { Icon, ThemeOptions } from '../../../variables';
 
     const emitter = mitt();
 

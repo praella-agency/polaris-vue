@@ -9,7 +9,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import { PIcon } from '../../components/PIcon';
 
     /**
@@ -19,20 +19,14 @@
      *  or group of inputs in a form. Use field errors to help merchants understand why a form input may not be valid and
      *  how to fix it.</h4>
      */
-    export default {
-        name: 'PFieldError',
-        components: {
-            PIcon,
+    let props = defineProps({
+        /**
+         * Content briefly explaining how to resolve the invalid form field input
+         */
+        error: {
+            type: String,
+            default: null,
         },
-        props: {
-            /**
-             * Content briefly explaining how to resolve the invalid form field input
-             */
-            error: {
-                type: String,
-                default: null,
-            },
-        },
-    }
+    })
 </script>
 

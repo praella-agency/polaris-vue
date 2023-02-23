@@ -17,8 +17,8 @@ Access values with `slot-props` attribute. -->
     </component>
 </template>
 
-<script>
-    import { defineComponent, computed } from 'vue';
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../utilities/css';
     import { PActionListSection } from '../../components/PActionList/components/PActionListSection';
 
@@ -29,55 +29,49 @@ Access values with `slot-props` attribute. -->
      *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/overlays-popover--popover">popover</a>
      *  container to create a dropdown menu or to let merchants select from a list of options.</h4>
      */
-    export default defineComponent({
-        name: 'PActionList',
-        components: {
-            PActionListSection,
+
+    let props = defineProps({
+        /**
+         * Collection of actions for list
+         */
+        items: {
+            type: Array,
+            default: () => ([]),
         },
-        props: {
-            /**
-             * Collection of actions for list
-             */
-            items: {
-                type: Array,
-                default: () => ([]),
-            },
-            /**
-             * Collection of sectioned action items
-             */
-            sections: {
-                type: Array,
-                default: () => ([]),
-            }
-        },
-        setup(props, { emit }) {
-            const className = computed(() => {
-                return classNames(
-                    'Polaris-ActionList',
-                );
-            });
-
-            const finalSections = computed(() => {
-              /* tslint:disable-next-line */
-                if (typeof props.items != 'undefined' && props.items !== null && props.items.length != null
-                    && props.items.length > 0) {
-                  return [{items: props.items}, ...props.sections];
-                }
-                return props.sections;
-            });
-
-            const hasMultipleSections = computed(() => {
-                return finalSections.value.length > 1;
-            });
-
-            function onItemAction(action) {
-              /**
-               * Triggers when the item is selected/clicked
-               */
-              emit('item-action', action);
-            }
-
-            return { className, finalSections, hasMultipleSections, onItemAction };
-        },
+        /**
+         * Collection of sectioned action items
+         */
+        sections: {
+            type: Array,
+            default: () => ([]),
+        }
     });
+
+    const emit = defineEmits(['item-action']);
+
+    const className = computed(() => {
+        return classNames(
+            'Polaris-ActionList',
+        );
+    });
+
+    const finalSections = computed(() => {
+        /* tslint:disable-next-line */
+        if (typeof props.items != 'undefined' && props.items !== null && props.items.length != null
+            && props.items.length > 0) {
+            return [{items: props.items}, ...props.sections];
+        }
+        return props.sections;
+    });
+
+    const hasMultipleSections = computed(() => {
+        return finalSections.value.length > 1;
+    });
+
+    function onItemAction(action) {
+        /**
+         * Triggers when the item is selected/clicked
+         */
+        emit('item-action', action);
+    }
 </script>

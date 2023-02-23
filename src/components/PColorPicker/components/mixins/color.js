@@ -74,6 +74,7 @@ export function useColors(value) {
     function colorChange(data, oldHue) {
         let oldHueObj = (colors.value && colors.value.hsl) ? colors.value.hsl.h : 0;
         colors.value = _colorChange(data, oldHue || oldHueObj);
+
     }
 
     function isValidHex(hex) {
@@ -86,24 +87,3 @@ export function useColors(value) {
     
     return { val, colors, colorChange, isValidHex };
 }
-
-// export default defineComponent({
-//
-//     setup(props, context) {
-//
-//
-//
-//
-//         provide('colorValue', colors);
-//
-//
-//         provide('colorChange', colorChange);
-//
-//
-//         provide('isValidHex', isValidHex);
-//
-//
-//
-//         return { val, colors, colorChange, isValidHex };
-//     }
-// })

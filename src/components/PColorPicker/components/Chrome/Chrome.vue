@@ -104,12 +104,12 @@
         }
     })
     const emit = defineEmits(['input']);
-    const { colors, colorChange, isValidHex } = useColors(props.value);
+    let { colors, colorChange, isValidHex } = useColors(props.value);
 
     let fieldsIndex = ref(0);
     let highlight = ref(false);
 
-    const hsl = computed(() => {
+    let hsl = computed(() => {
         const {h, s, l} = colors.value.hsl ? colors.value.hsl : {h: 0, s: 0, l: 0}
         return {
             h: h.toFixed(),
@@ -118,22 +118,23 @@
         }
     });
 
-    const activeColor = computed(() => {
+    let activeColor = computed(() => {
         const rgba = colors.value.rgba;
         return 'rgba(' + (rgba ? [rgba.r, rgba.g, rgba.b, rgba.a].join(',') : []) + ')';
     });
 
-    const hasAlpha = computed(() => {
+    let hasAlpha = computed(() => {
         return colors.value.a < 1;
     });
 
     function childChange(data) {
+        console.log('childChange', data)
         colorChange(data);
-      console.log('Before emit input', colors.value);
         emit('input', colors.value);
     }
 
     function inputChange(data) {
+        console.log('in crom input change')
         if (!data) {
             return
         }

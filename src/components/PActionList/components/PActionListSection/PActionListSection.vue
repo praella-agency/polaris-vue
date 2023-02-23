@@ -22,53 +22,42 @@
     </POptionalTag>
 </template>
 
-<script>
-    import { defineComponent, computed } from 'vue';
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
     import { POptionalTag } from '../../../../components/POptionalTag';
     import { PActionListItem } from '../../../../components/PActionList/components/PActionListItem';
     import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
+    import { SectionInterface } from '../../../variables'
 
-    const SectionInterface = {
-        title: String,
-        items: Array,
+    let props = defineProps({
+        section: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('actions', SectionInterface),
+        },
+        hasMultipleSections: {
+            type: Boolean,
+        },
+    });
+
+    const emit = defineEmits(['item-action']);
+
+    const className = computed(() => {
+        return classNames(
+            !props.section.title && 'Polaris-ActionList__Section--withoutTitle',
+        );
+    });
+
+    function wrapAction(action) {
+      const old = action.onAction;
+      const newAction = Object.assign({}, action);
+      if (old) {
+        newAction.onAction = () => {
+          old();
+          emit('item-action', action);
+        };
+      }
+      return newAction;
     }
-
-    export default defineComponent({
-        name: 'PActionListSection',
-        components: {
-            PActionListItem, POptionalTag,
-        },
-        props: {
-            section: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('actions', SectionInterface),
-            },
-            hasMultipleSections: {
-                type: Boolean,
-            },
-        },
-        setup(props, { emit }) {
-            const className = computed(() => {
-                return classNames(
-                    !props.section.title && 'Polaris-ActionList__Section--withoutTitle',
-                );
-            });
-
-            function wrapAction(action) {
-              const old = action.onAction;
-              const newAction = Object.assign({}, action);
-              if (old) {
-                newAction.onAction = () => {
-                  old();
-                  emit('item-action', action);
-                };
-              }
-              return newAction;
-            }
-
-            return { className, wrapAction };
-        },
-    })
 </script>

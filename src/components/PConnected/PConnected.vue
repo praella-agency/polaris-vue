@@ -1,7 +1,7 @@
 <template>
     <div class="Polaris-Connected">
         <PConnectedItem
-            v-if="hasSlot($slots.left) || left"
+            v-if="isSlot($slots.left) || left"
             position="Left"
         >
             <slot name="left">
@@ -16,7 +16,7 @@
         </PConnectedItem>
 
         <PConnectedItem
-            v-if="hasSlot($slots.right) || right"
+            v-if="isSlot($slots.right) || right"
             position="Right"
         >
             <slot name="right">
@@ -26,30 +26,24 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { hasSlot } from '../../ComponentHelpers';
     import { PConnectedItem } from '../../components/PConnected/components/PConnectedItem';
 
-    export default {
-        name: 'PConnected',
-        components: {
-            PConnectedItem,
+    let props = defineProps({
+        left: {
+            type: String,
         },
-        props: {
-            left: {
-                type: String,
-            },
-            right: {
-                type: String,
-            },
-            children: {
-                type: String,
-            },
+        right: {
+            type: String,
         },
-        computed: {
-            hasSlot() {
-                return hasSlot;
-            },
-        }
-    }
+        children: {
+            type: String,
+        },
+    })
+
+    const isSlot = computed(() => {
+        return hasSlot;
+    });
 </script>

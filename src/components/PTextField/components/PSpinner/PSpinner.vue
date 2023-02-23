@@ -23,22 +23,16 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import { PIcon } from '../../../../components/PIcon';
 
-    export default {
-        name: 'PSpinner',
-        components: {
-            PIcon,
-        },
-        emits: ['click', 'change'],
-        methods: {
-            onClick() {
-                this.$emit('click');
-            },
-            handleStep(value) {
-                this.$emit('change', value);
-            },
-        },
+    const emit = defineEmits(['click', 'change']);
+
+    function onClick() {
+        emit('click');
+    }
+
+    function handleStep(value) {
+        emit('change', value);
     }
 </script>
