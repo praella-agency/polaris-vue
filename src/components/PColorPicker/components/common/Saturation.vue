@@ -66,18 +66,16 @@
         let top = clamp(pageY - yOffset, 0, containerHeight)
         let saturation = left / containerWidth
         let bright = clamp(-(top / containerHeight) + 1, 0, 1)
-        throttle(() => {
-            onChange({
-                h: colors.value ? colors.value.hsv.h : 0,
-                s: saturation,
-                v: bright,
-                a: colors.value ? colors.value.hsv.a : 0,
-                source: 'hsva'
-            })
-        })
+        onChange({
+            h: colors.value ? colors.value.hsv.h : 0,
+            s: saturation,
+            v: bright,
+            a: colors.value ? colors.value.hsv.a : 0,
+            source: 'hsva'
+        });
+        throttle(() => {})
     }
     function onChange(param) {
-        console.log('onChange param', param)
         emit('change', param)
     }
     function handleMouseDown() {
@@ -96,7 +94,6 @@
     }
 
     onMounted(() => {
-        console.log('saturationContainer.value', saturationContainer.value)
         saturationContainer = saturationContainer.value;
     })
 </script>

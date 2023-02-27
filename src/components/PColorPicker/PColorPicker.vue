@@ -106,7 +106,6 @@
     });
 
     function updateColor(color) {
-        console.log('in input updateColor', color)
         dropColors.value = color;
         /**
          * Triggers when color is changed
@@ -131,7 +130,6 @@
     }
 
     function dropColor() {
-        console.log('dropColors', dropColors.value)
         /**
          * Mouse drop event, triggered when mouseup
          */

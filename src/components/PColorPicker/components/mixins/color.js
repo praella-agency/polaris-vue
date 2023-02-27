@@ -60,7 +60,6 @@ function _colorChange(data, oldHue) {
 
 export function useColors(value) {
     let val = _colorChange(value);
-    // let emit = defineEmits(['input']);
 
     let colors = computed({
         get() {
@@ -68,13 +67,12 @@ export function useColors(value) {
         },
         set(newVal) {
             val = newVal;
-            // emit('input', newVal);
         }
     });
     function colorChange(data, oldHue) {
         let oldHueObj = (colors.value && colors.value.hsl) ? colors.value.hsl.h : 0;
-        colors.value = _colorChange(data, oldHue || oldHueObj);
-
+        colors = _colorChange(data, oldHue || oldHueObj);
+        return colors;
     }
 
     function isValidHex(hex) {

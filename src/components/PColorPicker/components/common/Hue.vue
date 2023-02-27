@@ -5,7 +5,7 @@
              :aria-valuenow="colors.hsl.h"
              aria-valuemin="0"
              aria-valuemax="360"
-             ref="container"
+             ref="hueContainer"
              @mousedown="handleMouseDown"
              @touchmove="handleChange"
              @touchstart="handleChange">
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-    import { ref, computed } from 'vue';
+    import { ref, computed, onMounted } from 'vue';
 
     let props = defineProps({
         value: Object,
@@ -31,9 +31,9 @@
 
     let oldHue = ref(0);
     let pullDirection = ref('');
-    const hueContainer = ref(null);
+    let hueContainer = ref(null);
 
-    let colors =  computed(() => {
+    let colors = computed(() => {
         const h = props.value.hsl.h;
         // vue/no-side-effects-in-computed-properties
         /* eslint-disable */
@@ -45,14 +45,14 @@
         return props.value;
     });
 
-    const directionClass = computed(() => {
+    let directionClass = computed(() => {
         return {
             'vc-hue--horizontal': props.direction === 'horizontal',
             'vc-hue--vertical': props.direction === 'vertical'
         }
     });
 
-    const pointerTop = computed(() => {
+    let pointerTop = computed(() => {
         if (props.direction === 'vertical') {
             if (colors.value.hsl.h === 0 && pullDirection === 'right') return 0
             return -((colors.value.hsl.h * 100) / 360) + 100 + '%'
@@ -61,7 +61,7 @@
         }
     });
 
-    const pointerLeft = computed(() => {
+    let pointerLeft = computed(() => {
         if (props.direction === 'vertical') {
             return 0
         } else {
@@ -73,7 +73,7 @@
     function handleChange (e, skip) {
         !skip && e.preventDefault()
 
-        const container = hueContainer.value;
+        let container = hueContainer;
         if (!container) {
             // for some edge cases, container may not exist. see #220
             return
@@ -146,4 +146,8 @@
         window.removeEventListener('mousemove', handleChange);
         window.removeEventListener('mouseup', handleMouseUp);
     }
+
+    onMounted(() => {
+        hueContainer = hueContainer.value;
+    })
 </script>

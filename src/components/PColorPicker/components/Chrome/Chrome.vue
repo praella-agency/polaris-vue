@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-    import { ref, computed, defineEmits } from 'vue';
+    import { ref, computed, defineEmits, watch } from 'vue';
     import { useColors } from '../mixins/color';
     import Saturation from '../common/Saturation.vue';
     import Checkboard from '../common/Checkboard.vue';
@@ -128,9 +128,8 @@
     });
 
     function childChange(data) {
-        console.log('childChange', data)
-        colorChange(data);
-        emit('input', colors.value);
+        let updatedColors = colorChange(data);
+        emit('input', updatedColors);
     }
 
     function inputChange(data) {
@@ -178,4 +177,11 @@
     function hideHighlight() {
         highlight.value = false;
     }
+
+    watch(() => props.value, (newValue) => {
+        // call useColors whenever props.value changes
+        ({ colors, colorChange, isValidHex } = useColors(newValue));
+        let rgba = colors.value.rgba;
+        activeColor = 'rgba(' + (rgba ? [rgba.r, rgba.g, rgba.b, rgba.a].join(',') : []) + ')';
+    });
 </script>

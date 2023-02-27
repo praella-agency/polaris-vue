@@ -7,19 +7,19 @@
     let _checkboardCache = {};
 
     let props = defineProps({
-            size: {
-                type: [Number, String],
-                default: 8
-            },
-            white: {
-                type: String,
-                default: '#fff'
-            },
-            grey: {
-                type: String,
-                default: '#e6e6e6'
-            }
-        });
+        size: {
+            type: [Number, String],
+            default: 8
+        },
+        white: {
+            type: String,
+            default: '#fff'
+        },
+        grey: {
+            type: String,
+            default: '#e6e6e6'
+        }
+    });
 
     const bgStyle = computed(() => {
         return {

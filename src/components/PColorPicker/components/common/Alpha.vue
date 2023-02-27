@@ -4,7 +4,7 @@
             <checkboard></checkboard>
         </div>
         <div class="vc-alpha-gradient" :style="{background: gradientColor}"></div>
-        <div class="vc-alpha-container" ref="container"
+        <div class="vc-alpha-container" ref="alphaContainer"
              @mousedown="handleMouseDown"
              @touchmove="handleChange"
              @touchstart="handleChange">
@@ -16,23 +16,21 @@
 </template>
 
 <script setup>
-    import { ref, computed } from 'vue';
+    import { ref, computed, onMounted } from 'vue';
     import Checkboard from './Checkboard.vue';
 
     let props = defineProps({
-        value: Object,
-        onChange: Function
+        value: Object
     });
 
     const emit = defineEmits(['change']);
+    let alphaContainer = ref(null);
 
-    const alphaContainer = ref(null);
-
-    const colors = computed(() => {
+    let colors = computed(() => {
         return props.value;
     });
 
-    const gradientColor = computed(() => {
+    let gradientColor = computed(() => {
         const rgba = colors.value.rgba;
         const rgbStr = [rgba.r, rgba.g, rgba.b].join(',')
         return 'linear-gradient(to right, rgba(' + rgbStr + ', 0) 0%, rgba(' + rgbStr + ', 1) 100%)'
@@ -40,7 +38,7 @@
 
     function handleChange(e, skip) {
         !skip && e.preventDefault()
-        const container = alphaContainer.value;
+        let container = alphaContainer;
         if (!container) {
             // for some edge cases, container may not exist. see #220
             return
@@ -85,4 +83,8 @@
         window.removeEventListener('mousemove', handleChange);
         window.removeEventListener('mouseup', handleMouseUp);
     }
+
+    onMounted(() => {
+        alphaContainer = alphaContainer.value;
+    })
 </script>
