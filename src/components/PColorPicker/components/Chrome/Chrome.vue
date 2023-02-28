@@ -133,17 +133,17 @@
     }
 
     function inputChange(data) {
-        console.log('in crom input change')
+        let color;
         if (!data) {
             return
         }
         if (data.hex) {
-            isValidHex(data.hex) && colorChange({
+            color = isValidHex(data.hex) && colorChange({
                 hex: data.hex,
                 source: 'hex'
             })
         } else if (data.r || data.g || data.b || data.a) {
-            colorChange({
+            color = colorChange({
                 r: data.r || colors.value.rgba.r,
                 g: data.g || colors.value.rgba.g,
                 b: data.b || colors.value.rgba.b,
@@ -151,15 +151,16 @@
                 source: 'rgba'
             })
         } else if (data.h || data.s || data.l) {
-            const s = data.s ? (data.s.replace('%', '') / 100) : colors.value.hsl.s
-            const l = data.l ? (data.l.replace('%', '') / 100) : colors.value.hsl.l
-            colorChange({
+            let s = data.s ? (data.s.replace('%', '') / 100) : colors.value.hsl.s
+            let l = data.l ? (data.l.replace('%', '') / 100) : colors.value.hsl.l
+            color = colorChange({
                 h: data.h || colors.value.hsl.h,
                 s,
                 l,
                 source: 'hsl'
             })
         }
+        emit('input', color);
     }
 
     function toggleViews() {

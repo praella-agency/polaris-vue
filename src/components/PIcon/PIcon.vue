@@ -68,7 +68,6 @@
         }
     });
 
-    console.log('in icon props', props)
     const emit = defineEmits(['click']);
     let clickableStyles = ref({});
 

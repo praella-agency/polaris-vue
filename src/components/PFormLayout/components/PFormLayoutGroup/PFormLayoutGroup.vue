@@ -17,7 +17,7 @@
             <slot/>
         </PFormLayoutGroupItemWrapper>
         <div
-            v-if="helpText || hasSlot($slots.helpText)"
+            v-if="helpText || isSlot($slots.helpText)"
             :id="id+'helpText'"
             class="Polaris-FormLayout__HelpText"
         >
@@ -29,64 +29,58 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
-    import { PFormLayoutItem } from '../../../../components/PFormLayout/components/PFormLayoutItem';
     import { PFormLayoutGroupItemWrapper } from '../../../../components/PFormLayout/components/PFormLayoutGroupItemWrapper';
 
-    export default {
-        name: 'PFormLayoutGroup',
-        components: {
-            PFormLayoutItem, PFormLayoutGroupItemWrapper,
+    let props = defineProps({
+        /**
+         * Form group Id.
+         */
+        id: {
+            type: [String, Number],
+            default: `PolarisFormLayout${uuid()}`,
         },
-        props: {
-            /**
-             * Form group Id.
-             */
-            id: {
-                type: [String, Number],
-                default: `PolarisFormLayout${uuid()}`,
-            },
-            /**
-             * Form group title.
-             */
-            title: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Form group helpText.
-             */
-            helpText: {
-                type: String,
-                default: null,
-            },
-            /**
-             * For very short inputs, the width of the inputs may be reduced in order to fit more fields in the row.
-             */
-            condensed: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Use field groups to arrange multiple fields in a row.
-             */
-            grouped: {
-                type: Boolean,
-                default: true,
-            },
+        /**
+         * Form group title.
+         */
+        title: {
+            type: String,
+            default: null,
         },
-        computed: {
-            className() {
-                return classNames(
-                    this.condensed && 'Polaris-FormLayout--condensed',
-                    !this.condensed && 'Polaris-FormLayout--grouped',
-                );
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        /**
+         * Form group helpText.
+         */
+        helpText: {
+            type: String,
+            default: null,
         },
-    };
+        /**
+         * For very short inputs, the width of the inputs may be reduced in order to fit more fields in the row.
+         */
+        condensed: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Use field groups to arrange multiple fields in a row.
+         */
+        grouped: {
+            type: Boolean,
+            default: true,
+        },
+    });
+
+    let className = computed(() => {
+        return classNames(
+            props.condensed && 'Polaris-FormLayout--condensed',
+            !props.condensed && 'Polaris-FormLayout--grouped',
+        );
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
 </script>

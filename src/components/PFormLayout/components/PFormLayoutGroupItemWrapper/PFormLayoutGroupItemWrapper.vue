@@ -1,24 +1,17 @@
-<script>
-    import { vue } from '../../../../ComponentHelpers';
+<script setup>
+    import { h, useSlots } from 'vue';
     import { PFormLayoutItem } from '../../../../components/PFormLayout/components/PFormLayoutItem';
     import { wrapNodesWithComponent } from '../../../../ComponentHelpers';
 
+    let slots = useSlots();
     let render = function render() {
-      return vue.h('div', {
+      return h('div', {
             class: 'Polaris-FormLayout__Items',
           },
           wrapNodesWithComponent(
-              vue.h,
-              this.$slots.default(), PFormLayoutItem,
+              h,
+              slots.default(), PFormLayoutItem,
           ),
       );
     };
-
-    export default {
-        name: 'PFormLayoutGroupItemWrapper',
-        components: {
-            PFormLayoutItem,
-        },
-        render,
-    }
 </script>

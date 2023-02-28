@@ -1,18 +1,18 @@
-<script>
-    import { vue } from '../../ComponentHelpers';
+<script setup>
+    import { h, useSlots } from 'vue';
     import { PFormLayoutItem } from '../../components/PFormLayout/components/PFormLayoutItem';
     import { PFormLayoutGroup } from '../../components/PFormLayout/components/PFormLayoutGroup';
     import { wrapNodesWithComponent } from '../../ComponentHelpers';
 
-    let render = {};
-    render = function render() {
-        return vue.h('div', {
+    let slots = useSlots();
+    const render = function render() {
+        return h('div', {
                 class: 'Polaris-FormLayout',
-                id: this.id,
+                id: props.id,
             },
             wrapNodesWithComponent(
-                vue.h,
-                this.$slots.default(), PFormLayoutItem,
+                h,
+                slots.default(), PFormLayoutItem,
                 [PFormLayoutGroup]
             ),
         );
@@ -24,20 +24,13 @@
      *  sans-serif;">Use form layout to arrange fields within a form using standard spacing. By default it stacks fields
      *  vertically but also supports horizontal groups of fields.</h4>
      */
-    export default {
-        name: 'PFormLayout',
-        components: {
-            PFormLayoutItem, PFormLayoutGroup,
+    let props = defineProps({
+        /**
+         * Id for the element
+         */
+        id: {
+            type: [String, Number],
+            default: 'PFormLayout',
         },
-        props: {
-            /**
-             * Id for the element
-             */
-            id: {
-                type: [String, Number],
-                default: 'PFormLayout',
-            },
-        },
-        render,
-    }
+    });
 </script>

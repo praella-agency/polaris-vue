@@ -7,7 +7,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import { PIcon } from '../../components/PIcon';
 
     /**
@@ -17,26 +17,20 @@
      *  or group of inputs in a form. Use inline errors to help merchants understand why a form input may not be valid
      *  and how to fix it.</h4>
      */
-    export default {
-        name: 'PInlineError',
-        components: {
-            PIcon,
+    let props = defineProps({
+        /**
+         * Unique identifier of the invalid form field that the message describes
+         */
+        message: {
+            type: String,
+            default: null,
         },
-        props: {
-            /**
-             * Unique identifier of the invalid form field that the message describes
-             */
-            message: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Content briefly explaining how to resolve the invalid form field input.
-             */
-            fieldID: {
-                type: [String, Number],
-                default: null,
-            },
+        /**
+         * Content briefly explaining how to resolve the invalid form field input.
+         */
+        fieldID: {
+            type: [String, Number],
+            default: null,
         },
-    }
+    });
 </script>

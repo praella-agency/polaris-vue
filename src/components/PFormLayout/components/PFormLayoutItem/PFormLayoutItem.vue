@@ -4,9 +4,5 @@
     </div>
 </template>
 
-<script>
-
-    export default {
-        name: 'PFormLayoutItem',
-    }
+<script setup>
 </script>

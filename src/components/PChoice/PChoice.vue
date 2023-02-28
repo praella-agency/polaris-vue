@@ -16,12 +16,12 @@
             </span>
         </label>
         <div
-            v-if="typeof error === 'string' || helpText || hasSlot($slots.helpText)"
+            v-if="typeof error === 'string' || helpText || isSlot($slots.helpText)"
             class="Polaris-Choice__Descriptions"
         >
             <PFieldError v-if="typeof error === 'string'" :error="error"/>
             <div
-                v-if="helpText || hasSlot($slots.helpText)"
+                v-if="helpText || isSlot($slots.helpText)"
                 class="Polaris-Choice__HelpText"
                 :id="id+'HelpText'"
             >
@@ -33,67 +33,63 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PFieldError } from '../../components/PFieldError';
 
-    export default {
-        name: 'PChoice',
-        components: {
-            PFieldError,
+    let props = defineProps({
+        /**
+         * ID for form input
+         */
+        id: {
+            type: [String, Number],
+            required: true,
         },
-        props: {
-            /**
-             * ID for form input
-             */
-            id: {
-                type: [String, Number],
-                required: true,
-            },
-            /**
-             * Label for the checkbox
-             */
-            label: {
-                type: String,
-            },
-            /**
-             * Disable input
-             */
-            disabled: {
-                type: Boolean,
-            },
-            /**
-             * Visually hide the label
-             */
-            labelHidden: {
-                type: Boolean,
-            },
-            /**
-             * Additional text to aide in use
-             */
-            helpText: {
-                type: String,
-            },
-            /**
-             * Display an error message
-             */
-            error: {
-                type: [String, Boolean],
-            },
+        /**
+         * Label for the checkbox
+         */
+        label: {
+            type: String,
         },
-        emits: ['click'],
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Choice',
-                    this.labelHidden && 'Polaris-Choice--labelHidden',
-                    this.disabled && 'Polaris-Choice--disabled',
-                );
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        /**
+         * Disable input
+         */
+        disabled: {
+            type: Boolean,
         },
-    }
+        /**
+         * Visually hide the label
+         */
+        labelHidden: {
+            type: Boolean,
+        },
+        /**
+         * Additional text to aide in use
+         */
+        helpText: {
+            type: String,
+        },
+        /**
+         * Display an error message
+         */
+        error: {
+            type: [String, Boolean],
+        },
+    });
+
+    const emit = defineEmits(['click']);
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Choice',
+            props.labelHidden && 'Polaris-Choice--labelHidden',
+            props.disabled && 'Polaris-Choice--disabled',
+        );
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
 </script>

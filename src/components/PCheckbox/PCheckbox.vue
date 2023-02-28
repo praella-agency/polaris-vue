@@ -40,7 +40,8 @@
     </PChoice>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
     import { PChoice } from '../../components/PChoice';
@@ -52,120 +53,117 @@
      *  (zero, one, or multiple). They may also be used as a way to have merchants indicate they agree to specific terms and
      *  services.</h4>
      */
-    export default {
-        name: 'PCheckbox',
-        components: {
-            PIcon, PChoice,
+    let props = defineProps({
+        /**
+         * ID for form input
+         */
+        id: {
+            type: [String, Number],
+            required: true,
         },
-        props: {
-            /**
-             * ID for form input
-             */
-            id: {
-                type: [String, Number],
-                required: true,
-            },
-            /**
-             * Name for form input
-             */
-            name: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Label for the checkbox
-             */
-            label: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Additional text to aide in use
-             */
-            helpText: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Visually hide the label
-             */
-            labelHidden: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * `indeterminate` shows a horizontal line in the checkbox
-             */
-            indeterminate: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Checkbox is selected.
-             */
-            checked: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Value for form input
-             */
-            value: {
-                type: [String, Boolean],
-            },
-            /**
-             * Disable input
-             */
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Display an error message
-             */
-            error: {
-                type: String,
-                default: null,
-            },
+        /**
+         * Name for form input
+         */
+        name: {
+            type: String,
+            default: null,
         },
-        emits: ['change', 'focus', 'blur'],
-        computed: {
-            wrapperClassName() {
-                return classNames(
-                    'Polaris-Checkbox',
-                    this.error && 'Polaris-Checkbox--error',
-                );
-            },
-            inputClassName() {
-                return classNames(
-                    'Polaris-Checkbox__Input',
-                    this.indeterminate && 'Polaris-Checkbox__Input--indeterminate',
-                );
-            },
-            iconSource() {
-                return this.indeterminate ? 'MinusMinor' : 'TickSmallMinor';
-            },
+        /**
+         * Label for the checkbox
+         */
+        label: {
+            type: String,
+            default: null,
         },
-        methods: {
-            onChange(e) {
-                const target = e.target || e.srcElement;
-                /**
-                 * Change event
-                 */
-                this.$emit('change', {checked: target.checked, value: target.value});
-            },
-            onFocus() {
-                /**
-                 * Focus event.
-                 */
-                this.$emit('focus');
-            },
-            onBlur() {
-                /**
-                 * Blur event.
-                 */
-                this.$emit('blur');
-            },
+        /**
+         * Additional text to aide in use
+         */
+        helpText: {
+            type: String,
+            default: null,
         },
+        /**
+         * Visually hide the label
+         */
+        labelHidden: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * `indeterminate` shows a horizontal line in the checkbox
+         */
+        indeterminate: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Checkbox is selected.
+         */
+        checked: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Value for form input
+         */
+        value: {
+            type: [String, Boolean],
+        },
+        /**
+         * Disable input
+         */
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Display an error message
+         */
+        error: {
+            type: String,
+            default: null,
+        },
+    });
+
+    const emit = defineEmits(['change', 'focus', 'blur']);
+
+    let wrapperClassName = computed(() => {
+        return classNames(
+            'Polaris-Checkbox',
+            props.error && 'Polaris-Checkbox--error',
+        );
+    });
+
+    let inputClassName = computed(() => {
+        return classNames(
+            'Polaris-Checkbox__Input',
+            props.indeterminate && 'Polaris-Checkbox__Input--indeterminate',
+        );
+    });
+
+    let iconSource = computed(() => {
+        return props.indeterminate ? 'MinusMinor' : 'TickSmallMinor';
+    });
+
+    function onChange(e) {
+        const target = e.target || e.srcElement;
+        /**
+         * Change event
+         */
+        emit('change', {checked: target.checked, value: target.value});
+    }
+
+    function onFocus() {
+        /**
+         * Focus event.
+         */
+        emit('focus');
+    }
+
+    function onBlur() {
+        /**
+         * Blur event.
+         */
+        emit('blur');
     }
 </script>

@@ -4,7 +4,7 @@
             <slot name="contextControl"/>
         </div>
         <div
-            v-if="!alignContentFlush || (!hasSlot($slots.contextControl) && Object.keys(logo).length)"
+            v-if="!alignContentFlush || (!isSlot($slots.contextControl) && Object.keys(logo).length)"
             class="Polaris-Frame-ContextualSaveBar__LogoContainer"
             :style="width"
         >
@@ -67,7 +67,9 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
+    import { ContextualSaveBarAction, ContextualSaveBarDiscardActionProps } from '../../../variables';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { PButton } from '../../../../components/PButton';
     import { PImage } from '../../../../components/PImage';
@@ -79,25 +81,6 @@
     import { ThemeLogo } from '../../../../types/logo';
     import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
-    const ContextualSaveBarAction = {
-        /** A destination to link to */
-        url: String,
-        /** Content the action displays */
-        content: String,
-        /** Should a spinner be displayed */
-        loading: Boolean,
-        /** Should the action be disabled */
-        disabled: Boolean,
-
-        /** Callback when an action takes place */
-        onAction: Function,
-    }
-
-    const ContextualSaveBarDiscardActionProps = {
-        /** Whether to show a modal confirming the discard action */
-        discardConfirmationModal: Boolean,
-    }
-
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -105,103 +88,98 @@
      *  page. This component is also shown while creating a new object like a product or customer. Merchants can use this
      *  component to save or discard their work.</h4>
      */
-    export default {
-        name: 'PContextualSaveBar',
-        components: {
-            PButton, PImage, PStack, PStackItem, PModal,
+    let props = defineProps({
+        /**
+         * Extend the contents section to be flush with the left edge
+         */
+        alignContentFlush: {
+            type: Boolean,
+            default: false,
         },
-        props: {
-            /**
-             * Extend the contents section to be flush with the left edge
-             */
-            alignContentFlush: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Accepts a string of content that will be rendered to the left of the actions
-             */
-            message: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Save or commit contextual save bar action with text defaulting to 'Save'
-             */
-            saveAction: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('saveAction', ContextualSaveBarAction),
-            },
-            /**
-             * Discard or cancel contextual save bar action with text defaulting to 'Discard'
-             */
-            discardAction: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('discardAction', {
-                    ...ContextualSaveBarDiscardActionProps,
-                    ...ContextualSaveBarAction
-                }),
-            },
-            /**
-             * Remove the normal max-width on the contextual save bar
-             */
-            fullWidth: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * To open a contextual modal
-             */
-            openModal: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * ContextualSaveBar Logo
-             */
-            logo: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('logo', ThemeLogo),
-            },
+        /**
+         * Accepts a string of content that will be rendered to the left of the actions
+         */
+        message: {
+            type: String,
+            default: null,
         },
-        computed: {
-            contentsClassName() {
-                return classNames(
-                    'Polaris-Frame-ContextualSaveBar__Contents',
-                    this.fullWidth && 'Polaris-Frame-ContextualSaveBar--fullWidth',
-                );
-            },
-            discardActionContent() {
-                return this.discardAction && this.discardAction.content
-                    ? this.discardAction.content
-                    : 'Discard';
-            },
-            saveActionContent() {
-                return this.saveAction && this.saveAction.content
-                    ? this.saveAction.content
-                    : 'Save';
-            },
-            width() {
-                return {
-                    width: getWidth(this.logo, 104),
-                };
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        /**
+         * Save or commit contextual save bar action with text defaulting to 'Save'
+         */
+        saveAction: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('saveAction', ContextualSaveBarAction),
         },
-        methods: {
-            discardActionHandler() {
-                if (this.discardAction && this.discardAction.discardConfirmationModal) {
-                    return (this.openModal = !this.openModal);
-                } else if (this.discardAction) {
-                    return this.discardAction.onAction ? this.discardAction.onAction() : {};
-                }
-            },
+        /**
+         * Discard or cancel contextual save bar action with text defaulting to 'Discard'
+         */
+        discardAction: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('discardAction', {
+                ...ContextualSaveBarDiscardActionProps,
+                ...ContextualSaveBarAction
+            }),
         },
+        /**
+         * Remove the normal max-width on the contextual save bar
+         */
+        fullWidth: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * To open a contextual modal
+         */
+        openModal: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * ContextualSaveBar Logo
+         */
+        logo: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('logo', ThemeLogo),
+        },
+    });
+
+    let contentsClassName = computed(() => {
+        return classNames(
+            'Polaris-Frame-ContextualSaveBar__Contents',
+            props.fullWidth && 'Polaris-Frame-ContextualSaveBar--fullWidth',
+        );
+    });
+
+    let discardActionContent = computed(() => {
+        return props.discardAction && props.discardAction.content
+            ? props.discardAction.content
+            : 'Discard';
+    });
+
+    let saveActionContent = computed(() => {
+        return props.saveAction && props.saveAction.content
+            ? props.saveAction.content
+            : 'Save';
+    });
+    let width = computed(() => {
+        return {
+            width: getWidth(props.logo, 104),
+        };
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    function discardActionHandler() {
+        if (props.discardAction && props.discardAction.discardConfirmationModal) {
+            return (props.openModal = !props.openModal);
+        } else if (props.discardAction) {
+            return props.discardAction.onAction ? props.discardAction.onAction() : {};
+        }
     }
 </script>
 
