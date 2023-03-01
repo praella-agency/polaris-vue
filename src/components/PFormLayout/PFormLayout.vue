@@ -1,3 +1,8 @@
+<template>
+    <div class="Polaris-FormLayout" :id="props.id">
+        <slot />
+    </div>
+</template>
 <script setup>
     import { h, useSlots } from 'vue';
     import { PFormLayoutItem } from '../../components/PFormLayout/components/PFormLayoutItem';
@@ -5,18 +10,6 @@
     import { wrapNodesWithComponent } from '../../ComponentHelpers';
 
     let slots = useSlots();
-    const render = function render() {
-        return h('div', {
-                class: 'Polaris-FormLayout',
-                id: props.id,
-            },
-            wrapNodesWithComponent(
-                h,
-                slots.default(), PFormLayoutItem,
-                [PFormLayoutGroup]
-            ),
-        );
-    }
 
     /**
      * <br/>
@@ -33,4 +26,14 @@
             default: 'PFormLayout',
         },
     });
+
+    function render() {
+        return h('div', null,
+            wrapNodesWithComponent(
+                h,
+                slots.default(), PFormLayoutItem,
+                [PFormLayoutGroup]
+            ),
+        );
+    }
 </script>

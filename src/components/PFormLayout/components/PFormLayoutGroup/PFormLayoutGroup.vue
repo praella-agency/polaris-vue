@@ -30,6 +30,7 @@
 </template>
 
 <script setup>
+console.log('in PFromLayoutGroup')
     import { computed } from 'vue';
     import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';

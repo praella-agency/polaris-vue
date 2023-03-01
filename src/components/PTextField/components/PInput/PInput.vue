@@ -117,7 +117,7 @@
             :contents="value || placeholder"
             :current-height="computedHeight"
             :minimum-lines="(typeof multiline === 'number') ? multiline : 1"
-            @heightchange="handleExpandingResize"
+            @heightChange="handleExpandingResize"
         />
     </div>
 </template>
@@ -244,88 +244,89 @@
 
     const emit = defineEmits(['input', 'update:modelValue']);
     const slots = useSlots();
-    let content = computedVModel !== null ? ref(computedVModel) : ref('');
-    let height = props.minHeight;
+    let height = ref(props.minHeight);
     const editor = CKEditor;
-    const characterCountLabel = props.maxLength || 'characterCountLabel';
-    let characterCount = computedVModel && computedVModel.value.length;
+    const characterCountLabel = ref(props.maxLength || 'characterCountLabel');
 
     let computedVModel = computed(() => {
         return props.modelValue;
     });
 
-    const className = computed(() => {
+    let content = computedVModel.value !== null ? ref(computedVModel.value) : ref('');
+    let characterCount = ref(computedVModel.value && computedVModel.value.length);
+
+    let className = computed(() => {
         return classNames(
             'Polaris-TextField',
-            Boolean(content) && 'Polaris-TextField--hasValue',
+            Boolean(content.value) && 'Polaris-TextField--hasValue',
             props.disabled && 'Polaris-TextField--disabled',
             props.readOnly && 'Polaris-TextField--readOnly',
             props.hasError && 'Polaris-TextField--error',
         );
     });
 
-    const inputClassName = computed(() => {
+    let inputClassName = computed(() => {
         return classNames(
             props.floatingLabel ? 'Polaris-FloatingLabels__Input' : 'Polaris-TextField__Input',
             props.inputClass,
             props.align && `Polaris-TextField__Input Polaris-TextField__Input--align${textAlign}`,
             (props.floatingLabel && props.multiline) && 'Polaris-FloatingLabel__TextArea',
-            (props.floatingLabel && showPrefix) && 'Polaris-FloatingLabels__Input--prefix',
-            (props.floatingLabel && showSuffix) && 'Polaris-FloatingLabels__Input--suffix',
+            (props.floatingLabel && showPrefix.value) && 'Polaris-FloatingLabels__Input--prefix',
+            (props.floatingLabel && showSuffix.value) && 'Polaris-FloatingLabels__Input--suffix',
             (props.showCharacterCount || props.type === 'number') && 'Polaris-FloatingLabels__Input--number',
             (props.floatingLabel && props.hasError) && 'Polaris-FloatingLabels__Input--error',
         );
     });
 
-    const characterCountClassName = computed(() => {
+    let characterCountClassName = computed(() => {
         return classNames(
             'Polaris-TextField__CharacterCount',
             props.multiline && 'Polaris-TextField__AlignFieldBottom ',
         );
     });
 
-    const clearButtonClassName = computed(() => {
+    let clearButtonClassName = computed(() => {
         return classNames(
             'Polaris-TextField__ClearButton',
             props.multiline && 'Polaris-TextField__AlignFieldBottom ',
         );
     });
 
-    const floatingLabelClassName = computed(() => {
+    let floatingLabelClassName = computed(() => {
         return classNames(
             'Polaris-Floating--label',
             'Polaris-Floating--label--visible',
-            showPrefix && 'Polaris-Floating--label__prefix',
-            showSuffix && 'Polaris-Floating--label__suffix',
+            showPrefix.value && 'Polaris-Floating--label__prefix',
+            showSuffix.value && 'Polaris-Floating--label__suffix',
         );
     });
 
-    const characterCountText = computed(() => {
-        return !props.maxLength ? characterCount : `${characterCount}/${props.maxLength}`;
+    let characterCountText = computed(() => {
+        return !props.maxLength ? characterCount.value : `${characterCount.value}/${props.maxLength}`;
     });
 
-    const inputType = computed(() => {
+    let inputType = computed(() => {
         return props.type === 'currency' ? 'text' : props.type;
     });
 
-    const showPrefix = computed(() => {
+    let showPrefix = computed(() => {
         return props.prefix || hasSlot(slots.prefix);
     });
 
-    const showSuffix = computed(() => {
+    let showSuffix = computed(() => {
         return props.suffix || hasSlot(slots.suffix);
     });
 
-    const textAlign = computed(() => {
+    let textAlign = computed(() => {
         return props.align.replace(/^_*(.)|_+(.)/g, (s, c, d) => c ? c.toUpperCase() : ' ' + d.toUpperCase());
     });
 
-    const labelledBy = computed(() => {
+    let labelledBy = computed(() => {
         const label = [props.id + 'Label'];
-        if (showPrefix) {
+        if (showPrefix.value) {
             label.push(props.id + 'Prefix');
         }
-        if (showSuffix) {
+        if (showSuffix.value) {
             label.push(props.id + 'Suffix');
         }
         return label.join(' ');
@@ -333,64 +334,64 @@
 
     let computedHeight = computed({
         get() {
-            return height;
+            return height.value;
         },
         set(value) {
-            height = value;
+            height.value = value;
         }
     });
 
     let computedValue = computed({
         get() {
             if (props.type === 'number') {
-                return Number(content);
+                return Number(content.value);
             }
-            return content;
+            return content.value;
         },
         set(value) {
             if (props.type === 'number') {
-                content = Number(value);
+                content.value = Number(value);
             } else {
-                content = value;
+                content.value = value;
             }
             emit('input', props.type === 'number' ? Number(value) : value);
             emit('update:modelValue', props.type === 'number' ? Number(value) : value);
         }
     });
 
-    const computedStyle = computed(() => {
+    let computedStyle = computed(() => {
         return {
-            resize: (props.multiline && computedHeight) ? 'vertical' : null,
-            height: (props.multiline && computedHeight) ? `${computedHeight}px` : null,
-            overflow: (props.multiline && computedHeight) ? 'auto' : null
+            resize: (props.multiline && computedHeight.value) ? 'vertical' : null,
+            height: (props.multiline && computedHeight.value) ? `${computedHeight.value}px` : null,
+            overflow: (props.multiline && computedHeight.value) ? 'auto' : null
         };
     });
 
-    const computedPlaceholder = computed(() => {
+    let computedPlaceholder = computed(() => {
         return props.floatingLabel ? 'Enter input' : props.placeholder;
     });
 
-    const isSlot = computed(() => {
+    let isSlot = computed(() => {
         return hasSlot;
     });
 
     function onInput(event) {
         if (props.type === 'file') {
-            computedValue = event.target.files;
+            computedValue.value = event.target.files;
             return;
         }
 
         if (event.target) {
-            computedValue = event.target.value;
+            computedValue.value = event.target.value;
         }
     }
 
     function onClear() {
-        computedValue = undefined;
+        computedValue.value = undefined;
     }
 
     function handleNumberChange(steps) {
-        const numericValue = computedValue ? parseFloat(computedValue) : 0;
+        const numericValue = computedValue.value ? parseFloat(computedValue.value) : 0;
 
         // Returns the length of decimal places in a number
         const dpl = (num) => (num.toString().split('.')[1] || []).length;
@@ -413,12 +414,12 @@
         );
 
         if (!isNaN(newValue)) {
-            computedValue = newValue.toFixed(decimalPlaces);
+            computedValue.value = newValue.toFixed(decimalPlaces);
         }
     }
 
     function handleExpandingResize(e) {
-        computedHeight = (e < props.minHeight) ? props.minHeight : e;
+        computedHeight.value = (e < props.minHeight) ? props.minHeight : e;
     }
 
     function normalizeAutoComplete(autoComplete) {
@@ -431,13 +432,13 @@
         }
     }
 
-    const value = watch(() => props.value, (newValue) => {
-        content = newValue;
-        characterCount = newValue ? newValue.length : 0;
+    watch(() => props.value, (newValue) => {
+        content.value = newValue;
+        characterCount.value = newValue ? newValue.length : 0;
     });
 
-    const modelValue = watch(() => props.modelValue, (newValue) => {
-        content = newValue;
-        characterCount = newValue ? newValue.length : 0;
+    watch(() => props.modelValue, (newValue) => {
+        content.value = newValue;
+        characterCount.value = newValue ? newValue.length : 0;
     });
 </script>

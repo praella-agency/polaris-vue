@@ -5,6 +5,7 @@
              v-html="finalContents">
         </div>
         <div v-if="minimumLines"
+             ref="minimumLinesDiv"
              class="Polaris-TextField__DummyInput"
              v-html="minimumLinesContent">
         </div>
@@ -12,7 +13,7 @@
 </template>
 
 <script setup>
-    import { ref, onMounted, computed, watch } from "vue";
+    import { ref, onMounted, computed, watch } from 'vue';
 
     const ENTITIES_TO_REPLACE = {
         '&': '&amp;',
@@ -37,13 +38,14 @@
 
     const emit = defineEmits(['heightChange']);
 
-    const dummyInputDiv = ref(null);
+    let dummyInputDiv = ref(null);
+    let minimumLinesDiv = ref(null);
 
-    const finalContents = computed(() => {
+    let finalContents = computed(() => {
         return props.contents ? props.contents.replace(REPLACE_REGEX, replaceEntity) + '<br>' : '<br>';
     });
 
-    const minimumLinesContent = computed(() => {
+    let minimumLinesContent = computed(() => {
         let content = '';
         for (let line = 0; line < props.minimumLines; line++) {
             content += '<br>';
@@ -52,12 +54,12 @@
     });
 
     function handleHeightCheck() {
-        if (this.$refs.dummyInput === null || this.$refs.minimumLines === null) {
+        if (dummyInputDiv === null || minimumLinesDiv === null) {
             return;
         }
 
-        const dummyInput = this.$refs.dummyInput;
-        const minimumLines = this.$refs.minimumLines;
+        const dummyInput = dummyInputDiv;
+        const minimumLines = minimumLinesDiv;
 
         const contentHeight = dummyInput.offsetHeight;
         const minimumHeight = minimumLines ? minimumLines.offsetHeight : 0;
@@ -73,10 +75,13 @@
     }
 
     onMounted(() => {
+        dummyInputDiv = dummyInputDiv.value;
+        minimumLinesDiv = minimumLinesDiv.value;
         handleHeightCheck();
     });
 
     watch(finalContents, () => {
+        console.log('finalContents')
         handleHeightCheck();
     });
 </script>

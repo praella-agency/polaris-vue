@@ -251,32 +251,26 @@
         },
     });
 
-    const emit = defineEmits(['input', 'update:value', 'update:modelValue'])
+    const emit = defineEmits(['input', 'update:value', 'update:modelValue']);
     const slots = useSlots();
     const attrs = useAttrs();
 
-    const className = computed(() => {
+    let className = computed(() => {
         return classNames(
-            computedLabelHidden && 'Polaris-Labelled--hidden',
+            computedLabelHidden.value && 'Polaris-Labelled--hidden',
             (props.floatingLabel && (!props.richEditor && props.type !== 'file')) && 'Polaris-Floating',
         );
     });
 
-    const labelClassName = computed(() => {
-        return classNames(
-            !props.floatingLabel && `Polaris-Labelled__LabelWrapper`,
-        );
-    });
-
-    const computedLabelHidden = computed(() => {
+    let computedLabelHidden = computed(() => {
         return props.floatingLabel || props.labelHidden;
     });
 
-    const listeners = computed(() => {
+    let listeners = computed(() => {
         return {};
     });
 
-    const isSlot = computed(() => {
+    let isSlot = computed(() => {
         return hasSlot;
     });
 
