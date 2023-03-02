@@ -69,7 +69,8 @@
     </PFrame>
 </template>
 
-<script>
+<script setup>
+    import { onMounted, ref } from 'vue';
     import { PFrame } from '../PFrame';
     import { PTopBar } from '../PTopBar';
     import { PStack } from '../PStack';
@@ -78,105 +79,99 @@
     import { PIcon } from '../PIcon';
     import * as AllIcon from '../../assets/shopify-polaris-icons';
 
-    export default {
-        name: 'ShopifyIcons',
-        components: {
-            PIcon, PStack, PStackItem, PTopBar, PFrame, PHeading,
+    let props = defineProps({
+        color: {
+            type: String,
+            default: null,
         },
-        props: {
-            color: {
-                type: String,
-                default: null,
-            },
-            backdrop: {
-                type: Boolean,
-            },
-            source: {
-                type: String,
-            },
+        backdrop: {
+            type: Boolean,
         },
-        data() {
-            return {
-                id: '',
-                icons: {
-                    major: [],
-                    minor: [],
-                },
-                iconCode: '',
-                copyText: '',
-                allIcons: {},
-                search: '',
-            };
+        source: {
+            type: String,
         },
-        methods: {
-            searchIcon(value) {
-                if (!value) {
-                    this.allIcons.forEach((icon) => {
-                        if (icon.includes('Major')) {
-                            this.icons.major.push(icon);
-                        } else if (icon.includes('Minor')) {
-                            this.icons.minor.push(icon);
-                        }
-                    });
-                    return this.icons;
-                } else {
-                    this.icons = {
-                        major: [],
-                        minor: [],
-                    };
-                    this.allIcons.forEach((icon) => {
-                        if (icon.toLowerCase().includes(value.toLowerCase()) && icon.includes('Major')) {
-                            this.icons.major.push(icon);
-                        } else if (icon.toLowerCase().includes(value.toLowerCase()) && icon.includes('Minor')) {
-                            this.icons.minor.push(icon);
-                        }
-                    });
-                    return this.icons;
-                }
-            },
-            changeCode(icon) {
-                this.iconCode = icon;
-                this.iconCode = '<PIcon source="' + icon + '" />';
-            },
-            copyCode(icon) {
-                let copy = '';
-                if (this.backdrop) {
-                    copy = navigator.clipboard.writeText(
-                        '<PIcon source="' + icon + '" color="' + this.color + '" backdrop="' + this.backdrop + '" />',
-                    );
-                } else {
-                    if (this.color === null) {
-                        copy = navigator.clipboard.writeText(
-                            '<PIcon source="' + icon + '" />',
-                        );
-                    } else {
-                        copy = navigator.clipboard.writeText(
-                            '<PIcon source="' + icon + '" color="' + this.color + '" />',
-                        );
-                    }
-                }
-                this.copyText = copy ? 'Copied!' : '';
-                this.$pToast.open({
-                    message: this.copyText,
-                    duration: 3000,
-                });
-            },
-            handleSearchResultsDismiss() {
-                this.search = '';
-            },
-        },
-        created() {
-            this.allIcons = Object.keys(AllIcon);
-            this.allIcons.sort();
-            this.allIcons.forEach((icon) => {
+    });
+
+    let id = ref('');
+    let icons = ref({
+        major: [],
+        minor: [],
+    });
+    let iconCode = ref('');
+    let copyText = ref('');
+    let allIcons = ref({});
+    let search = ref('');
+
+    function searchIcon(value) {
+        if (!value) {
+            allIcons.value.forEach((icon) => {
                 if (icon.includes('Major')) {
-                    this.icons.major.push(icon);
+                    icons.value.major.push(icon);
                 } else if (icon.includes('Minor')) {
-                    this.icons.minor.push(icon);
+                    icons.value.minor.push(icon);
                 }
             });
-        },
-    };
+            return icons.value;
+        } else {
+            icons.value = {
+                major: [],
+                minor: [],
+            };
+            allIcons.value.forEach((icon) => {
+                if (icon.toLowerCase().includes(value.toLowerCase()) && icon.includes('Major')) {
+                    icons.value.major.push(icon);
+                } else if (icon.toLowerCase().includes(value.toLowerCase()) && icon.includes('Minor')) {
+                    icons.value.minor.push(icon);
+                }
+            });
+            return icons.value;
+        }
+    }
+
+    function changeCode(icon) {
+        iconCode.value = icon;
+        iconCode.value = '<PIcon source="' + icon + '" />';
+    }
+
+    function copyCode(icon) {
+        let copy = '';
+        if (props.backdrop) {
+            copy = navigator.clipboard.writeText(
+                '<PIcon source="' + icon + '" color="' + props.color + '" backdrop="' + props.backdrop + '" />',
+            );
+        } else {
+            if (props.color === null) {
+                copy = navigator.clipboard.writeText(
+                    '<PIcon source="' + icon + '" />',
+                );
+            } else {
+                copy = navigator.clipboard.writeText(
+                    '<PIcon source="' + icon + '" color="' + props.color + '" />',
+                );
+            }
+        }
+        copyText.value = copy ? 'Copied!' : '';
+        this.$pToast.open({
+            message: copyText.value,
+            duration: 3000,
+        });
+    }
+
+    function handleSearchResultsDismiss() {
+        search.value = '';
+    }
+
+    onMounted(() => {
+        allIcons.value = Object.keys(AllIcon);
+        allIcons.value.sort();
+        allIcons.value.forEach((icon) => {
+            if (icon.includes('Major')) {
+                icons.value.major.push(icon);
+            } else if (icon.includes('Minor')) {
+                icons.value.minor.push(icon);
+            }
+        });
+    });
 </script>
 
 <style scoped>

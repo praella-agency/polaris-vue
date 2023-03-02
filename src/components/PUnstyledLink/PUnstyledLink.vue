@@ -14,8 +14,8 @@
     </component>
 </template>
 
-<script>
-    import { defineComponent, computed } from 'vue';
+<script setup>
+    import { computed } from 'vue';
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -23,53 +23,47 @@
      *  Similar to Link.
      *  </h4>
      */
-    export default defineComponent({
-        name: 'PUnstyledLink',
-        props: {
-            /**
-             * Set to for router link
-             */
-            to: {
-                type: [String, Object],
-                default: null,
-            },
-            /**
-             * Set url for URL
-             */
-            url: {
-                type: String,
-                delay: undefined,
-            },
-            /**
-             * Set true for open URL in new tab
-             */
-            external: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Makes the browser download the url instead of opening it. Provides a hint for the downloaded filename
-             * if it is a string value
-             */
-            download: {
-                type: [Boolean, String],
-                default: false,
-            },
+    let props = defineProps({
+        /**
+         * Set to for router link
+         */
+        to: {
+            type: [String, Object],
+            default: null,
         },
-        setup(props) {
-            const target = computed(() => {
-                return props.external ? '_blank' : undefined;
-            });
+        /**
+         * Set url for URL
+         */
+        url: {
+            type: String,
+            delay: undefined,
+        },
+        /**
+         * Set true for open URL in new tab
+         */
+        external: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Makes the browser download the url instead of opening it. Provides a hint for the downloaded filename
+         * if it is a string value
+         */
+        download: {
+            type: [Boolean, String],
+            default: false,
+        },
+    });
 
-            const rel = computed(() => {
-                return props.external ? '_blank' : undefined;
-            });
+    let target = computed(() => {
+        return props.external ? '_blank' : undefined;
+    });
 
-            const listeners = computed(() => {
-                return props.external ? '_blank' : undefined;
-            });
+    let rel = computed(() => {
+        return props.external ? '_blank' : undefined;
+    });
 
-            return { target, rel, listeners };
-        }
-    })
+    let listeners = computed(() => {
+        return props.external ? '_blank' : undefined;
+    });
 </script>

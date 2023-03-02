@@ -113,11 +113,10 @@
     </div>
 </template>
 
-<script>
-    import utils from '../../../../utilities';
+<script setup>
+    import { ref, useSlots, computed, onUpdated, onMounted, onUnmounted } from 'vue';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
-    import { ToastProps } from '../../context';
     import { PContextualSaveBar } from '../../../../components/PFrame/components/PContextualSaveBar';
     import { PEventListener } from '../../../../components/PEventListener';
     import { PIcon } from '../../../../components/PIcon';
@@ -125,215 +124,218 @@
     import { PTopBar } from '../../../../components/PTopBar/';
     import { PNavigation } from '../../../../components/PNavigation';
 
-    const State = {
-        skipFocused: Boolean, //not required
-        globalRibbonHeight: Number,
-        loadingStack: Number,
-        toastMessages: [ToastProps],
-        showContextualSaveBar: Boolean,
+    let props = defineProps({
+        showMobileNavigation: {
+            type: Boolean,
+            default: false,
+        },
+        onNavigationDismiss: {
+            type: Function,
+        },
+        contextualSaveBar: {
+            type: Object,
+            default: () => ({}),
+        },
+        toggleContextualSaveBar: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * ContextualSaveBar Logo
+         */
+        logo: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * TopBar props
+         */
+        topBar: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Navigation props
+         */
+        navigation: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Frame offset value
+         */
+        frameOffset: {
+            type: String,
+            default: '0px',
+        },
+        /**
+         * Set the frame position with it's internal components
+         */
+        positioning: {
+            type: String,
+            default: 'fixed',
+        },
+    });
+
+    let slots = useSlots();
+    let APP_FRAME_MAIN = ref('AppFrameMain');
+    let APP_FRAME_NAV = ref('AppFrameNav');
+    let APP_FRAME_TOP_BAR = ref('AppFrameTopBar');
+    let toggleMobileNavigation = ref(props.showMobileNavigation);
+    let mobileNavHidden = ref(useMediaQuery() && !toggleMobileNavigation.value);
+    let mobileNavShowing =ref(useMediaQuery() && toggleMobileNavigation.value);
+    let state = ref({
+        skipFocused: false,
+        globalRibbonHeight: 0,
+        loadingStack: 0,
+        toastMessages: [],
+        showContextualSaveBar: false,
+    });
+    let globalRibbonContainer = ref(HTMLDivElement);
+    let skipToContentTarget = ref(null);
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Frame',
+            (isSlot(slots.navigation) || Object.keys(props.navigation).length > 0)
+            && 'Polaris-Frame--hasNav',
+            (isSlot(slots.topBar) || Object.keys(props.topBar).length > 0) && 'Polaris-Frame--hasTopBar',
+        );
+    });
+
+    let contextualSaveBarClassName = computed(() => {
+        return classNames(
+            'Polaris-Frame__ContextualSaveBar Polaris-Frame-CSSAnimation--startFade',
+            props.contextualSaveBar.active && ' Polaris-Frame-CSSAnimation--endFade',
+        );
+    });
+
+    let skipClassName = computed(() => {
+        return classNames(
+            'Polaris-Frame__Skip',
+            state.value.skipFocused && 'Polaris-Frame--focused',
+        );
+    });
+
+    let navClassName = computed(() => {
+        return classNames(
+            toggleMobileNavigation.value && 'Polaris-Frame__Navigation--visible',
+        );
+    });
+
+    let ariaModal = computed(() => {
+        if (toggleMobileNavigation.value) {
+            return true;
+        }
+    });
+
+    let role = computed(() => {
+        if (toggleMobileNavigation.value) {
+            return 'dialog';
+        }
+    });
+
+    function setGlobalRibbonContainer(node) {
+        globalRibbonContainer.value = node;
     }
 
-    export default {
-        name: 'PFrameInner',
-        components: {
-            PContextualSaveBar, PEventListener, PIcon, PBackdrop, PTopBar, PNavigation,
-        },
-        props: {
-            showMobileNavigation: {
-                type: Boolean,
-                default: false,
-            },
-            onNavigationDismiss: {
-                type: Function,
-            },
-            contextualSaveBar: {
-                type: Object,
-                default: () => ({}),
-            },
-            toggleContextualSaveBar: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * ContextualSaveBar Logo
-             */
-            logo: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * TopBar props
-             */
-            topBar: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * Navigation props
-             */
-            navigation: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * Frame offset value
-             */
-            frameOffset: {
-                type: String,
-                default: '0px',
-            },
-            /**
-             * Set the frame position with it's internal components
-             */
-            positioning: {
-                type: String,
-                default: 'fixed',
-            },
-        },
-        data() {
-            return {
-                APP_FRAME_MAIN: 'AppFrameMain',
-                APP_FRAME_NAV: 'AppFrameNav',
-                APP_FRAME_TOP_BAR: 'AppFrameTopBar',
-                toggleMobileNavigation: this.showMobileNavigation,
-                mobileNavHidden: this.useMediaQuery() && !this.toggleMobileNavigation,
-                mobileNavShowing: this.useMediaQuery() && this.toggleMobileNavigation,
-                state: {
-                    skipFocused: false,
-                    globalRibbonHeight: 0,
-                    loadingStack: 0,
-                    toastMessages: [],
-                    showContextualSaveBar: false,
-                },
-                globalRibbonContainer: HTMLDivElement,
-            };
-        },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Frame',
-                    (hasSlot(this.$slots.navigation) || Object.keys(this.navigation).length > 0)
-                    && 'Polaris-Frame--hasNav',
-                    (hasSlot(this.$slots.topBar) || Object.keys(this.topBar).length > 0) && 'Polaris-Frame--hasTopBar',
-                );
-            },
-            contextualSaveBarClassName() {
-                return classNames(
-                    'Polaris-Frame__ContextualSaveBar Polaris-Frame-CSSAnimation--startFade',
-                    this.contextualSaveBar.active && ' Polaris-Frame-CSSAnimation--endFade',
-                );
-            },
-            skipClassName() {
-                return classNames(
-                    'Polaris-Frame__Skip',
-                    this.state.skipFocused && 'Polaris-Frame--focused',
-                );
-            },
-            navClassName() {
-                return classNames(
-                    this.toggleMobileNavigation && 'Polaris-Frame__Navigation--visible',
-                );
-            },
-            ariaModal() {
-                if (this.toggleMobileNavigation) {
-                    return true;
-                }
-            },
-            role() {
-                if (this.toggleMobileNavigation) {
-                    return 'dialog';
-                }
-            },
-            hasSlot() {
-                return hasSlot;
-            }
-        },
-        methods: {
-            setGlobalRibbonContainer(node) {
-                this.globalRibbonContainer = node;
-            },
-            handleResize() {
-                if (hasSlot(this.$slots.globalRibbon)) {
-                    this.setGlobalRibbonHeight();
-                }
-            },
-            setGlobalRibbonRootProperty() {
-                const {globalRibbonHeight} = this.state;
-                this.setRootProperty(
-                    '--global-ribbon-height',
-                    `${globalRibbonHeight}px`,
-                    null,
-                );
-            },
-            setGlobalRibbonHeight() {
-                const {globalRibbonContainer} = this;
-                if (globalRibbonContainer) {
-                    this.state.globalRibbonHeight = globalRibbonContainer.offsetHeight;
-                    this.setGlobalRibbonRootProperty();
-                }
-            },
-            setRootProperty(name, value, node) {
-                if (document == null) {
-                    return;
-                }
-
-                const styleNode = node && node instanceof HTMLElement ? node : document.documentElement;
-                /* tslint:disable-next-line */
-                styleNode && styleNode.style.setProperty(name, value);
-            },
-            useMediaQuery() {
-                if (window.innerWidth <= 768) {
-                    this.toggleMobileNavigation = true;
-                    return true;
-                }
-                this.toggleMobileNavigation = false;
-                return false;
-            },
-            handleNavKeydown(event) {
-                const {key} = event;
-                const mobileNavShowing = this.useMediaQuery() && this.toggleMobileNavigation;
-                if (mobileNavShowing && key === 'Escape') {
-                    this.handleNavigationDismiss();
-                }
-            },
-            handleNavigationDismiss() {
-                if (this.onNavigationDismiss) {
-                    return this.onNavigationDismiss();
-                }
-            },
-            handleFocus() {
-                this.state.skipFocused = true;
-            },
-            handleBlur() {
-                this.state.skipFocused = false;
-            },
-            handleClick(event) {
-                if (this.$refs.skipToContentTarget) {
-                    (this.$refs.skipToContentTarget).focus();
-                    event.preventDefault();
-                }
-            },
-            enter(el, done) {
-                done();
-            },
-        },
-        mounted() {
-            document.getElementById('PFrame').style.setProperty('--p-frame-offset', this.frameOffset);
-            this.handleResize();
-            if (hasSlot(this.$slots.globalRibbon)) {
-                return;
-            }
-            this.setGlobalRibbonRootProperty();
-        },
-        created() {
-            window.addEventListener('resize', this.useMediaQuery);
-            this.useMediaQuery();
-        },
-        updated() {
-            this.setGlobalRibbonHeight();
-        },
-        [utils.destroyed]() {
-            window.removeEventListener('resize', this.useMediaQuery);
-        },
+    function handleResize() {
+        if (isSlot(slots.globalRibbon)) {
+            setGlobalRibbonHeight();
+        }
     }
+
+    function setGlobalRibbonRootProperty() {
+        const { globalRibbonHeight } = state.value;
+        setRootProperty(
+            '--global-ribbon-height',
+            `${globalRibbonHeight}px`,
+            null,
+        );
+    }
+
+    function setGlobalRibbonHeight() {
+        const { globalRibbonContainer } = this;
+        if (globalRibbonContainer) {
+            state.value.globalRibbonHeight = globalRibbonContainer.offsetHeight;
+            setGlobalRibbonRootProperty();
+        }
+    }
+
+    function setRootProperty(name, value, node) {
+        if (document == null) {
+            return;
+        }
+
+        const styleNode = node && node instanceof HTMLElement ? node : document.documentElement;
+        /* tslint:disable-next-line */
+        styleNode && styleNode.style.setProperty(name, value);
+    }
+
+    function useMediaQuery() {
+        if (window.innerWidth <= 768) {
+            toggleMobileNavigation.value = true;
+            return true;
+        }
+        toggleMobileNavigation.value = false;
+        return false;
+    }
+
+    function handleNavKeydown(event) {
+        const {key} = event;
+        const mobileNavShowing = useMediaQuery() && toggleMobileNavigation.value;
+        if (mobileNavShowing && key === 'Escape') {
+            handleNavigationDismiss();
+        }
+    }
+
+    function handleNavigationDismiss() {
+        if (props.onNavigationDismiss) {
+            return props.onNavigationDismiss();
+        }
+    }
+
+    function handleFocus() {
+        state.value.skipFocused = true;
+    }
+
+    function handleBlur() {
+        state.value.skipFocused = false;
+    }
+
+    function handleClick(event) {
+        if (skipToContentTarget) {
+            (skipToContentTarget).focus();
+            event.preventDefault();
+        }
+    }
+
+    function enter(el, done) {
+        done();
+    }
+
+    onMounted(() => {
+        skipToContentTarget = skipToContentTarget.value;
+        window.addEventListener('resize', useMediaQuery);
+        useMediaQuery();
+
+        document.getElementById('PFrame').style.setProperty('--p-frame-offset', props.frameOffset);
+        handleResize();
+        if (isSlot(slots.globalRibbon)) {
+            return;
+        }
+        setGlobalRibbonRootProperty();
+    });
+
+    onUpdated(() => {
+        setGlobalRibbonHeight();
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener('resize', useMediaQuery);
+    });
 </script>

@@ -15,7 +15,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import { uuid } from '../../ComponentHelpers';
 
     /**
@@ -24,61 +24,58 @@
      *  sans-serif;">The `p-toggle` component provides users the ability to choose between two distinct values. These are
      *  very similar to a switch, or on/off switch, though aesthetically different than a checkbox.</h4>
      */
-    export default {
-        name: 'PToggle',
-        props: {
-            /**
-             * Label of toggle.
-             */
-            label: {
-                type: String,
-                default: null,
-            },
-            /**
-             * ID of toggle.
-             */
-            id: {
-                type: [String, Number],
-                default: `PolarisTextField${uuid()}`,
-            },
-            /**
-             * propsClass of toggle.
-             */
-            propsClass: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Value of toggle.
-             */
-            value: {
-                type: [String, Boolean, Number],
-            },
-            /**
-             * Set true for disable.
-             */
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Defined if toggle enabled/disabled.
-             */
-            checked: {
-                type: Boolean,
-                default: false,
-            },
+    let props = defineProps({
+        /**
+         * Label of toggle.
+         */
+        label: {
+            type: String,
+            default: null,
         },
-        emits: ['change'],
-        methods: {
-            onChange(e) {
-                const target = e.target || e.srcElement;
-                /**
-                 * On change event handler
-                 * @param e
-                 */
-                this.$emit('change', {checked: target.checked, value: target.value});
-            },
+        /**
+         * ID of toggle.
+         */
+        id: {
+            type: [String, Number],
+            default: `PolarisTextField${uuid()}`,
         },
+        /**
+         * propsClass of toggle.
+         */
+        propsClass: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Value of toggle.
+         */
+        value: {
+            type: [String, Boolean, Number],
+        },
+        /**
+         * Set true for disable.
+         */
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Defined if toggle enabled/disabled.
+         */
+        checked: {
+            type: Boolean,
+            default: false,
+        },
+    });
+
+    const emit = defineEmits(['change']);
+
+    function onChange(e) {
+        const target = e.target || e.srcElement;
+        /**
+         * On change event handler
+         * @param e
+         */
+        emit('change', {checked: target.checked, value: target.value});
     }
 </script>

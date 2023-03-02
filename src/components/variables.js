@@ -1,4 +1,5 @@
 import {ActionListItemDescriptor} from '../types';
+import {ToastProps} from "./PFrame/context";
 
 // PAccordionItem.vue
 export const Icon = {
@@ -109,4 +110,30 @@ export const ConnectedDisclosure = {
     },
 };
 
+// PAvatar.vue
+export const Status = {
+    Pending: 'PENDING',
+    Loaded: 'LOADED',
+    Errored: 'ERRORED',
+};
 
+// PBadge.vue
+export const BadgeStatus = ['success', 'info', 'attention', 'warning', 'new', 'critical', null, ''];
+export const BadgeProgress = ['incomplete', 'partiallyComplete', 'complete', null, ''];
+export const BadgeSize = ['small', 'medium'];
+
+// PFrameInner.vue
+export const State = {
+    skipFocused: Boolean, //not required
+    globalRibbonHeight: Number,
+    loadingStack: Number,
+    toastMessages: [ToastProps],
+    showContextualSaveBar: Boolean,
+}
+
+// PUnStyledButton.vue
+export const ButtonType = ['submit', 'reset', 'button'];
+
+// PSpinner.vue
+export const SpinnerColor = ['white', 'teal', 'inkLightest'];
+export const SpinnerSize = ['small', 'large'];

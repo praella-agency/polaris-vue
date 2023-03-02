@@ -1,7 +1,7 @@
 <template>
     <div v-if="Object.keys(connectedDisclosure).length > 0" class="Polaris-Button__ConnectedDisclosureWrapper">
         <PUnstyledButton
-            v-bind="$props"
+            v-bind="props"
             :isConnectedDisclosure="Object.keys(connectedDisclosure).length > 0"
             @click.stop="handleClick"
             @focus.stop="handleFocus"
@@ -45,7 +45,7 @@
     </div>
     <PUnstyledButton
         v-else
-        v-bind="$props"
+        v-bind="props"
         :isConnectedDisclosure="Object.keys(connectedDisclosure).length > 0"
         @click.stop="handleClick"
         @focus.stop="handleFocus"
@@ -331,12 +331,12 @@
     let disclosureIconClassName = computed(() => {
         return classNames(
             'Polaris-Button__DisclosureIcon',
-            disclosureActive && 'Polaris-Button__DisclosureIconFacingUp',
+            disclosureActive.value && 'Polaris-Button__DisclosureIconFacingUp',
         );
     });
 
     function toggleDisclosureActive() {
-        disclosureActive = !disclosureActive;
+        disclosureActive.value = !disclosureActive.value;
     }
 
     function handleClick() {

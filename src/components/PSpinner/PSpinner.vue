@@ -2,16 +2,13 @@
     <img :src="`data:image/svg+xml;utf8,${spinnerSVG}`" :class="className" alt="">
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames, variationName } from '../../utilities/css';
     import { encode as encodeSVG } from '../../utilities/svg';
     import { spinnerLarge, spinnerSmall } from './images';
     import StringValidator from '../../utilities/validators/StringValidator';
-
-    const Color = ['white', 'teal', 'inkLightest'];
-    const Size = ['small', 'large'];
-
-    const COLORS_FOR_LARGE_SPINNER = ['teal', 'inkLightest'];
+    import { SpinnerColor, SpinnerSize } from '../variables';
 
     /**
      * <br/>
@@ -20,40 +17,37 @@
      *  spinners should only be used for content that can’t be represented with skeleton loading components, like for data
      *  charts.</h4>
      */
-    export default {
-        name: 'PSpinner',
-        props: {
-            /**
-             * Color for spinner.
-             */
-            color: {
-                type: String,
-                default: 'teal',
-                ...StringValidator('color', Color)
-            },
-            /**
-             * Size of spinner.
-             */
-            size: {
-                type: String,
-                default: 'large',
-                ...StringValidator('size', Size)
-            }
+    let props = defineProps({
+        /**
+         * Color for spinner.
+         */
+        color: {
+            type: String,
+            default: 'teal',
+            ...StringValidator('color', SpinnerColor)
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Spinner',
-                    this.color && `Polaris-Spinner--${variationName('color', this.color)}`,
-                    this.size && `Polaris-Spinner--${variationName('size', this.size)}`,
-                );
-            },
-            spinnerSVG() {
-                const svg = this.size === 'large' ? spinnerLarge : spinnerSmall;
-                if (typeof svg === 'string') {
-                    return encodeSVG(svg);
-                }
-            }
-        },
-    }
+        /**
+         * Size of spinner.
+         */
+        size: {
+            type: String,
+            default: 'large',
+            ...StringValidator('size', SpinnerSize)
+        }
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Spinner',
+            props.color && `Polaris-Spinner--${variationName('color', props.color)}`,
+            props.size && `Polaris-Spinner--${variationName('size', props.size)}`,
+        );
+    });
+
+    let spinnerSVG = computed(() => {
+        const svg = props.size === 'large' ? spinnerLarge : spinnerSmall;
+        if (typeof svg === 'string') {
+            return encodeSVG(svg);
+        }
+    });
 </script>

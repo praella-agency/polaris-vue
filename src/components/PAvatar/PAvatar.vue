@@ -13,15 +13,11 @@
     </span>
 </template>
 
-<script>
+<script setup>
+    import { ref, computed } from 'vue';
     import { classNames, variationName } from '../../utilities/css';
     import { PImage } from '../../components/PImage';
-
-    const Status = {
-        Pending: 'PENDING',
-        Loaded: 'LOADED',
-        Errored: 'ERRORED',
-    };
+    import { Status } from '../variables';
 
     /**
      * <br/>
@@ -29,76 +25,66 @@
      *  sans-serif;">Avatars are used to show a thumbnail representation of an individual or business in the interface.
      *  </h4>
      */
-    export default {
-        name: 'PAvatar',
-        components: {
-            PImage,
-        },
-        props: {
-            /**
-             * Size of avatar
-             */
-            size: {
-                type: String,
-                default: 'medium',
-                validator: function (value) {
-                    return ['small', 'medium', 'large'].indexOf(value) !== -1;
-                },
-            },
-            /**
-             * Whether the avatar is for a customer
-             */
-            customer: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Name for the person
-             */
-            name: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Initials of person to display
-             */
-            initials: {
-                type: String,
-                default: null,
-            },
-            /**
-             * URL of the avatar image which falls back to initials if the image fails to load
-             */
-            source: {
-                type: String,
-                default: null,
+    let props = defineProps({
+        /**
+         * Size of avatar
+         */
+        size: {
+            type: String,
+            default: 'medium',
+            validator: function (value) {
+                return ['small', 'medium', 'large'].indexOf(value) !== -1;
             },
         },
-        data() {
-            return {
-                status: Status.Pending,
-                nameString: this.name || this.initials,
-            };
+        /**
+         * Whether the avatar is for a customer
+         */
+        customer: {
+            type: Boolean,
+            default: false,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Avatar',
-                    this.size && `Polaris-Avatar--${variationName('size', this.size)}`,
-                    !this.customer && `Polaris-Avatar--${variationName('style', this.styleClass(this.nameString))}`,
-                    (this.hasImage || (this.initials && this.initials.length === 0)) && status !== Status.Loaded && 'Polaris-Avatar--hidden',
-                    this.hasImage && 'Polaris-Avatar--hasImage',
-                );
-            },
-            hasImage() {
-                return this.source && this.status !== Status.Errored;
-            },
+        /**
+         * Name for the person
+         */
+        name: {
+            type: String,
+            default: null,
         },
-        methods: {
-            styleClass(name) {
-                const finalStyleClasses = ['one', 'two', 'three', 'four', 'five'];
-                return name ? finalStyleClasses[name.charCodeAt(0) % finalStyleClasses.length] : finalStyleClasses[0];
-            },
+        /**
+         * Initials of person to display
+         */
+        initials: {
+            type: String,
+            default: null,
         },
+        /**
+         * URL of the avatar image which falls back to initials if the image fails to load
+         */
+        source: {
+            type: String,
+            default: null,
+        },
+    });
+
+    let status = ref(Status.Pending);
+    let nameString = ref(props.name || props.initials);
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Avatar',
+            props.size && `Polaris-Avatar--${variationName('size', props.size)}`,
+            !props.customer && `Polaris-Avatar--${variationName('style', styleClass(nameString.value))}`,
+            (hasImage.value || (props.initials && props.initials.length === 0)) && status.value !== Status.Loaded && 'Polaris-Avatar--hidden',
+            hasImage.value && 'Polaris-Avatar--hasImage',
+        );
+    });
+
+    let hasImage = computed(() => {
+        return props.source && status.value !== Status.Errored;
+    });
+
+    function styleClass(name) {
+        const finalStyleClasses = ['one', 'two', 'three', 'four', 'five'];
+        return name ? finalStyleClasses[name.charCodeAt(0) % finalStyleClasses.length] : finalStyleClasses[0];
     }
 </script>

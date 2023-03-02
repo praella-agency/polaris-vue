@@ -79,7 +79,7 @@
         }
     });
 
-    const className = computed(() => {
+    let className = computed(() => {
         return classNames(
             'Polaris-Icon',
             props.color && (typeof props.color === 'string') && `Polaris-Icon--${variationName('color', props.color)}`,
@@ -88,11 +88,11 @@
         );
     });
 
-    const encodedSource = computed(() => {
+    let encodedSource = computed(() => {
         return encodeSVG(props.source);
     });
 
-    const sourceType = computed(() => {
+    let sourceType = computed(() => {
         if (props.source === 'function' || Object.keys(Icon).filter((icon) => icon === props.source).length > 0) {
             return 'function';
         } else if (props.source === 'placeholder') {
@@ -102,7 +102,7 @@
         }
     });
 
-    const enhancedSource = computed(() => {
+    let enhancedSource = computed(() => {
         if (DeprecatedIcons.indexOf(props.source) > -1) {
             // tslint:disable-next-line:no-console
             console.error(props.source + '` this icon has been removed, please use new ' +

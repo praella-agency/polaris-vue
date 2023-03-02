@@ -27,8 +27,7 @@
     </PFrameInner>
 </template>
 
-<script>
-    import { PIcon } from '../../components/PIcon';
+<script setup>
     import { PFrameInner } from '../../components/PFrame/components/PFrameInner';
 
     /**
@@ -44,60 +43,54 @@
      *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/forms-contextual-save-bar--contextual-save-bar"
      *    target="_blank">contextual save bar</a> components.</h4>
      */
-    export default {
-        name: 'PFrame',
-        components: {
-            PIcon, PFrameInner,
+    let props = defineProps({
+        /**
+         * A boolean property indicating whether the mobile navigation is currently visible
+         */
+        showMobileNavigation: {
+            type: Boolean,
+            default: false,
         },
-        props: {
-            /**
-             * A boolean property indicating whether the mobile navigation is currently visible
-             */
-            showMobileNavigation: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * A callback function to handle clicking the mobile navigation dismiss button
-             */
-            onNavigationDismiss: {
-                type: Function,
-            },
-            /**
-             * ContextualSaveBar Props
-             */
-            contextualSaveBar: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * ContextualSaveBar Logo
-             */
-            logo: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * TopBar props
-             */
-            topBar: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * Navigation props
-             */
-            navigation: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * Frame offset value
-             */
-            frameOffset: {
-                type: String,
-                default: '0px',
-            }
+        /**
+         * A callback function to handle clicking the mobile navigation dismiss button
+         */
+        onNavigationDismiss: {
+            type: Function,
         },
-    }
+        /**
+         * ContextualSaveBar Props
+         */
+        contextualSaveBar: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * ContextualSaveBar Logo
+         */
+        logo: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * TopBar props
+         */
+        topBar: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Navigation props
+         */
+        navigation: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Frame offset value
+         */
+        frameOffset: {
+            type: String,
+            default: '0px',
+        }
+    });
 </script>

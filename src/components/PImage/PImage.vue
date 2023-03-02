@@ -2,7 +2,8 @@
     <img :alt="alt" :src="source" :class="className"/>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../utilities/css';
 
     /**
@@ -11,39 +12,33 @@
      *  sans-serif;">Use image as a visual anchor and identifier for an object. They should be used along with text
      *  to provide context.</h4>
      */
-    export default {
-        name: 'PImage',
-        props: {
-            /**
-             * Image source
-             */
-            source: {
-                type: String,
-                default: null
-            },
-
-            /**
-             * Image alt
-             */
-            alt: {
-                type: String,
-                default: null
-            },
-
-            /**
-             * Image class
-             */
-            imgClass: {
-                type: String,
-                default: null
-            }
+    let props = defineProps({
+        /**
+         * Image source
+         */
+        source: {
+            type: String,
+            default: null
         },
-        computed: {
-            className() {
-                return classNames(
-                    this.imgClass,
-                );
-            }
+
+        /**
+         * Image alt
+         */
+        alt: {
+            type: String,
+            default: null
+        },
+
+        /**
+         * Image class
+         */
+        imgClass: {
+            type: String,
+            default: null
         }
-    }
+    });
+
+    let className = computed(() => {
+        return classNames(props.imgClass);
+    });
 </script>

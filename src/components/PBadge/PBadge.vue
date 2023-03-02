@@ -10,77 +10,68 @@
   </span>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames, variationName } from '../../utilities/css';
     import StringValidator from '../../utilities/validators/StringValidator';
-
-    const Status = ['success', 'info', 'attention', 'warning', 'new', 'critical', null, ''];
-    const Progress = ['incomplete', 'partiallyComplete', 'complete', null, ''];
-    const Size = ['small', 'medium'];
-
-    const DEFAULT_SIZE = 'medium';
-
+    import { BadgeStatus, BadgeProgress, BadgeSize, DEFAULT_SIZE } from '../variables'
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
      *  sans-serif;">Badges are used to inform merchants of the status of an object or of an action that’s been taken.
      *  </h4>
      */
-    export default {
-        name: 'PBadge',
-        props: {
-            /**
-             * Set the color of the badge for the given status.
-             */
-            status: {
-                type: String,
-                default: null,
-                ...StringValidator('status', Status)
-            },
-
-            /**
-             * Render a pip showing the progress of a given task.
-             */
-            progress: {
-                type: String,
-                default: null,
-                ...StringValidator('progress', Progress)
-            },
-
-            /**
-             * Set Background color.
-             */
-            background: {
-                type: String,
-                default: null,
-            },
-
-            /**
-             * Set font color.
-             */
-            color: {
-                type: String,
-                default: null,
-            },
-
-            /**
-             * Set size of badge.
-             */
-            size: {
-                type: String,
-                default: 'medium',
-                ...StringValidator('size', Size)
-            }
+    let props = defineProps({
+        /**
+         * Set the color of the badge for the given status.
+         */
+        status: {
+            type: String,
+            default: null,
+            ...StringValidator('status', BadgeStatus)
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Badge',
-                    !this.color && !this.background && this.status && `Polaris-Badge--${variationName('status', this.status)}`,
-                    this.progress && `Polaris-Badge--${variationName('progress', this.progress)}`,
-                    this.size && this.size !== DEFAULT_SIZE && `Polaris-Badge--${variationName('size', this.size)}`,
-                );
-            }
+
+        /**
+         * Render a pip showing the progress of a given task.
+         */
+        progress: {
+            type: String,
+            default: null,
+            ...StringValidator('progress', BadgeProgress)
+        },
+
+        /**
+         * Set Background color.
+         */
+        background: {
+            type: String,
+            default: null,
+        },
+
+        /**
+         * Set font color.
+         */
+        color: {
+            type: String,
+            default: null,
+        },
+
+        /**
+         * Set size of badge.
+         */
+        size: {
+            type: String,
+            default: 'medium',
+            ...StringValidator('size', BadgeSize)
         }
-    }
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Badge',
+            !props.color && !props.background && props.status && `Polaris-Badge--${variationName('status', props.status)}`,
+            props.progress && `Polaris-Badge--${variationName('progress', props.progress)}`,
+            props.size && props.size !== DEFAULT_SIZE && `Polaris-Badge--${variationName('size', props.size)}`,
+        );
+    });
 </script>
