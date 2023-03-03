@@ -6,7 +6,7 @@
         :target="target"
         :rel="rel"
         :download="download"
-        v-bind="$attrs"
+        v-bind="attrs"
         v-on="listeners"
     >
         <!-- @slot The content to display inside the link -->
@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-    import { computed } from 'vue';
+    import { computed, useAttrs } from 'vue';
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -54,6 +54,8 @@
             default: false,
         },
     });
+
+    let attrs = useAttrs();
 
     let target = computed(() => {
         return props.external ? '_blank' : undefined;

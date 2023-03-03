@@ -9,20 +9,15 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import { PDisplayText } from '../../../../components/PDisplayText';
     import { PModalCloseButton } from '../../../../components/PModal/components/PModalCloseButton';
 
-    export default {
-        name: 'PModalHeader',
-        components: {
-            PDisplayText, PModalCloseButton,
+    let props = defineProps({
+        id: {
+            type: [String, Number],
         },
-        props: {
-            id: {
-                type: [String, Number],
-            },
-        },
-        emits: ['close'],
-    }
+    });
+
+    const emit = defineEmits(['close']);
 </script>

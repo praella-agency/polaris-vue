@@ -43,57 +43,52 @@
     </li>
 </template>
 
-<script>
-    export default {
-        name: 'PItem',
-        props: {
-            id: {
-                type: String,
-                required: true
-            },
-            focused: {
-                type: Boolean,
-                required: true,
-            },
-            panelID: {
-                type: String,
-                default: null,
-            },
-            url: {
-                type: String,
-                default: null,
-            },
-            to: {
-                type: [Object, String],
-            },
-            accessibilityLabel: {
-                type: String,
-                default: null,
-            },
+<script setup>
+    import { ref, onMounted, onUpdated } from 'vue';
+
+    let props = defineProps({
+        id: {
+            type: String,
+            required: true
         },
-        emits: ['click'],
-        methods: {
-            handleClick() {
-                this.$emit('click');
-            }
+        focused: {
+            type: Boolean,
+            required: true,
         },
-        mounted() {
-            if (
-                (this.$refs.focusedNode) &&
-                (this.$refs.focusedNode) instanceof HTMLElement &&
-                this.focused
-            ) {
-                (this.$refs.focusedNode).focus();
-            }
+        panelID: {
+            type: String,
+            default: null,
         },
-        updated() {
-            if (
-                (this.$refs.focusedNode) &&
-                (this.$refs.focusedNode) instanceof HTMLElement &&
-                this.focused
-            ) {
-                (this.$refs.focusedNode).focus();
-            }
+        url: {
+            type: String,
+            default: null,
         },
+        to: {
+            type: [Object, String],
+        },
+        accessibilityLabel: {
+            type: String,
+            default: null,
+        },
+    });
+
+    let focusedNode = ref(null);
+    const emits = defineEmits(['click']);
+
+    function handleClick() {
+        emit('click');
     }
+
+    onMounted(() => {
+        focusedNode = focusedNode.value
+        if ((focusedNode) && (focusedNode) instanceof HTMLElement && props.focused) {
+            (focusedNode).focus();
+        }
+    });
+
+    onUpdated(() => {
+        if ((focusedNode) && (focusedNode) instanceof HTMLElement && this.focused) {
+            (focusedNode).focus();
+        }
+    });
 </script>

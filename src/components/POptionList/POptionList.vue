@@ -32,30 +32,12 @@ Access values with `slot-props` attribute.-->
     </ul>
 </template>
 
-<script>
+<script setup>
+    import { computed, onMounted, ref } from 'vue';
     import { uuid } from '../../ComponentHelpers';
     import { POptionsListOption } from '../../components/POptionList/components/POptionsListOption';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
-
-    export const OptionDescriptor = {
-        label: String,
-        value: {
-            type: [String, Number],
-            required: true
-        },
-        disabled: Boolean,
-        active: Boolean,
-        id: String,
-    }
-
-    const SectionDescriptor = {
-        options: {
-            type: Array,
-            required: true,
-            properties: OptionDescriptor
-        },
-        title: String,
-    }
+    import { OptionDescriptor, SectionDescriptor } from '../variables';
 
     /**
      * <br/>
@@ -68,127 +50,117 @@ Access values with `slot-props` attribute.-->
      *  but as a standalone menu.</h4>
      */
 
-    export default {
-        name: 'POptionList',
-        components: {
-            POptionsListOption,
+    let props = defineProps({
+        /**
+         * Add to allow multiple options.
+         */
+        allowMultiple: {
+            type: Boolean,
+            default: false,
         },
-        props: {
-            /**
-             * Add to allow multiple options.
-             */
-            allowMultiple: {
-                type: Boolean,
-                default: false,
-            },
 
-            /**
-             * A unique identifier for the option list.
-             */
-            id: {
-                type: [String, Number],
-                default: null,
-            },
-
-            /**
-             * List title.
-             */
-            title: {
-                type: String,
-                default: null,
-            },
-
-            /**
-             * Collection of options to be listed.
-             */
-            options: {
-                type: Array,
-                default: () => ([]),
-                ...ArrayValidator('options', OptionDescriptor)
-            },
-
-            /**
-             * Sections containing a header and related options.
-             */
-            sections: {
-                type: Array,
-                default: () => ([]),
-                ...ArrayValidator('sections', SectionDescriptor)
-            },
-
-            /**
-             * The selected options.
-             */
-            selected: {
-                type: Array,
-                default: () => ([]),
-                required: true,
-            },
+        /**
+         * A unique identifier for the option list.
+         */
+        id: {
+            type: [String, Number],
+            default: null,
         },
-        emits: ['change', 'click'],
-        data() {
-            return {
-                optionsExist: true,
-                selectedValue: null,
+
+        /**
+         * List title.
+         */
+        title: {
+            type: String,
+            default: null,
+        },
+
+        /**
+         * Collection of options to be listed.
+         */
+        options: {
+            type: Array,
+            default: () => ([]),
+            ...ArrayValidator('options', OptionDescriptor)
+        },
+
+        /**
+         * Sections containing a header and related options.
+         */
+        sections: {
+            type: Array,
+            default: () => ([]),
+            ...ArrayValidator('sections', SectionDescriptor)
+        },
+
+        /**
+         * The selected options.
+         */
+        selected: {
+            type: Array,
+            default: () => ([]),
+            required: true,
+        },
+    });
+
+    const emit = defineEmits(['change', 'click']);
+
+    let optionsExist = ref(true);
+    let selectedValue = ref(null);
+
+    let optionListId = computed(() => {
+        if (!props.id) {
+            return `Polaris-OptionList-${uuid}`;
+        }
+        return props.id;
+    });
+
+    let normalizedOptions = computed(() => {
+        if (props.options == null) {
+            return props.sections == null ? [] : [{options: [], title: props.title}, ...props.sections];
+        }
+
+        if (props.sections == null) {
+            return [{title: props.title, options: props.options}];
+        }
+
+        return [{title: props.title, options: props.options}, ...props.sections];
+    });
+
+    function handleClick(sectionIndex, optionIndex) {
+        if (typeof sectionIndex === 'number' && typeof optionIndex === 'number') {
+            const value = normalizedOptions.value[sectionIndex].options[optionIndex].value;
+            const foundIndex = props.selected.indexOf(value);
+            if (props.allowMultiple) {
+                const newSelection =
+                    foundIndex === -1
+                        ? [value, ...props.selected]
+                        : [
+                            ...props.selected.slice(0, foundIndex),
+                            ...props.selected.slice(foundIndex + 1, props.selected.length),
+                        ];
+
+                selectedValue.value = newSelection;
+                emit('change', newSelection);
+                return;
             }
-        },
-        computed: {
-            optionListId() {
-                if (!this.id) {
-                    return `Polaris-OptionList-${this.uuid}`;
-                }
-                return this.id;
-            },
-            normalizedOptions() {
-                if (this.options == null) {
-                    return this.sections == null ? [] : [{options: [], title: this.title}, ...this.sections];
-                }
-
-                if (this.sections == null) {
-                    return [{title: this.title, options: this.options}];
-                }
-
-                return [{title: this.title, options: this.options}, ...this.sections];
-            },
-            uuid() {
-                return uuid();
-            },
-        },
-        methods: {
-            handleClick(sectionIndex, optionIndex) {
-                if (typeof sectionIndex === 'number' && typeof optionIndex === 'number') {
-                    const selectedValue = this.normalizedOptions[sectionIndex].options[optionIndex].value;
-                    const foundIndex = this.selected.indexOf(selectedValue);
-                    if (this.allowMultiple) {
-                        const newSelection =
-                            foundIndex === -1
-                                ? [selectedValue, ...this.selected]
-                                : [
-                                    ...this.selected.slice(0, foundIndex),
-                                    ...this.selected.slice(foundIndex + 1, this.selected.length),
-                                ];
-
-                        this.selectedValue = newSelection;
-                        this.$emit('change', newSelection);
-                        return;
-                    }
-                    this.selectedValue = [selectedValue];
-                    /**
-                     *
-                     * Method to handle change event
-                     */
-                    this.$emit('change', [selectedValue]);
-                }
-            },
-            handleSelectedObject(option) {
-                /**
-                 * Method to handle click event. This event will provide the selected option.
-                 */
-                this.$emit('click', JSON.parse(JSON.stringify(this.selectedValue)), option)
-            }
-        },
-        created() {
-            this.optionsExist = this.normalizedOptions.length > 0;
+            selectedValue.value = [value];
+            /**
+             *
+             * Method to handle change event
+             */
+            emit('change', [value]);
         }
     }
+
+    function handleSelectedObject(option) {
+        /**
+         * Method to handle click event. This event will provide the selected option.
+         */
+        emit('click', JSON.parse(JSON.stringify(selectedValue.value)), option)
+    }
+
+    onMounted(() => {
+        optionsExist.value = normalizedOptions.value.length > 0;
+    });
 </script>

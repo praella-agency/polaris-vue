@@ -38,24 +38,17 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import { PStack } from '../../../../components/PStack';
     import { PStackItem } from '../../../../components/PStack/components/PStackItem';
-    import { PButtonGroup } from '../../../../components/PButtonGroup';
     import { PButton } from '../../../../components/PButton';
 
-    export default {
-        name: 'PModalFooter',
-        components: {
-            PStack, PStackItem, PButtonGroup, PButton,
+    let props = defineProps({
+        primaryAction: {
+            type: Object,
         },
-        props: {
-            primaryAction: {
-                type: Object,
-            },
-            secondaryActions: {
-                type: Array,
-            },
+        secondaryActions: {
+            type: Array,
         },
-    }
+    });
 </script>

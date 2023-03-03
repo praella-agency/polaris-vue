@@ -8,7 +8,7 @@
             :checked="checked"
             :disabled="disabled"
             class="Polaris-OptionList-Checkbox__Input"
-            @change="$emit('change', $event)"/>
+            @change="emit('change', $event)"/>
         <div class="Polaris-OptionList-Checkbox__Backdrop"></div>
         <div class="Polaris-OptionList-Checkbox__Icon">
             <PIcon source="TickSmallMinor"/>
@@ -16,43 +16,37 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
     import { PIcon } from '../../../../components/PIcon';
 
-    export default {
-        name: 'POptionsListCheckbox',
-        components: {
-            PIcon,
+    let props = defineProps({
+        id: {
+            type: [String, Number],
         },
-        props: {
-            id: {
-                type: [String, Number],
-            },
-            value: {
-                type: String,
-            },
-            name: {
-                type: String,
-            },
-            active: {
-                type: Boolean,
-            },
-            disabled: {
-                type: Boolean,
-            },
-            checked: {
-                type: Boolean,
-            },
+        value: {
+            type: String,
         },
-        emits: ['change'],
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-OptionList-Checkbox',
-                    this.active && 'Polaris-OptionList-Checkbox--active',
-                );
-            }
+        name: {
+            type: String,
         },
-    }
+        active: {
+            type: Boolean,
+        },
+        disabled: {
+            type: Boolean,
+        },
+        checked: {
+            type: Boolean,
+        },
+    });
+    const emit = defineEmits(['change']);
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-OptionList-Checkbox',
+            props.active && 'Polaris-OptionList-Checkbox--active',
+        );
+    });
 </script>

@@ -5,19 +5,11 @@
     </component>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames, variationName } from '../../utilities/css';
     import StringValidator from '../../utilities/validators/StringValidator';
-
-    const Variation = ['positive', 'negative', 'strong', 'subdued', 'code'];
-
-    const VariationValue = {
-        Positive: 'positive',
-        Negative: 'negative',
-        Strong: 'strong',
-        Subdued: 'subdued',
-        Code: 'code',
-    }
+    import { Variation, VariationValue } from '../variables';
 
     function variationElement(variation) {
         if (['positive', 'negative', 'strong', 'subdued', 'code', null].indexOf(variation) !== -1) {
@@ -31,27 +23,25 @@
      *  sans-serif;">Text style enhances text with additional visual meaning. For example, using subdued text to
      *  de-emphasize it from its surrounding text.</h4>
      */
-    export default {
-        name: 'PTextStyle',
-        props: {
-            /**
-             * Give text additional visual meaning.
-             */
-            variation: {
-                type: String,
-                default: null,
-                ...StringValidator('variation', Variation)
-            },
+
+    let props = defineProps({
+        /**
+         * Give text additional visual meaning.
+         */
+        variation: {
+            type: String,
+            default: null,
+            ...StringValidator('variation', Variation)
         },
-        computed: {
-            className() {
-                return classNames(
-                    this.variation && `Polaris-TextStyle--${variationName('variation', this.variation)}`,
-                );
-            },
-            element() {
-                return variationElement(this.variation);
-            }
-        },
-    }
+    });
+
+    let className = computed(() => {
+        return classNames(
+            props.variation && `Polaris-TextStyle--${variationName('variation', props.variation)}`,
+        );
+    });
+
+    let element = computed(() => {
+        return variationElement(props.variation);
+    });
 </script>

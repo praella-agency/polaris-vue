@@ -1,32 +1,27 @@
 <template>
-    <button :class="className" @click="$emit('click', $event)">
+    <button :class="className" @click="emit('click', $event)">
         <PIcon source="MobileCancelMajor" color="base"/>
     </button>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
     import { PIcon } from '../../../../components/PIcon';
 
-    export default {
-        name: 'PModalCloseButton',
-        components: {
-            PIcon,
+    let props = defineProps({
+        title: {
+            type: Boolean,
+            default: true,
         },
-        props: {
-            title: {
-                type: Boolean,
-                default: true,
-            },
-        },
-        emits: ['click'],
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Modal-CloseButton',
-                    !this.title && 'Polaris-Modal-CloseButton--withoutTitle',
-                );
-            },
-        },
-    }
+    });
+
+    const emit = defineEmits(['click']);
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Modal-CloseButton',
+            !props.title && 'Polaris-Modal-CloseButton--withoutTitle',
+        );
+    });
 </script>

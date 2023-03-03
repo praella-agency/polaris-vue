@@ -13,62 +13,55 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { onMounted, ref } from 'vue';
     import { PTab } from '../../../../components/PTabs/components/PTab';
-    import { TabDescriptor } from '../../../../types/tabs';
     import { PEventListener } from '../../../../components/PEventListener';
 
-    export default {
-        name: 'PTabMeasurer',
-        components: {
-            PTab, PEventListener,
+    let props = defineProps({
+        tabToFocus: {
+            type: Number,
+            default: 0,
         },
-        props: {
-            tabToFocus: {
-                type: Number,
-                default: 0,
-            },
-            siblingTabHasFocus: {
-                type: Boolean,
-                default: false,
-            },
-            selected: {
-                type: Number,
-                default: 0,
-            },
-            tabs: {
-                type: Array,
-                default: () => ([]),
-            },
+        siblingTabHasFocus: {
+            type: Boolean,
+            default: false,
         },
-        data() {
-            return {
-                animationFrame: Number,
-            };
+        selected: {
+            type: Number,
+            default: 0,
         },
-        emits: ['handleMeasurement'],
-        methods: {
-            handleMeasurement() {
-                if (this.animationFrame) {
-                    cancelAnimationFrame(this.animationFrame);
-                }
+        tabs: {
+            type: Array,
+            default: () => ([]),
+        },
+    });
 
-                this.animationFrame = requestAnimationFrame(() => {
-                    const containerWidth = (this.$refs.containerNode).offsetWidth;
-                    const hiddenTabNodes = (this.$refs.containerNode).children;
-                    const hiddenTabNodesArray = Array.from(hiddenTabNodes);
-                    hiddenTabNodesArray.shift();
-                    const hiddenTabWidths = hiddenTabNodesArray.map((node) => {
-                        return Math.ceil(node.getBoundingClientRect().width);
-                    });
-                    const disclosureWidth = hiddenTabWidths.pop() || 0;
+    const emit = defineEmits(['handleMeasurement']);
+    let animationFrame = Number;
+    let containerNode = ref(null);
 
-                    this.$emit('handleMeasurement', containerWidth, disclosureWidth, hiddenTabWidths);
-                });
-            },
-        },
-        mounted() {
-            this.handleMeasurement();
-        },
+    function handleMeasurement() {
+        if (animationFrame) {
+            cancelAnimationFrame(animationFrame);
+        }
+
+        animationFrame = requestAnimationFrame(() => {
+            const containerWidth = (containerNode).offsetWidth;
+            const hiddenTabNodes = (containerNode).children;
+            const hiddenTabNodesArray = Array.from(hiddenTabNodes);
+            hiddenTabNodesArray.shift();
+            const hiddenTabWidths = hiddenTabNodesArray.map((node) => {
+                return Math.ceil(node.getBoundingClientRect().width);
+            });
+            const disclosureWidth = hiddenTabWidths.pop() || 0;
+
+            emit('handleMeasurement', containerWidth, disclosureWidth, hiddenTabWidths);
+        });
     }
+
+    onMounted(() => {
+        containerNode = containerNode.value;
+        handleMeasurement();
+    })
 </script>

@@ -15,8 +15,8 @@
     </div>
 </template>
 
-<script>
-    import { hasSlot } from '../../ComponentHelpers';
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
 
@@ -26,53 +26,47 @@
      *  sans-serif;">Footer help is used to refer merchants to more information related to the product or feature they’re
      *  using.</h4>
      */
-    export default {
-        name: 'PFooterHelp',
-        components: {
-            PIcon,
+
+    let props = defineProps({
+        /**
+         * Id for the element
+         */
+        id: {
+            type: [String, Number],
+            default: null,
         },
-        props: {
-            /**
-             * Id for the element
-             */
-            id: {
-                type: [String, Number],
-                default: null,
-            },
-            /**
-             * Url for the footer
-             */
-            url: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Set to for router link
-             */
-            to: {
-                type: [String, Object],
-            },
-            /**
-             * Makes the link open in a new tab.
-             */
-            external: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Makes the link color the same as the current text color and adds an underline.
-             */
-            monochrome: {
-                type: Boolean,
-                default: false,
-            },
+        /**
+         * Url for the footer
+         */
+        url: {
+            type: String,
+            default: null,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-FooterHelp',
-                );
-            },
+        /**
+         * Set to for router link
+         */
+        to: {
+            type: [String, Object],
         },
-    }
+        /**
+         * Makes the link open in a new tab.
+         */
+        external: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Makes the link color the same as the current text color and adds an underline.
+         */
+        monochrome: {
+            type: Boolean,
+            default: false,
+        },
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-FooterHelp',
+        );
+    });
 </script>

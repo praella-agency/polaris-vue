@@ -8,12 +8,11 @@
     </component>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames, variationName } from '../../utilities/css';
     import StringValidator from '../../utilities/validators/StringValidator';
-
-    const Size = ['small', 'medium', 'large', 'extraLarge'];
-    const HeadingTagName = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span'];
+    import { DisplayTextSize, HeadingTagName } from '../variables'
 
     /**
      * <br/>
@@ -23,34 +22,30 @@
      *  capture attention during onboarding.</h4>
      */
 
-    export default {
-        name: 'PDisplayText',
-        props: {
-            /**
-             * Size of the text
-             */
-            size: {
-                type: String,
-                default: 'medium',
-                ...StringValidator('size', Size)
-            },
+    let props = defineProps({
+        /**
+         * Size of the text
+         */
+        size: {
+            type: String,
+            default: 'medium',
+            ...StringValidator('size', DisplayTextSize)
+        },
 
-            /**
-             * Element of text
-             */
-            element: {
-                type: String,
-                default: 'p',
-                ...StringValidator('element', HeadingTagName)
-            },
+        /**
+         * Element of text
+         */
+        element: {
+            type: String,
+            default: 'p',
+            ...StringValidator('element', HeadingTagName)
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-DisplayText',
-                    this.size && `Polaris-DisplayText--${variationName('size', this.size)}`,
-                );
-            }
-        },
-    }
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-DisplayText',
+            props.size && `Polaris-DisplayText--${variationName('size', props.size)}`,
+        );
+    });
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="Polaris-FormLayout" :id="props.id">
+    <div class="Polaris-FormLayout" :id="id">
         <slot />
     </div>
 </template>

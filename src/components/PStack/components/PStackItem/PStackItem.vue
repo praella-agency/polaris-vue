@@ -5,7 +5,8 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
 
     /**
@@ -15,37 +16,35 @@
      *  default, each individual element is treated as one stack item. Use the fill prop on a single stack item component to
      *  make it fill the rest of the available horizontal space.</h4>
      */
-    export default {
-        name: 'PStackItem',
-        props: {
-            /**
-             * Fill the available horizontal space in the stack with the item.
-             */
-            fill: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Width of Item.
-             */
-            width: {
-                type: [String, Number],
-            }
+
+    let props = defineProps({
+        /**
+         * Fill the available horizontal space in the stack with the item.
+         */
+        fill: {
+            type: Boolean,
+            default: false,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Stack__Item',
-                    this.fill && 'Polaris-Stack__Item--fill',
-                );
-            },
-            style() {
-                if (this.width) {
-                    return {width: /^\d+$/.test(this.width) ? this.width + 'px' : this.width};
-                } else {
-                    return null;
-                }
-            },
-        },
-    }
+        /**
+         * Width of Item.
+         */
+        width: {
+            type: [String, Number],
+        }
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Stack__Item',
+            props.fill && 'Polaris-Stack__Item--fill',
+        );
+    });
+
+    let style = computed(() => {
+        if (props.width) {
+            return {width: /^\d+$/.test(props.width) ? `${props.width}px` : props.width};
+        } else {
+            return null;
+        }
+    });
 </script>

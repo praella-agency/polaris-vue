@@ -4,27 +4,24 @@
     </section>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
 
-    export default {
-        name: 'PModalSection',
-        props: {
-            flush: {
-                type: Boolean,
-            },
-            subdued: {
-                type: Boolean,
-            },
+    let props = defineProps({
+        flush: {
+            type: Boolean,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Modal-Section',
-                    this.flush && 'Polaris-Modal-Section--flush',
-                    this.subdued && 'Polaris-Modal-Section--subdued',
-                );
-            },
+        subdued: {
+            type: Boolean,
         },
-    }
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Modal-Section',
+            props.flush && 'Polaris-Modal-Section--flush',
+            props.subdued && 'Polaris-Modal-Section--subdued',
+        );
+    });
 </script>

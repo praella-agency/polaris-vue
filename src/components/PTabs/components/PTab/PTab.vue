@@ -6,7 +6,7 @@
             type="button"
             :tabIndex="tabIndex"
             :class="className"
-            @click="$emit('click', id, $event)"
+            @click="emit('click', id, $event)"
         >
             <span :class="tabTitleClassNames">
                 {{ content }}
@@ -23,7 +23,7 @@
             :target="external ? '_blank' : ''"
             :tabIndex="tabIndex"
             :class="className"
-            @click="$emit('click', id, $event)"
+            @click="emit('click', id, $event)"
         >
             <span :class="tabTitleClassNames">
                 {{ content }}
@@ -40,7 +40,7 @@
             :exact-active-class="activeClass"
             :class="className"
             :to="to"
-            @click.native="$emit('click', id, $event)"
+            @click.native="emit('click', id, $event)"
         >
             <span :class="tabTitleClassNames">
                 {{ content }}
@@ -52,87 +52,76 @@
     </li>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
     import { PBadge } from '../../../../components/PBadge';
 
-    const Badge = {
-        content: String,
-        status: String,
-        progress: String,
-        background: String,
-        color: String,
-        size: String,
-    }
+    let props = defineProps({
+        id: {
+            type: [String, Number],
+        },
+        focused: {
+            type: Boolean,
+        },
+        selected: {
+            type: Boolean,
+        },
+        to: {
+            type: [String, Object],
+        },
+        url: {
+            type: String,
+        },
+        content: {
+            type: String,
+            default: null,
+        },
+        external: {
+            type: Boolean,
+        },
+        activeClass: {
+            type: String,
+            default: 'Polaris-Tabs__Tab--selected',
+        },
+        badge: {
+            type: Object,
+            default: () => ({}),
+        },
+        siblingTabHasFocus: {
+            type: Boolean,
+            default: false,
+        },
+    });
 
-    export default {
-        name: 'PTab',
-        components: {
-            PBadge,
-        },
-        props: {
-            id: {
-                type: [String, Number],
-            },
-            focused: {
-                type: Boolean,
-            },
-            selected: {
-                type: Boolean,
-            },
-            to: {
-                type: [String, Object],
-            },
-            url: {
-                type: String,
-            },
-            content: {
-                type: String,
-                default: null,
-            },
-            external: {
-                type: Boolean,
-            },
-            activeClass: {
-                type: String,
-                default: 'Polaris-Tabs__Tab--selected',
-            },
-            badge: {
-                type: Object,
-                default: () => ({}),
-            },
-            siblingTabHasFocus: {
-                type: Boolean,
-                default: false,
-            },
-        },
-        emits: ['click'],
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Tabs__Tab',
-                    this.selected && `Polaris-Tabs__Tab--selected`,
-                );
-            },
-            tabContainerClassNames() {
-                return classNames(
-                    'Polaris-Tabs__TabContainer',
-                );
-            },
-            tabTitleClassNames() {
-                return classNames(
-                    'Polaris-Tabs__Title',
-                    this.selected && 'Polaris-Tab__Tab--selected-title',
-                );
-            },
-            tabIndex() {
-                if (this.selected && !this.siblingTabHasFocus) {
-                    return 0;
-                } else if (this.focused) {
-                    return 0;
-                }
-                return -1;
-            },
-        },
-    }
+    let emit = defineEmits(['click']);
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Tabs__Tab',
+            props.selected && `Polaris-Tabs__Tab--selected`,
+        );
+    });
+
+    let tabContainerClassNames = computed(() => {
+        return classNames(
+            'Polaris-Tabs__TabContainer',
+        );
+    });
+
+    let tabTitleClassNames = computed(() => {
+        return classNames(
+            'Polaris-Tabs__Title',
+            props.selected && 'Polaris-Tab__Tab--selected-title',
+        );
+    });
+
+    let tabIndex = computed(() => {
+        if (props.selected && !props.siblingTabHasFocus) {
+            return 0;
+        } else if (props.focused) {
+            return 0;
+        }
+        return -1;
+    });
 </script>

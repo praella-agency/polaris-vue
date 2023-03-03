@@ -10,31 +10,28 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
 
-    export default {
-        name: 'PModalDialog',
-        props: {
-            large: {
-                type: Boolean,
-            },
-            small: {
-                type: Boolean,
-            },
-            limitHeight: {
-                type: Boolean,
-            },
+    let props = defineProps({
+        large: {
+            type: Boolean,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Modal-Dialog__Modal',
-                    this.large && ' Polaris-Modal-Dialog--sizeLarge',
-                    this.small && 'Polaris-Modal-Dialog--sizeSmall',
-                    this.limitHeight && 'Polaris-Modal-Dialog--limitHeight',
-                );
-            },
+        small: {
+            type: Boolean,
         },
-    }
+        limitHeight: {
+            type: Boolean,
+        },
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Modal-Dialog__Modal',
+            props.large && ' Polaris-Modal-Dialog--sizeLarge',
+            props.small && 'Polaris-Modal-Dialog--sizeSmall',
+            props.limitHeight && 'Polaris-Modal-Dialog--limitHeight',
+        );
+    });
 </script>

@@ -18,43 +18,40 @@
     </PPositionedOverlay>
 </template>
 
-<script>
+<script setup>
+    import { onBeforeUnmount } from 'vue';
     import { PPositionedOverlay } from '../../../../components/PPopover/components/PPositionedOverlay';
-    import utils from '../../../../utilities';
 
-    export default {
-        name: 'PPopoverOverlay',
-        components: {
-            PPositionedOverlay,
+    let props = defineProps({
+        id: {
+            type: [String, Number],
         },
-        props: {
-            id: {
-                type: [String, Number],
-            },
-            active: {
-                type: Boolean,
-            },
-            preventAutoFocus: {
-                type: Boolean,
-            },
-            preferredAlignment: {
-                type: String,
-            },
-            preferredPosition: {
-                type: String,
-            },
-            sectioned: {
-                type: Boolean,
-            },
-            fullWidth: {
-                type: Boolean,
-            },
-            activatorId: {
-                type: String,
-            },
+        active: {
+            type: Boolean,
         },
-        [utils.beforeDestroy]() {
-            this.$emit('close');
-        }
-    }
+        preventAutoFocus: {
+            type: Boolean,
+        },
+        preferredAlignment: {
+            type: String,
+        },
+        preferredPosition: {
+            type: String,
+        },
+        sectioned: {
+            type: Boolean,
+        },
+        fullWidth: {
+            type: Boolean,
+        },
+        activatorId: {
+            type: String,
+        },
+    });
+
+    const emit = defineEmits(['close']);
+
+    onBeforeUnmount(() => {
+        emit('close');
+    });
 </script>

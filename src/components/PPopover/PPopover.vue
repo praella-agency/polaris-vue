@@ -53,6 +53,7 @@
      * cluttering the page.</h4>
      */
 
+    // PopOverRef id
     let props = defineProps({
         /**
          * Id for the PPopover.
@@ -140,7 +141,7 @@
         },
     });
 
-    let emits = defineEmits(['click', 'keyup', 'close', 'update:active', 'activate']);
+    let emit = defineEmits(['click', 'keyup', 'close', 'update:active', 'activate']);
     let activeStatus = ref(props.active);
     let container = ref(HTMLElement);
     let popoverContainer = ref(null);

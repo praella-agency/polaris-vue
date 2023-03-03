@@ -20,71 +20,68 @@
     </button>
 </template>
 
-<script>
-  import { classNames } from '../../utilities/css';
-  import { PUnstyledLink } from '../../components/PUnstyledLink';
-  import { PIcon } from '../../components/PIcon';
+<script setup>
+    import { computed } from 'vue';
+    import { classNames } from '../../utilities/css';
+    import { PUnstyledLink } from '../../components/PUnstyledLink';
+    import { PIcon } from '../../components/PIcon';
 
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
      *  sans-serif;">Links take users to another place, and usually appear within or directly following a sentence.</h4>
      */
-    export default {
-        name: 'PLink',
-        components: {
-          PUnstyledLink, PIcon,
+
+    let props = defineProps({
+        /**
+         * ID for the link.
+         */
+        id: {
+            type: [String, Number],
+            default: null,
         },
-        props: {
-            /**
-             * ID for the link.
-             */
-            id: {
-                type: [String, Number],
-                default: null,
-            },
-            /**
-             * The url to link to.
-             */
-            url: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Set to for router link
-             */
-            to: {
-                type: [String, Object],
-                default: null,
-            },
-            /**
-             * Makes the link open in a new tab.
-             */
-            external: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Makes the link color the same as the current text color and adds an underline.
-             */
-            monochrome: {
-                type: Boolean,
-                default: false,
-            },
+        /**
+         * The url to link to.
+         */
+        url: {
+            type: String,
+            default: null,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Link',
-                    this.monochrome && 'Polaris-Link--monochrome',
-                );
-            },
-            isStringSlot() {
-                return this.external;
-            },
-            listeners() {
-                return {};
-            }
+        /**
+         * Set to for router link
+         */
+        to: {
+            type: [String, Object],
+            default: null,
         },
-    }
+        /**
+         * Makes the link open in a new tab.
+         */
+        external: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Makes the link color the same as the current text color and adds an underline.
+         */
+        monochrome: {
+            type: Boolean,
+            default: false,
+        },
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Link',
+            props.monochrome && 'Polaris-Link--monochrome',
+        );
+    });
+
+    let isStringSlot = computed(() => {
+        return props.external;
+    });
+
+    let listeners = computed(() => {
+        return {};
+    });
 </script>

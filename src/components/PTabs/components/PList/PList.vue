@@ -2,7 +2,7 @@
     <ul
         class="Polaris-Tabs__List"
         @keydown="handleKeyDown"
-        @keyup="$emit('keypress', event)"
+        @keyup="emit('keypress', event)"
     >
         <PItem
             v-for="(disclosureTab, index) in disclosureTabs"
@@ -10,41 +10,35 @@
             :id="disclosureTab.id"
             v-bind="disclosureTab"
             :focused="index === focusIndex"
-            @click="$emit('click', disclosureTab.id)"
+            @click="emit('click', disclosureTab.id)"
         >
             {{ disclosureTab.content }}
         </PItem>
     </ul>
 </template>
 
-<script>
+<script setup>
     import { PItem } from '../../../../components/PTabs/components/PItem';
 
-    export default {
-        name: 'PList',
-        components: {
-            PItem,
+    let props = defineProps({
+        focusIndex: {
+            type: Number,
+            default: 0,
         },
-        props: {
-            focusIndex: {
-                type: Number,
-                default: 0,
-            },
-            disclosureTabs: {
-                type: Array,
-                default: () => ([]),
-            },
+        disclosureTabs: {
+            type: Array,
+            default: () => ([]),
         },
-        emits: ['keypress', 'click'],
-        methods: {
-            handleKeyDown(event) {
-                const {key} = event;
+    });
 
-                if (key === 'ArrowLeft' || key === 'ArrowRight') {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-            },
-        },
+    const emit = defineEmits(['keypress', 'click']);
+
+    function handleKeyDown(event) {
+        const {key} = event;
+
+        if (key === 'ArrowLeft' || key === 'ArrowRight') {
+            event.preventDefault();
+            event.stopPropagation();
+        }
     }
 </script>

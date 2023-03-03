@@ -2,12 +2,12 @@
     <div>
         <div v-if="open">
             <PModalDialog :large="large" :small="small" :limitHeight="limitHeight">
-                <PModalHeader v-if="title || hasSlot($slots.title)" @close="handleOnClick">
+                <PModalHeader v-if="title || hasSlot(slots.title)" @close="handleOnClick">
                     <slot name="title">
                         {{ title }}
                     </slot>
                 </PModalHeader>
-                <PModalCloseButton v-else :title="false" @click="$emit('close', $event)"/>
+                <PModalCloseButton v-else :title="false" @click="emit('close', $event)"/>
                 <div class="Polaris-Modal__BodyWrapper">
                     <iframe v-if="src" :name="iFrameName" :src="src" @load="handleIFrameLoad"
                             class="Polaris-Modal__IFrame" :style="{height: `${iframeHeight}px`}"/>
@@ -30,11 +30,11 @@
                         </template>
                     </div>
                 </div>
-                <PModalFooter v-if="hasSlot($slots.footer)">
+                <PModalFooter v-if="hasSlot(slots.footer)">
                     <!-- @slot The content to display inside modal footer -->
                     <slot name="footer"/>
                 </PModalFooter>
-                <PModalFooter v-if="!hasSlot($slots.footer) && (Object.keys(primaryAction).length > 0
+                <PModalFooter v-if="!hasSlot(slots.footer) && (Object.keys(primaryAction).length > 0
                                       || secondaryActions)"
                               :primaryAction="primaryAction" :secondaryActions="secondaryActions">
                 </PModalFooter>
@@ -44,7 +44,8 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { ref, useSlots } from 'vue';
     import { hasSlot } from '../../ComponentHelpers';
     import { PSpinner } from '../../components/PSpinner';
     import { PModalDialog } from '../../components/PModal/components/PModalDialog';
@@ -60,121 +61,110 @@
      *  specific action is taken. They can be disruptive because they require merchants to take an action before they can
      *  continue interacting with the rest of Shopify. It should be used thoughtfully and sparingly.</h4>
      */
-    export default {
-        name: 'PModal',
-        components: {
-            PSpinner, PModalDialog, PModalHeader, PModalFooter, PModalSection, PModalCloseButton,
+
+    let props = defineProps({
+        /**
+         * Set it true to make it large.
+         */
+        large: {
+            type: Boolean,
+            default: false,
         },
-        props: {
-            /**
-             * Set it true to make it large.
-             */
-            large: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Set it true to limits modal height on large screens with scrolling.
-             */
-            limitHeight: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Replaces modal content with a spinner while a background action is being performed.
-             */
-            loading: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Whether the modal is open or not
-             */
-            open: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Automatically adds sections to modal.
-             */
-            sectioned: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * The url that will be loaded as the content of the modal.
-             */
-            src: {
-                type: String,
-                default: null,
-            },
-            /**
-             * The name of the modal content iframe.
-             */
-            iFrameName: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Primary Action.
-             */
-            primaryAction: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * Secondary Action.
-             */
-            secondaryActions: {
-                type: [Array, String],
-                default: null,
-            },
-            /**
-             * The content for the title of modal.
-             */
-            title: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Decreases the modal width
-             */
-            small: {
-                type: Boolean,
-                default: false,
-            },
+        /**
+         * Set it true to limits modal height on large screens with scrolling.
+         */
+        limitHeight: {
+            type: Boolean,
+            default: false,
         },
-        emits: ['close'],
-        data() {
-            return {
-                iframeHeight: 200,
-            };
+        /**
+         * Replaces modal content with a spinner while a background action is being performed.
+         */
+        loading: {
+            type: Boolean,
+            default: false,
         },
-        computed: {
-            hasSlot() {
-                return hasSlot;
-            },
+        /**
+         * Whether the modal is open or not
+         */
+        open: {
+            type: Boolean,
+            default: false,
         },
-        methods: {
-            setIframeHeight(height) {
-                this.iframeHeight = height;
-            },
-            handleIFrameLoad(evt) {
-                const iframe = evt.target;
-                if (iframe && iframe.contentWindow) {
-                    try {
-                        this.setIframeHeight(iframe.contentWindow.document.body.scrollHeight);
-                    } catch {
-                        this.setIframeHeight(200);
-                    }
-                }
-            },
-            handleOnClick($event) {
-                /**
-                 * Method to handle on close event
-                 */
-                this.$emit('close', $event);
-            },
+        /**
+         * Automatically adds sections to modal.
+         */
+        sectioned: {
+            type: Boolean,
+            default: false,
         },
+        /**
+         * The url that will be loaded as the content of the modal.
+         */
+        src: {
+            type: String,
+            default: null,
+        },
+        /**
+         * The name of the modal content iframe.
+         */
+        iFrameName: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Primary Action.
+         */
+        primaryAction: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Secondary Action.
+         */
+        secondaryActions: {
+            type: [Array, String],
+            default: null,
+        },
+        /**
+         * The content for the title of modal.
+         */
+        title: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Decreases the modal width
+         */
+        small: {
+            type: Boolean,
+            default: false,
+        },
+    });
+
+    const emit = defineEmits(['close']);
+    let slots = useSlots();
+    let iframeHeight = ref(200);
+
+    function setIframeHeight(height) {
+        iframeHeight.value = height;
+    }
+
+    function handleIFrameLoad(evt) {
+        const iframe = evt.target;
+        if (iframe && iframe.contentWindow) {
+            try {
+                setIframeHeight(iframe.contentWindow.document.body.scrollHeight);
+            } catch {
+                setIframeHeight(200);
+            }
+        }
+    }
+
+    function handleOnClick($event) {
+        /**
+         * Method to handle on close event
+         */
+        emit('close', $event);
     }
 </script>

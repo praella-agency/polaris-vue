@@ -5,14 +5,14 @@
                 <POptionsListCheckbox :id="id" :value="value" :checked="select" :active="active" :disabled="disabled"
                                       @change="handleEvent"/>
             </div>
-            <div v-if="hasSlot($slots.media)" class="Polaris-OptionList-Option__Media">
+            <div v-if="hasSlot(slots.media)" class="Polaris-OptionList-Option__Media">
                 <slot name="media"/>
             </div>
             <slot/>
         </label>
         <button v-else :id="id" type="button" :class="singleSelectClassName" @click="handleEvent"
                 @focus="focused = !focused" @blur="focused = !focused">
-            <div v-if="hasSlot($slots.media)" class="Polaris-OptionList-Option__Media">
+            <div v-if="hasSlot(slots.media)" class="Polaris-OptionList-Option__Media">
                 <slot name="media"/>
             </div>
             <slot/>
@@ -20,75 +20,64 @@
     </li>
 </template>
 
-<script>
+<script setup>
+    import { computed, ref, useSlots } from 'vue';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { POptionsListCheckbox } from '../../../../components/POptionList/components/POptionsListCheckbox';
 
-    export default {
-        name: 'POptionsListOption',
-        components: {
-            POptionsListCheckbox,
+    let props = defineProps({
+        id: {
+            type: [String, Number],
         },
-        props: {
-            id: {
-                type: [String, Number],
-            },
-            value: {
-                type: String,
-            },
-            section: {
-                type: Number,
-            },
-            index: {
-                type: Number,
-            },
-            disabled: {
-                type: Boolean,
-            },
-            active: {
-                type: Boolean,
-            },
-            select: {
-                type: Boolean,
-            },
-            allowMultiple: {
-                type: Boolean,
-            },
+        value: {
+            type: String,
         },
-        emits: ['selectedObject', 'click'],
-        data() {
-            return {
-                focused: false,
-            }
+        section: {
+            type: Number,
         },
-        computed: {
-            singleSelectClassName() {
-                return classNames(
-                    'Polaris-OptionList-Option__SingleSelectOption',
-                    this.disabled && 'Polaris-OptionList-Option--disabled',
-                    this.select && 'Polaris-OptionList-Option--select',
-                    this.active && 'Polaris-OptionList-Option--active',
-                    this.focused && 'Polaris-OptionList-Option--focused',
-                );
-            },
-            multiSelectClassName() {
-                return classNames(
-                    'Polaris-OptionList-Option__Label',
-                    this.disabled && 'Polaris-OptionList-Option--disabled',
-                    this.active && 'Polaris-OptionList-Option--active',
-                    this.select && 'Polaris-OptionList-Option--select',
-                );
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        index: {
+            type: Number,
         },
-        methods: {
-            handleEvent() {
-                this.$emit('click', this.section, this.index);
-                this.$emit('selectedObject');
-            }
-        }
+        disabled: {
+            type: Boolean,
+        },
+        active: {
+            type: Boolean,
+        },
+        select: {
+            type: Boolean,
+        },
+        allowMultiple: {
+            type: Boolean,
+        },
+    });
+
+    const emit = defineEmits(['selectedObject', 'click']);
+    let slots = useSlots();
+    let focused = ref(false);
+
+    let singleSelectClassName = computed(() => {
+        return classNames(
+            'Polaris-OptionList-Option__SingleSelectOption',
+            props.disabled && 'Polaris-OptionList-Option--disabled',
+            props.select && 'Polaris-OptionList-Option--select',
+            props.active && 'Polaris-OptionList-Option--active',
+            focused.value && 'Polaris-OptionList-Option--focused',
+        );
+    });
+
+    let multiSelectClassName = computed(() => {
+        return classNames(
+            'Polaris-OptionList-Option__Label',
+            props.disabled && 'Polaris-OptionList-Option--disabled',
+            props.active && 'Polaris-OptionList-Option--active',
+            props.select && 'Polaris-OptionList-Option--select',
+        );
+    });
+
+    function handleEvent() {
+        emit('click', props.section, props.index);
+        emit('selectedObject');
     }
 </script>
