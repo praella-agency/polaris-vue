@@ -10,7 +10,7 @@
                 <PButtonGroup v-if="actions" connectedTop>
                     <component
                         v-for="(action, key) in actions" :key="key"
-                        :is="(action.to ? 'PLink' : 'PButton')"
+                        :is="(action.to ? PLink : PButton)"
                         plain
                         :href="action.url ? action.url : null"
                         :to="action.to ? action.to : null"
@@ -20,60 +20,49 @@
                     </component>
                 </PButtonGroup>
             </PStackItem>
-            <PStackItem v-if="hasSlot($slots.children)">
+            <PStackItem v-if="isSlot(slots.children)">
                 <slot name="children"/>
             </PStackItem>
         </PStack>
         <PStack>
             <PStackItem>
         <span class="Polaris-Card__TagLine">
-            <template>
-              <slot name="short_description">
+            <slot name="short_description">
                 {{ shortDescription }}
-              </slot>
-            </template>
+            </slot>
         </span>
             </PStackItem>
         </PStack>
     </div>
 </template>
 
-<script>
-    import utils from '../../../../utilities';
+<script setup>
+    import { computed, useSlots } from 'vue';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { PStack } from '../../../../components/PStack';
     import { PStackItem } from '../../../../components/PStack/components/PStackItem';
     import { PHeading } from '../../../../components/PHeading';
     import { PButtonGroup } from '../../../../components/PButtonGroup';
-    import { PButton } from '../../../../components/PButton';
-    import { PLink } from '../../../../components/PLink';
+    import { PLink } from '../../../PLink';
+    import { PButton } from '../../../PButton';
 
-    export default {
-        name: 'PCardHeader',
-        components: {
-            PStack, PStackItem, PHeading, PButtonGroup, PButton, PLink,
+    let props = defineProps({
+        title: {
+            type: String,
+            default: null,
         },
-        props: {
-            title: {
-                type: String,
-                default: null,
-            },
-            shortDescription: {
-                type: String,
-                default: null,
-            },
-            actions: {
-                type: [Array, String],
-                default: null,
-            },
+        shortDescription: {
+            type: String,
+            default: null,
         },
-        computed: {
-            util() {
-                return utils;
-            },
-            hasSlot() {
-                return hasSlot;
-            },
-        }
-    }
+        actions: {
+            type: [Array, String],
+            default: null,
+        },
+    });
+    let slots = useSlots();
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
 </script>

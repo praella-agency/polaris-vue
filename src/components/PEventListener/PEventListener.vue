@@ -1,3 +1,6 @@
+<template>
+    <div></div>
+</template>
 <script setup>
     import { onMounted, onUnmounted, onUpdated } from 'vue';
 

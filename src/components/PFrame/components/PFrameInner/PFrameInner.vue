@@ -3,21 +3,21 @@
         id="PFrame"
         :class="className"
         :data-polaris-layer="true"
-        :data-has-navigation="hasSlot($slots.navigation) || Object.keys(this.navigation).length > 0"
+        :data-has-navigation="isSlot(slots.navigation) || Object.keys(navigation).length > 0"
     >
         <div :class="skipClassName">
             <a
                 ref="skipToContentTarget"
                 href="javascript.void(0)"
-                @focus="this.handleFocus"
-                @blur="this.handleBlur"
-                @click="this.handleClick"
+                @focus="handleFocus"
+                @blur="handleBlur"
+                @click="handleClick"
             >
                 Skip to content
             </a>
         </div>
         <div
-            v-if="hasSlot($slots.topBar) || Object.keys(topBar).length > 0"
+            v-if="isSlot(slots.topBar) || Object.keys(topBar).length > 0"
             class="Polaris-Frame__TopBar"
             :data-polaris-layer="true"
             :data-polaris-top-bar="true"
@@ -30,7 +30,7 @@
             </slot>
         </div>
         <div
-            v-if="hasSlot($slots.navigation) || Object.keys(this.navigation).length > 0"
+            v-if="isSlot(slots.navigation) || Object.keys(navigation).length > 0"
             class="Polaris-Frame__NavigationDisplay"
         >
             <transition
@@ -90,26 +90,26 @@
         <PBackdrop
             v-if="showMobileNavigation && useMediaQuery()"
             belowNavigation
-            @click="this.handleNavigationDismiss"
-            @touchStart="this.handleNavigationDismiss"
+            @click="handleNavigationDismiss"
+            @touchStart="handleNavigationDismiss"
         />
         <main
             class="Polaris-Frame__Main"
             :id="APP_FRAME_MAIN"
-            :data-has-global-ribbon="Boolean(hasSlot($slots.globalRibbon))"
+            :data-has-global-ribbon="Boolean(isSlot(slots.globalRibbon))"
         >
             <div class="Polaris-Frame__Content">
                 <slot/>
             </div>
         </main>
         <div
-            v-if="hasSlot($slots.globalRibbon)"
+            v-if="isSlot(slots.globalRibbon)"
             class="Polaris-Frame__GlobalRibbonContainer"
-            :ref="this.setGlobalRibbonContainer"
+            ref="globalRibbonContainer"
         >
             <slot name="globalRibbon"/>
         </div>
-        <PEventListener event="resize" :handler="this.handleResize"/>
+        <PEventListener event="resize" :handler="handleResize"/>
     </div>
 </template>
 
@@ -183,7 +183,7 @@
     let APP_FRAME_TOP_BAR = ref('AppFrameTopBar');
     let toggleMobileNavigation = ref(props.showMobileNavigation);
     let mobileNavHidden = ref(useMediaQuery() && !toggleMobileNavigation.value);
-    let mobileNavShowing =ref(useMediaQuery() && toggleMobileNavigation.value);
+    let mobileNavShowing = ref(useMediaQuery() && toggleMobileNavigation.value);
     let state = ref({
         skipFocused: false,
         globalRibbonHeight: 0,
@@ -191,7 +191,7 @@
         toastMessages: [],
         showContextualSaveBar: false,
     });
-    let globalRibbonContainer = ref(HTMLDivElement);
+    let globalRibbonContainer = ref(null);
     let skipToContentTarget = ref(null);
 
     let isSlot = computed(() => {
@@ -201,9 +201,9 @@
     let className = computed(() => {
         return classNames(
             'Polaris-Frame',
-            (isSlot(slots.navigation) || Object.keys(props.navigation).length > 0)
+            (hasSlot(slots.navigation) || Object.keys(props.navigation).length > 0)
             && 'Polaris-Frame--hasNav',
-            (isSlot(slots.topBar) || Object.keys(props.topBar).length > 0) && 'Polaris-Frame--hasTopBar',
+            (hasSlot(slots.topBar) || Object.keys(props.topBar).length > 0) && 'Polaris-Frame--hasTopBar',
         );
     });
 
@@ -239,12 +239,8 @@
         }
     });
 
-    function setGlobalRibbonContainer(node) {
-        globalRibbonContainer.value = node;
-    }
-
     function handleResize() {
-        if (isSlot(slots.globalRibbon)) {
+        if (hasSlot(slots.globalRibbon)) {
             setGlobalRibbonHeight();
         }
     }
@@ -259,7 +255,6 @@
     }
 
     function setGlobalRibbonHeight() {
-        const { globalRibbonContainer } = this;
         if (globalRibbonContainer) {
             state.value.globalRibbonHeight = globalRibbonContainer.offsetHeight;
             setGlobalRibbonRootProperty();
@@ -319,13 +314,14 @@
     }
 
     onMounted(() => {
+        globalRibbonContainer = globalRibbonContainer.value;
         skipToContentTarget = skipToContentTarget.value;
         window.addEventListener('resize', useMediaQuery);
         useMediaQuery();
 
         document.getElementById('PFrame').style.setProperty('--p-frame-offset', props.frameOffset);
         handleResize();
-        if (isSlot(slots.globalRibbon)) {
+        if (hasSlot(slots.globalRibbon)) {
             return;
         }
         setGlobalRibbonRootProperty();

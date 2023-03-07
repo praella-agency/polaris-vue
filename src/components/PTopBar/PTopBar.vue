@@ -88,29 +88,21 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { ref, computed, useSlots } from 'vue';
     import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { ThemeLogo, getWidth } from '../../types/logo';
     import { PIcon } from '../../components/PIcon';
-    import { PButton } from '../../components/PButton';
     import { PUnstyledLink } from '../../components/PUnstyledLink';
     import { PImage } from '../../components/PImage';
-    import { PTextField } from '../../components/PTextField';
     import { PActionList } from '../../components/PActionList';
-    import { PPopover } from '../../components/PPopover';
-    import { POptionList } from '../../components/POptionList';
-    import { PAvatar } from '../../components/PAvatar';
     import { PSearch } from '../../components/PTopBar/components/PSearch';
     import { PUserMenu } from '../../components/PTopBar/components/PUserMenu';
     import { PMenu } from '../../components/PTopBar/components/PMenu';
     import { PSearchField } from '../../components/PTopBar/components/PSearchField';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
-
-    const SearchResult = {
-        items: Array,
-        sections: Array,
-    }
+    import { SearchResult } from '../variables';
 
     /**
      * <br/>
@@ -118,138 +110,118 @@
      *  sans-serif;">The collapsible component is used to put long sections of information under a block that merchants
      *  can expand or collapse.</h4>
      */
-    export default {
-        name: 'PTopBar',
-        components: {
-            PSearch,
-            PIcon,
-            PButton,
-            PUnstyledLink,
-            PImage,
-            PTextField,
-            PPopover,
-            POptionList,
-            PAvatar,
-            PUserMenu,
-            PMenu,
-            PSearchField,
-            PActionList,
+
+    let props = defineProps({
+        /**
+         * Toggles whether or not a navigation component has been provided. Controls the presence of the mobile nav
+         * toggle button
+         */
+        showNavigationToggle: {
+            type: Boolean,
         },
-        props: {
-            /**
-             * Toggles whether or not a navigation component has been provided. Controls the presence of the mobile nav
-             * toggle button
-             */
-            showNavigationToggle: {
-                type: Boolean,
-            },
-            /**
-             * A boolean property indicating whether search results are currently visible
-             */
-            searchResultsVisible: {
-                type: Boolean,
-                default: true,
-            },
-            /**
-             * A callback function that handles hiding and showing mobile navigation
-             */
-            onNavigationToggle: {
-                type: Function,
-                default: null,
-            },
-            /**
-             * Whether or not the search results overlay has a visible backdrop
-             */
-            searchResultsOverlayVisible: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Customize logo
-             */
-            logo: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('logo', ThemeLogo),
-            },
-            /**
-             * Accepts a user component that is made available as a static member of the top bar component and renders as
-             * the primary menu
-             */
-            userMenu: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * Accepts a menu component that is made available as a static member of the top bar component
-             */
-            secondaryMenu: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * Accepts a search field component that is made available as a `TextField` static member of the top bar component
-             */
-            searchField: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * Accepts a search results component that is ideally composed of a card component containing a list of actionable
-             * search results
-             */
-            searchResult: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('searchResult', SearchResult),
-            },
+        /**
+         * A boolean property indicating whether search results are currently visible
+         */
+        searchResultsVisible: {
+            type: Boolean,
+            default: true,
         },
-        emits: ['searchFieldChange', 'searchResultsDismiss'],
-        data() {
-            return {
-                focused: false,
-                popoverActive: false,
-                searchFieldValue: Object.keys(this.searchField).length > 0 ? this.searchField.value : '',
-            };
+        /**
+         * A callback function that handles hiding and showing mobile navigation
+         */
+        onNavigationToggle: {
+            type: Function,
+            default: null,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-TopBar__LogoContainer',
-                    /* tslint:disable-next-line */
-                    (this.showNavigationToggle || hasSlot(this.$slots.searchField)) ?
-                        'Polaris-TopBar__LogoDisplayControl' :
-                        'Polaris-TopBar__LogoDisplayContainer',
-                );
-            },
-            iconClassName() {
-                return classNames(
-                    'Polaris-TopBar__NavigationIcon',
-                    this.focused && 'Polaris-TopBar__NavigationIcon Polaris-TopBar--focused',
-                );
-            },
-            width() {
-                return {
-                    width: getWidth(this.logo, 104),
-                };
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        /**
+         * Whether or not the search results overlay has a visible backdrop
+         */
+        searchResultsOverlayVisible: {
+            type: Boolean,
+            default: false,
         },
-        methods: {
-            handleSearchFieldChange(value) {
-                /**
-                 * A callback function that handles the search field value
-                 */
-                this.$emit('searchFieldChange', value);
-            },
-            handleSearchResultsDismiss() {
-                /**
-                 * A callback function that handles the dismissal of search results
-                 */
-                this.$emit('searchResultsDismiss');
-            },
+        /**
+         * Customize logo
+         */
+        logo: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('logo', ThemeLogo),
         },
+        /**
+         * Accepts a user component that is made available as a static member of the top bar component and renders as
+         * the primary menu
+         */
+        userMenu: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Accepts a menu component that is made available as a static member of the top bar component
+         */
+        secondaryMenu: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Accepts a search field component that is made available as a `TextField` static member of the top bar component
+         */
+        searchField: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Accepts a search results component that is ideally composed of a card component containing a list of actionable
+         * search results
+         */
+        searchResult: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('searchResult', SearchResult),
+        },
+    });
+
+    let emit = defineEmits(['searchFieldChange', 'searchResultsDismiss']);
+    let slots = useSlots();
+    let focused = ref(false);
+    let searchFieldValue = ref(Object.keys(props.searchField).length > 0 ? props.searchField.value : '');
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-TopBar__LogoContainer',
+            /* tslint:disable-next-line */
+            (props.showNavigationToggle || hasSlot(slots.searchField)) ? 'Polaris-TopBar__LogoDisplayControl' : 'Polaris-TopBar__LogoDisplayContainer',
+        );
+    });
+
+    let iconClassName = computed(() => {
+        return classNames(
+            'Polaris-TopBar__NavigationIcon',
+            focused.value && 'Polaris-TopBar__NavigationIcon Polaris-TopBar--focused',
+        );
+    });
+
+    let width = computed(() => {
+        return {
+            width: getWidth(props.logo, 104),
+        };
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    function handleSearchFieldChange(value) {
+        /**
+         * A callback function that handles the search field value
+         */
+        emit('searchFieldChange', value);
+    }
+
+    function handleSearchResultsDismiss() {
+        /**
+         * A callback function that handles the dismissal of search results
+         */
+        emit('searchResultsDismiss');
     }
 </script>

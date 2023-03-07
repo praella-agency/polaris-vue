@@ -29,7 +29,7 @@
                         <span class="Polaris-Indicator Polaris-Indicator--pulseIndicator"/>
                     </span>
                 </span>
-                <div v-if="this.new || this.badge || hasSlot($slots.badge)"
+                <div v-if="this.new || this.badge || isSlot(slots.badge)"
                      class="Polaris-Navigation__Badge">
                     <PBadge v-if="this.new" status="new" size="small">
                         New
@@ -83,8 +83,8 @@
     </li>
 </template>
 
-<script>
-    import utils from '../../../../utilities';
+<script setup>
+    import { ref, computed, useSlots, nextTick, onMounted, onUnmounted } from 'vue';
     import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PUnstyledLink } from '../../../../components/PUnstyledLink';
@@ -92,291 +92,283 @@
     import { PBadge } from '../../../../components/PBadge';
     import { PSecondary } from '../../../../components/PNavigation/components/PItem/components/PSecondary';
     import PItem from '../../../../components/PNavigation/components/PItem/PItem.vue';
+    import { MatchState } from '../../../variables';
 
-    const MatchState = {
-        MatchForced: 0,
-        MatchUrl: 1,
-        MatchPaths: 2,
-        Excluded: 3,
-        NoMatch: 4,
-    };
+    let props = defineProps({
+        icon: {
+            type: String,
+            default: null,
+        },
+        label: {
+            type: String,
+            default: null,
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        accessibilityLabel: {
+            type: String,
+            default: null,
+        },
+        selected: {
+            type: Boolean,
+            default: false,
+        },
+        exactMatch: {
+            type: Boolean,
+            default: false,
+        },
+        new: {
+            type: Boolean,
+            default: false,
+        },
+        badge: {
+            type: String,
+            default: null,
+        },
+        subNavigationItems: {
+            type: Array,
+            default: () => ([]),
+        },
+        secondaryAction: {
+            type: Object,
+            default: () => ({}),
+        },
+        /* Navigation Props */
+        location: {
+            type: String,
+            default: null,
+        },
+        onNavigationDismiss: {
+            type: Function,
+        },
+        // ItemURLDetails Props
+        url: {
+            type: String,
+            default: null,
+        },
+        to: {
+            type: [Object, String],
+            default: null,
+        },
+        matches: {
+            type: Boolean,
+            default: false,
+        },
+        excludePaths: {
+            type: Array,
+            default: null,
+        },
+        external: {
+            type: Boolean,
+            default: false,
+        },
+    });
 
-    export default {
-        name: 'PItem',
-        components: {
-            PUnstyledLink, PIcon, PBadge, PSecondary, PItem,
-        },
-        props: {
-            icon: {
-                type: String,
-                default: null,
-            },
-            label: {
-                type: String,
-                default: null,
-            },
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
-            accessibilityLabel: {
-                type: String,
-                default: null,
-            },
-            selected: {
-                type: Boolean,
-                default: false,
-            },
-            exactMatch: {
-                type: Boolean,
-                default: false,
-            },
-            new: {
-                type: Boolean,
-                default: false,
-            },
-            badge: {
-                type: String,
-                default: null,
-            },
-            subNavigationItems: {
-                type: Array,
-                default: () => ([]),
-            },
-            secondaryAction: {
-                type: Object,
-                default: () => ({}),
-            },
-            /* Navigation Props */
-            location: {
-                type: String,
-                default: null,
-            },
-            onNavigationDismiss: {
-                type: Function,
-            },
-            // ItemURLDetails Props
-            url: {
-                type: String,
-                default: null,
-            },
-            to: {
-                type: [Object, String],
-                default: null,
-            },
-            matches: {
-                type: Boolean,
-                default: false,
-            },
-            excludePaths: {
-                type: Array,
-                default: null,
-            },
-            external: {
-                type: Boolean,
-                default: false,
-            },
-        },
-        emits: ['click'],
-        data() {
-            return {
-                expanded: false,
-                keyFocused: false,
-                tabIndex: this.disabled ? -1 : 0,
-                isNavigationCollapsed: false,
-                secondaryNavigationId: `SecondaryNavigation${uuid()}`,
-                matchState: this.matchStateForItem({
-                    url: this.url,
-                    to: this.to,
-                    matches: this.matches,
-                    exactMatch: this.exactMatch,
-                    matchPaths: this.matchPaths,
-                    excludePaths: this.excludePaths,
-                }, this.location),
-                selectedOverride: !this.selected
-                    ? this.matchState === MatchState.MatchForced ||
-                    this.matchState === MatchState.MatchUrl ||
-                    this.matchState === MatchState.MatchPaths
-                    : this.selected,
-                matchingSubNavigationItems: this.subNavigationItems.filter((item) => {
-                    const subMatchState = this.matchStateForItem(item, this.location);
-                    return (
-                        subMatchState === MatchState.MatchForced ||
-                        subMatchState === MatchState.MatchUrl ||
-                        subMatchState === MatchState.MatchPaths
-                    );
-                }),
-            };
-        },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Navigation__ListItem',
-                    Object.keys(this.secondaryAction).length > 0 && 'Polaris-Navigation__ListItem--hasAction',
-                );
-            },
-            itemClassName() {
-                return classNames(
-                    'Polaris-Navigation__Item',
-                    this.disabled && 'Polaris-Navigation__Item--disabled',
-                    this.selected && this.subNavigationItems.length === 0 && 'Polaris-Navigation__Item--selected',
-                    this.showExpanded && 'Polaris-Navigation--subNavigationActive',
-                    this.keyFocused && 'Polaris-Navigation--keyFocused',
-                );
-            },
-            secondaryNavigationClassName() {
-                return classNames(
-                    'Polaris-Navigation__SecondaryNavigation',
-                    this.showExpanded && 'Polaris-Navigation--isExpanded',
-                    !this.icon && 'Polaris-Navigation__SecondaryNavigation--noIcon',
-                );
-            },
-            iconSlotClassName() {
-                if (this.hasSlot(this.$slots.icon)) {
-                    return 'Polaris-Navigation__Icon--slot';
-                }
-                return 'Polaris-Navigation__Icon';
-            },
-            childIsActive() {
-                return this.matchingSubNavigationItems.length > 0;
-            },
-            showExpanded() {
-                return this.selectedOverride || this.expanded || this.childIsActive;
-            },
-            longestMatch() {
-                if (this.subNavigationItems.length > 0) {
-                    return this.matchingSubNavigationItems.sort(
-                        /* tslint:disable-next-line */
-                        function ({url: firstUrl}, {url: secondUrl}) {
-                            if (firstUrl !== undefined && secondUrl !== undefined) {
-                                return secondUrl.length - firstUrl.length;
-                            }
-                            return 0;
-                        },
-                    )[0];
-                }
-            },
-            hasNewChild() {
-                if (this.subNavigationItems.length > 0) {
-                    return this.subNavigationItems.filter((subNavigationItem) => subNavigationItem.new).length > 0;
-                }
-            },
-            normalizeAriaAttributesForExpanded() {
-                if (this.subNavigationItems.length > 0) {
-                    return this.showExpanded;
-                }
-            },
-            normalizeAriaAttributesForControls() {
-                if (this.subNavigationItems.length > 0) {
-                    return this.secondaryNavigationId;
-                }
-            },
-            itemValue() {
-                return {
-                    icon: this.icon,
-                    label: this.label,
-                    disabled: this.disabled,
-                    accessibilityLabel: this.accessibilityLabel,
-                    selected: this.selected,
-                    exactMatch: this.exactMatch,
-                    new: this.new,
-                    badge: this.badge,
-                    subNavigationItems: this.subNavigationItems,
-                    secondaryAction: this.secondaryAction
-                };
-            },
-            hasSlot() {
-                return hasSlot;
-            },
-        },
-        methods: {
-            useMediaQuery() {
-                if (window.innerWidth <= 768) {
-                    this.isNavigationCollapsed = true;
-                } else {
-                    this.isNavigationCollapsed = false;
-                }
-            },
-            getClickHandler(event) {
-                const {currentTarget} = event;
+    let emit = defineEmits(['click']);
+    let slots = useSlots();
 
-                if ((currentTarget).getAttribute('href') === this.location) {
-                    event.preventDefault();
-                }
+    let expanded = ref(false);
+    let keyFocused = ref(false);
+    let tabIndex = ref(props.disabled ? -1 : 0);
+    let isNavigationCollapsed = ref(false);
+    let secondaryNavigationId = ref(`SecondaryNavigation${uuid()}`);
 
-                if (
-                    this.subNavigationItems &&
-                    this.subNavigationItems.length > 0 &&
-                    this.isNavigationCollapsed
-                ) {
-                    event.preventDefault();
-                    this.expanded = !this.expanded;
-                } else if (this.onNavigationDismiss !== undefined) {
-                    this.$nextTick(this.onNavigationDismiss());
-                    if (this.$emit('click')) {
-                        this.$emit('click');
+    let matchState = ref(matchStateForItem({
+        url: props.url,
+        to: props.to,
+        matches: props.matches,
+        exactMatch: props.exactMatch,
+        matchPaths: null,
+        excludePaths: props.excludePaths,
+    }, props.location));
+
+    let selectedOverride = ref(!props.selected
+        ? matchState.value === MatchState.MatchForced || matchState.value === MatchState.MatchUrl || matchState.value === MatchState.MatchPaths
+        : props.selected);
+
+    let matchingSubNavigationItems = ref(props.subNavigationItems.filter((item) => {
+        const subMatchState = matchStateForItem(item, props.location);
+        return ( subMatchState === MatchState.MatchForced || subMatchState === MatchState.MatchUrl || subMatchState === MatchState.MatchPaths );
+    }));
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Navigation__ListItem',
+            Object.keys(props.secondaryAction).length > 0 && 'Polaris-Navigation__ListItem--hasAction',
+        );
+    });
+
+    let childIsActive = computed(() => {
+        return matchingSubNavigationItems.value.length > 0;
+    });
+
+    let showExpanded = computed(() => {
+        return selectedOverride.value || expanded.value || childIsActive.value;
+    });
+
+    let itemClassName = computed(() => {
+        return classNames(
+            'Polaris-Navigation__Item',
+            props.disabled && 'Polaris-Navigation__Item--disabled',
+            props.selected && props.subNavigationItems.length === 0 && 'Polaris-Navigation__Item--selected',
+            showExpanded.value && 'Polaris-Navigation--subNavigationActive',
+            keyFocused.value && 'Polaris-Navigation--keyFocused',
+        );
+    });
+
+    let secondaryNavigationClassName = computed(() => {
+        return classNames(
+            'Polaris-Navigation__SecondaryNavigation',
+            showExpanded.value && 'Polaris-Navigation--isExpanded',
+            !props.icon && 'Polaris-Navigation__SecondaryNavigation--noIcon',
+        );
+    });
+
+    let iconSlotClassName = computed(() => {
+        if (hasSlot(slots.icon)) {
+            return 'Polaris-Navigation__Icon--slot';
+        }
+        return 'Polaris-Navigation__Icon';
+    });
+
+    let longestMatch = computed(() => {
+        if (props.subNavigationItems.length > 0) {
+            return matchingSubNavigationItems.value.sort(
+                /* tslint:disable-next-line */
+                function ({url: firstUrl}, {url: secondUrl}) {
+                    if (firstUrl !== undefined && secondUrl !== undefined) {
+                        return secondUrl.length - firstUrl.length;
                     }
-                    return;
-                }
+                    return 0;
+                },
+            )[0];
+        }
+    });
 
-                this.$emit('click');
-            },
-            handleKeyUp(event) {
-                if (event.keyCode === 9) {
-                    if (!this.keyFocused) {
-                        this.keyFocused = true;
-                    }
-                }
-            },
-            handleBlur() {
-                if (this.keyFocused) {
-                    this.keyFocused = false;
-                }
-            },
-            normalizePathname(pathname) {
-                if (pathname === undefined) {
-                    return '/';
-                }
-                const barePathname = pathname.split('?')[0].split('#')[0];
-                return barePathname.endsWith('/') ? barePathname : `${barePathname}/`;
-            },
-            safeEqual(location, path) {
-                return this.normalizePathname(location) === this.normalizePathname(path);
-            },
-            safeStartsWith(location, path) {
-                return this.normalizePathname(location).startsWith(this.normalizePathname(path));
-            },
-            matchStateForItem({url, to, matches, exactMatch, matchPaths, excludePaths}, location) {
-                if (url === '') {
-                    return MatchState.NoMatch;
-                }
+    let hasNewChild = computed(() => {
+        if (props.subNavigationItems.length > 0) {
+            return props.subNavigationItems.filter((subNavigationItem) => subNavigationItem.new).length > 0;
+        }
+    });
 
-                if (to === '') {
-                    return MatchState.NoMatch;
-                }
+    let normalizeAriaAttributesForExpanded = computed(() => {
+        if (props.subNavigationItems.length > 0) {
+            return showExpanded.value;
+        }
+    });
 
-                if (matches) {
-                    return MatchState.MatchForced;
-                }
+    let normalizeAriaAttributesForControls = computed(() => {
+        if (props.subNavigationItems.length > 0) {
+            return secondaryNavigationId.value;
+        }
+    });
 
-                if (matches === false || (excludePaths && excludePaths.some((path) => this.safeStartsWith(location, path)))) {
-                    return MatchState.Excluded;
-                }
+    let itemValue = computed(() => {
+        return {
+            icon: props.icon,
+            label: props.label,
+            disabled: props.disabled,
+            accessibilityLabel: props.accessibilityLabel,
+            selected: props.selected,
+            exactMatch: props.exactMatch,
+            new: props.new,
+            badge: props.badge,
+            subNavigationItems: props.subNavigationItems,
+            secondaryAction: props.secondaryAction
+        };
+    });
 
-                if (matchPaths && matchPaths.some((path) => this.safeStartsWith(location, path))) {
-                    return MatchState.MatchPaths;
-                }
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
 
-                const matchesUrl = exactMatch ? this.safeEqual(location, url) : this.safeStartsWith(location, url);
-                return matchesUrl ? MatchState.MatchUrl : MatchState.NoMatch;
-            },
-        },
-        created() {
-            window.addEventListener('resize', this.useMediaQuery);
-            this.useMediaQuery();
-        },
-        [utils.destroyed]() {
-            window.removeEventListener('resize', this.useMediaQuery);
-        },
+    function useMediaQuery() {
+        isNavigationCollapsed.value = window.innerWidth <= 768;
     }
+
+    function getClickHandler(event) {
+        const {currentTarget} = event;
+
+        if ((currentTarget).getAttribute('href') === props.location) {
+            event.preventDefault();
+        }
+
+        if (props.subNavigationItems && props.subNavigationItems.length > 0 && isNavigationCollapsed.value) {
+            event.preventDefault();
+            expanded.value = !expanded.value;
+        } else if (props.onNavigationDismiss !== undefined) {
+            nextTick().then(props.onNavigationDismiss());
+            if (emit('click')) {
+                emit('click');
+            }
+            return;
+        }
+        emit('click');
+    }
+
+    function handleKeyUp(event) {
+        if (event.keyCode === 9) {
+            if (!keyFocused.value) {
+                keyFocused.value = true;
+            }
+        }
+    }
+
+    function handleBlur() {
+        if (keyFocused.value) {
+            keyFocused.value = false;
+        }
+    }
+
+    function normalizePathname(pathname) {
+        if (pathname === undefined) {
+            return '/';
+        }
+        const barePathname = pathname.split('?')[0].split('#')[0];
+        return barePathname.endsWith('/') ? barePathname : `${barePathname}/`;
+    }
+
+    function safeEqual(location, path) {
+        return normalizePathname(location) === normalizePathname(path);
+    }
+
+    function safeStartsWith(location, path) {
+        return normalizePathname(location).startsWith(normalizePathname(path));
+    }
+
+    function matchStateForItem({url, to, matches, exactMatch, matchPaths, excludePaths}, location) {
+        if (url === '') {
+            return MatchState.NoMatch;
+        }
+
+        if (to === '') {
+            return MatchState.NoMatch;
+        }
+
+        if (matches) {
+            return MatchState.MatchForced;
+        }
+
+        if (matches === false || (excludePaths && excludePaths.some((path) => safeStartsWith(location, path)))) {
+            return MatchState.Excluded;
+        }
+
+        if (matchPaths && matchPaths.some((path) => safeStartsWith(location, path))) {
+            return MatchState.MatchPaths;
+        }
+
+        const matchesUrl = exactMatch ? safeEqual(location, url) : safeStartsWith(location, url);
+        return matchesUrl ? MatchState.MatchUrl : MatchState.NoMatch;
+    }
+
+    onMounted(() => {
+        window.addEventListener('resize', useMediaQuery);
+        useMediaQuery();
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener('resize', useMediaQuery);
+    });
 </script>

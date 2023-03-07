@@ -48,7 +48,8 @@
   </PCard>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue';
 import { classNames } from '../../utilities/css';
 import { PImage } from '../../components/PImage';
 import { PStack } from '../../components/PStack';
@@ -68,34 +69,30 @@ import { ComplexAction, DisableableAction, LoadableAction } from '../../types';
  *  to provide explanation or guidance to help merchants progress. The empty state component is intended for use when a
  *  full page in the admin is empty, and not for individual elements or areas in the interface.</h4>
  */
-export default {
-  name: 'PEmptyState',
-  components: {
-    PImage, PCard, PCardSection, PTextContainer, PDisplayText, PStack, PStackItem, PButton,
-  },
-  props: {
+
+let props = defineProps({
     /**
      * The empty state heading
      */
     heading: {
-      type: String,
-      default: null
+        type: String,
+        default: null
     },
 
     /**
      * Whether or not the content should span the full width of its container
      */
     fullWidth: {
-      type: Boolean,
-      default: false
+        type: Boolean,
+        default: false
     },
 
     /**
      * Whether or not to limit the image to the size of its container on large screens
      */
     imageContained: {
-      type: Boolean,
-      default: false
+        type: Boolean,
+        default: false
     },
 
     /**
@@ -104,51 +101,42 @@ export default {
      * modal, or navigation component
      */
     image: {
-      type: String,
-      default: null
+        type: String,
+        default: null
     },
 
     /**
      * Primary action for empty state
      */
     primaryAction: {
-      type: Object,
-      default: () => ({}),
-      ...ObjectValidator('primaryAction', {
-        ...DisableableAction,
-        ...LoadableAction
-      })
+        type: Object,
+        default: () => ({}),
+        ...ObjectValidator('primaryAction', {
+            ...DisableableAction,
+            ...LoadableAction
+        })
     },
 
     /**
      * Secondary action for empty state
      */
     secondaryAction: {
-      type: Object,
-      default: () => ({}),
-      ...ObjectValidator('secondaryAction', ComplexAction)
+        type: Object,
+        default: () => ({}),
+        ...ObjectValidator('secondaryAction', ComplexAction)
     }
-  },
-  computed: {
-    className() {
-      return classNames(
-          'Polaris-EmptyState',
-          'Polaris-EmptyState--withinContentContainer',
-          this.fullWidth && 'Polaris-EmptyState--fullWidth',
-          this.imageContained && 'Polaris-EmptyState--imageContained',
-      );
-    },
-    hasAction() {
-      return this.primaryAction || this.secondaryAction;
-    }
-  },
-  methods: {
-    styleClass(name) {
-      if(typeof name === 'string') {
-        const finalStyleClasses = ['one', 'two', 'three', 'four', 'five', 'six'];
-        return name ? finalStyleClasses[name.charCodeAt(0) % finalStyleClasses.length] : finalStyleClasses[0];
-      }
-    }
-  }
-}
+});
+
+let className = computed(() => {
+    return classNames(
+        'Polaris-EmptyState',
+        'Polaris-EmptyState--withinContentContainer',
+        props.fullWidth && 'Polaris-EmptyState--fullWidth',
+        props.imageContained && 'Polaris-EmptyState--imageContained',
+    );
+});
+
+let hasAction = computed(() => {
+    return props.primaryAction || props.secondaryAction;
+});
 </script>

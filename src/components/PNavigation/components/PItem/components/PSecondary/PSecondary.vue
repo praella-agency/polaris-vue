@@ -10,29 +10,21 @@
     </PCollapsible>
 </template>
 
-<script>
+<script setup>
+    import { ref } from 'vue';
     import { uuid } from '../../../../../../ComponentHelpers';
     import { PCollapsible } from '../../../../../../components/PCollapsible';
 
-    export default {
-        name: 'PSecondary',
-        components: {
-            PCollapsible,
+    let props = defineProps({
+        id: {
+            type: String,
+            default: null
         },
-        props: {
-            id: {
-                type: String,
-                default: null
-            },
-            expanded: {
-                type: Boolean,
-                default: true,
-            },
+        expanded: {
+            type: Boolean,
+            default: true,
         },
-        data() {
-            return {
-                uid: `SecondaryNavigation${uuid()}`,
-            };
-        },
-    }
+    });
+
+    let uid = ref(`SecondaryNavigation${uuid()}`);
 </script>

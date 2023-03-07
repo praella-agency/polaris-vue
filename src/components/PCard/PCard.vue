@@ -1,31 +1,31 @@
 <template>
     <div :class="className">
         <template
-            v-if="hasSlot($slots.title) || title || hasSlot($slots.short_description) || shortDescription">
+            v-if="isSlot(slots.title) || title || isSlot(slots.short_description) || shortDescription">
             <PCardHeader :actions="actions">
                 <template #title>
                     <!-- @slot Title content for the card -->
-                    <slot name="title" v-if="hasSlot($slots.title) || title">
+                    <slot name="title" v-if="isSlot(slots.title) || title">
                         <PHeading>{{ title }}</PHeading>
                     </slot>
                 </template>
                 <template
                     #short_description
-                    v-if="hasSlot($slots.short_description) || shortDescription"
+                    v-if="isSlot(slots.short_description) || shortDescription"
                 >
                     <!-- @slot Short Description content for the card -->
                     <slot name="short_description">
                         <PCaption>{{ shortDescription }}</PCaption>
                     </slot>
                 </template>
-                <template #children v-if="hasSlot($slots.children)">
+                <template #children v-if="isSlot(slots.children)">
                     <!-- @slot Inner content of the card -->
                     <slot name="children"/>
                 </template>
             </PCardHeader>
         </template>
 
-        <template v-if="hasSlot($slots.default)">
+        <template v-if="isSlot(slots.default)">
             <template v-if="sectioned">
                 <PCardSection>
                     <!-- @slot Body content for the card -->
@@ -41,7 +41,7 @@
             <slot/>
         </div>
 
-        <template v-if="hasSlot($slots.footer)">
+        <template v-if="isSlot(slots.footer)">
             <PCardFooter>
                 <!-- @slot Footer content for the card -->
                 <slot name="footer"/>
@@ -50,7 +50,8 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed, useSlots } from 'vue';
     import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PCardHeader } from '../../components/PCard/components/PCardHeader';
@@ -58,8 +59,6 @@
     import { PCardFooter } from '../../components/PCard/components/PCardFooter';
     import { PHeading } from '../../components/PHeading';
     import { PCaption } from '../../components/PCaption';
-    import { PButtonGroup } from '../../components/PButtonGroup';
-    import { PLink } from '../../components/PLink';
 
     /**
      * <br/>
@@ -67,62 +66,58 @@
      *  sans-serif;">Cards are used to group similar concepts and tasks together to make Shopify easier for merchants to
      *  scan, read, and get things done.</h4>
      */
-    export default {
-        name: 'PCard',
-        components: {
-            PCardFooter, PCardHeader, PCardSection, PHeading, PCaption, PButtonGroup, PLink,
+
+    let props = defineProps({
+        /**
+         * Title content for the card. **Deprecated** Actions will be removed on future releases,
+         * use PCardHeader instead props.
+         */
+        title: {
+            type: String,
+            default: null,
         },
-        props: {
-            /**
-             * Title content for the card. **Deprecated** Actions will be removed on future releases,
-             * use PCardHeader instead props.
-             */
-            title: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Card description. **Deprecated** ShortDescription will be removed on future releases,
-             * use PCardHeader instead props.
-             */
-            shortDescription: {
-                type: String,
-                default: null,
-            },
-            /**
-             * A less prominent card
-             */
-            subdued: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Auto wrap content in section
-             */
-            sectioned: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Actions for Header. **Deprecated** Actions will be removed on future releases,
-             * use PCardHeader instead props.
-             */
-            actions: {
-                type: [Array, String],
-                default: null,
-            },
+        /**
+         * Card description. **Deprecated** ShortDescription will be removed on future releases,
+         * use PCardHeader instead props.
+         */
+        shortDescription: {
+            type: String,
+            default: null,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Card',
-                    this.subdued && 'Polaris-Card__Section--subdued',
-                );
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        /**
+         * A less prominent card
+         */
+        subdued: {
+            type: Boolean,
+            default: false,
         },
-    }
+        /**
+         * Auto wrap content in section
+         */
+        sectioned: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Actions for Header. **Deprecated** Actions will be removed on future releases,
+         * use PCardHeader instead props.
+         */
+        actions: {
+            type: [Array, String],
+            default: null,
+        },
+    });
+    let slots = useSlots();
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Card',
+            props.subdued && 'Polaris-Card__Section--subdued',
+        );
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
 </script>
 

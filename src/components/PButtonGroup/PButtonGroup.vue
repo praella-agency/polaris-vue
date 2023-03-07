@@ -1,26 +1,16 @@
-<script>
-    import { vue } from '../../ComponentHelpers';
+<template>
+    <div :class="className"
+         :data-buttongroup-segmented="segmented"
+         :data-buttongroup-full-width="fullWidth"
+         :data-buttongroup-connected-top="connectedTop"
+    >
+        <slot/>
+    </div>
+</template>
+<script setup>
+    import { computed, useSlots } from 'vue';
     import { classNames } from '../../utilities/css';
-    import { wrapNodesWithComponent } from '../../ComponentHelpers';
-    import { PButtonGroupItem } from '../../components/PButtonGroup/components/PButtonGroupItem';
-
-    const Spacing = 'extraTight' | 'tight' | 'loose';
-
-    let render = {};
-    render = function render() {
-        return vue.h('div', {
-                class: this.className,
-                'data-buttongroup-segmented': this.segmented,
-                'data-buttongroup-full-width': this.fullWidth,
-                'data-buttongroup-connected-top': this.connectedTop,
-            },
-            wrapNodesWithComponent(
-                vue.h,
-                this.$slots.default() || [], PButtonGroupItem
-            ),
-        );
-    }
-
+    import { ButtonGroupSpacing } from '../variables';
 
     /**
      * <br/>
@@ -28,52 +18,47 @@
      *  sans-serif;">Button group displays multiple related actions stacked or in a horizontal row to help with arrangement
      *  and spacing.</h4>
      */
-    export default {
-        name: 'PButtonGroup',
-        components: {
-            PButtonGroupItem,
+
+    let props = defineProps({
+        /**
+         * Remove top left and right border radius
+         */
+        segmented: {
+            type: Boolean,
+            default: false,
         },
-        props: {
-            /**
-             * Remove top left and right border radius
-             */
-            segmented: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Buttons will stretch/shrink to occupy the full width
-             */
-            fullWidth: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Remove top left and right border radius
-             */
-            connectedTop: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Remove top left and right border radius
-             */
-            spacing: {
-                type: [String, Spacing],
-                default: null,
-            },
+        /**
+         * Buttons will stretch/shrink to occupy the full width
+         */
+        fullWidth: {
+            type: Boolean,
+            default: false,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-ButtonGroup',
-                    this.segmented && 'Polaris-ButtonGroup--segmented',
-                    this.fullWidth && 'Polaris-ButtonGroup--fullWidth',
-                    this.connectedTop && 'Polaris-ButtonGroup--connectedTop',
-                    this.spacing && `Polaris-ButtonGroup--${this.spacing}`,
-                );
-            },
+        /**
+         * Remove top left and right border radius
+         */
+        connectedTop: {
+            type: Boolean,
+            default: false,
         },
-        render,
-    }
+        /**
+         * Remove top left and right border radius
+         */
+        spacing: {
+            type: [String, ButtonGroupSpacing],
+            default: null,
+        },
+    });
+
+    let slots = useSlots();
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-ButtonGroup',
+            props.segmented && 'Polaris-ButtonGroup--segmented',
+            props.fullWidth && 'Polaris-ButtonGroup--fullWidth',
+            props.connectedTop && 'Polaris-ButtonGroup--connectedTop',
+            props.spacing && `Polaris-ButtonGroup--${props.spacing}`,
+        );
+    });
 </script>

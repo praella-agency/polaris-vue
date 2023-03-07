@@ -49,13 +49,13 @@ Access values with `slot-props` attribute. -->
 
     const emit = defineEmits(['item-action']);
 
-    const className = computed(() => {
+    let className = computed(() => {
         return classNames(
             'Polaris-ActionList',
         );
     });
 
-    const finalSections = computed(() => {
+    let finalSections = computed(() => {
         /* tslint:disable-next-line */
         if (typeof props.items != 'undefined' && props.items !== null && props.items.length != null
             && props.items.length > 0) {
@@ -64,7 +64,7 @@ Access values with `slot-props` attribute. -->
         return props.sections;
     });
 
-    const hasMultipleSections = computed(() => {
+    let hasMultipleSections = computed(() => {
         return finalSections.value.length > 1;
     });
 

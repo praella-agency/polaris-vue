@@ -1,6 +1,6 @@
 <template>
     <nav class="Polaris-Navigation" :aria-labelledby="ariaLabelledBy">
-        <template v-if="hasSlot($slots.contextControl)">
+        <template v-if="isSlot(slots.contextControl)">
             <div class="Polaris-Navigation__ContextControl">
                 <!-- @slot Add context control. -->
                 <slot name="contextControl"/>
@@ -41,8 +41,8 @@ Access values with `slot-props` attribute. -->
     </nav>
 </template>
 
-<script>
-    import utils from '../../utilities';
+<script setup>
+    import { ref, computed, useSlots, onMounted, onUnmounted } from 'vue';
     import { hasSlot } from '../../ComponentHelpers';
     import { ThemeLogo, getWidth } from '../../types/logo';
     import { PUnstyledLink } from '../../components/PUnstyledLink';
@@ -58,92 +58,87 @@ Access values with `slot-props` attribute. -->
      *  of an application. Navigation includes a list of links that merchants use to move between sections of the
      *  application.</h4>
      */
-    export default {
-        name: 'PNavigation',
-        components: {
-            PUnstyledLink, PImage, PSection,
+
+    let props = defineProps({
+        /**
+         * Navigation Location
+         */
+        location: {
+            type: String,
+            default: null,
         },
-        props: {
-            /**
-             * Navigation Location
-             */
-            location: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Handle on dismiss method
-             */
-            onDismiss: {
-                type: Function,
-            },
-            /**
-             * Id of the element used as aria-labelledby
-             */
-            ariaLabelledBy: {
-                type: String,
-            },
-            /**
-             * Customize logo
-             */
-            logo: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('logo', ThemeLogo),
-            },
-            /**
-             * Show mobile navigation
-             */
-            showMobileNavigation: {
-                type: Boolean,
-                default: false,
-            },
-            // PSection's props
-            /**
-             * A collection of navigation items
-             */
-            items: {
-                type: Array,
-                default: () => ([]),
-            },
+        /**
+         * Handle on dismiss method
+         */
+        onDismiss: {
+            type: Function,
         },
-        data() {
-            return {
-                showLogo: this.showMobileNavigation,
-            };
+        /**
+         * Id of the element used as aria-labelledby
+         */
+        ariaLabelledBy: {
+            type: String,
         },
-        computed: {
-            width() {
-                return {
-                    width: getWidth(this.logo, 104),
-                };
-            },
-            toggleLogo: {
-                get() {
-                    return this.showLogo;
-                },
-                set(value) {
-                    this.showLogo = value;
-                },
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        /**
+         * Customize logo
+         */
+        logo: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('logo', ThemeLogo),
         },
-        methods: {
-            useMediaQuery() {
-                if (window.innerWidth <= 768) {
-                    this.showLogo = true;
-                    return;
-                }
-                this.showLogo = false;
-            },
+        /**
+         * Show mobile navigation
+         */
+        showMobileNavigation: {
+            type: Boolean,
+            default: false,
         },
-        created() {
-            window.addEventListener('resize', this.useMediaQuery);
+        // PSection's props
+        /**
+         * A collection of navigation items
+         */
+        items: {
+            type: Array,
+            default: () => ([]),
         },
-        [utils.destroyed]() {
-            window.removeEventListener('resize', this.useMediaQuery);
+    });
+
+    let slots = useSlots();
+    let showLogo = ref(props.showMobileNavigation);
+
+    let width = computed(() => {
+        return {
+            width: getWidth(props.logo, 104),
+        };
+    });
+
+    let toggleLogo = computed({
+        get() {
+            return showLogo.value;
         },
+        set(value) {
+            showLogo.value = value;
+        }
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    function useMediaQuery() {
+        if (window.innerWidth <= 768) {
+            showLogo.value = true;
+            return;
+        }
+        showLogo.value = false;
     }
+
+    onMounted(() => {
+        window.addEventListener('resize', useMediaQuery);
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener('resize', useMediaQuery);
+    });
 </script>

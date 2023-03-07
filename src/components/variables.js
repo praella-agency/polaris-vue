@@ -1,5 +1,6 @@
 import {ActionListItemDescriptor} from '../types';
 import {ToastProps} from "./PFrame/context";
+import {useToggle} from "./PDropZone/context";
 
 // PAccordionItem.vue
 export const Icon = {
@@ -110,6 +111,9 @@ export const ConnectedDisclosure = {
     },
 };
 
+// PButtonGroup.vue
+export const ButtonGroupSpacing = 'extraTight' | 'tight' | 'loose';
+
 // PAvatar.vue
 export const Status = {
     Pending: 'PENDING',
@@ -195,3 +199,104 @@ export const VariationValue = {
     Subdued: 'subdued',
     Code: 'code',
 }
+
+// PSection.vue
+export const noWindowMatches = {
+    media: '',
+    /* tslint:disable-next-line */
+    addListener: Function,
+    /* tslint:disable-next-line */
+    removeListener: Function,
+    matches: false,
+    /* tslint:disable-next-line */
+    onchange: Function,
+    /* tslint:disable-next-line */
+    addEventListener: Function,
+    /* tslint:disable-next-line */
+    removeEventListener: Function,
+    dispatchEvent: () => true,
+};
+
+export const Breakpoints = {
+    navigationBarCollapsed: '768px',
+    stackedContent: '1043px',
+};
+
+export const Rollup = {
+    after: Number,
+    view: String,
+    hide: String,
+    activePath: String,
+};
+
+// PItem.vue
+export const MatchState = {
+    MatchForced: 0,
+    MatchUrl: 1,
+    MatchPaths: 2,
+    Excluded: 3,
+    NoMatch: 4,
+};
+
+// PCollapsible.vue
+export const Transition = {
+    /** Assign a transition duration to the collapsible animation. */
+    duration: String,
+    /** Assign a transition timing function to the collapsible animation */
+    timingFunction: String,
+}
+
+export const AnimationState = ['idle', 'measuring', 'animating'];
+
+// PTopBar.vue
+export const SearchResult = {
+    items: Array,
+    sections: Array,
+}
+
+// PUserMenu.vue
+const Action = {
+    /** Source of the icon */
+    icon: String,
+    /** A unique identifier for the action */
+    id: String,
+    /** Content the action displays */
+    content: String,
+    /** Visually hidden text for screen readers */
+    accessibilityLabel: String,
+    /** A destination to link to, rendered in the action */
+    url: String,
+    /** Forces url to open in a new tab */
+    external: Boolean,
+
+    /** Callback when an action takes place */
+    onAction: Function,
+
+    /** Callback when mouse enter */
+    onMouseEnter: Function,
+
+    /** Callback when element is touched */
+    onTouchStart: Function,
+}
+
+export const Actions = {
+    items: {
+        type: Array,
+        properties: {...Action},
+    }
+};
+
+// PTextContainer.vue
+export const TextContainerSpacing = ['tight', 'loose', null];
+
+// PSubHeading.vue
+export const SubHeadingTagName = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
+
+// PDropZone.vue
+export const {
+    value: focused,
+    setTrue: handleFocus,
+    setFalse: handleBlur,
+} = useToggle(false);
+
+export const DropZoneFileType = ['file', 'image'];

@@ -33,49 +33,42 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import { PStack } from '../../../../../../components/PStack';
     import { PStackItem } from '../../../../../../components/PStack/components/PStackItem';
     import { PButton } from '../../../../../../components/PButton';
     import { PBadge } from '../../../../../../components/PBadge';
     import { PTextContainer } from '../../../../../../components/PTextContainer';
     import { PHeading } from '../../../../../../components/PHeading';
-    import { PDisplayText } from '../../../../../../components/PDisplayText';
     import { PLink } from '../../../../../../components/PLink';
     import { MessageActionProps, MessageLinkProps, MessageBadgeProps } from '../../../../../../types';
     import ObjectValidator from '../../../../../../utilities/validators/ObjectValidator';
 
-    export default {
-        name: 'PMessage',
-        components: {
-            PStack, PStackItem, PButton, PBadge, PTextContainer, PHeading, PDisplayText, PLink,
+    let props = defineProps({
+        title: {
+            type: String,
+            default: null,
+            required: true,
         },
-        props: {
-            title: {
-                type: String,
-                default: null,
-                required: true,
-            },
-            description: {
-                type: String,
-                default: null,
-                required: true,
-            },
-            action: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('action', MessageActionProps, true),
-            },
-            link: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('link', MessageLinkProps),
-            },
-            badge: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('badge', MessageBadgeProps),
-            }
+        description: {
+            type: String,
+            default: null,
+            required: true,
         },
-    }
+        action: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('action', MessageActionProps, true),
+        },
+        link: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('link', MessageLinkProps),
+        },
+        badge: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('badge', MessageBadgeProps),
+        }
+    });
 </script>

@@ -5,12 +5,9 @@
     </component>
 </template>
 
-<script>
-    import { defineComponent } from 'vue';
+<script setup>
     import StringValidator from '../../utilities/validators/StringValidator';
-
-    const HeadingTagName = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
-
+    import { HeadingTagName } from '../variables';
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
@@ -18,17 +15,15 @@
      *  <a href="https://polaris-vue.hulkapps.com/?path=/docs/structure-card--card">card components</a>
      *  generally use headings as their title.</h4>
      */
-    export default defineComponent({
-        name: 'PHeading',
-        props: {
-            /**
-             * The element name to use for the heading
-             */
-            element: {
-                type: String,
-                default: 'h2',
-                ...StringValidator('element', HeadingTagName)
-            }
-        },
-    })
+
+    let props = defineProps({
+        /**
+         * The element name to use for the heading
+         */
+        element: {
+            type: String,
+            default: 'h2',
+            ...StringValidator('element', HeadingTagName)
+        }
+    });
 </script>

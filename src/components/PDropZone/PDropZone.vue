@@ -111,8 +111,8 @@
     </div>
 </template>
 
-<script>
-    import utils from '../../utilities';
+<script setup>
+    import { ref, computed, onMounted, onUnmounted  } from 'vue';
     import { uuid } from '../../ComponentHelpers';
     import { classNames, variationName } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
@@ -125,20 +125,8 @@
     import { PLabelled } from '../../components/PLabelled';
     import { PThumbnail } from '../../components/PThumbnail';
     import { NoteMinor } from '../../assets/shopify-polaris-icons';
-    import {
-        fileAccepted,
-        isServer,
-        getDataTransferFiles,
-        useToggle,
-    } from './context';
-
-    const {
-        value: focused,
-        setTrue: handleFocus,
-        setFalse: handleBlur,
-    } = useToggle(false);
-
-    const DropZoneFileType = ['file', 'image'];
+    import { fileAccepted, isServer, getDataTransferFiles, useToggle } from './context';
+    import { DropZoneFileType } from '../variables';
 
     /**
      * <br/>
@@ -146,467 +134,476 @@
      *  sans-serif;">The drop zone component lets users upload files by dragging and dropping the files into an area on a
      *  page, or activating a button.</h4>
      */
-    export default {
-        name: 'PDropZone',
-        components: {
-            PIcon, PStack, PCaption, PDisplayText, PFileUpload, PLabelled, PDropZoneInput, PThumbnail, PStackItem,
+
+    let props = defineProps({
+        /**
+         * Label for the file input
+         */
+        label: {
+            type: String,
+            default: null,
         },
-        props: {
-            /**
-             * Label for the file input
-             */
-            label: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Adds an action to the label
-             */
-            labelAction: {
-                type: Object,
-            },
-            /**
-             * Visually hide the label
-             */
-            labelHidden: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * ID for file input
-             */
-            id: {
-                type: [Number, String],
-                default: `PDropZone${uuid()}`,
-            },
-            /**
-             * Allowed file types
-             */
-            accept: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Whether is a file or an image
-             * @default 'file'
-             */
-            type: {
-                type: [String, DropZoneFileType],
-                default: 'file',
-            },
-            /**
-             * Sets an active state
-             */
-            active: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Sets an error state
-             */
-            error: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Displays an outline border
-             * @default true
-             */
-            outline: {
-                type: Boolean,
-                default: true,
-            },
-            /**
-             * Displays an overlay on hover
-             * @default true
-             */
-            overlay: {
-                type: Boolean,
-                default: true,
-            },
-            /**
-             * Text that appears in the overlay
-             */
-            overlayText: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Text that appears in the overlay when set in error state
-             */
-            errorOverlayText: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Allows multiple files to be uploaded at once
-             * @default true
-             */
-            allowMultiple: {
-                type: Boolean,
-                default: true,
-            },
-            /**
-             * Sets a disabled state
-             */
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Allows a file to be dropped anywhere on the page
-             */
-            dropOnPage: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Sets the default file dialog state
-             */
-            openFileDialog: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Allows child content to adjust height
-             */
-            variableHeight: {
-                type: Boolean,
-                default: false,
-            },
-            // /**
-            //  * Adds custom validations
-            //  */
-            // customValidator: {
-            //     type: Boolean,
-            //     default: false,
-            // },
-            /**
-             *  Callback triggered on any file drop
-             */
-            handleOnDrop: {
-                type: Function,
-                // tslint:disable-next-line:no-empty
-                default: (files, acceptedFiles, rejectedFiles) => ({}),
-                required: true,
-            },
-            /**
-             * Callback triggered when at least one of the files dropped was accepted
-             */
-            handleOnDropAccepted: {
-                type: Function,
-                // tslint:disable-next-line:no-empty
-                default: (acceptedFiles) => ({}),
-            },
-            /**
-             * Callback triggered when at least one of the files dropped was rejected
-             */
-            handleOnDropRejected: {
-                type: Function,
-                // tslint:disable-next-line:no-empty
-                default: (rejectedFiles) => ({}),
-            },
-            /**
-             * Callback triggered when one or more files are dragging over the drag area
-             */
-            handleOnDragOver: {
-                type: Function,
-                // tslint:disable-next-line:no-empty
-                default: () => ({}),
-            },
-            /**
-             * Callback triggered when one or more files entered the drag area
-             */
-            handleOnDragEnter: {
-                type: Function,
-                // tslint:disable-next-line:no-empty
-                default: () => ({}),
-            },
-            /**
-             * Callback triggered when one or more files left the drag area
-             */
-            handleOnDragLeave: {
-                type: Function,
-                // tslint:disable-next-line:no-empty
-                default: () => ({}),
-            },
-            /**
-             * Callback triggered when the file dialog is canceled
-             */
-            handleOnFileDialogClose: {
-                type: Function,
-                // tslint:disable-next-line:no-empty
-                default: () => ({}),
-            },
-            /**
-             * Files
-             */
-            files: {
-                type: Array,
-                default: () => ([]),
-                required: true,
-            },
-            /**
-             * Display Uploaded Files in DropZone
-             */
-            uploadedFiles: {
-                type: Boolean,
-                default: true,
-            },
-            // /**
-            //  * Change size of the DropZone
-            //  */
-            // size: {
-            //     type: String,
-            //     default: 'extraLarge',
-            // },
-            /**
-             * Valid Image Types to preview images
-             */
-            validImageTypes: {
-                type: Array,
-                default: () => ['image/gif', 'image/jpeg', 'image/png'],
-            },
-            /**
-             * Set the actionTitle
-             */
-            actionTitle: {
-                type: String,
-                default: `Add files`,
-            },
-            /**
-             * Set the actionHint
-             */
-            actionHint: {
-                type: String,
-                default: `or drop files to upload`,
-            },
+        /**
+         * Adds an action to the label
+         */
+        labelAction: {
+            type: Object,
         },
-        emits: ['focus', 'blur'],
-        data() {
-            return {
-                dragTargets: [],
-                size: 'extraLarge',
-                dragging: false,
-                intervalError: false,
-                measuring: true,
-                NoteMinor: NoteMinor,
-            };
+        /**
+         * Visually hide the label
+         */
+        labelHidden: {
+            type: Boolean,
+            default: false,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-DropZone',
-                    this.outline && 'Polaris-DropZone--hasOutline',
-                    focused && 'Polaris-DropZone--focused',
-                    (this.active || this.dragging) && 'Polaris-DropZone--isDragging',
-                    this.disabled && 'Polaris-DropZone--isDisabled',
-                    (this.intervalError || this.error) && 'Polaris-DropZone--hasError',
-                    !this.variableHeight && `Polaris-DropZone--${variationName('size', this.size)}`,
-                    this.measuring && 'Polaris-DropZone--measuring',
-                );
-            },
-            overlayClassName() {
-                return classNames(
-                    'Polaris-DropZone__Overlay',
-                );
-            },
-            overlayTextWithDefault() {
-                if (!this.overlayText && this.allowMultiple) {
-                    return 'Drop files to upload';
-                } else if (!this.overlayText && !this.allowMultiple) {
-                    return 'Drop file to upload';
-                } else {
-                    return this.overlayText;
-                }
-            },
-            errorOverlayTextWithDefault() {
-                if (!this.errorOverlayText) {
-                    return 'File type is not valid';
-                } else {
-                    return this.errorOverlayText;
-                }
-            },
-            context() {
-                const type = this.type || 'file';
-                return [this.disabled, focused, this.size, type, this.measuring, this.allowMultiple];
-            },
-            styleBasedOnSize() {
-                // if (this.size === 'small') {
-                //   return 'width: 50px; height: 50px;';
-                // } else if(this.size === 'medium') {
-                //   return 'width: 114px; height: 114px;';
-                // }
-                return '';
-            },
+        /**
+         * ID for file input
+         */
+        id: {
+            type: [Number, String],
+            default: `PDropZone${uuid()}`,
         },
-        methods: {
-            stopEvent(event) {
-                event.preventDefault();
-                event.stopPropagation();
-            },
-            getValidatedFiles(files) {
-                const acceptedFiles = [];
-                const rejectedFiles = [];
-
-                Array.from(files).forEach((file) => {
-                    !fileAccepted(file, this.accept) ? rejectedFiles.push(file) : acceptedFiles.push(file);
-                });
-
-                if (!this.allowMultiple) {
-                    acceptedFiles.slice(1, acceptedFiles.length);
-                    rejectedFiles.push(...acceptedFiles.slice(1));
-                }
-
-                return {files, acceptedFiles, rejectedFiles};
-            },
-            handleDrop(event) {
-                this.stopEvent(event);
-                if (this.disabled) {
-                    return;
-                }
-                const fileList = getDataTransferFiles(event);
-
-                const {files, acceptedFiles, rejectedFiles} = this.getValidatedFiles(fileList);
-
-                this.dragTargets = [];
-                this.dragging = false;
-                this.intervalError = rejectedFiles.length > 0;
-
-                // tslint:disable-next-line:no-unused-expression
-                this.handleOnDrop && this.handleOnDrop(files, acceptedFiles, rejectedFiles);
-                // tslint:disable-next-line:no-unused-expression
-                this.handleOnDropAccepted && acceptedFiles.length && this.handleOnDropAccepted(acceptedFiles);
-                // tslint:disable-next-line:no-unused-expression
-                this.handleOnDropRejected && rejectedFiles.length && this.handleOnDropRejected(rejectedFiles);
-
-                (event.target).value = '';
-            },
-            handleDragOver(event) {
-                this.stopEvent(event);
-                if (this.disabled) {
-                    return;
-                }
-                // tslint:disable-next-line:no-unused-expression
-                this.handleOnDragOver && this.handleOnDragOver();
-            },
-            handleDragEnter(event) {
-                this.stopEvent(event);
-                if (this.disabled) {
-                    return;
-                }
-
-                const fileList = getDataTransferFiles(event);
-
-                if (event.target && !this.dragTargets.includes(event.target)) {
-                    this.dragTargets.push(event.target);
-                }
-
-                if (this.dragging) {
-                    return;
-                }
-
-                const {rejectedFiles} = this.getValidatedFiles(fileList);
-                this.dragging = true;
-                this.intervalError = rejectedFiles.length > 0;
-
-                // tslint:disable-next-line:no-unused-expression
-                this.handleOnDragEnter && this.handleOnDragEnter();
-            },
-            handleDragLeave(event) {
-                event.preventDefault();
-
-                if (this.disabled) {
-                    return;
-                }
-
-                this.dragTargets = this.dragTargets.filter((el) => {
-                    const compareNode = this.dropOnPage && !isServer ? document : this.$refs.node;
-
-                    return el !== event.target && compareNode && compareNode.contains(el);
-                });
-
-                if (this.dragTargets.length > 0) {
-                    return;
-                }
-
-                this.dragging = false;
-                this.intervalError = false;
-
-                // tslint:disable-next-line:no-unused-expression
-                this.handleOnDragLeave && this.handleOnDragLeave();
-            },
-            adjustSize() {
-                if (!this.$refs.node) {
-                    return;
-                }
-
-                if (this.variableHeight) {
-                    this.measuring = false;
-                    return;
-                }
-
-                let size = 'extraLarge';
-                const width = this.$refs.node.getBoundingClientRect().width;
-
-                if (width < 100) {
-                    size = 'small';
-                } else if (width < 160) {
-                    size = 'medium';
-                } else if (width < 300) {
-                    size = 'large';
-                }
-
-                this.size = size;
-                // tslint:disable-next-line:no-unused-expression
-                this.measuring && (this.measuring = false);
-            },
-            /**
-             * Callback triggered on click
-             */
-            handleOnClick() {
-                if (this.disabled) {
-                    return;
-                }
-
-                return onclick ? onclick : this.open();
-            },
-            open() {
-                const fileInputNode = this.$refs.node && this.$refs.node.querySelector(`#${this.id}`);
-                // tslint:disable-next-line:no-unused-expression
-                fileInputNode && fileInputNode instanceof HTMLElement && fileInputNode.click();
-            },
-            createFileURL(file) {
-                return window.URL.createObjectURL(file);
-            },
-            removeFiles(key) {
-                this.files.splice(key, 1);
-            },
+        /**
+         * Allowed file types
+         */
+        accept: {
+            type: String,
+            default: null,
         },
-        mounted() {
-            this.adjustSize();
-            const dropNode = this.dropOnPage ? document : this.$refs.node;
-            if (!dropNode) {
-                return;
-            }
-
-            dropNode.addEventListener('drop', this.handleDrop);
-            dropNode.addEventListener('dragover', this.handleDragOver);
-            dropNode.addEventListener('dragenter', this.handleDragEnter);
-            dropNode.addEventListener('dragleave', this.handleDragLeave);
-            window.addEventListener('resize', this.adjustSize);
+        /**
+         * Whether is a file or an image
+         * @default 'file'
+         */
+        type: {
+            type: [String, DropZoneFileType],
+            default: 'file',
         },
-        [utils.destroyed]() {
-            const dropNode = this.dropOnPage ? document : this.$refs.node;
-            if (!dropNode) {
-                return;
-            }
-
-            dropNode.removeEventListener('drop', this.handleDrop);
-            dropNode.removeEventListener('dragover', this.handleDragOver);
-            dropNode.removeEventListener('dragenter', this.handleDragEnter);
-            dropNode.removeEventListener('dragleave', this.handleDragLeave);
-            window.removeEventListener('resize', this.adjustSize);
+        /**
+         * Sets an active state
+         */
+        active: {
+            type: Boolean,
+            default: false,
         },
+        /**
+         * Sets an error state
+         */
+        error: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Displays an outline border
+         * @default true
+         */
+        outline: {
+            type: Boolean,
+            default: true,
+        },
+        /**
+         * Displays an overlay on hover
+         * @default true
+         */
+        overlay: {
+            type: Boolean,
+            default: true,
+        },
+        /**
+         * Text that appears in the overlay
+         */
+        overlayText: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Text that appears in the overlay when set in error state
+         */
+        errorOverlayText: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Allows multiple files to be uploaded at once
+         * @default true
+         */
+        allowMultiple: {
+            type: Boolean,
+            default: true,
+        },
+        /**
+         * Sets a disabled state
+         */
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Allows a file to be dropped anywhere on the page
+         */
+        dropOnPage: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Sets the default file dialog state
+         */
+        openFileDialog: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Allows child content to adjust height
+         */
+        variableHeight: {
+            type: Boolean,
+            default: false,
+        },
+        // /**
+        //  * Adds custom validations
+        //  */
+        // customValidator: {
+        //     type: Boolean,
+        //     default: false,
+        // },
+        /**
+         *  Callback triggered on any file drop
+         */
+        handleOnDrop: {
+            type: Function,
+            // tslint:disable-next-line:no-empty
+            default: (files, acceptedFiles, rejectedFiles) => ({}),
+            required: true,
+        },
+        /**
+         * Callback triggered when at least one of the files dropped was accepted
+         */
+        handleOnDropAccepted: {
+            type: Function,
+            // tslint:disable-next-line:no-empty
+            default: (acceptedFiles) => ({}),
+        },
+        /**
+         * Callback triggered when at least one of the files dropped was rejected
+         */
+        handleOnDropRejected: {
+            type: Function,
+            // tslint:disable-next-line:no-empty
+            default: (rejectedFiles) => ({}),
+        },
+        /**
+         * Callback triggered when one or more files are dragging over the drag area
+         */
+        handleOnDragOver: {
+            type: Function,
+            // tslint:disable-next-line:no-empty
+            default: () => ({}),
+        },
+        /**
+         * Callback triggered when one or more files entered the drag area
+         */
+        handleOnDragEnter: {
+            type: Function,
+            // tslint:disable-next-line:no-empty
+            default: () => ({}),
+        },
+        /**
+         * Callback triggered when one or more files left the drag area
+         */
+        handleOnDragLeave: {
+            type: Function,
+            // tslint:disable-next-line:no-empty
+            default: () => ({}),
+        },
+        /**
+         * Callback triggered when the file dialog is canceled
+         */
+        handleOnFileDialogClose: {
+            type: Function,
+            // tslint:disable-next-line:no-empty
+            default: () => ({}),
+        },
+        /**
+         * Files
+         */
+        files: {
+            type: Array,
+            default: () => ([]),
+            required: true,
+        },
+        /**
+         * Display Uploaded Files in DropZone
+         */
+        uploadedFiles: {
+            type: Boolean,
+            default: true,
+        },
+        // /**
+        //  * Change size of the DropZone
+        //  */
+        // size: {
+        //     type: String,
+        //     default: 'extraLarge',
+        // },
+        /**
+         * Valid Image Types to preview images
+         */
+        validImageTypes: {
+            type: Array,
+            default: () => ['image/gif', 'image/jpeg', 'image/png'],
+        },
+        /**
+         * Set the actionTitle
+         */
+        actionTitle: {
+            type: String,
+            default: `Add files`,
+        },
+        /**
+         * Set the actionHint
+         */
+        actionHint: {
+            type: String,
+            default: `or drop files to upload`,
+        },
+    });
+    const emit = defineEmits(['focus', 'blur']);
+
+    let dragTargets = ref([]);
+    let size = ref('extraLarge');
+    let dragging = ref(false);
+    let intervalError = ref(false);
+    let measuring = ref(true);
+    let NoteMinor = ref(NoteMinor);
+    let node = ref(null);
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-DropZone',
+            props.outline && 'Polaris-DropZone--hasOutline',
+            focused && 'Polaris-DropZone--focused',
+            (props.active || dragging.value) && 'Polaris-DropZone--isDragging',
+            props.disabled && 'Polaris-DropZone--isDisabled',
+            (intervalError.value || props.error) && 'Polaris-DropZone--hasError',
+            !props.variableHeight && `Polaris-DropZone--${variationName('size', size.value)}`,
+            measuring.value && 'Polaris-DropZone--measuring',
+        );
+    });
+
+    let overlayClassName = computed(() => {
+        return classNames(
+            'Polaris-DropZone__Overlay',
+        );
+    });
+
+    let overlayTextWithDefault = computed(() => {
+        if (!props.overlayText && props.allowMultiple) {
+            return 'Drop files to upload';
+        } else if (!props.overlayText && !props.allowMultiple) {
+            return 'Drop file to upload';
+        } else {
+            return props.overlayText;
+        }
+    });
+
+    let errorOverlayTextWithDefault = computed(() => {
+        if (!props.errorOverlayText) {
+            return 'File type is not valid';
+        } else {
+            return props.errorOverlayText;
+        }
+    });
+
+    let context = computed(() => {
+        const type = props.type || 'file';
+        return [props.disabled, focused, size.value, type, props.measuring, props.allowMultiple];
+    });
+
+    let styleBasedOnSize = computed(() => {
+        // if (this.size === 'small') {
+        //   return 'width: 50px; height: 50px;';
+        // } else if(this.size === 'medium') {
+        //   return 'width: 114px; height: 114px;';
+        // }
+        return '';
+    });
+
+    function stopEvent(event) {
+        event.preventDefault();
+        event.stopPropagation();
     }
+
+    function getValidatedFiles(files) {
+        const acceptedFiles = [];
+        const rejectedFiles = [];
+
+        Array.from(files).forEach((file) => {
+            !fileAccepted(file, props.accept) ? rejectedFiles.push(file) : acceptedFiles.push(file);
+        });
+
+        if (!props.allowMultiple) {
+            acceptedFiles.slice(1, acceptedFiles.length);
+            rejectedFiles.push(...acceptedFiles.slice(1));
+        }
+
+        return {files, acceptedFiles, rejectedFiles};
+    }
+
+    function handleDrop(event) {
+        stopEvent(event);
+        if (props.disabled) {
+            return;
+        }
+        const fileList = getDataTransferFiles(event);
+
+        const {files, acceptedFiles, rejectedFiles} = getValidatedFiles(fileList);
+
+        dragTargets.value = [];
+        dragging.value = false;
+        intervalError.value = rejectedFiles.length > 0;
+
+        // tslint:disable-next-line:no-unused-expression
+        props.handleOnDrop && props.handleOnDrop(files, acceptedFiles, rejectedFiles);
+        // tslint:disable-next-line:no-unused-expression
+        props.handleOnDropAccepted && acceptedFiles.length && props.handleOnDropAccepted(acceptedFiles);
+        // tslint:disable-next-line:no-unused-expression
+        props.handleOnDropRejected && rejectedFiles.length && props.handleOnDropRejected(rejectedFiles);
+
+        (event.target).value = '';
+    }
+
+    function handleDragOver(event) {
+        stopEvent(event);
+        if (props.disabled) {
+            return;
+        }
+        // tslint:disable-next-line:no-unused-expression
+        props.handleOnDragOver && props.handleOnDragOver();
+    }
+
+    function handleDragEnter(event) {
+        stopEvent(event);
+        if (props.disabled) {
+            return;
+        }
+
+        const fileList = getDataTransferFiles(event);
+
+        if (event.target && !dragTargets.value.includes(event.target)) {
+            dragTargets.value.push(event.target);
+        }
+
+        if (dragging.value) {
+            return;
+        }
+
+        const {rejectedFiles} = getValidatedFiles(fileList);
+        dragging.value = true;
+        intervalError.value = rejectedFiles.length > 0;
+
+        // tslint:disable-next-line:no-unused-expression
+        props.handleOnDragEnter && props.handleOnDragEnter();
+    }
+
+    function handleDragLeave(event) {
+        event.preventDefault();
+
+        if (props.disabled) {
+            return;
+        }
+
+        dragTargets.value = dragTargets.value.filter((el) => {
+            const compareNode = props.dropOnPage && !isServer ? document : this.$refs.node;
+
+            return el !== event.target && compareNode && compareNode.contains(el);
+        });
+
+        if (dragTargets.value.length > 0) {
+            return;
+        }
+
+        dragging.value = false;
+        intervalError.value = false;
+
+        // tslint:disable-next-line:no-unused-expression
+        props.handleOnDragLeave && props.handleOnDragLeave();
+    }
+
+    function adjustSize() {
+        if (!this.$refs.node) {
+            return;
+        }
+
+        if (props.variableHeight) {
+            measuring.value = false;
+            return;
+        }
+
+        let reSize = 'extraLarge';
+        const width = this.$refs.node.getBoundingClientRect().width;
+
+        if (width < 100) {
+            reSize = 'small';
+        } else if (width < 160) {
+            reSize = 'medium';
+        } else if (width < 300) {
+            reSize = 'large';
+        }
+
+        size.value = reSize;
+        // tslint:disable-next-line:no-unused-expression
+        measuring.value && (measuring.value = false);
+    }
+
+    /**
+     * Callback triggered on click
+     */
+    function handleOnClick() {
+        if (props.disabled) {
+            return;
+        }
+
+        return onclick ? onclick : open();
+    }
+
+    function open() {
+        const fileInputNode = this.$refs.node && this.$refs.node.querySelector(`#${props.id}`);
+        // tslint:disable-next-line:no-unused-expression
+        fileInputNode && fileInputNode instanceof HTMLElement && fileInputNode.click();
+    }
+
+    function createFileURL(file) {
+        return window.URL.createObjectURL(file);
+    }
+
+    function removeFiles(key) {
+        props.files.splice(key, 1);
+    }
+
+    onMounted(() => {
+        node = node.value;
+        adjustSize();
+        const dropNode = props.dropOnPage ? document : this.$refs.node;
+        if (!dropNode) {
+            return;
+        }
+
+        dropNode.addEventListener('drop', handleDrop);
+        dropNode.addEventListener('dragover', handleDragOver);
+        dropNode.addEventListener('dragenter', handleDragEnter);
+        dropNode.addEventListener('dragleave', handleDragLeave);
+        window.addEventListener('resize', adjustSize);
+    });
+
+    onUnmounted(() => {
+        const dropNode = props.dropOnPage ? document : this.$refs.node;
+        if (!dropNode) {
+            return;
+        }
+
+        dropNode.removeEventListener('drop', handleDrop);
+        dropNode.removeEventListener('dragover', handleDragOver);
+        dropNode.removeEventListener('dragenter', handleDragEnter);
+        dropNode.removeEventListener('dragleave', handleDragLeave);
+        window.removeEventListener('resize', adjustSize);
+    });
 </script>

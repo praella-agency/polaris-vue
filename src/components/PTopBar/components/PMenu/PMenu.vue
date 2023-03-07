@@ -40,7 +40,8 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { ref, computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
     import { PActionList } from '../../../../components/PActionList';
     import { PPopover } from '../../../../components/PPopover';
@@ -50,85 +51,76 @@
     import { ActionListSection } from '../../../../types';
     import ArrayValidator from '../../../../utilities/validators/ArrayValidator';
 
-    export default {
-        name: 'PMenu',
-        components: {
-            PActionList, PPopover, PMessage, PVisuallyHidden, PIcon,
+    let props = defineProps({
+        /**
+         * Id for the Menu
+         */
+        id: {
+            type: String,
+            required: true,
         },
-        props: {
-            /**
-             * Id for the Menu
-             */
-            id: {
-                type: String,
-                required: true,
-            },
-            /**
-             * An array of action objects that are rendered inside of a popover triggered by this menu
-             */
-            actions: {
-                type: Array,
-                default: () => ([]),
-                ...ArrayValidator('actions', ActionListSection),
-            },
-            /**
-             * Accepts a message that facilitates direct, urgent communication with the merchant through the menu
-             */
-            message: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * A boolean property indicating whether the menu is currently open
-             */
-            open: {
-                type: Boolean,
-                required: true,
-            },
-            /**
-             * Icon to display on activator content
-             */
-            icon: {
-                type: String,
-            },
-            /**
-             * A callback function to handle opening the menu popover
-             */
-            /* tslint:disable-next-line */
-            onOpen: {
-                type: Function,
-                default: () => {
-                },
-            },
-            /**
-             * A callback function to handle closing the menu popover
-             */
-            onClose: {
-                type: Function,
-            },
-            /**
-             * A string that provides the accessibility labeling
-             */
-            accessibilityLabel: {
-                type: String,
-                default: null,
+        /**
+         * An array of action objects that are rendered inside of a popover triggered by this menu
+         */
+        actions: {
+            type: Array,
+            default: () => ([]),
+            ...ArrayValidator('actions', ActionListSection),
+        },
+        /**
+         * Accepts a message that facilitates direct, urgent communication with the merchant through the menu
+         */
+        message: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * A boolean property indicating whether the menu is currently open
+         */
+        open: {
+            type: Boolean,
+            required: true,
+        },
+        /**
+         * Icon to display on activator content
+         */
+        icon: {
+            type: String,
+        },
+        /**
+         * A callback function to handle opening the menu popover
+         */
+        /* tslint:disable-next-line */
+        onOpen: {
+            type: Function,
+            default: () => {
             },
         },
-        data() {
-            return {
-                focused: true,
-            };
+        /**
+         * A callback function to handle closing the menu popover
+         */
+        onClose: {
+            type: Function,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Popover__Section',
-                    'Polaris-Popover__Section+ Polaris-Popover__Section',
-                );
-            },
-            isFullHeight() {
-                return Object.keys(this.message).length > 0;
-            },
+        /**
+         * A string that provides the accessibility labeling
+         */
+        accessibilityLabel: {
+            type: String,
+            default: null,
         },
-    }
+    });
+
+    let focused = ref(true);
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Popover__Section',
+            'Polaris-Popover__Section+ Polaris-Popover__Section',
+        );
+    });
+
+    let isFullHeight = computed(() => {
+        return Object.keys(props.message).length > 0;
+    });
 </script>

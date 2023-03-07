@@ -1,8 +1,8 @@
 <template>
     <div :class="className">
-        <div v-if="title || hasSlot($slots.title)" class="Polaris-Card__SectionHeader">
+        <div v-if="title || isSlot(slots.title)" class="Polaris-Card__SectionHeader">
             <slot name="title">
-                <PSubheading v-bind="$attrs">
+                <PSubheading v-bind="attrs">
                     {{ title }}
                 </PSubheading>
             </slot>
@@ -12,47 +12,44 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed, useAttrs, useSlots} from 'vue';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PSubheading } from '../../../../components/PSubheading';
 
-    export default {
-        name: 'PCardSection',
-        components: {
-            PSubheading,
+    let props = defineProps({
+        /**
+         * Title content for the card section
+         */
+        title: {
+            type: String,
         },
-        props: {
-            /**
-             * Title content for the card section
-             */
-            title: {
-                type: String,
-            },
-            /**
-             * Title content for the card section
-             */
-            subdued: {
-                type: Boolean,
-            },
-            /**
-             * Card will stretch/shrink to occupy the full width
-             */
-            fullWidth: {
-                type: Boolean,
-            },
+        /**
+         * Title content for the card section
+         */
+        subdued: {
+            type: Boolean,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Card__Section',
-                    this.subdued && 'Polaris-Card__Section--subdued',
-                    this.fullWidth && 'Polaris-Card__Section--fullWidth',
-                );
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        /**
+         * Card will stretch/shrink to occupy the full width
+         */
+        fullWidth: {
+            type: Boolean,
         },
-    }
+    });
+    let slots = useSlots();
+    let attrs = useAttrs();
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Card__Section',
+            props.subdued && 'Polaris-Card__Section--subdued',
+            props.fullWidth && 'Polaris-Card__Section--fullWidth',
+        );
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
 </script>

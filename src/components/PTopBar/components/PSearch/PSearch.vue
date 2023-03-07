@@ -16,40 +16,37 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
 
-    export default {
-        name: 'PSearch',
-        props: {
-            visible: {
-                type: Boolean,
-                default: false,
-            },
-            overlayVisible: {
-                type: Boolean,
-                default: false,
-            },
+    let props = defineProps({
+        visible: {
+            type: Boolean,
+            default: false,
         },
-        emits: ['dismiss'],
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-TopBar-Search',
-                    this.visible && 'Polaris-TopBar-Search--visible',
-                );
-            },
-            searchDismissOverlayClass() {
-                return classNames(
-                    'Polaris-TopBar-SearchDismissOverlay',
-                    this.overlayVisible && 'Polaris-TopBar-SearchDismissOverlay--visible',
-                );
-            },
+        overlayVisible: {
+            type: Boolean,
+            default: false,
         },
-        methods: {
-            handleDismiss() {
-                this.$emit('dismiss');
-            },
-        },
+    });
+    const emit = defineEmits(['dismiss']);
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-TopBar-Search',
+            props.visible && 'Polaris-TopBar-Search--visible',
+        );
+    });
+
+    let searchDismissOverlayClass = computed(() => {
+        return classNames(
+            'Polaris-TopBar-SearchDismissOverlay',
+            props.overlayVisible && 'Polaris-TopBar-SearchDismissOverlay--visible',
+        );
+    });
+
+    function handleDismiss() {
+        emit('dismiss');
     }
 </script>

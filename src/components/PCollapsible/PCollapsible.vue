@@ -11,19 +11,11 @@
     </div>
 </template>
 
-<script>
-    import { defineComponent, onBeforeUnmount, onMounted, ref, computed, watch  } from 'vue';
+<script setup>
+    import { onBeforeUnmount, onMounted, ref, computed, watch  } from 'vue';
     import { classNames } from '../../utilities/css';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
-
-    const Transition = {
-        /** Assign a transition duration to the collapsible animation. */
-        duration: String,
-        /** Assign a transition timing function to the collapsible animation */
-        timingFunction: String,
-    }
-
-    const AnimationState = ['idle', 'measuring', 'animating'];
+    import { Transition } from '../variables';
 
     /**
      * <br/>
@@ -31,148 +23,143 @@
      *  sans-serif;">The collapsible component is used to put long sections of information under a block that merchants
      *  can expand or collapse.</h4>
      */
-    export default defineComponent({
-        name: 'PCollapsible',
-        props: {
-            /**
-             * Assign a unique ID to the collapsible. For accessibility, pass this ID as the value of the triggering
-             * component’s aria-controls prop.
-             */
-            id: {
-                type: [String, Number],
-                default: null,
-            },
 
-            /**
-             * Option to show collapsible content when printing
-             */
-            expandOnPrint: {
-                type: Boolean,
-                default: false,
-            },
-
-            /**
-             * Toggle whether the collapsible is expanded or not.
-             */
-            open: {
-                type: Boolean,
-                default: false,
-            },
-
-            /**
-             * Assign transition properties to the collapsible
-             */
-            transition: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('transition', Transition)
-            }
+    let props = defineProps({
+        /**
+         * Assign a unique ID to the collapsible. For accessibility, pass this ID as the value of the triggering
+         * component’s aria-controls prop.
+         */
+        id: {
+            type: [String, Number],
+            default: null,
         },
-        setup(props) {
-            let animationState = ref('idle');
-            let height = ref(0);
-            let isOpen = ref(props.open);
 
-            const collapsibleContainer = ref(null);
+        /**
+         * Option to show collapsible content when printing
+         */
+        expandOnPrint: {
+            type: Boolean,
+            default: false,
+        },
 
-            onBeforeUnmount(() => {
-                collapsibleContainer.value.removeEventListener('transitionend', handleCompleteAnimation);
-            })
+        /**
+         * Toggle whether the collapsible is expanded or not.
+         */
+        open: {
+            type: Boolean,
+            default: false,
+        },
 
-            onMounted(() => {
-                if (collapsibleContainer.value) {
-                    collapsibleContainer.value.addEventListener('transitionend', handleCompleteAnimation);
-                    if(props.open) {
-                      height.value = collapsibleContainer.value.scrollHeight;
-                    }
-                }
-            });
+        /**
+         * Assign transition properties to the collapsible
+         */
+        transition: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('transition', Transition)
+        }
+    });
 
-            const isFullyOpen = computed(() => {
-                return animationState.value === 'idle' && props.open && isOpen.value;
-            });
+    let animationState = ref('idle');
+    let height = ref(0);
+    let isOpen = ref(props.open);
+    let collapsibleContainer = ref(null);
 
-            const isFullyClosed = computed(() => {
-                return animationState.value === 'idle' && !props.open && !isOpen.value;
-            });
+    let isFullyOpen = computed(() => {
+        return animationState.value === 'idle' && props.open && isOpen.value;
+    });
 
-            const wrapperClassName = computed(() => {
-                return classNames(
-                    'Polaris-Collapsible',
-                    isFullyClosed.value && 'Polaris-Collapsible--isFullyClosed',
-                    props.expandOnPrint && 'Polaris-Collapsible--expandOnPrint',
-                );
-            });
+    let isFullyClosed = computed(() => {
+        return animationState.value === 'idle' && !props.open && !isOpen.value;
+    });
 
-            const collapsibleStyles = computed(() => {
-                let transitionStyle = {};
-                const collapsible = {
-                    maxHeight: isFullyOpen.value ? 'none' : `${height.value}px`,
-                    overflow: isFullyOpen.value ? 'visible' : 'hidden',
-                };
+    let wrapperClassName = computed(() => {
+        return classNames(
+            'Polaris-Collapsible',
+            isFullyClosed.value && 'Polaris-Collapsible--isFullyClosed',
+            props.expandOnPrint && 'Polaris-Collapsible--expandOnPrint',
+        );
+    });
 
-                if (Object.keys(props.transition).length > 0) {
-                    transitionStyle = {
-                        transitionDuration: `${props.transition.duration}`,
-                        transitionTimingFunction: `${props.transition.timingFunction}`,
-                    };
-                }
+    let collapsibleStyles = computed(() => {
+        let transitionStyle = {};
+        const collapsible = {
+            maxHeight: isFullyOpen.value ? 'none' : `${height.value}px`,
+            overflow: isFullyOpen.value ? 'visible' : 'hidden',
+        };
 
-                return [transitionStyle, collapsible];
-            });
+        if (Object.keys(props.transition).length > 0) {
+            transitionStyle = {
+                transitionDuration: `${props.transition.duration}`,
+                transitionTimingFunction: `${props.transition.timingFunction}`,
+            };
+        }
 
-            function handleCompleteAnimation(event) {
-                if (event.target) {
-                    if (event.target === collapsibleContainer.value) {
-                        animationState.value = 'idle';
-                        isOpen.value = props.open;
-                    }
-                }
+        return [transitionStyle, collapsible];
+    });
+
+    function handleCompleteAnimation(event) {
+        if (event.target) {
+            if (event.target === collapsibleContainer) {
+                animationState.value = 'idle';
+                isOpen.value = props.open;
+            }
+        }
+    }
+
+    watch(animationState, () => {
+        if (!collapsibleContainer) {
+            return;
+        }
+
+        switch (animationState.value) {
+            case 'idle':
+                break;
+            case 'measuring':
+                height.value = (collapsibleContainer).scrollHeight;
+                setTimeout(() => {
+                    animationState.value = 'animating';
+                }, 1);
+                break;
+            case 'animating':
+                height.value = props.open ? (collapsibleContainer).scrollHeight : 0;
+        }
+    })
+
+    watch(() => props.open, (newValue) => {
+        isOpen.value = newValue;
+
+        if (props.open !== newValue) {
+            animationState.value = 'measuring';
+        } else {
+            if (!collapsibleContainer) {
+                return;
             }
 
-            watch(animationState, () => {
-                if (!collapsibleContainer.value) {
-                    return;
-                }
-
-                switch (animationState.value) {
-                    case 'idle':
-                        break;
-                    case 'measuring':
-                        height.value = (collapsibleContainer.value).scrollHeight;
-                        setTimeout(() => {
-                            animationState.value = 'animating';
-                        }, 1);
-                        break;
-                    case 'animating':
-                        height.value = props.open ? (collapsibleContainer.value).scrollHeight : 0;
-                }
-            })
-
-            watch(() => props.open, (newValue) => {
-              isOpen.value = newValue;
-
-              if (props.open !== newValue) {
-                    animationState.value = 'measuring';
-                } else {
-                    if (!collapsibleContainer.value) {
-                        return;
-                    }
-
-                    switch (animationState.value) {
-                        case 'idle':
-                            break;
-                        case 'measuring':
-                            height.value = (collapsibleContainer.value).scrollHeight;
-                            animationState.value = 'animating';
-                            break;
-                        case 'animating':
-                            height.value = props.open ? (collapsibleContainer.value).scrollHeight : 0;
-                    }
-                }
-            })
-
-            return { animationState, height, isOpen, isFullyOpen, isFullyClosed, wrapperClassName, collapsibleStyles, handleCompleteAnimation, collapsibleContainer};
+            switch (animationState.value) {
+                case 'idle':
+                    break;
+                case 'measuring':
+                    height.value = (collapsibleContainer).scrollHeight;
+                    animationState.value = 'animating';
+                    break;
+                case 'animating':
+                    height.value = props.open ? (collapsibleContainer).scrollHeight : 0;
+            }
         }
+    })
+
+    onMounted(() => {
+        collapsibleContainer = collapsibleContainer.value;
+        collapsibleContainer.addEventListener('transitionend', handleCompleteAnimation);
+        if (collapsibleContainer) {
+            if(props.open) {
+                height.value = collapsibleContainer.scrollHeight;
+            }
+        }
+    });
+
+    onBeforeUnmount(() => {
+        collapsibleContainer.removeEventListener('transitionend', handleCompleteAnimation);
     })
 </script>
