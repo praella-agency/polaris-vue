@@ -80,71 +80,64 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { ref, computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
     import { PStack } from '../../../../components/PStack';
     import { PStackItem } from '../../../../components/PStack/components/PStackItem';
     import { PCaption } from '../../../../components/PCaption';
     import { PTextStyle } from '../../../../components/PTextStyle';
     import { PIcon } from '../../../../components/PIcon';
-    import { Context, createAllowMultipleKey, capitalize } from '../../../../components/PDropZone/context';
+    import { Context } from '../../context';
 
-    export default {
-        name: 'PFileUpload',
-        components: {
-            PStack, PCaption, PTextStyle, PStackItem, PIcon,
+    let props = defineProps({
+        actionTitle: {
+            type: String,
         },
-        props: {
-            actionTitle: {
-                type: String,
-            },
-            actionHint: {
-                type: String,
-            },
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
-            size: {
-                type: String,
-                default: null
-            },
-            variableHeight: {
-                type: Boolean,
-                default: false,
-            },
+        actionHint: {
+            type: String,
         },
-        data() {
-            return {
-                measuring: Context.measuring,
-                type: Context.type,
-                focused: Context.focused,
-                allowMultiple: Context.allowMultiple,
-            };
+        disabled: {
+            type: Boolean,
+            default: false,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-DropZone-FileUpload',
-                    this.measuring && 'Polaris-DropZone--measuring',
-                    // this.size === 'small' && 'Polaris-DropZone-FileUpload__FileUploadSmallView',
-                );
-            },
-            buttonStyleClassName() {
-                return (this.size === 'extraLarge' || this.size === 'large') ?
-                    classNames(
-                        'Polaris-DropZone-FileUpload__Button',
-                        (this.size && this.size !== 'extraLarge') && 'Polaris-DropZone-FileUpload--sizeSlim',
-                        this.focused && 'Polaris-DropZone-FileUpload--focused',
-                        this.disabled && 'Polaris-DropZone-FileUpload--disabled',
-                    ) : null;
-            },
-            actionTitleClassName() {
-                return classNames('Polaris-DropZone-FileUpload__ActionTitle',
-                    this.focused && !this.disabled && 'Polaris-DropZone-FileUpload__ActionTitle--focused',
-                    this.disabled && 'Polaris-DropZone-FileUpload__ActionTitle--disabled',
-                );
-            },
+        size: {
+            type: String,
+            default: null
         },
-    }
+        variableHeight: {
+            type: Boolean,
+            default: false,
+        },
+    });
+
+    let measuring = ref(Context.measuring);
+    let type = ref(Context.type);
+    let focused = ref(Context.focused);
+    let allowMultiple = ref(Context.allowMultiple);
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-DropZone-FileUpload',
+            measuring.value && 'Polaris-DropZone--measuring',
+            // this.size === 'small' && 'Polaris-DropZone-FileUpload__FileUploadSmallView',
+        );
+    });
+
+    let buttonStyleClassName = computed(() => {
+        return (props.size === 'extraLarge' || props.size === 'large') ?
+            classNames(
+                'Polaris-DropZone-FileUpload__Button',
+                (props.size && props.size !== 'extraLarge') && 'Polaris-DropZone-FileUpload--sizeSlim',
+                focused.value && 'Polaris-DropZone-FileUpload--focused',
+                props.disabled && 'Polaris-DropZone-FileUpload--disabled',
+            ) : null;
+    });
+
+    let actionTitleClassName = computed(() => {
+        return classNames('Polaris-DropZone-FileUpload__ActionTitle',
+            focused.value && !props.disabled && 'Polaris-DropZone-FileUpload__ActionTitle--focused',
+            props.disabled && 'Polaris-DropZone-FileUpload__ActionTitle--disabled',
+        );
+    });
 </script>

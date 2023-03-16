@@ -57,15 +57,13 @@
                         :type="type"
                         :multiple="allowMultiple"
                         @change="handleDrop"
-                        @focus="$emit('focus', $event)"
-                        @blur="$emit('blur', $event)"
+                        @focus="emit('focus', $event)"
+                        @blur="emit('blur', $event)"
                         :openFileDialog="openFileDialog"
                         :onFileDialogClose="handleOnFileDialogClose"
                     />
                 </span>
-                <div
-                    class="Polaris-DropZone__Container"
-                >
+                <div class="Polaris-DropZone__Container">
                     <PFileUpload
                         v-if="!files.length"
                         :disabled="disabled"
@@ -126,7 +124,7 @@
     import { PThumbnail } from '../../components/PThumbnail';
     import { NoteMinor } from '../../assets/shopify-polaris-icons';
     import { fileAccepted, isServer, getDataTransferFiles, useToggle } from './context';
-    import { DropZoneFileType } from '../variables';
+    import { DropZoneFileType, focused } from '../variables';
 
     /**
      * <br/>
@@ -373,7 +371,6 @@
     let dragging = ref(false);
     let intervalError = ref(false);
     let measuring = ref(true);
-    let NoteMinor = ref(NoteMinor);
     let node = ref(null);
 
     let className = computed(() => {
@@ -512,7 +509,7 @@
         }
 
         dragTargets.value = dragTargets.value.filter((el) => {
-            const compareNode = props.dropOnPage && !isServer ? document : this.$refs.node;
+            const compareNode = props.dropOnPage && !isServer ? document : node;
 
             return el !== event.target && compareNode && compareNode.contains(el);
         });
@@ -529,7 +526,7 @@
     }
 
     function adjustSize() {
-        if (!this.$refs.node) {
+        if (!node) {
             return;
         }
 
@@ -539,7 +536,7 @@
         }
 
         let reSize = 'extraLarge';
-        const width = this.$refs.node.getBoundingClientRect().width;
+        const width = node.getBoundingClientRect().width;
 
         if (width < 100) {
             reSize = 'small';
@@ -566,7 +563,7 @@
     }
 
     function open() {
-        const fileInputNode = this.$refs.node && this.$refs.node.querySelector(`#${props.id}`);
+        const fileInputNode = node.value && node.value.querySelector(`#${props.id}`);
         // tslint:disable-next-line:no-unused-expression
         fileInputNode && fileInputNode instanceof HTMLElement && fileInputNode.click();
     }
@@ -582,7 +579,7 @@
     onMounted(() => {
         node = node.value;
         adjustSize();
-        const dropNode = props.dropOnPage ? document : this.$refs.node;
+        const dropNode = props.dropOnPage ? document : node;
         if (!dropNode) {
             return;
         }
@@ -595,7 +592,7 @@
     });
 
     onUnmounted(() => {
-        const dropNode = props.dropOnPage ? document : this.$refs.node;
+        const dropNode = props.dropOnPage ? document : node;
         if (!dropNode) {
             return;
         }

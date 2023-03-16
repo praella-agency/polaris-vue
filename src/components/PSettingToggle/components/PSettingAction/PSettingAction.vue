@@ -3,7 +3,7 @@
         <div class="Polaris-SettingAction__Setting">
             <slot/>
         </div>
-        <div v-if="hasSlot($slots.action) || action" class="Polaris-SettingAction__Action">
+        <div v-if="isSlot(slots.action) || action" class="Polaris-SettingAction__Action">
             <slot name="action">
                 <PButton v-if="action"
                          primary
@@ -20,38 +20,31 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed, useSlots } from 'vue';
     import { hasSlot } from '../../../../ComponentHelpers';
-    import { PCard } from '../../../../components/PCard';
     import { PButton } from '../../../../components/PButton';
 
-    export default {
-        name: 'PSettingAction',
-        components: {
-            PCard, PButton,
+    let props = defineProps({
+        label: {
+            type: String,
         },
-        props: {
-            label: {
-                type: String,
-            },
-            action: {
-                type: [String, Number, Boolean, Array, Object],
-            },
-            propsClass: {
-                type: String,
-            },
+        action: {
+            type: [String, Number, Boolean, Array, Object],
         },
-        computed: {
-            hasSlot() {
-                return hasSlot;
-            },
+        propsClass: {
+            type: String,
         },
-        methods: {
-            handleAction(action) {
-                if (action.onAction) {
-                    action.onAction();
-                }
-            },
-        },
+    });
+    let slots = useSlots();
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    function handleAction(action) {
+        if (action.onAction) {
+            action.onAction();
+        }
     }
 </script>

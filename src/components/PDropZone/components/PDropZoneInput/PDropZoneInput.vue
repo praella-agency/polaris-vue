@@ -8,9 +8,9 @@
             type="file"
             :multiple="multiple"
             autocomplete="off"
-            @change="$emit('change', $event)"
-            @focus="$emit('focus', $event)"
-            @blur="$emit('blur', $event)"
+            @change="emit('change', $event)"
+            @focus="emit('focus', $event)"
+            @blur="emit('blur', $event)"
             :openFileDialog="openFileDialog"
             :onFileDialogClose="onFileDialogClose"
         />
@@ -18,59 +18,63 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: 'PDropZoneInput',
-        props: {
-            id: {
-                type: [String, Number],
-                default: null,
-            },
-            accept: {
-                type: String,
-                default: null,
-            },
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
-            type: {
-                type: String,
-                default: 'file',
-            },
-            multiple: {
-                type: Boolean,
-                default: false,
-            },
-            openFileDialog: {
-                type: Boolean,
-                default: false,
-            },
-            onFileDialogClose: {
-                type: Function,
-            },
+<script setup>
+    import { ref, onMounted, onUpdated } from 'vue';
+
+    let props = defineProps({
+        id: {
+            type: [String, Number],
+            default: null,
         },
-        emits: ['change', 'focus', 'blur'],
-        methods: {
-            triggerFileDialog() {
-                this.open();
-                // tslint:disable-next-line:no-unused-expression
-                this.onFileDialogClose && this.onFileDialogClose();
-            },
-            open() {
-                if (!this.$refs.fileInputNode) {
-                    return;
-                }
-                this.$refs.fileInputNode.click();
-            },
+        accept: {
+            type: String,
+            default: null,
         },
-        mounted() {
-            // tslint:disable-next-line:no-unused-expression
-            this.openFileDialog && this.triggerFileDialog();
+        disabled: {
+            type: Boolean,
+            default: false,
         },
-        updated() {
-            // tslint:disable-next-line:no-unused-expression
-            this.openFileDialog && this.triggerFileDialog();
+        type: {
+            type: String,
+            default: 'file',
         },
+        multiple: {
+            type: Boolean,
+            default: false,
+        },
+        openFileDialog: {
+            type: Boolean,
+            default: false,
+        },
+        onFileDialogClose: {
+            type: Function,
+        },
+    });
+
+    let emit = defineEmits(['change', 'focus', 'blur']);
+    let fileInputNode = ref(null);
+
+    function triggerFileDialog() {
+        open();
+        // tslint:disable-next-line:no-unused-expression
+        props.onFileDialogClose && props.onFileDialogClose();
     }
+
+    function open() {
+        if (!fileInputNode) {
+            return;
+        }
+        fileInputNode.click();
+    }
+
+    onMounted(() => {
+        fileInputNode = fileInputNode.value;
+        // tslint:disable-next-line:no-unused-expression
+        props.openFileDialog && triggerFileDialog();
+    });
+
+    onUpdated(() => {
+        // tslint:disable-next-line:no-unused-expression
+        props.openFileDialog && triggerFileDialog();
+    });
 </script>

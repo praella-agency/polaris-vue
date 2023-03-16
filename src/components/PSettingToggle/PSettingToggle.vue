@@ -10,7 +10,7 @@
                     :disabled="action.disabled"
                     :external="action.external"
                     :icon="action.icon"
-                    :id="action.id ? action.id : `Polaris-Setting-Toggle${this.uuid}`"
+                    :id="action.id ? action.id : `Polaris-Setting-Toggle${isUuid}`"
                     :loading="action.loading"
                     :outline="action.outline"
                     :url="action.url"
@@ -24,66 +24,45 @@
     </PCard>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { uuid } from '../../ComponentHelpers';
     import { PCard } from '../../components/PCard';
     import { PButton } from '../../components/PButton';
     import { PSettingAction } from '../../components/PSettingToggle/components/PSettingAction';
-
-    const Action = {
-        accessibilityLabel: String,
-        destructive: Boolean,
-        disabled: Boolean,
-        external: Boolean,
-        icon: String,
-        id: [String | Number],
-        loading: Boolean,
-        outline: Boolean,
-        url: String,
-        contentStatus: String,
-
-        onAction() {
-            return 0;
-        },
-    }
+    import { SettingToggleAction } from '../variables';
 
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
      *  sans-serif;">Use to give merchants control over a feature or option that can be turned on or off.</h4>
      */
-    export default {
-        name: 'PSettingToggle',
-        components: {
-            PSettingAction, PCard, PButton,
+
+    let props = defineProps({
+        /**
+         * Card header actions.
+         */
+        action: {
+            type: [Object, SettingToggleAction],
+            default: Object,
         },
-        props: {
-            /**
-             * Card header actions.
-             */
-            action: {
-                type: [Object, Action],
-                default: Object,
-            },
-            /**
-             * Sets toggle state.
-             */
-            enabled: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * @ignore
-             */
-            propsClass: {
-                type: String,
-                default: null,
-            },
+        /**
+         * Sets toggle state.
+         */
+        enabled: {
+            type: Boolean,
+            default: false,
         },
-        computed: {
-            uuid() {
-                return uuid();
-            }
-        }
-    }
+        /**
+         * @ignore
+         */
+        propsClass: {
+            type: String,
+            default: null,
+        },
+    });
+
+    let isUuid = computed(() => {
+        return uuid();
+    });
 </script>

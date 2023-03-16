@@ -42,7 +42,8 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../utilities/css';
     import { Action } from '../../types';
     import { PLabel } from '../../components/PLabel';
@@ -50,71 +51,65 @@
     import { PInlineError } from '../../components/PInlineError';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
 
-    export default {
-        name: 'PLabelled',
-        components: {
-            PLabel, PButton, PInlineError,
+    let props = defineProps({
+        /**
+         * A unique identifier for the label
+         */
+        id: {
+            type: [String, Number],
+            default: null,
         },
-        props: {
-            /**
-             * A unique identifier for the label
-             */
-            id: {
-                type: [String, Number],
-                default: null,
-            },
-            /**
-             * Text for the label
-             */
-            label: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Error to display beneath the label
-             */
-            error: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * An action
-             */
-            action: {
-                type: Object,
-                ...ObjectValidator('action', Action),
-            },
-            /**
-             * Additional hint text to display
-             */
-            helpText: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Visually hide the label
-             */
-            labelHidden: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Visual required indicator for the label
-             */
-            requiredIndicator: {
-                type: Boolean,
-                default: false,
-            },
+        /**
+         * Text for the label
+         */
+        label: {
+            type: String,
+            default: null,
         },
-        computed: {
-            className() {
-                return classNames(
-                    this.labelHidden && 'Polaris-Labelled--hidden',
-                );
-            },
-            helpTextID() {
-                return this.id + 'HelpText';
-            },
+        /**
+         * Error to display beneath the label
+         */
+        error: {
+            type: Boolean,
+            default: false,
         },
-    }
+        /**
+         * An action
+         */
+        action: {
+            type: Object,
+            ...ObjectValidator('action', Action),
+        },
+        /**
+         * Additional hint text to display
+         */
+        helpText: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Visually hide the label
+         */
+        labelHidden: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Visual required indicator for the label
+         */
+        requiredIndicator: {
+            type: Boolean,
+            default: false,
+        },
+    });
+
+    let className = computed(() => {
+        return classNames(
+            props.labelHidden && 'Polaris-Labelled--hidden',
+        );
+    });
+
+    let helpTextID = computed(() => {
+        return props.id + 'HelpText';
+    });
 </script>

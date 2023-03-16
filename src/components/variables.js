@@ -300,3 +300,24 @@ export const {
 } = useToggle(false);
 
 export const DropZoneFileType = ['file', 'image'];
+
+// PThumbnail.vue
+export const ThumbnailSize = ['small', 'medium', 'large'];
+
+// PSettingToggle.vue
+export const SettingToggleAction = {
+    accessibilityLabel: String,
+    destructive: Boolean,
+    disabled: Boolean,
+    external: Boolean,
+    icon: String,
+    id: [String | Number],
+    loading: Boolean,
+    outline: Boolean,
+    url: String,
+    contentStatus: String,
+
+    onAction() {
+        return 0;
+    },
+}

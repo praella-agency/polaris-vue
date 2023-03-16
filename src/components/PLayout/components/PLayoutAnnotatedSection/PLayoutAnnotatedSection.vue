@@ -7,7 +7,7 @@
                     <slot name="title">
                         <PHeading v-if="title">{{ title }}</PHeading>
                     </slot>
-                    <div v-if="description || hasSlot($slots.description)"
+                    <div v-if="description || isSlot(slots.description)"
                          class="Polaris-Layout__AnnotationDescription">
                         <!-- @slot Short Description content for the layout  -->
                         <slot name="description">
@@ -25,36 +25,32 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed, useSlots } from 'vue';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { PHeading } from '../../../../components/PHeading';
     import { PTextContainer } from '../../../../components/PTextContainer';
 
-    export default {
-        name: 'PLayoutAnnotatedSection',
-        components: {
-            PHeading, PTextContainer,
+    let props = defineProps({
+        /**
+         * Title of layout
+         */
+        title: {
+            type: String,
+            default: null,
         },
-        props: {
-            /**
-             * Title of layout
-             */
-            title: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Description of layout
-             */
-            description: {
-                type: String,
-                default: null,
-            },
+        /**
+         * Description of layout
+         */
+        description: {
+            type: String,
+            default: null,
         },
-        computed: {
-            hasSlot() {
-                return hasSlot;
-            },
-        },
-    }
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    let slots = useSlots();
 </script>

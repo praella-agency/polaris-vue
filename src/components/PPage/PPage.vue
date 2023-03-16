@@ -10,7 +10,7 @@
             :thumbnail="thumbnail"
             :thumbnailAlt="thumbnailAlt"
             :pagination="pagination"
-            v-bind="$attrs"
+            v-bind="attrs"
             v-on="listeners"
         >
             <!-- @slot Use some other component for primary Action -->
@@ -33,7 +33,8 @@
     </div>
 </template>
 
-<script>
+<script setup>
+import {computed, useAttrs, useSlots} from 'vue';
     import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PPageHeader } from '../../components/PPage/components/PPageHeader';
@@ -43,107 +44,102 @@
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
      *  sans-serif;">Use to build the outer wrapper of a page, including the page title and associated actions.</h4>
      */
-    export default {
-        name: 'PPage',
-        components: {
-            PPageHeader,
+
+    let props = defineProps({
+        /**
+         * Remove the normal max-width on the page
+         */
+        fullWidth: {
+            type: Boolean,
+            default: false,
         },
-        props: {
-            /**
-             * Remove the normal max-width on the page
-             */
-            fullWidth: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Decreases the maximum layout width. Intended for single-column layouts
-             */
-            narrowWidth: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Page title, in large type
-             */
-            title: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Page thumbnail
-             */
-            thumbnail: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Thumbnail alt text
-             */
-            thumbnailAlt: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Primary page-level action
-             */
-            primaryAction: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * Collection of secondary page-level actions
-             */
-            secondaryActions: {
-                type: Array,
-                default: () => ([]),
-            },
-            /**
-             * Collection of page-level groups of secondary actions
-             */
-            actionGroups: {
-                type: Array,
-                default: () => ([]),
-            },
-            /**
-             * Collection of breadcrumbs
-             */
-            breadcrumbs: {
-                type: Array,
-                default: () => ([]),
-            },
-            /**
-             * Page-level pagination
-             */
-            pagination: {
-                type: Object,
-                default: () => ({}),
-            },
+        /**
+         * Decreases the maximum layout width. Intended for single-column layouts
+         */
+        narrowWidth: {
+            type: Boolean,
+            default: false,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Page',
-                    this.fullWidth && 'Polaris-Page--fullWidth',
-                    this.narrowWidth && 'Polaris-Page--narrowWidth',
-                );
-            },
-            hasHeaderContent() {
-                return (this.title != null && this.title !== '') ||
-                    this.primaryAction != null ||
-                    this.thumbnail ||
-                    (this.secondaryActions != null && this.secondaryActions.length > 0) ||
-                    (this.actionGroups != null && this.actionGroups.length > 0) ||
-                    (hasSlot(this.$slots.primaryAction)) ||
-                    (hasSlot(this.$slots.additionalNavigation)) ||
-                    (this.breadcrumbs != null && this.breadcrumbs.length > 0);
-            },
-            listeners() {
-                return {};
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        /**
+         * Page title, in large type
+         */
+        title: {
+            type: String,
+            default: null,
         },
-    }
+        /**
+         * Page thumbnail
+         */
+        thumbnail: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Thumbnail alt text
+         */
+        thumbnailAlt: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Primary page-level action
+         */
+        primaryAction: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Collection of secondary page-level actions
+         */
+        secondaryActions: {
+            type: Array,
+            default: () => ([]),
+        },
+        /**
+         * Collection of page-level groups of secondary actions
+         */
+        actionGroups: {
+            type: Array,
+            default: () => ([]),
+        },
+        /**
+         * Collection of breadcrumbs
+         */
+        breadcrumbs: {
+            type: Array,
+            default: () => ([]),
+        },
+        /**
+         * Page-level pagination
+         */
+        pagination: {
+            type: Object,
+            default: () => ({}),
+        },
+    });
+    let slots = useSlots();
+    let attrs = useAttrs();
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Page',
+            props.fullWidth && 'Polaris-Page--fullWidth',
+            props.narrowWidth && 'Polaris-Page--narrowWidth',
+        );
+    });
+
+    let hasHeaderContent = computed(() => {
+        return (props.title != null && props.title !== '') ||
+            props.primaryAction != null ||
+            props.thumbnail ||
+            (props.secondaryActions != null && props.secondaryActions.length > 0) ||
+            (props.actionGroups != null && props.actionGroups.length > 0) ||
+            (hasSlot(slots.primaryAction)) ||
+            (hasSlot(slots.additionalNavigation)) ||
+            (props.breadcrumbs != null && props.breadcrumbs.length > 0);
+    });
+
+    let listeners = computed(() => {
+        return {};
+    });
 </script>

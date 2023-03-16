@@ -21,7 +21,7 @@
                 <div class="Polaris-Page-Header__Actions" v-if="hasActions">
                     <PActionMenu :groups="actionGroups" :actions="secondaryActions" v-if="hasActionMenu"
                                  :rollup="isNavigationCollapsed.rollup"/>
-                    <div v-if="Object.keys(primaryAction).length > 0 || hasSlot($slots.primaryAction)"
+                    <div v-if="Object.keys(primaryAction).length > 0 || isSlot(slots.primaryAction)"
                          class="Polaris-Page-Header__PrimaryActionWrapper">
                         <slot name="primaryAction">
                             <PButton
@@ -44,8 +44,7 @@
                 </div>
             </div>
         </div>
-        <div class="Polaris-Page-Header__Row"
-             v-if="hasSlot($slots.additionalNavigation) || avatar || avatarInitials">
+        <div class="Polaris-Page-Header__Row" v-if="isSlot(slots.additionalNavigation) || avatar || avatarInitials">
             <div class="Polaris-Page-Header__LeftAlign"></div>
             <div class="Polaris-Page-Header__RightAlign">
                 <div class="Polaris-Page-Header__AdditionalNavigationWrapper">
@@ -59,142 +58,127 @@
     </div>
 </template>
 
-<script>
-    import utils from '../../../../utilities';
+<script setup>
+    import { computed, onMounted, onUnmounted, ref, useSlots } from 'vue';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
-    import { hasGroupsWithActions } from '../../../../components/PActionMenu/utilities';
-    import { PTextStyle } from '../../../../components/PTextStyle';
+    import { hasGroupsWithActions } from '../../../PActionMenu/utilities';
     import { PBreadcrumbs } from '../../../../components/PBreadcrumbs';
     import { PPagination } from '../../../../components/PPagination';
     import { PActionMenu } from '../../../../components/PActionMenu';
     import { PButton } from '../../../../components/PButton';
     import { PPageHeaderTitle } from '../../../../components/PPage/components/PPageHeaderTitle';
-    import { PPopover } from '../../../../components/PPopover';
-    import { PActionList } from '../../../../components/PActionList';
-    import { PButtonGroup } from '../../../../components/PButtonGroup';
     import { PAvatar } from '../../../../components/PAvatar';
 
-    export default {
-        name: 'PPageHeader',
-        components: {
-            PBreadcrumbs, PPagination, PPageHeaderTitle, PActionMenu, PTextStyle, PButton, PPopover, PActionList,
-            PButtonGroup, PAvatar,
+    let props = defineProps({
+        title: {
+            type: String,
         },
-        props: {
-            title: {
-                type: String,
-            },
-            subtitle: {
-                type: String,
-            },
-            thumbnail: {
-                type: String,
-            },
-            thumbnailAlt: {
-                type: String,
-            },
-            titleMetadata: {
-                type: String,
-            },
-            avatar: {
-                type: String,
-            },
-            avatarInitials: {
-                type: String,
-            },
-            additionalMetaData: {
-                type: String,
-            },
-            titleHidden: {
-                type: Boolean,
-                default: false,
-            },
-            separator: {
-                type: Boolean,
-            },
-            primaryAction: {
-                type: Object,
-                default: () => ({}),
-            },
-            pagination: {
-                type: Object,
-                default: () => ({}),
-            },
-            breadcrumbs: {
-                type: Array,
-                default: () => ([]),
-            },
-            secondaryActions: {
-                type: Array,
-                default: () => ([]),
-            },
-            actionGroups: {
-                type: Array,
-                default: () => ([]),
-            },
+        subtitle: {
+            type: String,
         },
-        data() {
-            return {
-                /**
-                 * To Check that view collapsed or not.
-                 */
-                isNavigationCollapsed: {
-                    rollup: false,
-                },
-                bulkActionsShown: false,
-            };
+        thumbnail: {
+            type: String,
         },
-        computed: {
-            headerClassNames() {
-                return classNames(
-                    'Polaris-Page-Header',
-                    this.titleHidden && 'Polaris-Page-Header--titleHidden',
-                    this.separator && 'Polaris-Page-Header--separator',
-                    this.hasNavigation && 'Polaris-Page-Header--hasNavigation',
-                    this.hasActionMenu && 'Polaris-Page-Header--hasActionMenu',
-                    this.title && 'Polaris-Page-Header--mediumTitle',
-                    this.isNavigationCollapsed.rollup && 'Polaris-Page-Header--mobileView',
-                );
-            },
-            hasNavigation() {
-                return this.breadcrumbs.length > 0 || hasSlot(this.$slots.additionalNavigation) || this.pagination;
-            },
-            hasActions() {
-                return this.hasActionMenu ||
-                    Object.keys(this.primaryAction).length > 0 ||
-                    Object.keys(this.pagination).length > 0 ||
-                    this.$props.hasOwnProperty('primaryAction');
-            },
-            hasActionMenu() {
-                return this.secondaryActions.length > 0 || hasGroupsWithActions(this.actionGroups);
-            },
-            hasTitle() {
-                return this.title || this.subtitle || this.titleMetadata || this.thumbnail ||
-                    hasSlot(this.$slots.titleMetadata);
-            },
-            hasAvatar() {
-                return this.avatar || this.avatarInitials;
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        thumbnailAlt: {
+            type: String,
         },
-        methods: {
-            useMediaQuery() {
-                if (window.innerWidth <= 768) {
-                    this.isNavigationCollapsed['rollup'] = true;
-                } else {
-                    this.isNavigationCollapsed['rollup'] = false;
-                }
-            },
+        titleMetadata: {
+            type: String,
         },
-        created() {
-            window.addEventListener('resize', this.useMediaQuery);
-            this.useMediaQuery();
+        avatar: {
+            type: String,
         },
-        [utils.destroyed]() {
-            window.removeEventListener('resize', this.useMediaQuery);
+        avatarInitials: {
+            type: String,
         },
+        additionalMetaData: {
+            type: String,
+        },
+        titleHidden: {
+            type: Boolean,
+            default: false,
+        },
+        separator: {
+            type: Boolean,
+        },
+        primaryAction: {
+            type: Object,
+            default: () => ({}),
+        },
+        pagination: {
+            type: Object,
+            default: () => ({}),
+        },
+        breadcrumbs: {
+            type: Array,
+            default: () => ([]),
+        },
+        secondaryActions: {
+            type: Array,
+            default: () => ([]),
+        },
+        actionGroups: {
+            type: Array,
+            default: () => ([]),
+        },
+    });
+
+    let slots = useSlots();
+    /**
+     * To Check that view collapsed or not.
+     */
+    let isNavigationCollapsed = ref({
+        rollup: false,
+    });
+    let bulkActionsShown = ref(false);
+
+    let hasNavigation = computed(() => {
+        return props.breadcrumbs.length > 0 || hasSlot(slots.additionalNavigation) || props.pagination;
+    });
+
+    let hasActionMenu = computed(() => {
+        return props.secondaryActions.length > 0 || hasGroupsWithActions(props.actionGroups);
+    });
+
+    let headerClassNames = computed(() => {
+        return classNames(
+            'Polaris-Page-Header',
+            props.titleHidden && 'Polaris-Page-Header--titleHidden',
+            props.separator && 'Polaris-Page-Header--separator',
+            hasNavigation.value && 'Polaris-Page-Header--hasNavigation',
+            hasActionMenu.value && 'Polaris-Page-Header--hasActionMenu',
+            props.title && 'Polaris-Page-Header--mediumTitle',
+            isNavigationCollapsed.value.rollup && 'Polaris-Page-Header--mobileView',
+        );
+    });
+
+    let hasActions = computed(() => {
+        return hasActionMenu.value || Object.keys(props.primaryAction).length > 0 || Object.keys(props.pagination).length > 0 || Object.prototype.hasOwnProperty.call(props, 'primaryAction');
+    });
+
+    let hasTitle = computed(() => {
+        return props.title || props.subtitle || props.titleMetadata || props.thumbnail || hasSlot(slots.titleMetadata);
+    });
+
+    let hasAvatar = computed(() => {
+        return props.avatar || props.avatarInitials;
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    function useMediaQuery() {
+        isNavigationCollapsed.value['rollup'] = window.innerWidth <= 768;
     }
+
+    onMounted(() => {
+        window.addEventListener('resize', useMediaQuery);
+        useMediaQuery();
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener('resize', useMediaQuery);
+    });
 </script>

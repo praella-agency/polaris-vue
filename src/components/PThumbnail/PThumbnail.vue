@@ -6,13 +6,13 @@
     </span>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames, variationName } from '../../utilities/css';
     import { PImage } from '../../components/PImage';
     import { PIcon } from '../../components/PIcon';
     import StringValidator from '../../utilities/validators/StringValidator';
-
-    const Size = ['small', 'medium', 'large'];
+    import { ThumbnailSize } from '../variables';
 
     /**
      * <br/>
@@ -21,51 +21,43 @@
      *  to provide context.</h4>
      */
 
-    export default {
-        name: 'PThumbnail',
-        components: {
-            PImage, PIcon,
+    let props = defineProps({
+        /**
+         * Thumbnail Size.
+         */
+        size: {
+            type: String,
+            default: 'medium',
+            ...StringValidator('size', ThumbnailSize)
         },
-        props: {
-            /**
-             * Thumbnail Size.
-             */
-            size: {
-                type: String,
-                default: 'medium',
-                ...StringValidator('size', Size)
-            },
 
-            /**
-             * Image source.
-             */
-            source: {
-                type: String,
-                default: null
-            },
-
-            /**
-             * Image alt.
-             */
-            alt: {
-                type: String,
-                default: null
-            }
+        /**
+         * Image source.
+         */
+        source: {
+            type: String,
+            default: null
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Thumbnail',
-                    this.size && `Polaris-Thumbnail--${variationName('size', this.size)}`,
-                );
-            }
-        },
-        methods: {
-            isSvg(source) {
-                const isSVG = new RegExp(/(<svg)([^<]*|[^>]*)/);
 
-                return isSVG.test(source);
-            }
+        /**
+         * Image alt.
+         */
+        alt: {
+            type: String,
+            default: null
         }
+    });
+
+    let className = computed(() =>{
+        return classNames(
+            'Polaris-Thumbnail',
+            props.size && `Polaris-Thumbnail--${variationName('size', props.size)}`,
+        );
+    });
+
+    function isSvg(source) {
+        const isSVG = new RegExp(/(<svg)([^<]*|[^>]*)/);
+
+        return isSVG.test(source);
     }
 </script>

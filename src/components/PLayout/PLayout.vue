@@ -13,7 +13,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import { PLayoutSection } from '../../components/PLayout/components/PLayoutSection';
 
     /**
@@ -23,20 +23,14 @@
      *  main configurations: one-column, two-column, and annotated. One and two column layouts can be combined in the
      *  same page. Annotated layouts should be used on their own and only on settings pages.</h4>
      */
-    export default {
-        name: 'PLayout',
-        components: {
-            PLayoutSection,
+    let props = defineProps({
+        /**
+         * Automatically adds sections to layout.
+         */
+        sectioned: {
+            type: Boolean,
+            default: false,
         },
-        props: {
-            /**
-             * Automatically adds sections to layout.
-             */
-            sectioned: {
-                type: Boolean,
-                default: false,
-            },
-        },
-    }
+    });
 </script>
 
