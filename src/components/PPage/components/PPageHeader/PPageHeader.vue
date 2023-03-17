@@ -131,7 +131,6 @@
     let isNavigationCollapsed = ref({
         rollup: false,
     });
-    let bulkActionsShown = ref(false);
 
     let hasNavigation = computed(() => {
         return props.breadcrumbs.length > 0 || hasSlot(slots.additionalNavigation) || props.pagination;
@@ -159,10 +158,6 @@
 
     let hasTitle = computed(() => {
         return props.title || props.subtitle || props.titleMetadata || props.thumbnail || hasSlot(slots.titleMetadata);
-    });
-
-    let hasAvatar = computed(() => {
-        return props.avatar || props.avatarInitials;
     });
 
     let isSlot = computed(() => {

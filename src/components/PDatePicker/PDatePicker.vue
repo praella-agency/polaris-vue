@@ -1,7 +1,7 @@
 <template>
     <div :class="className">
         <div class="Polaris-Labelled__LabelWrapper"
-             v-if="!floatingLabel && (label || emptyLabel || hasSlot($slots.label))"
+             v-if="!floatingLabel && (label || emptyLabel || isSlot(slots.label))"
              :class="labelClass">
             <!-- @slot Display label for the element -->
             <slot name="label">
@@ -29,7 +29,7 @@
             :localeData="localeData"
             :ranges="computedRanges"
             :date-range="computedValue"
-            v-bind="$attrs"
+            v-bind="attrs"
             v-model="computedValue"
             @update="updateValues"
             @toggle="checkOpen"
@@ -106,7 +106,7 @@
                 </PStack>
             </template>
         </DateRangePicker>
-        <div class="Polaris-Labelled__HelpText" v-if="hasSlot($slots.helpText) || helpText">
+        <div class="Polaris-Labelled__HelpText" v-if="isSlot(slots.helpText) || helpText">
             <!-- @slot Custom helpText -->
             <slot name="helpText">
                 {{ helpText }}
@@ -116,7 +116,8 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed, ref, useAttrs, useSlots, watch } from 'vue';
     import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import dayjs from 'dayjs';
@@ -132,29 +133,7 @@
     import { PTextField } from '../../components/PTextField';
     import { PVisuallyHidden } from '../PVisuallyHidden';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
-
-    const DateType = [Date, String];
-    const DateRange = {
-        type: [String, Object],
-        properties: {
-            startDate: {
-                type: DateType,
-                nullable: true,
-            },
-            endDate: {
-                type: DateType,
-                nullable: true,
-            },
-        },
-    }
-
-    const DateRangeInterface = {
-        dateRange: DateRange,
-    }
-
-    const ValueInterface = {
-        value: DateRange,
-    }
+    import { DateRangeInterface, ValueInterface } from '../variables';
 
     /**
      * <br/>
@@ -162,413 +141,417 @@
      *  sans-serif;">Date pickers let merchants choose dates from a visual calendar that’s consistently applied wherever
      *  dates need to be selected across Shopify.</h4>
      */
-    export default {
-        name: 'PDatePicker',
-        components: {
-            DateRangePicker,
-            PIcon, PFieldError, PButton, PButtonGroup, PStack, PStackItem, PCard, PSelect, PTextField, PVisuallyHidden,
+
+    let props = defineProps({
+        /**
+         *  Show button as picker instead of input field
+         */
+        button: {
+            type: Boolean,
+            default: false,
         },
-        props: {
-            /**
-             *  Show button as picker instead of input field
-             */
-            button: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             *  Which way the picker opens. Works without button attribute
-             */
-            opens: {
-                type: String,
-                default: 'center',
-            },
-            /**
-             * ID for the element
-             */
-            id: {
-                type: [String, Number],
-                required: true,
-            },
-            /**
-             * Makes the picker readonly. No button in footer. No ranges. Cannot change.
-             */
-            readOnly: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Disabled state. If true picker do not popup on click.
-             */
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Whether to close the dropdown on "esc"
-             */
-            closeOnEsc: {
-                type: Boolean,
-                default: true,
-            },
-            /**
-             * Visually hide the label
-             */
-            labelHidden: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Label for the element
-             */
-            label: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Label class for the element
-             */
-            labelClass: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Empty Label for the element
-             */
-            emptyLabel: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Display an error message
-             */
-            error: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Define prefix for the element. Works without button attribute
-             */
-            prefix: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Minimum date allowed to be selected
-             */
-            minDate: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Maximum date allowed to be selected
-             */
-            maxDate: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Date format for the element
-             */
-            format: {
-                type: String,
-                default: 'MM/DD/YYYY',
-            },
-            /**
-             * Only show a single calendar, with or without ranges.
-             * Set true or 'single' for a single calendar with no ranges, single dates only.
-             * Set 'range' for a single calendar WITH ranges.
-             * Set false for a double calendar with ranges.
-             */
-            singleDatePicker: {
-                type: [Boolean, String],
-                default: true
-            },
-            /**
-             * Show the dropdown for time (hour/minute) selection below the calendars
-             */
-            timePicker: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Use 24h format for the time
-             */
-            timePicker24Hour: {
-                type: Boolean,
-                default: true,
-            },
-            /**
-             * Show the week numbers on the left side of the calendar
-             */
-            showWeekNumbers: {
-                type: Boolean,
-                default: true,
-            },
-            /**
-             * Show the dropdowns for month and year selection above the calendars
-             */
-            showDropdowns: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * You can set this to false in order to hide the ranges selection.
-             * Otherwise it is an object with key/value.
-             */
-            ranges: {
-                type: [Boolean, Object],
-                default: () => {
-                    let today = new Date();
-                    today.setHours(0, 0, 0, 0);
+        /**
+         *  Which way the picker opens. Works without button attribute
+         */
+        opens: {
+            type: String,
+            default: 'center',
+        },
+        /**
+         * ID for the element
+         */
+        id: {
+            type: [String, Number],
+            required: true,
+        },
+        /**
+         * Makes the picker readonly. No button in footer. No ranges. Cannot change.
+         */
+        readOnly: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Disabled state. If true picker do not popup on click.
+         */
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Whether to close the dropdown on "esc"
+         */
+        closeOnEsc: {
+            type: Boolean,
+            default: true,
+        },
+        /**
+         * Visually hide the label
+         */
+        labelHidden: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Label for the element
+         */
+        label: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Label class for the element
+         */
+        labelClass: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Empty Label for the element
+         */
+        emptyLabel: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Display an error message
+         */
+        error: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Define prefix for the element. Works without button attribute
+         */
+        prefix: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Minimum date allowed to be selected
+         */
+        minDate: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Maximum date allowed to be selected
+         */
+        maxDate: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Date format for the element
+         */
+        format: {
+            type: String,
+            default: 'MM/DD/YYYY',
+        },
+        /**
+         * Only show a single calendar, with or without ranges.
+         * Set true or 'single' for a single calendar with no ranges, single dates only.
+         * Set 'range' for a single calendar WITH ranges.
+         * Set false for a double calendar with ranges.
+         */
+        singleDatePicker: {
+            type: [Boolean, String],
+            default: true
+        },
+        /**
+         * Show the dropdown for time (hour/minute) selection below the calendars
+         */
+        timePicker: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Use 24h format for the time
+         */
+        timePicker24Hour: {
+            type: Boolean,
+            default: true,
+        },
+        /**
+         * Show the week numbers on the left side of the calendar
+         */
+        showWeekNumbers: {
+            type: Boolean,
+            default: true,
+        },
+        /**
+         * Show the dropdowns for month and year selection above the calendars
+         */
+        showDropdowns: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * You can set this to false in order to hide the ranges selection.
+         * Otherwise it is an object with key/value.
+         */
+        ranges: {
+            type: [Boolean, Object],
+            default: () => {
+                let today = new Date();
+                today.setHours(0, 0, 0, 0);
 
-                    let yesterday = dayjs().add(-1, 'day').toDate();
+                let yesterday = dayjs().add(-1, 'day').toDate();
 
+                return {
+                    'Today': [today, today],
+                    'Yesterday': [yesterday, yesterday],
+                    'This week': [dayjs().startOf('week').toDate(), dayjs().endOf('week').toDate()],
+                    'This month': [dayjs().startOf('month').toDate(), dayjs().endOf('month').toDate()],
+                    'This year': [dayjs().startOf('year').toDate(), dayjs().endOf('year').toDate()],
+                    'Last month': [dayjs().subtract(1, 'month').startOf('month').toDate(),
+                        dayjs().subtract(1, 'month').endOf('month').toDate()],
+                };
+            },
+        },
+        /**
+         * Auto apply selected range. If false you need to click an apply button
+         */
+        autoApply: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * This should be an object containing startDate and endDate.
+         */
+        dateRange: {
+            type: [String, Object],
+            ...ObjectValidator('dateRange', DateRangeInterface),
+        },
+        /**
+         * Each calendar has separate navigation when this is false
+         */
+        linkedCalendars: {
+            type: Boolean,
+            default: true,
+        },
+        /**
+         * Object containing locale data used by the picker
+         */
+        localeData: {
+            type: Object,
+        },
+        /**
+         * Help text for the date picker
+         */
+        helpText: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Clear date
+         */
+        clearable: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Containing a hint to the user of what can be entered in the control
+         */
+        placeholder: {
+            type: String,
+            default: '-',
+        },
+        /**
+         * Element value
+         */
+        value: {
+            type: [String, Object],
+            ...ObjectValidator('value', ValueInterface),
+        },
+        /**
+         * For Vue 3
+         * Element model value
+         */
+        modelValue: {
+            type: [String, Object],
+            ...ObjectValidator('value', ValueInterface),
+        },
+        /**
+         * Create beautifully simple form labels that float over your input fields
+         */
+        floatingLabel: {
+            type: Boolean,
+            default: false,
+        }
+    });
+
+    const emit = defineEmits(['change', 'input', 'checkOpen', 'updateValues', 'update:modelValue']);
+    let slots = useSlots();
+    let attrs = useAttrs();
+    let content = ref(null);
+    let selectedRanges = ref(null);
+
+    let computedVModel = computed(() => {
+        return props.modelValue;
+    });
+
+    let className = computed(() => {
+        return classNames(
+            props.labelHidden && 'Polaris-Labelled--hidden',
+            'Polaris-DatePicker',
+        );
+    });
+
+    let computedRanges = computed(() => {
+        return !props.singleDatePicker ? props.ranges : false;
+    });
+
+    let hasError = computed(() => {
+        return props.error && props.error.length > 0;
+    });
+
+    let containerClass = computed(() => {
+        return classNames(
+            'Polaris-TextField',
+            hasError.value && 'Polaris-TextField--error',
+            Boolean(content.value) && 'Polaris-TextField--hasValue',
+            props.disabled && 'Polaris-TextField--disabled',
+            props.readOnly && 'Polaris-TextField--readOnly',
+        );
+    });
+
+    let pDatePickerButtonStyle = computed(() => {
+        if (props.button) {
+            return {
+                'min-width': '3.6rem',
+            };
+        }
+    });
+
+    let computedValue = computed({
+        get() {
+            if (props.singleDatePicker) {
+                if (computedVModel.value) {
                     return {
-                        'Today': [today, today],
-                        'Yesterday': [yesterday, yesterday],
-                        'This week': [dayjs().startOf('week').toDate(), dayjs().endOf('week').toDate()],
-                        'This month': [dayjs().startOf('month').toDate(), dayjs().endOf('month').toDate()],
-                        'This year': [dayjs().startOf('year').toDate(), dayjs().endOf('year').toDate()],
-                        'Last month': [dayjs().subtract(1, 'month').startOf('month').toDate(),
-                            dayjs().subtract(1, 'month').endOf('month').toDate()],
+                        startDate: typeof computedVModel.value === 'string' ? computedVModel.value : computedVModel.value.startDate,
+                        endDate: typeof computedVModel.value === 'string' ? computedVModel.value : computedVModel.value.startDate,
                     };
-                },
-            },
+                } else if (props.dateRange) {
+                    return {
+                        startDate: typeof props.dateRange === 'string' ? props.dateRange : props.dateRange.startDate,
+                        endDate: typeof props.dateRange === 'string' ? props.dateRange : props.dateRange.startDate,
+                    };
+                }
+            } else {
+                if (computedVModel.value) {
+                    return computedVModel.value;
+                } else if (props.dateRange) {
+                    return props.dateRange;
+                }
+            }
+            return {startDate: null, endDate: null};
+        },
+        set(dateRange) {
+            content.value = dateRange;
             /**
-             * Auto apply selected range. If false you need to click an apply button
+             * Change date range
              */
-            autoApply: {
-                type: Boolean,
-                default: false,
-            },
+            emit('change', dateRange);
             /**
-             * This should be an object containing startDate and endDate.
+             * Emits when the input is triggered
              */
-            dateRange: {
-                type: [String, Object],
-                ...ObjectValidator('dateRange', DateRangeInterface),
-            },
-            /**
-             * Each calendar has separate navigation when this is false
-             */
-            linkedCalendars: {
-                type: Boolean,
-                default: true,
-            },
-            /**
-             * Object containing locale data used by the picker
-             */
-            localeData: {
-                type: Object,
-            },
-            /**
-             * Help text for the date picker
-             */
-            helpText: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Clear date
-             */
-            clearable: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Containing a hint to the user of what can be entered in the control
-             */
-            placeholder: {
-                type: String,
-                default: '-',
-            },
-            /**
-             * Element value
-             */
-            value: {
-                type: [String, Object],
-                ...ObjectValidator('value', ValueInterface),
-            },
+            emit('input', dateRange);
             /**
              * For Vue 3
-             * Element model value
+             * Emits when the input is triggered
+             * v-model
+             * @ignore
              */
-            modelValue: {
-                type: [String, Object],
-                ...ObjectValidator('value', ValueInterface),
-            },
-            /**
-             * Create beautifully simple form labels that float over your input fields
-             */
-            floatingLabel: {
-                type: Boolean,
-                default: false,
-            }
-        },
-        emits: ['change', 'input', 'checkOpen', 'updateValues', 'update:modelValue'],
-        data() {
-            return {
-                content: null,
-                selectedRanges: null,
-            };
-        },
-        computed: {
-            computedVModel() {
-                return this.modelValue;
-            },
-            className() {
-                return classNames(
-                    this.labelHidden && 'Polaris-Labelled--hidden',
-                    'Polaris-DatePicker',
-                );
-            },
-            computedRanges() {
-                return !this.singleDatePicker ? this.ranges : false;
-            },
-            hasError() {
-                return this.error && this.error.length > 0;
-            },
-            containerClass() {
-                return classNames(
-                    'Polaris-TextField',
-                    this.hasError && 'Polaris-TextField--error',
-                    Boolean(this.content) && 'Polaris-TextField--hasValue',
-                    this.disabled && 'Polaris-TextField--disabled',
-                    this.readOnly && 'Polaris-TextField--readOnly',
-                );
-            },
-            pDatePickerButtonStyle() {
-                if (this.button) {
-                    return {
-                        'min-width': '3.6rem',
-                    };
-                }
-            },
-            computedValue: {
-                get() {
-                    if (this.singleDatePicker) {
-                        if (this.computedVModel) {
-                            return {
-                                startDate: typeof this.computedVModel === 'string' ? this.computedVModel : this.computedVModel.startDate,
-                                endDate: typeof this.computedVModel === 'string' ? this.computedVModel : this.computedVModel.startDate,
-                            };
-                        } else if (this.dateRange) {
-                            return {
-                                startDate: typeof this.dateRange === 'string' ? this.dateRange : this.dateRange.startDate,
-                                endDate: typeof this.dateRange === 'string' ? this.dateRange : this.dateRange.startDate,
-                            };
-                        }
-                    } else {
-                        if (this.computedVModel) {
-                            return this.computedVModel;
-                        } else if (this.dateRange) {
-                            return this.dateRange;
-                        }
-                    }
-                    return {startDate: null, endDate: null};
-                },
-                set(dateRange) {
-                    this.content = dateRange;
-                    /**
-                     * Change date range
-                     */
-                    this.$emit('change', dateRange);
-                    /**
-                     * Emits when the input is triggered
-                     */
-                    this.$emit('input', dateRange);
-                    /**
-                     * For Vue 3
-                     * Emits when the input is triggered
-                     * v-model
-                     * @ignore
-                     */
-                    this.$emit('update:modelValue', dateRange);
-                }
-            },
-            showPrefix() {
-                return this.prefix || hasSlot(this.$slots.prefix);
-            },
-            hasSlot() {
-                return hasSlot;
-            },
-        },
-        methods: {
-            computedTextValue(picker) {
-                if (!this.singleDatePicker) {
-                    if (picker.startDate && picker.endDate) {
-                        let today = new Date();
-                        today.setHours(0, 0, 0, 0);
-                        let yesterday = dayjs().add(-1, 'day').toDate();
+            emit('update:modelValue', dateRange);
+        }
+    });
 
-                        if (picker.startDate.toLocaleDateString() === today.toLocaleDateString() &&
-                            picker.endDate.toLocaleDateString() === today.toLocaleDateString()) {
-                            return (`Today`);
-                        } else if (picker.startDate.toLocaleDateString() === yesterday.toLocaleDateString() &&
-                            picker.endDate.toLocaleDateString() === yesterday.toLocaleDateString()) {
-                            return (`Yesterday`);
-                        } else if (picker.startDate.toLocaleDateString() === dayjs().startOf('week').toDate().toLocaleDateString() &&
-                            picker.endDate.toLocaleDateString() === dayjs().endOf('week').toDate().toLocaleDateString()) {
-                            return (`This week`);
-                        } else if (picker.startDate.toLocaleDateString() === dayjs().startOf('month').toDate().toLocaleDateString() &&
-                            picker.endDate.toLocaleDateString() === dayjs().endOf('month').toDate().toLocaleDateString()) {
-                            return (`This month`);
-                        } else if (picker.startDate.toLocaleDateString() === dayjs().startOf('year').toDate().toLocaleDateString() &&
-                            picker.endDate.toLocaleDateString() === dayjs().endOf('year').toDate().toLocaleDateString()) {
-                            return (`This year`);
-                        } else if (picker.startDate.toLocaleDateString() === dayjs().subtract(1, 'month').startOf('month').toDate().toLocaleDateString() &&
-                            picker.endDate.toLocaleDateString() === dayjs().subtract(1, 'month').endOf('month').toDate().toLocaleDateString()) {
-                            return (`Last month`);
-                        } else {
-                            return (`${this.formatDate(picker.startDate)} - ${this.formatDate(picker.endDate)}`);
-                        }
-                    } else {
-                        return !this.floatingLabel ? this.placeholder : null;
-                    }
+    let showPrefix = computed(() => {
+        return props.prefix || hasSlot(slots.prefix);
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    function computedTextValue(picker) {
+        if (!props.singleDatePicker) {
+            if (picker.startDate && picker.endDate) {
+                let today = new Date();
+                today.setHours(0, 0, 0, 0);
+                let yesterday = dayjs().add(-1, 'day').toDate();
+
+                if (picker.startDate.toLocaleDateString() === today.toLocaleDateString() &&
+                    picker.endDate.toLocaleDateString() === today.toLocaleDateString()) {
+                    return (`Today`);
+                } else if (picker.startDate.toLocaleDateString() === yesterday.toLocaleDateString() &&
+                    picker.endDate.toLocaleDateString() === yesterday.toLocaleDateString()) {
+                    return (`Yesterday`);
+                } else if (picker.startDate.toLocaleDateString() === dayjs().startOf('week').toDate().toLocaleDateString() &&
+                    picker.endDate.toLocaleDateString() === dayjs().endOf('week').toDate().toLocaleDateString()) {
+                    return (`This week`);
+                } else if (picker.startDate.toLocaleDateString() === dayjs().startOf('month').toDate().toLocaleDateString() &&
+                    picker.endDate.toLocaleDateString() === dayjs().endOf('month').toDate().toLocaleDateString()) {
+                    return (`This month`);
+                } else if (picker.startDate.toLocaleDateString() === dayjs().startOf('year').toDate().toLocaleDateString() &&
+                    picker.endDate.toLocaleDateString() === dayjs().endOf('year').toDate().toLocaleDateString()) {
+                    return (`This year`);
+                } else if (picker.startDate.toLocaleDateString() === dayjs().subtract(1, 'month').startOf('month').toDate().toLocaleDateString() &&
+                    picker.endDate.toLocaleDateString() === dayjs().subtract(1, 'month').endOf('month').toDate().toLocaleDateString()) {
+                    return (`Last month`);
                 } else {
-                    if (picker.startDate) {
-                        return this.formatDate(picker.startDate);
-                    } else {
-                        return !this.floatingLabel ? this.placeholder : null;
-                    }
+                    return (`${formatDate(picker.startDate)} - ${formatDate(picker.endDate)}`);
                 }
-            },
-            updateValues(values) {
-                /**
-                 * Emits when the user selects a range from the picker
-                 * and clicks "apply" (if autoApply is true).
-                 * @param values {startDate, endDate}
-                 */
-                this.$emit('updateValues');
-                this.$emit('change', values);
-            },
-            checkOpen() {
-                /**
-                 * Emits whenever the picker opens/closes
-                 */
-                this.$emit('checkOpen');
-            },
-            formatDate(date) {
-                return dayjs(date).format(this.format);
-            },
-            rangeOptions(ranges) {
-                return Object.keys(ranges);
-            },
-            changeRange(range, ranges) {
-                if (typeof ranges.ranges[range] !== 'undefined') {
-                    ranges.clickRange(ranges.ranges[range]);
-                }
-            },
-            handleCancelClick(event) {
-                event.stopPropagation();
-                this.computedValue = {startDate: null, endDate: null};
-            },
-        },
-        watch: {
-            dateRange(dateRange) {
-                this.content = dateRange;
-            },
-        },
+            } else {
+                return !props.floatingLabel ? props.placeholder : null;
+            }
+        } else {
+            if (picker.startDate) {
+                return formatDate(picker.startDate);
+            } else {
+                return !props.floatingLabel ? props.placeholder : null;
+            }
+        }
     }
+
+    function updateValues(values) {
+        /**
+         * Emits when the user selects a range from the picker
+         * and clicks "apply" (if autoApply is true).
+         * @param values {startDate, endDate}
+         */
+        emit('updateValues');
+        emit('change', values);
+    }
+
+    function checkOpen() {
+        /**
+         * Emits whenever the picker opens/closes
+         */
+        emit('checkOpen');
+    }
+
+    function formatDate(date) {
+        return dayjs(date).format(props.format);
+    }
+
+    function rangeOptions(ranges) {
+        return Object.keys(ranges);
+    }
+
+    function changeRange(range, ranges) {
+        if (typeof ranges.ranges[range] !== 'undefined') {
+            ranges.clickRange(ranges.ranges[range]);
+        }
+    }
+
+    function handleCancelClick(event) {
+        event.stopPropagation();
+        computedValue.value = {startDate: null, endDate: null};
+    }
+
+    watch(() => props.dateRange, (dateRange) => {
+        content.value = dateRange;
+    });
 </script>

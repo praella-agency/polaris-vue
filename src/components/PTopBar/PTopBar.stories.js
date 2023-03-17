@@ -388,7 +388,7 @@ const Template = (args) => ({
         },
         handleSearchChange(value) {
             this.searchValue = value;
-            this.isSearchActive = value.length > 0;
+            this.isSearchActive = !!value;
         },
     },
 });

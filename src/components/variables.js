@@ -321,3 +321,27 @@ export const SettingToggleAction = {
         return 0;
     },
 }
+
+// PDatePicker.vue
+const DateType = [Date, String];
+const DateRange = {
+    type: [String, Object],
+    properties: {
+        startDate: {
+            type: DateType,
+            nullable: true,
+        },
+        endDate: {
+            type: DateType,
+            nullable: true,
+        },
+    },
+}
+
+export const DateRangeInterface = {
+    dateRange: DateRange,
+}
+
+export const ValueInterface = {
+    value: DateRange,
+}

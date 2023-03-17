@@ -66,6 +66,6 @@
     });
 
     let listeners = computed(() => {
-        return props.external ? '_blank' : {};
+        return {};
     });
 </script>

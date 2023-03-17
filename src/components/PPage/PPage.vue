@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import {computed, useAttrs, useSlots} from 'vue';
+    import { computed, useAttrs, useSlots } from 'vue';
     import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PPageHeader } from '../../components/PPage/components/PPageHeader';

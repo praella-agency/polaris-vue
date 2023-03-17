@@ -1,4 +1,4 @@
-import { computed, watch, defineEmits } from 'vue';
+import { computed, watch } from 'vue';
 import tinycolor from 'tinycolor2'
 
 function _colorChange(data, oldHue) {
