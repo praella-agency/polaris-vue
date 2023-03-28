@@ -345,3 +345,39 @@ export const DateRangeInterface = {
 export const ValueInterface = {
     value: DateRange,
 }
+
+// PTag.vue
+export const TagInterface = {
+    value: {
+        type: [String, Number],
+        required: true,
+    },
+    key: {
+        type: [String, Number],
+        required: true,
+    },
+};
+
+export const TagSize = ['small', 'medium', null, ''];
+
+// PBanner.vue
+export const BannerStatus = ['success', 'info', 'warning', 'critical', null];
+
+// PProgressBar.vue
+export const ProgressBarSize = ['small', 'medium', 'large'];
+
+// PSkeletonDisplayText.vue
+export const SkeletonDisplayTextSize = ['small', 'medium', 'large', 'extraLarge'];
+
+// PSkeletonThumbnail.vue
+export const SkeletonThumbnailSize = ['small', 'medium', 'large'];
+
+// PToast.vue
+export const Positions = Object.freeze({
+    TOP_RIGHT: 'top-right',
+    TOP: 'top',
+    TOP_LEFT: 'top-left',
+    BOTTOM_RIGHT: 'bottom-right',
+    BOTTOM: 'bottom',
+    BOTTOM_LEFT: 'bottom-left',
+});

@@ -2,37 +2,27 @@
     <div :class="className"></div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames, variationName } from '../../utilities/css';
     import StringValidator from '../../utilities/validators/StringValidator';
+    import { SkeletonDisplayTextSize } from '../variables';
 
-    const Size = ['small', 'medium', 'large', 'extraLarge'];
+    let props = defineProps({
+        /**
+         * Size of Skeleton.
+         */
+        size: {
+            type: String,
+            default: 'medium',
+            ...StringValidator('size', SkeletonDisplayTextSize)
+        }
+    });
 
-    /**
-     * <br/>
-     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
-     *  sans-serif;">Skeleton display text is used to provide a low fidelity representation of content before it appears on
-     *  the page, and improves load times perceived by merchants. Can be used for content in or outside of a card.</h4>
-     */
-    export default {
-        name: 'PSkeletonDisplayText',
-        props: {
-            /**
-             * Size of Skeleton.
-             */
-            size: {
-                type: String,
-                default: 'medium',
-                ...StringValidator('size', Size)
-            }
-        },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-SkeletonDisplayText__DisplayText',
-                    this.size && `Polaris-SkeletonDisplayText--${variationName('size', this.size)}`,
-                );
-            }
-        },
-    }
+    let className = computed(() => {
+        return classNames(
+            'Polaris-SkeletonDisplayText__DisplayText',
+            props.size && `Polaris-SkeletonDisplayText--${variationName('size', props.size)}`,
+        );
+    });
 </script>

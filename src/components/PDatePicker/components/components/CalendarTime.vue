@@ -28,99 +28,100 @@
     </div>
 </template>
 
-<script>
-    export default {
-        props: {
-            miniuteIncrement: {
-                type: Number,
-                default: 5,
-            },
-            hour24: {
-                type: Boolean,
-                default: true,
-            },
-            secondPicker: {
-                type: Boolean,
-                default: false,
-            },
-            currentTime: {
-                default() {
-                    return new Date()
-                }
-            },
-            readonly: {
-                type: Boolean,
-                default: false
+<script setup>
+    import { computed, onMounted, ref, watch } from 'vue';
+
+    let props = defineProps({
+        minuteIncrement: {
+            type: Number,
+            default: 5,
+        },
+        hour24: {
+            type: Boolean,
+            default: true,
+        },
+        secondPicker: {
+            type: Boolean,
+            default: false,
+        },
+        currentTime: {
+            default() {
+                return new Date()
             }
         },
-        emits: ['update'],
-        data() {
-            let current = this.currentTime ? this.currentTime : new Date()
-            let hours = current.getHours();
-            return {
-                hour: this.hour24 ? hours : hours % 12 || 12,
-                minute: current.getMinutes() - (current.getMinutes() % this.miniuteIncrement),
-                second: current.getSeconds(),
-                ampm: hours < 12 ? 'AM' : 'PM',
-            };
-        },
-        computed: {
-            hours() {
-                let values = [];
-                let max = this.hour24 ? 24 : 12;
-                for (let i = 0; i < max; i++) {
-                    values.push(this.hour24 ? i : i + 1);
-                }
-                return values;
-            },
-            minutes() {
-                let values = [];
-                let max = 60;
-                for (let i = 0; i < max; i = i + this.miniuteIncrement) {
-                    values.push(i);
-                }
-                return values;
-            },
-        },
-        watch: {
-            hour() {
-                this.onChange();
-            },
-            minute() {
-                this.onChange();
-            },
-            second() {
-                this.onChange();
-            },
-            ampm() {
-                this.onChange();
-            },
-        },
-        methods: {
-            getHour() {
-                if (this.hour24) {
-                    return this.hour;
-                } else {
-                    if (this.hour === 12) {
-                        return this.ampm === 'AM' ? 0 : 12;
-                    } else {
-                        return this.hour + (this.ampm === 'PM' ? 12 : 0);
-                    }
-                }
-            },
-            onChange() {
-                this.$emit('update', {
-                    hours: this.getHour(),
-                    minutes: this.minute,
-                    seconds: this.second,
-                });
-            },
-            formatNumber(value) {
-                if (value < 10) {
-                    return '0' + value.toString();
-                }
-                return value.toString();
+        readonly: {
+            type: Boolean,
+            default: false
+        }
+    });
+    const emit = defineEmits(['update']);
+    let data = ref(null);
+
+    let current = props.currentTime ? props.currentTime : new Date();
+    let currentHours = current.getHours();
+    let hour = ref(props.hour24 ? currentHours : currentHours % 12 || 12);
+    let minute = ref(current.getMinutes() - (current.getMinutes() % props.minuteIncrement));
+    let second = ref(current.getSeconds());
+    let ampm = ref(currentHours < 12 ? 'AM' : 'PM');
+
+    let hours = computed(() => {
+        let values = [];
+        let max = props.hour24 ? 24 : 12;
+        for (let i = 0; i < max; i++) {
+            values.push(props.hour24 ? i : i + 1);
+        }
+        return values;
+    });
+
+    let minutes = computed(() => {
+        let values = [];
+        let max = 60;
+        for (let i = 0; i < max; i = i + props.minuteIncrement) {
+            values.push(i);
+        }
+        return values;
+    });
+
+    function getHour() {
+        if (props.hour24) {
+            return hour.value;
+        } else {
+            if (hour.value === 12) {
+                return ampm.value === 'AM' ? 0 : 12;
+            } else {
+                return hour.value + (ampm.value === 'PM' ? 12 : 0);
             }
-        },
+        }
     }
+
+    function onChange() {
+        emit('update', {
+            hours: getHour(),
+            minutes: minute.value,
+            seconds: second.value,
+        });
+    }
+
+    function formatNumber(value) {
+        if (value < 10) {
+            return '0' + value.toString();
+        }
+        return value.toString();
+    }
+
+    watch(hour, () => {
+        onChange();
+    });
+
+    watch(minute, () => {
+        onChange();
+    });
+
+    watch(second, () => {
+        onChange();
+    });
+
+    watch(ampm, () => {
+        onChange();
+    });
 </script>

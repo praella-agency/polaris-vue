@@ -22,56 +22,50 @@
     </div>
 </template>
 
-<script>
-    import dateUtilMixin from './dateUtilMixin'
+<script setup>
+    import { computed, ref } from 'vue';
+    import useDateUtil from './dateUtilMixin';
 
-    export default {
-        mixins: [dateUtilMixin],
-        props: {
-            ranges: Object,
-            selected: Object,
-            localeData: Object,
-            alwaysShowCalendars: Boolean,
-        },
-        emits: ['click-range', 'show-custom-range'],
-        data() {
+    let props = defineProps({
+        ranges: Object,
+        selected: Object,
+        localeData: Object,
+        alwaysShowCalendars: Boolean,
+    });
+    const { $dateUtil } = useDateUtil();
+    const emit = defineEmits(['click-range', 'show-custom-range']);
+    let customRangeActive = ref(false);
+
+    let listedRanges = computed(() => {
+        if (!props.ranges) return false;
+        return Object.keys(props.ranges).map(value => {
             return {
-                customRangeActive: false
-            }
-        },
-        methods: {
-            clickRange(range) {
-                this.customRangeActive = false
-                this.$emit('click-range', range)
-            },
-            clickCustomRange() {
-                this.customRangeActive = true
-                this.$emit('show-custom-range')
-            },
-            range_class(range) {
-                return {active: range.selected === true};
-            }
-        },
-        computed: {
-            listedRanges() {
-                if (!this.ranges)
-                    return false
-                return Object.keys(this.ranges).map(value => {
-                    return {
-                        label: value,
-                        value: this.ranges[value],
-                        selected:
-                            this.$dateUtil.isSame(this.selected.startDate, this.ranges[value][0]) &&
-                            this.$dateUtil.isSame(this.selected.endDate, this.ranges[value][1])
-                    };
-                })
-            },
-            selectedRange() {
-                return this.listedRanges.find(r => r.selected === true)
-            },
-            showCustomRangeLabel() {
-                return !this.alwaysShowCalendars;
-            }
-        },
+                label: value,
+                value: props.ranges[value],
+                selected: $dateUtil.value.isSame(props.selected.startDate, props.ranges[value][0]) && $dateUtil.value.isSame(props.selected.endDate, props.ranges[value][1])
+            };
+        })
+    });
+
+    let selectedRange = computed(() => {
+        return listedRanges.value.find(r => r.selected === true);
+    });
+
+    let showCustomRangeLabel = computed(() => {
+        return !props.alwaysShowCalendars;
+    });
+
+    function clickRange(range) {
+        customRangeActive.value = false;
+        emit('click-range', range);
+    }
+
+    function clickCustomRange() {
+        customRangeActive.value = true;
+        emit('show-custom-range');
+    }
+
+    function range_class(range) {
+        return {active: range.selected === true};
     }
 </script>

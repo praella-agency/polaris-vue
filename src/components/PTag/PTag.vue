@@ -13,78 +13,53 @@
     </span>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../utilities/css';
     import { PIcon } from '../../components/PIcon';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
     import StringValidator from "../../utilities/validators/StringValidator";
+    import { TagInterface, TagSize } from '../variables';
 
-    const TagInterface = {
-        value: {
-            type: [String, Number],
-            required: true,
+    let props = defineProps({
+        /**
+         * Tag object.
+         */
+        tag: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('tag', TagInterface),
         },
-        key: {
-            type: [String, Number],
-            required: true,
+        /**
+         * Set true if you want to make it removable.
+         */
+        removable: {
+            type: Boolean,
+            default: false,
         },
-    };
+        /**
+         * Changes the size of the tag
+         */
+        size: {
+            type: String,
+            default: 'medium',
+            ...StringValidator('size', TagSize),
+        },
+    });
+    const emit = defineEmits(['remove-tag']);
 
-    const Size = ['small', 'medium', null, ''];
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Tag',
+            props.removable && `Polaris-Tag--removable`,
+            props.size === 'small' && 'Polaris-Tag--small',
+        );
+    });
 
-    /**
-     * <br/>
-     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
-     *  sans-serif;">Tags represent a set of interactive, merchant-supplied keywords that help label, organize, and
-     *  categorize objects. Tags can be added or removed from an object by merchants.</h4>
-     */
-    export default {
-        name: 'PTag',
-        components: {
-            PIcon,
-        },
-        props: {
-            /**
-             * Tag object.
-             */
-            tag: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('tag', TagInterface),
-            },
-            /**
-             * Set true if you want to make it removable.
-             */
-            removable: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Changes the size of the tag
-             */
-            size: {
-                type: String,
-                default: 'medium',
-                ...StringValidator('size', Size),
-            },
-        },
-        emits: ['remove-tag'],
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Tag',
-                    this.removable && `Polaris-Tag--removable`,
-                    this.size === 'small' && 'Polaris-Tag--small',
-                );
-            },
-        },
-        methods: {
-            handleRemove() {
-                /**
-                 * Method to remove tag
-                 */
-                this.$emit('remove-tag', this.tag.key);
-            },
-        },
+    function handleRemove() {
+        /**
+         * Method to remove tag
+         */
+        emit('remove-tag', props.tag.key);
     }
 </script>

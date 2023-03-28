@@ -2,7 +2,7 @@
   <transition
       :enter-active-class="transition.enter"
       :leave-active-class="transition.leave">
-    <div v-show="isActive" :class="`Polaris-Frame-ToastManager ${positionClass}`">
+    <div v-show="isActive" :class="`Polaris-Frame-ToastManager ${positionClass}`" ref="toast">
       <div class="Polaris-Frame-ToastManager__ToastWrapper">
         <div class="Polaris-Frame-Toast" :class="className"
              @mouseover="toggleTimer(true)"
@@ -16,243 +16,239 @@
     </div>
   </transition>
 </template>
-<script>
+<script setup>
+import { computed, onBeforeMount, onBeforeUnmount, onMounted, ref } from 'vue';
 import {PIcon} from '../../../components/PIcon';
 import Timer from './timer';
 import {classNames} from '../../../utilities/css';
-import utils from "../../../utilities";
+import { Positions } from '../../variables';
 
-const Positions = Object.freeze({
-  TOP_RIGHT: 'top-right',
-  TOP: 'top',
-  TOP_LEFT: 'top-left',
-  BOTTOM_RIGHT: 'bottom-right',
-  BOTTOM: 'bottom',
-  BOTTOM_LEFT: 'bottom-left',
-});
 const removeElement = (el) => {
-  if (typeof el.remove !== 'undefined') {
-    el.remove();
-  } else {
-    el.parentNode.removeChild(el);
-  }
-  document.body.querySelector(".v-toast--pending").remove();
+    if (typeof el.remove !== 'undefined') {
+        el.remove();
+    } else {
+        el.parentNode.removeChild(el);
+    }
+    document.body.querySelector(".v-toast--pending").remove();
 };
 
-export default {
-  components: {
-    PIcon,
-  },
-  props: {
+let props = defineProps({
     /**
      * Id for the element
      */
     id: {
-      type: [String, Number],
-      default: null,
+        type: [String, Number],
+        default: null,
     },
     /**
      * The message that should appear in the toast message
      */
     message: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
     },
     /**
      * Show errored message
      */
     error: {
-      type: Boolean,
-      default: false,
+        type: Boolean,
+        default: false,
     },
     /**
      * Toast Position
      */
     position: {
-      type: String,
-      default: 'bottom',
-      validator(value) {
-        return ['top-right', 'top', 'top-left', 'bottom-right', 'bottom', 'bottom-left'].indexOf(value) !== -1;
-      },
+        type: String,
+        default: 'bottom',
+        validator(value) {
+            return ['top-right', 'top', 'top-left', 'bottom-right', 'bottom', 'bottom-left'].indexOf(value) !== -1;
+        },
     },
     /**
      * The length of time in milliseconds the toast message should persist
      */
     dismissible: {
-      type: Boolean,
-      default: true,
+        type: Boolean,
+        default: true,
     },
     /**
      * Allow user dismiss by clicking
      */
     duration: {
-      type: Number,
-      default: 3000,
+        type: Number,
+        default: 3000,
     },
     /**
      * Wait for existing to dismiss before showing new
      */
     queue: {
-      type: Boolean,
-      default: false,
+        type: Boolean,
+        default: false,
     },
     /**
      * Pause the timer when mouse on over a toast
      */
     pauseOnHover: {
-      type: Boolean,
-      default: true,
+        type: Boolean,
+        default: true,
     },
     /**
      * Do something when user clicks
      */
     onClick: {
-      type: Function,
-      default: () => ({}),
+        type: Function,
+        default: () => ({}),
     },
     /**
      * Do something after toast gets dismissed
      */
     onDismiss: {
-      type: Function,
-      default: () => ({}),
+        type: Function,
+        default: () => ({}),
     },
     eventBus: {
-      type: Object
+        type: Object
     }
-  },
-  data() {
-    return {
-      isActive: false,
-      parentTop: null,
-      parentBottom: null,
-      queueTimer: undefined,
-      timer: Timer,
-    };
-  },
-  computed: {
-    className() {
-      return classNames(
-          this.error && 'Polaris-Frame-Toast--error',
-      );
-    },
-    positionClass() {
-      return classNames(
-          'Polaris-Frame-Toast--Position-' + this.position,
-      );
-    },
-    transition() {
-      switch (this.position) {
+});
+
+let isActive = ref(false);
+let parentTop = ref(null);
+let parentBottom = ref(null);
+let queueTimer = ref(undefined);
+let timer = ref(Timer);
+let toast = ref(null);
+
+let className = computed(() => {
+    return classNames(
+        props.error && 'Polaris-Frame-Toast--error',
+    );
+});
+
+let positionClass = computed(() => {
+    return classNames(
+        `Polaris-Frame-Toast--Position-${props.position}`,
+    );
+});
+
+let transition = computed(() => {
+    switch (props.position) {
         case Positions.TOP:
         case Positions.TOP_RIGHT:
         case Positions.TOP_LEFT:
-          return {
-            enter: 'Polaris-Frame-Toast-Fade-In-Down',
-            leave: 'Polaris-Frame-Toast-Fade-Out',
-          };
+            return {
+                enter: 'Polaris-Frame-Toast-Fade-In-Down',
+                leave: 'Polaris-Frame-Toast-Fade-Out',
+            };
         case Positions.BOTTOM:
         case Positions.BOTTOM_RIGHT:
         case Positions.BOTTOM_LEFT:
-          return {
-            enter: 'Polaris-Frame-Toast-Fade-In-Up',
-            leave: 'Polaris-Frame-Toast-Fade-Out',
-          };
-      }
-    },
-    correctParent() {
-      switch (this.position) {
+            return {
+                enter: 'Polaris-Frame-Toast-Fade-In-Up',
+                leave: 'Polaris-Frame-Toast-Fade-Out',
+            };
+    }
+});
+
+let correctParent = computed(() => {
+    switch (props.position) {
         case Positions.TOP:
         case Positions.TOP_RIGHT:
         case Positions.TOP_LEFT:
-          return this.parentTop;
+            return parentTop.value;
         case Positions.BOTTOM:
         case Positions.BOTTOM_RIGHT:
         case Positions.BOTTOM_LEFT:
-          return this.parentBottom;
-      }
-    },
-  },
-  methods: {
-    setupContainer() {
-      this.parentTop = document.querySelector('.Polaris-Frame-Toast-Wrapper.Polaris-Frame-Toast-Wrapper-Top');
-      this.parentBottom = document.querySelector('.Polaris-Frame-Toast-Wrapper.Polaris-Frame-Toast-Wrapper-Bottom');
-      // No need to create them, they already exists
-      if (this.parentTop && this.parentBottom) {
+            return parentBottom.value;
+    }
+});
+
+function setupContainer() {
+    parentTop.value = document.querySelector('.Polaris-Frame-Toast-Wrapper.Polaris-Frame-Toast-Wrapper-Top');
+    parentBottom.value = document.querySelector('.Polaris-Frame-Toast-Wrapper.Polaris-Frame-Toast-Wrapper-Bottom');
+    // No need to create them, they already exists
+    if (parentTop.value && parentBottom.value) {
         return;
-      }
-      if (!this.parentTop) {
-        this.parentTop = document.createElement('div');
-        this.parentTop.className = 'Polaris-Frame-Toast-Wrapper Polaris-Frame-Toast-Wrapper-Top';
-      }
-      if (!this.parentBottom) {
-        this.parentBottom = document.createElement('div');
-        this.parentBottom.className = 'Polaris-Frame-Toast-Wrapper Polaris-Frame-Toast-Wrapper-Bottom';
-      }
-      const container = document.body;
-      container.appendChild(this.parentTop);
-      container.appendChild(this.parentBottom);
-    },
-    showNotice() {
-      if (this.shouldQueue()) {
+    }
+    if (!parentTop.value) {
+        parentTop.value = document.createElement('div');
+        parentTop.value.className = 'Polaris-Frame-Toast-Wrapper Polaris-Frame-Toast-Wrapper-Top';
+    }
+    if (!parentBottom.value) {
+        parentBottom.value = document.createElement('div');
+        parentBottom.value.className = 'Polaris-Frame-Toast-Wrapper Polaris-Frame-Toast-Wrapper-Bottom';
+    }
+    const container = document.body;
+    container.appendChild(parentTop.value);
+    container.appendChild(parentBottom.value);
+}
+
+function showNotice() {
+    if (shouldQueue()) {
         // Call recursively if should queue
-        this.queueTimer = setTimeout(this.showNotice, 250);
+        queueTimer.value = setTimeout(showNotice, 250);
         return;
-      }
-      this.correctParent.insertAdjacentElement('afterbegin', this.$el);
-      this.isActive = true;
-      if (this.duration) {
-        this.timer = new Timer(this.dismiss, this.duration);
-      }
-    },
-    shouldQueue() {
-      if (!this.queue) {
+    }
+    correctParent.value.insertAdjacentElement('afterbegin', toast);
+    isActive.value = true;
+    if (props.duration) {
+        timer.value = new Timer(dismiss, props.duration);
+    }
+}
+
+function shouldQueue() {
+    if (!props.queue) {
         return false;
-      }
-      return (
-          this.parentTop.childElementCount > 0 ||
-          this.parentBottom.childElementCount > 0
-      );
-    },
-    dismiss() {
-      if (this.timer) {
-        this.timer.stop();
-      }
-      clearTimeout(this.queueTimer);
-      this.isActive = false;
-      // Timeout for the animation complete before destroying
-      setTimeout(() => {
-        this.onDismiss.apply(null, arguments);
+    }
+    return (
+        parentTop.value.childElementCount > 0 ||
+        parentBottom.value.childElementCount > 0
+    );
+}
+
+function dismiss() {
+    if (timer.value) {
+        timer.value.stop();
+    }
+    clearTimeout(queueTimer.value);
+    isActive.value = false;
+    // Timeout for the animation complete before destroying
+    setTimeout(() => {
+        props.onDismiss.apply(null, arguments);
         // this.$`utils.destroyed`;
         // this.$destroy();
-        removeElement(this.$el);
-      }, 150);
-    },
-    toggleTimer(newVal) {
-      if (!this.pauseOnHover || !this.timer) {
+        removeElement(toast);
+    }, 150);
+}
+
+function toggleTimer(newVal) {
+    if (!props.pauseOnHover || !timer.value) {
         return;
-      }
-      newVal ? this.timer.pause() : this.timer.resume();
-    },
-    closeToast() {
-      if (!this.dismissible) {
+    }
+    newVal ? timer.value.pause() : timer.value.resume();
+}
+
+function closeToast() {
+    if (!props.dismissible) {
         return;
-      }
-      this.onClick.apply(null, arguments);
-      this.dismiss();
-    },
-  },
-  beforeMount() {
-    this.setupContainer();
-  },
-  mounted() {
-    this.showNotice();
-    this.eventBus.on('toast-clear', () => {
-      this.dismiss();
+    }
+    props.onClick.apply(null, arguments);
+    dismiss();
+}
+
+onBeforeMount(() => {
+    setupContainer();
+});
+
+onMounted(() => {
+    toast = toast.value;
+    showNotice();
+    props.eventBus.on('toast-clear', () => {
+        dismiss();
     });
-  },
-  [utils.beforeDestroy]() {
-    this.eventBus.off('toast-clear', this.dismiss);
-  },
-};
+});
+
+onBeforeUnmount(() => {
+    props.eventBus.off('toast-clear', dismiss);
+});
 </script>
 

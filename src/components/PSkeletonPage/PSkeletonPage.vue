@@ -47,99 +47,86 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../utilities/css';
     import { PSkeletonBodyText } from '../../components/PSkeletonBodyText';
     import { PSkeletonDisplayText } from '../../components/PSkeletonDisplayText';
 
-    /**
-     * <br/>
-     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
-     *  sans-serif;">Skeleton page is used with other skeleton loading components to provide a low fidelity representation
-     *  of the user interface (UI) before content appears on the page. It improves load times perceived by merchants.</h4>
-     */
-    export default {
-        name: 'PSkeletonPage',
-        components: {
-            PSkeletonBodyText, PSkeletonDisplayText,
+    let props = defineProps({
+        /**
+         * Page title, in large type
+         */
+        title: {
+            type: String,
+            default: null
         },
-        props: {
-            /**
-             * Page title, in large type
-             */
-            title: {
-                type: String,
-                default: null
-            },
 
-            /**
-             * Remove the normal max-width on the page
-             */
-            fullWidth: {
-                type: Boolean,
-                default: false
-            },
-
-            /**
-             * Decreases the maximum layout width. Intended for single-column layouts
-             */
-            narrowWidth: {
-                type: Boolean,
-                default: false
-            },
-
-            /**
-             * Shows a skeleton over the primary action
-             */
-            primaryAction: {
-                type: Boolean,
-                default: false
-            },
-
-            /**
-             * Number of secondary page-level actions to display
-             */
-            secondaryActions: {
-                type: Number,
-            },
-
-            /**
-             * Shows a skeleton over the breadcrumb
-             */
-            breadcrumbs: {
-                type: Boolean,
-                default: false,
-            },
+        /**
+         * Remove the normal max-width on the page
+         */
+        fullWidth: {
+            type: Boolean,
+            default: false
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-SkeletonPage__Page',
-                    this.fullWidth && 'Polaris-SkeletonPage--fullWidth',
-                    this.narrowWidth && 'Polaris-SkeletonPage--narrowWidth',
+
+        /**
+         * Decreases the maximum layout width. Intended for single-column layouts
+         */
+        narrowWidth: {
+            type: Boolean,
+            default: false
+        },
+
+        /**
+         * Shows a skeleton over the primary action
+         */
+        primaryAction: {
+            type: Boolean,
+            default: false
+        },
+
+        /**
+         * Number of secondary page-level actions to display
+         */
+        secondaryActions: {
+            type: Number,
+        },
+
+        /**
+         * Shows a skeleton over the breadcrumb
+         */
+        breadcrumbs: {
+            type: Boolean,
+            default: false,
+        },
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-SkeletonPage__Page',
+            props.fullWidth && 'Polaris-SkeletonPage--fullWidth',
+            props.narrowWidth && 'Polaris-SkeletonPage--narrowWidth',
+        );
+    });
+
+    function renderSecondaryActions(actionCount) {
+        if (typeof actionCount === 'number') {
+            const actions = [];
+            for (let i = 0; i < actionCount; i++) {
+                const width = Math.round(Math.random() * 40 + 60);
+                actions.push(
+                    {
+                        width: {
+                            /* tslint:disable-next-line */
+                            'width': `${width}px`,
+                        },
+                        key: i,
+                    },
                 );
-            },
-        },
-        methods: {
-            renderSecondaryActions(actionCount) {
-                if (typeof actionCount === 'number') {
-                    const actions = [];
-                    for (let i = 0; i < actionCount; i++) {
-                        const width = Math.round(Math.random() * 40 + 60);
-                        actions.push(
-                            {
-                                width: {
-                                    /* tslint:disable-next-line */
-                                    'width': `${width}px`,
-                                },
-                                key: i,
-                            },
-                        );
-                    }
-
-                    return actions;
-                }
             }
+
+            return actions;
         }
     }
 </script>

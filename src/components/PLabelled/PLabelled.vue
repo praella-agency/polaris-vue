@@ -5,7 +5,7 @@
                 :id="id"
                 :requiredIndicator="requiredIndicator"
                 :hidden="false"
-                v-bind="$attrs"
+                v-bind="attrs"
             >
                 <slot name="label">
                     {{ label }}
@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-    import { computed } from 'vue';
+    import { computed, useAttrs } from 'vue';
     import { classNames } from '../../utilities/css';
     import { Action } from '../../types';
     import { PLabel } from '../../components/PLabel';
@@ -102,6 +102,7 @@
             default: false,
         },
     });
+    let attrs = useAttrs();
 
     let className = computed(() => {
         return classNames(
@@ -110,6 +111,6 @@
     });
 
     let helpTextID = computed(() => {
-        return props.id + 'HelpText';
+        return `${props.id}HelpText`;
     });
 </script>

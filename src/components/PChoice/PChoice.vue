@@ -4,7 +4,7 @@
           Triggered on click
           @event click
         -->
-        <label :class="className" :for="id" @click="$emit('click', $event)">
+        <label :class="className" :for="id" @click="emit('click', $event)">
             <span class="Polaris-Choice__Control">
                 <!-- @slot Title for choice control -->
                 <slot/>
@@ -16,12 +16,12 @@
             </span>
         </label>
         <div
-            v-if="typeof error === 'string' || helpText || isSlot($slots.helpText)"
+            v-if="typeof error === 'string' || helpText || isSlot(slots.helpText)"
             class="Polaris-Choice__Descriptions"
         >
             <PFieldError v-if="typeof error === 'string'" :error="error"/>
             <div
-                v-if="helpText || isSlot($slots.helpText)"
+                v-if="helpText || isSlot(slots.helpText)"
                 class="Polaris-Choice__HelpText"
                 :id="id+'HelpText'"
             >
@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-    import { computed } from 'vue';
+    import { computed, useSlots } from 'vue';
     import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PFieldError } from '../../components/PFieldError';
@@ -78,8 +78,8 @@
             type: [String, Boolean],
         },
     });
-
     const emit = defineEmits(['click']);
+    let slots = useSlots();
 
     let className = computed(() => {
         return classNames(

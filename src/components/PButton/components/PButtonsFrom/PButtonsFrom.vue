@@ -1,7 +1,7 @@
 <template>
     <div>
         <PButton
-            v-for="(prop, i) in props" :key="i"
+            v-for="(prop, i) in computedProps" :key="i"
             @click="prop.onAction"
             v-bind="prop.rest"
         >
@@ -10,39 +10,33 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { ComplexAction } from '../../../../types';
     import { PButton } from '../../../../components/PButton';
     import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
-    export default {
-        name: 'PButtonsFrom',
-        components: {
-            PButton,
+    let props = defineProps({
+        /**
+         * Action or Array of actions
+         */
+        actions: {
+            type: [Array, Object],
+            ...ObjectValidator('actions', ComplexAction),
         },
-        props: {
-            /**
-             * Action or Array of actions
-             */
-            actions: {
-                type: [Array, Object],
-                ...ObjectValidator('actions', ComplexAction),
-            },
-            overrides: {
-                type: Object,
-                default: () => ({}),
-            }
-        },
-        computed: {
-            props() {
-                const actions = !Array.isArray(this.actions) ? [this.actions] : [...this.actions];
+        overrides: {
+            type: Object,
+            default: () => ({}),
+        }
+    });
 
-                return actions.map(({content, onAction, ...action}) => ({
-                    content,
-                    onAction: onAction || (() => undefined),
-                    rest: {...action, ...this.overrides},
-                }));
-            },
-        },
-    }
+    let computedProps = computed(() => {
+        const actions = !Array.isArray(props.actions) ? [props.actions] : [...props.actions];
+
+        return actions.map(({content, onAction, ...action}) => ({
+            content,
+            onAction: onAction || (() => undefined),
+            rest: {...action, ...props.overrides},
+        }));
+    });
 </script>

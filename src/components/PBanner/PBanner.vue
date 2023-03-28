@@ -37,7 +37,9 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
+    import { BannerStatus } from '../variables';
     import { classNames, variationName } from '../../utilities/css';
 
     import { PIcon } from '../../components/PIcon';
@@ -48,96 +50,81 @@
 
     import StringValidator from '../../utilities/validators/StringValidator';
 
-    const BannerStatus = ['success', 'info', 'warning', 'critical', null];
-
-    /**
-     * <br/>
-     * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
-     *  sans-serif;">Informs merchants about important changes or persistent conditions. Use this component if you need to
-     *  communicate to merchants in a prominent way. Banners are placed at the top of the page or section they apply to, and
-     *  below the page or section header.</h4>
-     */
-
-    export default {
-        name: 'PBanner',
-        components: {
-            PIcon, PButton, PHeading, PButtonGroup, PButtonsFrom,
+    let props = defineProps({
+        /**
+         * Title content for the banner.
+         */
+        title: {
+            type: String,
+            default: null
         },
-        props: {
-            /**
-             * Title content for the banner.
-             */
-            title: {
-                type: String,
-                default: null
-            },
 
-            /**
-             * Set the status of the banner
-             */
-            status: {
-                type: String,
-                default: null,
-                ...StringValidator('status', BannerStatus)
-            },
-
-            /**
-             * Action of the banner
-             */
-            action: {
-                type: Object,
-                default: () => ({}),
-            },
-
-            /**
-             * For vue3:- Toggle this attribute to visible/hide cancel button
-             */
-            isDismissible: {
-                type: Boolean,
-                default: true,
-            }
+        /**
+         * Set the status of the banner
+         */
+        status: {
+            type: String,
+            default: null,
+            ...StringValidator('status', BannerStatus)
         },
-        emits: ['dismiss'],
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Banner',
-                    'Polaris-Banner--withinPage',
-                    this.hasDismissible && 'Polaris-Banner--hasDismiss',
-                    this.status && `Polaris-Banner--${variationName('status', this.status)}`,
-                );
-            },
-            hasDismissible() {
-                return this.isDismissible;
-            },
-            colorAndIcon() {
-                let color;
-                let icon;
 
-                switch (this.status) {
-                    case 'success':
-                        color = 'success';
-                        icon = 'CircleTickMajor';
-                        break;
-                    case 'info':
-                        color = 'highlight';
-                        icon = 'CircleInformationMajor';
-                        break;
-                    case 'warning':
-                        color = 'warning';
-                        icon = 'CircleAlertMajor';
-                        break;
-                    case 'critical':
-                        color = 'critical';
-                        icon = 'DiamondAlertMajor';
-                        break;
-                    default:
-                        color = 'base';
-                        icon = 'CircleInformationMajor';
-                }
-
-                return {color, icon};
-            }
+        /**
+         * Action of the banner
+         */
+        action: {
+            type: Object,
+            default: () => ({}),
         },
-    }
+
+        /**
+         * For vue3:- Toggle this attribute to visible/hide cancel button
+         */
+        isDismissible: {
+            type: Boolean,
+            default: true,
+        }
+    });
+    let emit = defineEmits(['dismiss']);
+
+    let hasDismissible = computed(() => {
+        return props.isDismissible;
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Banner',
+            'Polaris-Banner--withinPage',
+            hasDismissible.value && 'Polaris-Banner--hasDismiss',
+            props.status && `Polaris-Banner--${variationName('status', props.status)}`,
+        );
+    });
+
+    let colorAndIcon = computed(() => {
+        let color;
+        let icon;
+
+        switch (props.status) {
+            case 'success':
+                color = 'success';
+                icon = 'CircleTickMajor';
+                break;
+            case 'info':
+                color = 'highlight';
+                icon = 'CircleInformationMajor';
+                break;
+            case 'warning':
+                color = 'warning';
+                icon = 'CircleAlertMajor';
+                break;
+            case 'critical':
+                color = 'critical';
+                icon = 'DiamondAlertMajor';
+                break;
+            default:
+                color = 'base';
+                icon = 'CircleInformationMajor';
+        }
+
+        return {color, icon};
+    });
 </script>

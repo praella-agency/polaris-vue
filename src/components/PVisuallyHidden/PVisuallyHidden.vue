@@ -5,23 +5,20 @@
     </span>
 </template>
 
-<script>
+<script setup>
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
      *  sans-serif;">Use when an element needs to be available to assistive technology (for example, a screen reader) but
      *  otherwise hidden.</h4>
      */
-    export default {
-        name: 'PVisuallyHidden',
-        props: {
-            /**
-             * Id for the element
-             */
-            id: {
-                type: [String, Number],
-                default: null
-            }
+    let props = defineProps({
+        /**
+         * Id for the element
+         */
+        id: {
+            type: [String, Number],
+            default: null
         }
-    }
+    })
 </script>

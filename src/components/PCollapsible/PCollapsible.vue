@@ -107,7 +107,7 @@
         }
     }
 
-    watch(animationState, () => {
+    watch(() => animationState.value , () => {
         if (!collapsibleContainer) {
             return;
         }
@@ -126,10 +126,8 @@
         }
     })
 
-    watch(() => props.open, (newValue) => {
-        isOpen.value = newValue;
-
-        if (props.open !== newValue) {
+    watch(() => isOpen.value, (value) => {
+        if (props.open !== value) {
             animationState.value = 'measuring';
         } else {
             if (!collapsibleContainer) {
@@ -147,15 +145,34 @@
                     height.value = props.open ? (collapsibleContainer).scrollHeight : 0;
             }
         }
-    })
+    });
+
+    watch(() => props.open, (value) => {
+        if (value !== isOpen.value) {
+            animationState.value = 'measuring';
+        } else {
+            if (!collapsibleContainer) {
+                return;
+            }
+
+            switch (animationState.value) {
+                case 'idle':
+                    break;
+                case 'measuring':
+                    height.value = (collapsibleContainer).scrollHeight;
+                    animationState.value = 'animating';
+                    break;
+                case 'animating':
+                    height.value = props.open ? (collapsibleContainer).scrollHeight : 0;
+            }
+        }
+    });
 
     onMounted(() => {
         collapsibleContainer = collapsibleContainer.value;
         collapsibleContainer.addEventListener('transitionend', handleCompleteAnimation);
-        if (collapsibleContainer) {
-            if(props.open) {
-                height.value = collapsibleContainer.scrollHeight;
-            }
+        if (collapsibleContainer && props.open) {
+            height.value = collapsibleContainer.scrollHeight;
         }
     });
 
