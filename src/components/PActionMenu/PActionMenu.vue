@@ -5,52 +5,43 @@
     </div>
 </template>
 
-<script>
-import { defineComponent, computed } from 'vue';
+<script setup>
+import { computed } from 'vue';
 import {classNames} from '../../utilities/css';
 import {MenuActionDescriptor, MenuGroupDescriptor} from '../../types';
 import {PActionMenuRollupActions} from '../../components/PActionMenu/components/PActionMenuRollupActions';
 import {PActionMenuActions} from '../../components/PActionMenu/components/PActionMenuActions';
 import ArrayValidator from '../../utilities/validators/ArrayValidator';
 
-export default defineComponent({
-  name: 'PActionMenu',
-  components: {
-    PActionMenuActions, PActionMenuRollupActions,
-  },
-  props: {
+let props = defineProps({
     actions: {
-      type: Array,
-      ...ArrayValidator('actions', MenuActionDescriptor)
+        type: Array,
+        ...ArrayValidator('actions', MenuActionDescriptor)
     },
     groups: {
-      type: Array,
-      ...ArrayValidator('groups', MenuGroupDescriptor)
+        type: Array,
+        ...ArrayValidator('groups', MenuGroupDescriptor)
     },
     rollup: {
-      type: Boolean,
-      default: false
+        type: Boolean,
+        default: false
     },
-  },
-  setup(props) {
-    const rollupSections = computed(() => {
-      return props.groups.map((group) => convertGroupToSection(group));
-    });
-    const actionMenuClassNames = computed(() => {
-      return classNames(
-          'Polaris-ActionMenu',
-          props.rollup && 'Polaris-ActionMenu--rollup',
-      );
-    });
+});
 
-    function convertGroupToSection(MenuGroupDescriptor) {
-      return {
+let rollupSections = computed(() => {
+    return props.groups.map((group) => convertGroupToSection(group));
+});
+let actionMenuClassNames = computed(() => {
+    return classNames(
+        'Polaris-ActionMenu',
+        props.rollup && 'Polaris-ActionMenu--rollup',
+    );
+});
+
+function convertGroupToSection(MenuGroupDescriptor) {
+    return {
         title: MenuGroupDescriptor.title,
         items: MenuGroupDescriptor.actions,
-      };
-    }
-
-    return { rollupSections, actionMenuClassNames, convertGroupToSection };
-  }
-})
+    };
+}
 </script>

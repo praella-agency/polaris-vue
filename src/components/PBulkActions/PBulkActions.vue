@@ -31,9 +31,9 @@
                         v-if="hasActions"
                     >
                         <PPopover
-                            :id="uuid"
+                            :id="isUuid"
                             :active.sync="smallScreenPopoverVisible"
-                            @close="() => { this.smallScreenPopoverVisible = false; }"
+                            @close="() => { smallScreenPopoverVisible = false; }"
                         >
                             <template #activator>
                                 <PBulkActionButton
@@ -106,7 +106,7 @@
                             :indeterminate="indeterminate"
                         />
                         <template
-                            v-for="(action, key) in this.promotedActionsMarkup"
+                            v-for="(action, key) in promotedActionsMarkup"
                         >
                             <PBulkActionMenu
                                 v-if="instanceOfMenuGroupDescriptor(action)"
@@ -127,9 +127,9 @@
                             ref="moreActionsNode"
                         >
                             <PPopover
-                                :id="uuid"
+                                :id="isUuid"
                                 :active.sync="largeScreenPopoverVisible"
-                                @close="() => { this.largeScreenPopoverVisible = false; }"
+                                @close="() => { largeScreenPopoverVisible = false; }"
                             >
                                 <template #activator>
                                     <PBulkActionButton
@@ -185,7 +185,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import utils from '../../utilities';
     import { uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
@@ -200,282 +200,288 @@
     import { PBulkActionButton } from '../../components/PBulkActions/components/PBulkActionButton';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
+    import {computed, onBeforeUnmount, ref} from "vue";
 
-    export default {
-        name: 'PBulkActions',
-        components: {
-            PCheckableButton, PButtonGroup, PPopover, PBulkActionButton, PActionList, PButton, PBulkActionMenu,
+    let props = defineProps({
+        /**
+         * Visually hidden text for screen readers
+         */
+        accessibilityLabel: {
+            type: String,
+            default: null,
         },
-        props: {
-            /**
-             * Visually hidden text for screen readers
-             */
-            accessibilityLabel: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Whether to render the small screen BulkActions or not
-             */
-            smallScreen: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Label for the bulk actions
-             */
-            label: {
-                type: String,
-                default: null,
-            },
-            /**
-             * State of the bulk actions checkbox
-             */
-            selected: {
-                type: [Boolean, String],
-                default: false,
-            },
-            /**
-             * List is in a selectable state
-             */
-            selectMode: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Actions that will be given more prominence
-             */
-            promotedActions: {
-                type: Array,
-                default: () => ([]),
-                ...ArrayValidator('promotedActions', {
-                    ...BulkAction,
-                    ...MenuGroupDescriptor,
-                }),
-            },
-            /**
-             * List of actions
-             */
-            actions: {
-                type: Array,
-                default: () => ([]),
-                // ...ArrayValidator('actions', {
-                //     ...BulkAction,
-                //     ...ActionListSection,
-                // }),
-            },
-            /**
-             * Text to select all across pages
-             */
-            paginatedSelectAllText: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Action for selecting all across pages
-             */
-            paginatedSelectAllAction: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('paginatedSelectAllAction', Action),
-            },
-            /**
-             * Disables bulk actions
-             */
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Indeterminate checkbox
-             */
-            indeterminate: {
-                type: Boolean,
-                default: false,
-            },
+        /**
+         * Whether to render the small screen BulkActions or not
+         */
+        smallScreen: {
+            type: Boolean,
+            default: false,
         },
-        data() {
-            return {
-                measuring: false,
-                smallScreenPopoverVisible: false,
-                largeScreenPopoverVisible: false,
-                containerWidth: 0,
-                bulkActionsWidth: 0,
-                promotedActionsWidths: [],
-                addedMoreActionsWidthForMeasuring: 0,
-            };
+        /**
+         * Label for the bulk actions
+         */
+        label: {
+            type: String,
+            default: null,
         },
-        computed: {
-            largeScreenGroupClassName() {
-                return classNames(
-                    'Polaris-BulkActions__Group',
-                    'Polaris-BulkActions__Group--largeScreen',
-                    this.measuring && 'Polaris-BulkActions__Group--measuring',
-                    this.selectMode && 'Polaris-BulkActions__Group--entered',
-                    !this.selectMode && 'Polaris-BulkActions__Group--exited',
-                );
-            },
-            smallScreenGroupClassName() {
-                return classNames(
-                    'Polaris-BulkActions__Group',
-                    'Polaris-BulkActions__Group--smallScreen',
-                );
-            },
-            hasActions() {
-                return Boolean(
-                    (this.promotedActions ? this.promotedActions.length > 0 : false) ||
-                    (this.actions ? this.actions.length > 0 : false),
-                );
-            },
-            activatorLabel() {
-                return !this.promotedActions || (this.promotedActions && this.numberOfPromotedActionsToRender() === 0
-                    && this.measuring) ? 'Actions' : 'More actions';
-            },
-            combinedActions() {
-                if (this.actionSections && this.rolledInPromotedActions.length > 0) {
-                    return [...this.rolledInPromotedActions, ...this.actionSections];
-                } else if (this.actionSections) {
-                    return this.actionSections;
-                } else if (this.rolledInPromotedActions.length > 0) {
-                    return [...this.rolledInPromotedActions];
-                }
-            },
-            promotedActionsMarkup() {
-                let actions = [];
-                [...this.promotedActions].slice(0, this.numberOfPromotedActionsToRender()).map((action) => {
-                    actions.push(action);
-                });
-
-                return actions;
-            },
-            actionSections() {
-                if (!this.actions || (this.actions ? this.actions.length === 0 : false)) {
-                    return [];
-                }
-
-                if (this.instanceOfBulkActionListSectionArray(this.actions)) {
-                    return this.actions;
-                }
-
-                if (this.instanceOfBulkActionArray(this.actions)) {
-                    return [
-                        {
-                            items: this.actions,
-                        },
-                    ];
-                }
-
-                return [];
-            },
-            rolledInPromotedActions() {
-                let numberOfPromotedActionsToRender = this.numberOfPromotedActionsToRender();
-
-                if (!this.promotedActions || this.promotedActions.length === 0 ||
-                    numberOfPromotedActionsToRender >= this.promotedActions.length) {
-                    return [];
-                }
-
-                let rolledInPromotedActions = this.promotedActions.map((action) => {
-                    if (this.instanceOfMenuGroupDescriptor(action)) {
-                        return {
-                            items: [...action.actions],
-                        };
-                    }
-
-                    return {
-                        items: [action],
-                    };
-                });
-
-                return rolledInPromotedActions.slice(numberOfPromotedActionsToRender);
-            },
-            uuid() {
-                return uuid();
-            },
+        /**
+         * State of the bulk actions checkbox
+         */
+        selected: {
+            type: [Boolean, String],
+            default: false,
         },
-        methods: {
-            isNewBadgeInBadgeActions() {
-                const actions = this.actionSections;
-                if (!actions) {
-                    return false;
-                }
-
-                for (const action of actions) {
-                    for (const item of action['items']) {
-                        return item.badge ? (item.badge.status === 'new') : false;
-                    }
-                }
-
-                return false;
-            },
-            clamp(number, min, max) {
-                if (number < min) {
-                    return min;
-                }
-                if (number > max) {
-                    return max;
-                }
-                return number;
-            },
-            numberOfPromotedActionsToRender() {
-                if (!this.promotedActions) {
-                    return 0;
-                }
-
-                if (this.containerWidth >= this.bulkActionsWidth || this.measuring) {
-                    return this.promotedActions.length;
-                }
-
-                let sufficientSpace = false;
-                let counter = this.promotedActions.length - 1;
-                let totalWidth = 0;
-
-                while (!sufficientSpace && counter >= 0) {
-                    totalWidth += this.promotedActionsWidths[counter];
-                    let widthWithRemovedAction = this.bulkActionsWidth - totalWidth + this.addedMoreActionsWidthForMeasuring;
-
-                    if (this.containerWidth >= widthWithRemovedAction) {
-                        sufficientSpace = true;
-                    } else {
-                        counter--;
-                    }
-                }
-
-                return this.clamp(counter, 0, this.promotedActions.length);
-            },
-            toggleSmallScreenPopover() {
-                this.smallScreenPopoverVisible = !this.smallScreenPopoverVisible;
-            },
-            toggleLargeScreenPopover() {
-                this.largeScreenPopoverVisible = !this.largeScreenPopoverVisible;
-            },
-            instanceOfBulkActionListSectionArray(actions) {
-                let validList = this.actions.filter((action) => {
-                    return action.items;
-                });
-
-                return actions.length === validList.length;
-            },
-            instanceOfBulkActionArray(actions) {
-                let validList = this.actions.filter((action) => {
-                    return !action.items;
-                });
-
-                return actions.length === validList.length;
-            },
-            instanceOfMenuGroupDescriptor(action) {
-                return 'title' in action;
-            },
-            handleMeasurement(width) {
-                if (this.measuring) {
-                    this.promotedActionsWidths.push(width);
-                }
-            },
+        /**
+         * List is in a selectable state
+         */
+        selectMode: {
+            type: Boolean,
+            default: false,
         },
-        [utils.beforeDestroy]() {
-            if (document.getElementById('PolarisPopover'+this.uuid+'Overlay')) {
-                document.getElementById('PolarisPopover' + this.uuid + 'Overlay').remove();
+        /**
+         * Actions that will be given more prominence
+         */
+        promotedActions: {
+            type: Array,
+            default: () => ([]),
+            ...ArrayValidator('promotedActions', {
+                ...BulkAction,
+                ...MenuGroupDescriptor,
+            }),
+        },
+        /**
+         * List of actions
+         */
+        actions: {
+            type: Array,
+            default: () => ([]),
+            // ...ArrayValidator('actions', {
+            //     ...BulkAction,
+            //     ...ActionListSection,
+            // }),
+        },
+        /**
+         * Text to select all across pages
+         */
+        paginatedSelectAllText: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Action for selecting all across pages
+         */
+        paginatedSelectAllAction: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('paginatedSelectAllAction', Action),
+        },
+        /**
+         * Disables bulk actions
+         */
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Indeterminate checkbox
+         */
+        indeterminate: {
+            type: Boolean,
+            default: false,
+        },
+    });
+
+    let measuring = ref(false);
+    let smallScreenPopoverVisible = ref(false);
+    let largeScreenPopoverVisible = ref(false);
+    let containerWidth = ref(0);
+    let bulkActionsWidth = ref(0);
+    let promotedActionsWidths = ref([]);
+    let addedMoreActionsWidthForMeasuring = ref(0);
+
+    let largeScreenGroupClassName = computed(() => {
+        return classNames(
+            'Polaris-BulkActions__Group',
+            'Polaris-BulkActions__Group--largeScreen',
+            measuring.value && 'Polaris-BulkActions__Group--measuring',
+            props.selectMode && 'Polaris-BulkActions__Group--entered',
+            !props.selectMode && 'Polaris-BulkActions__Group--exited',
+        );
+    });
+
+    let smallScreenGroupClassName = computed(() => {
+        return classNames(
+            'Polaris-BulkActions__Group',
+            'Polaris-BulkActions__Group--smallScreen',
+        );
+    });
+
+    let hasActions = computed(() => {
+        return Boolean(
+            (props.promotedActions ? props.promotedActions.length > 0 : false) ||
+            (props.actions ? props.actions.length > 0 : false),
+        );
+    });
+
+    let activatorLabel = computed(() => {
+        return !props.promotedActions || (props.promotedActions && numberOfPromotedActionsToRender() === 0 && measuring.value) ? 'Actions' : 'More actions';
+    });
+
+    let actionSections = computed(() => {
+        if (!props.actions || (props.actions ? props.actions.length === 0 : false)) {
+            return [];
+        }
+
+        if (instanceOfBulkActionListSectionArray(props.actions)) {
+            return props.actions;
+        }
+
+        if (instanceOfBulkActionArray(props.actions)) {
+            return [
+                {
+                    items: props.actions,
+                },
+            ];
+        }
+
+        return [];
+    });
+
+    let rolledInPromotedActions = computed(() => {
+        let numberOfPromotedActionsToRender = numberOfPromotedActionsToRender();
+
+        if (!props.promotedActions || props.promotedActions.length === 0 ||
+            numberOfPromotedActionsToRender >= props.promotedActions.length) {
+            return [];
+        }
+
+        let rolledInPromotedActions = props.promotedActions.map((action) => {
+            if (instanceOfMenuGroupDescriptor(action)) {
+                return {
+                    items: [...action.actions],
+                };
             }
-        },
+
+            return {
+                items: [action],
+            };
+        });
+
+        return rolledInPromotedActions.slice(numberOfPromotedActionsToRender);
+    });
+
+    let combinedActions = computed(() => {
+        if (actionSections.value && rolledInPromotedActions.value.length > 0) {
+            return [...rolledInPromotedActions.value, ...actionSections.value];
+        } else if (actionSections.value) {
+            return actionSections.value;
+        } else if (rolledInPromotedActions.value.length > 0) {
+            return [...rolledInPromotedActions.value];
+        }
+    });
+
+    let promotedActionsMarkup = computed(() => {
+        let actions = [];
+        [...props.promotedActions].slice(0, numberOfPromotedActionsToRender()).map((action) => {
+            actions.push(action);
+        });
+
+        return actions;
+    });
+
+    let isUuid = computed(() => {
+        return uuid();
+    });
+
+    function isNewBadgeInBadgeActions() {
+        const actions = actionSections.value;
+        if (!actions) {
+            return false;
+        }
+
+        for (const action of actions) {
+            for (const item of action['items']) {
+                return item.badge ? (item.badge.status === 'new') : false;
+            }
+        }
+
+        return false;
     }
+
+    function clamp(number, min, max) {
+        if (number < min) {
+            return min;
+        }
+        if (number > max) {
+            return max;
+        }
+        return number;
+    }
+
+    function numberOfPromotedActionsToRender() {
+        if (!props.promotedActions) {
+            return 0;
+        }
+
+        if (containerWidth.value >= bulkActionsWidth.value || measuring.value) {
+            return props.promotedActions.length;
+        }
+
+        let sufficientSpace = false;
+        let counter = props.promotedActions.length - 1;
+        let totalWidth = 0;
+
+        while (!sufficientSpace && counter >= 0) {
+            totalWidth += promotedActionsWidths.value[counter];
+            let widthWithRemovedAction = bulkActionsWidth.value - totalWidth + addedMoreActionsWidthForMeasuring.value;
+
+            if (containerWidth.value >= widthWithRemovedAction) {
+                sufficientSpace = true;
+            } else {
+                counter--;
+            }
+        }
+
+        return clamp(counter, 0, props.promotedActions.length);
+    }
+
+    function toggleSmallScreenPopover() {
+        smallScreenPopoverVisible.value = !smallScreenPopoverVisible.value;
+    }
+
+    function toggleLargeScreenPopover() {
+        largeScreenPopoverVisible.value = !largeScreenPopoverVisible.value;
+    }
+
+    function instanceOfBulkActionListSectionArray(actions) {
+        let validList = props.actions.filter((action) => {
+            return action.items;
+        });
+
+        return actions.length === validList.length;
+    }
+
+    function instanceOfBulkActionArray(actions) {
+        let validList = props.actions.filter((action) => {
+            return !action.items;
+        });
+
+        return actions.length === validList.length;
+    }
+
+    function instanceOfMenuGroupDescriptor(action) {
+        return 'title' in action;
+    }
+
+    function handleMeasurement(width) {
+        if (measuring.value) {
+            promotedActionsWidths.value.push(width);
+        }
+    }
+
+    onBeforeUnmount(() => {
+        if (document.getElementById(`PolarisPopover${isUuid.value}Overlay`)) {
+            document.getElementById(`PolarisPopover${isUuid.value}Overlay`).remove();
+        }
+    });
 </script>

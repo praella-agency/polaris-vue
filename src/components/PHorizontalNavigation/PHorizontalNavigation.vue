@@ -268,7 +268,6 @@
             });
 
             tabToFocus.value = tabToFocus;
-            return;
         }
     }
 

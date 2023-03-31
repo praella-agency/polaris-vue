@@ -7,7 +7,7 @@
                         {{ title }}
                     </slot>
                 </PModalHeader>
-                <PModalCloseButton v-else :title="false" @click="emit('close', $event)"/>
+                <PModalCloseButton v-else :title="false" @click="$emit('close', $event)"/>
                 <div class="Polaris-Modal__BodyWrapper">
                     <iframe v-if="src" :name="iFrameName" :src="src" @load="handleIFrameLoad"
                             class="Polaris-Modal__IFrame" :style="{height: `${iframeHeight}px`}"/>

@@ -5,14 +5,11 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: 'PMessageIndicator',
-        props: {
-            active: {
-                type: Boolean,
-                default: true,
-            },
+<script setup>
+    let props = defineProps({
+        active: {
+            type: Boolean,
+            default: true,
         },
-    }
+    });
 </script>

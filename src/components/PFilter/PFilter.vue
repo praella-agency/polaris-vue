@@ -48,7 +48,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import { hasSlot } from '../../ComponentHelpers';
     import { PTextField } from '../../components/PTextField';
     import { PIcon } from '../../components/PIcon';
@@ -56,224 +56,181 @@
     import { PFilterItemWrapper } from '../../components/PFilter/components/PFilterItemWrapper';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
-
-    const ResourceNameInterface = {
-        singular: {
-            type: String,
-            required: true,
-        },
-        plural: {
-            type: String,
-            required: true,
-        },
-    }
-
-    export const FilterInterface = {
-        /** A unique key used to identify the filter */
-        key: {
-            type: String,
-            required: true,
-        },
-        /** The label for the filter */
-        label: {
-            type: String,
-            required: true,
-        },
-        /** The markup for the given filter */
-        filter: {
-            type: String,
-            required: true,
-        },
-        /** Whether or not the filter should have a shortcut popover displayed */
-        shortcut: Boolean,
-        /** Whether or not the filter is disabled */
-        disabled: Boolean,
-        /**
-         * @default false
-         * Whether or not the clear button is displayed
-         */
-        hideClearButton: Boolean,
-    }
-
+    import {FilterInterface, ResourceNameInterface} from "../variables";
+    import {computed, onMounted, ref} from "vue";
     /**
      * <br/>
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
      *  sans-serif;">Filter is a composite component that filters the items of a list or table.</h4>
      */
-    export default {
-        name: 'PFilter',
-        components: {
-            PTextField, PIcon, PTag, PFilterItemWrapper,
+    let props = defineProps({
+        /**
+         * Title or placeholder for the element
+         */
+        resourceName: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('resourceName', ResourceNameInterface),
         },
-        props: {
-            /**
-             * Title or placeholder for the element
-             */
-            resourceName: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('resourceName', ResourceNameInterface),
-            },
-            /**
-             * Title or placeholder for the element. **Deprecated** ResourceTitle will be removed in version 4.0.0
-             */
-            resourceTitle: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Add default value to filter
-             */
-            inputFilter: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Applied filters which are rendered as tags. The remove callback is called with respective key
-             */
-            appliedFilters: {
-                type: Array,
-                default: () => ([]),
-            },
-            /**
-             * Currently entered text in the query field
-             */
-            queryValue: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Placeholder text for the query field
-             */
-            queryPlaceholder: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Whether the query field is focused
-             */
-            focused: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Available filters added to the sheet. Shortcut filters are exposed outside of the sheet.
-             */
-            filters: {
-                type: Array,
-                default: () => ([]),
-                ...ArrayValidator('filters', FilterInterface),
-            },
-            /**
-             * Disable all filters
-             */
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Additional hint text to display below the filters
-             */
-            helpText: {
-                type: String,
-                default: null
-            },
-            /**
-             * Hide tags for applied filters
-             */
-            hideTags: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Hide the query field
-             */
-            hideQueryField: {
-                type: Boolean,
-                default: false,
-            },
+        /**
+         * Title or placeholder for the element. **Deprecated** ResourceTitle will be removed in version 4.0.0
+         */
+        resourceTitle: {
+            type: String,
+            default: null,
         },
-        emits: ['queryChange', 'queryClear', 'queryClearAll', 'queryBlur', 'queryFocus', 'remove-tag'],
-        data() {
-            return {
-                appliedFiltersCount: this.appliedFilters ? this.appliedFilters.length : 0,
-            };
+        /**
+         * Add default value to filter
+         */
+        inputFilter: {
+            type: String,
+            default: null,
         },
-        computed: {
-            prefix() {
-                if (this.resourceName.plural) {
-                    return `${this.resourceName.plural.toLowerCase()}`;
-                } else {
-                    return this.resourceName.plural;
-                }
-            },
-            resource() {
-                const resourceName = this.resourceName;
-                return resourceName.plural ? 'Filter ' + resourceName.plural.toLowerCase() :
-                    (resourceName.singular ? 'Filter ' + resourceName.singular.toLowerCase() : '');
-            },
-            computedValue: {
-                get() {
-                  if (this.queryValue) {
-                    return this.queryValue;
-                  }
-                  return this.inputFilter;
-                },
-                set(value) {}
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        /**
+         * Applied filters which are rendered as tags. The remove callback is called with respective key
+         */
+        appliedFilters: {
+            type: Array,
+            default: () => ([]),
         },
-        methods: {
-            handleQueryChange(queryValue) {
-                /**
-                 * Callback when the query field is changed
-                 */
-                this.$emit('queryChange', queryValue);
-            },
-            handleQueryClear() {
-                /**
-                 * Callback when the clear button is triggered
-                 */
-                this.$emit('queryClear');
-            },
-            handleQueryClearAll() {
-                /**
-                 * Callback when the reset all button is pressed
-                 */
-                this.$emit('queryClearAll');
-            },
-            handleQueryBlur() {
-                /**
-                 * Callback when the query field is blurred
-                 */
-                this.$emit('queryBlur');
-            },
-            handleQueryFocus() {
-                /**
-                 * Callback when the query field is focused
-                 */
-                this.$emit('queryFocus');
-            },
-            handleTagRemove(key) {
-                /**
-                 * Method to remove tag
-                 */
-                this.$emit('remove-tag', key);
-            },
+        /**
+         * Currently entered text in the query field
+         */
+        queryValue: {
+            type: String,
+            default: null,
         },
-        mounted() {
-            if (this.resourceTitle != null) {
-                // tslint:disable-next-line:no-console
-                console.error('Deprecation Notice: `resourceTitle` will be removed in version 4.0.0, use `resourceName` ' +
-                    'instead.');
-            }
+        /**
+         * Placeholder text for the query field
+         */
+        queryPlaceholder: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Whether the query field is focused
+         */
+        focused: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Available filters added to the sheet. Shortcut filters are exposed outside of the sheet.
+         */
+        filters: {
+            type: Array,
+            default: () => ([]),
+            ...ArrayValidator('filters', FilterInterface),
+        },
+        /**
+         * Disable all filters
+         */
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Additional hint text to display below the filters
+         */
+        helpText: {
+            type: String,
+            default: null
+        },
+        /**
+         * Hide tags for applied filters
+         */
+        hideTags: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Hide the query field
+         */
+        hideQueryField: {
+            type: Boolean,
+            default: false,
+        },
+    });
+    const emit = defineEmits(['queryChange', 'queryClear', 'queryClearAll', 'queryBlur', 'queryFocus', 'remove-tag']);
 
-            if (this.inputFilter != null) {
-                // tslint:disable-next-line:no-console
-                console.error('Deprecation Notice: `inputFilter` will be removed in version 4.0.0, use `queryValue` instead.');
-            }
+    let prefix = computed(() => {
+        if (props.resourceName.plural) {
+            return `${props.resourceName.plural.toLowerCase()}`;
+        } else {
+            return props.resourceName.plural;
         }
+    });
+
+    let resource = computed(() => {
+        const resourceName = props.resourceName;
+        return resourceName.plural ? 'Filter ' + resourceName.plural.toLowerCase() : (resourceName.singular ? 'Filter ' + resourceName.singular.toLowerCase() : '');
+    });
+
+    let computedValue = computed({
+        get() {
+            if (props.queryValue) {
+                return props.queryValue;
+            }
+            return props.inputFilter;
+        },
+        set(value) {}
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    function handleQueryChange(queryValue) {
+        /**
+         * Callback when the query field is changed
+         */
+        emit('queryChange', queryValue);
     }
+
+    function handleQueryClear() {
+        /**
+         * Callback when the clear button is triggered
+         */
+        emit('queryClear');
+    }
+
+    function handleQueryClearAll() {
+        /**
+         * Callback when the reset all button is pressed
+         */
+        emit('queryClearAll');
+    }
+
+    function handleQueryBlur() {
+        /**
+         * Callback when the query field is blurred
+         */
+        emit('queryBlur');
+    }
+
+    function handleQueryFocus() {
+        /**
+         * Callback when the query field is focused
+         */
+        emit('queryFocus');
+    }
+
+    function handleTagRemove(key) {
+        /**
+         * Method to remove tag
+         */
+        emit('remove-tag', key);
+    }
+
+    onMounted(() => {
+        if (props.resourceTitle != null) {
+            // tslint:disable-next-line:no-console
+            console.error('Deprecation Notice: `resourceTitle` will be removed in version 4.0.0, use `resourceName` instead.');
+        }
+
+        if (props.inputFilter != null) {
+            // tslint:disable-next-line:no-console
+            console.error('Deprecation Notice: `inputFilter` will be removed in version 4.0.0, use `queryValue` instead.');
+        }
+    });
 </script>

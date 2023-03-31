@@ -1,36 +1,25 @@
-<script>
-    import { vue } from '../../../../ComponentHelpers';
+<template>
+    <div :class="className">
+        <PFilterItem>
+            <slot />
+        </PFilterItem>
+    </div>
+</template>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
-    import { wrapNodesWithComponent } from '../../../../ComponentHelpers';
-    import { PFilterItem } from '../../../../components/PFilter/components/PFilterItem';
+    import PFilterItem from '../PFilterItem/PFilterItem.vue';
 
-    let render = {};
-    render = function render() {
-        return vue.h('div', {
-                class: this.className,
-            },
-            wrapNodesWithComponent(
-                vue.h,
-                this.$slots.default(), PFilterItem
-            ),
+    let props = defineProps({
+        position: {
+            type: String,
+        },
+    });
+
+    let className = computed(() => {
+        return classNames(
+            props.position === 'center' && 'Polaris-Filters-ConnectedFilterControl__CenterContainer',
+            props.position === 'right' && 'Polaris-Filters-ConnectedFilterControl__RightContainer',
         );
-    }
-
-    export default {
-        name: 'PFilterItemWrapper',
-        props: {
-            position: {
-                type: String,
-            },
-        },
-        computed: {
-            className() {
-                return classNames(
-                    this.position === 'center' && 'Polaris-Filters-ConnectedFilterControl__CenterContainer',
-                    this.position === 'right' && 'Polaris-Filters-ConnectedFilterControl__RightContainer',
-                );
-            },
-        },
-        render,
-    }
+    });
 </script>

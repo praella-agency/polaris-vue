@@ -32,55 +32,54 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { onMounted, ref } from 'vue';
     import { PButton } from '../../../../components/PButton';
     import { PIcon } from '../../../../components/PIcon';
     import { PStack } from '../../../../components/PStack';
     import { PStackItem } from '../../../../components/PStack/components/PStackItem';
 
-    export default {
-        name: 'PBulkActionButton',
-        components: {
-            PButton, PIcon, PStack, PStackItem,
+    let props = defineProps({
+        url: {
+            type: String,
         },
-        props: {
-            url: {
-                type: String,
-            },
-            external: {
-                type: Boolean,
-                default: false,
-            },
-            content: {
-                type: String,
-                default: null,
-            },
-            disclosure: {
-                type: Boolean,
-                default: false,
-            },
-            accessibilityLabel: {
-                type: String,
-                default: null,
-            },
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
-            indicator: {
-                type: Boolean,
-                default: false,
-            },
-            icon: {
-                type: Object,
-                default: () => ({}),
-            },
+        external: {
+            type: Boolean,
+            default: false,
         },
-        mounted() {
-            if (this.$refs.bulkActionButton) {
-                const width = (this.$refs.bulkActionButton).getBoundingClientRect().width;
-                this.$emit('handleMeasurement', width);
-            }
+        content: {
+            type: String,
+            default: null,
         },
-    }
+        disclosure: {
+            type: Boolean,
+            default: false,
+        },
+        accessibilityLabel: {
+            type: String,
+            default: null,
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        indicator: {
+            type: Boolean,
+            default: false,
+        },
+        icon: {
+            type: Object,
+            default: () => ({}),
+        },
+    });
+    const emit = defineEmits(['handleMeasurement']);
+    let bulkActionButton = ref(null);
+
+    onMounted(() => {
+        bulkActionButton = bulkActionButton.value;
+        if (bulkActionButton) {
+            const width = (bulkActionButton).getBoundingClientRect().width;
+            emit('handleMeasurement', width);
+        }
+    });
 </script>

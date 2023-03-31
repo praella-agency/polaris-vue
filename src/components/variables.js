@@ -381,3 +381,65 @@ export const Positions = Object.freeze({
     BOTTOM: 'bottom',
     BOTTOM_LEFT: 'bottom-left',
 });
+
+// PVerticalTab.vue
+export const VerticalTabIcon = {
+    source: String | 'placeholder',
+    color: 'base' | 'subdued' | 'critical' | 'interactive' | 'warning' | 'highlight' | 'success' | 'primary',
+    backdrop: Boolean,
+    accessibilityLabel: String,
+}
+
+export const VerticalTabBadge = {
+    content: String,
+    status: String,
+    progress: String,
+    background: String,
+    color: String,
+    size: String,
+}
+
+// PFilter.vue
+export const ResourceNameInterface = {
+    singular: {
+        type: String,
+        required: true,
+    },
+    plural: {
+        type: String,
+        required: true,
+    },
+}
+
+export const FilterInterface = {
+    /** A unique key used to identify the filter */
+    key: {
+        type: String,
+        required: true,
+    },
+    /** The label for the filter */
+    label: {
+        type: String,
+        required: true,
+    },
+    /** The markup for the given filter */
+    filter: {
+        type: String,
+        required: true,
+    },
+    /** Whether or not the filter should have a shortcut popover displayed */
+    shortcut: Boolean,
+    /** Whether or not the filter is disabled */
+    disabled: Boolean,
+    /**
+     * @default false
+     * Whether or not the clear button is displayed
+     */
+    hideClearButton: Boolean,
+}
+
+// PList.vue
+export const ListType = ['bullet', 'number'];
+
+// PMediaCard.vue
+export const MediaCardSize = ['small', 'medium'];

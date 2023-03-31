@@ -5,9 +5,9 @@
         :id="id"
         :aria-label="accessibilityLabel"
         :role="role"
-        @click="emit('click', $event)"
-        @focus="emit('focus', $event)"
-        @blur="emit('blur', $event)"
+        @click="$emit('click', $event)"
+        @focus="$emit('focus', $event)"
+        @blur="$emit('blur', $event)"
 
         :url="href"
         :to="to"
@@ -21,9 +21,9 @@
         :aria-expanded="ariaExpanded"
         :aria-describedby="ariaDescribedBy"
         :aria-pressed="pressed"
-        @keydown="emit('keydown', $event)"
-        @keyup="emit('keyup', $event)"
-        @keypress="emit('keyPress', $event)"
+        @keydown="$emit('keydown', $event)"
+        @keyup="$emit('keyup', $event)"
+        @keypress="$emit('keyPress', $event)"
     >
         <span class="Polaris-Button__Content">
             <span v-if="loading" class="Polaris-Button__Spinner">

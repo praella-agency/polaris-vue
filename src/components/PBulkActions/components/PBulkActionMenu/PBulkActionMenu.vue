@@ -23,58 +23,48 @@
     </PPopover>
 </template>
 
-<script>
-    import utils from '../../../../utilities';
+<script setup>
+    import { computed, onBeforeUnmount, ref } from 'vue';
     import { uuid } from '../../../../ComponentHelpers';
     import { PPopover } from '../../../../components/PPopover';
     import { PActionList } from '../../../../components/PActionList';
     import { PBulkActionButton } from '../../../../components/PBulkActions/components/PBulkActionButton';
 
-    export default {
-        name: 'PBulkActionMenu',
-        components: {
-            PBulkActionButton, PPopover, PActionList,
+    let props = defineProps({
+        title: {
+            type: String,
+            default: null,
         },
-        props: {
-            title: {
-                type: String,
-                default: null,
-            },
-            icon: {
-                type: Object,
-                default: () => ({}),
-            },
-            actions: {
-                type: Array,
-                default: () => ([]),
-            },
-            isNewBadgeInBadgeActions: {
-                type: Boolean,
-                default: false,
-            },
+        icon: {
+            type: Object,
+            default: () => ({}),
         },
-        data() {
-            return {
-                isVisible: false,
-            };
+        actions: {
+            type: Array,
+            default: () => ([]),
         },
-        computed: {
-            uuid() {
-                return uuid();
-            },
+        isNewBadgeInBadgeActions: {
+            type: Boolean,
+            default: false,
         },
-        methods: {
-            toggleMenuVisibility() {
-                this.isVisible = !this.isVisible;
-            },
-            handleItemAction() {
-                this.isVisible = false;
-            }
-        },
-        [utils.beforeDestroy]() {
-            if (document.getElementById('PolarisPopover' + this.uuid + 'Overlay')) {
-                document.getElementById('PolarisPopover' + this.uuid + 'Overlay').remove();
-            }
-        },
+    });
+    let isVisible = ref(false);
+
+    let isUuid = computed(() => {
+        return uuid();
+    });
+
+    function toggleMenuVisibility() {
+        isVisible.value = !isVisible.value;
     }
+
+    function handleItemAction() {
+        isVisible.value = false;
+    }
+
+    onBeforeUnmount(() => {
+        if (document.getElementById(`PolarisPopover${isUuid.value}Overlay`)) {
+            document.getElementById(`PolarisPopover${isUuid.value}Overlay`).remove();
+        }
+    });
 </script>

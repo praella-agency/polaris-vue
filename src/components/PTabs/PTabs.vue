@@ -135,9 +135,9 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed, nextTick, ref } from 'vue';
     import { classNames } from '../../utilities/css';
-    import { PBadge } from '../../components/PBadge';
     import { PPopover } from '../../components/PPopover';
     import { PTab } from '../../components/PTabs/components/PTab';
     import { PPanel } from '../../components/PTabs/components/PPanel';
@@ -152,227 +152,230 @@
      * <h4 style="font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue,
      *  sans-serif;">Use to alternate among related views within the same context.</h4>
      */
-    export default {
-        name: 'PTabs',
-        components: {
-            PTab, PPanel, PBadge, PPopover, PTabMeasurer, PList, PIcon,
+
+    let props = defineProps({
+        /**
+         * Lists of tabs.
+         */
+        tabs: {
+            type: Array,
+            default: () => ([]),
         },
-        props: {
-            /**
-             * Lists of tabs.
-             */
-            tabs: {
-                type: Array,
-                default: () => ([]),
-            },
-            /**
-             * Selected tab ID.
-             */
-            selected: {
-                type: Number,
-                default: null,
-            },
-            /**
-             * Set true to enable navigation.
-             */
-            navigation: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Configure the active CSS class applied when the link is active.
-             */
-            activeClass: {
-                type: String,
-                default: 'Polaris-Tabs__Tab--selected',
-            },
-            /**
-             * Fit tabs to container.
-             */
-            fitted: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Text to replace disclosures horizontal dots.
-             */
-            disclosureText: {
-                type: String,
-                default: '',
-            },
+        /**
+         * Selected tab ID.
+         */
+        selected: {
+            type: Number,
+            default: null,
         },
-        emits: ['select'],
-        data() {
-            return {
-                disclosureWidth: 0,
-                tabsWidth: [],
-                visibleTabs: [],
-                hiddenTabs: [],
-                showDisclosure: false,
-                containerWidth: Infinity,
-                tabToFocus: -1,
-            };
+        /**
+         * Set true to enable navigation.
+         */
+        navigation: {
+            type: Boolean,
+            default: false,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-Tabs',
-                    this.fitted && 'Polaris-Tabs--fitted',
-                    this.disclosureActivatorVisible && 'Polaris-Tabs--fillSpace',
-                );
-            },
-            wrapperClassName() {
-                return classNames(
-                    'Polaris-Tabs__Wrapper',
-                    this.navigation && 'Polaris-Tabs__Navigation',
-                );
-            },
-            disclosureTabClassName() {
-                return classNames(
-                    'Polaris-Tabs__DisclosureTab',
-                    this.disclosureActivatorVisible && 'Polaris-Tabs__DisclosureTab--visible',
-                );
-            },
-            disclosureButtonClassName() {
-                return classNames(
-                    'Polaris-Tabs__DisclosureActivator',
-                    this.disclosureText && 'Polaris-Tabs__Tab',
-                );
-            },
-            computedVisibleTabs() {
-                const visibleTabs = this.visibleTabs.sort((tabA, tabB) => tabA - tabB);
-                const tabs = [];
-
-                visibleTabs.map((tabIndex) => tabs.push(this.tabs[tabIndex]));
-
-                return tabs;
-            },
-            disclosureButtonContentWrapperClassName() {
-                return classNames(
-                    'Polaris-Tabs__Title',
-                    this.disclosureText && 'Polaris-Tabs--titleWithIcon',
-                );
-            },
-            visibleHiddenTabs() {
-                return getVisibleAndHiddenTabIndices(
-                    this.tabs,
-                    this.selected,
-                    this.disclosureWidth,
-                    this.tabsWidth,
-                    this.containerWidth,
-                );
-            },
-            disclosureActivatorVisible() {
-                return this.visibleHiddenTabs['visibleTabs'].length < this.tabs.length;
-            },
-            disclosureTabs() {
-                return this.hiddenTabs.map((tabIndex) => this.tabs[tabIndex]);
-            },
+        /**
+         * Configure the active CSS class applied when the link is active.
+         */
+        activeClass: {
+            type: String,
+            default: 'Polaris-Tabs__Tab--selected',
         },
-        methods: {
-            handleMeasurement(containerWidth, disclosureWidth, hiddenTabWidths) {
-                this.tabToFocus = this.tabToFocus === -1 ? -1 : this.selected;
-                this.visibleTabs = this.visibleHiddenTabs['visibleTabs'];
-                this.hiddenTabs = this.visibleHiddenTabs['hiddenTabs'];
-                this.disclosureWidth = disclosureWidth;
-                this.containerWidth = containerWidth;
-                this.tabsWidth = hiddenTabWidths;
-            },
-            handleTabClick(id, event) {
-                const tab = this.tabs.find((aTab) => aTab.id === id);
-                if (tab === null) {
-                    return;
-                }
+        /**
+         * Fit tabs to container.
+         */
+        fitted: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Text to replace disclosures horizontal dots.
+         */
+        disclosureText: {
+            type: String,
+            default: '',
+        },
+    });
+    const emit = defineEmits(['select']);
 
-                const selectedIndex = this.tabs.indexOf(tab);
-                /**
-                 * Method to handle tab click
-                 */
-                this.$emit('select', selectedIndex, event);
-                this.$nextTick(() => {
-                    this.visibleTabs = this.visibleHiddenTabs['visibleTabs'];
-                    this.hiddenTabs = this.visibleHiddenTabs['hiddenTabs'];
-                });
-            },
-            handleFocus(event) {
-                const target = event.target;
+    let disclosureWidth = ref(0);
+    let tabsWidth = ref([]);
+    let visibleTabs = ref([]);
+    let hiddenTabs = ref([]);
+    let showDisclosure = ref(false);
+    let containerWidth = ref(Infinity);
+    let tabToFocus = ref(-1);
 
-                if (
-                    /* tslint:disable-next-line */
-                    (target && target['classList'].contains('Polaris-Tabs__Tab')) ||
-                    /* tslint:disable-next-line */
-                    (target && target['classList'].contains('Polaris-Tabs__Item'))
-                ) {
-                    let tabToFocus = -1;
+    let visibleHiddenTabs = computed(() => {
+        return getVisibleAndHiddenTabIndices(
+            props.tabs,
+            props.selected,
+            disclosureWidth.value,
+            tabsWidth.value,
+            containerWidth.value,
+        );
+    });
 
-                    this.tabs.every((tab, index) => {
-                        /* tslint:disable-next-line */
-                        if (tab.id === (target && target['id'])) {
-                            tabToFocus = index;
-                            return false;
-                        }
+    let disclosureActivatorVisible = computed(() => {
+        return visibleHiddenTabs.value['visibleTabs'].length < props.tabs.length;
+    });
 
-                        return true;
-                    });
+    let className = computed(() => {
+        return classNames(
+            'Polaris-Tabs',
+            props.fitted && 'Polaris-Tabs--fitted',
+            disclosureActivatorVisible.value && 'Polaris-Tabs--fillSpace',
+        );
+    });
 
-                    this.tabToFocus = tabToFocus;
-                    return;
-                }
+    let wrapperClassName = computed(() => {
+        return classNames(
+            'Polaris-Tabs__Wrapper',
+            props.navigation && 'Polaris-Tabs__Navigation',
+        );
+    });
 
+    let disclosureTabClassName = computed(() => {
+        return classNames(
+            'Polaris-Tabs__DisclosureTab',
+            disclosureActivatorVisible.value && 'Polaris-Tabs__DisclosureTab--visible',
+        );
+    });
+
+    let disclosureButtonClassName = computed(() => {
+        return classNames(
+            'Polaris-Tabs__DisclosureActivator',
+            props.disclosureText && 'Polaris-Tabs__Tab',
+        );
+    });
+
+    let computedVisibleTabs = computed(() => {
+        const canVisibleTabs = visibleTabs.value.sort((tabA, tabB) => tabA - tabB);
+        const tabs = [];
+
+        canVisibleTabs.map((tabIndex) => tabs.push(props.tabs[tabIndex]));
+
+        return tabs;
+    });
+
+    let disclosureButtonContentWrapperClassName = computed(() => {
+        return classNames(
+            'Polaris-Tabs__Title',
+            props.disclosureText && 'Polaris-Tabs--titleWithIcon',
+        );
+    });
+
+    let disclosureTabs = computed(() => {
+        return hiddenTabs.value.map((tabIndex) => props.tabs[tabIndex]);
+    });
+
+    function handleMeasurement(containerWidthValue, disclosureWidthValue, hiddenTabWidthValue) {
+        tabToFocus.value = tabToFocus.value === -1 ? -1 : props.selected;
+        visibleTabs.value = visibleHiddenTabs.value['visibleTabs'];
+        hiddenTabs.value = visibleHiddenTabs.value['hiddenTabs'];
+        disclosureWidth.value = disclosureWidthValue;
+        containerWidth.value = containerWidthValue;
+        tabsWidth.value = hiddenTabWidthValue;
+    }
+
+    function handleTabClick(id, event) {
+        const tab = props.tabs.find((aTab) => aTab.id === id);
+        if (tab === null) {
+            return;
+        }
+
+        const selectedIndex = props.tabs.indexOf(tab);
+        /**
+         * Method to handle tab click
+         */
+        emit('select', selectedIndex, event);
+        nextTick().then(() => {
+            visibleTabs.value = visibleHiddenTabs.value['visibleTabs'];
+            hiddenTabs.value = visibleHiddenTabs.value['hiddenTabs'];
+        });
+    }
+
+    function handleFocus(event) {
+        const target = event.target;
+
+        if (
+            /* tslint:disable-next-line */
+            (target && target['classList'].contains('Polaris-Tabs__Tab')) ||
+            /* tslint:disable-next-line */
+            (target && target['classList'].contains('Polaris-Tabs__Item'))
+        ) {
+            let tabToFocus = -1;
+
+            props.tabs.every((tab, index) => {
                 /* tslint:disable-next-line */
-                if (target && target['classList'].contains('Polaris-Tabs__DisclosureActivator')) {
-                    return;
+                if (tab.id === (target && target['id'])) {
+                    tabToFocus = index;
+                    return false;
                 }
 
-                if (!event.relatedTarget) {
-                    this.tabToFocus = this.selected;
-                    return;
-                }
+                return true;
+            });
 
-                const relatedTarget = event.relatedTarget;
+            tabToFocus.value = tabToFocus;
+            return;
+        }
 
-                if (
-                    relatedTarget instanceof HTMLElement &&
-                    /* tslint:disable-next-line */
-                    !relatedTarget['classList'].contains('Polaris-Tabs__Tab') &&
-                    /* tslint:disable-next-line */
-                    !relatedTarget['classList'].contains('Polaris-Tabs__Item') &&
-                    /* tslint:disable-next-line */
-                    !relatedTarget['classList'].contains('Polaris-Tabs__DisclosureActivator')
-                ) {
-                    this.tabToFocus = this.selected;
-                }
-            },
-            handleDisclosureActivatorClick() {
-                this.showDisclosure = !this.showDisclosure;
-            },
-            handleClose() {
-                this.showDisclosure = false;
-            },
-            handleKeyPress(event) {
-                const key = event.key;
-                const tabsArrayInOrder = this.showDisclosure ? this.visibleTabs.concat(this.hiddenTabs) : [...this.visibleTabs];
+        /* tslint:disable-next-line */
+        if (target && target['classList'].contains('Polaris-Tabs__DisclosureActivator')) {
+            return;
+        }
 
-                let newFocus = tabsArrayInOrder.indexOf(this.tabToFocus);
+        if (!event.relatedTarget) {
+            tabToFocus.value = props.selected;
+            return;
+        }
 
-                if (key === 'ArrowRight') {
-                    newFocus += 1;
+        const relatedTarget = event.relatedTarget;
 
-                    if (newFocus === tabsArrayInOrder.length) {
-                        newFocus = 0;
-                    }
-                }
+        if (
+            relatedTarget instanceof HTMLElement &&
+            /* tslint:disable-next-line */
+            !relatedTarget['classList'].contains('Polaris-Tabs__Tab') &&
+            /* tslint:disable-next-line */
+            !relatedTarget['classList'].contains('Polaris-Tabs__Item') &&
+            /* tslint:disable-next-line */
+            !relatedTarget['classList'].contains('Polaris-Tabs__DisclosureActivator')
+        ) {
+            tabToFocus.value = props.selected;
+        }
+    }
 
-                if (key === 'ArrowLeft') {
-                    if (newFocus === -1 || newFocus === 0) {
-                        newFocus = tabsArrayInOrder.length - 1;
-                    } else {
-                        newFocus = -1;
-                    }
-                }
+    function handleDisclosureActivatorClick() {
+        showDisclosure.value = !showDisclosure.value;
+    }
 
-                this.tabToFocus = tabsArrayInOrder[newFocus];
-            },
-        },
+    function handleClose() {
+        showDisclosure.value = false;
+    }
+
+    function handleKeyPress(event) {
+        const key = event.key;
+        const tabsArrayInOrder = showDisclosure.value ? visibleTabs.value.concat(hiddenTabs.value) : [...visibleTabs.value];
+
+        let newFocus = tabsArrayInOrder.indexOf(tabToFocus.value);
+
+        if (key === 'ArrowRight') {
+            newFocus += 1;
+
+            if (newFocus === tabsArrayInOrder.length) {
+                newFocus = 0;
+            }
+        }
+
+        if (key === 'ArrowLeft') {
+            if (newFocus === -1 || newFocus === 0) {
+                newFocus = tabsArrayInOrder.length - 1;
+            } else {
+                newFocus = -1;
+            }
+        }
+
+        tabToFocus.value = tabsArrayInOrder[newFocus];
     }
 </script>

@@ -5,11 +5,12 @@
     </component>
 </template>
 
-<script>
+<script setup>
+    import { computed, ref } from 'vue';
     import { classNames } from '../../utilities/css';
     import StringValidator from '../../utilities/validators/StringValidator';
+    import { ListType } from '../variables';
 
-    const Type = ['bullet', 'number'];
 
     /**
      * <br/>
@@ -17,30 +18,22 @@
      *  sans-serif;">Lists display a set of related text-only content. Each list item begins with a bullet or a number.
      * </h4>
      */
-    export default {
-        name: 'PList',
-        props: {
-            /**
-             * Type of list
-             */
-            type: {
-                type: String,
-                default: 'bullet',
-                ...StringValidator('type', Type)
-            }
-        },
-        data() {
-            return {
-                element: this.type === 'bullet' ? 'ul' : 'ol',
-            }
-        },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-List',
-                    this.type && this.type === 'number' && 'Polaris-List--typeNumber',
-                );
-            }
+    let props = defineProps({
+        /**
+         * Type of list
+         */
+        type: {
+            type: String,
+            default: 'bullet',
+            ...StringValidator('type', ListType)
         }
-    }
+    });
+    let element = ref(props.type === 'bullet' ? 'ul' : 'ol');
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-List',
+            props.type && props.type === 'number' && 'Polaris-List--typeNumber',
+        );
+    });
 </script>

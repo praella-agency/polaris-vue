@@ -9,7 +9,7 @@
             :aria-selected="selected"
             :aria-control="`${id}-panel`"
             :class="elementClassName"
-            @click="$emit('click', id, $event)"
+            @click="emit('click', id, $event)"
         >
             <span v-if="Object.keys(icon).length > 0" class="Polaris-VerticalTabs__TabElement--icon">
                 <PIcon v-bind="icon"/>
@@ -33,7 +33,7 @@
             :class="elementClassName"
             :aria-selected="selected"
             :aria-control="`${id}-panel`"
-            @click="$emit('click', id, $event)"
+            @click="emit('click', id, $event)"
         >
             <span v-if="Object.keys(icon).length > 0" class="Polaris-VerticalTabs__TabElement--icon">
                 <PIcon v-bind="icon"/>
@@ -56,7 +56,7 @@
             :to="to"
             :aria-selected="selected"
             :aria-control="`${id}-panel`"
-            @click.native="$emit('click', id, $event)"
+            @click.native="emit('click', id, $event)"
         >
             <span v-if="icon && Object.keys(icon).length > 0" class="Polaris-VerticalTabs__TabElement--icon">
                 <PIcon v-bind="icon"/>
@@ -73,94 +73,72 @@
     </li>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
     import { PIcon } from '../../../PIcon/';
     import { PBadge } from '../../../PBadge';
 
-    const Color = 'base' | 'subdued' | 'critical' | 'interactive' | 'warning' | 'highlight' | 'success' | 'primary';
-
-    const Icon = {
-        source: String | 'placeholder',
-        color: Color,
-        backdrop: Boolean,
-        accessibilityLabel: String,
-    }
-
-    const Badge = {
-        content: String,
-        status: String,
-        progress: String,
-        background: String,
-        color: String,
-        size: String,
-    }
-
-    export default {
-        name: 'PVerticalTab',
-        components: {
-            PIcon, PBadge,
+    let props = defineProps({
+        id: {
+            type: [String, Number],
         },
-        props: {
-            id: {
-                type: [String, Number],
-            },
-            focused: {
-                type: Boolean,
-            },
-            selected: {
-                type: Boolean,
-            },
-            to: {
-                type: [String, Object],
-            },
-            url: {
-                type: String,
-            },
-            content: {
-                type: String,
-                default: null,
-            },
-            external: {
-                type: Boolean,
-            },
-            activeClass: {
-                type: String,
-                default: 'Polaris-VerticalTabs__TabElement--selected',
-            },
-            badge: {
-                type: Object,
-                default: () => ({}),
-            },
-            icon: {
-                type: Object,
-                default: () => ({}),
-            },
-            tabsPosition: {
-                type: String,
-                default: 'left',
-            },
+        focused: {
+            type: Boolean,
         },
-        emits: ['click'],
-        computed: {
-            className() {
-                return classNames(
-                    this.tabsPosition === 'left' && 'Polaris-VerticalTabs__Tab',
-                    this.tabsPosition === 'right' && 'Polaris-VerticalTabs__Tab--Right',
-                    this.selected && 'Polaris-VerticalTabs__Tab--selected',
-                );
-            },
-            elementClassName() {
-                return classNames(
-                    this.tabsPosition === 'left' && 'Polaris-VerticalTabs__TabElement',
-                    this.tabsPosition === 'left' && this.selected && 'Polaris-VerticalTabs__TabElement--selected',
-                    this.tabsPosition === 'right' && 'Polaris-VerticalTabs__TabElement--Right',
-                    this.tabsPosition === 'right' && this.selected && 'Polaris-VerticalTabs__TabElement--Right--selected',
-                );
-            },
-            tabIndex() {
-                return this.selected ? 0 : -1;
-            },
-        }
-    }
+        selected: {
+            type: Boolean,
+        },
+        to: {
+            type: [String, Object],
+        },
+        url: {
+            type: String,
+        },
+        content: {
+            type: String,
+            default: null,
+        },
+        external: {
+            type: Boolean,
+        },
+        activeClass: {
+            type: String,
+            default: 'Polaris-VerticalTabs__TabElement--selected',
+        },
+        badge: {
+            type: Object,
+            default: () => ({}),
+        },
+        icon: {
+            type: Object,
+            default: () => ({}),
+        },
+        tabsPosition: {
+            type: String,
+            default: 'left',
+        },
+    });
+    const emit = defineEmits(['click']);
+
+    let className = computed(() => {
+        return classNames(
+            props.tabsPosition === 'left' && 'Polaris-VerticalTabs__Tab',
+            props.tabsPosition === 'right' && 'Polaris-VerticalTabs__Tab--Right',
+            props.selected && 'Polaris-VerticalTabs__Tab--selected',
+        );
+    });
+
+    let elementClassName = computed(() => {
+        return classNames(
+            props.tabsPosition === 'left' && 'Polaris-VerticalTabs__TabElement',
+            props.tabsPosition === 'left' && props.selected && 'Polaris-VerticalTabs__TabElement--selected',
+            props.tabsPosition === 'right' && 'Polaris-VerticalTabs__TabElement--Right',
+            props.tabsPosition === 'right' && props.selected && 'Polaris-VerticalTabs__TabElement--Right--selected',
+        );
+    });
+
+    let tabIndex = computed(() => {
+        return props.selected ? 0 : -1;
+    });
 </script>

@@ -42,74 +42,67 @@
     </li>
 </template>
 
-<script>
-    import { defineComponent, computed } from 'vue';
+<script setup>
+    import { computed } from 'vue';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
-    import { PUnstyledLink } from '../../../../components/PUnstyledLink';
     import { PIcon } from '../../../../components/PIcon';
 
-    export default defineComponent({
-        name: 'PActionListItem',
-        components: {
-            PUnstyledLink, PIcon,
+    let props = defineProps({
+        content: {
+            type: String,
         },
-        props: {
-            content: {
-                type: String,
-            },
-            helpText: {
-                type: String,
-            },
-            action: {
-                type: Object,
-            },
-            icon: {
-                type: String,
-            },
-            image: {
-                type: String,
-            },
-            disabled: {
-                type: Boolean,
-            },
+        helpText: {
+            type: String,
         },
-        setup(props) {
-            const className = computed(() => {
-                return classNames(
-                    'Polaris-ActionList__Item',
-                );
-            });
-            const mediaSlotClassName = computed(() => {
-                return classNames(
-                    'Polaris-ActionList__Prefix',
-                );
-            });
-            const listValues = computed(() => {
-                return {
-                    content: props.content,
-                    helpText: props.helpText,
-                    action: props.action,
-                    icon: props.icon,
-                    image: props.image,
-                    disabled: props.disabled,
-                };
-            });
-            const isSlot = computed(() => {
-                return hasSlot;
-            })
+        action: {
+            type: Object,
+        },
+        icon: {
+            type: String,
+        },
+        image: {
+            type: String,
+        },
+        disabled: {
+            type: Boolean,
+        },
+    });
 
-            function handleAction(action) {
-              let res = true;
-              if (action.onAction) {
-                res = action.onAction();
-              }
-              if (res && action.url) {
-                window.location.href = action.url;
-              }
-            }
+    let className = computed(() => {
+        return classNames(
+            'Polaris-ActionList__Item',
+        );
+    });
 
-            return { className, mediaSlotClassName, listValues, isSlot, handleAction }
+    let mediaSlotClassName = computed(() => {
+        return classNames(
+            'Polaris-ActionList__Prefix',
+        );
+    });
+
+    let listValues = computed(() => {
+        return {
+            content: props.content,
+            helpText: props.helpText,
+            action: props.action,
+            icon: props.icon,
+            image: props.image,
+            disabled: props.disabled,
+        };
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    function handleAction(action) {
+        let res = true;
+        if (action.onAction) {
+            res = action.onAction();
         }
-    })
+        if (res && action.url) {
+            window.location.href = action.url;
+        }
+    }
 </script>

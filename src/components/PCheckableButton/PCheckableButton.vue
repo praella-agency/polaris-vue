@@ -7,7 +7,7 @@
             class="Polaris-CheckableButton__Checkbox"
         >
             <PCheckbox
-                :id="uuid"
+                :id="isUuid"
                 :label="accessibilityLabel"
                 labelHidden
                 :checked="selected"
@@ -23,90 +23,82 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed, ref, watch } from 'vue';
     import { uuid } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PCheckbox } from '../../components/PCheckbox';
 
-    export default {
-        name: 'PCheckableButton',
-        components: {
-            PCheckbox,
+    let props = defineProps({
+        accessibilityLabel: {
+            type: String,
+            default: null,
         },
-        props: {
-            accessibilityLabel: {
-                type: String,
-                default: null,
-            },
-            label: {
-                type: String,
-                default: null,
-            },
-            selected: {
-                type: [Boolean, String, 'indeterminate'],
-                default: false,
-            },
-            selectMode: {
-                type: Boolean,
-                default: false,
-            },
-            smallScreen: {
-                type: Boolean,
-                default: false,
-            },
-            plain: {
-                type: Boolean,
-                default: false,
-            },
-            measuring: {
-                type: Boolean,
-                default: false,
-            },
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
-            indeterminate: {
-                type: Boolean,
-                default: false,
-            },
+        label: {
+            type: String,
+            default: null,
         },
-        data() {
-            return {
-                currentKey: 'bulkLg',
-            };
+        selected: {
+            type: [Boolean, String, 'indeterminate'],
+            default: false,
         },
-        computed: {
-            className() {
-                if (this.plain) {
-                    return classNames(
-                        'Polaris-CheckableButton',
-                        'Polaris-CheckableButton__CheckableButton--plain',
-                    );
-                } else {
-                    return classNames(
-                        'Polaris-CheckableButton',
-                        this.selectMode && 'Polaris-CheckableButton__CheckableButton--selectMode',
-                        this.selected && 'Polaris-CheckableButton__CheckableButton--selected',
-                        this.measuring && 'Polaris-CheckableButton__CheckableButton--measuring',
-                    );
-                }
-            },
-            uuid() {
-                return uuid();
-            },
+        selectMode: {
+            type: Boolean,
+            default: false,
         },
-        watch: {
-            plain(value, oldValue) {
-                if (value) {
-                    this.currentKey = 'plain';
-                }
-            },
-            smallScreen(value, oldValue) {
-                if (value === true) {
-                    this.currentKey = 'bulkSm';
-                }
-            },
+        smallScreen: {
+            type: Boolean,
+            default: false,
         },
-    }
+        plain: {
+            type: Boolean,
+            default: false,
+        },
+        measuring: {
+            type: Boolean,
+            default: false,
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+        indeterminate: {
+            type: Boolean,
+            default: false,
+        },
+    });
+
+    let currentKey = ref('bulkLg');
+
+    let className = computed(() => {
+        if (props.plain) {
+            return classNames(
+                'Polaris-CheckableButton',
+                'Polaris-CheckableButton__CheckableButton--plain',
+            );
+        } else {
+            return classNames(
+                'Polaris-CheckableButton',
+                props.selectMode && 'Polaris-CheckableButton__CheckableButton--selectMode',
+                props.selected && 'Polaris-CheckableButton__CheckableButton--selected',
+                props.measuring && 'Polaris-CheckableButton__CheckableButton--measuring',
+            );
+        }
+    });
+
+    let isUuid = computed(() => {
+        return uuid();
+    });
+
+    watch(() => props.plain, (value) => {
+        if (value) {
+            currentKey.value = 'plain';
+        }
+    });
+
+    watch(() => props.smallScreen, (value) => {
+        if (value === true) {
+            currentKey.value = 'bulkSm';
+        }
+    });
 </script>

@@ -62,10 +62,10 @@
     </PCard>
 </template>
 
-<script>
-    import { defineComponent, computed } from 'vue';
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../utilities/css';
-    import { DestructableAction, DisableableAction, IconableAction, LoadableAction, Video } from '../../types';
+    import { Video } from '../../types';
     import PVuePlyr from '../../components/PVuePlyr';
     import { PCard } from '../../components/PCard';
     import { PStack } from '../../components/PStack';
@@ -76,16 +76,7 @@
     import { PButton } from '../../components/PButton';
     import StringValidator from '../../utilities/validators/StringValidator';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
-
-    const Size = ['small', 'medium'];
-
-    const PrimaryAction = {
-        ...DestructableAction,
-        ...DisableableAction,
-        ...LoadableAction,
-        ...IconableAction,
-        primary: Boolean,
-    }
+    import { MediaCardSize } from '../variables';
 
     /**
      * <br/>
@@ -93,89 +84,82 @@
      *  sans-serif;">Media cards provide a consistent layout to present visual information to merchants. Visual media is
      *  used to provide additional context to the written information it's paired with.</h4>
      */
-    export default defineComponent({
-        name: 'PMediaCard',
-        components: {
-            PCard, PVuePlyr, PStack, PStackItem, PHeading, PImage, PButtonGroup, PButton,
+    let props = defineProps({
+        /**
+         * Heading content.
+         */
+        title: {
+            type: String,
+            default: null,
         },
-        props: {
-            /**
-             * Heading content.
-             */
-            title: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Body content.
-             */
-            description: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Whether or not card content should be laid out vertically.
-             */
-            portrait: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Size of the visual media in the card.
-             */
-            size: {
-                type: String,
-                default: 'small',
-                ...StringValidator('size', Size),
-            },
-            /**
-             * Main call action, rendered as basic button.
-             */
-            primaryAction: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * Secondary call action, rendered as plain button.
-             */
-            secondaryAction: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * Source of image.
-             */
-            imageSrc: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Source of thumbnail video.
-             */
-            videoThumbSrc: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Source of video.
-             */
-            videoSrc: {
-                type: Array,
-                default: () => ([]),
-                ...ArrayValidator('videoSrc', Video),
-            },
+        /**
+         * Body content.
+         */
+        description: {
+            type: String,
+            default: null,
         },
-        setup(props) {
-          const className = computed(() => {
-            return classNames(
-                'Polaris-MediaCard',
-                props.portrait && `Polaris-MediaCard--portrait`,
-            );
-          });
-          const hasAction = computed(() => {
-            return props.primaryAction || props.secondaryAction;
-          });
-          return { className, hasAction };
+        /**
+         * Whether or not card content should be laid out vertically.
+         */
+        portrait: {
+            type: Boolean,
+            default: false,
         },
-    })
+        /**
+         * Size of the visual media in the card.
+         */
+        size: {
+            type: String,
+            default: 'small',
+            ...StringValidator('size', MediaCardSize),
+        },
+        /**
+         * Main call action, rendered as basic button.
+         */
+        primaryAction: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Secondary call action, rendered as plain button.
+         */
+        secondaryAction: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Source of image.
+         */
+        imageSrc: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Source of thumbnail video.
+         */
+        videoThumbSrc: {
+            type: String,
+            default: null,
+        },
+        /**
+         * Source of video.
+         */
+        videoSrc: {
+            type: Array,
+            default: () => ([]),
+            ...ArrayValidator('videoSrc', Video),
+        },
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-MediaCard',
+            props.portrait && `Polaris-MediaCard--portrait`,
+        );
+    });
+
+    let hasAction = computed(() => {
+        return props.primaryAction || props.secondaryAction;
+    });
 </script>

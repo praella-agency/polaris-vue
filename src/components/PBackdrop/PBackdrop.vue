@@ -6,29 +6,26 @@
   />
 </template>
 
-<script>
-  import { classNames } from '../../utilities/css';
+<script setup>
+    import { computed } from 'vue';
+    import { classNames } from '../../utilities/css';
 
-  export default {
-    name: 'PBackdrop',
-    props: {
-      belowNavigation: {
-        type: Boolean,
-        default: false
-      },
-      transparent: {
-        type: Boolean,
-        default: false
-      },
-    },
-    computed: {
-      className() {
+    let props = defineProps({
+        belowNavigation: {
+            type: Boolean,
+            default: false
+        },
+        transparent: {
+            type: Boolean,
+            default: false
+        },
+    });
+
+    let className = computed(() => {
         return classNames(
             'Polaris-Backdrop',
-            this.belowNavigation && 'Polaris-Backdrop--belowNavigation',
-            this.transparent && 'Polaris-Backdrop--transparent',
+            props.belowNavigation && 'Polaris-Backdrop--belowNavigation',
+            props.transparent && 'Polaris-Backdrop--transparent',
         );
-      }
-    }
-  }
+    });
 </script>

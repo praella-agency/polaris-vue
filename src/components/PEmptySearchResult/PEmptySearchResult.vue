@@ -25,31 +25,24 @@
     </PStack>
 </template>
 
-<script>
+<script setup>
     import { PStack } from '../../components/PStack';
     import { PStackItem } from '../../components/PStack/components/PStackItem';
     import { PDisplayText } from '../../components/PDisplayText';
-    import { PTextStyle } from '../../components/PTextStyle';
     import { PImage } from '../../components/PImage';
 
-    export default {
-      name: 'PEmptySearchResult',
-      components: {
-        PStack, PStackItem, PDisplayText, PTextStyle, PImage,
-      },
-      props: {
+    let props = defineProps({
         title: {
-          type: String,
-          required: true
+            type: String,
+            required: true
         },
         description: {
-          type: String,
-          default: null
+            type: String,
+            default: null
         },
         withIllustration: {
-          type: Boolean,
-          default: false
+            type: Boolean,
+            default: false
         },
-      },
-    }
+    });
 </script>
