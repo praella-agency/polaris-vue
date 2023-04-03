@@ -34,7 +34,8 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { PStack } from '../../components/PStack';
     import { PStackItem } from '../../components/PStack/components/PStackItem';
     import { PButtonGroup } from '../../components/PButtonGroup';
@@ -47,38 +48,31 @@
      *  important because sometimes the primary call to action is hard to access when merchants are at the bottom of a page.
      *  </h4>
      */
-    export default {
-        name: 'PPageActions',
-        components: {
-            PStack, PStackItem, PButtonGroup, PButton,
+    let props = defineProps({
+        /**
+         * The primary action for the page
+         */
+        primaryAction: {
+            type: Object,
+            default: () => ({}),
         },
-        props: {
-            /**
-             * The primary action for the page
-             */
-            primaryAction: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * The secondary action for the page
-             */
-            secondaryAction: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * The secondary actions for the page
-             */
-            secondaryActions: {
-                type: Array,
-                default: () => ([]),
-            },
+        /**
+         * The secondary action for the page
+         */
+        secondaryAction: {
+            type: Object,
+            default: () => ({}),
         },
-        computed: {
-            distribution() {
-                return this.secondaryActions ? 'equalSpacing' : 'trailing';
-            },
+        /**
+         * The secondary actions for the page
+         */
+        secondaryActions: {
+            type: Array,
+            default: () => ([]),
         },
-    }
+    });
+
+    let distribution = computed(() => {
+        return props.secondaryActions ? 'equalSpacing' : 'trailing';
+    });
 </script>

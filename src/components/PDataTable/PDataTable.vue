@@ -207,7 +207,8 @@ Access values with `slot-props` attribute. -->
 </template>
 
 
-<script>
+<script setup>
+    import { computed, onMounted, ref, useAttrs } from 'vue';
     import { hasSlot } from '../../ComponentHelpers';
     import { PDataTableCellNew } from '../../components/PDataTable/components/PDataTableCellNew';
     import { PDataTableCell } from '../../components/PDataTable/components/PDataTableCell';
@@ -218,60 +219,7 @@ Access values with `slot-props` attribute. -->
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
     import StringValidator from '../../utilities/validators/StringValidator';
     import ObjectValidator from '../../utilities/validators/ObjectValidator';
-
-    const Status = ['success', 'info', 'attention', 'warning', 'new', 'critical'];
-    const Progress = ['incomplete', 'partiallyComplete', 'complete'];
-    const Size = ['medium', 'small'];
-
-    const Headings = {
-        /** Header title */
-        content: {
-            type: String,
-            required: true,
-        },
-        /** Header value */
-        value: {
-            type: String,
-            required: true,
-        },
-        /** Value type */
-        type: {
-            type: String,
-            required: true,
-        },
-        /** Sortable values */
-        sortable: Boolean,
-        /** Header Column width */
-        width: String,
-    }
-
-    const TotalsName = {
-        /** Singular label */
-        singular: {
-            type: String,
-            required: true,
-        },
-        /** Plural label */
-        plural: {
-            type: String,
-            required: true,
-        },
-    }
-
-    const SortDirection = ['ascending', 'descending', 'none'];
-    const VerticalAlign = ['top', 'bottom', 'middle', 'baseline'];
-
-    const Sort = {
-        value: {
-            type: String,
-            required: true,
-        },
-        direction: {
-            type: String,
-            required: true,
-            expectedValues: SortDirection,
-        },
-    }
+    import { Headings, Sort, SortDirection, TotalsName, VerticalAlign } from '../variables';
 
     /**
      * <br/>
@@ -280,272 +228,271 @@ Access values with `slot-props` attribute. -->
      *  visualization represents part of data set, a data table lets merchants view details from the entire set. This helps
      *  merchants compare and analyze the data.</h4>
      */
-    export default {
-        name: 'PDataTable',
-        components: {
-            PDataTableCellNew, PPagination, PFilter, PSpinner, PEmptyState, PDataTableCell,
+    let props = defineProps({
+        /**
+         * List of data types, which determines content alignment for each column. Data types are "text," which aligns left,
+         * or "numeric," which aligns right.
+         */
+        columnContentTypes: {
+            type: Array,
+            default: () => ([]),
         },
-        props: {
-            /**
-             * List of data types, which determines content alignment for each column. Data types are "text," which aligns left,
-             * or "numeric," which aligns right.
-             */
-            columnContentTypes: {
-                type: Array,
-                default: () => ([]),
-            },
-            /**
-             * The direction to sort the table rows on first click or keypress
-             * of a sortable column heading.
-             */
-            defaultSortDirection: {
-                type: String,
-                default: 'ascending',
-                ...StringValidator('defaultSortDirection', SortDirection),
-            },
-            /**
-             * Content centered in the full width cell of the table footer row.
-             */
-            footerContent: {
-                type: [String, Number, Object, Array],
-            },
-            /**
-             * List of column headings.
-             */
-            headings: {
-                type: Array,
-                default: () => ([]),
-                ...ArrayValidator('headings', Headings),
-            },
-            /**
-             * Lists of data points which map to table body rows.
-             */
-            rows: {
-                type: Array,
-                default: () => [[]],
-            },
-            /**
-             * Placement of totals row within table.
-             */
-            showTotalsInFooter: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * List of numeric column totals, highlighted in the table’s header below column headings. Use empty strings as
-             * placeholders for columns with no total.
-             */
-            totals: {
-                type: Array,
-                default: () => ([]),
-            },
-            /**
-             * Custom totals row heading.
-             */
-            totalsName: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('totalsName', TotalsName),
-            },
-            /**
-             * Truncate content in first column instead of wrapping.
-             */
-            truncate: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Vertical alignment of content in the cells.
-             */
-            verticalAlign: {
-                type: String,
-                default: 'top',
-                ...StringValidator('verticalAlign', VerticalAlign),
-            },
-            /**
-             * Callback fired on click or keypress of a sortable column heading.
-             */
-            sort: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('sort', Sort),
-            },
-            /**
-             * Display only search filter.
-             */
-            hasFilter: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Data table has pagination.
-             */
-            hasPagination: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Data table is loading.
-             */
-            loading: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Pagination object.
-             */
-            pagination: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * Display empty state if record not found!
-             */
-            emptyStateTitle: {
-                type: String,
-                default: 'No record found!',
-            },
-            /**
-             * Display empty state image if record not found!
-             */
-            emptyStateImage: {
-                type: String,
-                default: 'https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png',
-            },
-            /**
-             * Align last column to right.
-             */
-            alignLastRight: {
-                type: Boolean,
-                default: false,
-            },
-            // ============Deprecated Props============
-            /**
-             * Handle action events for the button.
-             *
-             * **Deprecation:-** `actions` will be removed in version 4.0.0,
-             * use `headings` with extra object.
-             * @deprecated
-             */
-            actions: {
-                type: Array,
-                default: () => ([]),
-            },
-            /**
-             * Data ids
-             *
-             * **Deprecation:-** `ids` will be removed in version 4.0.0,
-             * @deprecated
-             */
-            ids: {
-                type: Array,
-                default: () => ([]),
-            },
-            /**
-             * Search Placeholder
-             *
-             * **Deprecation:-** `searchPlaceholder` will be removed in version 4.0.0, use `resourceName` instead.
-             * @deprecated
-             */
-            searchPlaceholder: {
-                type: String,
-                default: null,
-            },
-            // ============Deprecated Props END============
+        /**
+         * The direction to sort the table rows on first click or keypress
+         * of a sortable column heading.
+         */
+        defaultSortDirection: {
+            type: String,
+            default: 'ascending',
+            ...StringValidator('defaultSortDirection', SortDirection),
         },
-        data() {
+        /**
+         * Content centered in the full width cell of the table footer row.
+         */
+        footerContent: {
+            type: [String, Number, Object, Array],
+        },
+        /**
+         * List of column headings.
+         */
+        headings: {
+            type: Array,
+            default: () => ([]),
+            ...ArrayValidator('headings', Headings),
+        },
+        /**
+         * Lists of data points which map to table body rows.
+         */
+        rows: {
+            type: Array,
+            default: () => [[]],
+        },
+        /**
+         * Placement of totals row within table.
+         */
+        showTotalsInFooter: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * List of numeric column totals, highlighted in the table’s header below column headings. Use empty strings as
+         * placeholders for columns with no total.
+         */
+        totals: {
+            type: Array,
+            default: () => ([]),
+        },
+        /**
+         * Custom totals row heading.
+         */
+        totalsName: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('totalsName', TotalsName),
+        },
+        /**
+         * Truncate content in first column instead of wrapping.
+         */
+        truncate: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Vertical alignment of content in the cells.
+         */
+        verticalAlign: {
+            type: String,
+            default: 'top',
+            ...StringValidator('verticalAlign', VerticalAlign),
+        },
+        /**
+         * Callback fired on click or keypress of a sortable column heading.
+         */
+        sort: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('sort', Sort),
+        },
+        /**
+         * Display only search filter.
+         */
+        hasFilter: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Data table has pagination.
+         */
+        hasPagination: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Data table is loading.
+         */
+        loading: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Pagination object.
+         */
+        pagination: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * Display empty state if record not found!
+         */
+        emptyStateTitle: {
+            type: String,
+            default: 'No record found!',
+        },
+        /**
+         * Display empty state image if record not found!
+         */
+        emptyStateImage: {
+            type: String,
+            default: 'https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png',
+        },
+        /**
+         * Align last column to right.
+         */
+        alignLastRight: {
+            type: Boolean,
+            default: false,
+        },
+        // ============Deprecated Props============
+        /**
+         * Handle action events for the button.
+         *
+         * **Deprecation:-** `actions` will be removed in version 4.0.0,
+         * use `headings` with extra object.
+         * @deprecated
+         */
+        actions: {
+            type: Array,
+            default: () => ([]),
+        },
+        /**
+         * Data ids
+         *
+         * **Deprecation:-** `ids` will be removed in version 4.0.0,
+         * @deprecated
+         */
+        ids: {
+            type: Array,
+            default: () => ([]),
+        },
+        /**
+         * Search Placeholder
+         *
+         * **Deprecation:-** `searchPlaceholder` will be removed in version 4.0.0, use `resourceName` instead.
+         * @deprecated
+         */
+        searchPlaceholder: {
+            type: String,
+            default: null,
+        },
+        // ============Deprecated Props END============
+    });
+    const emit = defineEmits(['filter-removed', 'input-filter-changed', 'sort-changed']);
+    let attrs = useAttrs();
+
+    let topPadding = ref(8);
+    let tbody = ref(null);
+    let thead = ref(null);
+
+    let hasOldRows = computed(() => {
+        return props.rows.length > 0 && props.rows[0].constructor === Array;
+    });
+
+    let hasActions = computed(() => {
+        return props.actions && props.actions.length > 0;
+    });
+
+    let resource = computed(() => {
+        if (props.searchPlaceholder != null) {
             return {
-                topPadding: 8,
+                singular: props.searchPlaceholder,
+                plural: props.searchPlaceholder,
             };
-        },
-        computed: {
-            hasOldRows() {
-                return this.rows.length > 0 && this.rows[0].constructor === Array;
-            },
-            hasActions() {
-                return this.actions && this.actions.length > 0;
-            },
-            resource() {
-                if (this.searchPlaceholder != null) {
-                    return {
-                        singular: this.searchPlaceholder,
-                        plural: this.searchPlaceholder,
-                    };
-                } else {
-                    return this.$attrs.resourceName;
-                }
-            },
-            totalsRowHeading() {
-                const totalsLabel = Object.keys(this.totalsName).length > 0 ? this.totalsName : {
-                    singular: 'Total',
-                    plural: 'Totals',
-                };
+        } else {
+            return attrs.resourceName;
+        }
+    });
 
-                return this.totals.length > 0 &&
-                this.totals.filter((total) => total !== '' || typeof (total !== 'number')).length > 1 ?
-                    totalsLabel.plural :
-                    totalsLabel.singular;
-            },
-            hasSlot() {
-                return hasSlot;
-            },
-        },
-        methods: {
-            onRemoveFilter(tag) {
-                /**
-                 * Removes filter tag
-                 */
-                this.$emit('filter-removed', tag);
-            },
-            onFilterInputChanged(value) {
-                /**
-                 * Works on keypress
-                 */
-                this.$emit('input-filter-changed', value);
-            },
-            handleSortChange(value, direction) {
-                /**
-                 * Handle sorting on columns
-                 */
-                this.$emit('sort-changed', value, direction);
-            },
-            handleDeprecations() {
-                if (this.searchPlaceholder != null) {
-                    // tslint:disable-next-line:no-console
-                    console.error('Deprecation Notice: `searchPlaceholder` will be removed in version 4.0.0, use `resourceName` instead. ' +
-                        'Please check resourceName syntax here: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-filter--filter');
-                }
-                if (this.actions.length > 0) {
-                    // tslint:disable-next-line:no-console
-                    console.error('Deprecation Notice: `actions` will be removed in version 4.0.0, use `headings` with extra object. '
-                        + 'Please check new example of' +
-                        ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--customisable-row');
-                }
-                if (this.ids.length > 0) {
-                    // tslint:disable-next-line:no-console
-                    console.error('Deprecation Notice: `ids` will be removed in version 4.0.0. ' +
-                        'Please check new example of' +
-                        ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--customisable-row');
-                }
-            },
-        },
-        mounted() {
-            let loadingPosition = 0;
+    let totalsRowHeading = computed(() => {
+        const totalsLabel = Object.keys(props.totalsName).length > 0 ? props.totalsName : {
+            singular: 'Total',
+            plural: 'Totals',
+        };
 
-            if (typeof window !== 'undefined' && this.$refs.hasOwnProperty('tbody')) {
-                const overlay = (this.$refs.tbody).getBoundingClientRect();
-                const viewportHeight = Math.max(document.documentElement ?
-                    document.documentElement.clientHeight : 0, window.innerHeight || 0);
-                const overflow = viewportHeight - overlay.height;
-                const spinnerHeight = this.rows.length === 1 ? 28 : 45;
-                loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 :
-                    (viewportHeight - overlay.top - spinnerHeight) / 2;
-                loadingPosition = loadingPosition + (this.$refs.thead).getBoundingClientRect().height;
-                this.topPadding = loadingPosition > 0 ? loadingPosition : this.topPadding;
-            }
+        return props.totals.length > 0 &&
+        props.totals.filter((total) => total !== '' || typeof (total !== 'number')).length > 1 ? totalsLabel.plural : totalsLabel.singular;
+    });
 
-            this.handleDeprecations();
-        },
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    function onRemoveFilter(tag) {
+        /**
+         * Removes filter tag
+         */
+        emit('filter-removed', tag);
     }
+
+    function onFilterInputChanged(value) {
+        /**
+         * Works on keypress
+         */
+        emit('input-filter-changed', value);
+    }
+
+    function handleSortChange(value, direction) {
+        /**
+         * Handle sorting on columns
+         */
+        emit('sort-changed', value, direction);
+    }
+
+    function handleDeprecations() {
+        if (props.searchPlaceholder != null) {
+            // tslint:disable-next-line:no-console
+            console.error('Deprecation Notice: `searchPlaceholder` will be removed in version 4.0.0, use `resourceName` instead. ' +
+                'Please check resourceName syntax here: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-filter--filter');
+        }
+        if (props.actions.length > 0) {
+            // tslint:disable-next-line:no-console
+            console.error('Deprecation Notice: `actions` will be removed in version 4.0.0, use `headings` with extra object. '
+                + 'Please check new example of' +
+                ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--customisable-row');
+        }
+        if (props.ids.length > 0) {
+            // tslint:disable-next-line:no-console
+            console.error('Deprecation Notice: `ids` will be removed in version 4.0.0. ' +
+                'Please check new example of' +
+                ' DataTable: https://polaris-vue.hulkapps.com/?path=/docs/lists-tables-data-table-slot--customisable-row');
+        }
+    }
+
+    onMounted(() => {
+        tbody = tbody.value;
+        thead = thead.value;
+        let loadingPosition = 0;
+
+        if (typeof window !== 'undefined' && tbody) {
+            const overlay = (tbody).getBoundingClientRect();
+            const viewportHeight = Math.max(document.documentElement ? document.documentElement.clientHeight : 0, window.innerHeight || 0);
+            const overflow = viewportHeight - overlay.height;
+            const spinnerHeight = props.rows.length === 1 ? 28 : 45;
+            loadingPosition = overflow > 0 ? (overlay.height - spinnerHeight) / 2 : (viewportHeight - overlay.top - spinnerHeight) / 2;
+            loadingPosition = loadingPosition + (thead).getBoundingClientRect().height;
+            topPadding.value = loadingPosition > 0 ? loadingPosition : topPadding.value;
+        }
+
+        handleDeprecations();
+    });
 </script>
 

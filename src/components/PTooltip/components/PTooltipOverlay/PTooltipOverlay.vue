@@ -19,44 +19,38 @@
     </PTooltipPositionedOverlay>
 </template>
 
-<script>
+<script setup>
     import { PTooltipPositionedOverlay } from '../../../../components/PTooltip/components/PTooltipPositionedOverlay';
 
-    export default {
-        name: 'PTooltipOverlay',
-        components: {
-            PTooltipPositionedOverlay,
+    let props = defineProps({
+        id: {
+            type: [String, Number],
         },
-        props: {
-            id: {
-                type: [String, Number],
-            },
-            active: {
-                type: Boolean,
-            },
-            preventAutoFocus: {
-                type: Boolean,
-            },
-            preferredAlignment: {
-                type: String,
-            },
-            preferredPosition: {
-                type: String,
-            },
-            sectioned: {
-                type: Boolean,
-            },
-            fullWidth: {
-                type: Boolean,
-            },
-            activatorId: {
-                type: String,
-            },
+        active: {
+            type: Boolean,
         },
-        methods: {
-            handleScrollOut() {
-                this.$emit('scrollout');
-            }
+        preventAutoFocus: {
+            type: Boolean,
         },
+        preferredAlignment: {
+            type: String,
+        },
+        preferredPosition: {
+            type: String,
+        },
+        sectioned: {
+            type: Boolean,
+        },
+        fullWidth: {
+            type: Boolean,
+        },
+        activatorId: {
+            type: String,
+        },
+    });
+    const emit = defineEmits(['scrollout']);
+
+    function handleScrollOut() {
+        emit('scrollout');
     }
 </script>

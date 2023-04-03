@@ -443,3 +443,101 @@ export const ListType = ['bullet', 'number'];
 
 // PMediaCard.vue
 export const MediaCardSize = ['small', 'medium'];
+
+// PHeader.vue
+export const UndoActions = {
+    disabled: Boolean,
+    onAction: Function,
+};
+
+export const RedoActions = {
+    disabled: Boolean,
+    onAction: Function,
+};
+
+// PCheckableButton.vue
+export const ButtonSize = ['slim', 'medium', 'large'];
+export const ButtonTextAlign = ['left', 'right', 'center'];
+
+// PResourceListHeader.vue
+export const BulkActionsInterface = {
+    content: {
+        type: String,
+        required: true,
+    },
+    onAction: {
+        type: Function,
+        required: true,
+    },
+}
+
+export const SortOptionsInterface = {
+    label: {
+        type: String,
+        required: true,
+    },
+    value: {
+        type: String,
+        required: true,
+    },
+}
+
+// PDataTable.vue
+export const Headings = {
+    /** Header title */
+    content: {
+        type: String,
+        required: true,
+    },
+    /** Header value */
+    value: {
+        type: String,
+        required: true,
+    },
+    /** Value type */
+    type: {
+        type: String,
+        required: true,
+    },
+    /** Sortable values */
+    sortable: Boolean,
+    /** Header Column width */
+    width: String,
+}
+
+export const TotalsName = {
+    /** Singular label */
+    singular: {
+        type: String,
+        required: true,
+    },
+    /** Plural label */
+    plural: {
+        type: String,
+        required: true,
+    },
+}
+
+export const SortDirection = ['ascending', 'descending', 'none'];
+export const VerticalAlign = ['top', 'bottom', 'middle', 'baseline'];
+
+export const Sort = {
+    value: {
+        type: String,
+        required: true,
+    },
+    direction: {
+        type: String,
+        required: true,
+        expectedValues: SortDirection,
+    },
+}
+
+// PBreadcrumbs.vue
+export const PBreadcrumbsProps = {
+    content: [String, Object],
+    url: String,
+    to: [String, Object],
+    accessibilityLabel: String,
+    onAction: Function,
+}

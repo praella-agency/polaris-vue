@@ -7,7 +7,7 @@
             <div class="Polaris-Header-Title__TitleWithMetadataWrapper">
                 <PDisplayText element="h1" v-html="title" class="Polaris-Header-Title"/>
                 <div class="Polaris-Header-Title__TitleMetadata"
-                     v-if="titleMetadata || hasSlot($slots.titleMetadata)">
+                     v-if="titleMetadata || isSlot($slots.titleMetadata)">
                     <template v-if="titleMetadata">
                         {{ titleMetadata }}
                     </template>
@@ -23,49 +23,38 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PDisplayText } from '../../../../components/PDisplayText';
-    import { PTextStyle } from '../../../../components/PTextStyle';
     import { PThumbnail } from '../../../../components/PThumbnail';
 
-    export default {
-        name: 'PPageHeaderTitle',
-        components: {
-            PDisplayText, PTextStyle, PThumbnail,
+    let props = defineProps({
+        title: {
+            type: String,
         },
-        props: {
-            title: {
-                type: String,
-            },
-            source: {
-                type: String,
-            },
-            alt: {
-                type: String,
-            },
-            subtitle: {
-                type: String,
-            },
-            titleMetadata: {
-                type: String,
-            },
+        source: {
+            type: String,
         },
-        computed: {
-            pageTitleClassName() {
-                return classNames(
-                    this.source && 'Polaris-Header-Title--hasThumbnail',
-                );
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        alt: {
+            type: String,
         },
-        methods: {
-            hasThumbnailSlot() {
-                return hasSlot(this.$slots.thumbnail);
-            },
+        subtitle: {
+            type: String,
         },
-    }
+        titleMetadata: {
+            type: String,
+        },
+    });
+
+    let pageTitleClassName = computed(() => {
+        return classNames(
+            props.source && 'Polaris-Header-Title--hasThumbnail',
+        );
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
 </script>

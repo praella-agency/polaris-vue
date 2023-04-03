@@ -1,7 +1,7 @@
 <template>
     <div class="Polaris-DataTable-Wrapper">
         <PFilter
-            v-if="hasSlot($slots.filterOptions) || hasFilter"
+            v-if="isSlot($slots.filterOptions) || hasFilter"
             v-bind="$attrs"
             :resourceName="resourceName"
             @remove-tag="onRemoveFilter"
@@ -21,7 +21,7 @@
                         <div class="Polaris-IndexTable__LoadingPanelRow">
                             <PSpinner size="small"/>
                             <span class="Polaris-IndexTable__LoadingPanelText">
-                            {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
+                            {{ `Loading ${resourceName.plural.toLocaleLowerCase()}...` }}
                         </span>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                                         <div class="Polaris-IndexTable__LoadingPanelRow">
                                             <PSpinner size="small"/>
                                             <span class="Polaris-IndexTable__LoadingPanelText">
-                                            {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
+                                            {{ `Loading ${resourceName.plural.toLocaleLowerCase()}...` }}
                                         </span>
                                         </div>
                                     </div>
@@ -76,7 +76,7 @@
                                         <div class="Polaris-IndexTable__LoadingPanelRow">
                                             <PSpinner size="small"/>
                                             <span class="Polaris-IndexTable__LoadingPanelText">
-                                            {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
+                                            {{ `Loading ${resourceName.plural.toLocaleLowerCase()}...` }}
                                         </span>
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                                         <div class="Polaris-IndexTable__LoadingPanelRow">
                                             <PSpinner size="small"/>
                                             <span class="Polaris-IndexTable__LoadingPanelText">
-                                            {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
+                                            {{ `Loading ${resourceName.plural.toLocaleLowerCase()}...` }}
                                         </span>
                                         </div>
                                     </div>
@@ -295,7 +295,7 @@ Access values with `slot-props` attribute. -->
                                         <div class="Polaris-IndexTable__LoadingPanelRow">
                                             <PSpinner size="small"/>
                                             <span class="Polaris-IndexTable__LoadingPanelText">
-                                            {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
+                                            {{ `Loading ${resourceName.plural.toLocaleLowerCase()}...` }}
                                         </span>
                                         </div>
                                     </div>
@@ -325,7 +325,7 @@ Access values with `slot-props` attribute. -->
                                         <div class="Polaris-IndexTable__LoadingPanelRow">
                                             <PSpinner size="small"/>
                                             <span class="Polaris-IndexTable__LoadingPanelText">
-                                            {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
+                                            {{ `Loading ${resourceName.plural.toLocaleLowerCase()}...` }}
                                         </span>
                                         </div>
                                     </div>
@@ -352,7 +352,7 @@ Access values with `slot-props` attribute. -->
                                         <div class="Polaris-IndexTable__LoadingPanelRow">
                                             <PSpinner size="small"/>
                                             <span class="Polaris-IndexTable__LoadingPanelText">
-                                            {{ `Loading ${this.resourceName.plural.toLocaleLowerCase()}...` }}
+                                            {{ `Loading ${resourceName.plural.toLocaleLowerCase()}...` }}
                                         </span>
                                         </div>
                                     </div>
@@ -611,8 +611,8 @@ Access values with `slot-props` attribute.-->
     </div>
 </template>
 
-<script>
-    import utils from '../../utilities';
+<script setup>
+    import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
     import { hasSlot } from '../../ComponentHelpers';
     import { classNames } from '../../utilities/css';
     import { PSpinner } from '../../components/PSpinner';
@@ -626,7 +626,6 @@ Access values with `slot-props` attribute.-->
     import { PBulkActions } from '../../components/PBulkActions';
     import { PIndexTableCell } from '../../components/PIndexTable/components/PIndexTableCell';
     import { PIndexTableRow } from '../../components/PIndexTable/components/PIndexTableRow';
-    import { PTextStyle } from '../../components/PTextStyle';
     import { PFilter } from '../../components/PFilter';
     import { PPagination } from '../../components/PPagination';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
@@ -649,480 +648,491 @@ Access values with `slot-props` attribute.-->
      *  job of an index table is to help merchants get an at-a-glance of the objects to perform actions or navigate to a
      *  full-page representation of it.</h4>
      */
-    export default {
-        name: 'PIndexTable',
-        components: {
-            PBulkActions, PEmptySearchResult, PSpinner, PButton, PStack, PStackItem, PCheckbox, PBadge, PIndexTableRow,
-            PIndexTableCell, PTextStyle, PFilter, PPagination,
+    let props = defineProps({
+        /**
+         * List of column headings.
+         */
+        headings: {
+            type: Array,
+            default: () => ([]),
+            ...ArrayValidator('headings', IndexTableHeading),
         },
-        props: {
-            /**
-             * List of column headings.
-             */
-            headings: {
-                type: Array,
-                default: () => ([]),
-                ...ArrayValidator('headings', IndexTableHeading),
-            },
-            /**
-             * Lists of data points which map to table body rows.
-             */
-            rows: {
-                type: Array,
-                default: () => ([]),
-            },
-            /**
-             * Bulk actions that will be given more prominence.
-             */
-            promotedBulkActions: {
-                type: Array,
-                default: () => ([]),
-                ...ArrayValidator('promotedBulkActions', BulkActionsProps),
-            },
-            /**
-             * Actions available on the currently selected items.
-             */
-            bulkActions: {
-                type: Array,
-                default: () => ([]),
-                ...ArrayValidator('bulkActions', {actions: BulkActionsProps['actions']}),
-            },
-            /**
-             * Name of the resource, such as customers or books.
-             */
-            resourceName: {
-                type: Object,
-                default: () => ({}),
-            },
-            /**
-             * An index table with a sticky last column that stays visible on scroll.
-             */
-            lastColumnSticky: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Selectable index table.
-             */
-            selectable: {
-                type: Boolean,
-                default: true,
-            },
-            /**
-             * Switch mode to small screen.
-             */
-            condensed: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Item list with a spinner while a background action is being performed.
-             */
-            loading: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Whether or not there are more items than currently set on the items prop. Determines whether or not to set the
-             * paginatedSelectAllAction and paginatedSelectAllText props on the BulkActions component.
-             */
-            hasMoreItems: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Counts for the currently selected items.
-             */
-            selectedItemsCount: {
-                type: [String, Number],
-                default: null,
-            },
-            /**
-             * Total number of items.
-             */
-            itemCount: {
-                type: Number,
-                default: 0,
-            },
-            /**
-             * Clickable row.
-             */
-            clickableRow: {
-                type: Boolean,
-                default: true,
-            },
-            // Filter <-- Start -->
-            /**
-             * Display search filter.
-             */
-            hasFilter: {
-                type: Boolean,
-                default: false,
-            },
-            // Filter <-- End -->
+        /**
+         * Lists of data points which map to table body rows.
+         */
+        rows: {
+            type: Array,
+            default: () => ([]),
+        },
+        /**
+         * Bulk actions that will be given more prominence.
+         */
+        promotedBulkActions: {
+            type: Array,
+            default: () => ([]),
+            ...ArrayValidator('promotedBulkActions', BulkActionsProps),
+        },
+        /**
+         * Actions available on the currently selected items.
+         */
+        bulkActions: {
+            type: Array,
+            default: () => ([]),
+            ...ArrayValidator('bulkActions', {actions: BulkActionsProps['actions']}),
+        },
+        /**
+         * Name of the resource, such as customers or books.
+         */
+        resourceName: {
+            type: Object,
+            default: () => ({}),
+        },
+        /**
+         * An index table with a sticky last column that stays visible on scroll.
+         */
+        lastColumnSticky: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Selectable index table.
+         */
+        selectable: {
+            type: Boolean,
+            default: true,
+        },
+        /**
+         * Switch mode to small screen.
+         */
+        condensed: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Item list with a spinner while a background action is being performed.
+         */
+        loading: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Whether or not there are more items than currently set on the items prop. Determines whether or not to set the
+         * paginatedSelectAllAction and paginatedSelectAllText props on the BulkActions component.
+         */
+        hasMoreItems: {
+            type: Boolean,
+            default: false,
+        },
+        /**
+         * Counts for the currently selected items.
+         */
+        selectedItemsCount: {
+            type: [String, Number],
+            default: null,
+        },
+        /**
+         * Total number of items.
+         */
+        itemCount: {
+            type: Number,
+            default: 0,
+        },
+        /**
+         * Clickable row.
+         */
+        clickableRow: {
+            type: Boolean,
+            default: true,
+        },
+        // Filter <-- Start -->
+        /**
+         * Display search filter.
+         */
+        hasFilter: {
+            type: Boolean,
+            default: false,
+        },
+        // Filter <-- End -->
 
-            // Pagination <-- Start -->
-            /**
-             * Pagination object.
-             */
-            pagination: {
-                type: Object,
-                default: () => ({}),
-            },
+        // Pagination <-- Start -->
+        /**
+         * Pagination object.
+         */
+        pagination: {
+            type: Object,
+            default: () => ({}),
         },
-        data() {
-            return {
-                tableHeadingRect: [
-                    {
-                        offsetWidth: Number,
-                        offsetLeft: Number,
-                    },
-                    {
-                        offsetWidth: Number,
-                        offsetLeft: Number,
-                    },
-                ],
-                bulkActionsSelectable: Boolean(this.promotedBulkActions.length > 0 || this.bulkActions.length > 0),
-                isSmallScreenSelectable: false,
-                selectMode: false,
-                hasMoreLeftColumns: false,
-                isSticky: false,
-                selectedResources: [],
-                selectedRowsCount: this.selectedResources ? this.selectedResources.length : 0,
-                paginatedSelectAllText: '',
-                togglePlus: '',
-                paginatedSelectAction: this.hasMoreItems ? {
-                    content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
-                    onAction: this.handleSelectAllItemsInStore,
-                } : {},
-                canScrollRight: true,
-                tableInitialized: false,
+    });
+    const emit = defineEmits(['selectionChange', 'navigation', 'filter-removed', 'input-filter-changed']);
+
+    let tableHeadingRect = ref([
+        {
+            offsetWidth: Number,
+            offsetLeft: Number,
+        },
+        {
+            offsetWidth: Number,
+            offsetLeft: Number,
+        },
+    ]);
+    let bulkActionsSelectable = ref(Boolean(props.promotedBulkActions.length > 0 || props.bulkActions.length > 0));
+    let isSmallScreenSelectable = ref(false);
+    let selectMode = ref(false);
+    let hasMoreLeftColumns = ref(false);
+    let isSticky = ref(false);
+    let selectedResources = ref([]);
+    let selectedRowsCount = ref(selectedResources.value ? selectedResources.value.length : 0);
+    let paginatedSelectAllText = ref('');
+    let togglePlus = ref('');
+    let paginatedSelectAction = ref(props.hasMoreItems ? {
+        content: `Select all ${props.itemCount}+ ${props.resourceName.plural}`,
+        onAction: handleSelectAllItemsInStore,
+    } : {});
+    let canScrollRight = ref(true);
+    let tableInitialized = ref(false);
+
+    let shouldShowBulkActions = computed(() => {
+        return (bulkActionsSelectable.value && selectedRowsCount.value) || isSmallScreenSelectable.value;
+    });
+
+    let tableClassName = computed(() => {
+        return classNames(
+            'Polaris-IndexTable__Table',
+            hasMoreLeftColumns.value && 'Polaris-IndexTable__Table--scrolling',
+            selectMode.value && 'Polaris-IndexTable--disableTextSelection',
+            selectMode.value && shouldShowBulkActions.value && 'Polaris-IndexTable--selectMode',
+            !props.selectable && 'Table-unselectable',
+            props.lastColumnSticky && 'Polaris-IndexTable--tableStickyLast',
+            props.lastColumnSticky && canScrollRight.value && '',
+        );
+    });
+
+    let stickyTableClassName = computed(() => {
+        return classNames(
+            'Polaris-IndexTable__StickyTable',
+            props.condensed && 'Polaris-IndexTable__StickyTable--condensed',
+        );
+    });
+
+    let stickyHeaderClassName = computed(() => {
+        return classNames(
+            'Polaris-IndexTable__StickyTableHeader',
+            isSticky.value && 'Polaris-IndexTable__StickyTableHeader--isSticky',
+        );
+    });
+
+    let bulkActionClassName = computed(() => {
+        return classNames(
+            'Polaris-IndexTable__BulkActionsWrapper',
+            props.condensed && 'Polaris-IndexTable__StickyTableHeader--condensed',
+            isSticky.value && 'Polaris-IndexTable__StickyTableHeader--isSticky',
+        );
+    });
+
+    let headerMarkupClassName = computed(() => {
+        return classNames(
+            'Polaris-IndexTable__HeaderWrapper',
+        );
+    });
+
+    let stickyColumnHeaderClassName = computed(() => {
+        return classNames(
+            'Polaris-IndexTable__StickyTableColumnHeader',
+            hasMoreLeftColumns.value && 'Polaris-IndexTable__StickyTableColumnHeader--isScrolling',
+        );
+    });
+
+    let selectedItemsCountLabel = computed(() => {
+        return selectedRowsCount.value === 'All' ? `${props.itemCount}` : selectedRowsCount.value;
+    });
+
+    let stickyColumnHeaderStyle = computed(() => {
+        return tableHeadingRect.value && tableHeadingRect.value.length > 0 ? {
+            minWidth: calculateFirstHeaderOffset(),
+        } : undefined;
+    });
+
+    let hasBulkActions = computed(() => {
+        return Boolean(props.promotedBulkActions && props.promotedBulkActions.length > 0) || (props.bulkActions && props.bulkActions.length > 0);
+    });
+
+    let paginatedSelectAllAction = computed({
+        get() {
+            if (!props.selectable || !hasBulkActions.value || !props.hasMoreItems) {
+                return;
+            }
+
+            const actionText = selectedRowsCount.value === 'All' ? 'Undo' : `Select all ${props.itemCount}+ ${props.resourceName.plural}`;
+
+            paginatedSelectAction.value = {
+                content: actionText,
+                onAction: handleSelectAllItemsInStore,
             };
+
+            return paginatedSelectAction.value;
         },
-        computed: {
-            tableClassName() {
-                return classNames(
-                    'Polaris-IndexTable__Table',
-                    this.hasMoreLeftColumns && 'Polaris-IndexTable__Table--scrolling',
-                    this.selectMode && 'Polaris-IndexTable--disableTextSelection',
-                    this.selectMode && this.shouldShowBulkActions && 'Polaris-IndexTable--selectMode',
-                    !this.selectable && 'Table-unselectable',
-                    this.lastColumnSticky && 'Polaris-IndexTable--tableStickyLast',
-                    this.lastColumnSticky && this.canScrollRight && '',
-                );
-            },
-            stickyTableClassName() {
-                return classNames(
-                    'Polaris-IndexTable__StickyTable',
-                    this.condensed && 'Polaris-IndexTable__StickyTable--condensed',
-                );
-            },
-            stickyHeaderClassName() {
-                return classNames(
-                    'Polaris-IndexTable__StickyTableHeader',
-                    this.isSticky && 'Polaris-IndexTable__StickyTableHeader--isSticky',
-                );
-            },
-            bulkActionClassName() {
-                return classNames(
-                    'Polaris-IndexTable__BulkActionsWrapper',
-                    this.condensed && 'Polaris-IndexTable__StickyTableHeader--condensed',
-                    this.isSticky && 'Polaris-IndexTable__StickyTableHeader--isSticky',
-                );
-            },
-            headerMarkupClassName() {
-                return classNames(
-                    'Polaris-IndexTable__HeaderWrapper',
-                );
-            },
-            stickyColumnHeaderClassName() {
-                return classNames(
-                    'Polaris-IndexTable__StickyTableColumnHeader',
-                    this.hasMoreLeftColumns && 'Polaris-IndexTable__StickyTableColumnHeader--isScrolling',
-                );
-            },
-            shouldShowBulkActions() {
-                return (this.bulkActionsSelectable && this.selectedRowsCount) || this.isSmallScreenSelectable;
-            },
-            selectedItemsCountLabel() {
-                return this.selectedRowsCount === 'All' ? `${this.itemCount}` : this.selectedRowsCount;
-            },
-            stickyColumnHeaderStyle() {
-                return this.tableHeadingRect && this.tableHeadingRect.length > 0 ? {
-                    minWidth: this.calculateFirstHeaderOffset(),
-                } : undefined;
-            },
-            hasBulkActions() {
-                return Boolean(this.promotedBulkActions && this.promotedBulkActions.length > 0) ||
-                    (this.bulkActions && this.bulkActions.length > 0);
-            },
-            paginatedSelectAllAction: {
-                get() {
-                    if (!this.selectable || !this.hasBulkActions || !this.hasMoreItems) {
-                        return;
-                    }
-
-                    const actionText = this.selectedRowsCount === 'All'
-                        ? 'Undo' : `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
-
-                    this.paginatedSelectAction = {
-                        content: actionText,
-                        onAction: this.handleSelectAllItemsInStore,
-                    };
-
-                    return this.paginatedSelectAction;
-                },
-                set(value) {
-                    this.$set(this, 'paginatedSelectAction', value);
-                },
-            },
-            hasSlot() {
-                return hasSlot;
-            },
+        set(value) {
+            // this.$set(this, 'paginatedSelectAction', value);
+            paginatedSelectAction = value;
         },
-        methods: {
-            isSmallScreen() {
-                return typeof window === 'undefined' ? false : window.innerWidth < 458;
-            },
-            calculateFirstHeaderOffset() {
-                if (!this.selectable) {
-                    return this.tableHeadingRect[0].offsetWidth;
-                }
+    });
 
-                return this.condensed
-                    ? this.tableHeadingRect[0].offsetWidth
-                    : this.tableHeadingRect[0].offsetWidth + this.tableHeadingRect[1].offsetWidth;
-            },
-            handleTogglePage() {
-                if (this.selectedRowsCount === 0) {
-                    this.rows.map((row) => {
-                        this.selectedResources = [...this.selectedResources, row];
-                    });
-                    this.selectMode = true;
-                    this.selectedRowsCount = this.selectedResources.length;
-                    this.emitSelection('multiple', this.selectMode, this.selectedResources);
-                    return;
-                } else if (this.selectedRowsCount !== this.itemCount) {
-                    this.selectedRowsCount = 0;
-                    this.selectedResources = [];
-                    this.rows.map((row) => {
-                        this.selectedResources = [...this.selectedResources, row];
-                    });
-                    this.selectMode = true;
-                    this.selectedRowsCount = this.selectedResources.length;
-                } else {
-                    this.selectedRowsCount = 0;
-                    this.selectedResources = [];
-                    this.selectMode = false;
-                }
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
 
-                this.emitSelection('multiple', this.selectMode, this.selectedResources);
-            },
-            handleSelectModeToggle(val) {
-            },
-            toggleIsSmallScreenSelectable() {
-                this.isSmallScreenSelectable = !this.isSmallScreenSelectable;
-            },
-            handleSelectPage(checked) {
-                if (!this.shouldShowBulkActions) {
-                    this.handleTogglePage();
-                    return;
-                }
-
-                if (this.hasMoreItems) {
-                    this.paginatedSelectAllAction = {
-                        content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
-                        onAction: this.handleSelectAllItemsInStore,
-                    }
-                }
-                this.paginatedSelectAllText = '';
-                this.togglePlus = '';
-
-                if (checked['checked']) {
-                    this.rows.map((row) => {
-                        this.selectedResources = [...this.selectedResources, row];
-                    });
-                    this.selectedRowsCount = this.itemCount;
-                } else {
-                    this.selectedResources = [];
-                }
-
-                this.selectMode = checked['checked'];
-                this.emitSelection('multiple', checked['checked'], this.selectedResources);
-            },
-            headingStyle(position) {
-                return this.tableHeadingRect && this.tableHeadingRect.length > position
-                    ? {
-                        minWidth: this.tableHeadingRect[position].offsetWidth,
-                    } : undefined;
-            },
-            stickyHeadingClassName(index) {
-                return classNames(
-                    'Polaris-IndexTable__TableHeading',
-                    index === 0 && 'Polaris-IndexTable-StickyTableHeading-second',
-                    index === 0 && !this.selectable && 'unselectable',
-                );
-            },
-            headingContentClassName(heading, index) {
-                const isSecond = index === 0;
-                const isLast = index === this.headings.length - 1;
-
-                return classNames(
-                    'Polaris-IndexTable__TableHeading',
-                    isSecond && 'Polaris-IndexTable-TableHeading-second',
-                    this.lastColumnSticky && isLast && !heading.hidden && 'Polaris-IndexTable__TableHeading--last',
-                    !this.selectable && 'TableHeading-unselectable',
-                );
-            },
-            stickyPositioningStyle(index) {
-                return this.selectable && index === 0 && this.tableHeadingRect && this.tableHeadingRect.length > 0
-                    ? {left: this.tableHeadingRect[0].offsetWidth} : undefined;
-            },
-            checkboxClassName(index) {
-                return classNames(
-                    'Polaris-IndexTable__TableHeading',
-                    index === 0 && 'Polaris-IndexTable__TableHeading--first',
-                );
-            },
-            handleSelectAllItemsInStore() {
-                let actionText = '';
-                if (this.paginatedSelectAction.content === 'Undo') {
-                    actionText = `Select all ${this.itemCount}+ ${this.resourceName.plural}`;
-                    this.paginatedSelectAllText = '';
-                    this.togglePlus = '';
-                } else {
-                    this.selectedResources = [];
-                    this.selectedRowsCount = 0;
-                    this.togglePlus = '+';
-                    this.paginatedSelectAllText = `All ${this.itemCount}+ ${this.resourceName.plural} are selected.`;
-                    actionText = 'Undo';
-                    this.selectedRowsCount = 'All';
-                    this.rows.map((row) => {
-                        this.selectedResources = [...this.selectedResources, row];
-                    });
-                }
-
-                this.emitSelection('multiple', true, this.selectedResources);
-                if (this.hasMoreItems) {
-                    this.paginatedSelectAllAction = {
-                        content: actionText,
-                        onAction: this.handleSelectAllItemsInStore,
-                    }
-                }
-            },
-            handleSelectionChange(selectionType, selected, id) {
-                this.selectMode = true;
-
-                const index = this.selectedResources.findIndex(x => x.id === id);
-                const rowId = this.rows.findIndex(x => x['id'] === id);
-
-                if (!selected) {
-                    if (this.hasMoreItems) {
-                        this.paginatedSelectAllAction = {
-                            content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
-                            onAction: this.handleSelectAllItemsInStore,
-                        }
-                    }
-                    this.paginatedSelectAllText = '';
-                    this.togglePlus = '';
-                    if (index > -1) {
-                        this.selectedResources.splice(index, 1);
-                    }
-                } else {
-                    if (this.condensed) {
-                        this.isSmallScreenSelectable = true;
-                    }
-                    this.selectedResources = [...this.selectedResources, this.rows[rowId]];
-                }
-
-                if (this.selectedResources.length === this.itemCount) {
-                    this.selectedRowsCount = this.itemCount;
-                } else if (this.selectedResources.length === 0) {
-                    this.selectedRowsCount = 0;
-                    this.selectMode = false;
-                } else {
-                    if (this.selectedResources.length === 1) {
-                        if (this.hasMoreItems) {
-                            this.paginatedSelectAllAction = {
-                                content: `Select all ${this.itemCount}+ ${this.resourceName.plural}`,
-                                onAction: this.handleSelectAllItemsInStore,
-                            }
-                        }
-                        this.paginatedSelectAllText = '';
-                        this.togglePlus = '';
-                    }
-                    this.selectedRowsCount = this.selectedResources.length;
-                }
-
-                this.emitSelection(selectionType, selected, this.selectedResources);
-            },
-            emitSelection(selectionType, toggleType, selectedResources) {
-                /**
-                 * Triggers when selection is changed
-                 */
-                this.$emit('selectionChange', selectionType, toggleType, selectedResources);
-            },
-            handleNavigation(row) {
-                /**
-                 * Perform action on row click.
-                 * Triggers when clickableRow is disabled.
-                 */
-                this.$emit('navigation', row);
-            },
-            // Filter <-- Start -->
-            onRemoveFilter(tag) {
-                /**
-                 * Removes filter tag
-                 */
-                this.$emit('filter-removed', tag);
-            },
-            onFilterInputChanged(value) {
-                /**
-                 * Works on keypress
-                 */
-                this.$emit('input-filter-changed', value);
-            },
-            // Filter <-- End -->
-        },
-        watch: {
-            condensed(value, oldValue) {
-                this.isSmallScreenSelectable = false;
-                this.selectedResources = [];
-                this.selectedRowsCount = 0;
-                this.selectMode = false;
-                this.paginatedSelectAllText = '';
-            },
-            selectedItemsCount(value, oldValue) {
-                this.selectedResources = [];
-                this.selectedRowsCount = 0;
-                this.selectMode = true;
-
-                if (value <= 0) {
-                    this.selectMode = false;
-                    return;
-                }
-
-                if (value > this.itemCount) {
-                    this.rows.map((row) => {
-                        this.selectedResources = [...this.selectedResources, row];
-                    });
-                    this.selectedRowsCount = 'All';
-                    this.emitSelection('multiple', this.selectMode, this.selectedResources);
-                } else {
-                    for (let i = 0; i < value; i++) {
-                        this.selectedResources = [...this.selectedResources, this.rows[i]];
-                    }
-                    this.selectedRowsCount = value;
-                    this.emitSelection('single', this.selectMode, this.selectedResources);
-                }
-            },
-        },
-        created() {
-            window.addEventListener('resize', this.isSmallScreen);
-            this.isSmallScreen();
-        },
-        [utils.destroyed]() {
-            window.removeEventListener('resize', this.isSmallScreen);
-        },
+    function isSmallScreen() {
+        return typeof window === 'undefined' ? false : window.innerWidth < 458;
     }
+
+    function calculateFirstHeaderOffset() {
+        if (!props.selectable) {
+            return tableHeadingRect.value[0].offsetWidth;
+        }
+
+        return props.condensed ? tableHeadingRect.value[0].offsetWidth : tableHeadingRect.value[0].offsetWidth + tableHeadingRect.value[1].offsetWidth;
+    }
+
+    function handleTogglePage() {
+        if (selectedRowsCount.value === 0) {
+            props.rows.map((row) => {
+                selectedResources.value = [...selectedResources.value, row];
+            });
+            selectMode.value = true;
+            selectedRowsCount.value = selectedResources.value.length;
+            emitSelection('multiple', selectMode.value, selectedResources.value);
+            return;
+        } else if (selectedRowsCount.value !== props.itemCount) {
+            selectedRowsCount.value = 0;
+            selectedResources.value = [];
+            props.rows.map((row) => {
+                selectedResources.value = [...selectedResources.value, row];
+            });
+            selectMode.value = true;
+            selectedRowsCount.value = selectedResources.value.length;
+        } else {
+            selectedRowsCount.value = 0;
+            selectedResources.value = [];
+            selectMode.value = false;
+        }
+
+        emitSelection('multiple', selectMode.value, selectedResources.value);
+    }
+
+    function handleSelectModeToggle(val) {
+    }
+
+    function toggleIsSmallScreenSelectable() {
+        isSmallScreenSelectable.value = !isSmallScreenSelectable.value;
+    }
+
+    function handleSelectPage(checked) {
+        if (!shouldShowBulkActions.value) {
+            handleTogglePage();
+            return;
+        }
+
+        if (props.hasMoreItems) {
+            paginatedSelectAllAction.value = {
+                content: `Select all ${props.itemCount}+ ${props.resourceName.plural}`,
+                onAction: handleSelectAllItemsInStore,
+            }
+        }
+        paginatedSelectAllText.value = '';
+        togglePlus.value = '';
+
+        if (checked['checked']) {
+            props.rows.map((row) => {
+                selectedResources.value = [...selectedResources.value, row];
+            });
+            selectedRowsCount.value = props.itemCount;
+        } else {
+            selectedResources.value = [];
+        }
+
+        selectMode.value = checked['checked'];
+        emitSelection('multiple', checked['checked'], selectedResources.value);
+    }
+
+    function headingStyle(position) {
+        return tableHeadingRect.value && tableHeadingRect.value.length > position ? { minWidth: tableHeadingRect.value[position].offsetWidth, } : undefined;
+    }
+
+    function stickyHeadingClassName(index) {
+        return classNames(
+            'Polaris-IndexTable__TableHeading',
+            index === 0 && 'Polaris-IndexTable-StickyTableHeading-second',
+            index === 0 && !props.selectable && 'unselectable',
+        );
+    }
+
+    function headingContentClassName(heading, index) {
+        const isSecond = index === 0;
+        const isLast = index === props.headings.length - 1;
+
+        return classNames(
+            'Polaris-IndexTable__TableHeading',
+            isSecond && 'Polaris-IndexTable-TableHeading-second',
+            props.lastColumnSticky && isLast && !heading.hidden && 'Polaris-IndexTable__TableHeading--last',
+            !props.selectable && 'TableHeading-unselectable',
+        );
+    }
+
+    function stickyPositioningStyle(index) {
+        return props.selectable && index === 0 && tableHeadingRect.value && tableHeadingRect.value.length > 0 ? {left: tableHeadingRect.value[0].offsetWidth} : undefined;
+    }
+
+    function checkboxClassName(index) {
+        return classNames(
+            'Polaris-IndexTable__TableHeading',
+            index === 0 && 'Polaris-IndexTable__TableHeading--first',
+        );
+    }
+
+    function handleSelectAllItemsInStore() {
+        let actionText = '';
+        if (paginatedSelectAction.value.content === 'Undo') {
+            actionText = `Select all ${props.itemCount}+ ${props.resourceName.plural}`;
+            paginatedSelectAllText.value = '';
+            togglePlus.value = '';
+        } else {
+            selectedResources.value = [];
+            selectedRowsCount.value = 0;
+            togglePlus.value = '+';
+            paginatedSelectAllText.value = `All ${props.itemCount}+ ${props.resourceName.plural} are selected.`;
+            actionText = 'Undo';
+            selectedRowsCount.value = 'All';
+            props.rows.map((row) => {
+                selectedResources.value = [...selectedResources.value, row];
+            });
+        }
+
+        emitSelection('multiple', true, selectedResources.value);
+        if (props.hasMoreItems) {
+            paginatedSelectAllAction.value = {
+                content: actionText,
+                onAction: handleSelectAllItemsInStore,
+            }
+        }
+    }
+
+    function handleSelectionChange(selectionType, selected, id) {
+        selectMode.value = true;
+
+        const index = selectedResources.value.findIndex(x => x.id === id);
+        const rowId = props.rows.findIndex(x => x['id'] === id);
+
+        if (!selected) {
+            if (props.hasMoreItems) {
+                paginatedSelectAllAction.value = {
+                    content: `Select all ${props.itemCount}+ ${props.resourceName.plural}`,
+                    onAction: handleSelectAllItemsInStore,
+                }
+            }
+            paginatedSelectAllText.value = '';
+            togglePlus.value = '';
+            if (index > -1) {
+                selectedResources.value.splice(index, 1);
+            }
+        } else {
+            if (props.condensed) {
+                isSmallScreenSelectable.value = true;
+            }
+            selectedResources.value = [...selectedResources.value, props.rows[rowId]];
+        }
+
+        if (selectedResources.value.length === props.itemCount) {
+            selectedRowsCount.value = props.itemCount;
+        } else if (selectedResources.value.length === 0) {
+            selectedRowsCount.value = 0;
+            selectMode.value = false;
+        } else {
+            if (selectedResources.value.length === 1) {
+                if (props.hasMoreItems) {
+                    paginatedSelectAllAction.value = {
+                        content: `Select all ${props.itemCount}+ ${props.resourceName.plural}`,
+                        onAction: handleSelectAllItemsInStore,
+                    }
+                }
+                paginatedSelectAllText.value = '';
+                togglePlus.value = '';
+            }
+            selectedRowsCount.value = selectedResources.value.length;
+        }
+
+        emitSelection(selectionType, selected, selectedResources.value);
+    }
+
+    function emitSelection(selectionType, toggleType, selectedResources) {
+        /**
+         * Triggers when selection is changed
+         */
+        emit('selectionChange', selectionType, toggleType, selectedResources);
+    }
+
+    function handleNavigation(row) {
+        /**
+         * Perform action on row click.
+         * Triggers when clickableRow is disabled.
+         */
+        emit('navigation', row);
+    }
+
+    // Filter <-- Start -->
+    function onRemoveFilter(tag) {
+        /**
+         * Removes filter tag
+         */
+        emit('filter-removed', tag);
+    }
+
+    function onFilterInputChanged(value) {
+        /**
+         * Works on keypress
+         */
+        emit('input-filter-changed', value);
+    }
+    // Filter <-- End -->
+
+    watch(() => props.condensed, () => {
+        isSmallScreenSelectable.value = false;
+        selectedResources.value = [];
+        selectedRowsCount.value = 0;
+        selectMode.value = false;
+        paginatedSelectAllText.value = '';
+    });
+
+    watch(() => props.selectedItemsCount, (value) => {
+        selectedResources.value = [];
+        selectedRowsCount.value = 0;
+        selectMode.value = true;
+
+        if (value <= 0) {
+            selectMode.value = false;
+            return;
+        }
+
+        if (value > props.itemCount) {
+            props.rows.map((row) => {
+                selectedResources.value = [...selectedResources.value, row];
+            });
+            selectedRowsCount.value = 'All';
+            emitSelection('multiple', selectMode.value, selectedResources.value);
+        } else {
+            for (let i = 0; i < value; i++) {
+                selectedResources.value = [...selectedResources.value, props.rows[i]];
+            }
+            selectedRowsCount.value = value;
+            emitSelection('single', selectMode.value, selectedResources.value);
+        }
+    });
+
+    onMounted(() => {
+        window.addEventListener('resize', isSmallScreen);
+        isSmallScreen();
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener('resize', isSmallScreen);
+    });
 </script>

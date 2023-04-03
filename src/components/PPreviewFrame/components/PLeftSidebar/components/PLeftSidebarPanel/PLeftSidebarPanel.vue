@@ -27,7 +27,7 @@
                 </section>
             </div>
             <div
-                v-if="hasSlot($slots['sidebar.left.footer'])"
+                v-if="isSlot($slots['sidebar.left.footer'])"
                 class="Polaris-PreviewFrame__Layout
                                 Polaris-PreviewFrame__layoutSpacingDefault
                                 Polaris-PreviewFrame__sticky"
@@ -48,40 +48,35 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { hasSlot } from '../../../../../../ComponentHelpers';
     import { classNames } from '../../../../../../utilities/css';
     import { PHeading } from '../../../../../../components/PHeading';
 
-    export default {
-        name: 'PLeftSidebarPanel',
-        components: {
-            PHeading,
+    let props = defineProps({
+        leftSidebarTitle: {
+            type: String,
+            default: null,
         },
-        props: {
-            leftSidebarTitle: {
-                type: String,
-                default: null,
-            },
-            responsiveRightSidebar: {
-                type: Boolean,
-                default: false,
-            },
-            openRightSidebar: {
-                type: Boolean,
-                default: false,
-            },
+        responsiveRightSidebar: {
+            type: Boolean,
+            default: false,
         },
-        computed: {
-            responsiveClassName() {
-                return classNames(
-                    'Polaris-PreviewFrame__StaticPanel',
-                    (this.responsiveRightSidebar && this.openRightSidebar) && 'Polaris-PreviewFrame__StaticPanel--suspend',
-                );
-            },
-            hasSlot() {
-                return hasSlot;
-            },
-        }
-    }
+        openRightSidebar: {
+            type: Boolean,
+            default: false,
+        },
+    });
+
+    let responsiveClassName = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame__StaticPanel',
+            (props.responsiveRightSidebar && props.openRightSidebar) && 'Polaris-PreviewFrame__StaticPanel--suspend',
+        );
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
 </script>

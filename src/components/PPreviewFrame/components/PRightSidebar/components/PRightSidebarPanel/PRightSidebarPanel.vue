@@ -4,7 +4,7 @@
             <div :class="className"
             >
                 <section
-                    v-if="rightSidebarTitle || hasSlot($slots['sidebar.right.title'])"
+                    v-if="rightSidebarTitle || isSlot($slots['sidebar.right.title'])"
                     :class="sectionClassName"
                 >
                     <div class="Polaris-PreviewFrame__ChildrenWrapper--header">
@@ -39,7 +39,7 @@
                 </section>
             </div>
             <div
-                v-if="hasSlot($slots['sidebar.right.footer'])"
+                v-if="isSlot($slots['sidebar.right.footer'])"
                 class="Polaris-PreviewFrame__Layout
                                 Polaris-PreviewFrame__layoutSpacingDefault
                                 Polaris-PreviewFrame__sticky"
@@ -60,62 +60,58 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { hasSlot } from '../../../../../../ComponentHelpers';
     import { classNames } from "../../../../../../utilities/css";
     import { PHeading } from '../../../../../../components/PHeading';
     import { PButton } from '../../../../../../components/PButton';
 
-    export default {
-        name: 'PRightSidebarPanel',
-        components: {
-            PHeading, PButton,
+    let props = defineProps({
+        rightSidebarTitle: {
+            type: String,
+            default: null,
         },
-        props: {
-            rightSidebarTitle: {
-                type: String,
-                default: null,
-            },
-            responsiveRightSidebar: {
-                type: Boolean,
-                default: false,
-            },
+        responsiveRightSidebar: {
+            type: Boolean,
+            default: false,
         },
-        emits: ['backClick'],
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-PreviewFrame__Layout',
-                    'Polaris-PreviewFrame__layoutSpacingDefault',
-                    'Polaris-PreviewFrame__spaceAfter',
-                    !this.responsiveRightSidebar && 'Polaris-PreviewFrame__spaceBefore',
-                    'Polaris-PreviewFrame__fullHeight',
-                    'Polaris-PreviewFrame__scrollable',
-                );
-            },
-            sectionClassName() {
-                return classNames(
-                    'Polaris-PreviewFrame__Section--header',
-                    'Polaris-PreviewFrame__sectionSpacingDefault',
-                    'Polaris-PreviewFrame__paddingBase',
-                    this.responsiveRightSidebar && 'Polaris-PreviewFrame__Section--sticky',
-                );
-            },
-            rightHeaderClassName() {
-                return classNames(
-                    'Polaris-PreviewFrame__RightHeader',
-                    this.responsiveRightSidebar && 'Polaris-PreviewFrame__RightHeader--sticky',
-                    this.responsiveRightSidebar && 'Polaris-PreviewFrame__RightHeader--hasBack',
-                );
-            },
-            hasSlot() {
-                return hasSlot;
-            },
-        },
-        methods: {
-            handleBackClick() {
-                this.$emit('backClick', false);
-            },
-        },
+    });
+    const emit = defineEmits(['backClick']);
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame__Layout',
+            'Polaris-PreviewFrame__layoutSpacingDefault',
+            'Polaris-PreviewFrame__spaceAfter',
+            !props.responsiveRightSidebar && 'Polaris-PreviewFrame__spaceBefore',
+            'Polaris-PreviewFrame__fullHeight',
+            'Polaris-PreviewFrame__scrollable',
+        );
+    });
+
+    let sectionClassName = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame__Section--header',
+            'Polaris-PreviewFrame__sectionSpacingDefault',
+            'Polaris-PreviewFrame__paddingBase',
+            props.responsiveRightSidebar && 'Polaris-PreviewFrame__Section--sticky',
+        );
+    });
+
+    let rightHeaderClassName = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame__RightHeader',
+            props.responsiveRightSidebar && 'Polaris-PreviewFrame__RightHeader--sticky',
+            props.responsiveRightSidebar && 'Polaris-PreviewFrame__RightHeader--hasBack',
+        );
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    function handleBackClick() {
+        emit('backClick', false);
     }
 </script>

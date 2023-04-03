@@ -1,93 +1,45 @@
-<script>
-    import { vue } from '../../ComponentHelpers';
-    import { classNames } from '../../utilities/css';
+<template>
+    <nav role="navigation">
+        <component :is="((breadcrumb?.to || breadcrumb?.url) ? PUnstyledLink : 'button')"
+                   class="Polaris-Breadcrumbs__Breadcrumb"
+                   :key="breadcrumb?.content"
+                   :url="breadcrumb?.url"
+                   :to="breadcrumb?.to"
+                   :ariaLabel="breadcrumb?.accessibilityLabel"
+                   @click="(breadcrumb.onAction && breadcrumb.onAction()) ? breadcrumb.onAction() : () => {}"
+        >
+            <span class="Polaris-Breadcrumbs__ContentWrapper">
+                <span class="Polaris-Breadcrumbs__Icon">
+                    <PIcon source="ChevronLeftMinor"/>
+                </span>
+                <span class="Polaris-Breadcrumbs__Content">
+                    {{ breadcrumb?.content }}
+                </span>
+            </span>
+        </component>
+    </nav>
+</template>
+<script setup>
+    import { onMounted, ref } from 'vue';
     import { PUnstyledLink } from '../../components/PUnstyledLink';
     import { PIcon } from '../../components/PIcon';
     import ArrayValidator from '../../utilities/validators/ArrayValidator';
+    import { PBreadcrumbsProps } from '../variables';
 
-    const PBreadcrumbsProps = {
-        content: [String, Object],
-        url: String,
-        to: [String, Object],
-        accessibilityLabel: String,
-        onAction: Function,
-    }
-
-    let render = {};
-
-    export default {
-        name: 'PBreadcrumbs',
-        components: {
-            PUnstyledLink, PIcon,
+    let props = defineProps({
+        /**
+         * Collection of breadcrumbs
+         */
+        breadcrumbs: {
+            type: Array,
+            default: () => ([]),
+            ...ArrayValidator('breadcrumbs', PBreadcrumbsProps),
         },
-        props: {
-            /**
-             * Collection of breadcrumbs
-             */
-            breadcrumbs: {
-                type: Array,
-                default: () => ([]),
-                ...ArrayValidator('breadcrumbs', PBreadcrumbsProps),
-            },
-        },
-        render() {
-            const breadcrumb = this.breadcrumbs[this.breadcrumbs.length - 1];
-            if (breadcrumb == null) {
-                return null;
-            }
+    });
+    const emit = defineEmits(['click']);
+    let breadcrumb = ref(null);
 
-            const {content} = breadcrumb;
-            const {onAction} = breadcrumb;
-            let contentMarkup = null;
-
-
-            contentMarkup = vue.h('span', {
-                class: 'Polaris-Breadcrumbs__ContentWrapper',
-            }, [
-                vue.h('span', {
-                    class: 'Polaris-Breadcrumbs__Icon',
-                }, [
-                    vue.h(PIcon, {
-                        source: 'ChevronLeftMinor',
-                    }),
-                ]),
-                vue.h('span', {
-                    class: 'Polaris-Breadcrumbs__Content',
-                }, content),
-            ]);
-
-            const breadcrumbClassNames = classNames(
-                'Polaris-Breadcrumbs__Breadcrumb',
-            );
-
-            let breadcrumbMarkup = null;
-            breadcrumbMarkup = 'url' in breadcrumb || 'to' in breadcrumb ? (
-                vue.h(PUnstyledLink, {
-                    class: breadcrumbClassNames,
-                    key: content,
-                    url: breadcrumb.url,
-                    to: breadcrumb.to,
-                    ariaLabel: breadcrumb.accessibilityLabel,
-                    // tslint:disable-next-line:no-empty
-                    onClick: onAction ? onAction : () => {
-                    },
-                }, () => [contentMarkup])
-            ) : (
-                vue.h('button', {
-                    class: breadcrumbClassNames,
-                    key: content,
-                    type: 'button',
-                    ariaLabel: breadcrumb.accessibilityLabel,
-                    // tslint:disable-next-line:no-empty
-                    onClick: onAction ? onAction : () => {
-                    },
-                }, [contentMarkup])
-            );
-
-            return vue.h('nav', {
-                    role: 'navigation',
-            }, [breadcrumbMarkup]);
-
-        },
-    }
+    onMounted(() => {
+        breadcrumb.value = props.breadcrumbs[props.breadcrumbs.length - 1];
+    });
 </script>

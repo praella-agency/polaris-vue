@@ -295,37 +295,37 @@
     }
 
     function emitUpdateEvents() {
-        const computedValue = computedValue.value;
+        const computedUpdatedValue = computedValue.value;
         let values = [];
         if (!props.multiple) {
             values = null;
-            if(computedValue) {
-                values = computedValue[props.valueField];
+            if(computedUpdatedValue) {
+                values = computedUpdatedValue[props.valueField];
             }
         }
-        if (props.multiple && Array.isArray(computedValue) && computedValue.length ) {
-            computedValue.forEach(item => {
+        if (props.multiple && Array.isArray(computedUpdatedValue) && computedUpdatedValue.length ) {
+            computedUpdatedValue.forEach(item => {
                 values.push(item[props.valueField] || null);
             });
         }
         /**
          * Callback when selection is changed
          */
-        emit('change', props.returnObject ? computedValue : values);
+        emit('change', props.returnObject ? computedUpdatedValue : values);
         /**
          * Callback when input is triggered
          */
-        emit('input', props.returnObject ? computedValue : values);
-        /**
-         * Callback when input is triggered
-         * @ignore
-         */
-        emit('update:modelValue', props.returnObject ? computedValue : values);
+        emit('input', props.returnObject ? computedUpdatedValue : values);
         /**
          * Callback when input is triggered
          * @ignore
          */
-        emit('update:value', props.returnObject ? computedValue : values);
+        emit('update:modelValue', props.returnObject ? computedUpdatedValue : values);
+        /**
+         * Callback when input is triggered
+         * @ignore
+         */
+        emit('update:value', props.returnObject ? computedUpdatedValue : values);
     }
 
     onMounted(() => {

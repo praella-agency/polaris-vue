@@ -37,52 +37,45 @@
     </aside>
 </template>
 
-<script>
+<script setup>
     import { PHeading } from '../../../../components/PHeading';
     import { classNames } from '../../../../utilities/css';
     import { PRightSidebarPanel } from '../PRightSidebar/components/PRightSidebarPanel';
     import { PLeftSidebarPanel } from '../PLeftSidebar/components/PLeftSidebarPanel';
+    import {computed} from "vue";
 
-    export default {
-        name: 'PLeftSidebar',
-        components: {
-            PHeading, PRightSidebarPanel, PLeftSidebarPanel,
+    let props = defineProps({
+        leftSidebarTitle: {
+            type: String,
+            default: null,
         },
-        props: {
-            leftSidebarTitle: {
-                type: String,
-                default: null,
-            },
-            previewMode: {
-                type: String,
-                default: 'desktop',
-            },
-            responsiveRightSidebar: {
-                type: Boolean,
-                default: false,
-            },
-            rightSidebarTitle: {
-                type: String,
-                default: null,
-            },
-            openRightSidebar: {
-                type: Boolean,
-                default: false,
-            },
+        previewMode: {
+            type: String,
+            default: 'desktop',
         },
-        emits: ['backClick'],
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-PreviewFrame__Sidebar',
-                    this.previewMode === 'fullscreen' && 'Polaris-PreviewFrame__Sidebar--hide',
-                );
-            },
+        responsiveRightSidebar: {
+            type: Boolean,
+            default: false,
         },
-        methods: {
-            handleBackClick() {
-                this.$emit('backClick', false);
-            },
+        rightSidebarTitle: {
+            type: String,
+            default: null,
         },
+        openRightSidebar: {
+            type: Boolean,
+            default: false,
+        },
+    });
+    const emit = defineEmits(['backClick']);
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame__Sidebar',
+            props.previewMode === 'fullscreen' && 'Polaris-PreviewFrame__Sidebar--hide',
+        );
+    });
+
+    function handleBackClick() {
+        emit('backClick', false);
     }
 </script>

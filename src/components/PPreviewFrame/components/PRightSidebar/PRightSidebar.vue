@@ -20,37 +20,31 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
     import { PRightSidebarPanel } from './components/PRightSidebarPanel';
 
-    export default {
-        name: 'PRightSidebar',
-        components: {
-            PRightSidebarPanel,
+    let props = defineProps({
+        rightSidebarTitle: {
+            type: String,
+            default: null,
         },
-        props: {
-            rightSidebarTitle: {
-                type: String,
-                default: null,
-            },
-            previewMode: {
-                type: String,
-                default: 'desktop',
-            },
-            responsiveRightSidebar: {
-                type: Boolean,
-                default: false,
-            },
+        previewMode: {
+            type: String,
+            default: 'desktop',
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-PreviewFrame__Sidebar',
-                    'Polaris-PreviewFrame__Sidebar--secondary-second',
-                    this.previewMode === 'fullscreen' && 'Polaris-PreviewFrame__Sidebar--hide',
-                );
-            },
+        responsiveRightSidebar: {
+            type: Boolean,
+            default: false,
         },
-    }
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame__Sidebar',
+            'Polaris-PreviewFrame__Sidebar--secondary-second',
+            props.previewMode === 'fullscreen' && 'Polaris-PreviewFrame__Sidebar--hide',
+        );
+    });
 </script>

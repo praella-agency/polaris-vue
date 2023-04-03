@@ -19,7 +19,8 @@
     </component>
 </template>
 
-<script>
+<script setup>
+    import { computed, ref } from 'vue';
     import { classNames, variationName } from '../../../../utilities/css';
     import { PIndexTableCheckbox } from '../../../../components/PIndexTable/components/PIndexTableCheckbox';
     import StringValidator from '../../../../utilities/validators/StringValidator';
@@ -31,124 +32,118 @@
         Single: 'single',
     };
 
-    export default {
-        name: 'PIndexTableRow',
-        components: {
-            PIndexTableCheckbox,
+    let props = defineProps({
+        id: {
+            type: [String, Number],
+            required: true,
         },
-        props: {
-            id: {
-                type: [String, Number],
-                required: true,
-            },
-            selected: {
-                type: Boolean,
-                default: false,
-            },
-            position: {
-                type: Number,
-                default: 0,
-            },
-            subdued: {
-                type: Boolean,
-                default: false,
-            },
-            status: {
-                type: String,
-                default: null,
-                ...StringValidator('status', ['success', 'subdued']),
-            },
-            selectable: {
-                type: Boolean,
-                default: true,
-            },
-            condensed: {
-                type: Boolean,
-                default: false,
-            },
-            selectMode: {
-                type: Boolean,
-                default: false,
-            },
-            clickable: {
-                type: Boolean,
-                default: true,
-            },
+        selected: {
+            type: Boolean,
+            default: false,
         },
-        data() {
-            return {
-                isNavigating: false,
-                hovered: false,
-                primaryLinkElement: null,
-                tableRowRef: null,
-            };
+        position: {
+            type: Number,
+            default: 0,
         },
-        computed: {
-            rowClassName() {
-                return classNames(
-                    'Polaris-IndexTable__TableRow',
-                    this.selectable && this.condensed && 'Polaris-IndexTable--condensedRow',
-                    this.selected && 'Polaris-IndexTable__TableRow--selected',
-                    this.subdued && 'Polaris-IndexTable__TableRow--subdued',
-                    this.hovered && 'Polaris-IndexTable__TableRow--hovered',
-                    this.status && 'Polaris-IndexTable--' + variationName('status', this.status),
-                    (!this.selectable || this.primaryLinkElement) && 'TableRow-unclickable',
-                );
-            },
+        subdued: {
+            type: Boolean,
+            default: false,
         },
-        methods: {
-            setHoverIn() {
-                this.hovered = true;
-            },
-            setHoverOut() {
-                this.hovered = false;
-            },
-            handleRowClick(event) {
-                if (!this.clickable) {
-                    this.$emit('navigation', this.id);
+        status: {
+            type: String,
+            default: null,
+            ...StringValidator('status', ['success', 'subdued']),
+        },
+        selectable: {
+            type: Boolean,
+            default: true,
+        },
+        condensed: {
+            type: Boolean,
+            default: false,
+        },
+        selectMode: {
+            type: Boolean,
+            default: false,
+        },
+        clickable: {
+            type: Boolean,
+            default: true,
+        },
+    });
+    const emit = defineEmits(['navigation', 'selectionChange']);
+
+    let isNavigating = ref(false);
+    let hovered = ref(false);
+    let primaryLinkElement = ref(null);
+    let tableRowRef = ref(null);
+
+    let rowClassName = computed(() => {
+        return classNames(
+            'Polaris-IndexTable__TableRow',
+            props.selectable && props.condensed && 'Polaris-IndexTable--condensedRow',
+            props.selected && 'Polaris-IndexTable__TableRow--selected',
+            props.subdued && 'Polaris-IndexTable__TableRow--subdued',
+            hovered.value && 'Polaris-IndexTable__TableRow--hovered',
+            props.status && 'Polaris-IndexTable--' + variationName('status', props.status),
+            (!props.selectable || primaryLinkElement.value) && 'TableRow-unclickable',
+        );
+    });
+
+    function setHoverIn() {
+        hovered.value = true;
+    }
+
+    function setHoverOut() {
+        hovered.value = false;
+    }
+
+    function handleRowClick(event) {
+        if (!props.clickable) {
+            emit('navigation', props.id);
+            return;
+        }
+
+        if (props.selectable || primaryLinkElement.value) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (primaryLinkElement.value && !props.selectMode) {
+                isNavigating.value = true;
+                const ctrlKey = event.ctrlKey;
+                const metaKey = event.metaKey;
+
+                emit('navigation', props.id);
+
+                if ((ctrlKey || metaKey) && primaryLinkElement.value instanceof HTMLAnchorElement) {
+                    isNavigating.value = false;
+                    window.open(primaryLinkElement.value.href, '_blank');
                     return;
                 }
 
-                if (this.selectable || this.primaryLinkElement) {
-                    event.preventDefault();
-                    event.stopPropagation();
+                primaryLinkElement.value.dispatchEvent(new MouseEvent(event.type));
+            } else {
+                isNavigating.value = false;
+                handleInteraction(event);
+            }
+        }
+    }
 
-                    if (this.primaryLinkElement && !this.selectMode) {
-                        this.isNavigating = true;
-                        const ctrlKey = event.ctrlKey;
-                        const metaKey = event.metaKey;
+    function handleInteraction(event) {
+        event.stopPropagation();
 
-                        this.$emit('navigation', this.id);
+        const selectionType = event.shiftKey ? SelectionType.Multi : SelectionType.Single;
 
-                        if ((ctrlKey || metaKey) && this.primaryLinkElement instanceof HTMLAnchorElement) {
-                            this.isNavigating = false;
-                            window.open(this.primaryLinkElement.href, '_blank');
-                            return;
-                        }
+        emit('selectionChange', selectionType, !props.selected, props.id, props.position);
+    }
 
-                        this.primaryLinkElement.dispatchEvent(new MouseEvent(event.type));
-                    } else {
-                        this.isNavigating = false;
-                        this.handleInteraction(event);
-                    }
-                }
-            },
-            handleInteraction(event) {
-                event.stopPropagation();
+    function tableRowCallbackRef(node) {
+        tableRowRef.value = node;
+        const el = node?.querySelector('[data-primary-link]');
 
-                const selectionType = event.shiftKey ? SelectionType.Multi : SelectionType.Single;
-
-                this.$emit('selectionChange', selectionType, !this.selected, this.id, this.position);
-            },
-            tableRowCallbackRef(node) {
-                this.tableRowRef = node;
-                const el = node?.querySelector('[data-primary-link]');
-
-                if (el) {
-                    this.primaryLinkElement = el;
-                }
-            },
-        },
+        if (el) {
+            primaryLinkElement.value = el;
+        }
     }
 </script>
 

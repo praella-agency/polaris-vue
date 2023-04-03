@@ -10,26 +10,23 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
 
-    export default {
-        name: 'PVerticalTabsPanel',
-        props: {
-            id: {
-                type: [String, Number],
-            },
-            hidden: {
-                type: Boolean,
-            },
+    let props = defineProps({
+        id: {
+            type: [String, Number],
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-VerticalTabs__Panel',
-                    this.hidden && `Polaris-VerticalTabs__Panel--hidden`,
-                );
-            },
+        hidden: {
+            type: Boolean,
         },
-    }
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-VerticalTabs__Panel',
+            props.hidden && `Polaris-VerticalTabs__Panel--hidden`,
+        );
+    });
 </script>

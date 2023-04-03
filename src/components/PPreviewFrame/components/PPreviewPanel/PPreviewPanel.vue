@@ -17,26 +17,23 @@
     </main>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
 
-    export default {
-        name: 'PPreviewPanel',
-        props: {
-            previewMode: {
-                type: String,
-                default: 'desktop',
-            },
+    let props = defineProps({
+        previewMode: {
+            type: String,
+            default: 'desktop',
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-PreviewFrame__Interior',
-                    this.previewMode === 'desktop' && 'Polaris-PreviewFrame__modeDesktop',
-                    this.previewMode === 'mobile' && 'Polaris-PreviewFrame__modeMobile',
-                    this.previewMode === 'fullscreen' && 'Polaris-PreviewFrame__modeFullscreen',
-                );
-            },
-        },
-    }
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame__Interior',
+            props.previewMode === 'desktop' && 'Polaris-PreviewFrame__modeDesktop',
+            props.previewMode === 'mobile' && 'Polaris-PreviewFrame__modeMobile',
+            props.previewMode === 'fullscreen' && 'Polaris-PreviewFrame__modeFullscreen',
+        );
+    });
 </script>

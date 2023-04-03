@@ -33,33 +33,26 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames } from '../../../../utilities/css';
     import { PButton } from '../../../../components/PButton';
 
-    export default {
-        name: 'PBulkActionButtonWrapper',
-        components: {
-            PButton,
+    let props = defineProps({
+        actions: {
+            type: [Object, Array],
         },
-        props: {
-            actions: {
-                type: [Object, Array],
-            },
-        },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-ResourceList-BulkActions__BulkActionButton',
-                );
-            },
-        },
-        methods: {
-            handleAction(action) {
-                if (action.onAction) {
-                    action.onAction();
-                }
-            },
-        },
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-ResourceList-BulkActions__BulkActionButton',
+        );
+    });
+
+    function handleAction(action) {
+        if (action.onAction) {
+            action.onAction();
+        }
     }
 </script>

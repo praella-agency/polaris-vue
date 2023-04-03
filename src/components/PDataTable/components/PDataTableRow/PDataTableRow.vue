@@ -4,8 +4,5 @@
   </tr>
 </template>
 
-<script>
-  export default {
-      name: 'PDataTableRow',
-  }
+<script setup>
 </script>

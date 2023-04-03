@@ -111,7 +111,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import { classNames } from '../../../../utilities/css';
     import { uuid } from '../../../../ComponentHelpers';
     import { PButtonGroup } from '../../../../components/PButtonGroup';
@@ -122,185 +122,164 @@
     import { PActionList } from '../../../../components/PActionList';
     import { PSelect } from '../../../../components/PSelect';
     import ArrayValidator from '../../../../utilities/validators/ArrayValidator';
+    import {BulkActionsInterface, SortOptionsInterface} from "../../../variables";
+    import {computed, onMounted, ref} from "vue";
 
-    const BulkActionsInterface = {
-        content: {
+    let props = defineProps({
+        popoverId: {
             type: String,
-            required: true,
+            default: `PolarisPopover${uuid()}`,
         },
-        onAction: {
-            type: Function,
-            required: true,
-        },
-    }
-
-    const SortOptionsInterface = {
-        label: {
+        resourceTitle: {
             type: String,
-            required: true,
         },
-        value: {
+        promotedBulkActions: {
+            type: [Object, Array],
+            default: () => ([]),
+        },
+        bulkActions: {
+            type: Array,
+            default: () => ([]),
+            ...ArrayValidator('bulkActions', BulkActionsInterface),
+        },
+        sortOptions: {
+            type: Array,
+            ...ArrayValidator('sortOptions', SortOptionsInterface),
+        },
+        sortLabel: {
             type: String,
+            default: 'Sort By',
+        },
+        totalCount: {
+            type: Number,
+        },
+        selectable: {
+            type: Boolean,
+        },
+        checked: {
+            type: Boolean,
+        },
+        checkedCount: {
+            type: Number,
+        },
+        hasMore: {
+            type: Boolean,
+        },
+        selectedMore: {
+            type: Boolean,
+        },
+        count: {
+            type: Number,
             required: true,
         },
-    }
+        loading: {
+            type: Boolean,
+        },
+    });
+    const emit = defineEmits(['toggle-select-more', 'sort-change', 'handle-selection-mode', 'toggle-all']);
 
-    export default {
-        name: 'PResourceListHeader',
-        components: {
-            PCheckableButton, PButtonGroup, PButton, PBulkActionButtonWrapper, PPopover, PActionList, PSelect,
-        },
-        props: {
-            popoverId: {
-                type: String,
-                default: `PolarisPopover${uuid()}`,
-            },
-            resourceTitle: {
-                type: String,
-            },
-            promotedBulkActions: {
-                type: [Object, Array],
-                default: () => ([]),
-            },
-            bulkActions: {
-                type: Array,
-                default: () => ([]),
-                ...ArrayValidator('bulkActions', BulkActionsInterface),
-            },
-            sortOptions: {
-                type: Array,
-                ...ArrayValidator('sortOptions', SortOptionsInterface),
-            },
-            sortLabel: {
-                type: String,
-                default: 'Sort By',
-            },
-            totalCount: {
-                type: Number,
-            },
-            selectable: {
-                type: Boolean,
-            },
-            checked: {
-                type: Boolean,
-            },
-            checkedCount: {
-                type: Number,
-            },
-            hasMore: {
-                type: Boolean,
-            },
-            selectedMore: {
-                type: Boolean,
-            },
-            count: {
-                type: Number,
-                required: true,
-            },
-            loading: {
-                type: Boolean,
-            },
-        },
-        emits: ['toggle-select-more', 'sort-change', 'handle-selection-mode', 'toggle-all'],
-        data() {
-            return {
-                bulkActionsShown: false,
-                selectedOption: null,
-                smallView: false,
-                selectMode: this.selectable,
-                popOverID: this.popOverID,
-                smallViewChecked: false,
-            };
-        },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-ResourceList__HeaderWrapper',
-                    this.selectable && 'Polaris-ResourceList__HeaderWrapper--hasSelect',
-                    (this.checked || this.smallViewChecked) && 'Polaris-ResourceList__HeaderWrapper--inSelectMode',
-                    this.promotedBulkActions && 'Polaris-ResourceList__HeaderWrapper--hasSort',
-                    this.loading && 'Polaris-ResourceList__HeaderWrapper--disabled',
-                );
-            },
-            screenClassName() {
-                return classNames(
-                    this.smallView && 'Polaris-ResourceList-BulkActions__Group--smallScreen',
-                    !this.smallView && 'Polaris-ResourceList-BulkActions__Group--largeScreen',
-                );
-            },
-            resourceHeaderTitle() {
-                if (this.loading) {
-                    return `Loading ${this.resourceTitle}`;
-                }
+    let bulkActionsShown = ref(false);
+    let selectedOption = ref(null);
+    let smallView = ref(false);
+    let selectMode = ref(props.selectable);
+    let popOverID = ref(null);
+    let smallViewChecked = ref(false);
 
-                if (!this.checked) {
-                    const resource = this.resourceTitle;
-                    if (this.smallView) {
-                        return `${this.checkedCount}${this.selectedMore ? '+' : ''} selected`;
-                    }
-                    return `Showing ${this.count} ${this.totalCount ? ' of ' + this.totalCount : ''} ${resource}`;
-                } else if (this.checkedCount) {
+    let className = computed(() => {
+        return classNames(
+            'Polaris-ResourceList__HeaderWrapper',
+            props.selectable && 'Polaris-ResourceList__HeaderWrapper--hasSelect',
+            (props.checked || smallViewChecked.value) && 'Polaris-ResourceList__HeaderWrapper--inSelectMode',
+            props.promotedBulkActions && 'Polaris-ResourceList__HeaderWrapper--hasSort',
+            props.loading && 'Polaris-ResourceList__HeaderWrapper--disabled',
+        );
+    });
 
-                    return `${this.checkedCount}${this.selectedMore ? '+' : ''} selected`;
-                }
-            },
-            isSelectable() {
-                return Boolean((Object.keys(this.promotedBulkActions).length > 0) ||
-                    (Object.keys(this.bulkActions).length > 0) || this.selectable);
-            },
-            bulkActionsForSmallScreen() {
-                if (this.bulkActions.length > 0) {
-                    return [
-                        {
-                            items: this.bulkActions,
-                        },
-                    ];
-                }
-            },
-            segmentedGroup() {
-                return Object.keys(this.promotedBulkActions).length > 0 || this.bulkActions.length > 0;
-            },
-            promotedBulkActionsData() {
-                if (this.promotedBulkActions instanceof Array) {
-                    return this.promotedBulkActions;
-                }
-                return [this.promotedBulkActions];
-            },
-        },
-        methods: {
-            handleToggleSelectMore() {
-                this.$emit('toggle-select-more');
-            },
-            handleSortChange(value) {
-                this.$emit('sort-change', value);
-            },
-            isSmallScreen() {
-                if (window.innerWidth < 458) {
-                    this.smallView = true;
-                    this.popOverID = 'smallScreenPopover';
-                } else {
-                    this.smallView = false;
-                    this.popOverID = 'largeScreenPopover';
-                    this.smallViewChecked = false;
-                }
-            },
-            handleSelectMode(selectMode) {
-                this.selectMode = selectMode;
-                this.smallViewChecked = true;
-                this.$emit('handle-selection-mode', selectMode);
-            },
-            cancelSelectMode(selectMode) {
-                this.selectMode = selectMode;
-                this.smallViewChecked = false;
-                this.$emit('handle-selection-mode', selectMode);
-            },
-            handleToggleAll(value) {
-                this.$emit('toggle-all', value);
+    let screenClassName = computed(() => {
+        return classNames(
+            smallView.value && 'Polaris-ResourceList-BulkActions__Group--smallScreen',
+            !smallView.value && 'Polaris-ResourceList-BulkActions__Group--largeScreen',
+        );
+    });
+
+    let resourceHeaderTitle = computed(() => {
+        if (props.loading) {
+            return `Loading ${props.resourceTitle}`;
+        }
+
+        if (!props.checked) {
+            const resource = props.resourceTitle;
+            if (smallView.value) {
+                return `${props.checkedCount}${props.selectedMore ? '+' : ''} selected`;
             }
-        },
-        mounted() {
-            window.addEventListener('resize', this.isSmallScreen);
-            this.isSmallScreen();
-        },
+            return `Showing ${props.count} ${props.totalCount ? ' of ' + props.totalCount : ''} ${resource}`;
+        } else if (props.checkedCount) {
+            return `${props.checkedCount}${props.selectedMore ? '+' : ''} selected`;
+        }
+    });
+
+    let isSelectable = computed(() => {
+        return Boolean((Object.keys(props.promotedBulkActions).length > 0) || (Object.keys(props.bulkActions).length > 0) || props.selectable);
+    });
+
+    let bulkActionsForSmallScreen = computed(() => {
+        if (props.bulkActions.length > 0) {
+            return [
+                {
+                    items: props.bulkActions,
+                },
+            ];
+        }
+    });
+
+    let segmentedGroup = computed(() => {
+        return Object.keys(props.promotedBulkActions).length > 0 || props.bulkActions.length > 0;
+    });
+
+    let promotedBulkActionsData = computed(() => {
+        if (props.promotedBulkActions instanceof Array) {
+            return props.promotedBulkActions;
+        }
+        return [props.promotedBulkActions];
+    });
+
+    function handleToggleSelectMore() {
+        emit('toggle-select-more');
     }
+
+    function handleSortChange(value) {
+        emit('sort-change', value);
+    }
+
+    function isSmallScreen() {
+        if (window.innerWidth < 458) {
+            smallView.value = true;
+            popOverID.value = 'smallScreenPopover';
+        } else {
+            smallView.value = false;
+            popOverID.value = 'largeScreenPopover';
+            smallViewChecked.value = false;
+        }
+    }
+
+    function handleSelectMode(selectMode) {
+        selectMode.value = selectMode;
+        smallViewChecked.value = true;
+        emit('handle-selection-mode', selectMode);
+    }
+
+    function cancelSelectMode(selectMode) {
+        selectMode.value = selectMode;
+        smallViewChecked.value = false;
+        emit('handle-selection-mode', selectMode);
+    }
+
+    function handleToggleAll(value) {
+        emit('toggle-all', value);
+    }
+
+    onMounted(() => {
+        window.addEventListener('resize', isSmallScreen);
+        isSmallScreen();
+    });
 </script>

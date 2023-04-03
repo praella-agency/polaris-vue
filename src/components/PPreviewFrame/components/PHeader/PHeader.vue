@@ -74,128 +74,113 @@
     </header>
 </template>
 
-<script>
+<script setup>
+    import { computed, ref } from 'vue';
     import { hasSlot } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
-    import { PHeading } from '../../../../components/PHeading';
     import { PButton } from '../../../../components/PButton';
     import { PPopover } from '../../../../components/PPopover';
     import { POptionList } from '../../../../components/POptionList';
     import { PIcon } from '../../../../components/PIcon';
     import { PVerticalDivider } from '../../../../components/PVerticalDivider';
     import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
+    import { RedoActions, UndoActions } from '../../../variables';
 
-    const UndoActions = {
-        disabled: Boolean,
-        onAction: Function,
-    };
+    let props = defineProps({
+        slimHeader: {
+            type: Boolean,
+            default: false,
+        },
+        showUndoRedo: {
+            type: Boolean,
+            default: false,
+        },
+        showPreviewOptions: {
+            type: Boolean,
+            default: false,
+        },
+        undoActions: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('undoActions', UndoActions),
+        },
+        redoActions: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('redoActions', RedoActions),
+        },
+    });
+    const emit = defineEmits(['previewChange']);
 
-    const RedoActions = {
-        disabled: Boolean,
-        onAction: Function,
-    };
+    let isPreview = ref(false);
+    let selectedOption = ref(['desktop']);
+    let previewOptions = ref([
+        {
+            label: 'Mobile',
+            value: 'mobile',
+            icon: 'MobileMajor'
+        },
+        {
+            label: 'Desktop',
+            value: 'desktop',
+            icon: 'DesktopMajor'
+        },
+        {
+            label: 'Fullscreen',
+            value: 'fullscreen',
+            icon: 'ViewportWideMajor'
+        },
+    ]);
+    let previewIcon = ref('DesktopMajor');
 
-    export default {
-        name: 'PHeader',
-        components: {
-            PHeading, PButton, PPopover, POptionList, PIcon, PVerticalDivider,
-        },
-        props: {
-            slimHeader: {
-                type: Boolean,
-                default: false,
-            },
-            showUndoRedo: {
-                type: Boolean,
-                default: false,
-            },
-            showPreviewOptions: {
-                type: Boolean,
-                default: false,
-            },
-            undoActions: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('undoActions', UndoActions),
-            },
-            redoActions: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('redoActions', RedoActions),
-            },
-        },
-        emits: ['previewChange'],
-        data() {
-            return {
-                isPreview: false,
-                selectedOption: ['desktop'],
-                previewOptions: [
-                    {
-                        label: 'Mobile',
-                        value: 'mobile',
-                        icon: 'MobileMajor'
-                    },
-                    {
-                        label: 'Desktop',
-                        value: 'desktop',
-                        icon: 'DesktopMajor'
-                    },
-                    {
-                        label: 'Fullscreen',
-                        value: 'fullscreen',
-                        icon: 'ViewportWideMajor'
-                    },
-                ],
-                previewIcon: 'DesktopMajor',
-            };
-        },
-        computed: {
-            topBarClassName() {
-                return classNames(
-                    'Polaris-PreviewFrame__TopBar',
-                    this.slimHeader && 'Polaris-PreviewFrame__TopBar--slim',
-                );
-            },
-            leftLayoutClassName() {
-                return classNames(
-                    'Polaris-PreviewFrame__LayoutGroup',
-                    'Polaris-PreviewFrame__spacingBase',
-                    !this.slimHeader && 'Polaris-PreviewFrame__LayoutGroup--shrink',
-                    this.slimHeader && 'Polaris-PreviewFrame__LayoutGroup--paddedBoth Polaris-PreviewFrame__LayoutGroup--grow',
-                );
-            },
-            centerLayoutClassName() {
-                return classNames(
-                    'Polaris-PreviewFrame__LayoutGroup',
-                    'Polaris-PreviewFrame__spacingBase',
-                    'Polaris-PreviewFrame__LayoutGroup--paddedBoth Polaris-PreviewFrame__LayoutGroup--grow',
-                    'Polaris-PreviewFrame__LayoutGroup--shrink',
-                    'Polaris-PreviewFrame__LayoutGroup--center',
-                );
-            },
-            rightLayoutClassName() {
-                return classNames(
-                    'Polaris-PreviewFrame__LayoutGroup',
-                    'Polaris-PreviewFrame__spacingBase',
-                    'Polaris-PreviewFrame__LayoutGroup--paddedRight',
-                );
-            },
-            rightLayoutChildClassName() {
-                return classNames(
-                    'Polaris-PreviewFrame__LayoutGroup',
-                    'Polaris-PreviewFrame__spacingTight',
-                );
-            },
-            hasSlot() {
-                return hasSlot;
-            },
-        },
-        methods: {
-            handlePreviewClick(selected, option) {
-                this.selectedOption = selected;
-                this.previewIcon = option.icon
-                this.$emit('previewChange', this.selectedOption);
-            }
-        }
+    let topBarClassName = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame__TopBar',
+            props.slimHeader && 'Polaris-PreviewFrame__TopBar--slim',
+        );
+    });
+
+    let leftLayoutClassName = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame__LayoutGroup',
+            'Polaris-PreviewFrame__spacingBase',
+            !props.slimHeader && 'Polaris-PreviewFrame__LayoutGroup--shrink',
+            props.slimHeader && 'Polaris-PreviewFrame__LayoutGroup--paddedBoth Polaris-PreviewFrame__LayoutGroup--grow',
+        );
+    });
+
+    let centerLayoutClassName = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame__LayoutGroup',
+            'Polaris-PreviewFrame__spacingBase',
+            'Polaris-PreviewFrame__LayoutGroup--paddedBoth Polaris-PreviewFrame__LayoutGroup--grow',
+            'Polaris-PreviewFrame__LayoutGroup--shrink',
+            'Polaris-PreviewFrame__LayoutGroup--center',
+        );
+    });
+
+    let rightLayoutClassName = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame__LayoutGroup',
+            'Polaris-PreviewFrame__spacingBase',
+            'Polaris-PreviewFrame__LayoutGroup--paddedRight',
+        );
+    });
+
+    let rightLayoutChildClassName = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame__LayoutGroup',
+            'Polaris-PreviewFrame__spacingTight',
+        );
+    });
+
+    let isSlot = computed(() => {
+        return hasSlot;
+    });
+
+    function handlePreviewClick(selected, option) {
+        selectedOption.value = selected;
+        previewIcon.value = option.icon
+        emit('previewChange', selectedOption.value);
     }
 </script>

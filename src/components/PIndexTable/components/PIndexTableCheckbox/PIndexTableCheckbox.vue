@@ -22,90 +22,92 @@
     </component>
 </template>
 
-<script>
+<script setup>
+    import { computed, onMounted, ref, watch } from 'vue';
     import { classNames } from '../../../../utilities/css';
     import { PCheckbox } from '../../../../components/PCheckbox';
     import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
 
-    export default {
-        name: 'PIndexTableCheckbox',
-        components: {
-            PCheckbox,
+    let props = defineProps({
+        condensed: {
+            type: Boolean,
+            default: false,
         },
-        props: {
-            condensed: {
-                type: Boolean,
-                default: false,
-            },
-            itemId: {
-                type: [String, Number],
-                default: null,
-            },
-            resourceName: {
-                type: Object,
-                default: () => ({}),
-                ...ObjectValidator('resourceName', {
-                    plural: {
-                        type: String,
-                        required: true,
-                    },
-                    singular: {
-                        type: String,
-                        required: true,
-                    },
-                }),
-            },
-            selected: {
-                type: Boolean,
-                default: false,
-            },
+        itemId: {
+            type: [String, Number],
+            default: null,
         },
-        computed: {
-            checkboxClassName() {
-                return classNames(
-                    'Polaris-IndexTable__TableCell',
-                    'Polaris-IndexTable__TableCell--first',
-                );
-            },
-            wrapperClassName() {
-                return classNames(
-                    'Polaris-IndexTable-Checkbox__Wrapper',
-                    this.condensed ? 'Polaris-IndexTable-Checkbox--condensed' : 'Polaris-IndexTable-Checkbox--expanded',
-                );
-            },
+        resourceName: {
+            type: Object,
+            default: () => ({}),
+            ...ObjectValidator('resourceName', {
+                plural: {
+                    type: String,
+                    required: true,
+                },
+                singular: {
+                    type: String,
+                    required: true,
+                },
+            }),
         },
-        methods: {
-            handleResize() {
-                if (!this.$refs.checkboxNode) {
-                    return;
-                }
+        selected: {
+            type: Boolean,
+            default: false,
+        },
+    });
+    const emit = defineEmits(['interaction']);
+    let checkboxNode = ref(null);
 
-                const {width} = this.$refs.checkboxNode.getBoundingClientRect();
-                this.$refs.checkboxNode.style.setProperty('--p-checkbox-offset', width + 'px');
-            },
-            stopPropagation(event) {
-                event.stopPropagation();
-                event.preventDefault();
-            },
-            handleClick(event) {
-                if (event.target.tagName === 'INPUT') {
-                    this.$emit('interaction', event);
-                }
-            },
-        },
-        watch: {
-            checkboxNode(value, oldValue) {
-                if (!value) {
-                    return;
-                }
+    let checkboxClassName = computed(() => {
+        return classNames(
+            'Polaris-IndexTable__TableCell',
+            'Polaris-IndexTable__TableCell--first',
+        );
+    });
 
-                window.addEventListener('resize', this.handleResize);
+    let wrapperClassName = computed(() => {
+        return classNames(
+            'Polaris-IndexTable-Checkbox__Wrapper',
+            props.condensed ? 'Polaris-IndexTable-Checkbox--condensed' : 'Polaris-IndexTable-Checkbox--expanded',
+        );
+    });
 
-                return window.removeEventListener('resize', this.handleResize);
-            },
-            handleResize(value, oldValue) {
-                this.handleResize();
-            },
-        },
+    function handleResize() {
+        if (!checkboxNode) {
+            return;
+        }
+
+        const {width} = checkboxNode.getBoundingClientRect();
+        checkboxNode.style.setProperty('--p-checkbox-offset', `${width}px`);
     }
+
+    function stopPropagation(event) {
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
+    function handleClick(event) {
+        if (event.target.tagName === 'INPUT') {
+            emit('interaction', event);
+        }
+    }
+
+    onMounted(() => {
+        checkboxNode = checkboxNode.value;
+    });
+
+    watch(() => checkboxNode, (value) => {
+        if (!value) {
+            return;
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        return window.removeEventListener('resize', handleResize);
+    });
+
+    watch(() => handleResize, () => {
+        handleResize();
+    });
 </script>

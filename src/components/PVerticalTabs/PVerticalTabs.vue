@@ -27,10 +27,10 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { PVerticalTabsPanel } from '../../components/PVerticalTabs/components/PVerticalTabsPanel';
     import { PVerticalTab } from '../../components/PVerticalTabs/components/PVerticalTab';
-    import { TabDescriptor } from '../../types/tabs';
     import { classNames } from '../../utilities/css';
 
     /**
@@ -40,72 +40,65 @@
      *  Each tab label should correspond with a block of related content. Only one tab's contents are visible at any
      *  given time.</h4>
      */
-    export default {
-        name: 'PVerticalTabs',
-        components: {
-            PVerticalTab, PVerticalTabsPanel,
+    let props = defineProps({
+        /**
+         * Lists of tabs
+         */
+        tabs: {
+            type: Array,
+            default: () => ([]),
         },
-        props: {
-            /**
-             * Lists of tabs
-             */
-            tabs: {
-                type: Array,
-                default: () => ([]),
-            },
-            /**
-             * Selected tab ID
-             */
-            selected: {
-                type: Number,
-                default: null,
-            },
-            /**
-             * Set true to enable navigation
-             */
-            navigation: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Configure the active CSS class applied when the link is active
-             */
-            activeClass: {
-                type: String,
-            },
-            tabsPosition: {
-                type: String,
-                default: 'left',
-            }
+        /**
+         * Selected tab ID
+         */
+        selected: {
+            type: Number,
+            default: null,
         },
-        emits: ['select'],
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-VerticalTabs__Wrapper',
-                    this.navigation && 'Polaris-VerticalTabs__Navigation',
-                );
-            },
-            tabsClassName() {
-                return classNames(
-                    this.tabsPosition === 'left' && 'Polaris-VerticalTabs',
-                    this.tabsPosition === 'right' && 'Polaris-VerticalTabs__Right',
-                );
-            },
+        /**
+         * Set true to enable navigation
+         */
+        navigation: {
+            type: Boolean,
+            default: false,
         },
-        methods: {
-            handleTabClick(id, event) {
-                const tab = this.tabs.find((aTab) => aTab.id === id);
-                if (tab === null) {
-                    return;
-                }
+        /**
+         * Configure the active CSS class applied when the link is active
+         */
+        activeClass: {
+            type: String,
+        },
+        tabsPosition: {
+            type: String,
+            default: 'left',
+        }
+    });
+    const emit = defineEmits(['select']);
 
-                const selectedIndex = this.tabs.indexOf(tab);
-                /**
-                 * Method to handle tab click
-                 */
-                this.$emit('select', selectedIndex, event);
-            },
-        },
+    let className = computed(() => {
+        return classNames(
+            'Polaris-VerticalTabs__Wrapper',
+            props.navigation && 'Polaris-VerticalTabs__Navigation',
+        );
+    });
+
+    let tabsClassName = computed(() => {
+        return classNames(
+            props.tabsPosition === 'left' && 'Polaris-VerticalTabs',
+            props.tabsPosition === 'right' && 'Polaris-VerticalTabs__Right',
+        );
+    });
+
+    function handleTabClick(id, event) {
+        const tab = props.tabs.find((aTab) => aTab.id === id);
+        if (tab === null) {
+            return;
+        }
+
+        const selectedIndex = props.tabs.indexOf(tab);
+        /**
+         * Method to handle tab click
+         */
+        emit('select', selectedIndex, event);
     }
 </script>

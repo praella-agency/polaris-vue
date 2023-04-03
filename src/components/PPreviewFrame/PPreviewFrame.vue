@@ -82,114 +82,106 @@
     </div>
 </template>
 
-<script>
-    import utils from '../../utilities';
+<script setup>
+    import { computed, onMounted, onUnmounted, ref } from 'vue';
     import { classNames } from '../../utilities/css';
-    import { PFrame } from '../PFrame';
     import { PHeader } from './components/PHeader';
     import { PLeftSidebar } from './components/PLeftSidebar';
     import { PRightSidebar } from './components/PRightSidebar';
     import { PPreviewPanel } from './components/PPreviewPanel';
-    import { PDisplayText } from '../../components/PDisplayText';
 
-    export default {
-        name: 'PPreviewFrame',
-        components: {
-            PFrame, PHeader, PLeftSidebar, PRightSidebar, PPreviewPanel, PDisplayText,
+    let props = defineProps({
+        /**
+         * Title for the left sidebar
+         */
+        leftSidebarTitle: {
+            type: String,
+            default: null,
         },
-        props: {
-            /**
-             * Title for the left sidebar
-             */
-            leftSidebarTitle: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Title for the right sidebar
-             */
-            rightSidebarTitle: {
-                type: String,
-                default: null,
-            },
-            /**
-             * Adjust frame content preview
-             */
-            showPreviewOptions: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Displays Undo-Redo options for the header
-             */
-            showUndoRedo: {
-                type: Boolean,
-                default: false,
-            },
-            /**
-             * Undo button actions
-             */
-            undoActions: {
-                type: Object,
-            },
-            /**
-             * Redo button actions
-             */
-            redoActions: {
-                type: Object,
-            },
-            /**
-             * Toggle preview of right sidebar when screen size collapsed.
-             *
-             * Use this prop with ".sync" to get two way binding.
-             */
-            openRightSidebar: {
-                type: Boolean,
-                default: false,
-            },
+        /**
+         * Title for the right sidebar
+         */
+        rightSidebarTitle: {
+            type: String,
+            default: null,
         },
-        emits: ['update:openRightSidebar'],
-        data() {
-            return {
-                slimHeader: false,
-                responsiveRightSidebar: false,
-                previewOption: null,
-            };
+        /**
+         * Adjust frame content preview
+         */
+        showPreviewOptions: {
+            type: Boolean,
+            default: false,
         },
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-PreviewFrame',
-                    this.slimHeader && 'Polaris-PreviewFrame__slimHeader'
-                );
-            },
+        /**
+         * Displays Undo-Redo options for the header
+         */
+        showUndoRedo: {
+            type: Boolean,
+            default: false,
         },
-        methods: {
-            headerMediaQuery() {
-                this.slimHeader = window.innerWidth <= 666;
-            },
-            rightSidebarMediaQuery() {
-                this.responsiveRightSidebar = window.innerWidth < 1614;
-            },
-            handlePreviewChange(option) {
-                this.previewOption = option[0];
-            },
-            handleClick() {
-                /**
-                 * @ignore
-                 */
-                this.$emit('update:openRightSidebar', false)
-            }
+        /**
+         * Undo button actions
+         */
+        undoActions: {
+            type: Object,
         },
-        created() {
-            window.addEventListener('resize', this.headerMediaQuery);
-            this.headerMediaQuery();
-            window.addEventListener('resize', this.rightSidebarMediaQuery);
-            this.rightSidebarMediaQuery();
+        /**
+         * Redo button actions
+         */
+        redoActions: {
+            type: Object,
         },
-        [utils.destroyed]() {
-            window.removeEventListener('resize', this.headerMediaQuery);
-            window.removeEventListener('resize', this.rightSidebarMediaQuery);
+        /**
+         * Toggle preview of right sidebar when screen size collapsed.
+         *
+         * Use this prop with ".sync" to get two way binding.
+         */
+        openRightSidebar: {
+            type: Boolean,
+            default: false,
         },
+    });
+    const emit = defineEmits(['update:openRightSidebar']);
+
+    let slimHeader = ref(false);
+    let responsiveRightSidebar = ref(false);
+    let previewOption = ref(null);
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-PreviewFrame',
+            slimHeader.value && 'Polaris-PreviewFrame__slimHeader'
+        );
+    });
+
+    function headerMediaQuery() {
+        slimHeader.value = window.innerWidth <= 666;
     }
+
+    function rightSidebarMediaQuery() {
+        responsiveRightSidebar.value = window.innerWidth < 1614;
+    }
+
+    function handlePreviewChange(option) {
+        previewOption.value = option[0];
+    }
+
+    function handleClick() {
+        /**
+         * @ignore
+         */
+        emit('update:openRightSidebar', false)
+    }
+
+    onMounted(() => {
+        window.addEventListener('resize', headerMediaQuery);
+        headerMediaQuery();
+        window.addEventListener('resize', rightSidebarMediaQuery);
+        rightSidebarMediaQuery();
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener('resize', headerMediaQuery);
+        window.removeEventListener('resize', rightSidebarMediaQuery);
+    });
 </script>

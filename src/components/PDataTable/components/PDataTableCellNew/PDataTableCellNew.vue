@@ -25,130 +25,115 @@
     </td>
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue';
     import { classNames, variationName } from '../../../../utilities/css';
     import { PIcon } from '../../../../components/PIcon';
     import ObjectValidator from '../../../../utilities/validators/ObjectValidator';
     import StringValidator from '../../../../utilities/validators/StringValidator';
+    import { Sort, SortDirection, VerticalAlign } from '../../../variables';
 
-    const SortDirection = ['ascending', 'descending', 'none'];
-    const VerticalAlign = ['top', 'bottom', 'middle', 'baseline'];
-
-    const Sort = {
+    let props = defineProps({
+        header: {
+            type: Boolean,
+        },
+        content: {
+            type: [String, Number],
+        },
         value: {
-            type: String,
-            required: true,
+            type: [String, Number, Boolean, Object, Array],
         },
-        direction: {
+        width: {
+            type: [String, Number],
+        },
+        sort: {
+            type: Object,
+            ...ObjectValidator('sort', Sort),
+        },
+        sortable: {
+            type: Boolean,
+            default: true,
+        },
+        defaultSortDirection: {
             type: String,
-            required: true,
-            expectedValues: SortDirection,
-        }
-    }
+            default: 'ascending',
+            ...StringValidator('defaultSortDirection', SortDirection),
+        },
+        contentType: {
+            type: String,
+        },
+        firstColumn: {
+            type: Boolean,
+        },
+        truncate: {
+            type: Boolean,
+        },
+        verticalAlign: {
+            type: String,
+            default: 'top',
+            ...StringValidator('verticalAlign', VerticalAlign),
+        },
+        total: {
+            type: Boolean,
+        },
+        totalInFooter: {
+            type: Boolean,
+        },
+        headerValue: {
+            type: String,
+        },
+        alignLastRight: {
+            type: Boolean,
+            default: false,
+        },
+    });
+    const emit = defineEmits(['sort-changed']);
 
-    export default {
-        name: 'PDataTableCellNew',
-        components: {
-            PIcon,
-        },
-        props: {
-            header: {
-                type: Boolean,
-            },
-            content: {
-                type: [String, Number],
-            },
-            value: {
-                type: [String, Number, Boolean, Object, Array],
-            },
-            width: {
-                type: [String, Number],
-            },
-            sort: {
-                type: Object,
-                ...ObjectValidator('sort', Sort),
-            },
-            sortable: {
-                type: Boolean,
-                default: true,
-            },
-            defaultSortDirection: {
-                type: String,
-                default: 'ascending',
-                ...StringValidator('defaultSortDirection', SortDirection),
-            },
-            contentType: {
-                type: String,
-            },
-            firstColumn: {
-                type: Boolean,
-            },
-            truncate: {
-                type: Boolean,
-            },
-            verticalAlign: {
-                type: String,
-                default: 'top',
-                ...StringValidator('verticalAlign', VerticalAlign),
-            },
-            total: {
-                type: Boolean,
-            },
-            totalInFooter: {
-                type: Boolean,
-            },
-            headerValue: {
-                type: String,
-            },
-            alignLastRight: {
-                type: Boolean,
-                default: false,
-            },
-        },
-        emits: ['sort-changed'],
-        computed: {
-            className() {
-                return classNames(
-                    'Polaris-DataTable__Cell',
-                    this.firstColumn && 'Polaris-DataTable__Cell--firstColumn',
-                    this.firstColumn && this.truncate && 'Polaris-DataTable__Cell--truncated',
-                    this.header && 'Polaris-DataTable__Cell--header',
-                    this.total && 'Polaris-DataTable__Cell--total',
-                    this.totalInFooter && 'Polaris-DataTable--cellTotalFooter',
-                    this.numeric && 'Polaris-DataTable__Cell--numeric',
-                    this.sorted && 'Polaris-DataTable__Cell--sorted ',
-                    this.sortable && 'Polaris-DataTable__Cell--sortable',
-                    this.verticalAlign && `Polaris-DataTable__Cell--${variationName('verticalAlign', this.verticalAlign)}`,
-                    this.alignLastRight && `Polaris-DataTable__Cell-align-right`,
-                );
-            },
-            headerClassName() {
-                return classNames(
-                    'Polaris-DataTable__Heading',
-                    this.contentType === 'text' && 'Polaris-DataTable__Heading--left',
-                );
-            },
-            direction() {
-                return this.sorted && this.sort.direction ? this.sort.direction : this.defaultSortDirection;
-            },
-            source() {
-                return this.direction === 'descending' ? 'CaretDownMinor' : 'CaretUpMinor';
-            },
-            numeric() {
-                return this.contentType === 'numeric';
-            },
-            sorted() {
-                return this.sort && this.sort.value === this.value;
-            },
-            sortLabel() {
-                return this.sort && this.sort.value === this.value ? this.sort.direction : '';
-            },
-        },
-        methods: {
-            handleSortChange() {
-                const direction = this.sort.direction === 'ascending' ? 'descending' : 'ascending';
-                this.$emit('sort-changed', this.value, direction);
-            },
-        },
+    let numeric = computed(() => {
+        return props.contentType === 'numeric';
+    });
+
+    let sorted = computed(() => {
+        return props.sort && props.sort.value === props.value;
+    });
+
+    let className = computed(() => {
+        return classNames(
+            'Polaris-DataTable__Cell',
+            props.firstColumn && 'Polaris-DataTable__Cell--firstColumn',
+            props.firstColumn && props.truncate && 'Polaris-DataTable__Cell--truncated',
+            props.header && 'Polaris-DataTable__Cell--header',
+            props.total && 'Polaris-DataTable__Cell--total',
+            props.totalInFooter && 'Polaris-DataTable--cellTotalFooter',
+            numeric.value && 'Polaris-DataTable__Cell--numeric',
+            sorted.value && 'Polaris-DataTable__Cell--sorted ',
+            props.sortable && 'Polaris-DataTable__Cell--sortable',
+            props.verticalAlign && `Polaris-DataTable__Cell--${variationName('verticalAlign', props.verticalAlign)}`,
+            props.alignLastRight && `Polaris-DataTable__Cell-align-right`,
+        );
+    });
+
+    let headerClassName = computed(() => {
+        return classNames(
+            'Polaris-DataTable__Heading',
+            props.contentType === 'text' && 'Polaris-DataTable__Heading--left',
+        );
+    });
+
+    let direction = computed(() => {
+        return sorted.value && props.sort.direction ? props.sort.direction : props.defaultSortDirection;
+    });
+
+    let source = computed(() => {
+        return direction.value === 'descending' ? 'CaretDownMinor' : 'CaretUpMinor';
+    });
+
+    let sortLabel = computed(() => {
+        return props.sort && props.sort.value === props.value ? props.sort.direction : '';
+    });
+
+    function handleSortChange() {
+        const direction = props.sort.direction === 'ascending' ? 'descending' : 'ascending';
+        emit('sort-changed', props.value, direction);
     }
 </script>

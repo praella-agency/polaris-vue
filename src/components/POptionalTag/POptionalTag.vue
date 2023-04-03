@@ -1,33 +1,18 @@
-<script>
-    import { defineComponent } from "vue";
-    import { vue } from '../../ComponentHelpers';
+<template>
+    <div v-if="active" :is="tag">
+        <slot/>
+    </div>
+</template>
 
-    export default defineComponent({
-        name: 'POptionalTag',
-        props: {
-            tag: {
-                type: String,
-                required: true,
-            },
-            active: {
-                type: Boolean,
-                required: true,
-            },
+<script setup>
+    let props = defineProps({
+        tag: {
+            type: String,
+            required: true,
         },
-        setup(props, { slots }) {
-          return { slots };
+        active: {
+            type: Boolean,
+            required: true,
         },
-        render() {
-          try {
-            const validSlot = this.slots.default();
-            const child = validSlot ? validSlot[0] : vue.h('div');
-            if (this.active) {
-              return vue.h(this.tag, {}, [child]);
-            }
-            return child;
-          }catch (e) {
-            console.log('Optional Tag is not rendered', e.message)
-          }
-        }
-    })
+    });
 </script>
