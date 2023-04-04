@@ -19,10 +19,8 @@
             </div>
             <div class="Polaris-Page-Header__RightAlign">
                 <div class="Polaris-Page-Header__Actions" v-if="hasActions">
-                    <PActionMenu :groups="actionGroups" :actions="secondaryActions" v-if="hasActionMenu"
-                                 :rollup="isNavigationCollapsed.rollup"/>
-                    <div v-if="Object.keys(primaryAction).length > 0 || isSlot(slots.primaryAction)"
-                         class="Polaris-Page-Header__PrimaryActionWrapper">
+                    <PActionMenu :groups="actionGroups" :actions="secondaryActions" v-if="hasActionMenu" :rollup="isNavigationCollapsed.rollup"/>
+                    <div v-if="Object.keys(primaryAction).length > 0 || isSlot($slots.primaryAction)" class="Polaris-Page-Header__PrimaryActionWrapper">
                         <slot name="primaryAction">
                             <PButton
                                 v-if="Object.keys(primaryAction).length"
@@ -44,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="Polaris-Page-Header__Row" v-if="isSlot(slots.additionalNavigation) || avatar || avatarInitials">
+        <div class="Polaris-Page-Header__Row" v-if="isSlot($slots.additionalNavigation) || avatar || avatarInitials">
             <div class="Polaris-Page-Header__LeftAlign"></div>
             <div class="Polaris-Page-Header__RightAlign">
                 <div class="Polaris-Page-Header__AdditionalNavigationWrapper">

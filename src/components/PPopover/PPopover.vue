@@ -12,7 +12,7 @@
             :fullWidth="fullWidth"
             @close="onClose">
             <template v-slot:overlay="props">
-                <div :class="className" :ref="`content-${id}`">
+                <div :class="className" ref="overlayContent">
                     <div v-if="!props.data.measuring"
                          :style="{ left: props.data.tipPosition+'px' }"
                          class="Polaris-Popover__Tip">
@@ -140,12 +140,11 @@
             default: false,
         },
     });
+    const emit = defineEmits(['click', 'keyup', 'close', 'update:active', 'activate']);
 
-    let emit = defineEmits(['click', 'keyup', 'close', 'update:active', 'activate']);
     let activeStatus = ref(props.active);
-    let container = ref(HTMLElement);
     let popoverContainer = ref(null);
-    let popoverOverlayContainer = ref(`content${props.id}`);
+    let overlayContent = ref(null);
 
     let className = computed(() => {
         return classNames(
@@ -191,7 +190,7 @@
 
     function handlePageClick(e) {
         const target = e.target;
-        const contentNode = popoverOverlayContainer.value;
+        const contentNode = overlayContent;
         if ((contentNode != null && nodeContainsDescendant(contentNode, target)) ||
             nodeContainsDescendant(findActivator(), target) || !activeStatus.value) {
             return;
@@ -245,7 +244,7 @@
         emit('update:active', false);
         if (event && event.target) {
             const target = event.target;
-            const contentNode = popoverOverlayContainer;
+            const contentNode = overlayContent;
             if (!findActivator()) {
                 const popoverOverlay = document.getElementById(`${realId}Overlay`);
                 if (popoverOverlay) {
@@ -262,7 +261,7 @@
 
     onMounted(() => {
         popoverContainer = popoverContainer.value;
-        popoverOverlayContainer = popoverOverlayContainer.value;
+        overlayContent = overlayContent.value;
         window.addEventListener('click', handlePageClick);
         window.addEventListener('touchstart', handlePageClick);
         document.addEventListener('keyup', handleKeyPress);

@@ -29,7 +29,9 @@ const removeElement = (el) => {
     } else {
         el.parentNode.removeChild(el);
     }
-    document.body.querySelector(".v-toast--pending").remove();
+    if (document.body.querySelector(".v-toast--pending")) {
+        document.body.querySelector(".v-toast--pending").remove();
+    }
 };
 
 let props = defineProps({

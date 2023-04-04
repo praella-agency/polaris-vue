@@ -103,19 +103,9 @@
         };
 
         const zIndexForLayer = 400;
-        const verticalPosition = calculateVerticalPosition(activatorRect,
-            overlayRect,
-            overlayMargins,
-            scrollableContainerRect,
-            containerRect,
-            props.preferredPosition);
-        const horizontalPosition = calculateHorizontalPosition(
-            activatorRect,
-            overlayRect,
-            containerRect,
-            overlayMargins,
-            props.preferredAlignment,
-        );
+        const verticalPosition = calculateVerticalPosition(activatorRect, overlayRect, overlayMargins, scrollableContainerRect, containerRect, props.preferredPosition);
+        const horizontalPosition = calculateHorizontalPosition(activatorRect, overlayRect, containerRect, overlayMargins, props.preferredAlignment,);
+
         measuring.value = false;
         left.value = props.preferredAlignment !== 'right' ? horizontalPosition : undefined;
         right.value = props.preferredAlignment === 'right' ? horizontalPosition : undefined;
@@ -164,12 +154,7 @@
         );
     }
 
-    function calculateVerticalPosition(activatorRect,
-        overlayRect,
-        overlayMargins,
-        scrollableContainerRect,
-        containerRect,
-        preferredPosition) {
+    function calculateVerticalPosition(activatorRect, overlayRect, overlayMargins, scrollableContainerRect, containerRect, preferredPosition) {
         const activatorTop = activatorRect.top;
         const activatorBottom = activatorTop + activatorRect.height;
         const spaceAbove = activatorRect.top;

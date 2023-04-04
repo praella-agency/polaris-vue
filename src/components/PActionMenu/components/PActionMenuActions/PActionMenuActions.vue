@@ -22,185 +22,160 @@
     </div>
 </template>
 
-<script>
-    import { defineComponent, computed, ref, onUnmounted } from 'vue';
+<script setup>
+    import { computed, ref, onUnmounted, onMounted } from 'vue';
     import { uuid } from '../../../../ComponentHelpers';
     import { MenuActionDescriptor, MenuGroupDescriptor } from '../../../../types';
-    import { sortAndOverrideActionOrder } from '../../../../components/PActionMenu/utilities';
+    import { sortAndOverrideActionOrder } from '../../utilities';
     import { PActionMenuMenuGroup } from '../../../../components/PActionMenu/components/PActionMenuMenuGroup';
     import { PActionMenuMenuAction } from '../../../../components/PActionMenu/components/PActionMenuMenuAction';
     import ArrayValidator from '../../../../utilities/validators/ArrayValidator';
 
-    const Props = {
+    let props = defineProps({
+        id: {
+            type: [String, Number],
+            default: `ActionMenuLayout${uuid()}`,
+        },
         actions: {
-            type: Object,
-            properties: MenuActionDescriptor
+            type: Array,
+            ...ArrayValidator('actions', MenuActionDescriptor)
         },
         groups: {
-            type: Object,
-            properties: MenuGroupDescriptor
-        },
-    }
+            type: Array,
+            ...ArrayValidator('actions', MenuGroupDescriptor)
+        }
+    });
 
     const ACTION_SPACING = 8;
+    let activeMenuGroup= ref('');
+    let hiddenActions = ref([]);
+    let showableActions = ref([]);
+    let availableWidthRef = ref(0);
+    let timesMeasured = ref(0);
+    let actionsAndGroupsLengthRef = ref(0);
+    let actionWidthsRef = ref([]);
+    let refId = ref(props.id);
 
-    export default defineComponent({
-        name: 'PActionMenuActions',
-        components: {
-            PActionMenuMenuGroup, PActionMenuMenuAction,
+    let lastMenuGroupWidth = computed(() => {
+        return [...actionWidthsRef.value].pop() || 0;
+    });
+
+    let lastMenuGroup = computed(() => {
+        return [...props.groups].pop();
+    });
+
+    /* Measure Variables End*/
+    let computedShowableActions = computed({
+        get() {
+            return showableActions.value;
         },
-        props: {
-            id: {
-                type: [String, Number],
-                default: `ActionMenuLayout${uuid()}`,
-            },
-            actions: {
-                type: Array,
-                ...ArrayValidator('actions', MenuActionDescriptor)
-            },
-            groups: {
-                type: Array,
-                ...ArrayValidator('actions', MenuGroupDescriptor)
-            }
+        set(value) {
+            showableActions.value = value;
+        }
+    });
+
+    let computedHiddenActions = computed({
+        get() {
+            return hiddenActions.value;
         },
-        setup(props) {
-          let activeMenuGroup= ref('');
-          let hiddenActions = ref([]);
-          let showableActions = ref([]);
-          let availableWidthRef = ref(0);
-          let timesMeasured = ref(0);
-          let actionsAndGroupsLengthRef = ref(0);
-          let actionWidthsRef = ref([]);
-          let refId = ref(props.id);
+        set(value) {
+            hiddenActions.value = value;
+        }
+    });
 
-          const lastMenuGroupWidth = computed(() => {
-            return [...actionWidthsRef].pop() || 0;
-          });
+    let computedActiveMenuGroup = computed({
+        get() {
+            return activeMenuGroup.value;
+        },
+        set(value) {
+            activeMenuGroup.value = value;
+        }
+    });
 
-          const lastMenuGroup = computed(() => {
-            return [...props.groups].pop();
-          });
+    let menuActions = computed(() => {
+        return [...props.actions, ...props.groups];
+    });
 
-          /* Measure Variables End*/
-          const computedShowableActions = computed({
-            get() {
-              return showableActions.value;
-            },
-            set(value) {
-              showableActions.value = value;
-            }
-          });
+    let overriddenActions = computed(() => {
+        return sortAndOverrideActionOrder(menuActions.value);
+    });
 
-          const computedHiddenActions = computed({
-            get() {
-              return hiddenActions.value;
-            },
-            set(value) {
-              hiddenActions.value = value;
-            }
-          });
+    function handleMenuGroupToggle(group) {
+        if (typeof group === 'string') {
+            computedActiveMenuGroup.value = computedActiveMenuGroup.value ? undefined : group;
+        }
+    }
+    function handleMenuGroupClose() {
+        computedActiveMenuGroup.value = undefined;
+    }
+    function handleResize() {
+        const actionsLayoutRef = refId.value[props.id];
+        if (actionsLayoutRef) {
+            availableWidthRef.value = actionsLayoutRef.offsetWidth;
+        }
 
-          const computedActiveMenuGroup = computed({
-            get() {
-              return activeMenuGroup.value;
-            },
-            set(value) {
-              activeMenuGroup.value = value;
-            }
-          });
+        // // Set timesMeasured to 0 to allow re-measuring
+        timesMeasured.value = 0;
+        measureActions();
+    }
+    function handleActionsOffsetWidth(width) {
+        actionWidthsRef.value = [...actionWidthsRef.value, width];
+    }
+    function measureActions() {
+        if (actionWidthsRef.value.length === 0 || availableWidthRef.value === 0) {
+            return;
+        }
 
-          const menuActions = computed(() => {
-            return [...props.actions, ...props.groups];
-          });
+        const actionsAndGroups = [...props.actions, ...props.groups];
 
-          const overriddenActions = computed(() => {
-            return sortAndOverrideActionOrder(menuActions.value);
-          });
+        if (actionsAndGroups.length === 1) {
+            showableActions.value = actionsAndGroups;
+            hiddenActions.value = [];
+            return;
+        }
 
-          function handleMenuGroupToggle(group) {
-            if (typeof group === 'string') {
-              computedActiveMenuGroup.value = computedActiveMenuGroup.value ? undefined : group;
-            }
-          }
-          function handleMenuGroupClose() {
-            computedActiveMenuGroup.value = undefined;
-          }
-          function handleResize() {
-            const actionsLayoutRef = refId.value[props.id];
-            if (actionsLayoutRef) {
-              availableWidthRef.value = actionsLayoutRef.offsetWidth;
-            }
+        let currentAvailableWidth = availableWidthRef.value;
+        let newShowableActions = [];
+        let newRolledUpActions = [];
 
-            // // Set timesMeasured to 0 to allow re-measuring
-            timesMeasured.value = 0;
-            measureActions();
-          }
-          function handleActionsOffsetWidth(width) {
-            actionWidthsRef.value = [...actionWidthsRef.value, width];
-          }
-          function measureActions() {
-            if (
-                actionWidthsRef.value.length === 0 ||
-                availableWidthRef.value === 0
-            ) {
-              return;
-            }
+        actionsAndGroups.forEach((action, index) => {
+            const canFitAction =
+                actionWidthsRef.value[index] +
+                0 + // menuGroupWidthRef.current
+                ACTION_SPACING +
+                lastMenuGroupWidth.value <=
+                currentAvailableWidth;
 
-            const actionsAndGroups = [...props.actions, ...props.groups];
-
-            if (actionsAndGroups.length === 1) {
-              showableActions.value = actionsAndGroups;
-              hiddenActions.value = [];
-              return;
-            }
-
-            let currentAvailableWidth = availableWidthRef.value;
-            let newShowableActions = [];
-            let newRolledUpActions = [];
-
-            actionsAndGroups.forEach((action, index) => {
-              const canFitAction =
-                  actionWidthsRef.value[index] +
-                  0 + // menuGroupWidthRef.current
-                  ACTION_SPACING +
-                  lastMenuGroupWidth.value <=
-                  currentAvailableWidth;
-
-              if (canFitAction) {
+            if (canFitAction) {
                 currentAvailableWidth -=
                     actionWidthsRef.value[index] + ACTION_SPACING * 2;
                 newShowableActions = [...newShowableActions, action];
-              } else {
+            } else {
                 currentAvailableWidth = 0;
                 // Find last group if it exists and always render it as a rolled up action below
                 if (action === lastMenuGroup.value) {
-                  return;
+                    return;
                 }
                 newRolledUpActions = [...newRolledUpActions, action];
-              }
-            });
+            }
+        });
 
-            showableActions.value = newShowableActions;
-            computedHiddenActions.value = newRolledUpActions;
+        showableActions.value = newShowableActions;
+        computedHiddenActions.value = newRolledUpActions;
 
-            timesMeasured.value += 1;
-            actionsAndGroupsLengthRef.value = actionsAndGroups.length;
-          }
-          function computedActionMenuMenuAction(action) {
-            return !computedHiddenActions.value.includes(action);
-          }
+        timesMeasured.value += 1;
+        actionsAndGroupsLengthRef.value = actionsAndGroups.length;
+    }
+    function computedActionMenuMenuAction(action) {
+        return !computedHiddenActions.value.includes(action);
+    }
 
-          /* Component created lifecycle hook */
-          window.addEventListener('resize', handleResize);
-          handleResize();
-
-          onUnmounted(() => {
-            window.removeEventListener('resize', handleResize);
-          });
-
-          return {activeMenuGroup, hiddenActions, showableActions, availableWidthRef, timesMeasured, actionsAndGroupsLengthRef, actionWidthsRef,
-            lastMenuGroupWidth, lastMenuGroup, menuActions, overriddenActions, computedShowableActions, computedHiddenActions, computedActiveMenuGroup, refId,
-            handleMenuGroupToggle, handleMenuGroupClose, handleResize, measureActions, computedActionMenuMenuAction, handleActionsOffsetWidth};
-        },
+    onMounted(() => {
+        window.addEventListener('resize', handleResize);
+        handleResize();
     })
+
+    onUnmounted(() => {
+        window.removeEventListener('resize', handleResize);
+    });
 </script>

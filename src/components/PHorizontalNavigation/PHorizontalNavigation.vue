@@ -165,6 +165,16 @@
     let containerWidth = ref(Infinity);
     let tabToFocus = ref(-1);
 
+    let visibleHiddenTabs = computed(() => {
+        return getVisibleAndHiddenTabIndices(
+            props.tabs,
+            null,
+            disclosureWidth.value,
+            tabsWidth.value,
+            containerWidth.value,
+        );
+    });
+
     let disclosureActivatorVisible = computed(() => {
         return visibleHiddenTabs.value['visibleTabs'].length < props.tabs.length;
     });
@@ -224,26 +234,16 @@
         );
     });
 
-    let visibleHiddenTabs = computed(() => {
-        return getVisibleAndHiddenTabIndices(
-            props.tabs,
-            null,
-            disclosureWidth.value,
-            tabsWidth.value,
-            containerWidth.value,
-        );
-    });
-
     let disclosureTabs = computed(() => {
         return hiddenTabs.value.map((tabIndex) => props.tabs[tabIndex]);
     });
 
-    function handleMeasurement(containerWidth, disclosureWidth, hiddenTabWidths) {
+    function handleMeasurement(containerWidthValue, disclosureWidthValue, hiddenTabWidthsValue) {
         visibleTabs.value = visibleHiddenTabs.value['visibleTabs'];
         hiddenTabs = visibleHiddenTabs.value['hiddenTabs'];
-        // disclosureWidth.value = disclosureWidth;
-        // containerWidth.value = containerWidth;
-        tabsWidth.value = hiddenTabWidths;
+        disclosureWidth.value = disclosureWidthValue;
+        containerWidth.value = containerWidthValue;
+        tabsWidth.value = hiddenTabWidthsValue;
     }
 
     function handleFocus(event) {

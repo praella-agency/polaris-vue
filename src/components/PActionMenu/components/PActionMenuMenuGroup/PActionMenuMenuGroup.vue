@@ -17,14 +17,14 @@
         <template #content>
             <PActionList :items="actions" @item-action="handleClose"/>
         </template>
-        <div v-if="isSlot(slots.details)" class="">
+        <div v-if="isSlot($slots.details)" class="">
             <slot name="details"/>
         </div>
     </PPopover>
 </template>
 
 <script setup>
-    import { computed, useSlots } from 'vue';
+    import { computed } from 'vue';
     import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { ActionListItemDescriptor } from '../../../../types';
     import { PActionList } from '../../../../components/PActionList';
@@ -55,7 +55,6 @@
         }
     });
     const emit = defineEmits(['open']);
-    let slots = useSlots();
 
     let isSlot = computed(() => {
         return hasSlot;

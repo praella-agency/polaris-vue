@@ -57,15 +57,14 @@ Access values with `slot-props` attribute. -->
 
     let finalSections = computed(() => {
         /* tslint:disable-next-line */
-        if (typeof props.items != 'undefined' && props.items !== null && props.items.length != null
-            && props.items.length > 0) {
+        if (typeof props.items != 'undefined' && props.items !== null && props.items.length != null && props.items.length > 0) {
             return [{items: props.items}, ...props.sections];
         }
         return props.sections;
     });
 
     let hasMultipleSections = computed(() => {
-        return finalSections.value.length > 1;
+        return finalSections.value.length >= 1;
     });
 
     function onItemAction(action) {
