@@ -1,4 +1,4 @@
-import utils from "../../../utilities";
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
 function isEmpty (opt) {
   if (opt === 0) return false
@@ -61,689 +61,409 @@ function filterGroups (search, label, values, groupLabel, customLabel) {
       })
 }
 
-const flow = (...fns) => x => fns.reduce((v, f) => f(v), x)
+const flow = (...fns) => x => fns.reduce((v, f) => f(v), x);
+export default function useMultiSelect(props, emit) {
+  let search = ref('');
+  let isOpen = ref(false);
+  let preferredOpenDirection = ref('below');
+  let optimizedHeight = ref(props.maxHeight);
 
-export default {
-  data () {
-    return {
-      search: '',
-      isOpen: false,
-      preferredOpenDirection: 'below',
-      optimizedHeight: this.maxHeight
-    }
-  },
-  props: {
-    /**
-     * Decide whether to filter the results based on search query.
-     * Useful for async filtering, where we search through more complex data.
-     * @type {Boolean}
-     */
-    internalSearch: {
-      type: Boolean,
-      default: true
-    },
-    /**
-     * Array of available options: Objects, Strings or Integers.
-     * If array of objects, visible label will default to option.label.
-     * If `labal` prop is passed, label will equal option['label']
-     * @type {Array}
-     */
-    options: {
-      type: Array,
-      required: true
-    },
-    /**
-     * Equivalent to the `multiple` attribute on a `<select>` input.
-     * @default false
-     * @type {Boolean}
-     */
-    multiple: {
-      type: Boolean,
-      default: false
-    },
-    /**
-     * Presets the selected options value.
-     * @type {Object||Array||String||Integer}
-     */
-    value: {
-      type: null,
-      default () {
-        return []
-      }
-    },
-    modelValue: {
-      type: null,
-      default () {
-        return []
-      }
-    },
-    /**
-     * Key to compare objects
-     * @default 'id'
-     * @type {String}
-     */
-    trackBy: {
-      type: String
-    },
-    /**
-     * Label to look for in option Object
-     * @default 'label'
-     * @type {String}
-     */
-    label: {
-      type: String
-    },
-    /**
-     * Enable/disable search in options
-     * @default true
-     * @type {Boolean}
-     */
-    searchable: {
-      type: Boolean,
-      default: true
-    },
-    /**
-     * Clear the search input after `)
-     * @default true
-     * @type {Boolean}
-     */
-    clearOnSelect: {
-      type: Boolean,
-      default: true
-    },
-    /**
-     * Hide already selected options
-     * @default false
-     * @type {Boolean}
-     */
-    hideSelected: {
-      type: Boolean,
-      default: false
-    },
-    /**
-     * Equivalent to the `placeholder` attribute on a `<select>` input.
-     * @default 'Select option'
-     * @type {String}
-     */
-    placeholder: {
-      type: String,
-      default: 'Select option'
-    },
-    /**
-     * Allow to remove all selected values
-     * @default true
-     * @type {Boolean}
-     */
-    allowEmpty: {
-      type: Boolean,
-      default: true
-    },
-    /**
-     * Reset this.internalValue, this.search after this.internalValue changes.
-     * Useful if want to create a stateless dropdown.
-     * @default false
-     * @type {Boolean}
-     */
-    resetAfter: {
-      type: Boolean,
-      default: false
-    },
-    /**
-     * Enable/disable closing after selecting an option
-     * @default true
-     * @type {Boolean}
-     */
-    closeOnSelect: {
-      type: Boolean,
-      default: true
-    },
-    /**
-     * Function to interpolate the custom label
-     * @default false
-     * @type {Function}
-     */
-    customLabel: {
-      type: Function,
-      default (option, label) {
-        if (isEmpty(option)) return ''
-        return label ? option[label] : option
-      }
-    },
-    /**
-     * Disable / Enable tagging
-     * @default false
-     * @type {Boolean}
-     */
-    taggable: {
-      type: Boolean,
-      default: false
-    },
-    /**
-     * String to show when highlighting a potential tag
-     * @default 'Press enter to create a tag'
-     * @type {String}
-     */
-    tagPlaceholder: {
-      type: String,
-      default: 'Press enter to create a tag'
-    },
-    /**
-     * By default new tags will appear above the search results.
-     * Changing to 'bottom' will revert this behaviour
-     * and will proritize the search results
-     * @default 'top'
-     * @type {String}
-     */
-    tagPosition: {
-      type: String,
-      default: 'top'
-    },
-    /**
-     * Number of allowed selected options. No limit if 0.
-     * @default 0
-     * @type {Number}
-     */
-    max: {
-      type: [Number, Boolean],
-      default: false
-    },
-    /**
-     * Will be passed with all events as second param.
-     * Useful for identifying events origin.
-     * @default null
-     * @type {String|Integer}
-     */
-    id: {
-      default: null
-    },
-    /**
-     * Limits the options displayed in the dropdown
-     * to the first X options.
-     * @default 1000
-     * @type {Integer}
-     */
-    optionsLimit: {
-      type: Number,
-      default: 1000
-    },
-    /**
-     * Name of the property containing
-     * the group values
-     * @default 1000
-     * @type {String}
-     */
-    groupValues: {
-      type: String
-    },
-    /**
-     * Name of the property containing
-     * the group label
-     * @default 1000
-     * @type {String}
-     */
-    groupLabel: {
-      type: String
-    },
-    /**
-     * Allow to select all group values
-     * by selecting the group label
-     * @default false
-     * @type {Boolean}
-     */
-    groupSelect: {
-      type: Boolean,
-      default: false
-    },
-    /**
-     * Array of keyboard keys to block
-     * when selecting
-     * @default 1000
-     * @type {String}
-     */
-    blockKeys: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
-    /**
-     * Prevent from wiping up the search value
-     * @default false
-     * @type {Boolean}
-     */
-    preserveSearch: {
-      type: Boolean,
-      default: false
-    },
-    /**
-     * Select 1st options if value is empty
-     * @default false
-     * @type {Boolean}
-     */
-    preselectFirst: {
-      type: Boolean,
-      default: false
-    }
-  },
-  mounted () {
+  let computedVModel = computed(() => {
+    return props.modelValue;
+  });
+
+  let internalValue = computed(() => {
+    return computedVModel.value || computedVModel.value === 0 ? Array.isArray(computedVModel.value) ? computedVModel.value : [computedVModel.value] : [];
+  });
+
+  let filteredOptions = computed(() => {
+    const searchValue = search.value || '';
+    const normalizedSearch = searchValue.toLowerCase().trim();
+
+    let options = props.options.concat();
+
     /* istanbul ignore else */
-    if (!this.multiple && this.max) {
-      console.warn('[Vue-Multiselect warn]: Max prop should not be used when prop Multiple equals false.')
+    if (props.internalSearch) {
+      options = props.groupValues ? filterAndFlat(options, normalizedSearch, props.label) : filterOptions(options, normalizedSearch, props.label, props.customLabel);
+    } else {
+      options = props.groupValues ? flattenOptions(props.groupValues, props.groupLabel)(options) : options;
     }
-    if (
-        this.preselectFirst &&
-        !this.internalValue.length &&
-        this.options.length
-    ) {
-      this.select(this.filteredOptions[0])
+
+    options = props.hideSelected ? options.filter(not(isSelected)) : options
+
+    /* istanbul ignore else */
+    if (props.taggable && normalizedSearch.length && !isExistingOption(normalizedSearch)) {
+      if (props.tagPosition === 'bottom') {
+        options.push({ isTag: true, label: search });
+      } else {
+        options.unshift({ isTag: true, label: search });
+      }
     }
-  },
-  computed: {
-    computedVModel() {
-      return this.modelValue
-    },
-    internalValue () {
-      return this.computedVModel || this.computedVModel === 0
-          ? Array.isArray(this.computedVModel) ? this.computedVModel : [this.computedVModel]
-          : []
-    },
-    filteredOptions () {
-      const search = this.search || ''
-      const normalizedSearch = search.toLowerCase().trim()
 
-      let options = this.options.concat()
+    return options.slice(0, props.optionsLimit);
+  });
 
-      /* istanbul ignore else */
-      if (this.internalSearch) {
-        options = this.groupValues
-            ? this.filterAndFlat(options, normalizedSearch, this.label)
-            : filterOptions(options, normalizedSearch, this.label, this.customLabel)
-      } else {
-        options = this.groupValues ? flattenOptions(this.groupValues, this.groupLabel)(options) : options
-      }
-
-      options = this.hideSelected
-          ? options.filter(not(this.isSelected))
-          : options
-
-      /* istanbul ignore else */
-      if (this.taggable && normalizedSearch.length && !this.isExistingOption(normalizedSearch)) {
-        if (this.tagPosition === 'bottom') {
-          options.push({ isTag: true, label: search })
-        } else {
-          options.unshift({ isTag: true, label: search })
-        }
-      }
-
-      return options.slice(0, this.optionsLimit)
-    },
-    valueKeys () {
-      if (this.trackBy) {
-        return this.internalValue.map(element => element[this.trackBy])
-      } else {
-        return this.internalValue
-      }
-    },
-    optionKeys () {
-      const options = this.groupValues ? this.flatAndStrip(this.options) : this.options
-      return options.map(element => this.customLabel(element, this.label).toString().toLowerCase())
-    },
-    currentOptionLabel () {
-      return this.multiple
-          ? this.searchable ? '' : this.placeholder
-          : this.internalValue.length
-              ? this.getOptionLabel(this.internalValue[0])
-              : this.searchable ? '' : this.placeholder
+  let valueKeys = computed(() => {
+    if (props.trackBy) {
+      return internalValue.value.map(element => element[props.trackBy]);
+    } else {
+      return internalValue.value;
     }
-  },
-  watch: {
-    internalValue () {
-      /* istanbul ignore else */
-      if (this.resetAfter && this.internalValue.length) {
-        this.search = ''
-        this.$emit('input', this.multiple ? [] : null)
-        this.$emit('update:value', this.multiple ? [] : null)
-        this.$emit('update:modelValue', this.multiple ? [] : null)
-      }
-    },
-    search () {
-      this.$emit('search-change', this.search, this.id)
+  });
+
+  let optionKeys = computed(() => {
+    const options = props.groupValues ? flatAndStrip(props.options) : props.options;
+    return options.map(element => props.customLabel(element, props.label).toString().toLowerCase());
+  });
+
+  let currentOptionLabel = computed(() => {
+    return props.multiple ? props.searchable ? '' : props.placeholder : internalValue.value.length ? getOptionLabel(internalValue.value[0]) : props.searchable ? '' : props.placeholder;
+  });
+
+  /**
+   * Returns the internalValue in a way it can be emited to the parent
+   * @returns {Object||Array||String||Integer}
+   */
+  function getValue () {
+    return props.multiple ? internalValue.value : internalValue.value.length === 0 ? null : internalValue.value[0];
+  }
+
+  /**
+   * Filters and then flattens the options list
+   * @param  {Array}
+   * @returns {Array} returns a filtered and flat options list
+   */
+  function filterAndFlat (options, search, label) {
+    return flow(filterGroups(search, label, props.groupValues, props.groupLabel, props.customLabel), flattenOptions(props.groupValues, props.groupLabel))(options);
+  }
+
+  /**
+   * Flattens and then strips the group labels from the options list
+   * @param  {Array}
+   * @returns {Array} returns a flat options list without group labels
+   */
+  function flatAndStrip (options) {
+    return flow(flattenOptions(props.groupValues, props.groupLabel), stripGroups)(options);
+  }
+
+  /**
+   * Updates the search value
+   * @param  {String}
+   */
+  function updateSearch (query) {
+    search.value = query;
+  }
+
+  /**
+   * Finds out if the given query is already present
+   * in the available options
+   * @param  {String}
+   * @returns {Boolean} returns true if element is available
+   */
+  function isExistingOption (query) {
+    return !props.options ? false : optionKeys.value.indexOf(query) > -1;
+  }
+
+  /**
+   * Finds out if the given element is already present
+   * in the result value
+   * @param  {Object||String||Integer} option passed element to check
+   * @returns {Boolean} returns true if element is selected
+   */
+  function isSelected (option) {
+    const opt = props.trackBy ? option[props.trackBy] : option;
+    return valueKeys.value.indexOf(opt) > -1;
+  }
+
+  /**
+   * Finds out if the given option is disabled
+   * @param  {Object||String||Integer} option passed element to check
+   * @returns {Boolean} returns true if element is disabled
+   */
+  function isOptionDisabled (option) {
+    return !!option.$isDisabled;
+  }
+
+  /**
+   * Returns empty string when options is null/undefined
+   * Returns tag query if option is tag.
+   * Returns the customLabel() results and casts it to string.
+   *
+   * @param  {Object||String||Integer} Passed option
+   * @returns {Object||String}
+   */
+  function getOptionLabel (option) {
+    if (isEmpty(option)) return '';
+    /* istanbul ignore else */
+    if (option.isTag) return option.label;
+    /* istanbul ignore else */
+    if (option.$isLabel) return option.$groupLabel;
+
+    let label = props.customLabel(option, props.label);
+    /* istanbul ignore else */
+    if (isEmpty(label)) return '';
+    return label;
+  }
+
+  /**
+   * Add the given option to the list of selected options
+   * or sets the option as the selected option.
+   * If option is already selected -> remove it from the results.
+   *
+   * @param  {Object||String||Integer} option to select/deselect
+   * @param  {Boolean} block removing
+   */
+  function select(option, key) {
+    /* istanbul ignore else */
+    if (option.isLabel && props.groupSelect) {
+      selectGroup(option);
+      return;
     }
-  },
-  methods: {
-    /**
-     * Returns the internalValue in a way it can be emited to the parent
-     * @returns {Object||Array||String||Integer}
-     */
-    getValue () {
-      return this.multiple
-          ? this.internalValue
-          : this.internalValue.length === 0
-              ? null
-              : this.internalValue[0]
-    },
-    /**
-     * Filters and then flattens the options list
-     * @param  {Array}
-     * @returns {Array} returns a filtered and flat options list
-     */
-    filterAndFlat (options, search, label) {
-      return flow(
-          filterGroups(search, label, this.groupValues, this.groupLabel, this.customLabel),
-          flattenOptions(this.groupValues, this.groupLabel)
-      )(options)
-    },
-    /**
-     * Flattens and then strips the group labels from the options list
-     * @param  {Array}
-     * @returns {Array} returns a flat options list without group labels
-     */
-    flatAndStrip (options) {
-      return flow(
-          flattenOptions(this.groupValues, this.groupLabel),
-          stripGroups
-      )(options)
-    },
-    /**
-     * Updates the search value
-     * @param  {String}
-     */
-    updateSearch (query) {
-      this.search = query
-    },
-    /**
-     * Finds out if the given query is already present
-     * in the available options
-     * @param  {String}
-     * @returns {Boolean} returns true if element is available
-     */
-    isExistingOption (query) {
-      return !this.options
-          ? false
-          : this.optionKeys.indexOf(query) > -1
-    },
-    /**
-     * Finds out if the given element is already present
-     * in the result value
-     * @param  {Object||String||Integer} option passed element to check
-     * @returns {Boolean} returns true if element is selected
-     */
-    isSelected (option) {
-      const opt = this.trackBy
-          ? option[this.trackBy]
-          : option
-      return this.valueKeys.indexOf(opt) > -1
-    },
-    /**
-     * Finds out if the given option is disabled
-     * @param  {Object||String||Integer} option passed element to check
-     * @returns {Boolean} returns true if element is disabled
-     */
-    isOptionDisabled (option) {
-      return !!option.$isDisabled
-    },
-    /**
-     * Returns empty string when options is null/undefined
-     * Returns tag query if option is tag.
-     * Returns the customLabel() results and casts it to string.
-     *
-     * @param  {Object||String||Integer} Passed option
-     * @returns {Object||String}
-     */
-    getOptionLabel (option) {
-      if (isEmpty(option)) return ''
-      /* istanbul ignore else */
-      if (option.isTag) return option.label
-      /* istanbul ignore else */
-      if (option.$isLabel) return option.$groupLabel
+    if (props.blockKeys.indexOf(key) !== -1 || props.disabled || option.isDisabled || option.isLabel) return;
+    /* istanbul ignore else */
+    if (props.max && props.multiple && internalValue.value.length === props.max) return;
+    /* istanbul ignore else */
+    if (key === 'Tab' && !this.pointerDirty) return;
+    if (option.isTag) {
+      emit('tag', option.label, props.id);
+      search.value = '';
+      if (props.closeOnSelect && !props.multiple) deactivate();
+    } else {
+      // const isSelected = isSelected(option);
 
-      let label = this.customLabel(option, this.label)
-      /* istanbul ignore else */
-      if (isEmpty(label)) return ''
-      return label
-    },
-    /**
-     * Add the given option to the list of selected options
-     * or sets the option as the selected option.
-     * If option is already selected -> remove it from the results.
-     *
-     * @param  {Object||String||Integer} option to select/deselect
-     * @param  {Boolean} block removing
-     */
-    select (option, key) {
-      /* istanbul ignore else */
-      if (option.$isLabel && this.groupSelect) {
-        this.selectGroup(option)
-        return
+      if (isSelected(option)) {
+        if (key !== 'Tab') removeElement(option);
+        return;
       }
-      if (this.blockKeys.indexOf(key) !== -1 ||
-          this.disabled ||
-          option.$isDisabled ||
-          option.$isLabel
-      ) return
-      /* istanbul ignore else */
-      if (this.max && this.multiple && this.internalValue.length === this.max) return
-      /* istanbul ignore else */
-      if (key === 'Tab' && !this.pointerDirty) return
-      if (option.isTag) {
-        this.$emit('tag', option.label, this.id)
-        this.search = ''
-        if (this.closeOnSelect && !this.multiple) this.deactivate()
+
+      emit('select', option, props.id);
+
+      if (props.multiple) {
+        emit('input', internalValue.value.concat([option]), props.id);
+        emit('update:value', internalValue.value.concat([option]), props.id);
+        emit('update:modelValue', internalValue.value.concat([option]), props.id);
       } else {
-        const isSelected = this.isSelected(option)
-
-        if (isSelected) {
-          if (key !== 'Tab') this.removeElement(option)
-          return
-        }
-
-        this.$emit('select', option, this.id)
-
-        if (this.multiple) {
-          this.$emit('input', this.internalValue.concat([option]), this.id)
-          this.$emit('update:value', this.internalValue.concat([option]), this.id)
-          this.$emit('update:modelValue', this.internalValue.concat([option]), this.id)
-        } else {
-          this.$emit('input', option, this.id)
-          this.$emit('update:value', option, this.id)
-          this.$emit('update:modelValue', option, this.id)
-        }
-
-        /* istanbul ignore else */
-        if (this.clearOnSelect) this.search = ''
+        emit('input', option, props.id);
+        emit('update:value', option, props.id);
+        emit('update:modelValue', option, props.id);
       }
+
       /* istanbul ignore else */
-      if (this.closeOnSelect) this.deactivate()
-    },
-    /**
-     * Add the given group options to the list of selected options
-     * If all group optiona are already selected -> remove it from the results.
-     *
-     * @param  {Object||String||Integer} group to select/deselect
-     */
-    selectGroup (selectedGroup) {
-      const group = this.options.find(option => {
-        return option[this.groupLabel] === selectedGroup.$groupLabel
-      })
+      if (props.clearOnSelect) search.value = '';
+    }
+    /* istanbul ignore else */
+    if (props.closeOnSelect) deactivate();
+  }
 
-      if (!group) return
+  /**
+   * Add the given group options to the list of selected options
+   * If all group optiona are already selected -> remove it from the results.
+   *
+   * @param  {Object||String||Integer} group to select/deselect
+   */
+  function selectGroup (selectedGroup) {
+    const group = props.options.find(option => {
+      return option[props.groupLabel] === selectedGroup.$groupLabel;
+    })
 
-      if (this.wholeGroupSelected(group)) {
-        this.$emit('remove', group[this.groupValues], this.id)
+    if (!group) return;
 
-        const newValue = this.internalValue.filter(
-            option => group[this.groupValues].indexOf(option) === -1
-        )
+    if (wholeGroupSelected(group)) {
+      emit('remove', group[props.groupValues], props.id);
 
-        this.$emit('input', newValue, this.id)
-        this.$emit('update:value', newValue, this.id)
-        this.$emit('update:modelValue', newValue, this.id)
-      } else {
-        const optionsToAdd = group[this.groupValues].filter(
-            option => !(this.isOptionDisabled(option) || this.isSelected(option))
-        )
-
-        this.$emit('select', optionsToAdd, this.id)
-        this.$emit(
-            'input',
-            this.internalValue.concat(optionsToAdd),
-            this.id
-        )
-        this.$emit(
-            'update:value',
-            this.internalValue.concat(optionsToAdd),
-            this.id
-        )
-        this.$emit(
-            'update:modelValue',
-            this.internalValue.concat(optionsToAdd),
-            this.id
-        )
-      }
-
-      if (this.closeOnSelect) this.deactivate()
-    },
-    /**
-     * Helper to identify if all values in a group are selected
-     *
-     * @param {Object} group to validated selected values against
-     */
-    wholeGroupSelected (group) {
-      return group[this.groupValues].every(option => this.isSelected(option) || this.isOptionDisabled(option)
+      const newValue = internalValue.value.filter(
+          option => group[props.groupValues].indexOf(option) === -1
       )
-    },
-    /**
-     * Helper to identify if all values in a group are disabled
-     *
-     * @param {Object} group to check for disabled values
-     */
-    wholeGroupDisabled (group) {
-      return group[this.groupValues].every(this.isOptionDisabled)
-    },
-    /**
-     * Removes the given option from the selected options.
-     * Additionally checks this.allowEmpty prop if option can be removed when
-     * it is the last selected option.
-     *
-     * @param  {type} option description
-     * @returns {type}        description
-     */
-    removeElement (option, shouldClose = true) {
-      /* istanbul ignore else */
-      if (this.disabled) return
-      /* istanbul ignore else */
-      if (option.$isDisabled) return
-      /* istanbul ignore else */
-      if (!this.allowEmpty && this.internalValue.length <= 1) {
-        this.deactivate()
-        return
-      }
 
-      const index = typeof option === 'object'
-          ? this.valueKeys.indexOf(option[this.trackBy])
-          : this.valueKeys.indexOf(option)
+      emit('input', newValue, props.id);
+      emit('update:value', newValue, props.id);
+      emit('update:modelValue', newValue, props.id);
+    } else {
+      const optionsToAdd = group[props.groupValues].filter(
+          option => !(isOptionDisabled(option) || isSelected(option))
+      )
 
-      this.$emit('remove', option, this.id)
-      if (this.multiple) {
-        const newValue = this.internalValue.slice(0, index).concat(this.internalValue.slice(index + 1))
-        this.$emit('input', newValue, this.id)
-        this.$emit('update:value', newValue, this.id)
-        this.$emit('update:modelValue', newValue, this.id)
-      } else {
-        this.$emit('input', null, this.id)
-        this.$emit('update:value', null, this.id)
-        this.$emit('update:modelValue', null, this.id)
-      }
+      emit('select', optionsToAdd, props.id);
+      emit('input', internalValue.value.concat(optionsToAdd), props.id);
+      emit('update:value', internalValue.value.concat(optionsToAdd), props.id);
+      emit('update:modelValue', internalValue.value.concat(optionsToAdd), props.id);
+    }
 
-      /* istanbul ignore else */
-      if (this.closeOnSelect && shouldClose) this.deactivate()
-    },
-    /**
-     * Calls this.removeElement() with the last element
-     * from this.internalValue (selected element Array)
-     *
-     * @fires this#removeElement
-     */
-    removeLastElement () {
-      /* istanbul ignore else */
-      if (this.blockKeys.indexOf('Delete') !== -1) return
-      /* istanbul ignore else */
-      if (this.search.length === 0 && Array.isArray(this.internalValue) && this.internalValue.length) {
-        this.removeElement(this.internalValue[this.internalValue.length - 1], false)
-      }
-    },
-    /**
-     * Opens the multiselect’s dropdown.
-     * Sets this.isOpen to TRUE
-     */
-    activate () {
-      /* istanbul ignore else */
-      if (this.isOpen || this.disabled) return
+    if (props.closeOnSelect) deactivate();
+  }
 
-      this.adjustPosition()
-      /* istanbul ignore else  */
-      if (this.groupValues && this.pointer === 0 && this.filteredOptions.length) {
-        this.pointer = 1
-      }
+  /**
+   * Helper to identify if all values in a group are selected
+   *
+   * @param {Object} group to validated selected values against
+   */
+  function wholeGroupSelected (group) {
+    return group[props.groupValues].every(option => isSelected(option) || isOptionDisabled(option));
+  }
 
-      this.isOpen = true
-      /* istanbul ignore else  */
-      if (this.searchable) {
-        if (!this.preserveSearch) this.search = ''
-        this.$nextTick(() => this.$refs.search && this.$refs.search.focus())
-      } else {
-        this.$el.focus()
-      }
-      this.$emit('open', this.id)
-    },
-    /**
-     * Closes the multiselect’s dropdown.
-     * Sets this.isOpen to FALSE
-     */
-    deactivate () {
-      /* istanbul ignore else */
-      if (!this.isOpen) return
+  /**
+   * Helper to identify if all values in a group are disabled
+   *
+   * @param {Object} group to check for disabled values
+   */
+  function wholeGroupDisabled (group) {
+    return group[props.groupValues].every(isOptionDisabled);
+  }
 
-      this.isOpen = false
-      /* istanbul ignore else  */
-      if (this.searchable) {
-        this.$refs.search && this.$refs.search.blur()
-      } else {
-        this.$el.blur()
-      }
-      if (!this.preserveSearch) this.search = ''
-      this.$emit('close', this.getValue(), this.id)
-    },
-    /**
-     * Call this.activate() or this.deactivate()
-     * depending on this.isOpen value.
-     *
-     * @fires this#activate || this#deactivate
-     * @property {Boolean} isOpen indicates if dropdown is open
-     */
-    toggle () {
-      this.isOpen
-          ? this.deactivate()
-          : this.activate()
-    },
-    /**
-     * Updates the hasEnoughSpace variable used for
-     * detecting where to expand the dropdown
-     */
-    adjustPosition () {
-      if (typeof window === 'undefined') return
+  /**
+   * Removes the given option from the selected options.
+   * Additionally checks this.allowEmpty prop if option can be removed when
+   * it is the last selected option.
+   *
+   * @param  {type} option description
+   * @returns {type}        description
+   */
+  function removeElement (option, shouldClose = true) {
+    /* istanbul ignore else */
+    if (props.disabled) return
+    /* istanbul ignore else */
+    if (option.$isDisabled) return
+    /* istanbul ignore else */
+    if (!props.allowEmpty && internalValue.value.length <= 1) {
+      deactivate();
+      return
+    }
 
-      const spaceAbove = this.$el.getBoundingClientRect().top
-      const spaceBelow = window.innerHeight - this.$el.getBoundingClientRect().bottom
-      const hasEnoughSpaceBelow = spaceBelow > this.maxHeight
+    const index = typeof option === 'object' ? valueKeys.value.indexOf(option[props.trackBy]) : valueKeys.value.indexOf(option);
 
-      if (hasEnoughSpaceBelow || spaceBelow > spaceAbove || this.openDirection === 'below' || this.openDirection === 'bottom') {
-        this.preferredOpenDirection = 'below'
-        this.optimizedHeight = Math.min(spaceBelow - 40, this.maxHeight)
-      } else {
-        this.preferredOpenDirection = 'above'
-        this.optimizedHeight = Math.min(spaceAbove - 40, this.maxHeight)
-      }
+    emit('remove', option, props.id)
+    if (props.multiple) {
+      const newValue = internalValue.value.slice(0, index).concat(internalValue.value.slice(index + 1));
+      emit('input', newValue, props.id);
+      emit('update:value', newValue, props.id);
+      emit('update:modelValue', newValue, props.id);
+    } else {
+      emit('input', null, props.id);
+      emit('update:value', null, props.id);
+      emit('update:modelValue', null, props.id);
+    }
+
+    /* istanbul ignore else */
+    if (props.closeOnSelect && shouldClose) deactivate();
+  }
+
+  /**
+   * Calls this.removeElement() with the last element
+   * from this.internalValue (selected element Array)
+   *
+   * @fires this#removeElement
+   */
+  function removeLastElement () {
+    /* istanbul ignore else */
+    if (props.blockKeys.indexOf('Delete') !== -1) return;
+    /* istanbul ignore else */
+    if (search.value.length === 0 && Array.isArray(internalValue.value) && internalValue.value.length) {
+      removeElement(internalValue.value[internalValue.value.length - 1], false);
     }
   }
+
+  /**
+   * Opens the multiselect’s dropdown.
+   * Sets this.isOpen to TRUE
+   */
+  function activate () {
+    /* istanbul ignore else */
+    if (isOpen.value || props.disabled) return
+
+    adjustPosition();
+    /* istanbul ignore else  */
+    if (props.groupValues && this.pointer === 0 && filteredOptions.value.length) {
+      this.pointer = 1;
+    }
+
+    isOpen.value = true;
+    /* istanbul ignore else  */
+    if (props.searchable) {
+      if (!props.preserveSearch) search.value = ''
+      nextTick().then(() => {
+        this.$refs.search && this.$refs.search.focus()
+      });
+    } else {
+      this.$el.focus()
+    }
+    emit('open', props.id);
+  }
+
+  /**
+   * Closes the multiselect’s dropdown.
+   * Sets this.isOpen to FALSE
+   */
+  function deactivate () {
+    /* istanbul ignore else */
+    if (!isOpen.value) return;
+
+    isOpen.value = false;
+    /* istanbul ignore else  */
+    if (props.searchable) {
+      this.$refs.search && this.$refs.search.blur();
+    } else {
+      this.$el.blur();
+    }
+    if (!props.preserveSearch) search.value = '';
+    emit('close', getValue(), props.id);
+  }
+
+  /**
+   * Call this.activate() or this.deactivate()
+   * depending on this.isOpen value.
+   *
+   * @fires this#activate || this#deactivate
+   * @property {Boolean} isOpen indicates if dropdown is open
+   */
+  function toggle () {
+    isOpen.value ? deactivate() : activate();
+  }
+
+  /**
+   * Updates the hasEnoughSpace variable used for
+   * detecting where to expand the dropdown
+   */
+  function adjustPosition () {
+    if (typeof window === 'undefined') return
+
+    const spaceAbove = this.$el.getBoundingClientRect().top
+    const spaceBelow = window.innerHeight - this.$el.getBoundingClientRect().bottom
+    const hasEnoughSpaceBelow = spaceBelow > props.maxHeight
+
+    if (hasEnoughSpaceBelow || spaceBelow > spaceAbove || props.openDirection === 'below' || props.openDirection === 'bottom') {
+      preferredOpenDirection.value = 'below'
+      optimizedHeight.value = Math.min(spaceBelow - 40, props.maxHeight)
+    } else {
+      preferredOpenDirection.value = 'above'
+      optimizedHeight.value = Math.min(spaceAbove - 40, props.maxHeight)
+    }
+  }
+
+  onMounted(() => {
+    /* istanbul ignore else */
+    if (!props.multiple && props.max) {
+      console.warn('[Vue-Multiselect warn]: Max prop should not be used when prop Multiple equals false.');
+    }
+    if (props.preselectFirst && !internalValue.value.length && props.options.length) {
+      select(filteredOptions.value[0]);
+    }
+  });
+
+  watch(() => internalValue.value, () => {
+    /* istanbul ignore else */
+    if (props.resetAfter && internalValue.value.length) {
+      search.value = '';
+      emit('input', props.multiple ? [] : null);
+      emit('update:value', props.multiple ? [] : null);
+      emit('update:modelValue', props.multiple ? [] : null);
+    }
+  });
+
+  watch(() => search.value, () => {
+    emit('search-change', search.value, props.id);
+  });
+
+  return { internalValue, isOpen, preferredOpenDirection, search, optimizedHeight, activate, deactivate, toggle, removeElement,
+    getOptionLabel, updateSearch, filteredOptions, select, selectGroup, currentOptionLabel
+  };
 }
