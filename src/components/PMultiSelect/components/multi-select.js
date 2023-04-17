@@ -1,9 +1,9 @@
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
-function isEmpty (opt) {
-  if (opt === 0) return false
-  if (Array.isArray(opt) && opt.length === 0) return true
-  return !opt
+export function isEmpty (opt) {
+  if (opt === 0) return false;
+  if (Array.isArray(opt) && opt.length === 0) return true;
+  return !opt;
 }
 
 function not (fun) {
@@ -62,11 +62,14 @@ function filterGroups (search, label, values, groupLabel, customLabel) {
 }
 
 const flow = (...fns) => x => fns.reduce((v, f) => f(v), x);
-export default function useMultiSelect(props, emit) {
+
+export default function useMultiSelect(props, emit, refs, instance) {
   let search = ref('');
   let isOpen = ref(false);
   let preferredOpenDirection = ref('below');
   let optimizedHeight = ref(props.maxHeight);
+  let pointer = ref(0);
+  let pointerDirty = ref(false);
 
   let computedVModel = computed(() => {
     return props.modelValue;
@@ -81,7 +84,6 @@ export default function useMultiSelect(props, emit) {
     const normalizedSearch = searchValue.toLowerCase().trim();
 
     let options = props.options.concat();
-
     /* istanbul ignore else */
     if (props.internalSearch) {
       options = props.groupValues ? filterAndFlat(options, normalizedSearch, props.label) : filterOptions(options, normalizedSearch, props.label, props.customLabel);
@@ -118,6 +120,14 @@ export default function useMultiSelect(props, emit) {
 
   let currentOptionLabel = computed(() => {
     return props.multiple ? props.searchable ? '' : props.placeholder : internalValue.value.length ? getOptionLabel(internalValue.value[0]) : props.searchable ? '' : props.placeholder;
+  });
+
+  let pointerPosition = computed(() => {
+    return pointer.value * props.optionHeight;
+  });
+
+  let visibleElements = computed(() => {
+    return optimizedHeight.value / props.optionHeight;
   });
 
   /**
@@ -223,14 +233,12 @@ export default function useMultiSelect(props, emit) {
     /* istanbul ignore else */
     if (props.max && props.multiple && internalValue.value.length === props.max) return;
     /* istanbul ignore else */
-    if (key === 'Tab' && !this.pointerDirty) return;
+    if (key === 'Tab' && !pointerDirty.value) return;
     if (option.isTag) {
       emit('tag', option.label, props.id);
       search.value = '';
       if (props.closeOnSelect && !props.multiple) deactivate();
     } else {
-      // const isSelected = isSelected(option);
-
       if (isSelected(option)) {
         if (key !== 'Tab') removeElement(option);
         return;
@@ -240,11 +248,9 @@ export default function useMultiSelect(props, emit) {
 
       if (props.multiple) {
         emit('input', internalValue.value.concat([option]), props.id);
-        emit('update:value', internalValue.value.concat([option]), props.id);
         emit('update:modelValue', internalValue.value.concat([option]), props.id);
       } else {
         emit('input', option, props.id);
-        emit('update:value', option, props.id);
         emit('update:modelValue', option, props.id);
       }
 
@@ -276,7 +282,6 @@ export default function useMultiSelect(props, emit) {
       )
 
       emit('input', newValue, props.id);
-      emit('update:value', newValue, props.id);
       emit('update:modelValue', newValue, props.id);
     } else {
       const optionsToAdd = group[props.groupValues].filter(
@@ -285,7 +290,6 @@ export default function useMultiSelect(props, emit) {
 
       emit('select', optionsToAdd, props.id);
       emit('input', internalValue.value.concat(optionsToAdd), props.id);
-      emit('update:value', internalValue.value.concat(optionsToAdd), props.id);
       emit('update:modelValue', internalValue.value.concat(optionsToAdd), props.id);
     }
 
@@ -335,11 +339,9 @@ export default function useMultiSelect(props, emit) {
     if (props.multiple) {
       const newValue = internalValue.value.slice(0, index).concat(internalValue.value.slice(index + 1));
       emit('input', newValue, props.id);
-      emit('update:value', newValue, props.id);
       emit('update:modelValue', newValue, props.id);
     } else {
       emit('input', null, props.id);
-      emit('update:value', null, props.id);
       emit('update:modelValue', null, props.id);
     }
 
@@ -372,8 +374,8 @@ export default function useMultiSelect(props, emit) {
 
     adjustPosition();
     /* istanbul ignore else  */
-    if (props.groupValues && this.pointer === 0 && filteredOptions.value.length) {
-      this.pointer = 1;
+    if (props.groupValues && pointer.value === 0 && filteredOptions.value.length) {
+      pointer.value = 1;
     }
 
     isOpen.value = true;
@@ -381,10 +383,10 @@ export default function useMultiSelect(props, emit) {
     if (props.searchable) {
       if (!props.preserveSearch) search.value = ''
       nextTick().then(() => {
-        this.$refs.search && this.$refs.search.focus()
+        refs.search && refs.search.focus()
       });
     } else {
-      this.$el.focus()
+      instance.vnode.el.focus()
     }
     emit('open', props.id);
   }
@@ -400,9 +402,9 @@ export default function useMultiSelect(props, emit) {
     isOpen.value = false;
     /* istanbul ignore else  */
     if (props.searchable) {
-      this.$refs.search && this.$refs.search.blur();
+      refs.search && refs.search.blur();
     } else {
-      this.$el.blur();
+      instance.vnode.el.blur();
     }
     if (!props.preserveSearch) search.value = '';
     emit('close', getValue(), props.id);
@@ -426,8 +428,8 @@ export default function useMultiSelect(props, emit) {
   function adjustPosition () {
     if (typeof window === 'undefined') return
 
-    const spaceAbove = this.$el.getBoundingClientRect().top
-    const spaceBelow = window.innerHeight - this.$el.getBoundingClientRect().bottom
+    const spaceAbove = instance.vnode.el.getBoundingClientRect().top
+    const spaceBelow = window.innerHeight - instance.vnode.el.getBoundingClientRect().bottom
     const hasEnoughSpaceBelow = spaceBelow > props.maxHeight
 
     if (hasEnoughSpaceBelow || spaceBelow > spaceAbove || props.openDirection === 'below' || props.openDirection === 'bottom') {
@@ -437,6 +439,95 @@ export default function useMultiSelect(props, emit) {
       preferredOpenDirection.value = 'above'
       optimizedHeight.value = Math.min(spaceAbove - 40, props.maxHeight)
     }
+  }
+  function optionHighlight (index, option) {
+    return {
+      'multiselect__option--highlight': index === pointer.value && props.showPointer,
+      'multiselect__option--selected': isSelected(option)
+    };
+  }
+
+  function groupHighlight (index, selectedGroup) {
+    if (!props.groupSelect) {
+      return [
+        'multiselect__option--disabled',
+        { 'multiselect__option--group': selectedGroup.$isLabel }
+      ];
+    }
+
+    const group = props.options.find(option => {
+      return option[props.groupLabel] === selectedGroup.$groupLabel
+    });
+
+    return group && !wholeGroupDisabled(group) ? [
+      'multiselect__option--group',
+      { 'multiselect__option--highlight': index === pointer.value && props.showPointer },
+      { 'multiselect__option--group-selected': wholeGroupSelected(group) }
+    ] : 'multiselect__option--disabled'
+  }
+
+  function addPointerElement ({ key } = 'Enter') {
+    /* istanbul ignore else */
+    if (filteredOptions.value.length > 0) {
+      select(filteredOptions.value[pointer.value], key);
+    }
+    pointerReset();
+  }
+
+  function pointerForward () {
+    /* istanbul ignore else */
+    if (pointer.value < filteredOptions.value.length - 1) {
+      pointer.value++;
+      /* istanbul ignore next */
+      if (refs.list.scrollTop <= pointerPosition.value - (visibleElements.value - 1) * props.optionHeight) {
+        refs.list.scrollTop = pointerPosition.value - (visibleElements.value - 1) * props.optionHeight;
+      }
+      /* istanbul ignore else */
+      if (filteredOptions.value[pointer.value] && filteredOptions.value[pointer.value].$isLabel && !props.groupSelect) pointerForward();
+    }
+    pointerDirty.value = true;
+  }
+
+  function pointerBackward () {
+    if (pointer.value > 0) {
+      pointer.value--;
+      /* istanbul ignore else */
+      if (refs.list.scrollTop >= pointerPosition.value) {
+        refs.list.scrollTop = pointerPosition.value;
+      }
+      /* istanbul ignore else */
+      if (filteredOptions.value[pointer.value] && filteredOptions.value[pointer.value].$isLabel && !props.groupSelect) pointerBackward();
+    } else {
+      /* istanbul ignore else */
+      if (filteredOptions.value[pointer.value] && filteredOptions.value[0].$isLabel && !props.groupSelect) pointerForward();
+    }
+    pointerDirty.value = true;
+  }
+
+  function pointerReset () {
+    /* istanbul ignore else */
+    if (!props.closeOnSelect) return;
+    pointer.value = 0;
+    /* istanbul ignore else */
+    if (refs.list) {
+      refs.list.scrollTop = 0;
+    }
+  }
+
+  function pointerAdjust () {
+    /* istanbul ignore else */
+    if (pointer.value >= filteredOptions.value.length - 1) {
+      pointer.value = filteredOptions.value.length ? filteredOptions.value.length - 1 : 0;
+    }
+
+    if (filteredOptions.value.length > 0 && filteredOptions.value[pointer.value].$isLabel && !props.groupSelect) {
+      pointerForward();
+    }
+  }
+
+  function pointerSet (index) {
+    pointer.value = index;
+    pointerDirty.value = true;
   }
 
   onMounted(() => {
@@ -454,7 +545,6 @@ export default function useMultiSelect(props, emit) {
     if (props.resetAfter && internalValue.value.length) {
       search.value = '';
       emit('input', props.multiple ? [] : null);
-      emit('update:value', props.multiple ? [] : null);
       emit('update:modelValue', props.multiple ? [] : null);
     }
   });
@@ -463,7 +553,20 @@ export default function useMultiSelect(props, emit) {
     emit('search-change', search.value, props.id);
   });
 
-  return { internalValue, isOpen, preferredOpenDirection, search, optimizedHeight, activate, deactivate, toggle, removeElement,
-    getOptionLabel, updateSearch, filteredOptions, select, selectGroup, currentOptionLabel
+  watch(() => filteredOptions.value, () => {
+    pointerAdjust();
+  });
+
+  watch(() => isOpen.value, () => {
+    pointerDirty.value = false;
+  });
+
+  watch(() => pointer.value, () => {
+    refs.search && refs.search.setAttribute('aria-activedescendant', props.id + '-' + pointer.value.toString());
+  });
+
+  return { internalValue, isOpen, preferredOpenDirection, search, optimizedHeight, activate, deactivate, toggle, removeElement, removeLastElement, getOptionLabel,
+    updateSearch, filteredOptions, select, selectGroup, currentOptionLabel, isSelected, wholeGroupDisabled, wholeGroupSelected, pointerForward, pointerBackward,
+    addPointerElement, pointerSet, optionHighlight, groupHighlight
   };
 }

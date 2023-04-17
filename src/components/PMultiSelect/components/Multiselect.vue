@@ -45,7 +45,7 @@
                 </slot>
             </transition>
             <input
-                ref="search"
+                ref="searchRef"
                 v-if="searchable"
                 :name="name"
                 :id="id"
@@ -95,7 +95,7 @@
                 tabindex="-1"
                 @mousedown.prevent
                 :style="{ maxHeight: `${optimizedHeight}px` }"
-                ref="list"
+                ref="listRef"
             >
                 <ul class="multiselect__content" :style="contentStyle" role="listbox" :id="'listbox-'+id">
                     <slot name="beforeList"></slot>
@@ -155,8 +155,8 @@
 </template>
 
 <script setup>
-    import { computed } from 'vue';
-    import useMultiSelect from "./multiselectMixin";
+    import { computed, getCurrentInstance, onMounted, onUpdated, ref } from 'vue';
+    import useMultiSelect, { isEmpty } from './multi-select';
 
     let props = defineProps({
         /**
@@ -323,16 +323,6 @@
         multiple: {
             type: Boolean,
             default: false
-        },
-        /**
-         * Presets the selected options value.
-         * @type {Object||Array||String||Integer}
-         */
-        value: {
-            type: null,
-            default () {
-                return []
-            }
         },
         modelValue: {
             type: null,
@@ -562,10 +552,15 @@
             default: 40
         }
     });
-    const emits = defineEmits(['tag', 'select', 'input', 'update:value', 'update:modelValue', 'remove', 'open', 'close', 'search-change']);
+    const emits = defineEmits(['tag', 'select', 'input', 'update:modelValue', 'remove', 'open', 'close', 'search-change']);
 
-    let { internalValue, isOpen, preferredOpenDirection, search, optimizedHeight, activate, deactivate, toggle, removeElement, getOptionLabel, updateSearch,
-    filteredOptions, select, selectGroup, currentOptionLabel } = useMultiSelect(props, emits);
+    let refs = {}
+    let searchRef = ref(null);
+    let listRef = ref(null);
+
+    let { internalValue, isOpen, preferredOpenDirection, search, optimizedHeight, activate, deactivate, toggle, removeElement, getOptionLabel, updateSearch, filteredOptions,
+        select, selectGroup, currentOptionLabel, removeLastElement, pointerForward, pointerBackward, addPointerElement, pointerSet, optionHighlight, groupHighlight
+    } = useMultiSelect(props, emits, refs, getCurrentInstance());
 
     let singleValue = computed(() => {
         return internalValue.value[0];
@@ -604,7 +599,7 @@
     });
 
     let inputStyle = computed(() => {
-        if (props.searchable || (props.multiple && props.value && props.value.length)) {
+        if (props.searchable || (props.multiple && props.modelValue && props.modelValue.length)) {
             // Hide input by setting the width to 0 allowing it to receive focus
             return isOpen.value ? { width: '100%' } : { width: '0', position: 'absolute', padding: '0' };
         }
@@ -623,5 +618,10 @@
         } else {
             return preferredOpenDirection.value === 'above';
         }
+    });
+
+    onMounted(() => {
+        refs.search = searchRef.value;
+        refs.list = listRef.value;
     });
 </script>
