@@ -252,7 +252,7 @@
         return props.modelValue;
     });
 
-    let content = computedVModel.value !== null ? ref(computedVModel.value) : ref('');
+    let content = ref(computedVModel.value ?? '');
     let characterCount = ref(computedVModel.value && computedVModel.value.length);
 
     let className = computed(() => {

@@ -314,12 +314,10 @@ const Template = (args) => ({
                     </PStackItem>
                 </PStack>
             </template>
-            <template>
-                <PImage
-                    source="https://hulkapps.nyc3.digitaloceanspaces.com/polaris-vue/placeholder.png"
-                    style="width: 100%; height: 100%;"
-                />
-            </template>
+            <PImage
+                source="https://hulkapps.nyc3.digitaloceanspaces.com/polaris-vue/placeholder.png"
+                style="width: 100%; height: 100%;"
+            />
         </PPreviewFrame>
     `,
     methods: {

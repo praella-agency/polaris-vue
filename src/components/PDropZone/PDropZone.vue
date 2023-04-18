@@ -563,7 +563,7 @@
     }
 
     function open() {
-        const fileInputNode = node.value && node.value.querySelector(`#${props.id}`);
+        const fileInputNode = node && node.querySelector(`#${props.id}`);
         // tslint:disable-next-line:no-unused-expression
         fileInputNode && fileInputNode instanceof HTMLElement && fileInputNode.click();
     }

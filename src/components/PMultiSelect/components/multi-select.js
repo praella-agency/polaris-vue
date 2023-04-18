@@ -225,11 +225,11 @@ export default function useMultiSelect(props, emit, refs, instance) {
    */
   function select(option, key) {
     /* istanbul ignore else */
-    if (option.isLabel && props.groupSelect) {
+    if (option.$isLabel && props.groupSelect) {
       selectGroup(option);
       return;
     }
-    if (props.blockKeys.indexOf(key) !== -1 || props.disabled || option.isDisabled || option.isLabel) return;
+    if (props.blockKeys.indexOf(key) !== -1 || props.disabled || option.$isDisabled || option.$isLabel) return;
     /* istanbul ignore else */
     if (props.max && props.multiple && internalValue.value.length === props.max) return;
     /* istanbul ignore else */
@@ -565,8 +565,8 @@ export default function useMultiSelect(props, emit, refs, instance) {
     refs.search && refs.search.setAttribute('aria-activedescendant', props.id + '-' + pointer.value.toString());
   });
 
-  return { internalValue, isOpen, preferredOpenDirection, search, optimizedHeight, activate, deactivate, toggle, removeElement, removeLastElement, getOptionLabel,
-    updateSearch, filteredOptions, select, selectGroup, currentOptionLabel, isSelected, wholeGroupDisabled, wholeGroupSelected, pointerForward, pointerBackward,
-    addPointerElement, pointerSet, optionHighlight, groupHighlight
+  return { internalValue, isOpen, preferredOpenDirection, search, optimizedHeight, activate, deactivate, toggle, removeElement,
+    removeLastElement, getOptionLabel, updateSearch, filteredOptions, select, selectGroup, currentOptionLabel, pointerForward,
+    pointerBackward, addPointerElement, pointerSet, optionHighlight, groupHighlight
   };
 }

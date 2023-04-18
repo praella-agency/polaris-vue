@@ -66,7 +66,6 @@
     });
 
     function handleStyle(data) {
-        console.log('loadingStyles.value', loadingStyles.value)
         loadingStyles.value = {...data};
     }
 </script>

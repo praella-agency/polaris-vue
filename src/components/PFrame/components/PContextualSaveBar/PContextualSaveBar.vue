@@ -1,6 +1,6 @@
 <template>
     <div class="Polaris-Frame-ContextualSaveBar">
-        <div v-if="hasSlot($slots.contextControl)" class="Polaris-Frame-ContextualSaveBar__ContextControl">
+        <div v-if="isSlot($slots.contextControl)" class="Polaris-Frame-ContextualSaveBar__ContextControl">
             <slot name="contextControl"/>
         </div>
         <div

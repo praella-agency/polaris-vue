@@ -22,14 +22,14 @@
                             <PPopover
                                 id="change_preview"
                                 :active="isPreview"
-                                @close="() => {this.isPreview = false;}"
+                                @close="() => {isPreview = false;}"
                                 preferred-alignment="left"
                             >
                                 <template #activator>
                                     <PButton
                                         :icon="previewIcon"
                                         plainAction
-                                        @click="() => {this.isPreview = !this.isPreview}"
+                                        @click="() => {isPreview = !isPreview}"
                                     />
                                 </template>
                                 <template #content>
@@ -63,7 +63,7 @@
                         </template>
                     </div>
 
-                    <div v-if="hasSlot($slots['header.right'])" :class="rightLayoutChildClassName">
+                    <div v-if="isSlot($slots['header.right'])" :class="rightLayoutChildClassName">
                         <slot name="header.right"/>
                     </div>
                 </div>

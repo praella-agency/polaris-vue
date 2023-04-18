@@ -251,7 +251,7 @@
         },
     });
 
-    const emit = defineEmits(['input', 'update:value', 'update:modelValue']);
+    const emit = defineEmits(['input', 'update:modelValue']);
     const slots = useSlots();
     const attrs = useAttrs();
 
@@ -279,11 +279,6 @@
          * Get inserted data
          */
         emit('input', value);
-        /**
-         * Get inserted data
-         * @ignore
-         */
-        emit('update:value', value);
         /**
          * Get inserted data
          * @ignore
