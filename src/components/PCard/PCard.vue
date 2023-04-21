@@ -1,31 +1,31 @@
 <template>
     <div :class="className">
         <template
-            v-if="isSlot(slots.title) || title || isSlot(slots.short_description) || shortDescription">
+            v-if="isSlot($slots.title) || title || isSlot($slots.short_description) || shortDescription">
             <PCardHeader :actions="actions">
                 <template #title>
                     <!-- @slot Title content for the card -->
-                    <slot name="title" v-if="isSlot(slots.title) || title">
+                    <slot name="title" v-if="isSlot($slots.title) || title">
                         <PHeading>{{ title }}</PHeading>
                     </slot>
                 </template>
                 <template
                     #short_description
-                    v-if="isSlot(slots.short_description) || shortDescription"
+                    v-if="isSlot($slots.short_description) || shortDescription"
                 >
                     <!-- @slot Short Description content for the card -->
                     <slot name="short_description">
                         <PCaption>{{ shortDescription }}</PCaption>
                     </slot>
                 </template>
-                <template #children v-if="isSlot(slots.children)">
+                <template #children v-if="isSlot($slots.children)">
                     <!-- @slot Inner content of the card -->
                     <slot name="children"/>
                 </template>
             </PCardHeader>
         </template>
 
-        <template v-if="isSlot(slots.default)">
+        <template v-if="isSlot($slots.default)">
             <template v-if="sectioned">
                 <PCardSection>
                     <!-- @slot Body content for the card -->
@@ -41,7 +41,7 @@
             <slot/>
         </div>
 
-        <template v-if="isSlot(slots.footer)">
+        <template v-if="isSlot($slots.footer)">
             <PCardFooter>
                 <!-- @slot Footer content for the card -->
                 <slot name="footer"/>

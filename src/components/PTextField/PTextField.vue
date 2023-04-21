@@ -1,7 +1,7 @@
 <template>
     <div :class="className">
         <div
-            v-if="!floatingLabel && (label || emptyLabel || isSlot(slots.label))"
+            v-if="!floatingLabel && (label || emptyLabel || isSlot($slots.label))"
             class="Polaris-Labelled__LabelWrapper"
             :class="labelClass"
         >
@@ -14,14 +14,14 @@
         </div>
 
         <PConnected v-if="connected">
-            <template #left v-if="isSlot(slots.connectedLeft)">
+            <template #left v-if="isSlot($slots.connectedLeft)">
                 <!-- @slot An element connected to the left of the input -->
                 <slot name="connectedLeft">
                     {{ connectedLeft }}
                 </slot>
             </template>
 
-            <template #right v-if="isSlot(slots.connectedRight)">
+            <template #right v-if="isSlot($slots.connectedRight)">
                 <!-- @slot An element connected to the right of the input -->
                 <slot name="connectedRight">
                     {{ connectedRight }}
@@ -51,11 +51,11 @@
                 :prefix="prefix"
                 @input="handleInput"
             >
-                <template #prefix v-if="attrs.prefix || isSlot(slots.prefix)">
+                <template #prefix v-if="attrs.prefix || isSlot($slots.prefix)">
                     <!-- @slot Field prefix -->
                     <slot name="prefix"></slot>
                 </template>
-                <template #suffix v-if="attrs.suffix || isSlot(slots.suffix)">
+                <template #suffix v-if="attrs.suffix || isSlot($slots.suffix)">
                     <!-- @slot Field suffix -->
                     <slot name="suffix"></slot>
                 </template>
@@ -86,13 +86,13 @@
             :prefix="prefix"
             @input="handleInput"
         >
-            <template #prefix v-if="attrs.prefix || isSlot(slots.prefix)">
+            <template #prefix v-if="attrs.prefix || isSlot($slots.prefix)">
                 <slot name="prefix"></slot>
             </template>
             <template #label>
                 <slot name="label"></slot>
             </template>
-            <template #suffix v-if="attrs.suffix || isSlot(slots.suffix)">
+            <template #suffix v-if="attrs.suffix || isSlot($slots.suffix)">
                 <slot name="suffix"></slot>
             </template>
         </PInput>

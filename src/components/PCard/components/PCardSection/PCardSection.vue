@@ -1,6 +1,6 @@
 <template>
     <div :class="className">
-        <div v-if="title || isSlot(slots.title)" class="Polaris-Card__SectionHeader">
+        <div v-if="title || isSlot($slots.title)" class="Polaris-Card__SectionHeader">
             <slot name="title">
                 <PSubheading v-bind="attrs">
                     {{ title }}

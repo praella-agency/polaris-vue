@@ -3,7 +3,7 @@
         <div class="Polaris-SettingAction__Setting">
             <slot/>
         </div>
-        <div v-if="isSlot(slots.action) || action" class="Polaris-SettingAction__Action">
+        <div v-if="isSlot($slots.action) || action" class="Polaris-SettingAction__Action">
             <slot name="action">
                 <PButton v-if="action"
                          primary

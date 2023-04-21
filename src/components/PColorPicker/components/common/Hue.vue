@@ -37,9 +37,9 @@
         const h = props.value.hsl.h;
         // vue/no-side-effects-in-computed-properties
         /* eslint-disable */
-        if (h !== 0 && h - oldHue > 0) pullDirection = 'right';
-        if (h !== 0 && h - oldHue < 0) pullDirection = 'left';
-        oldHue = h;
+        if (h !== 0 && h - oldHue.value > 0) pullDirection.value = 'right';
+        if (h !== 0 && h - oldHue.value < 0) pullDirection.value = 'left';
+        oldHue.value = h;
         /* eslint-enable */
 
         return props.value;
@@ -54,7 +54,7 @@
 
     let pointerTop = computed(() => {
         if (props.direction === 'vertical') {
-            if (colors.value.hsl.h === 0 && pullDirection === 'right') return 0
+            if (colors.value.hsl.h === 0 && pullDirection.value === 'right') return 0
             return -((colors.value.hsl.h * 100) / 360) + 100 + '%'
         } else {
             return 0
@@ -65,7 +65,7 @@
         if (props.direction === 'vertical') {
             return 0
         } else {
-            if (colors.value.hsl.h === 0 && pullDirection === 'right') return '100%'
+            if (colors.value.hsl.h === 0 && pullDirection.value === 'right') return '100%'
             return (colors.value.hsl.h * 100) / 360 + '%'
         }
     });

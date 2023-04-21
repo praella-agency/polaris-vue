@@ -80,12 +80,6 @@
             default: `PolarisRangeSlider-${uuid()}`,
         },
         /**
-         * Initial value for range input
-         */
-        value: {
-            type: [Number, Array],
-        },
-        /**
          * Initial model value for range input
          */
         modelValue: {

@@ -20,7 +20,7 @@
                     </component>
                 </PButtonGroup>
             </PStackItem>
-            <PStackItem v-if="isSlot(slots.children)">
+            <PStackItem v-if="isSlot($slots.children)">
                 <slot name="children"/>
             </PStackItem>
         </PStack>

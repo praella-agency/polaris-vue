@@ -17,7 +17,7 @@
             :class="className"
             :style="cssVars"
         >
-            <div v-if="prefix || isSlot(slots.prefix)" class="Polaris-RangeSlider-SingleThumb__Prefix">
+            <div v-if="prefix || isSlot($slots.prefix)" class="Polaris-RangeSlider-SingleThumb__Prefix">
                 <slot name="prefix">
                     {{ prefix }}
                 </slot>
@@ -35,7 +35,7 @@
                     :aria-valuemin="min"
                     :aria-valuemax="max"
                     :aria-valuenow="clampedValue"
-                    :aria-invalid="Boolean(error) || isSlot(slots.error)"
+                    :aria-invalid="Boolean(error) || isSlot($slots.error)"
                     :aria-describedby="ariaDescribedBy"
                     :disabled="disabled"
                     @input="handleChange"
@@ -54,7 +54,7 @@
                     </div>
                 </output>
             </div>
-            <div v-if="suffix || isSlot(slots.suffix)" class="Polaris-RangeSlider-SingleThumb__Suffix">
+            <div v-if="suffix || isSlot($slots.suffix)" class="Polaris-RangeSlider-SingleThumb__Suffix">
                 <slot name="suffix">
                     {{ suffix }}
                 </slot>
@@ -97,12 +97,6 @@
         id: {
             type: [String, Number],
             default: null,
-        },
-        /**
-         * Initial value for range input
-         */
-        value: {
-            type: [Number, Array],
         },
         /**
          * Initial model value for range input

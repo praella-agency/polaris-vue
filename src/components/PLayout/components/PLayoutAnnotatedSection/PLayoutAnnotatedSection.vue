@@ -7,7 +7,7 @@
                     <slot name="title">
                         <PHeading v-if="title">{{ title }}</PHeading>
                     </slot>
-                    <div v-if="description || isSlot(slots.description)"
+                    <div v-if="description || isSlot($slots.description)"
                          class="Polaris-Layout__AnnotationDescription">
                         <!-- @slot Short Description content for the layout  -->
                         <slot name="description">

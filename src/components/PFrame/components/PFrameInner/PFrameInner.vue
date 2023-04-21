@@ -3,7 +3,7 @@
         id="PFrame"
         :class="className"
         :data-polaris-layer="true"
-        :data-has-navigation="isSlot(slots.navigation) || Object.keys(navigation).length > 0"
+        :data-has-navigation="isSlot($slots.navigation) || Object.keys(navigation).length > 0"
     >
         <div :class="skipClassName">
             <a
@@ -17,7 +17,7 @@
             </a>
         </div>
         <div
-            v-if="isSlot(slots.topBar) || Object.keys(topBar).length > 0"
+            v-if="isSlot($slots.topBar) || Object.keys(topBar).length > 0"
             class="Polaris-Frame__TopBar"
             :data-polaris-layer="true"
             :data-polaris-top-bar="true"
@@ -30,7 +30,7 @@
             </slot>
         </div>
         <div
-            v-if="isSlot(slots.navigation) || Object.keys(navigation).length > 0"
+            v-if="isSlot($slots.navigation) || Object.keys(navigation).length > 0"
             class="Polaris-Frame__NavigationDisplay"
         >
             <transition
@@ -96,14 +96,14 @@
         <main
             class="Polaris-Frame__Main"
             :id="APP_FRAME_MAIN"
-            :data-has-global-ribbon="Boolean(isSlot(slots.globalRibbon))"
+            :data-has-global-ribbon="Boolean(isSlot($slots.globalRibbon))"
         >
             <div class="Polaris-Frame__Content">
                 <slot/>
             </div>
         </main>
         <div
-            v-if="isSlot(slots.globalRibbon)"
+            v-if="isSlot($slots.globalRibbon)"
             class="Polaris-Frame__GlobalRibbonContainer"
             ref="globalRibbonContainer"
         >

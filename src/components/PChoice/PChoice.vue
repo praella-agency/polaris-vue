@@ -16,12 +16,12 @@
             </span>
         </label>
         <div
-            v-if="typeof error === 'string' || helpText || isSlot(slots.helpText)"
+            v-if="typeof error === 'string' || helpText || isSlot($slots.helpText)"
             class="Polaris-Choice__Descriptions"
         >
             <PFieldError v-if="typeof error === 'string'" :error="error"/>
             <div
-                v-if="helpText || isSlot(slots.helpText)"
+                v-if="helpText || isSlot($slots.helpText)"
                 class="Polaris-Choice__HelpText"
                 :id="id+'HelpText'"
             >

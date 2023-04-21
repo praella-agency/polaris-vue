@@ -29,7 +29,7 @@
                         <span class="Polaris-Indicator Polaris-Indicator--pulseIndicator"/>
                     </span>
                 </span>
-                <div v-if="this.new || this.badge || isSlot(slots.badge)"
+                <div v-if="this.new || badge || isSlot($slots.badge)"
                      class="Polaris-Navigation__Badge">
                     <PBadge v-if="this.new" status="new" size="small">
                         New

@@ -15,7 +15,7 @@
           },
           wrapNodesWithComponent(
               h,
-              slots.default(), PFormLayoutItem,
+              slots.default ? slots.default() : slots, PFormLayoutItem,
           ),
       );
     }

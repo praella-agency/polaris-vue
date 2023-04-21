@@ -200,7 +200,6 @@
     }
 
     function getBoundingClientRect(element) {
-        console.log('element', element)
         if (!element) {
             return {};
         }

@@ -7,14 +7,3 @@ export default function useDateUtil() {
 
     return { $dateUtil };
 }
-// export default {
-//     props: {
-//         dateUtil: {
-//             type: [Object, String],
-//             default: 'native'
-//         },
-//     },
-//     beforeCreate() {
-//         this.$dateUtil = getDateUtil('native')
-//     }
-// }

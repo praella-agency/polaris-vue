@@ -2,7 +2,7 @@
     <div>
         <div v-if="open">
             <PModalDialog :large="large" :small="small" :limitHeight="limitHeight">
-                <PModalHeader v-if="title || hasSlot(slots.title)" @close="handleOnClick">
+                <PModalHeader v-if="title || hasSlot($slots.title)" @close="handleOnClick">
                     <slot name="title">
                         {{ title }}
                     </slot>
@@ -30,12 +30,11 @@
                         </template>
                     </div>
                 </div>
-                <PModalFooter v-if="hasSlot(slots.footer)">
+                <PModalFooter v-if="hasSlot($slots.footer)">
                     <!-- @slot The content to display inside modal footer -->
                     <slot name="footer"/>
                 </PModalFooter>
-                <PModalFooter v-if="!hasSlot(slots.footer) && (Object.keys(primaryAction).length > 0
-                                      || secondaryActions)"
+                <PModalFooter v-if="!hasSlot($slots.footer) && (Object.keys(primaryAction).length > 0 || secondaryActions)"
                               :primaryAction="primaryAction" :secondaryActions="secondaryActions">
                 </PModalFooter>
             </PModalDialog>

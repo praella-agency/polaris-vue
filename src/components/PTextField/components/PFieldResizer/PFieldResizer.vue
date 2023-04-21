@@ -80,8 +80,7 @@
         handleHeightCheck();
     });
 
-    watch(finalContents, () => {
-        console.log('finalContents')
+    watch(() => finalContents.value, () => {
         handleHeightCheck();
     });
 </script>

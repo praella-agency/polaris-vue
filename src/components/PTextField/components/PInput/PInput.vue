@@ -2,7 +2,7 @@
     <div :class="className" v-show="showInput">
         <div class="Polaris-TextField__Prefix" :id="id+'Prefix'" v-if="showPrefix">
             {{ prefix }}
-            <slot v-if="isSlot(slots.prefix)" name="prefix"/>
+            <slot v-if="isSlot($slots.prefix)" name="prefix"/>
         </div>
         <div style="width: 100%">
             <CKEditor
@@ -94,7 +94,7 @@
         </div>
         <div class="Polaris-TextField__Suffix" :id="id+'Suffix'" v-if="showSuffix">
             {{ suffix }}
-            <slot v-if="isSlot(slots.suffix)" name="suffix"></slot>
+            <slot v-if="isSlot($slots.suffix)" name="suffix"></slot>
         </div>
 
         <div v-if="showCharacterCount"

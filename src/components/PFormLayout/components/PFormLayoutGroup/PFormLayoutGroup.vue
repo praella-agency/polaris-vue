@@ -12,12 +12,12 @@
         >
             {{ title }}
         </div>
-        <PFormLayoutGroupItemWrapper v-for="(slot, name) in slots" :key="name">
+        <PFormLayoutGroupItemWrapper v-for="(slot, name) in $slots" :key="name">
             <!-- @slot The content to display inside the group layout -->
             <slot/>
         </PFormLayoutGroupItemWrapper>
         <div
-            v-if="helpText || isSlot(slots.helpText)"
+            v-if="helpText || isSlot($slots.helpText)"
             :id="`${id}helpText`"
             class="Polaris-FormLayout__HelpText"
         >
@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-    import { computed, useSlots } from 'vue';
+    import { computed } from 'vue';
     import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PFormLayoutGroupItemWrapper } from '../../../../components/PFormLayout/components/PFormLayoutGroupItemWrapper';
@@ -72,7 +72,6 @@
             default: true,
         },
     });
-    let slots = useSlots();
 
     let className = computed(() => {
         return classNames(

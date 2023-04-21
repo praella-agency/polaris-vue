@@ -1,7 +1,7 @@
 <template>
     <div :class="className">
         <div class="Polaris-Labelled__LabelWrapper"
-             v-if="!floatingLabel && (label || emptyLabel || isSlot(slots.label))"
+             v-if="!floatingLabel && (label || emptyLabel || isSlot($slots.label))"
              :class="labelClass">
             <!-- @slot Display label for the element -->
             <slot name="label">
@@ -106,7 +106,7 @@
                 </PStack>
             </template>
         </DateRangePicker>
-        <div class="Polaris-Labelled__HelpText" v-if="isSlot(slots.helpText) || helpText">
+        <div class="Polaris-Labelled__HelpText" v-if="isSlot($slots.helpText) || helpText">
             <!-- @slot Custom helpText -->
             <slot name="helpText">
                 {{ helpText }}
