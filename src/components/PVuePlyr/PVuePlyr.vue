@@ -1,5 +1,5 @@
 <script>
-  import { defineComponent, computed, ref, onMounted, onBeforeUnmount } from 'vue'
+  import { defineComponent, computed, ref, onMounted, onBeforeUnmount, getCurrentInstance } from 'vue'
   import Plyr from 'plyr'
   export default defineComponent({
       name: 'PVuePlyr',
@@ -15,7 +15,6 @@
       },
       setup(props, { slots }) {
         let player = ref({});
-        let el = ref(null);
         const opts = computed(() => {
           const options = props.options;
           if (
@@ -29,7 +28,7 @@
           return options
         });
         onMounted(() => {
-          player.value = new Plyr(el.value, opts.value);
+          player.value = new Plyr(getCurrentInstance().vnode.el, opts.value);
         });
         onBeforeUnmount(() => {
           try {
@@ -42,7 +41,7 @@
             }
           }
         });
-        return { player, opts, slots, el };
+        return { player, opts, slots };
       },
       render() {
         const slots = this.slots.default

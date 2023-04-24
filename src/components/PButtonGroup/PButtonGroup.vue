@@ -4,13 +4,18 @@
          :data-buttongroup-full-width="fullWidth"
          :data-buttongroup-connected-top="connectedTop"
     >
-        <slot/>
+        <template v-for="(item, index) in items" :key="index">
+            <PButtonGroupItem>
+                <component :is="item" />
+            </PButtonGroupItem>
+        </template>
     </div>
 </template>
 <script setup>
-    import { computed, useSlots } from 'vue';
+    import { computed, onMounted, ref, useSlots } from 'vue';
     import { classNames } from '../../utilities/css';
     import { ButtonGroupSpacing } from '../variables';
+    import PButtonGroupItem from './components/PButtonGroupItem/PButtonGroupItem.vue';
 
     /**
      * <br/>
@@ -51,6 +56,7 @@
     });
 
     let slots = useSlots();
+    let items = ref([]);
 
     let className = computed(() => {
         return classNames(
@@ -61,4 +67,8 @@
             props.spacing && `Polaris-ButtonGroup--${props.spacing}`,
         );
     });
+
+    onMounted(() => {
+        items.value = slots.default ? slots.default() : [];
+    })
 </script>

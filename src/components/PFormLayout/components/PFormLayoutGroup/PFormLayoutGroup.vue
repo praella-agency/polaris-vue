@@ -12,9 +12,13 @@
         >
             {{ title }}
         </div>
-        <PFormLayoutGroupItemWrapper v-for="(slot, name) in $slots" :key="name">
+        <PFormLayoutGroupItemWrapper>
             <!-- @slot The content to display inside the group layout -->
-            <slot/>
+            <template v-for="(item, index) in items" :key="index">
+                <PFormLayoutItem>
+                    <component :is="item" />
+                </PFormLayoutItem>
+            </template>
         </PFormLayoutGroupItemWrapper>
         <div
             v-if="helpText || isSlot($slots.helpText)"
@@ -30,10 +34,11 @@
 </template>
 
 <script setup>
-    import { computed } from 'vue';
+    import { computed, onMounted, ref, useSlots } from 'vue';
     import { hasSlot, uuid } from '../../../../ComponentHelpers';
     import { classNames } from '../../../../utilities/css';
     import { PFormLayoutGroupItemWrapper } from '../../../../components/PFormLayout/components/PFormLayoutGroupItemWrapper';
+    import { PFormLayoutItem } from '../PFormLayoutItem';
 
     let props = defineProps({
         /**
@@ -72,6 +77,8 @@
             default: true,
         },
     });
+    let slots = useSlots();
+    let items = ref([]);
 
     let className = computed(() => {
         return classNames(
@@ -82,5 +89,9 @@
 
     let isSlot = computed(() => {
         return hasSlot;
+    });
+
+    onMounted(() => {
+        items.value = slots.default ? slots.default() : [];
     });
 </script>
