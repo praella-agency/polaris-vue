@@ -1,3 +1,7 @@
+# This package and repository are no longer supported.
+
+Please find an alternative package for Polaris Vue that is updated to vue3 - https://ownego.github.io/polaris-vue/?path=/story/get-started--page
+
 # Polaris Vue
 
 Polaris Vue by HulkApps is a component library for [Vue.js](https://vuejs.org/) based on [Shopify Polaris style guide](https://polaris.shopify.com/).
