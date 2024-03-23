@@ -1,6 +1,6 @@
 # This package and repository are no longer supported.
 
-Please find other alternative packages for Polaris vue3 - and https://www.npmjs.com/package/@mumble/vue3-polaris - https://ownego.github.io/polaris-vue/?path=/story/get-started--page
+Please find other alternative packages for Polaris vue3 - https://www.npmjs.com/package/@mumble/vue3-polaris and https://ownego.github.io/polaris-vue/?path=/story/get-started--page
 
 # Polaris Vue
 
